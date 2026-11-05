@@ -1,17 +1,128 @@
 <!doctype html>
-<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#137f47"><title>CercaX — Lettore</title>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#127a48">
+<meta name="description" content="CercaX: lettore di fogli Excel con ricalcolo locale delle formule, progettato per smartphone.">
+<title>CercaX · Lettore di formule</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font:15px system-ui,sans-serif;background:#f5f8f6;color:#163225}header{background:#137f47;color:white;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}h1{margin:0;font-size:25px}small{display:block;color:#d0edda}.upload,button{border:0;border-radius:12px;padding:12px 15px;font-weight:700;cursor:pointer}.upload{background:white;color:#137f47}input[type=file]{display:none}main{padding:16px;max-width:1200px;margin:auto}#welcome{text-align:center;padding:65px 12px}#welcome h2{font-size:clamp(30px,7vw,48px);letter-spacing:-1.3px}#welcome p,.note{color:#687e70;line-height:1.6}button{background:#dcefe3;color:#137f47}#reader[hidden],#welcome[hidden]{display:none}.tabs{display:flex;gap:8px;overflow:auto;margin:14px 0}.tabs button{white-space:nowrap}.tabs button.active{background:#137f47;color:white}.tablewrap{overflow:auto;max-height:65vh;background:white;border:1px solid #d9e5dc;border-radius:13px}table{border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:12px;min-width:105px;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid #edf0ed;border-right:1px solid #edf0ed}th{min-width:45px;position:sticky;top:0;background:#eaf2ec;z-index:2}tr th:first-child{left:0;position:sticky;z-index:3}td{cursor:pointer}td.formula{color:#13824a;font-weight:700}td.selected{background:#d8f4e3;outline:2px solid #159855;outline-offset:-2px}.panel{margin-top:15px;background:white;border:1px solid #d9e5dc;border-radius:13px;padding:17px}.panel code{display:block;overflow-wrap:anywhere;background:#f3f7f4;padding:12px;border-radius:8px;margin:8px 0}.note{font-size:12px}#error{color:#ac2828}
-</style></head><body>
-<header><div><h1>CercaX</h1><small>Lettore formule · Alpha</small></div><label class="upload" for="file">Apri file<input id="file" type="file" accept=".xlsx,.xls,.xlsm,.csv,.ods"></label></header>
-<main><section id="welcome"><h2>Il tuo foglio, sul telefono.</h2><p>Apri Excel o un Google Sheet esportato in formato Excel.<br>Esplora i dati e scopri le formule cella per cella.</p><button id="demo">Apri esempio</button><p id="error" role="alert"></p></section>
-<section id="reader" hidden><strong id="filename"></strong><span style="margin-left:10px;color:#137f47">● Sola lettura</span><div id="tabs" class="tabs"></div><div id="tablewrap" class="tablewrap"></div><div class="panel"><b id="selected">Cella</b><small style="color:#63796b">Formula originale</small><code id="formula">—</code><small style="color:#63796b">Risultato memorizzato nel file</small><code id="value">—</code><small id="explain"></small></div><p id="limit" class="note"></p><p class="note">Prima fase lettore: i risultati sono quelli salvati nel file originale, non ricalcolati da CercaX. Le formule vengono riconosciute e visualizzate; il motore di ricalcolo compatibile con Excel e Google Sheets sarà una fase successiva. Nessun file viene inviato a un server: viene aperto nel browser. Richiede la libreria SheetJS caricata online.</p></section></main>
+:root{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#163124;background:#f3f7f4}
+*{box-sizing:border-box}
+body{margin:0;min-height:100dvh}
+button,input{font:inherit}
+button,.upload{cursor:pointer;touch-action:manipulation}
+header{background:#117a47;color:white;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 4px 15px #0d5b3720}
+.brand{display:flex;align-items:center;gap:10px}
+.mark{background:#ffffff20;border:1px solid #ffffff35;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:22px}
+h1{font-size:23px;letter-spacing:-1px;margin:0;line-height:1}
+.subtitle{display:block;font-size:11px;color:#d5f3df;margin-top:4px}
+.upload{padding:11px 14px;background:#fff;color:#116e42;font-size:13px;font-weight:750;border-radius:12px;white-space:nowrap;display:inline-flex;gap:6px;align-items:center}
+#file{position:absolute;width:1px;height:1px;opacity:0}
+main{padding:16px;max-width:1400px;margin:0 auto}
+#reader[hidden],#welcome[hidden]{display:none!important}
+#welcome{padding:50px 8px 65px;max-width:650px;text-align:center;margin:auto}
+.hero-icon{background:#dcf3e5;display:grid;place-items:center;width:80px;height:80px;border-radius:24px;font-size:38px;margin:0 auto 16px}
+h2{font-size:clamp(32px,7vw,54px);letter-spacing:-1.8px;line-height:1.1;margin:0 0 16px}
+.lead{font-size:16px;color:#677f70;line-height:1.7}
+button{border:0;border-radius:11px;padding:10px 14px;background:#e3efe7;color:#186c43;font-size:14px;font-weight:750}
+button:disabled{opacity:.4;cursor:default}
+button:focus-visible,input:focus-visible,.upload:focus-within{outline:3px solid #83d4a6;outline-offset:2px}
+#demo{background:#137f4b;color:white;padding:14px 21px;margin-top:14px}
+.notice{color:#6f8475;font-size:12px;line-height:1.6}
+#error,#welcomeError{color:#ae2d2d;font-size:13px}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:14px}
+.file-info{min-width:0}
+.file-info strong{overflow-wrap:anywhere;font-size:16px}
+.file-info small{display:block;color:#6f8877;margin-top:4px}
+.counters{display:flex;gap:7px;flex-wrap:wrap}
+.counter{font-size:12px;padding:7px 10px;border-radius:10px;background:#e1efe6;color:#16663c;white-space:nowrap}
+.tabs{display:flex;overflow:auto;gap:7px;scrollbar-width:thin;padding:5px 0 12px}
+.sheet-tab{flex:none;white-space:nowrap;border:1px solid #dbe8dd;background:#fff;color:#4d6d5b}
+.sheet-tab.selected{background:#137c49;border-color:#137c49;color:#fff}
+.tools{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;margin:1px 0 12px}
+.pager{display:flex;align-items:center;gap:8px}
+.pager label{font-size:12px;color:#607b6a}
+.pager button{padding:9px 12px}
+#goto{display:flex;align-items:center;gap:5px}
+#address{width:82px;text-transform:uppercase;border:1px solid #cddbd0;border-radius:10px;padding:10px 9px;background:#fff}
+#goto button{background:#dceee2}
+.grid{overflow:auto;background:white;border:1px solid #d4e2d8;border-radius:13px;max-height:56dvh;box-shadow:0 3px 12px #1134220a}
+table{border-collapse:separate;border-spacing:0;min-width:max-content;font-size:13px}
+th,td{height:44px;max-width:250px;min-width:120px;padding:10px 13px;border-right:1px solid #edf1ee;border-bottom:1px solid #edf1ee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+th{position:sticky;top:0;background:#eaf2ec;color:#51725e;z-index:2;font-size:12px}
+th:first-child{min-width:51px;position:sticky;left:0;z-index:4;text-align:center}
+td{cursor:pointer}td:hover{background:#f4faf6}
+td.formula{font-weight:600;color:#177b48}
+td.saved,td.partial{color:#96711e}
+td.error,td.unsupported{color:#b83d3d}
+td.selected{background:#dcf8e7!important;outline:2px solid #14874d;outline-offset:-2px}
+.inspector{background:white;border:1px solid #d4e2d8;border-radius:13px;padding:16px;margin-top:13px;box-shadow:0 3px 12px #1134220a}
+.inspector-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.inspector h3{margin:0;font-size:16px}
+.status{padding:7px 10px;border-radius:30px;background:#e0f2e7;color:#116d3c;font-size:11px;font-weight:700}
+.status[data-status=saved],.status[data-status=partial]{color:#8f6b17;background:#fff3cf}
+.status[data-status=error],.status[data-status=unsupported]{color:#ac3737;background:#ffebeb}
+.inspect-grid{display:grid;gap:11px}
+.field{background:#f5f9f6;padding:12px;border-radius:10px;min-width:0}
+.field small{display:block;font-size:11px;color:#758b7b;margin-bottom:6px}
+.field code,.field strong{font-size:14px;overflow-wrap:anywhere}
+#computed{font-size:19px;color:#0f723f}
+#detail,#comparison{font-size:12px;color:#65806f;line-height:1.5}
+#comparison{font-weight:650;color:#137a47}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.legend span{font-size:11px;color:#718174}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#188451;margin-right:5px}
+.legend .amber{background:#d39f31}.legend .red{background:#c64646}
+details{background:white;border:1px solid #d4e2d8;border-radius:12px;margin-top:14px;padding:14px}
+details summary{cursor:pointer;color:#225c3c;font-weight:750}
+.catalog-group{margin:15px 0}.catalog-group strong{font-size:13px;color:#294637}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.chip{border-radius:8px;padding:6px 8px;background:#e8f3eb;font:11px ui-monospace,SFMono-Regular,monospace;color:#24613f}
+.page-note{font-size:12px;color:#788a7d;line-height:1.6}
+@media(min-width:850px){.inspect-grid{grid-template-columns:1.5fr 1fr 1fr}main{padding:23px}.grid{max-height:59dvh}}
+@media(max-width:520px){header{padding:13px 11px}main{padding:10px}.upload{padding:10px 11px}.tools{gap:7px}.pager{width:100%;justify-content:space-between}.grid{max-height:50dvh}h2{font-size:33px}#welcome{padding:45px 8px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="mark" aria-hidden="true">▦</div><div><h1>CercaX</h1><span class="subtitle">Spreadsheet Reader · Alpha</span></div></div>
+ <label for="file" class="upload">＋ Apri file<input id="file" type="file" accept=".xlsx,.xls,.xlsm,.ods,.csv"></label>
+</header>
+<main>
+ <section id="welcome">
+  <div class="hero-icon" aria-hidden="true">▦</div>
+  <h2>Le formule di Excel.<br>Adesso in tasca.</h2>
+  <p class="lead">Apri un foglio, esplora le celle e verifica il risultato ricalcolato da CercaX. Senza cambiare nulla nel file originale.</p>
+  <button id="demo" type="button">Prova la demo con 900+ formule</button>
+  <p class="notice">Oppure usa «Apri file» per caricare un Excel o un Google Sheet esportato in .xlsx. Il file resta sul dispositivo.</p>
+  <p id="welcomeError" role="alert"></p>
+ </section>
+ <section id="reader" hidden>
+  <div class="topline"><div class="file-info"><strong id="fileName"></strong><small>Modalità sola lettura · elaborazione locale</small></div><div class="counters"><span class="counter"><b id="sheetCount">0</b> fogli</span><span class="counter"><b id="formulaCount">0</b> formule</span></div></div>
+  <nav class="tabs" id="tabs" aria-label="Fogli di lavoro"></nav>
+  <div class="tools">
+   <div class="pager"><button type="button" id="prev">‹ Precedente</button><label id="pageLabel">—</label><button type="button" id="next">Successiva ›</button></div>
+   <form id="goto"><input id="address" placeholder="Es. D42" aria-label="Indirizzo della cella"><button type="submit">Vai</button></form>
+  </div>
+  <div class="grid" id="grid" aria-label="Griglia del foglio di calcolo"></div>
+  <div id="columnHint" class="page-note"></div>
+  <section class="inspector">
+   <div class="inspector-head"><h3 id="selected">Cella selezionata</h3><span id="state" class="status">—</span></div>
+   <div class="inspect-grid">
+    <div class="field"><small>Formula nel file</small><code id="formula">—</code></div>
+    <div class="field"><small>Risultato CercaX</small><strong id="computed">—</strong></div>
+    <div class="field"><small>Risultato memorizzato in Excel</small><strong id="stored">—</strong></div>
+   </div>
+   <p id="detail"></p><p id="comparison"></p>
+   <div class="legend"><span><i></i>Ricalcolata</span><span><i class="amber"></i>Valore salvato/parziale</span><span><i class="red"></i>Non supportata/errore</span></div>
+  </section>
+  <details><summary>Funzioni attualmente disponibili</summary><p class="page-note">Sono supportate anche diverse denominazioni italiane. Funzioni speciali di Google Sheets, macro, array dinamici e collegamenti esterni sono ancora esclusi.</p><div id="catalog"></div></details>
+  <p class="page-note">CercaX è un prototipo: il ricalcolo copre solo le funzioni elencate. I risultati di formule non supportate sono contrassegnati quando provengono dal file. Prima di usare calcoli per decisioni importanti, confrontali con Excel o Google Sheets.</p>
+ </section>
+ <p id="notification" class="notice" role="status"></p>
+</main>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-<script>
-const $=s=>document.querySelector(s);let book=null,current="";
-function selectCell(address){const cell=book.Sheets[current][address];$("#selected").textContent=current+" · "+address;$("#formula").textContent=cell?.f?"="+cell.f:"Nessuna formula";$("#value").textContent=String(cell?.w??cell?.v??"—");$("#explain").textContent=cell?.f?"Formula riconosciuta, risultato salvato nel documento.":"Cella senza formula.";document.querySelectorAll("td.selected").forEach(x=>x.classList.remove("selected"));document.querySelectorAll("td[data-address]").forEach(x=>{if(x.dataset.address===address)x.classList.add("selected")})}
-function render(name){current=name;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("active",x.textContent===name));const sheet=book.Sheets[name],range=XLSX.utils.decode_range(sheet["!ref"]||"A1");const endRow=Math.min(range.e.r,range.s.r+249),endCol=Math.min(range.e.c,range.s.c+39);const table=document.createElement("table"),head=document.createElement("tr");const corner=document.createElement("th");corner.textContent="#";head.append(corner);for(let c=range.s.c;c<=endCol;c++){const th=document.createElement("th");th.textContent=XLSX.utils.encode_col(c);head.append(th)}table.append(head);for(let r=range.s.r;r<=endRow;r++){const tr=document.createElement("tr"),rh=document.createElement("th");rh.textContent=r+1;tr.append(rh);for(let c=range.s.c;c<=endCol;c++){const address=XLSX.utils.encode_cell({r,c}),cell=sheet[address],td=document.createElement("td");td.textContent=String(cell?.w??cell?.v??"");td.dataset.address=address;if(cell?.f)td.className="formula";td.onclick=()=>selectCell(address);tr.append(td)}table.append(tr)}$("#tablewrap").replaceChildren(table);$("#limit").textContent=(endRow<range.e.r||endCol<range.e.c)?"Anteprima limitata a 250 righe e 40 colonne per ora.":"";selectCell(XLSX.utils.encode_cell(range.s))}
-function openBook(b,name){book=b;$("#welcome").hidden=true;$("#reader").hidden=false;$("#filename").textContent=name;$("#tabs").replaceChildren();b.SheetNames.forEach(n=>{const btn=document.createElement("button");btn.textContent=n;btn.onclick=()=>render(n);$("#tabs").append(btn)});render(b.SheetNames[0])}
-$("#file").onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{if(!window.XLSX)throw Error("Libreria Excel non caricata. Controlla la connessione.");openBook(XLSX.read(await file.arrayBuffer(),{type:"array",cellFormula:true,cellText:true}),file.name)}catch(err){$("#error").textContent="Errore lettura: "+err.message}};
-$("#demo").onclick=()=>{if(!window.XLSX){$("#error").textContent="Libreria Excel non disponibile.";return}const sheet=XLSX.utils.aoa_to_sheet([["Articolo","Q.tà","Prezzo","Totale"],["Penne",4,2.5,10],["Quaderni",3,5,15],["Totale",null,null,25]]);sheet.D2={t:"n",f:"B2*C2",v:10,w:"10"};sheet.D3={t:"n",f:"B3*C3",v:15,w:"15"};sheet.D4={t:"n",f:"SUM(D2:D3)",v:25,w:"25"};const b=XLSX.utils.book_new();XLSX.utils.book_append_sheet(b,sheet,"Esempio");openBook(b,"Esempio CercaX")};
-</script></body></html>
+<script src="./engine.js"></script>
+<script src="./app.js"></script>
+</body></html>
