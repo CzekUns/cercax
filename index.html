@@ -1,24 +1,17 @@
 <!doctype html>
-<html lang="it">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#138a43">
-  <meta name="description" content="CercaX — pagina iniziale.">
-  <title>CercaX</title>
-  <style>
-    :root{color-scheme:light;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;min-height:100dvh;background:#138a43;color:#fff;display:grid;place-items:center}
-    main{text-align:center;padding:2rem}
-    h1{font-size:clamp(3.5rem,12vw,8rem);letter-spacing:-.065em;margin:0;font-weight:850}
-    p{font-size:clamp(1rem,2.5vw,1.25rem);opacity:.86;margin:1rem 0 0}
-  </style>
-</head>
-<body>
-  <main>
-    <h1>CercaX</h1>
-    <p>La ricerca comincia qui.</p>
-  </main>
-</body>
-</html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#137f47"><title>CercaX — Lettore</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:15px system-ui,sans-serif;background:#f5f8f6;color:#163225}header{background:#137f47;color:white;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}h1{margin:0;font-size:25px}small{display:block;color:#d0edda}.upload,button{border:0;border-radius:12px;padding:12px 15px;font-weight:700;cursor:pointer}.upload{background:white;color:#137f47}input[type=file]{display:none}main{padding:16px;max-width:1200px;margin:auto}#welcome{text-align:center;padding:65px 12px}#welcome h2{font-size:clamp(30px,7vw,48px);letter-spacing:-1.3px}#welcome p,.note{color:#687e70;line-height:1.6}button{background:#dcefe3;color:#137f47}#reader[hidden],#welcome[hidden]{display:none}.tabs{display:flex;gap:8px;overflow:auto;margin:14px 0}.tabs button{white-space:nowrap}.tabs button.active{background:#137f47;color:white}.tablewrap{overflow:auto;max-height:65vh;background:white;border:1px solid #d9e5dc;border-radius:13px}table{border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:12px;min-width:105px;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid #edf0ed;border-right:1px solid #edf0ed}th{min-width:45px;position:sticky;top:0;background:#eaf2ec;z-index:2}tr th:first-child{left:0;position:sticky;z-index:3}td{cursor:pointer}td.formula{color:#13824a;font-weight:700}td.selected{background:#d8f4e3;outline:2px solid #159855;outline-offset:-2px}.panel{margin-top:15px;background:white;border:1px solid #d9e5dc;border-radius:13px;padding:17px}.panel code{display:block;overflow-wrap:anywhere;background:#f3f7f4;padding:12px;border-radius:8px;margin:8px 0}.note{font-size:12px}#error{color:#ac2828}
+</style></head><body>
+<header><div><h1>CercaX</h1><small>Lettore formule · Alpha</small></div><label class="upload" for="file">Apri file<input id="file" type="file" accept=".xlsx,.xls,.xlsm,.csv,.ods"></label></header>
+<main><section id="welcome"><h2>Il tuo foglio, sul telefono.</h2><p>Apri Excel o un Google Sheet esportato in formato Excel.<br>Esplora i dati e scopri le formule cella per cella.</p><button id="demo">Apri esempio</button><p id="error" role="alert"></p></section>
+<section id="reader" hidden><strong id="filename"></strong><span style="margin-left:10px;color:#137f47">● Sola lettura</span><div id="tabs" class="tabs"></div><div id="tablewrap" class="tablewrap"></div><div class="panel"><b id="selected">Cella</b><small style="color:#63796b">Formula originale</small><code id="formula">—</code><small style="color:#63796b">Risultato memorizzato nel file</small><code id="value">—</code><small id="explain"></small></div><p id="limit" class="note"></p><p class="note">Prima fase lettore: i risultati sono quelli salvati nel file originale, non ricalcolati da CercaX. Le formule vengono riconosciute e visualizzate; il motore di ricalcolo compatibile con Excel e Google Sheets sarà una fase successiva. Nessun file viene inviato a un server: viene aperto nel browser. Richiede la libreria SheetJS caricata online.</p></section></main>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);let book=null,current="";
+function selectCell(address){const cell=book.Sheets[current][address];$("#selected").textContent=current+" · "+address;$("#formula").textContent=cell?.f?"="+cell.f:"Nessuna formula";$("#value").textContent=String(cell?.w??cell?.v??"—");$("#explain").textContent=cell?.f?"Formula riconosciuta, risultato salvato nel documento.":"Cella senza formula.";document.querySelectorAll("td.selected").forEach(x=>x.classList.remove("selected"));document.querySelectorAll("td[data-address]").forEach(x=>{if(x.dataset.address===address)x.classList.add("selected")})}
+function render(name){current=name;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("active",x.textContent===name));const sheet=book.Sheets[name],range=XLSX.utils.decode_range(sheet["!ref"]||"A1");const endRow=Math.min(range.e.r,range.s.r+249),endCol=Math.min(range.e.c,range.s.c+39);const table=document.createElement("table"),head=document.createElement("tr");const corner=document.createElement("th");corner.textContent="#";head.append(corner);for(let c=range.s.c;c<=endCol;c++){const th=document.createElement("th");th.textContent=XLSX.utils.encode_col(c);head.append(th)}table.append(head);for(let r=range.s.r;r<=endRow;r++){const tr=document.createElement("tr"),rh=document.createElement("th");rh.textContent=r+1;tr.append(rh);for(let c=range.s.c;c<=endCol;c++){const address=XLSX.utils.encode_cell({r,c}),cell=sheet[address],td=document.createElement("td");td.textContent=String(cell?.w??cell?.v??"");td.dataset.address=address;if(cell?.f)td.className="formula";td.onclick=()=>selectCell(address);tr.append(td)}table.append(tr)}$("#tablewrap").replaceChildren(table);$("#limit").textContent=(endRow<range.e.r||endCol<range.e.c)?"Anteprima limitata a 250 righe e 40 colonne per ora.":"";selectCell(XLSX.utils.encode_cell(range.s))}
+function openBook(b,name){book=b;$("#welcome").hidden=true;$("#reader").hidden=false;$("#filename").textContent=name;$("#tabs").replaceChildren();b.SheetNames.forEach(n=>{const btn=document.createElement("button");btn.textContent=n;btn.onclick=()=>render(n);$("#tabs").append(btn)});render(b.SheetNames[0])}
+$("#file").onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{if(!window.XLSX)throw Error("Libreria Excel non caricata. Controlla la connessione.");openBook(XLSX.read(await file.arrayBuffer(),{type:"array",cellFormula:true,cellText:true}),file.name)}catch(err){$("#error").textContent="Errore lettura: "+err.message}};
+$("#demo").onclick=()=>{if(!window.XLSX){$("#error").textContent="Libreria Excel non disponibile.";return}const sheet=XLSX.utils.aoa_to_sheet([["Articolo","Q.tà","Prezzo","Totale"],["Penne",4,2.5,10],["Quaderni",3,5,15],["Totale",null,null,25]]);sheet.D2={t:"n",f:"B2*C2",v:10,w:"10"};sheet.D3={t:"n",f:"B3*C3",v:15,w:"15"};sheet.D4={t:"n",f:"SUM(D2:D3)",v:25,w:"25"};const b=XLSX.utils.book_new();XLSX.utils.book_append_sheet(b,sheet,"Esempio");openBook(b,"Esempio CercaX")};
+</script></body></html>
