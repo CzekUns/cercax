@@ -123,7 +123,7 @@ class Engine{
  fn(n,sheet,ctx){
   const {name,args}=n;
   const run=i=>this.eval(args[i],sheet,ctx);
-  if(name==="IF")return run(bool(run(0))?1:Math.min(2,args.length-1));
+  if(name==="IF"){const condition=bool(run(0));return condition?run(1):(args.length>2?run(2):false)}
   if(name==="IFERROR"||name==="IFNA"){try{return run(0)}catch(e){if(name==="IFNA"&&e.code!=="#N/A")throw e;return args.length>1?run(1):""}}
   if(name==="AND")return args.every((_,i)=>flat(run(i)).every(bool));
   if(name==="OR")return args.some((_,i)=>flat(run(i)).some(bool));
