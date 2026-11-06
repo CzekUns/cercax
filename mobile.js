@@ -532,6 +532,7 @@ function refTabs(){
  }
 }
 function openRefPicker(){
+ if(refPicker){closeRefPicker(true);return}
  if(!editorRef||!book)return;
  const input=$("#editInput");
  if(!input.value.startsWith("=")){
@@ -542,12 +543,14 @@ function openRefPicker(){
  refPicker={sheet:editorSheet||sheet,mode:"cell",start:null,end:null,rows:400,cols:30,base:0};
  $("#refViewport").scrollTop=0;$("#refViewport").scrollLeft=0;
  $("#referencePicker").hidden=false;$("#editorOverlay").classList.add("picking");
+ $("#addReference span").textContent="Torna alla formula";
  refSizing();refTabs();updateReferenceSelection();refRender();
  editPreview()
 }
 function closeRefPicker(refocus=true){
  if(!refPicker)return;
  refPicker=null;$("#referencePicker").hidden=true;$("#editorOverlay").classList.remove("picking");
+ $("#addReference span").textContent="Dal foglio";
  if(refocus){const input=$("#editInput");input.focus();input.setSelectionRange?.(refCaret.start,refCaret.end)}
 }
 function insertRef(){
