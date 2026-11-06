@@ -81,3 +81,6 @@ main{min-height:0;flex:1;overflow:hidden;position:relative}
  #match .match-actions button{min-height:27px}
  #home .desk-title{font-size:12px}
 }
+
+/* Campo tattico ruotato in landscape: porte a sinistra e destra. */
+#tactics .chalk:before{background:linear-gradient(90deg,transparent 49.65%,#cfe6d18f 50%,transparent 50.35%)}
