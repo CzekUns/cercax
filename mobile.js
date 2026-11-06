@@ -292,6 +292,25 @@ function sumRange(){
  if(present(cell(target))){toast("La cella "+target+" è occupata; nessun valore sovrascritto");return}
  put(target,"=SUM("+from+":"+to+")");refresh();toast("Somma inserita in "+target)
 }
+function addAxisStrip(panel,d){
+ const max=d.isRow?Math.max(bounds().e.c,19):Math.max(bounds().e.r,19);
+ const heading=make("p","Esplora tutta la "+(d.isRow?"riga":"colonna")+" · tocca un valore per aprire la cella","axis-heading");
+ const strip=make("div",undefined,"axis-strip"),more=button("Mostra altre celle",()=>appendMore(75),"axis-more");
+ let next=0;
+ function appendMore(batch){
+  const end=Math.min(max+1,next+batch);
+  for(;next<end;next++){
+   const ref=refAlong(d,next),c=cell(ref),v=currentValue(ref);
+   const b=button("",()=>{
+    choose({kind:"cell",ref});openEditor()
+   },"axis-item");
+   b.append(make("small",ref),make("strong",display(v,c)||"·"));
+   strip.append(b)
+  }
+  more.hidden=next>max
+ }
+ panel.append(heading,strip,more);appendMore(45)
+}
 function updatePanel(){
  const s=selection;if(!s){hidePanel();return}
  const label=selectionName();
@@ -313,11 +332,8 @@ function updatePanel(){
   action(actions,"Continua +10",()=>continueAxis(findAxis(s),10));
   if(d.numberCount>=2)action(actions,"∑ Somma",()=>sumAxis(findAxis(s)));
   action(actions,"Formato",()=>formatControls($("#panel"),(k,v)=>applyFormat(k,v)));
-  const preview=make("div",undefined,"action-preview");
-  const samples=[];
-  for(let i=Math.max(0,d.last-5);i<=d.last;i++)samples.push(refAlong(d,i)+" "+display(currentValue(refAlong(d,i)),cell(refAlong(d,i))));
-  preview.textContent="Valori recenti: "+(samples.join(" · ")||"nessuno")+". Puoi anche trascinare il quadratino verde dall'ultima cella visibile.";
-  $("#panel").append(preview);return
+  addAxisStrip($("#panel"),d);
+  return
  }
  if(s.kind==="range"){
   const count=(s.b.r-s.a.r+1)*(s.b.c-s.a.c+1);
