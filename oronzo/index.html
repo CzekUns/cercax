@@ -4,6 +4,7 @@
 <meta name="description" content="Manageriale calcistico rétro anni '80: allena una squadra di Promozione.">
 <link rel="stylesheet" href="./ui.css"></head>
 <body>
+<div class="rotate-notice" aria-label="Ruota il telefono in orizzontale"><div class="rotate-icon">↻</div><strong>RUOTA IL TELEFONO</strong><span>ORONZO SI GIOCA IN ORIZZONTALE</span></div>
 <div class="game" id="game">
 <header class="top"><div><small>STAGIONE 1985/86 · PROMOZIONE</small><strong>MISTER DI PROVINCIA <em>ALFA</em></strong></div><div class="top-meta"><span id="weekLabel">GIORNATA 1</span><button id="reset" title="Ricomincia" aria-label="Ricomincia la stagione">↺</button></div></header>
 <main>
@@ -43,11 +44,11 @@
 </section>
 <section id="match" class="view">
   <div class="match-top"><div class="side"><small>CASA</small><b id="homeTeam">CAMPANILE</b></div><div class="scoreboard"><strong id="score">0 : 0</strong><small id="clock">00:00</small></div><div class="side right"><small>OSPITI</small><b id="awayTeam">RIVALI</b></div></div>
-  <div class="match-pitch"><canvas id="pitch" width="320" height="440" aria-label="Campo di gioco dall'alto con calciatori e pallone"></canvas><div id="cutscene" class="cutscene" hidden><b id="cutsceneTitle">GOOOL!</b><span id="cutsceneDetail"></span></div></div>
-  <div class="match-actions"><button id="play" class="primary">▶ CALCIO D'INIZIO</button><button id="pause">Ⅱ PAUSA</button><button id="speed">1×</button><button id="sub">⇄ CAMBIO</button></div>
+  <div class="match-pitch"><canvas id="pitch" width="440" height="280" aria-label="Campo di gioco dall'alto con calciatori e pallone"></canvas><div id="cutscene" class="cutscene" hidden><b id="cutsceneTitle">GOOOL!</b><span id="cutsceneDetail"></span></div></div>
+  <aside class="match-sidepanel"><div class="match-actions"><button id="play" class="primary">▶ CALCIO D'INIZIO</button><button id="pause">Ⅱ PAUSA</button><button id="speed">1×</button><button id="sub">⇄ CAMBIO</button></div>
   <div class="match-readout"><div><b id="possession">50%</b><small>POSSESSO</small></div><div><b id="shots">0 - 0</b><small>TIRI</small></div><div><b id="morale">--</b><small>MORALE</small></div></div>
   <div class="match-coach"><button data-coach="attack">▲ ATTACCA</button><button data-coach="balance">▬ EQUILIBRIO</button><button data-coach="defend">▼ DIFENDI</button></div>
-  <div class="commentary" id="commentary" aria-live="polite">Squadre negli spogliatoi. Prepara la tattica e inizia la partita.</div>
+  </aside><div class="commentary" id="commentary" aria-live="polite">Squadre negli spogliatoi. Prepara la tattica e inizia la partita.</div>
 </section>
 </main>
 <nav class="bottom-nav" aria-label="Schermate"><button data-go="home" class="selected">⌂<span>UFFICIO</span></button><button data-go="squad">▤<span>ROSA</span></button><button data-go="tactics">▦<span>TATTICA</span></button><button data-go="training">◷<span>TRAINING</span></button><button data-go="match">⚽<span>PARTITA</span></button></nav>
