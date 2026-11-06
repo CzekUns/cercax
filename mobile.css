@@ -94,3 +94,13 @@ button,input,textarea,select{font:inherit}button{cursor:pointer;touch-action:man
 #sheetPicker button.current{background:#d7f1e1}
 @media(max-width:390px){.fab{min-height:40px;min-width:40px;padding:8px}.sheet-chip{max-width:35vw}.hud.topbar{left:11px;right:11px}.action-panel{left:9px;right:9px}}
 @media(min-width:900px){.workspace:not(.portrait-desktop):not(.rotated) .sheet-dialog{border-radius:23px;margin:0 auto 3vh;max-height:87%}.workspace:not(.portrait-desktop):not(.rotated) .backdrop{place-items:end center}.sheet-dialog #editInput{min-height:250px}}
+
+/* Edges are swipe targets across the entire north and west sides. */
+.edge.top{left:0;width:100%;height:14px;background:transparent;color:transparent;touch-action:none;border-radius:0}
+.edge.left{left:0;top:0;height:100%;width:14px;background:transparent;color:transparent;touch-action:none;border-radius:0}
+.edge.top::after{content:"▾";position:absolute;top:0;left:44%;width:12%;height:10px;border-radius:0 0 9px 9px;background:rgba(14,118,68,.52);color:white;font:9px system-ui;text-align:center}
+.edge.left::after{content:"›";position:absolute;left:0;top:44%;height:12%;width:10px;border-radius:0 9px 9px 0;background:rgba(14,118,68,.52);color:white;display:grid;place-items:center;font:10px system-ui}
+.workspace.portrait-rotated{inset:auto;top:100dvh;left:0;width:100dvh;height:100dvw;transform-origin:top left;transform:rotate(-90deg)}
+.workspace.show-cols .edge.top,.workspace.show-rows .edge.left{background:transparent}
+.workspace.show-cols .edge.top::after,.workspace.show-rows .edge.left::after{background:rgba(13,116,66,.9)}
+.grid-scroll{touch-action:pan-x pan-y pinch-zoom}
