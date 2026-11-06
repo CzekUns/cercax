@@ -68,3 +68,18 @@ Tutti gli `id` unici; nessuna chiave non documentata. Gli effetti numerici sono 
 
 ## Perimetro & consegna
 Branch: `agent/oronzo-copy`; modificare **solo** `oronzo/content/`, nessun file HTML/CSS/JS dell'orchestratore e nessun asset altrui. Annotare i punti d'integrazione in `oronzo/content/README.md`; lasciare gli hook per l'orchestratore. Verificare JSON parse, limiti di lunghezza, conteggi, coerenza trigger/effetti, ID univoci, duplicati, assenza di contenuto protetto o anacronistico. Consegna reale via PR + breve antologia di 8 esempi riusciti nel commento di PR.
+
+
+## Estensione obbligatoria: GALLERIA DI PRESIDENTI (coordinamento agente 9)
+L'utente desidera una moltitudine di presidenti di società, ognuno con caratteristiche, linguaggio, debolezze e interessi ispirati ai *tipi comici* delle commedie italiane anni Ottanta. I riferimenti a un «megadirettore» grottesco e a uno «zio faccendiere» sono **indicazioni di archetipi**, non autorizzazioni a imitare specifici personaggi, battute, nomi, volti o vicende dei film.
+
+L'AGENTE 4 deve produrre **obbligatoriamente** `oronzo/content/presidents.json` con **almeno 8 presidenti originali**, oltre ai personaggi, eventi, dialoghi e microcopy già richiesti. Non riciclare lo stesso presidente cambiandogli semplicemente il nome. Ogni presidente deve avere:
+- `id` stabile, `name`, `archetype`, `clubFlavor` (tipo di squadra associabile), `background`, `goal`, `voice` (stile discorsivo, non una voce clonata), contraddizione privata, rapporto col mister, 3+ battute originali;
+- `traits`: `authoritarianism`, `frugality`, `vanity`, `patience`, `interference`, `ambition`, `riskTolerance`, ciascuno in 0–100. **Contratto completo:** `oronzo/engine-contract.md`, PresidentProfileV1;
+- almeno 2 trigger narrativi di comportamento (es. tre sconfitte, richiesta mercato, sponsor svanito) e collegamenti `presidentId` negli eventi pertinenti; non imporre un altro schema incompatibile.
+
+Archetipi suggeriti da **reinventare liberamente**, senza copia: grande burocrate cerimonioso e ossessionato dalla gerarchia; zio affarista che sistema tutti e crea altri problemi; industriale con impresa familiare; avaro dei rimborsi; venditore di aspirazioni; ex calciatore nostalgico; imprenditore mondano; notabile protettivo. Mettere in scena anche persone più oneste e competenti per evitare che tutta la società sia sempre un circo. Situazioni e lessico storicamente coerenti col 1985.
+
+Distribuire ai presidenti almeno **16 eventi** dei 40+ eventi richiesti e almeno **12 brevi dialoghi** dei 20+ totali, oppure documentare che questi contenuti si aggiungono ai totali, senza togliere varietà a calciatori, allenatori, tifosi, giornalisti e staff. Non dare loro potere di falsare direttamente un gol o risultato: la loro condotta modifica budget, obiettivi, fiducia, morale e disponibilità dei rinforzi.
+
+**Confine di responsabilità:** l'agente 4 scrive i profili e testi, **l'agente 9** programma le reazioni e applica gli effetti. Il file `presidents.json` è un contratto per il motore, non soltanto un repertorio comico.

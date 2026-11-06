@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ORONZO · Prova governo societario</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#061420;color:#efdfb7;font:14px system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;padding:8px}
+#app{width:min(100%,177.78vh);min-height:min(100vh,56.25vw);background:linear-gradient(150deg,#183a53,#09192c);border:3px ridge #b89c60;padding:14px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:2px solid #ad925c;margin-bottom:10px}
+h1{font-size:clamp(17px,3vw,32px);margin:0 0 6px;letter-spacing:2px}h2{font-size:clamp(12px,1.7vw,20px);color:#f7d082;margin:4px 0 8px}
+small,.note{font-size:11px;color:#b2c4d1}main{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+section{background:#0b253a;border:1px solid #496b7b;padding:10px;min-width:0}
+button,select{display:block;width:100%;color:#fff0c5;background:#21445b;border:1px solid #91a2a1;padding:8px;cursor:pointer;text-align:left;margin:5px 0}
+button:hover{background:#36586d}button:disabled{opacity:.45}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:5px}article{border:1px solid #426780;background:#0b1d2d;padding:7px;font-size:11px}
+article b{display:block;font-size:clamp(14px,2.1vw,25px);color:#fff}
+#log{background:#071a2b;color:#d4e8ee;border:1px solid #4b7189;min-height:125px;max-height:170px;overflow:auto;padding:7px;white-space:pre-line;font-size:12px}
+footer{display:flex;justify-content:space-between;gap:10px;padding-top:8px;color:#b7c8d2;font-size:11px}
+@media(max-width:740px){#app{padding:5px}section{padding:4px}main{gap:4px}button,select{font-size:11px;padding:6px 3px}article{padding:3px;font-size:9px}article b{font-size:14px}#log{font-size:10px;min-height:95px}p,small,.note{font-size:10px}footer{font-size:9px}}
+@media(orientation:portrait){#app:before{content:'Ruotare il dispositivo in orizzontale: demo 16:9';display:block;background:#934626;color:white;padding:7px}}
+</style></head>
+<body><div id="app">
+<header><div><h1>ORONZO · SOCIETÀ</h1><small>DEMO DI VERIFICA · stagione 1985–86 · importi illustrativi</small></div><div>SETTIMANA <strong id="week">1</strong></div></header>
+<main>
+<section><h2>IL PRESIDENTE</h2>
+<select id="profile" aria-label="Scegli presidente"></select>
+<p class="note" id="traits"></p>
+<button id="meeting">Riunione di società</button>
+<button id="negotiate">Negozia col presidente</button>
+<button id="refuse">Rifiuta l'ingerenza</button>
+<button id="win">Esito gara: vittoria 2–0</button>
+<button id="lose">Esito gara: sconfitta 0–2</button>
+</section>
+<section><h2>BILANCIO E FIDUCIA</h2>
+<div class="stats"><article>CASSA<b id="cash"></b></article><article>STIPENDI / SETT.<b id="wages"></b></article><article>FIDUCIA<b id="trust"></b></article><article>ARRETRATI<b id="arrears"></b></article></div>
+<p class="note" id="contract"></p>
+<button id="advance">Chiudi settimana (trasferta)</button>
+<h2>REGISTRO SOCIETÀ</h2><div id="log" role="log"></div>
+</section>
+<section><h2>IL MISTÉR E IL MERCATO</h2>
+<p class="note">Il mister chiede un centravanti. Presidente e direttore sportivo decidono; il club compratore tratta col venditore.</p>
+<button id="ask">1 · Richiedi centravanti</button>
+<button id="vote">2 · Valuta richiesta</button>
+<button id="seller">3 · Tratta col venditore</button>
+<button id="finish">4 · Finalizza acquisto</button>
+<p id="market" class="note"></p>
+<h2>PANCHINA</h2><button id="shout">Ordina: incoraggia</button><small id="command"></small>
+</section>
+</main><footer><span id="source"></span><span>Questa demo riceve risultati di prova: non simula partite né mostra sprite finali.</span></footer>
+</div>
+<script type="module">
+import * as E from './index.js';
+const $=id=>document.getElementById(id);
+const fmt=n=>new Intl.NumberFormat('it-IT').format(n)+' ₤';
+const mkPlayer=(id,pos='CM')=>({id,name:'Atleta '+id,teamId:'camp',age:25,positions:[pos],
+ technical:{passing:55,shooting:55,control:55,tackling:55,positioning:55,decisions:55,goalkeeping:pos==='GK'?65:10},
+ physical:{pace:55,stamina:55,strength:55,durability:55},
+ mental:{composure:55,discipline:55,teamwork:55,confidence:55,morale:55,luck:55,character:55},
+ status:{fatigue:0,fitness:100,health:100,injuryDays:0,suspensionMatches:0},contract:{weeklyWage:2500}});
+const players=Array.from({length:15},(_,i)=>mkPlayer('p'+i,i===0||i===11?'GK':'CM'));
+const coach=E.createCoach({id:'coach',name:'Mister',clubId:'camp'});
+let profiles=E.FALLBACK_PRESIDENTS,club,week=1,game=0,attempt=0,pending=[],lines=[];
+function president(){return profiles.find(p=>p.id===$('profile').value)||profiles[0]}
+function latest(){return club.market.requests.at(-1)}
+function render(){
+ if(!club)return;
+ $('week').textContent=week;$('cash').textContent=fmt(club.budget);
+ $('wages').textContent=fmt(E.weeklyPayroll(club));$('trust').textContent=club.boardTrust+'/100';
+ $('arrears').textContent=fmt(club.finance.arrears);
+ $('traits').textContent=president().archetype+' · avarizia '+president().traits.frugality+
+  ' · pazienza '+president().traits.patience+' · ingerenza '+president().traits.interference;
+ $('contract').textContent='Sponsor '+fmt(club.finance.sponsorPerWeek)+'/settimana · trasferta '+fmt(club.finance.travelCost);
+ $('market').textContent=latest()?latest().id+' · '+latest().status+' · '+(latest().boardReason||''):'Nessuna richiesta in corso';
+ $('log').textContent=lines.join('\n');
+}
+function log(message){lines.unshift(message);lines=lines.slice(0,8);render()}
+function restart(){
+ club=E.createClub({id:'camp',name:'Campanile',presidentId:president().id,divisionId:'promotion',
+   budget:700000,wageBudget:44000,boardTrust:65,seasonObjective:'safety',players,
+   staff:{sportingDirector:{competence:78,loyalty:60}}},{sponsorPerWeek:80000,travelCost:18000});
+ week=1;game=0;attempt=0;pending=[];lines=[];log('Nuova stagione: il mister non dispone della cassa.');
+}
+const loaded=await E.loadPresidents(async()=>{
+ const response=await fetch('../../content/presidents.json');
+ if(!response.ok)throw Error('catalogo copy non disponibile');
+ return response.json();
+});
+profiles=loaded.profiles;
+$('source').textContent=loaded.source==='copy'?'Catalogo originali agente 4':'Otto archetipi TEST non canonici: il copy non è ancora disponibile';
+for(const p of profiles){const opt=document.createElement('option');opt.value=p.id;opt.textContent=p.name;$('profile').append(opt)}
+$('profile').onchange=restart;restart();
+$('meeting').onclick=()=>{
+ const x=E.conveneBoard(club,president(),{week,seed:week*1007,marketNeed:80000});
+ if(x.accepted){club=x.club;pending=x.requests}
+ log(x.accepted?'Riunione terminata, richieste: '+x.requests.length:x.reason);
+};
+function respond(reply){
+ const original=club.board.notices.find(n=>n.kind==='meeting'&&n.week===week);
+ const target=original?.requests.find(r=>!r.response);
+ if(!target)return log('Nessuna richiesta in sospeso.');
+ const x=E.answerBoardRequest(club,coach,{week,requestId:target.id,response:reply});
+ if(x.accepted)club=x.club;
+ log(x.accepted?'Il mister risponde: '+reply+'.':x.reason);
+}
+$('negotiate').onclick=()=>respond('negotiate');
+$('refuse').onclick=()=>respond('decline');
+for(const [id,h,a] of [['win',2,0],['lose',0,2]]){
+ $(id).onclick=()=>{
+  const x=E.reviewMatch(club,president(),{matchId:'demo'+(++game),week,homeClubId:'camp',awayClubId:'rivale',
+   snapshot:{phase:'fulltime',t:5400,score:{home:h,away:a},events:[]}},week*1000+game);
+  if(x.accepted)club=x.club;
+  log(x.accepted?'Risultato IMPORTATO '+h+'–'+a+'. Fiducia '+club.boardTrust+(x.dismissed?' · ESONERATO':''):x.reason);
+ };
+}
+$('advance').onclick=()=>{
+ const x=E.endClubWeek(club,{week,away:true,bonus:0});
+ if(x.accepted){club=E.resolvePromises(x.club,{week});week++;pending=[]}
+ log(x.accepted?'Stipendi, sponsor e trasferta contabilizzati.':x.reason);
+};
+$('ask').onclick=()=>{
+ const id='req'+(++attempt),player=mkPlayer('target'+attempt,'ST');
+ const x=E.requestTransfer(club,coach,{id,player,askingFee:75000,weeklyWage:3500,week});
+ if(x.accepted)club=x.club;log(x.accepted?'Il mister chiede il rinforzo: nessuna spesa effettuata.':x.reason);
+};
+$('vote').onclick=()=>{
+ const r=latest();if(!r)return log('Prima serve una richiesta.');
+ const x=E.reviewTransfer(club,president(),r.id,week*300+attempt);
+ if(x.club!==club)club=x.club;
+ log(x.accepted?'La società autorizza la trattativa.':x.reason);
+};
+$('seller').onclick=()=>{
+ const r=latest();if(!r)return log('Prima serve una richiesta.');
+ const x=E.negotiateWithSeller(club,r.id,{sellerAccepts:true,sellerFee:70000,agreedWage:3400});
+ if(x.accepted)club=x.club;log(x.accepted?'Accordo DS-venditore raggiunto.':x.reason);
+};
+$('finish').onclick=()=>{
+ const r=latest();if(!r)return log('Prima serve una richiesta.');
+ const x=E.finalizeTransfer(club,r.id,{week});
+ if(x.accepted)club=x.club;log(x.accepted?'Contratto perfezionato dalla società; rosa aggiornata.':x.reason);
+};
+$('shout').onclick=()=>{
+ const x=E.coachCommand(coach,{type:'shout',teamId:'camp',payload:{message:'encourage'}});
+ $('command').textContent=x.accepted?'CoachCommandV1: '+JSON.stringify(x.command):x.reason;
+ log('Comando panchina creato: attende accettazione del motore partita.');
+};
+</script></body></html>

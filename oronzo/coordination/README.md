@@ -1,0 +1,29 @@
+# ORONZO · CENTRO DI COORDINAMENTO DEI 9 AGENTI
+
+**Questa cartella su `main` è la fonte di verità per lo stato dei lavori e i prossimi incarichi.**
+L'orchestratore supervisiona, prova e integra le PR, aggiorna `NEXT.md`; ciascun agente esegue soltanto il proprio ambito e pubblica `REPORT.md` con prove e limiti.
+
+## Agenti
+| # | Agente | Issue | Spazio permanente |
+|---|---|---|---|
+| 1 | Sprite e pixel art dei calciatori | [#1](https://github.com/CzekUns/cercax/issues/1) | [01-players](01-players/) |
+| 2 | Cutscene gol, parate ed eventi | [#2](https://github.com/CzekUns/cercax/issues/2) | [02-cutscenes](02-cutscenes/) |
+| 3 | Interfaccia grafica coerente | [#3](https://github.com/CzekUns/cercax/issues/3) | [03-ui](03-ui/) |
+| 4 | Copy, personaggi e comicità | [#4](https://github.com/CzekUns/cercax/issues/4) | [04-copy](04-copy/) |
+| 5 | Movimenti e visualizzazione della partita | [#7](https://github.com/CzekUns/cercax/issues/7) | [05-match-view](05-match-view/) |
+| 6 | Motore calcistico e tattiche | [#8](https://github.com/CzekUns/cercax/issues/8) | [06-match-engine](06-match-engine/) |
+| 7 | Modalità carriera e campionati | [#9](https://github.com/CzekUns/cercax/issues/9) | [07-career](07-career/) |
+| 8 | Attributi, carattere e allenamenti | [#10](https://github.com/CzekUns/cercax/issues/10) | [08-attributes](08-attributes/) |
+| 9 | Allenatore, società e presidenti | [#11](https://github.com/CzekUns/cercax/issues/11) | [09-coach-club](09-coach-club/) |
+
+## Regole
+1. Ogni agente usa *sempre lo stesso prompt di riavvio*, salvato nel proprio `RUN.md`. Non occorre riscriverlo a ogni ciclo.
+2. Leggere `NEXT.md` su **main** prima di iniziare. Lo modifica SOLO l'orchestratore, dopo revisione, test e decisione sul merge.
+3. Gli agenti lavorano solo nel proprio scope tecnico e scrivono il proprio `REPORT.md` nella rispettiva cartella. Niente commit su file root CercaX, `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `NEXT.md` o cartelle altrui.
+4. Ogni PR contiene nel corpo un resoconto ed include `REPORT.md` con verifiche. Avvisare nell'issue con il link alla PR. L'orchestratore può leggere anche report su un **branch non ancora mergiato**.
+5. Prima di riprendere dopo un merge: rileggere lo stato di `main`, aggiornare codice/contratti e aprire un **nuovo branch di ciclo**, p.es. `agent/oronzo-players-r02` (non sottobranch con `/` del branch originale). Le PR si propongono verso `main`. Mai continuare a partire da una base vecchia.
+6. Una PR mergeable **non è automaticamente approvata**. Verificare anche contenuti, contratti, compilazione, asset e funzionamento su mobile.
+7. Nessun agente può fare merge della propria PR. Solo l'orchestratore, dopo QA; può chiederne correzioni.
+8. Il rapporto GitHub è una forma di comunicazione consultabile: le chat non si avvisano direttamente né lavorano autonomamente tra un turno e l'altro.
+
+Consulta [PROTOCOL.md](PROTOCOL.md) e [registry.json](registry.json) per dettagli.
