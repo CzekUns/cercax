@@ -1,3 +1,6 @@
+> **DIRETTIVA VINCOLANTE AGGIORNATA — 6 novembre 2026**
+> Il gioco è **ESCLUSIVAMENTE ORIZZONTALE (landscape)** su smartphone, aspect ratio di riferimento 16:9, griglia logica 640×360, mockup UI a 1280×720. Non proporre mockup portrait o una UI verticale adattata mediante rotazione. Il campo e gli intermezzi possono usare pixel art 4:3 della reference incorniciata nello spazio 16:9, preservandone la qualità. Le schermate devono **essere graficamente FINITE al primo passaggio, paragonabili per dettaglio e atmosfera alle otto reference Drive**, non wireframe, cubi, cerchietti, sagome geometriche, SVG di riempimento o immagini da «affinare dopo». Il sistema di palette serve a ricolorare sprite **già artisticamente finiti**, non a sostituire l'arte. Nel browser la grafica definitiva sostituisce l'attuale canvas procedurale provvisorio; va mantenuto solo come fallback tecnico finché gli asset non saranno integrati.
+
 # CONTRATTO ASSET v0.1 — firme comuni A/B/C
 ## Sorgenti
 La cartella Drive `Reference immagini` contiene 8 reference: `reteee-2.png` (campo match), `images.jpeg` (intermezzi laterali), altre 6 (UI). Il gioco usa pixel art originale, non copie dei pixel dei vecchi videogiochi.
@@ -18,16 +21,16 @@ Per maglie tinta unita, strisce verticali/orizzontali e metà-metà, aggiungere 
 - Numeri in maglia non dipinti fissi; overlay a runtime se la scala lo consente.
 
 ## B — Scene evento
-- Side-view pixel art in coerenza con `images.jpeg`. Canvas logico `320×180`, calciatore circa 65–90 px d'altezza, scena separata dal match.
-- Minimo 5 strisce PNG con 6 frame `192×144` (totale `1152×144` ciascuna), nomi `goal_celebrate`, `goalkeeper_save`, `yellow_card`, `injury`, `red_card`. Destinare un file extra agli sfondi se serve.
+- Side-view pixel art in coerenza con `images.jpeg`. Canvas logico `320×180` (landscape), calciatore circa 65–90 px d'altezza, scena separata dal match.
+- Minimo 5 strisce PNG con 6 frame `320×180` (totale `1920×180` ciascuna), nomi `goal_celebrate`, `goalkeeper_save`, `yellow_card`, `injury`, `red_card`. Destinare un file extra agli sfondi se serve.
 - Sfondi stadio/tifosi indipendenti, ogni personaggio ricolorabile mediante materiali A; no divisa/viso fissati negli sprite.
 - Trigger: evento, frame e durata definibili da JSON; il motore partita resta vivo mentre appare la scena.
 
 ## C — UI
-- Logica portrait 360×640 (esportare concept a 720×1280 via nearest-neighbor). Su piccoli smartphone reflow reale, non usare solo immagine statica.
+- Logica LANDSCAPE 640×360 (esportare concept a 1280×720 via nearest-neighbor). Su telefoni di differenti dimensioni adattare tutti i pannelli, conservando un campo visibile e spazio ai comandi: non basta ruotare una immagine statica.
 - Minimo cinque mockup diversi: `coach-select`, `office-home`, `squad-roster`, `tactics`, `match-hud`.
 - Un unico design system: palette (codici HEX), bordi 2/3px bevel, font pixel liberamente riutilizzabile, scala 8px, componenti ritagliati senza testo per HTML.
 - Layout calcistico anni 1990–95 ma touch comodo oggi; visivamente ispirato alle reference blu International Soccer Challenge e formazione, senza copiarne titoli/marchi.
 
 ## QA obbligatoria
-PNG reali, non link a immagini temporanee; niente layer bruciati in un'unica immagine se serve ricolorazione o UI viva; alpha pulito; `image-rendering:pixelated`; screenshot prove 360×640 e 390×844; verifica presenza di cinque immagini distinte per agente. Ogni agent documenta i test e i limiti.
+PNG reali, non link a immagini temporanee; niente layer bruciati in un'unica immagine se serve ricolorazione o UI viva; alpha pulito; `image-rendering:pixelated`; screenshot prove landscape 640×360, 800×360 e 844×390; verifica presenza di cinque immagini distinte per agente. Ogni agent documenta i test e i limiti.
