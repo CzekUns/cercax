@@ -110,7 +110,9 @@ function normalizeMatchResult(fixture, supplied) {
   if (goals[fixture.homeId] !== score.home || goals[fixture.awayId] !== score.away) {
     throw new Error('Score does not match engine goal events');
   }
-  return { score: { home: score.home, away: score.away }, events };
+  // Keep the persistent history compact: per-tick movement/passes belong to Agent 6,
+  // while the career needs only authenticated scoring events.
+  return { score: { home: score.home, away: score.away }, events: events.filter(e => e.type === 'goal') };
 }
 
 export function registerResult(state, matchResult) {

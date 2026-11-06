@@ -34,7 +34,7 @@ saves.save(state); const recovered = saves.load()?.state;
 const exportedJSON = serialize(state); const importedState = deserialize(exportedJSON);
 ```
 
-Functions mutate the passed state and return it. `registerResult` rejects duplicate results, mismatched fixtures, invented/unaccounted goals, unknown scorers and out-of-turn fixtures. `advanceWeek` refuses to skip unplayed league games. `getStandings` is derived from the recorded fixture histories. `topScorers` counts only valid recorded goal events (not own goals).
+Functions mutate the passed state and return it. `registerResult` rejects duplicate results, mismatched fixtures, invented/unaccounted goals, unknown scorers and out-of-turn fixtures. `advanceWeek` refuses to skip unplayed league games. `getStandings` is derived from the recorded fixture histories. `topScorers` counts only valid recorded goal events (not own goals). The career deliberately stores only goal events; live passes, movement, and other high-frequency events belong to the match engine, avoiding oversized mobile saves.
 
 ## Default world (original, imaginary clubs)
 

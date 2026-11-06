@@ -57,7 +57,9 @@ test('reject duplicated result, non-goal score, wrong round, invalid scorer', ()
   assert.throws(() => registerResult(state, { ...fake, score: { home: 9, away: 0 } }), /goal events/);
   const bad = { ...fake, score: { home: 1, away: 0 }, events: [{ type: 'goal', teamId: match.homeId, playerId: 'stranger' }] };
   assert.throws(() => registerResult(state, bad), /goalscorer/);
-  registerResult(state, fake);
+  registerResult(state, { ...fake, events: [...fake.events, { type: 'pass', id: 'extra:pass', teamId: match.homeId }] });
+  const played = state.leagues.PROM.fixtures.find(f => f.id === match.id);
+  assert.ok(played.result.events.every(event => event.type === 'goal'));
   assert.throws(() => registerResult(state, fake), /already played/);
   const later = state.leagues.PROM.fixtures.find(f => f.round === 2);
   assert.throws(() => registerResult(state, demoMatchResult(later, state)), /current week/);
@@ -155,8 +157,15 @@ test('V1 known career shape migration and unknown schema refusal', () => {
   legacy.schemaVersion = 1; delete legacy.history; delete legacy.offers; delete legacy.vacancies;
   const raw = serialize(state);
   assert.throws(() => deserialize(JSON.stringify({ ...JSON.parse(raw), version: 88 })), /Unknown save/);
-  // Migration path is exercised by a V1-compatible encoder in saved data.
+  // Genuine V1 migration: checksum for the old data shape.
+  const digest = text => {
+    let h = 2166136261;
+    for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return (h >>> 0).toString(16).padStart(8, '0');
+  };
   const older = JSON.parse(raw);
-  older.version = 1; older.data = legacy;
-  assert.throws(() => deserialize(older), /checksum mismatch/);
+  older.version = 1; older.data = legacy; older.checksum = digest(JSON.stringify(legacy));
+  assert.equal(deserialize(older).schemaVersion, 2);
+  assert.deepEqual(deserialize(older).offers, []);
+  assert.throws(() => deserialize({ ...older, checksum: 'deadbeef' }), /checksum mismatch/);
 });
