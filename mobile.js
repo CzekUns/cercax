@@ -413,6 +413,182 @@ function markFillHandle(){
  handle.onpointercancel=()=>{drag=null}
  td.append(handle)
 }
+
+/* Il foglio come tastiera per le formule: selezione, non modifica. */
+const REF_ROW=39,REF_COL=106,REF_HEAD_H=26,REF_HEAD_W=35;
+let refPicker=null,refCaret={start:0,end:0},refDrawQueued=false,editorSheet="";
+function refLabel(name,origin){
+ if(name===origin)return "";
+ return "'"+name.replace(/'/g,"''")+"'!";
+}
+function chosenReference(){
+ if(!refPicker?.start)return "";
+ if(refPicker.mode==="range"&&!refPicker.end)return "";
+ const {start,end,sheet:source}=refPicker;
+ const a=end?{r:Math.min(start.r,end.r),c:Math.min(start.c,end.c)}:start;
+ const b=end?{r:Math.max(start.r,end.r),c:Math.max(start.c,end.c)}:start;
+ const first=at(a.r,a.c),last=at(b.r,b.c);
+ return refLabel(source,editorSheet)+first+(first===last?"":":"+last);
+}
+function updateReferenceSelection(){
+ const selection=chosenReference();
+ $("#refSelection").textContent=selection||(refPicker?.mode==="range"&&refPicker.start?"Scegli la cella finale":"Nessuna cella");
+ $("#refInsert").disabled=!selection;
+ $("#refInstructions").textContent=refPicker?.mode==="range"?
+  (refPicker.start&&!refPicker.end?"Ora tocca l'ultima cella dell'intervallo. Puoi scorrere liberamente.":"Tocca la prima cella e poi l'ultima per delimitare un intervallo."):
+  "Tocca una cella: il riferimento sarà aggiunto nel punto del cursore.";
+ $("#refCellMode").classList.toggle("active",refPicker?.mode==="cell");
+ $("#refRangeMode").classList.toggle("active",refPicker?.mode==="range");
+ $("#refCellMode").setAttribute("aria-pressed",String(refPicker?.mode==="cell"));
+ $("#refRangeMode").setAttribute("aria-pressed",String(refPicker?.mode==="range"));
+}
+function refPick(r,c){
+ if(!refPicker)return;
+ const p={r,c};
+ if(refPicker.mode==="cell"){refPicker.start=p;refPicker.end=null}
+ else if(!refPicker.start||refPicker.end){refPicker.start=p;refPicker.end=null}
+ else{refPicker.end=p}
+ updateReferenceSelection();refRender()
+}
+function refSizing(){
+ if(!refPicker)return;
+ const sh=book.Sheets[refPicker.sheet],b=X().utils.decode_range(sh["!ref"]||"A1");
+ refPicker.cols=Math.min(16384,Math.max(24,b.e.c+20));
+ const maxRow=Math.min(1048576,Math.max(400,b.e.r+100));
+ refPicker.base=0;
+ refPicker.rows=Math.min(500000,maxRow);
+ const surface=$("#refSurface");
+ surface.style.width=(REF_HEAD_W+refPicker.cols*REF_COL)+"px";
+ surface.style.height=(REF_HEAD_H+refPicker.rows*REF_ROW)+"px"
+}
+function refJump(r,c){
+ if(!refPicker)return;
+ const view=$("#refViewport");
+ r=Math.max(0,Math.min(1048575,r));c=Math.max(0,Math.min(16383,c));
+ if(r<refPicker.base||r>=refPicker.base+refPicker.rows){
+  refPicker.base=Math.max(0,r-250);
+  refPicker.rows=Math.min(500000,1048576-refPicker.base);
+  $("#refSurface").style.height=(REF_HEAD_H+refPicker.rows*REF_ROW)+"px"
+ }
+ if(c>=refPicker.cols){
+  refPicker.cols=Math.min(16384,c+20);
+  $("#refSurface").style.width=(REF_HEAD_W+refPicker.cols*REF_COL)+"px"
+ }
+ view.scrollTop=Math.max(0,REF_HEAD_H+(r-refPicker.base)*REF_ROW-REF_ROW*2);
+ view.scrollLeft=Math.max(0,REF_HEAD_W+c*REF_COL-REF_COL);
+ refRender()
+}
+function refRender(){
+ if(!refPicker)return;
+ const view=$("#refViewport"),surface=$("#refSurface"),scrollY=view.scrollTop,scrollX=view.scrollLeft;
+ const firstRow=Math.max(0,Math.floor((scrollY-REF_HEAD_H)/REF_ROW)-3);
+ const lastRow=Math.min(refPicker.rows-1,Math.ceil((scrollY+Math.max(view.clientHeight,180)-REF_HEAD_H)/REF_ROW)+2);
+ const firstCol=Math.max(0,Math.floor((scrollX-REF_HEAD_W)/REF_COL)-2);
+ const lastCol=Math.min(refPicker.cols-1,Math.ceil((scrollX+Math.max(view.clientWidth,290)-REF_HEAD_W)/REF_COL)+1);
+ const selected=refPicker.start,final=refPicker.end,rows=refPicker.rows,nodes=[];
+ function tile(type,text,left,top,width,height,cls){
+  const node=make("div",text,cls||type);
+  node.style.left=left+"px";node.style.top=top+"px";node.style.width=width+"px";node.style.height=height+"px";
+  nodes.push(node);return node
+ }
+ for(let row=firstRow;row<=lastRow;row++){
+  const r=refPicker.base+row,top=REF_HEAD_H+row*REF_ROW;
+  const label=tile("row",String(r+1),scrollX,top,REF_HEAD_W,REF_ROW,"ref-row-label");
+  label.title="Riga "+(r+1);
+  for(let col=firstCol;col<=lastCol;col++){
+   const ref=at(r,col),sheetObj=book.Sheets[refPicker.sheet],c=sheetObj[ref],v=engine.cell(refPicker.sheet,ref);
+   const el=tile("cell",display(v.value,c),REF_HEAD_W+col*REF_COL,top,REF_COL,REF_ROW,"ref-cell");
+   el.dataset.ref=ref;
+   if(c?.f)el.classList.add("ref-formula");
+   if(selected){
+    if(final&&r>=Math.min(selected.r,final.r)&&r<=Math.max(selected.r,final.r)&&col>=Math.min(selected.c,final.c)&&col<=Math.max(selected.c,final.c))el.classList.add("ref-range");
+    else if(!final&&selected.r===r&&selected.c===col)el.classList.add("ref-chosen");
+    if(selected.r===r&&selected.c===col)el.classList.add("ref-anchor")
+   }
+   el.onclick=()=>refPick(r,col)
+  }
+ }
+ for(let col=firstCol;col<=lastCol;col++){
+  tile("column",X().utils.encode_col(col),REF_HEAD_W+col*REF_COL,scrollY,REF_COL,REF_HEAD_H,"ref-col-label")
+ }
+ tile("corner","▦",scrollX,scrollY,REF_HEAD_W,REF_HEAD_H,"ref-corner");
+ surface.replaceChildren(...nodes)
+}
+function refRenderSoon(){
+ if(refDrawQueued||!refPicker)return;
+ refDrawQueued=true;
+ requestAnimationFrame(()=>{refDrawQueued=false;refRender()})
+}
+function refTabs(){
+ const container=$("#refSheetTabs");container.replaceChildren();
+ for(const source of book.SheetNames){
+  const tab=button(source,()=>{
+   if(!refPicker)return;
+   refPicker.sheet=source;refPicker.start=null;refPicker.end=null;
+   refSizing();$("#refViewport").scrollTop=0;$("#refViewport").scrollLeft=0;
+   refTabs();updateReferenceSelection();refRender()
+  },source===refPicker.sheet?"active":"");
+  container.append(tab)
+ }
+}
+function openRefPicker(){
+ if(!editorRef||!book)return;
+ const input=$("#editInput");
+ if(!input.value.startsWith("=")){
+  if(input.value.trim()!==""){toast("Per scegliere riferimenti, inizia una formula con =");return}
+  input.value="=";input.setSelectionRange?.(1,1)
+ }
+ refCaret={start:input.selectionStart??input.value.length,end:input.selectionEnd??input.value.length};
+ refPicker={sheet:editorSheet||sheet,mode:"cell",start:null,end:null,rows:400,cols:30,base:0};
+ $("#refViewport").scrollTop=0;$("#refViewport").scrollLeft=0;
+ $("#referencePicker").hidden=false;$("#editorOverlay").classList.add("picking");
+ refSizing();refTabs();updateReferenceSelection();refRender();
+ editPreview()
+}
+function closeRefPicker(refocus=true){
+ if(!refPicker)return;
+ refPicker=null;$("#referencePicker").hidden=true;$("#editorOverlay").classList.remove("picking");
+ if(refocus){const input=$("#editInput");input.focus();input.setSelectionRange?.(refCaret.start,refCaret.end)}
+}
+function insertRef(){
+ const chosen=chosenReference();if(!chosen)return;
+ const input=$("#editInput"),start=Math.max(0,Math.min(refCaret.start,input.value.length)),end=Math.max(start,Math.min(refCaret.end,input.value.length));
+ input.value=input.value.slice(0,start)+chosen+input.value.slice(end);
+ const newPos=start+chosen.length;refCaret={start:newPos,end:newPos};
+ closeRefPicker(true);
+ input.setSelectionRange?.(newPos,newPos);editPreview();
+ toast("Riferimento inserito: "+chosen)
+}
+$("#addReference").onclick=openRefPicker;
+$("#refCancel").onclick=()=>closeRefPicker(true);
+$("#refInsert").onclick=insertRef;
+$("#refCellMode").onclick=()=>{
+ if(!refPicker)return;refPicker.mode="cell";refPicker.start=null;refPicker.end=null;updateReferenceSelection();refRender()
+};
+$("#refRangeMode").onclick=()=>{
+ if(!refPicker)return;refPicker.mode="range";refPicker.start=null;refPicker.end=null;updateReferenceSelection();refRender()
+};
+$("#refViewport").addEventListener("scroll",refRenderSoon,{passive:true});
+$("#refGoto").onsubmit=e=>{
+ e.preventDefault();if(!refPicker)return;
+ const address=$("#refAddress").value.trim().toUpperCase().replace(/\$/g,"");
+ const range=/^([A-Z]{1,3}\d+)(?::([A-Z]{1,3}\d+))?$/.exec(address);
+ if(!range){toast("Scrivi una cella, ad esempio C250, oppure C5:C20");return}
+ try{
+  const first=pos(range[1]),last=range[2]?pos(range[2]):null;
+  refJump(first.r,first.c);
+  if(last){refPicker.mode="range";refPicker.start=first;refPicker.end=last}
+  else{refPicker.start=first;refPicker.end=refPicker.mode==="range"?null:null}
+  updateReferenceSelection();refRender()
+ }catch(e){toast("Indirizzo non valido")}
+};
+$("#editInput").addEventListener("keyup",()=>{
+ if(refPicker){const i=$("#editInput");refCaret={start:i.selectionStart,end:i.selectionEnd}}
+});
+$("#editInput").addEventListener("click",()=>{
+ if(refPicker){const i=$("#editInput");refCaret={start:i.selectionStart,end:i.selectionEnd}}
+});
+
 function editPreview(){
  const ref=selection?.ref;if(!ref)return;
  const text=$("#editInput").value;
@@ -428,7 +604,7 @@ function editPreview(){
 let editorRef=null,editorStyle={};
 function openEditor(){
  if(!selection||selection.kind!=="cell")return;
- editorRef=selection.ref;const src=cell(editorRef),result=engine.cell(sheet,editorRef);
+ editorRef=selection.ref;editorSheet=sheet;const src=cell(editorRef),result=engine.cell(sheet,editorRef);
  editorStyle={...(styleMap.get(sheet+"!"+editorRef)||{})};
  $("#editorTitle").textContent="Cella "+editorRef;
  $("#editorOld").textContent=display(result.value,src)||"(vuota)";
@@ -442,7 +618,7 @@ function openEditor(){
  editPreview();$("#editInput").focus()
 }
 $("#editInput").addEventListener("input",editPreview);
-function closeEditor(){$("#editorOverlay").hidden=true;editorRef=null}
+function closeEditor(){closeRefPicker(false);$("#editorOverlay").hidden=true;editorRef=null}
 $("#cancelEditor").onclick=closeEditor;
 $("#closeEditor").onclick=closeEditor;
 $("#saveEditor").onclick=()=>{
