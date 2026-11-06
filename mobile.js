@@ -14,6 +14,7 @@ function display(v,cell){
  if(typeof v==="number"){
   if(cell?.w&&cell?.v!==undefined&&Math.abs(Number(cell.v)-v)<1e-9*Math.max(1,Math.abs(v)))return String(cell.w);
   if(!Number.isFinite(v))return String(v);
+  if(cell?.z&&/([dmy]|yy|mm)/i.test(cell.z)&&!/^general$/i.test(cell.z)){try{return X().SSF.format(cell.z,v)}catch(_){}}
   if(cell?.z&&/%/.test(cell.z))return (v*100).toLocaleString("it-IT",{maximumFractionDigits:2})+"%";
   if(cell?.z&&/[€$]/.test(cell.z))return v.toLocaleString("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";
   return Number.isInteger(v)?String(v):Number(v.toPrecision(11)).toLocaleString("it-IT",{maximumFractionDigits:9})
@@ -217,6 +218,13 @@ function guessNext(d,i){
   return {t:"n",v:v+step*(i-d.last),z:latest?.z,s:latest?.s?structuredClone(latest.s):undefined}
  }
  if(typeof v==="string"){
+  const italian=/^(\d{2})\/(\d{2})\/(\d{4})$/;
+  if(italian.test(v)){
+   const parseDate=text=>{const p=italian.exec(text);return p?Date.UTC(Number(p[3]),Number(p[2])-1,Number(p[1])):NaN};
+   const last=parseDate(v),previous=parseDate(older),step=Number.isFinite(previous)?last-previous:86400000;
+   const date=new Date(last+step*(i-d.last));
+   return {t:"s",v:String(date.getUTCDate()).padStart(2,"0")+"/"+String(date.getUTCMonth()+1).padStart(2,"0")+"/"+date.getUTCFullYear()};
+  }
   const dates=/^\d{4}-\d{2}-\d{2}$/;
   if(dates.test(v)){
    const last=Date.parse(v+"T00:00:00Z"),prior=dates.test(String(older))?Date.parse(older+"T00:00:00Z"):last-86400000;
@@ -438,7 +446,8 @@ $("#selectionInfo").onclick=()=>{if(selection)updatePanel();else toast("Tocca un
 function setOrientation(v){
  orientation=v;const el=$("#workspace"),portrait=window.innerHeight>=window.innerWidth;
  el.classList.toggle("rotated",v==="landscape"&&portrait);
- el.classList.toggle("portrait-desktop",v==="portrait"&&window.innerWidth>800);
+ el.classList.toggle("portrait-rotated",v==="portrait"&&!portrait&&window.innerWidth<=900);
+ el.classList.toggle("portrait-desktop",v==="portrait"&&window.innerWidth>900);
  $("#rotateButton").title=v==="portrait"?"Passa a vista orizzontale":"Passa a vista verticale";
  $("#rotateButton").textContent=v==="portrait"?"↔":"↕"
 }
