@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "setting": "Italia di provincia, stagione 1985-86",
+  "characters": [
+    {
+      "id": "gaetano_venturi",
+      "name": "Gaetano Venturi",
+      "role": "presidente",
+      "voice": "Solenne; annuncia prima di verificare.",
+      "strength": "Convincentissimo",
+      "flaw": "Promette senza fare il conto",
+      "goal": "Portare il club in una categoria superiore",
+      "relations": [
+        "livia_bassi",
+        "renato_delfino"
+      ],
+      "lines": [
+        "La promozione è un dovere morale. I conti sono una questione tecnica.",
+        "La parola ambizione è gratis, per fortuna."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "livia_bassi",
+      "name": "Livia Bassi",
+      "role": "vicepresidente",
+      "voice": "Poche parole, cifre precise, ironia senza sorriso.",
+      "strength": "Sa far quadrare i conti",
+      "flaw": "Corregge gli altri in pubblico",
+      "goal": "Chiudere l'anno senza debiti nascosti",
+      "relations": [
+        "gaetano_venturi",
+        "ada_poletti"
+      ],
+      "lines": [
+        "Sul bilancio l'entusiasmo non trova una colonna.",
+        "Presidente, la ricevuta non è un'opinione."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "aldo_sarti",
+      "name": "Aldo Sarti",
+      "role": "medico sociale",
+      "voice": "Clinico rigoroso, scaramantico quando è solo.",
+      "strength": "Tutela la salute",
+      "flaw": "Ha i suoi piccoli rituali",
+      "goal": "Far finire la stagione a tutti in piedi",
+      "relations": [
+        "ivo_greco",
+        "dario_lenzi"
+      ],
+      "lines": [
+        "La caviglia è a posto. Sul martedì non mi pronuncio.",
+        "I sintomi li valuto io. La data l'ha scelta lei."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "ivo_greco",
+      "name": "Ivo Greco",
+      "role": "preparatore atletico",
+      "voice": "Frasi brevi, cronometro in mano.",
+      "strength": "Legge bene i carichi",
+      "flaw": "Scorda che gli altri non hanno il suo fiato",
+      "goal": "Avere undici giocatori lucidi fino al novantesimo",
+      "relations": [
+        "aldo_sarti",
+        "franco_moro"
+      ],
+      "lines": [
+        "Non mi servono eroi al martedì. Mi servono gambe alla domenica.",
+        "Oggi si recupera. Non fate finta di essere delusi."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "umberto_rota",
+      "name": "Umberto Rota",
+      "role": "magazziniere",
+      "voice": "Inventario a memoria, pazienza ostinata.",
+      "strength": "Recupera ciò che manca",
+      "flaw": "Non butta mai nulla",
+      "goal": "Avere finalmente un locale asciutto",
+      "relations": [
+        "ada_poletti",
+        "saverio_ferri"
+      ],
+      "lines": [
+        "La maglia numero nove c'è. Il nove la riconoscerà?",
+        "I palloni sono dodici. I tappi delle valvole, undici."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "saverio_ferri",
+      "name": "Saverio Ferri",
+      "role": "autista",
+      "voice": "Pratico, ironico senza alzare la voce.",
+      "strength": "Conosce ogni strada",
+      "flaw": "Non si fida delle scorciatoie",
+      "goal": "Arrivare al campo prima del riscaldamento",
+      "relations": [
+        "gaetano_venturi",
+        "umberto_rota"
+      ],
+      "lines": [
+        "Il foglio dice partenza alle otto. Il mezzo arriva quando lo pagano.",
+        "Io porto la squadra. La classifica ve la fate voi."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "ada_poletti",
+      "name": "Ada Poletti",
+      "role": "segretaria",
+      "voice": "Precisione militare e pazienza scarsa.",
+      "strength": "Tiene in regola le pratiche",
+      "flaw": "Pretende una firma per ogni cosa",
+      "goal": "Mettere ordine nell'archivio del club",
+      "relations": [
+        "livia_bassi",
+        "raffaele_corsi"
+      ],
+      "lines": [
+        "Il modulo è giusto. È quello dell'anno scorso.",
+        "La firma c'è. Manca il nome di chi ha firmato."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "raffaele_corsi",
+      "name": "Raffaele Corsi",
+      "role": "giornalista locale",
+      "voice": "Domande sottili, memoria degli sgarbi.",
+      "strength": "Vede gli attriti veri",
+      "flaw": "Scrive titoli troppo drammatici",
+      "goal": "Ottenere una grande intervista dopo il derby",
+      "relations": [
+        "piero_masi",
+        "gaetano_venturi"
+      ],
+      "lines": [
+        "Scriverò ciò che ho visto. Ho visto poco, ma con attenzione.",
+        "Una risposta breve va bene. Il titolo lo faccio io."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "piero_masi",
+      "name": "Piero Masi",
+      "role": "radiocronista",
+      "voice": "Voce calda, attenzione ai dettagli marginali.",
+      "strength": "Racconta anche le partite brutte",
+      "flaw": "Si perde nelle storie del paese",
+      "goal": "Farsi ascoltare anche fuori provincia",
+      "relations": [
+        "raffaele_corsi",
+        "nella_bellini"
+      ],
+      "lines": [
+        "Il terreno ha la pazienza di una strada provinciale.",
+        "Il silenzio della tribuna dice parecchio. O il microfono è spento."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "franco_moro",
+      "name": "Franco Moro",
+      "role": "capitano",
+      "voice": "Sobrio, concreto, protettivo.",
+      "strength": "Tiene insieme lo spogliatoio",
+      "flaw": "Si carica le colpe di tutti",
+      "goal": "Finire con una squadra che si rispetti",
+      "relations": [
+        "dario_lenzi",
+        "ivo_greco"
+      ],
+      "lines": [
+        "La fascia non mi rende più forte. Mi obbliga a parlare.",
+        "Se qualcuno ha un problema, lo dica qui."
+      ],
+      "rosterBinding": "captain"
+    },
+    {
+      "id": "dario_lenzi",
+      "name": "Dario Lenzi",
+      "role": "centravanti",
+      "voice": "Tagliente, teatrale, sincero sul campo.",
+      "strength": "Vede la porta prima degli altri",
+      "flaw": "Vive la panchina come un'offesa",
+      "goal": "Essere il miglior marcatore del girone",
+      "relations": [
+        "franco_moro",
+        "beppe_salvi"
+      ],
+      "lines": [
+        "Per segnare devo toccare il pallone. Non è una richiesta strana.",
+        "Posso fare anche il lavoro sporco, ma qualcuno lo noterà?"
+      ],
+      "rosterBinding": "star_striker"
+    },
+    {
+      "id": "giorgio_piras",
+      "name": "Giorgio Piras",
+      "role": "portiere di riserva",
+      "voice": "Misurato, pazienza poco esibita.",
+      "strength": "Studia gli avversari",
+      "flaw": "Conta mentalmente i minuti in panchina",
+      "goal": "Meritarsi una partita intera",
+      "relations": [
+        "franco_moro",
+        "tina_basile"
+      ],
+      "lines": [
+        "Sono pronto da tre domeniche. So che non fa notizia.",
+        "Il primo portiere è bravo. Io lavoro lo stesso."
+      ],
+      "rosterBinding": "reserve_goalkeeper"
+    },
+    {
+      "id": "beppe_salvi",
+      "name": "Beppe Salvi",
+      "role": "procuratore",
+      "voice": "Cortese fino alla cifra finale.",
+      "strength": "Sa difendere gli assistiti",
+      "flaw": "Trasforma un saluto in trattativa",
+      "goal": "Portare un giocatore in categoria superiore",
+      "relations": [
+        "dario_lenzi",
+        "renato_delfino"
+      ],
+      "lines": [
+        "Io riferisco al direttore. La scelta è della società, naturalmente.",
+        "Non chiedo una cifra. Chiedo un gesto concreto."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "nella_bellini",
+      "name": "Nella Bellini",
+      "role": "capotifosa",
+      "voice": "Schietta, affettuosa, per nulla deferente.",
+      "strength": "Fa vivere la curva",
+      "flaw": "Non perdona l'indifferenza",
+      "goal": "Vedere impegno anche quando si perde",
+      "relations": [
+        "piero_masi",
+        "gaetano_venturi"
+      ],
+      "lines": [
+        "Il risultato lo leggiamo sul giornale. L'impegno lo vediamo da qui.",
+        "Lo striscione lo paghiamo noi. Almeno leggetelo."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "renato_delfino",
+      "name": "Renato Delfino",
+      "role": "direttore sportivo",
+      "voice": "Diplomatico, prudente nel promettere.",
+      "strength": "Sa scovare talenti",
+      "flaw": "Rimanda decisioni difficili",
+      "goal": "Rinforzare la rosa senza scontrarsi col presidente",
+      "relations": [
+        "gaetano_venturi",
+        "beppe_salvi"
+      ],
+      "lines": [
+        "Il ragazzo interessa. Questo non è ancora un'offerta.",
+        "Prima parliamo col suo club. Poi, semmai, con lei."
+      ],
+      "rosterBinding": null
+    },
+    {
+      "id": "tina_basile",
+      "name": "Tina Basile",
+      "role": "allenatrice delle giovanili",
+      "voice": "Diretta, osservatrice esigente.",
+      "strength": "Fa crescere chi la ascolta",
+      "flaw": "Sopporta male l'improvvisazione",
+      "goal": "Dare spazio vero ai ragazzi del vivaio",
+      "relations": [
+        "giorgio_piras",
+        "ivo_greco"
+      ],
+      "lines": [
+        "L'età non gioca al posto loro. Nemmeno il cognome.",
+        "Quel ragazzo sbaglia, ma sa già cosa voleva fare."
+      ],
+      "rosterBinding": null
+    }
+  ]
+}
