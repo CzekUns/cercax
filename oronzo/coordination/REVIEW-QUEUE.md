@@ -8,7 +8,7 @@ La verifica dei metadati GitHub (endpoint REST diretto) riporta `mergeable_state
 | 1 | [#6](https://github.com/CzekUns/cercax/pull/6) | 01 · Sprite | DA REVISIONARE: palette, atlanti, mask, manifest, uso nel gioco | NO |
 | 2 | [#12](https://github.com/CzekUns/cercax/pull/12) | 02 · Cutscene | DA REVISIONARE: animation 6 frame, maschere, trigger, compatibilità sprite | NO |
 | 3 | [#5](https://github.com/CzekUns/cercax/pull/5) | 03 · UI | DA REVISIONARE: layout landscape 1280×720, componenti, leggibilità | NO |
-| 4 | [#13](https://github.com/CzekUns/cercax/pull/13) | 04 · Copy | DA REVISIONARE: conteggi, JSON, originalità, presidenti, integrabilità | NO |
+| 4 | [#13](https://github.com/CzekUns/cercax/pull/13) | 04 · Copy | PRIMA VERIFICA PARZIALE: 16 personaggi, 57 eventi, 144 microcopy, 26 dialoghi. **FIX RICHIESTO:** manca `presidents.json`; QA completa da fare | NO |
 
 Gli agenti 05–09 sono in fase di primo sviluppo: issue #7, #8, #9, #10, #11 e branch dedicati. Non risultava una PR nel primo controllo effettuato per il coordinamento.
 
