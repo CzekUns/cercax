@@ -30,3 +30,6 @@ Leggere `oronzo/AGENTS.md` e `oronzo/asset-contract.md`. Consegnare i propri fil
 
 ## Copyright
 Titolo ORONZO solo interno; no nome commerciale Pro Evolution Soccer, nomi/volti/voce riconoscibili di Banfi, testi e asset dei film senza diritti. Personaggi e marchi originali.
+
+## Agente Copy & Narrative (D)
+Quarto agente indipendente: `agent/oronzo-copy` → `oronzo/content/`. Incarico: `oronzo/agents/04-copy.md`; vincoli: `oronzo/narrative-contract.md`. Produce personaggi ricorrenti, eventi condizionali, microcopy, dialoghi e note per integrare l'umorismo originale ispirato alla commedia italiana degli anni Ottanta e al managerial humour di Theme Hospital, senza copiare opere protette. L'orchestratore resta responsabile dell'integrazione nel motore.
