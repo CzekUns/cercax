@@ -27,3 +27,6 @@ L'orchestratore supervisiona, prova e integra le PR, aggiorna `NEXT.md`; ciascun
 8. Il rapporto GitHub è una forma di comunicazione consultabile: le chat non si avvisano direttamente né lavorano autonomamente tra un turno e l'altro.
 
 Consulta [PROTOCOL.md](PROTOCOL.md) e [registry.json](registry.json) per dettagli.
+
+## Coerentizzatore (chat ChatGPT Work, revisore di riserva)
+L'orchestrazione quotidiana resta in questa chat e in [ORCHESTRATOR.md](ORCHESTRATOR.md), il **registro persistente** del progetto. Il [Coerentizzatore](coerentizzatore/README.md) è una chat Work da usare **solo quando serve un audit incrociato difficile**, mai per controlli quotidiani. Il prompt permanente è [coerentizzatore/RUN.md](coerentizzatore/RUN.md); gli incarichi si attivano in [coerentizzatore/REQUEST.md](coerentizzatore/REQUEST.md) e partono in stato `STANDBY`. Può depositare un rapporto senza toccare codice o effettuare merge; la responsabilità di valutare e integrare resta all'orchestratore principale.
