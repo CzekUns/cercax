@@ -4,8 +4,8 @@
 const $=s=>document.querySelector(s), X=()=>window.XLSX, make=(tag,content,cls)=>{
  const n=document.createElement(tag);if(content!==undefined)n.textContent=content;if(cls)n.className=cls;return n
 };
-const PAGE=80,MAX_COL=52;
-let book=null,engine=null,sheet="",name="",page=0,selection=null;
+const PAGE=56,MAX_COL=52;
+let book=null,engine=null,sheet="",name="",rowStart=0,selection=null;
 let showRows=false,showCols=false,orientation="portrait",modHeld=false,modLock=false;
 let tap={ref:"",time:0},styleMap=new Map(),dirty=false,drag=null,lastToast=0;
 function display(v,cell){
@@ -53,19 +53,29 @@ function setAt(ref,c){
  ws()[ref]=c;expandRef(ref);dirty=true
 }
 function refresh(keepScroll=true){
- if(!book)return;const scroll=$("#gridScroll"),top=keepScroll?scroll.scrollTop:0,left=keepScroll?scroll.scrollLeft:0;
- const b=bounds(),endRow=page*PAGE+PAGE-1,endCol=Math.min(MAX_COL-1,Math.max(b.e.c+5,19));
- const table=make("table",undefined,"sheet-table");
- const head=make("thead"),hr=make("tr"),corner=make("th","▣","corner");corner.title="Seleziona tutto il foglio";corner.onclick=()=>choose({kind:"sheet"});
- hr.append(corner);
+ if(!book)return;
+ const scroll=$("#gridScroll"),top=keepScroll?scroll.scrollTop:0,left=keepScroll?scroll.scrollLeft:0;
+ const b=bounds(),endCol=Math.min(MAX_COL-1,Math.max(b.e.c+5,19));
+ const lastLogicalRow=Math.min(Math.max(b.e.r+60,250),80000);
+ rowStart=Math.max(0,Math.min(lastLogicalRow-PAGE+1,Math.floor(top/45)-14));
+ const endRow=Math.min(lastLogicalRow,rowStart+PAGE-1);
+ const table=make("table",undefined,"sheet-table"),head=make("thead"),hr=make("tr");
+ const corner=make("th","▣","corner");corner.title="Seleziona tutto il foglio";corner.onclick=()=>choose({kind:"sheet"});hr.append(corner);
  for(let c=0;c<=endCol;c++){
   const th=make("th",X().utils.encode_col(c));th.dataset.col=c;
-  th.onclick=()=>choose({kind:"column",c});if(isHeadSelected("column",c))th.classList.add("head-selected");
-  hr.append(th)
+  th.onclick=()=>choose({kind:"column",c});
+  if(isHeadSelected("column",c))th.classList.add("head-selected");hr.append(th)
  }
  head.append(hr);table.append(head);
- const body=make("tbody");
- for(let r=page*PAGE;r<=endRow;r++){
+ const body=make("tbody"),colspan=endCol+2;
+ function spacer(count){
+  if(count<=0)return;
+  const tr=make("tr"),td=make("td",undefined,"virtual-spacer");
+  td.colSpan=colspan;td.style.height=(count*45)+"px";
+  tr.append(td);body.append(tr)
+ }
+ spacer(rowStart);
+ for(let r=rowStart;r<=endRow;r++){
   const tr=make("tr"),rh=make("th",String(r+1),"rowhead");
   rh.onclick=()=>choose({kind:"row",r});if(isHeadSelected("row",r))rh.classList.add("head-selected");
   tr.append(rh);
@@ -84,6 +94,7 @@ function refresh(keepScroll=true){
   }
   body.append(tr)
  }
+ spacer(lastLogicalRow-endRow);
  table.append(body);scroll.replaceChildren(table);
  scroll.scrollTop=top;scroll.scrollLeft=left;
  markFillHandle();updateHeads();updateFloat()
@@ -123,7 +134,7 @@ function updateSelectedVisual(){
   if(isSelected(r,c))td.classList.add(selection.kind==="cell"?"chosen":selection.kind==="range"?"in-range":"axis-selected")
  });
  document.querySelectorAll(".sheet-table th[data-col]").forEach(th=>th.classList.toggle("head-selected",isHeadSelected("column",+th.dataset.col)));
- document.querySelectorAll(".sheet-table th.rowhead").forEach((th,i)=>th.classList.toggle("head-selected",isHeadSelected("row",page*PAGE+i)));
+ document.querySelectorAll(".sheet-table th.rowhead").forEach((th,i)=>th.classList.toggle("head-selected",isHeadSelected("row",rowStart+i)));
  markFillHandle()
 }
 function selectionName(){
@@ -452,7 +463,7 @@ function createDemo(){
 }
 function load(b,file){
  if(!b?.SheetNames?.length)throw Error("Il file non contiene fogli.");
- book=b;engine=new CercaXEngine.Engine(b);sheet=b.SheetNames[0];name=file;page=0;selection=null;dirty=false;styleMap.clear();
+ book=b;engine=new CercaXEngine.Engine(b);sheet=b.SheetNames[0];name=file;rowStart=0;selection=null;dirty=false;styleMap.clear();
  $("#welcome").hidden=true;$("#workspace").hidden=false;
  setOrientation(orientation);
  renderSheets();refresh(false);toast("Aperto: "+file)
@@ -461,7 +472,7 @@ function renderSheets(){
  const list=$("#sheetPicker");list.replaceChildren(make("h3","Fogli di lavoro"));
  for(const sh of book.SheetNames){
   const item=button(sh,()=>{
-   sheet=sh;page=0;selection=null;list.hidden=true;hidePanel();refresh(false)
+   sheet=sh;rowStart=0;selection=null;list.hidden=true;hidePanel();refresh(false)
   },sh===sheet?"current":"");
   list.append(item)
  }
@@ -489,10 +500,18 @@ $("#menuSave").onclick=()=>{$("#mainMenu").hidden=true;exportFile()};
 $("#menuRows").onclick=()=>{showRows=!showRows;updateHeads();$("#mainMenu").hidden=true};
 $("#menuCols").onclick=()=>{showCols=!showCols;updateHeads();$("#mainMenu").hidden=true};
 $("#menuSelectAll").onclick=()=>{$("#mainMenu").hidden=true;choose({kind:"sheet"})};
-$("#menuNext").onclick=()=>{page++;selection=null;$("#mainMenu").hidden=true;hidePanel();refresh(false)};
-$("#menuPrev").onclick=()=>{page=Math.max(0,page-1);selection=null;$("#mainMenu").hidden=true;hidePanel();refresh(false)};
+$("#menuNext").onclick=()=>{selection=null;$("#mainMenu").hidden=true;hidePanel();$("#gridScroll").scrollBy({top:PAGE*45,behavior:"smooth"})};
+$("#menuPrev").onclick=()=>{selection=null;$("#mainMenu").hidden=true;hidePanel();$("#gridScroll").scrollBy({top:-PAGE*45,behavior:"smooth"})};
 $("#menuHome").onclick=()=>{if(dirty&&!confirm("Tornare alla schermata iniziale? Esporta prima per non perdere le modifiche."))return;$("#workspace").hidden=true;$("#welcome").hidden=false;$("#mainMenu").hidden=true};
 $("#saveButton").onclick=exportFile;
+let scrollPending=false;
+$("#gridScroll").addEventListener("scroll",()=>{
+ if(!book||scrollPending)return;
+ const target=Math.max(0,Math.floor($("#gridScroll").scrollTop/45)-14);
+ if(Math.abs(target-rowStart)<=12)return;
+ scrollPending=true;
+ requestAnimationFrame(()=>{scrollPending=false;refresh(true)})
+});
 $("#selectionInfo").onclick=()=>{if(selection)updatePanel();else toast("Tocca una cella per selezionarla")};
 function setOrientation(v){
  orientation=v;const el=$("#workspace"),portrait=window.innerHeight>=window.innerWidth;
