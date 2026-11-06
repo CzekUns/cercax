@@ -33,3 +33,7 @@ Titolo ORONZO solo interno; no nome commerciale Pro Evolution Soccer, nomi/volti
 
 ## Agente Copy & Narrative (D)
 Quarto agente indipendente: `agent/oronzo-copy` → `oronzo/content/`. Incarico: `oronzo/agents/04-copy.md`; vincoli: `oronzo/narrative-contract.md`. Produce personaggi ricorrenti, eventi condizionali, microcopy, dialoghi e note per integrare l'umorismo originale ispirato alla commedia italiana degli anni Ottanta e al managerial humour di Theme Hospital, senza copiare opere protette. L'orchestratore resta responsabile dell'integrazione nel motore.
+
+
+## Roadmap dei cinque nuovi sistemi
+Leggi `oronzo/engine-contract.md`. Agenti 5–9 su cinque branch distinti costruiscono match-view, motore di simulazione, carriera, attributi e allenamenti, allenatore/società/presidenti. Il motore genera i fatti; il renderer li visualizza, i moduli carriera e club governano le conseguenze, il copy scrive personaggi e microtesti. Il lavoro è **modulare** e non ancora integrato nella demo attuale finché l'orchestratore non effettua e verifica gli innesti. Le issue operative sono #7, #8, #9, #10, #11. L'agente 4 deve fornire almeno 8 presidenti originali come profili dati per l'agente 9.
