@@ -19,7 +19,57 @@ function renderTactics(){ $("formations").innerHTML=Object.keys(formations).map(
 $("press").addEventListener("input",e=>{S.press=Number(e.target.value);$("pressLabel").textContent=S.press;save()});$("att").addEventListener("input",e=>{S.attack=Number(e.target.value);$("attLabel").textContent=S.attack;save()});
 $all("[data-training]").forEach(btn=>btn.addEventListener("click",()=>{if(S.trainingDone){$("trainingReport").textContent="Seduta già svolta: attendi la prossima giornata.";return}const k=btn.dataset.training;for(const p of S.players){if(k==="fitness"){p.stamina=clamp(p.stamina+2,1,99);p.fatigue=clamp(p.fatigue+8,0,100)}if(k==="tech"){p.tech=clamp(p.tech+1,1,99);p.fatigue=clamp(p.fatigue+6,0,100)}if(k==="tactics"){p.confidence=clamp(p.confidence+2,1,99);p.fatigue=clamp(p.fatigue+5,0,100)}if(k==="rest"){p.fatigue=clamp(p.fatigue-22,0,100);p.morale=clamp(p.morale+2,1,99)}}S.trainingDone=true;save();render();$("trainingReport").textContent="Seduta completata: "+btn.querySelector("b").textContent.toLowerCase()+". Le condizioni sono state aggiornate."}));
 $all("[data-coach]").forEach(b=>b.addEventListener("click",()=>{S.coaching=b.dataset.coach;if(b.dataset.coach==="attack")S.attack=80;if(b.dataset.coach==="defend")S.attack=20;if(b.dataset.coach==="balance")S.attack=50;save();render();$("commentary").textContent="Dalla panchina arriva l'ordine: "+b.textContent.trim()+"."}));
-const pitch=$("pitch"),ctx=pitch.getContext("2d",{alpha:false});ctx.imageSmoothingEnabled=false;let focus={x:160,y:220,owner:0};function draw(){if(!ctx)return;const w=320,h=440;for(let i=0;i<11;i++){ctx.fillStyle=i%2?"#237c42":"#27854a";ctx.fillRect(0,i*40,w,40)}ctx.strokeStyle="#e3eed4";ctx.lineWidth=2;ctx.strokeRect(13,13,294,414);ctx.beginPath();ctx.moveTo(13,220);ctx.lineTo(307,220);ctx.arc(160,220,43,0,Math.PI*2);ctx.stroke();ctx.strokeRect(91,13,138,59);ctx.strokeRect(91,368,138,59);ctx.strokeRect(129,13,62,22);ctx.strokeRect(129,405,62,22);ctx.fillStyle="#f7ecdb";ctx.fillRect(139,7,42,6);ctx.fillRect(139,427,42,6);const t=match?.minute||0;const starters=S.players.filter(p=>p.starter);const ps=formations[S.formation];const players=[];for(let i=0;i<11;i++){const f=ps[i];const cy=440-f[1]*4.4;const cx=f[0]*3.2;const wiggle=Math.sin(t*.38+i*1.6)*9;const y=Math.max(23,Math.min(417,cy+Math.cos(t*.29+i)*8));players.push({x:clamp(cx+wiggle,25,295),y,team:0,id:starters[i]?.id||i+1})}for(let i=0;i<11;i++){const f=ps[i];const cy=f[1]*4.4;const cx=(100-f[0])*3.2;const wiggle=Math.sin(t*.3+i*2.2)*8;players.push({x:clamp(cx+wiggle,25,295),y:clamp(cy+Math.cos(t*.25+i)*9,23,417),team:1,id:i+1})}players.forEach((p,i)=>{ctx.fillStyle="#0006";ctx.fillRect(Math.round(p.x)-4,Math.round(p.y)+5,10,3);const x=Math.round(p.x),y=Math.round(p.y);ctx.fillStyle=p.team?"#eae5d9":"#e7bb86";ctx.fillRect(x-2,y-7,5,4);ctx.fillStyle=p.team?"#b73e3e":"#294ecd";ctx.fillRect(x-4,y-3,9,7);ctx.fillStyle=p.team?"#f0f0f0":"#f6c457";ctx.fillRect(x-3,y+4,2,4);ctx.fillRect(x+2,y+4,2,4);ctx.fillStyle=p.team?"#f9df95":"#f4ecb0";ctx.fillRect(x-1,y-1,2,2)});const owner=players[Math.floor((t*1.13)%players.length)];const bx=owner?.x||160,by=(owner?.y||220)+9;ctx.fillStyle="#07150e";ctx.fillRect(Math.round(bx)-3,Math.round(by)-3,7,7);ctx.fillStyle="#eeeae1";ctx.fillRect(Math.round(bx)-2,Math.round(by)-2,5,5);ctx.fillStyle="#101820";ctx.fillRect(Math.round(bx),Math.round(by),2,2)}
+const pitch=$("pitch"),ctx=pitch.getContext("2d",{alpha:false});ctx.imageSmoothingEnabled=false;let focus={x:160,y:220,owner:0};function draw(){
+ if(!ctx)return;
+ const w=440,h=280, t=match?.minute||0;
+ ctx.imageSmoothingEnabled=false;
+ for(let i=0;i<11;i++){ctx.fillStyle=i%2?"#217643":"#27854b";ctx.fillRect(i*40,0,40,h);}
+ ctx.strokeStyle="#e5ecd9";ctx.lineWidth=2;
+ ctx.strokeRect(13,13,414,254);
+ ctx.beginPath();ctx.moveTo(220,13);ctx.lineTo(220,267);ctx.arc(220,140,36,0,Math.PI*2);ctx.stroke();
+ ctx.strokeRect(13,72,61,136);ctx.strokeRect(366,72,61,136);
+ ctx.strokeRect(13,105,23,70);ctx.strokeRect(404,105,23,70);
+ ctx.strokeRect(5,116,8,48);ctx.strokeRect(427,116,8,48);
+ ctx.fillStyle="#f5ebd2";ctx.fillRect(220,139,2,2);
+ ctx.fillRect(75,139,3,3);ctx.fillRect(363,139,3,3);
+ const ps=formations[S.formation], starters=S.players.filter(p=>p.starter), players=[];
+ for(let i=0;i<11;i++){
+  const p=ps[i];const x=clamp(440-(p[1]/100)*440+Math.sin(t*.25+i*1.5)*9,26,414);
+  const y=clamp((p[0]/100)*280+Math.cos(t*.3+i)*7,22,258);
+  players.push({x,y,team:0,id:starters[i]?.id||i+1});
+ }
+ for(let i=0;i<11;i++){
+  const p=ps[i];const x=clamp((p[1]/100)*440+Math.sin(t*.28+i*2.1)*9,26,414);
+  const y=clamp((1-p[0]/100)*280+Math.cos(t*.22+i)*8,22,258);
+  players.push({x,y,team:1,id:i+1});
+ }
+ const pixel=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(x,y,w,h)};
+ const drawPlayer=(p,i)=>{
+  const x=Math.round(p.x),y=Math.round(p.y),enemy=p.team;
+  const shirt=enemy?"#b23d42":"#e3d9ba",trim=enemy?"#e6d6be":"#254cbd";
+  const shorts=enemy?"#e5ded0":"#2247b8";
+  pixel(x-5,y+8,12,3,"#0c3c29");
+  pixel(x-2,y-12,6,2,"#2c211e");
+  pixel(x-4,y-10,10,6,"#b78054");
+  pixel(x-3,y-9,2,1,"#e5b18a");
+  pixel(x-6,y-4,14,3,trim);
+  pixel(x-5,y-4,12,9,shirt);
+  pixel(x-3,y-3,2,8,trim);
+  pixel(x+2,y-3,2,8,trim);
+  pixel(x-9,y-2,3,7,"#a96e4d");
+  pixel(x+8,y-2,3,7,"#a96e4d");
+  pixel(x-5,y+4,12,5,shorts);
+  pixel(x-4,y+9,3,6,"#dfddd3");
+  pixel(x+3,y+9,3,6,"#dfddd3");
+  pixel(x-5,y+15,5,2,"#272b29");
+  pixel(x+3,y+15,5,2,"#272b29");
+ };
+ players.forEach(drawPlayer);
+ const owner=players[Math.floor((t*1.13)%players.length)];
+ const bx=Math.round(owner?.x||220)+11,by=Math.round(owner?.y||140)+10;
+ pixel(bx-4,by-3,8,8,"#0e2921");pixel(bx-3,by-3,6,6,"#fff2dc");
+ pixel(bx-1,by-1,3,3,"#19212c");pixel(bx-3,by+2,2,2,"#19212c");
+}
 function timeStr(min){let m=Math.min(90,Math.floor(min));return String(m).padStart(2,"0")+":00"}
 function strength(){const p=S.players.filter(x=>x.starter);const avg=p.reduce((v,x)=>v+x.tech*.35+x.speed*.15+x.stamina*.15+x.confidence*.15+x.morale*.15+x.luck*.05-x.fatigue*.1,0)/p.length;return avg+S.attack*.1+S.press*.04}
 function msg(s){$("commentary").textContent=s;S.log.unshift(s);S.log=S.log.slice(0,12)}
