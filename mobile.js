@@ -520,6 +520,17 @@ $("#menuNext").onclick=()=>{selection=null;$("#mainMenu").hidden=true;hidePanel(
 $("#menuPrev").onclick=()=>{selection=null;$("#mainMenu").hidden=true;hidePanel();$("#gridScroll").scrollBy({top:-PAGE*45,behavior:"smooth"})};
 $("#menuHome").onclick=()=>{if(dirty&&!confirm("Tornare alla schermata iniziale? Esporta prima per non perdere le modifiche."))return;$("#workspace").hidden=true;$("#welcome").hidden=false;$("#mainMenu").hidden=true};
 $("#saveButton").onclick=exportFile;
+$("#menuFullscreen").onclick=async()=>{
+ $("#mainMenu").hidden=true;
+ try{
+  if(document.fullscreenElement){await document.exitFullscreen()}
+  else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen()}
+  else throw Error("Fullscreen API non disponibile");
+ }catch(e){toast("La modalità schermo intero non è disponibile in questo browser")}
+};
+window.addEventListener("beforeunload",e=>{
+ if(dirty){e.preventDefault();e.returnValue=""}
+});
 let scrollPending=false;
 $("#gridScroll").addEventListener("scroll",()=>{
  if(!book||scrollPending)return;
