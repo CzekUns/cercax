@@ -57,13 +57,35 @@
  </nav>
  <nav id="sheetPicker" class="popup" hidden aria-label="Scegli foglio"></nav>
  <div id="editorOverlay" class="backdrop" hidden>
+  <section id="referencePicker" class="reference-picker" hidden aria-label="Seleziona riferimenti dal foglio">
+   <div class="ref-header">
+    <div><strong>Seleziona dal foglio</strong><small>Solo selezione · nessuna modifica ai valori</small></div>
+    <button id="refCancel" type="button" aria-label="Torna alla formula senza inserire">×</button>
+   </div>
+   <nav id="refSheetTabs" class="ref-tabs" aria-label="Scegli foglio per il riferimento"></nav>
+   <div class="ref-controls">
+    <div class="ref-modes" role="group" aria-label="Tipo di riferimento">
+     <button id="refCellMode" type="button" class="active" aria-pressed="true">Cella</button>
+     <button id="refRangeMode" type="button" aria-pressed="false">Intervallo</button>
+    </div>
+    <form id="refGoto" class="ref-goto"><input id="refAddress" placeholder="Es. B240" aria-label="Vai a una cella"><button type="submit">Vai</button></form>
+   </div>
+   <div class="ref-instructions" id="refInstructions">Tocca una cella per usarla nella formula.</div>
+   <div id="refViewport" class="ref-viewport" aria-label="Anteprima selezionabile del foglio">
+    <div id="refSurface" class="ref-surface"></div>
+   </div>
+   <div class="ref-footer">
+    <div class="ref-current"><small>Riferimento scelto</small><strong id="refSelection">Nessuna cella</strong></div>
+    <button id="refInsert" type="button" disabled>Inserisci ↵</button>
+   </div>
+  </section>
   <section class="sheet-dialog" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
    <div class="dialog-top">
     <div><div class="dialog-title" id="editorTitle">Cella</div><p class="dialog-sub">Scrivi un valore o una formula che inizia con =</p></div>
     <button class="close" id="closeEditor" type="button" aria-label="Chiudi senza salvare">×</button>
    </div>
    <div class="edit-bubble"><small>Il contenuto corrente restituisce</small><strong id="editorOld">—</strong></div>
-   <label class="field-caption" for="editInput">Modifica il contenuto qui sotto</label>
+   <div class="formula-compose-line"><label class="field-caption" for="editInput">Componi la formula o scrivi un valore</label><button id="addReference" type="button" title="Seleziona una cella o un intervallo dal foglio">＋ <span>Dal foglio</span></button></div>
    <textarea id="editInput" spellcheck="false" autocapitalize="off" autocomplete="off" rows="6" placeholder="Scrivi qui, ad esempio =SUM(A1:A10)"></textarea>
    <p id="livePreview" class="field-caption" role="status"></p>
    <p class="field-caption">Formato della cella · applicato al salvataggio</p>
