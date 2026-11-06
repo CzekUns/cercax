@@ -48,3 +48,6 @@ A. Legge i 9 REPORT.md, le issue e le PR; controlla file changed e perimetri; ve
 B. Chiede modifiche quando necessarie; merge SOLO dopo esito positivo e conflitti risolti, senza cancellare lavoro altrui.
 C. Dopo il merge, aggiorna esclusivamente su `main` il `NEXT.md` dell'agente con SHA mergiato, ciò che è stato verificato, i bug residui, nuove attività e criteri di accettazione.
 D. La chat dell'agente, richiamata con lo stesso testo di `RUN.md`, riparte dal nuovo `main`. Nessun avanzamento automatico non avviato.
+
+## Revisione Work su richiesta: COERENTIZZATORE
+Coerentizzatore non è un decimo agente di produzione: è un revisore ausiliario isolato. L'orchestratore mantiene la memoria operativa in `oronzo/coordination/ORCHESTRATOR.md`. Prima di attivare Work, l'orchestratore imposta un singolo incarico in `coerentizzatore/REQUEST.md` indicando PR, commit, criteri e confini del controllo. Work riceve il proprio prompt fisso `coerentizzatore/RUN.md` e produce un rapporto verificabile; NON fa merge, NON modifica NEXT, NON integra il runtime o il codice degli agenti. Uno stato `STANDBY` significa non utilizzare Work. Le chat operano solo su richiesta, senza reporting automatico fra chat.
