@@ -111,3 +111,52 @@ button,input,textarea,select{font:inherit}button{cursor:pointer;touch-action:man
 .axis-item small{font-size:11px;color:#74907b}
 .axis-item strong{font-size:13px;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .axis-more{border:0;background:transparent;color:#187a48;font-weight:650;font-size:12px;padding:5px 0}
+
+
+/* Formula Composer: semi-transparent spreadsheet above the chat-like editor */
+.formula-compose-line{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:9px}
+#addReference{border:1px solid #abd9bd;background:#dff6e8;color:#116b3e;border-radius:12px;padding:9px 13px;min-height:42px;font-size:22px;font-weight:800;display:flex;align-items:center;gap:5px;flex-shrink:0}
+#addReference span{font-size:12px;font-weight:750}
+.backdrop.picking{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;padding:0;background:rgba(12,46,28,.2);backdrop-filter:none}
+.backdrop.picking .reference-picker{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;background:rgba(239,249,242,.87);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid #b9ddc8;border-radius:0 0 16px 16px;color:#1d412e;overflow:hidden;box-shadow:0 7px 30px #15382325}
+.reference-picker[hidden]{display:none!important}
+.ref-header{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:13px 13px 6px}
+.ref-header strong{display:block;font-size:16px;font-weight:800}
+.ref-header small{display:block;color:#567565;font-size:11px;margin-top:3px}
+.ref-header button{width:35px;height:35px;border:0;background:#cee8d7;color:#275e40;border-radius:50%;font-size:22px}
+.ref-tabs{display:flex;gap:5px;overflow:auto;padding:6px 11px 8px;flex-shrink:0;scrollbar-width:thin}
+.ref-tabs button{white-space:nowrap;padding:7px 11px;background:rgba(255,255,255,.7);color:#476d52;border:1px solid #c9e4d2;border-radius:11px;font-size:12px;font-weight:650}
+.ref-tabs button.active{background:#137d4b;color:white;border-color:#137d4b}
+.ref-controls{padding:0 11px 7px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.ref-modes{display:flex;gap:4px;border:1px solid #c8e2d1;background:#e3f3e8;padding:3px;border-radius:12px}
+.ref-modes button{padding:7px 12px;font-size:12px;border:0;border-radius:9px;background:transparent;color:#527962;font-weight:650}
+.ref-modes button.active{color:#fff;background:#157d4c}
+.ref-goto{display:flex;align-items:center;gap:4px}
+.ref-goto input{width:80px;height:34px;border:1px solid #c8e1d1;background:#fff;border-radius:9px;padding:7px 9px;font-size:12px;text-transform:uppercase}
+.ref-goto button{height:34px;border:0;background:#ccecd7;color:#246541;border-radius:9px;padding:7px 10px;font-size:12px;font-weight:750}
+.ref-instructions{font-size:11px;line-height:1.4;color:#577766;padding:0 12px 8px}
+.ref-viewport{flex:1 1 auto;min-height:90px;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;background:rgba(255,255,255,.58);border-block:1px solid #b7d8c4}
+.ref-surface{position:relative;contain:layout style;min-height:100%;min-width:100%}
+.ref-cell,.ref-row-label,.ref-col-label,.ref-corner{position:absolute;display:flex;align-items:center;justify-content:flex-start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 7px;font-size:12px;border-right:1px solid #dce9df;border-bottom:1px solid #dce9df;user-select:none;-webkit-user-select:none}
+.ref-cell{background:rgba(255,255,255,.7);color:#2b4935;cursor:crosshair;touch-action:pan-x pan-y}
+.ref-cell.ref-formula{color:#137247}
+.ref-cell.ref-chosen{background:rgba(36,167,93,.26)!important;box-shadow:inset 0 0 0 2px #159351;color:#145d3b}
+.ref-cell.ref-range{background:rgba(38,161,88,.20)!important;box-shadow:inset 0 0 0 1px #44b67e}
+.ref-cell.ref-anchor{box-shadow:inset 0 0 0 3px #0b8549}
+.ref-row-label,.ref-col-label,.ref-corner{justify-content:center;background:rgba(224,239,229,.95);color:#47745c;font-weight:700;font-size:11px;z-index:2}
+.ref-col-label{z-index:4}.ref-corner{z-index:5}
+.ref-footer{flex:0 0 auto;display:flex;align-items:center;gap:10px;justify-content:space-between;padding:10px 12px;background:rgba(242,251,245,.96)}
+.ref-current{min-width:0;overflow:hidden}
+.ref-current small{display:block;color:#5e8069;font-size:10px}
+.ref-current strong{display:block;font-size:14px;color:#0c753e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#refInsert{padding:11px 14px;border-radius:11px;background:#0e8249;color:white;border:0;white-space:nowrap;font-weight:750;font-size:13px}
+#refInsert:disabled{background:#c2d6c7;color:#698273}
+.backdrop.picking .sheet-dialog{position:relative;flex:0 0 auto;width:100%;max-width:none;max-height:min(36dvh,300px);padding:11px 12px max(9px,env(safe-area-inset-bottom));margin:0;overflow:auto;border-radius:19px 19px 0 0;box-shadow:0 -5px 30px #112d1b2e;background:#fbfefb}
+.backdrop.picking .dialog-title{font-size:14px;margin:0}
+.backdrop.picking .dialog-sub{font-size:10px}
+.backdrop.picking .dialog-top .close{height:29px;width:29px;font-size:18px}
+.backdrop.picking .edit-bubble,.backdrop.picking #livePreview,.backdrop.picking #editorFormat,.backdrop.picking .dialog-actions,.backdrop.picking .sheet-dialog>.field-caption{display:none!important}
+.backdrop.picking #addReference{background:#0f7847;color:white;min-height:34px;padding:6px 10px;font-size:18px}
+.backdrop.picking .formula-compose-line{margin-top:6px}
+.backdrop.picking #editInput{min-height:70px;max-height:95px;height:72px;resize:none;margin:6px 0 0;padding:10px 12px;font-size:17px;border-radius:13px;line-height:1.4}
+@media(max-height:600px){.backdrop.picking .sheet-dialog{max-height:39dvh}.ref-header{padding-top:6px}.ref-tabs{padding-block:3px}.ref-controls{padding-bottom:3px}.ref-instructions{padding-bottom:3px}.backdrop.picking #editInput{height:52px;min-height:50px}}
