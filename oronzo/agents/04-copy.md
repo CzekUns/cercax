@@ -31,3 +31,11 @@ Voglio dettagli che facciano sorridere **senza trasformare ogni momento in una g
 Contenuti immediatamente riutilizzabili nel gioco: file JSON validi, ID unici, testo riletto, conteggi verificati, esempi di preview e note d'integrazione. Se riesci, realizza una piccola `demo.html` interna a `oronzo/content/` per provare gli eventi e le scelte con uno stato di squadra simulato, senza toccare il motore.
 
 Non modificare `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, le cartelle degli altri tre agenti o CercaX. Non limitarti a consigliare: **produci i contenuti completi, testali, fai commit nel branch assegnato e apri una Pull Request verso main**. Nella consegna indica file reali, conteggi verificati, 8 esempi di humour e link PR.
+
+
+### ESTENSIONE PRIORITARIA — PRESIDENTI DELLE SOCIETÀ (richiesta dell'orchestratore)
+Aggiungi **almeno 8 presidenti di calcio originali** in `oronzo/content/presidents.json`, con i campi `PresidentProfileV1` di `oronzo/engine-contract.md` e le regole in `oronzo/narrative-contract.md`. Devono essere una galleria di figure da commedia italiana anni '80: un burocrate «megadirettore» ossessionato dalla forma, uno «zio» faccendiere con conoscenze e favori, un industriale avaro, un imprenditore megalomane, un presidente del popolo, un ex campione nostalgico e altri caratteri distinti. Questi sono **archetipi**, non personaggi da copiare dai film: inventa nomi, biografie, look verbali, contraddizioni e dialoghi da zero; niente battute o citazioni riconoscibili.
+
+Varia davvero `authoritarianism,frugality,vanity,patience,interference,ambition,riskTolerance` su 0..100. Almeno 16 eventi e 12 dialoghi del pacchetto devono coinvolgere queste figure, senza cancellare la varietà degli altri contenuti richiesti. Crea testi che reagiscano a serie di sconfitte, richieste del mister, andamento di bilancio, rivalità e coppe. L'agente 9 userà i profili per il comportamento algoritmico: tu non modificare il suo codice né il motore della partita. Restano obbligatori i file originali (`characters.json,events.json,microcopy.json,dialogues.json`), README e QA, più questo nuovo `presidents.json`.
+
+**Issue collaborazione:** https://github.com/CzekUns/cercax/issues/11 (agente società); leggi `oronzo/engine-contract.md` prima di definire i dati, così non consegni un archivio inutilizzabile.
