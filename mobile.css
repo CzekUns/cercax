@@ -104,3 +104,10 @@ button,input,textarea,select{font:inherit}button{cursor:pointer;touch-action:man
 .workspace.show-cols .edge.top,.workspace.show-rows .edge.left{background:transparent}
 .workspace.show-cols .edge.top::after,.workspace.show-rows .edge.left::after{background:rgba(13,116,66,.9)}
 .grid-scroll{touch-action:pan-x pan-y pinch-zoom}
+
+.axis-heading{margin:10px 0 5px;font-size:11px;color:#62816c;font-weight:650}
+.axis-strip{display:flex;gap:6px;overflow:auto;scrollbar-width:thin;max-height:92px;padding:3px 0 8px;touch-action:pan-x}
+.axis-item{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;min-width:98px;max-width:180px;min-height:65px;overflow:hidden;padding:9px 11px;border:1px solid #d8e9dd;background:#f6fbf7;color:#185d3a;border-radius:12px}
+.axis-item small{font-size:11px;color:#74907b}
+.axis-item strong{font-size:13px;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.axis-more{border:0;background:transparent;color:#187a48;font-weight:650;font-size:12px;padding:5px 0}
