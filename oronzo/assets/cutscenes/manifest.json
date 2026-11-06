@@ -1,0 +1,833 @@
+{
+  "schema": "oronzo.cutscenes.v1",
+  "orientation": "landscape",
+  "frame": {
+    "width": 320,
+    "height": 180
+  },
+  "strip": {
+    "width": 1920,
+    "height": 180,
+    "layout": "6 horizontal frames"
+  },
+  "frameCount": 6,
+  "loop": false,
+  "materials": {
+    "ids": {
+      "transparent": 0,
+      "skin": 1,
+      "hair": 2,
+      "shirt": 3,
+      "shirtB": 4,
+      "shorts": 5,
+      "socks": 6,
+      "boots": 7,
+      "outline": 8,
+      "gloves": 9,
+      "ball": 10,
+      "yellowCard": 11,
+      "redCard": 12,
+      "eyes": 13,
+      "trim": 14,
+      "refereeShirt": 15,
+      "refereeShorts": 16,
+      "refereeSocks": 17
+    },
+    "shadeLevels": 4,
+    "shadeOrder": "0=highlight,1=base,2=shadow,3=deep_shadow",
+    "encoding": "material mask: material ID (0 transparent); shade mask: level 0..3; alpha: material>0",
+    "palette": {
+      "skin": [
+        "#ffe2ac",
+        "#eeb881",
+        "#b77550",
+        "#784838"
+      ],
+      "hair": [
+        "#74503e",
+        "#50352e",
+        "#33272e",
+        "#191d26"
+      ],
+      "shirt": [
+        "#92baff",
+        "#3769cb",
+        "#234d9f",
+        "#193169"
+      ],
+      "shirtB": [
+        "#f1f2f0",
+        "#ccd4df",
+        "#8b94b0",
+        "#59657f"
+      ],
+      "shorts": [
+        "#fffaf0",
+        "#e4e8e3",
+        "#a9b2c5",
+        "#65738f"
+      ],
+      "socks": [
+        "#8daefa",
+        "#3260c9",
+        "#244ba3",
+        "#172d74"
+      ],
+      "boots": [
+        "#7e8796",
+        "#394452",
+        "#252a32",
+        "#161c29"
+      ],
+      "outline": [
+        "#1f2028",
+        "#1d1e28",
+        "#161720",
+        "#10121b"
+      ],
+      "gloves": [
+        "#fff9f0",
+        "#e0e6dd",
+        "#abb9b7",
+        "#596c6e"
+      ],
+      "ball": [
+        "#ffffff",
+        "#e0e5e4",
+        "#424c5a",
+        "#151821"
+      ],
+      "yellowCard": [
+        "#fffdb8",
+        "#ffeb34",
+        "#d6a81b",
+        "#855e19"
+      ],
+      "redCard": [
+        "#ffb6a3",
+        "#f34b48",
+        "#c92335",
+        "#701d2f"
+      ],
+      "eyes": [
+        "#fbfbec",
+        "#cfd5db",
+        "#4b4850",
+        "#161921"
+      ],
+      "trim": [
+        "#ffffff",
+        "#d0dce2",
+        "#7a9ab4",
+        "#40536b"
+      ],
+      "refereeShirt": [
+        "#7b818e",
+        "#313744",
+        "#1b202e",
+        "#11131d"
+      ],
+      "refereeShorts": [
+        "#626b77",
+        "#373e4a",
+        "#252b37",
+        "#141820"
+      ],
+      "refereeSocks": [
+        "#667480",
+        "#3b4353",
+        "#222935",
+        "#141b23"
+      ]
+    }
+  },
+  "patterns": {
+    "solid": "shirt only",
+    "vertical": "shirt/shirtB alternation based on local torso x",
+    "horizontal": "shirt/shirtB alternation based on local torso y",
+    "halves": "shirt/shirtB split across torso"
+  },
+  "scenes": {
+    "goal": {
+      "id": "goal_celebrate",
+      "sprite": "goal_celebrate.png",
+      "materialsMask": "goal_celebrate_materials.png",
+      "shadesMask": "goal_celebrate_shades.png",
+      "background": "stadium_background.png",
+      "frameCount": 6,
+      "width": 320,
+      "height": 180,
+      "frameWidth": 320,
+      "frameHeight": 180,
+      "fps": 10,
+      "durationMs": 600,
+      "loop": false,
+      "pivot": {
+        "x": 160,
+        "y": 153
+      },
+      "drawOrder": [
+        "background",
+        "recoloredSprite"
+      ],
+      "opaquePixelsPerFrame": [
+        2782,
+        2521,
+        2280,
+        2280,
+        2668,
+        2830
+      ],
+      "role": "player",
+      "defaultAppearance": {
+        "skin": [
+          "#ffe2ac",
+          "#eeb881",
+          "#b77550",
+          "#784838"
+        ],
+        "hair": [
+          "#74503e",
+          "#50352e",
+          "#33272e",
+          "#191d26"
+        ],
+        "shirt": [
+          "#92baff",
+          "#3769cb",
+          "#234d9f",
+          "#193169"
+        ],
+        "shirtB": [
+          "#f1f2f0",
+          "#ccd4df",
+          "#8b94b0",
+          "#59657f"
+        ],
+        "shorts": [
+          "#fffaf0",
+          "#e4e8e3",
+          "#a9b2c5",
+          "#65738f"
+        ],
+        "socks": [
+          "#8daefa",
+          "#3260c9",
+          "#244ba3",
+          "#172d74"
+        ],
+        "boots": [
+          "#7e8796",
+          "#394452",
+          "#252a32",
+          "#161c29"
+        ],
+        "outline": [
+          "#1f2028",
+          "#1d1e28",
+          "#161720",
+          "#10121b"
+        ],
+        "gloves": [
+          "#fff9f0",
+          "#e0e6dd",
+          "#abb9b7",
+          "#596c6e"
+        ],
+        "ball": [
+          "#ffffff",
+          "#e0e5e4",
+          "#424c5a",
+          "#151821"
+        ],
+        "yellowCard": [
+          "#fffdb8",
+          "#ffeb34",
+          "#d6a81b",
+          "#855e19"
+        ],
+        "redCard": [
+          "#ffb6a3",
+          "#f34b48",
+          "#c92335",
+          "#701d2f"
+        ],
+        "eyes": [
+          "#fbfbec",
+          "#cfd5db",
+          "#4b4850",
+          "#161921"
+        ],
+        "trim": [
+          "#ffffff",
+          "#d0dce2",
+          "#7a9ab4",
+          "#40536b"
+        ],
+        "refereeShirt": [
+          "#7b818e",
+          "#313744",
+          "#1b202e",
+          "#11131d"
+        ],
+        "refereeShorts": [
+          "#626b77",
+          "#373e4a",
+          "#252b37",
+          "#141820"
+        ],
+        "refereeSocks": [
+          "#667480",
+          "#3b4353",
+          "#222935",
+          "#141b23"
+        ]
+      }
+    },
+    "save": {
+      "id": "goalkeeper_save",
+      "sprite": "goalkeeper_save.png",
+      "materialsMask": "goalkeeper_save_materials.png",
+      "shadesMask": "goalkeeper_save_shades.png",
+      "background": "stadium_goal_background.png",
+      "frameCount": 6,
+      "width": 320,
+      "height": 180,
+      "frameWidth": 320,
+      "frameHeight": 180,
+      "fps": 10,
+      "durationMs": 600,
+      "loop": false,
+      "pivot": {
+        "x": 160,
+        "y": 153
+      },
+      "drawOrder": [
+        "background",
+        "recoloredSprite"
+      ],
+      "opaquePixelsPerFrame": [
+        2852,
+        2669,
+        2863,
+        2855,
+        2739,
+        2919
+      ],
+      "role": "goalkeeper",
+      "defaultAppearance": {
+        "skin": [
+          "#ffe2ac",
+          "#eeb881",
+          "#b77550",
+          "#784838"
+        ],
+        "hair": [
+          "#74503e",
+          "#50352e",
+          "#33272e",
+          "#191d26"
+        ],
+        "shirt": [
+          "#abf899",
+          "#3fbd62",
+          "#217d45",
+          "#174f34"
+        ],
+        "shirtB": [
+          "#e7fee2",
+          "#abe2b1",
+          "#67a984",
+          "#386a55"
+        ],
+        "shorts": [
+          "#474958",
+          "#2b303e",
+          "#1f2830",
+          "#111924"
+        ],
+        "socks": [
+          "#f7f4e2",
+          "#dde2ce",
+          "#aaaeb0",
+          "#66757a"
+        ],
+        "boots": [
+          "#7e8796",
+          "#394452",
+          "#252a32",
+          "#161c29"
+        ],
+        "outline": [
+          "#1f2028",
+          "#1d1e28",
+          "#161720",
+          "#10121b"
+        ],
+        "gloves": [
+          "#fff9f0",
+          "#e0e6dd",
+          "#abb9b7",
+          "#596c6e"
+        ],
+        "ball": [
+          "#ffffff",
+          "#e0e5e4",
+          "#424c5a",
+          "#151821"
+        ],
+        "yellowCard": [
+          "#fffdb8",
+          "#ffeb34",
+          "#d6a81b",
+          "#855e19"
+        ],
+        "redCard": [
+          "#ffb6a3",
+          "#f34b48",
+          "#c92335",
+          "#701d2f"
+        ],
+        "eyes": [
+          "#fbfbec",
+          "#cfd5db",
+          "#4b4850",
+          "#161921"
+        ],
+        "trim": [
+          "#ffffff",
+          "#d0dce2",
+          "#7a9ab4",
+          "#40536b"
+        ],
+        "refereeShirt": [
+          "#7b818e",
+          "#313744",
+          "#1b202e",
+          "#11131d"
+        ],
+        "refereeShorts": [
+          "#626b77",
+          "#373e4a",
+          "#252b37",
+          "#141820"
+        ],
+        "refereeSocks": [
+          "#667480",
+          "#3b4353",
+          "#222935",
+          "#141b23"
+        ]
+      }
+    },
+    "yellow": {
+      "id": "yellow_card",
+      "sprite": "yellow_card.png",
+      "materialsMask": "yellow_card_materials.png",
+      "shadesMask": "yellow_card_shades.png",
+      "background": "stadium_background.png",
+      "frameCount": 6,
+      "width": 320,
+      "height": 180,
+      "frameWidth": 320,
+      "frameHeight": 180,
+      "fps": 8,
+      "durationMs": 750,
+      "loop": false,
+      "pivot": {
+        "x": 160,
+        "y": 153
+      },
+      "drawOrder": [
+        "background",
+        "recoloredSprite"
+      ],
+      "opaquePixelsPerFrame": [
+        4938,
+        4908,
+        4881,
+        4968,
+        5101,
+        5101
+      ],
+      "role": "referee",
+      "defaultAppearance": {
+        "skin": [
+          "#ffe2ac",
+          "#eeb881",
+          "#b77550",
+          "#784838"
+        ],
+        "hair": [
+          "#74503e",
+          "#50352e",
+          "#33272e",
+          "#191d26"
+        ],
+        "shirt": [
+          "#92baff",
+          "#3769cb",
+          "#234d9f",
+          "#193169"
+        ],
+        "shirtB": [
+          "#f1f2f0",
+          "#ccd4df",
+          "#8b94b0",
+          "#59657f"
+        ],
+        "shorts": [
+          "#fffaf0",
+          "#e4e8e3",
+          "#a9b2c5",
+          "#65738f"
+        ],
+        "socks": [
+          "#8daefa",
+          "#3260c9",
+          "#244ba3",
+          "#172d74"
+        ],
+        "boots": [
+          "#7e8796",
+          "#394452",
+          "#252a32",
+          "#161c29"
+        ],
+        "outline": [
+          "#1f2028",
+          "#1d1e28",
+          "#161720",
+          "#10121b"
+        ],
+        "gloves": [
+          "#fff9f0",
+          "#e0e6dd",
+          "#abb9b7",
+          "#596c6e"
+        ],
+        "ball": [
+          "#ffffff",
+          "#e0e5e4",
+          "#424c5a",
+          "#151821"
+        ],
+        "yellowCard": [
+          "#fffdb8",
+          "#ffeb34",
+          "#d6a81b",
+          "#855e19"
+        ],
+        "redCard": [
+          "#ffb6a3",
+          "#f34b48",
+          "#c92335",
+          "#701d2f"
+        ],
+        "eyes": [
+          "#fbfbec",
+          "#cfd5db",
+          "#4b4850",
+          "#161921"
+        ],
+        "trim": [
+          "#ffffff",
+          "#d0dce2",
+          "#7a9ab4",
+          "#40536b"
+        ],
+        "refereeShirt": [
+          "#7b818e",
+          "#313744",
+          "#1b202e",
+          "#11131d"
+        ],
+        "refereeShorts": [
+          "#626b77",
+          "#373e4a",
+          "#252b37",
+          "#141820"
+        ],
+        "refereeSocks": [
+          "#667480",
+          "#3b4353",
+          "#222935",
+          "#141b23"
+        ]
+      }
+    },
+    "red": {
+      "id": "red_card",
+      "sprite": "red_card.png",
+      "materialsMask": "red_card_materials.png",
+      "shadesMask": "red_card_shades.png",
+      "background": "stadium_background.png",
+      "frameCount": 6,
+      "width": 320,
+      "height": 180,
+      "frameWidth": 320,
+      "frameHeight": 180,
+      "fps": 8,
+      "durationMs": 750,
+      "loop": false,
+      "pivot": {
+        "x": 160,
+        "y": 153
+      },
+      "drawOrder": [
+        "background",
+        "recoloredSprite"
+      ],
+      "opaquePixelsPerFrame": [
+        4938,
+        4908,
+        4881,
+        4968,
+        5101,
+        5101
+      ],
+      "role": "referee",
+      "defaultAppearance": {
+        "skin": [
+          "#ffe2ac",
+          "#eeb881",
+          "#b77550",
+          "#784838"
+        ],
+        "hair": [
+          "#74503e",
+          "#50352e",
+          "#33272e",
+          "#191d26"
+        ],
+        "shirt": [
+          "#92baff",
+          "#3769cb",
+          "#234d9f",
+          "#193169"
+        ],
+        "shirtB": [
+          "#f1f2f0",
+          "#ccd4df",
+          "#8b94b0",
+          "#59657f"
+        ],
+        "shorts": [
+          "#fffaf0",
+          "#e4e8e3",
+          "#a9b2c5",
+          "#65738f"
+        ],
+        "socks": [
+          "#8daefa",
+          "#3260c9",
+          "#244ba3",
+          "#172d74"
+        ],
+        "boots": [
+          "#7e8796",
+          "#394452",
+          "#252a32",
+          "#161c29"
+        ],
+        "outline": [
+          "#1f2028",
+          "#1d1e28",
+          "#161720",
+          "#10121b"
+        ],
+        "gloves": [
+          "#fff9f0",
+          "#e0e6dd",
+          "#abb9b7",
+          "#596c6e"
+        ],
+        "ball": [
+          "#ffffff",
+          "#e0e5e4",
+          "#424c5a",
+          "#151821"
+        ],
+        "yellowCard": [
+          "#fffdb8",
+          "#ffeb34",
+          "#d6a81b",
+          "#855e19"
+        ],
+        "redCard": [
+          "#ffb6a3",
+          "#f34b48",
+          "#c92335",
+          "#701d2f"
+        ],
+        "eyes": [
+          "#fbfbec",
+          "#cfd5db",
+          "#4b4850",
+          "#161921"
+        ],
+        "trim": [
+          "#ffffff",
+          "#d0dce2",
+          "#7a9ab4",
+          "#40536b"
+        ],
+        "refereeShirt": [
+          "#7b818e",
+          "#313744",
+          "#1b202e",
+          "#11131d"
+        ],
+        "refereeShorts": [
+          "#626b77",
+          "#373e4a",
+          "#252b37",
+          "#141820"
+        ],
+        "refereeSocks": [
+          "#667480",
+          "#3b4353",
+          "#222935",
+          "#141b23"
+        ]
+      }
+    },
+    "injury": {
+      "id": "injury",
+      "sprite": "injury.png",
+      "materialsMask": "injury_materials.png",
+      "shadesMask": "injury_shades.png",
+      "background": "stadium_background.png",
+      "frameCount": 6,
+      "width": 320,
+      "height": 180,
+      "frameWidth": 320,
+      "frameHeight": 180,
+      "fps": 8,
+      "durationMs": 750,
+      "loop": false,
+      "pivot": {
+        "x": 160,
+        "y": 153
+      },
+      "drawOrder": [
+        "background",
+        "recoloredSprite"
+      ],
+      "opaquePixelsPerFrame": [
+        2521,
+        2280,
+        2278,
+        2281,
+        2824,
+        2818
+      ],
+      "role": "player",
+      "defaultAppearance": {
+        "skin": [
+          "#ffe2ac",
+          "#eeb881",
+          "#b77550",
+          "#784838"
+        ],
+        "hair": [
+          "#74503e",
+          "#50352e",
+          "#33272e",
+          "#191d26"
+        ],
+        "shirt": [
+          "#92baff",
+          "#3769cb",
+          "#234d9f",
+          "#193169"
+        ],
+        "shirtB": [
+          "#f1f2f0",
+          "#ccd4df",
+          "#8b94b0",
+          "#59657f"
+        ],
+        "shorts": [
+          "#fffaf0",
+          "#e4e8e3",
+          "#a9b2c5",
+          "#65738f"
+        ],
+        "socks": [
+          "#8daefa",
+          "#3260c9",
+          "#244ba3",
+          "#172d74"
+        ],
+        "boots": [
+          "#7e8796",
+          "#394452",
+          "#252a32",
+          "#161c29"
+        ],
+        "outline": [
+          "#1f2028",
+          "#1d1e28",
+          "#161720",
+          "#10121b"
+        ],
+        "gloves": [
+          "#fff9f0",
+          "#e0e6dd",
+          "#abb9b7",
+          "#596c6e"
+        ],
+        "ball": [
+          "#ffffff",
+          "#e0e5e4",
+          "#424c5a",
+          "#151821"
+        ],
+        "yellowCard": [
+          "#fffdb8",
+          "#ffeb34",
+          "#d6a81b",
+          "#855e19"
+        ],
+        "redCard": [
+          "#ffb6a3",
+          "#f34b48",
+          "#c92335",
+          "#701d2f"
+        ],
+        "eyes": [
+          "#fbfbec",
+          "#cfd5db",
+          "#4b4850",
+          "#161921"
+        ],
+        "trim": [
+          "#ffffff",
+          "#d0dce2",
+          "#7a9ab4",
+          "#40536b"
+        ],
+        "refereeShirt": [
+          "#7b818e",
+          "#313744",
+          "#1b202e",
+          "#11131d"
+        ],
+        "refereeShorts": [
+          "#626b77",
+          "#373e4a",
+          "#252b37",
+          "#141820"
+        ],
+        "refereeSocks": [
+          "#667480",
+          "#3b4353",
+          "#222935",
+          "#141b23"
+        ]
+      }
+    }
+  },
+  "credits": "Original ORONZO illustration and generative procedural pixel artwork; no third-party game sprites."
+}
