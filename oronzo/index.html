@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="it">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0e291f"><title>Mister di Provincia · Prototipo</title>
+<meta name="description" content="Manageriale calcistico rétro anni '80: allena una squadra di Promozione.">
+<link rel="stylesheet" href="./ui.css"></head>
+<body>
+<div class="game" id="game">
+<header class="top"><div><small>STAGIONE 1985/86 · PROMOZIONE</small><strong>MISTER DI PROVINCIA <em>ALFA</em></strong></div><div class="top-meta"><span id="weekLabel">GIORNATA 1</span><button id="reset" title="Ricomincia" aria-label="Ricomincia la stagione">↺</button></div></header>
+<main>
+<section id="home" class="view active">
+  <div class="desk">
+    <div class="desk-title">UFFICIO DEL MISTER <span>PROVINCIA · 1985</span></div>
+    <div class="notice" id="president">«Mister, quest'anno dobbiamo vincere. Per gli acquisti però non c'è una lira.»</div>
+    <div class="desk-grid">
+      <button class="desk-object" data-go="tactics"><span>▦</span><b>LAVAGNA</b><small>Modulo e ordini</small></button>
+      <button class="desk-object" data-go="squad"><span>▤</span><b>CARTELLINA</b><small>Rosa e morale</small></button>
+      <button class="desk-object" data-go="training"><span>▣</span><b>AGENDA</b><small>Allenamenti</small></button>
+      <button class="desk-object" data-go="match"><span>⚽</span><b>STADIO</b><small>Prossima gara</small></button>
+    </div>
+  </div>
+  <div class="stats" id="overview"></div>
+  <article class="paper"><h2>IL CORRIERE DEL CAMPANILE</h2><p id="headline">La società cerca il miracolo. In panchina arriva un mister con idee confuse ma una gran voglia di lavorare.</p><div id="standings"></div></article>
+</section>
+<section id="squad" class="view">
+  <div class="pane-head"><h1>LA ROSA</h1><span id="squadCount"></span></div>
+  <p class="hint">Tocca un titolare per mandarlo in panchina; poi tocca una riserva per sostituirlo. Le scelte influenzano davvero la partita.</p>
+  <div id="squadTable"></div>
+</section>
+<section id="tactics" class="view">
+  <div class="pane-head"><h1>LAVAGNA TATTICA</h1><span>PREPARAZIONE GARA</span></div>
+  <div class="form-grid" id="formations"></div>
+  <div class="two-col"><label class="control"><span>PRESSING <b id="pressLabel"></b></span><input id="press" type="range" min="0" max="100" step="10" value="50"></label><label class="control"><span>MENTALITÀ <b id="attLabel"></b></span><input id="att" type="range" min="0" max="100" step="10" value="50"></label></div>
+  <div class="chalk"><div id="chalkPlayers"></div><p>TOCCA UNA TATTICA PER MODIFICARE LE POSIZIONI DELLA SQUADRA</p></div>
+</section>
+<section id="training" class="view">
+  <div class="pane-head"><h1>ALLENAMENTI</h1><span>SETTIMANA CORRENTE</span></div><p class="hint">Gli allenamenti migliorano alcuni attributi ma aumentano la fatica. Concedere riposo aiuta a recuperare.</p>
+  <div class="training-grid">
+  <button data-training="fitness">🏃<b>PREPARAZIONE</b><small>+resistenza · +fatica</small></button>
+  <button data-training="tech">⚽<b>TECNICA</b><small>+tecnica · +fatica</small></button>
+  <button data-training="tactics">▦<b>SCHEMI</b><small>+intesa · +fatica</small></button>
+  <button data-training="rest">☕<b>RIPOSO</b><small>-fatica · +morale</small></button></div>
+  <div class="paper"><h2>REPORT DEL PREPARATORE</h2><p id="trainingReport">Scegli un lavoro settimanale.</p></div>
+</section>
+<section id="match" class="view">
+  <div class="match-top"><div class="side"><small>CASA</small><b id="homeTeam">CAMPANILE</b></div><div class="scoreboard"><strong id="score">0 : 0</strong><small id="clock">00:00</small></div><div class="side right"><small>OSPITI</small><b id="awayTeam">RIVALI</b></div></div>
+  <div class="match-pitch"><canvas id="pitch" width="320" height="440" aria-label="Campo di gioco dall'alto con calciatori e pallone"></canvas><div id="cutscene" class="cutscene" hidden><b id="cutsceneTitle">GOOOL!</b><span id="cutsceneDetail"></span></div></div>
+  <div class="match-actions"><button id="play" class="primary">▶ CALCIO D'INIZIO</button><button id="pause">Ⅱ PAUSA</button><button id="speed">1×</button><button id="sub">⇄ CAMBIO</button></div>
+  <div class="match-readout"><div><b id="possession">50%</b><small>POSSESSO</small></div><div><b id="shots">0 - 0</b><small>TIRI</small></div><div><b id="morale">--</b><small>MORALE</small></div></div>
+  <div class="match-coach"><button data-coach="attack">▲ ATTACCA</button><button data-coach="balance">▬ EQUILIBRIO</button><button data-coach="defend">▼ DIFENDI</button></div>
+  <div class="commentary" id="commentary" aria-live="polite">Squadre negli spogliatoi. Prepara la tattica e inizia la partita.</div>
+</section>
+</main>
+<nav class="bottom-nav" aria-label="Schermate"><button data-go="home" class="selected">⌂<span>UFFICIO</span></button><button data-go="squad">▤<span>ROSA</span></button><button data-go="tactics">▦<span>TATTICA</span></button><button data-go="training">◷<span>TRAINING</span></button><button data-go="match">⚽<span>PARTITA</span></button></nav>
+</div>
+<script src="./game.js"></script>
+</body></html>
