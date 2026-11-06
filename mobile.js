@@ -250,6 +250,31 @@ function sumAxis(d){
  const start=refAlong(d,d.first),end=refAlong(d,d.last),dest=refAlong(d,d.next);
  put(dest,"=SUM("+start+":"+end+")");refresh();updatePanel();toast("Somma inserita in "+dest)
 }
+function fillRange(direction,amount){
+ const s=selection;if(!s||s.kind!=="range")return;
+ amount=Math.min(50,Math.max(1,amount));
+ const width=s.b.c-s.a.c+1,height=s.b.r-s.a.r+1,operations=(direction==="right"?height:width)*amount;
+ if(operations>4000){toast("Intervallo troppo esteso per il riempimento: massimo 4.000 celle");return}
+ let added=0;
+ if(direction==="right"){
+  for(let r=s.a.r;r<=s.b.r;r++){
+   const d={isRow:true,fixed:r,last:s.b.c};
+   if(!present(cell(refAlong(d,d.last))))continue;
+   for(let c=s.b.c+1;c<=s.b.c+amount;c++){setAt(refAlong(d,c),guessNext(d,c));added++}
+  }
+ }else{
+  for(let c=s.a.c;c<=s.b.c;c++){
+   const d={isRow:false,fixed:c,last:s.b.r};
+   if(!present(cell(refAlong(d,d.last))))continue;
+   for(let r=s.b.r+1;r<=s.b.r+amount;r++){setAt(refAlong(d,r),guessNext(d,r));added++}
+  }
+ }
+ if(!added){toast("Nessuna serie da proseguire sul bordo selezionato");return}
+ resetEngine();
+ const next={kind:"range",a:s.a,b:{r:s.b.r+(direction==="down"?amount:0),c:s.b.c+(direction==="right"?amount:0)},anchor:s.anchor};
+ selection=next;refresh();updatePanel();
+ toast("Estensione "+(direction==="right"?"orizzontale":"verticale")+": "+added+" celle")
+}
 function sumRange(){
  const s=selection;if(s.kind!=="range")return;
  const from=at(s.a.r,s.a.c),to=at(s.b.r,s.b.c),target=at(s.b.r+1,s.a.c);
@@ -284,10 +309,16 @@ function updatePanel(){
   $("#panel").append(preview);return
  }
  if(s.kind==="range"){
-  const count=(s.b.r-s.a.r+1)*(s.b.c-s.a.c+1),actions=decoratePanel("Intervallo "+label,count+" celle selezionate");
-  action(actions,"∑ Somma sotto",sumRange,true);
+  const count=(s.b.r-s.a.r+1)*(s.b.c-s.a.c+1);
+  const nextRight=at(s.a.r,s.b.c+1),nextDown=at(s.b.r+1,s.a.c);
+  const actions=decoratePanel("Intervallo "+label,count+" celle · Prossime libere: "+nextRight+" (→) / "+nextDown+" (↓)");
+  action(actions,"→ +1",()=>fillRange("right",1),true);
+  action(actions,"→ +5",()=>fillRange("right",5));
+  action(actions,"↓ +1",()=>fillRange("down",1));
+  action(actions,"↓ +5",()=>fillRange("down",5));
+  action(actions,"∑ Somma sotto",sumRange);
   action(actions,"Formato",()=>formatControls($("#panel"),(k,v)=>applyFormat(k,v)));
-  action(actions,"Riduci a cella",()=>choose({kind:"cell",ref:at(s.a.r,s.a.c)}));
+  action(actions,"Una cella",()=>choose({kind:"cell",ref:at(s.a.r,s.a.c)}));
   return
  }
  if(s.kind==="sheet"){
@@ -297,37 +328,57 @@ function updatePanel(){
 }
 function markFillHandle(){
  document.querySelectorAll(".fill-handle").forEach(x=>x.remove());
- const s=selection;if(!s||!(s.kind==="row"||s.kind==="column"))return;
- const d=findAxis(s);if(d.last<0)return;
- const ref=refAlong(d,d.last);
+ const s=selection;if(!s||!["row","column","range"].includes(s.kind))return;
+ const d=s.kind==="range"?null:findAxis(s);
+ if(d&&d.last<0)return;
+ const ref=s.kind==="range"?at(s.b.r,s.b.c):refAlong(d,d.last);
  const td=Array.from(document.querySelectorAll(".sheet-table td[data-ref]")).find(x=>x.dataset.ref===ref);
  if(!td)return;
  const handle=button("↘",()=>{},"fill-handle handle");
- handle.setAttribute("aria-label","Trascina per continuare la serie");
- handle.onclick=e=>{e.stopPropagation();toast("Trascina il quadratino verso le celle vuote per continuare la serie")};
+ handle.setAttribute("aria-label","Trascina per continuare i valori");
+ handle.onclick=e=>{e.stopPropagation();toast("Trascina il quadratino verde verso le celle vuote")};
  handle.onpointerdown=e=>{
-  e.stopPropagation();e.preventDefault();drag={axis:s.kind,reference:d,aim:d.last};handle.setPointerCapture(e.pointerId)
+  e.stopPropagation();e.preventDefault();
+  drag={s,d,amount:0,direction:null};handle.setPointerCapture(e.pointerId)
  };
  handle.onpointermove=e=>{
   if(!drag)return;
   const node=document.elementFromPoint(e.clientX,e.clientY)?.closest("td[data-ref]");
   if(!node)return;
   const p=pos(node.dataset.ref);
-  const index=d.isRow?p.c:p.r,other=d.isRow?p.r:p.c;
-  if(other!==d.fixed)return;
-  drag.aim=index;
+  let axis="",amount=0;
+  if(s.kind==="range"){
+   if(p.c>s.b.c&&p.r>=s.a.r&&p.r<=s.b.r){axis="right";amount=p.c-s.b.c}
+   else if(p.r>s.b.r&&p.c>=s.a.c&&p.c<=s.b.c){axis="down";amount=p.r-s.b.r}
+  }else{
+   const index=d.isRow?p.c:p.r,other=d.isRow?p.r:p.c;
+   if(other===d.fixed&&index>d.last){axis=d.isRow?"right":"down";amount=index-d.last}
+  }
+  drag.direction=axis;drag.amount=amount;
   document.querySelectorAll(".sheet-table td.fill-preview").forEach(el=>el.classList.remove("fill-preview"));
+  if(!axis)return;
   document.querySelectorAll(".sheet-table td[data-ref]").forEach(el=>{
-   const z=pos(el.dataset.ref),k=d.isRow?z.c:z.r,o=d.isRow?z.r:z.c;
-   if(o===d.fixed&&k>d.last&&k<=index)el.classList.add("fill-preview")
+   const z=pos(el.dataset.ref);let active=false;
+   if(s.kind==="range"){
+    active=axis==="right"?z.r>=s.a.r&&z.r<=s.b.r&&z.c>s.b.c&&z.c<=s.b.c+amount:
+     z.c>=s.a.c&&z.c<=s.b.c&&z.r>s.b.r&&z.r<=s.b.r+amount
+   }else{
+    const k=d.isRow?z.c:z.r,o=d.isRow?z.r:z.c;
+    active=o===d.fixed&&k>d.last&&k<=d.last+amount
+   }
+   if(active)el.classList.add("fill-preview")
   })
  };
  handle.onpointerup=e=>{
   e.preventDefault();e.stopPropagation();
-  if(!drag)return;const n=drag.aim-d.last;drag=null;
-  if(n>0)continueAxis(findAxis(s),n);else toast("Trascina verso le celle libere per estendere")
+  if(!drag)return;
+  const {amount,direction}=drag;drag=null;
+  if(amount>0){
+   if(s.kind==="range")fillRange(direction,amount);
+   else continueAxis(findAxis(s),amount)
+  }else toast("Trascina verso le celle vuote, oppure usa i comandi +1 e +5")
  };
- handle.onpointercancel=()=>{drag=null};
+ handle.onpointercancel=()=>{drag=null}
  td.append(handle)
 }
 function editPreview(){
