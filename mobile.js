@@ -165,6 +165,11 @@ function selectionRefs(){
  const b=bounds(),out=[];
  let r0=b.s.r,r1=b.e.r,c0=b.s.c,c1=b.e.c;
  if(s.kind==="cell"){return [s.ref]}
+ if(s.kind==="sheet"){
+  const existing=Object.keys(ws()).filter(ref=>/^[A-Z]{1,4}\d+$/.test(ref));
+  if(existing.length>60000){toast("Troppi elementi per formattare tutto il foglio in una volta");return []}
+  return existing
+ }
  if(s.kind==="row"){r0=r1=s.r;c1=Math.max(c1,19)}
  if(s.kind==="column"){c0=c1=s.c;r1=Math.max(r1,19)}
  if(s.kind==="range"){r0=s.a.r;r1=s.b.r;c0=s.a.c;c1=s.b.c}
@@ -176,7 +181,7 @@ function selectionRefs(){
 function applyFormat(kind,value,refList){
  const refs=refList||selectionRefs();if(!refs.length)return;
  const w=ws();for(const ref of refs){
-  if(!w[ref])w[ref]={t:"z"};
+  if(!w[ref]){w[ref]={t:"z"};expandRef(ref)}
   const st=styleMap.get(sheet+"!"+ref)||{},c=w[ref];c.s=c.s||{};
   if(kind==="bold"){st.bold=value;c.s.font={...(c.s.font||{}),bold:value}}
   if(kind==="align"){st.align=value;c.s.alignment={...(c.s.alignment||{}),horizontal:value}}
