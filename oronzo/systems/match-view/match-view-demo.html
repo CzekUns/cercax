@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Oronzo · Match View Engineer / Demo</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui, sans-serif;background:#091324;color:#eee8d4}*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#091324}
+.wrap{margin:auto;max-width:1280px;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:8px}
+.shell{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(165px,23%);border:4px solid #4c6b8a;box-shadow:0 0 0 2px #111e37,0 8px 32px #0008;background:#142740}
+.field{background:#030f1b;display:flex;align-items:center;justify-content:center;min-width:0}.field canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;image-rendering:pixelated}
+.side{padding:11px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;border-left:3px ridge #8da0a8;background:linear-gradient(135deg,#263a5e,#10233e)}.label{font-size:10px;letter-spacing:2px;color:#f7cf79}.score{font-family:monospace;font-size:clamp(16px,2.7vw,34px);font-weight:bold}.clock{font-family:monospace;font-size:19px}.small{font-size:12px;color:#d0d8df;line-height:1.35}button{width:100%;padding:11px 8px;border:2px outset #b5af8f;background:#d2bf88;color:#182a39;font-size:14px;font-weight:bold;touch-action:manipulation;cursor:pointer}button:active{border-style:inset}button:focus-visible{outline:2px solid #fff}
+.state{font:11px monospace;word-break:break-word;color:#b8d8b2}.fine{font:11px/1.35 monospace;color:#ded5ba}
+@media(max-width:620px){.wrap{padding:2px}.shell{grid-template-columns:minmax(0,1fr) minmax(125px,27%);border-width:2px}.side{padding:5px;gap:6px}.label{letter-spacing:0;font-size:9px}.score{font-size:14px}.clock{font-size:12px}button{padding:5px 2px;font-size:10px}.small,.fine{font-size:9px}.state{font-size:9px}}
+@media(orientation:portrait){.wrap::after{content:'Ruota il dispositivo in orizzontale per usare la demo.';position:fixed;inset:0;display:grid;place-items:center;padding:40px;text-align:center;color:#ffe9ba;background:#091324;z-index:20}}
+</style></head><body><main class="wrap"><section class="shell" aria-label="Demo renderer partita Oronzo">
+<div class="field"><canvas id="pitch" width="640" height="360" aria-label="Campo di calcio con ventidue calciatori animati"></canvas></div>
+<aside class="side"><div><div class="label">ORONZO · 1985/86</div><div class="score" id="score">0–0</div><div class="clock" id="clock">00:00</div><div class="small">SIMULAZIONE VISIVA<br>11 contro 11</div></div>
+<div><button id="pause">Ⅱ PAUSA</button><button id="speed">1× VELOCITÀ</button><button id="restart">↺ RICOMINCIA</button></div>
+<div><div class="state" id="status">Caricamento asset…</div><div class="fine">Gli snapshot sono fixture di rappresentazione, NON il motore tattico. Il risultato è precalcolato nella fixture.</div></div>
+</aside></section></main>
+<script type="module">
+import {createMatchView} from './match-view.js';
+import {makeFixtureSnapshot} from './fixture.js';
+const $=id=>document.getElementById(id);
+const view=createMatchView($('pitch'),{config:{keeperIds:['H0','A0'],appearances:{home:{shirt:'#EADBB8',shirtB:'#234FB2',shorts:'#233F82',socks:'#F2E6C9',pattern:'vertical'},away:{shirt:'#C13B4E',shirtB:'#F2E8C8',shorts:'#E6DFC8',socks:'#B63D4C',pattern:'solid'},homeKeeper:{shirt:'#D0A944',shorts:'#254059'},awayKeeper:{shirt:'#5B9E82',shorts:'#203B48'}}}});
+view.ready.then(()=>{$('status').textContent=view.assets.state.players==='ready'?'ATLAS AGENTE 1 CARICATI':'FALLBACK TECNICO — atlas non ancora integrati su questo branch';});
+let paused=false,speed=1,t=0,lastT=-1,lastNow=null,lastFeed=0;
+view.render(makeFixtureSnapshot(0));
+function refresh(){const s=makeFixtureSnapshot(t,lastT);$('score').textContent=`${s.score.home}–${s.score.away}`;$('clock').textContent=`${String(Math.floor(s.t/60)).padStart(2,'0')}:${String(Math.floor(s.t%60)).padStart(2,'0')}`;view.render(s);lastT=t;}
+function animate(now){if(lastNow===null)lastNow=now;const dt=Math.max(0,Math.min(0.10,(now-lastNow)/1000));lastNow=now;
+ if(!paused&&t<5400){t=Math.min(5400,t+dt*60*speed);if(now-lastFeed>80){refresh();lastFeed=now;}}
+ requestAnimationFrame(animate);
+}
+$('pause').onclick=()=>{paused=!paused;view.setPaused(paused);$('pause').textContent=paused?'▶ RIPRENDI':'Ⅱ PAUSA';};
+$('speed').onclick=()=>{const vals=[1,2,4,8];speed=vals[(vals.indexOf(speed)+1)%4];view.setSpeed(speed);$('speed').textContent=speed+'× VELOCITÀ';};
+$('restart').onclick=()=>{t=0;lastT=-1;paused=false;view.setPaused(false);view.overlay.clear();view.interpolation.reset();refresh();$('pause').textContent='Ⅱ PAUSA';};
+requestAnimationFrame(animate);
+</script></body></html>
