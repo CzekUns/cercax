@@ -15,3 +15,16 @@
 
 ## Agente 4 — Copy & Narrative
 L'agente D usa esclusivamente `oronzo/content/` sul branch `agent/oronzo-copy`; i PNG richiesti agli agenti A/B/C non si applicano a lui. Il suo incarico è in `oronzo/agents/04-copy.md` e il contratto per formati, limiti UI, trigger, scelta/effetti, copyright e qualità è `oronzo/narrative-contract.md`. Non modifica `oronzo/game.js`, `oronzo/index.html` o `oronzo/ui.css`: i contenuti saranno integrati dall'orchestratore dopo validazione. Scrivere JSON realmente importabili, coprire gli effetti sui parametri reali e riportare chiaramente ogni estensione futura.
+
+
+## Agenti 5–9 — sistemi di gioco (aggiornamento orchestrazione)
+Cinque nuovi agenti hanno scope ESCLUSIVI e branch distinti:
+- 5 movimenti/rappresentazione: `agent/oronzo-movements` → `oronzo/systems/match-view/`; issue #7; prompt `oronzo/agents/05-movements.md`.
+- 6 motore partita e AI tattica: `agent/oronzo-match-engine` → `oronzo/systems/match-engine/`; issue #8; prompt `oronzo/agents/06-simulation.md`.
+- 7 carriera e competizioni: `agent/oronzo-career` → `oronzo/systems/career/`; issue #9; prompt `oronzo/agents/07-career.md`.
+- 8 calciatori, attributi e allenamento: `agent/oronzo-attributes` → `oronzo/systems/attributes/`; issue #10; prompt `oronzo/agents/08-attributes.md`.
+- 9 mister, società e presidenti: `agent/oronzo-coach-club` → `oronzo/systems/coach-club/`; issue #11; prompt `oronzo/agents/09-coach-club.md`.
+
+**Contratto comune obbligatorio:** `oronzo/engine-contract.md`. La regola **«minimo cinque PNG»** riguarda esclusivamente agenti grafici 1–3, NON agenti 4–9. Agenti 5–9 consegnano moduli JS ESM realmente eseguibili, test, demo e note d'integrazione. Non riscrivono `oronzo/game.js`, `oronzo/index.html`, `oronzo/ui.css` o file fuori dal proprio perimetro. L'orchestratore coordina i contratti, integra soltanto dopo test e non promette automaticamente un'implementazione già collegata.
+
+Agente 4 Copy: estensione richiesta sui presidenti: `oronzo/content/presidents.json` con almeno 8 profili originali e 16 eventi / 12 dialoghi su di loro; l'agente 9 è proprietario esclusivo della **logica** dei presidenti. Le somiglianze con personaggi cinematografici restano archetipiche, non copie.
