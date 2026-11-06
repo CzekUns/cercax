@@ -12,3 +12,6 @@
 8. Minimo cinque immagini originali distinte per agente; niente screenshot ripubblicati e niente marchi reali.
 9. Prima di PR: ispeziona visivamente ogni PNG e verifica percorso/file. Le bozze non passano per definitive.
 10. Integrare il prima possibile, privilegiando la demo sul browser smartphone. La fase match deve restare giocabile anche se gli asset falliscono: fallback canvas.
+
+## Agente 4 — Copy & Narrative
+L'agente D usa esclusivamente `oronzo/content/` sul branch `agent/oronzo-copy`; i PNG richiesti agli agenti A/B/C non si applicano a lui. Il suo incarico è in `oronzo/agents/04-copy.md` e il contratto per formati, limiti UI, trigger, scelta/effetti, copyright e qualità è `oronzo/narrative-contract.md`. Non modifica `oronzo/game.js`, `oronzo/index.html` o `oronzo/ui.css`: i contenuti saranno integrati dall'orchestratore dopo validazione. Scrivere JSON realmente importabili, coprire gli effetti sui parametri reali e riportare chiaramente ogni estensione futura.
