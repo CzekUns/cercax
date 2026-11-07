@@ -197,9 +197,15 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
     ...(c.visualKits?{visualKits:clone(c.visualKits)}:{})
   }));
   state.world=assignment.world;
-  if(state.world.data && avatar.origin?.municipalityId &&
-    !state.world.data.records.some(r=>r.municipalityId===avatar.origin.municipalityId))
-    throw new Error('Coach home city not found in supplied catalog');
+  if(state.world.data && avatar.origin?.municipalityId) {
+    const originRecord=state.world.data.records.find(r=>
+      r.municipalityId===avatar.origin.municipalityId);
+    if(!originRecord)throw new Error('Coach home city not found in supplied catalog');
+    const selectedOrigin=normalizeOrigin(avatar.origin);
+    if(selectedOrigin.regionId!==originRecord.regionId ||
+       selectedOrigin.macroRegion!==originRecord.macroRegion)
+      throw new Error('Coach origin region conflicts with supplied catalog');
+  }
   state.coach=createCoach({...state.coach,clubId:null,contract:null,avatarId:avatar.id,
     origin:normalizeOrigin(avatar.origin),traits:clone(traits),hiredSeason:START_YEAR,
     employmentHistory:[],gameOver:null});
