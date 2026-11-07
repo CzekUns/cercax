@@ -13,3 +13,6 @@
 
 ## Gate
 Contratto coach/avatar e MORALE coach appartengono all'agente 09. Tu modelli **calciatori**, non le finanze o l'intero campionato. REPORT, PR, no merge autonomo.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+Il branch `agent/oronzo-attributes-r02` è identico a main e il REPORT disponibile è del ciclo 01. **Stato READY** per tratti e origini, 5000 cognomi verificati o pipeline con limiti espliciti, QA dei tratti e interfacce. Nessuna modifica a CoachV2, morale dell'allenatore o UI; report e PR prima di richiedere merge.
