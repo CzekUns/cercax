@@ -41,3 +41,7 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 - [ISTAT — codici e denominazioni dei comuni/regioni](https://www.istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/).
 - [ISTAT — bilancio demografico per comune e CSV](https://demo.istat.it/app/?i=P02&l=it).
 - [ISTAT — serie censuaria anche storica 1951–2011](https://www.istat.it/statistiche-per-temi/censimenti/popolazione-e-abitazioni/risultati/): verificare anno e confini di riferimento prima di classificare i «500 comuni meno popolati» per un gioco ambientato nel 1979.
+
+
+## PROPRIETÀ FUTURA AGENTE 07 — ADAPTER GAME-FLOW (non ancora autorizzata)
+Dopo merge e verifica dei cinque fix R02, un ciclo ulteriore sarà assegnato allo stesso agente 07 per assemblare stato/avanzamento carriera e salvataggi collegando le API degli agenti 04,06,08,09 dentro `oronzo/app/flow/`. È il proprietario del **flusso dati di carriera**: Nuova/Carica, offerta, presidente, conferenza, calendario, prepartita, match, postpartita, morale, game-over, persistenza. Il 03, in ciclo distinto, realizza i menu e il collegamento UI. Non toccare `index.html`, `game.js`, `ui.css` o `partita-rapida.html`. Agente 10 scrive solo le regole e verifica le consegne. **Ora eseguire SOLO R02 e non sviluppare il bridge in anticipo.**
