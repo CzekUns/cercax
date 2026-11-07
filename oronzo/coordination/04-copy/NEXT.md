@@ -1,5 +1,5 @@
 # NEXT — AGENTE 04 · COPY, STAMPA E DIALETTI · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `BLOCKED` — R02 concluso, nuova direzione editoriale non ancora approvata.
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-copy-r02` dall'ultimo main.
 **Scope:** `oronzo/content/` e proprio REPORT.
@@ -20,3 +20,8 @@ Il branch `agent/oronzo-copy-r02` mostra **1 commit avanti a main**, limitato a 
 **PR:** [#34](https://github.com/CzekUns/cercax/pull/34). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** QA schema/selector/risposte, sample editoriale e storicità 1979; stile narrativo ancora in discussione con l'utente: non dichiararlo definitivo.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #34 VERIFICATA E MERGIATA** su `main` (HEAD `b74c376f1045e8b95c3cb4c5c21258a7df33087d`; merge `b8976cb2b0129de9ee6537e1d624abce9ff1402f`). Work 00 ha rieseguito i due validatori, e l'orchestratore ha verificato che cinque principali file content siano SHAs identici su main e branch.
+**Ciclo R02 chiuso tecnicamente.** Non correggere la PR #34 già merged e non ricominciare da zero. I 37/32 quesiti, 12 giornalisti, 8 TV e 80 battute diventano API/contenuti disponibili agli altri agenti. **Stato BLOCKED per nuovi contenuti creativi**: l'utente sta scegliendo tono dialoghi e situazioni; non imporre uno stile come approvato. Eventuale ciclo R03 editoriale/integrazione contenuti si autorizza con un futuro NEXT dopo decisioni esplicite e QA del runtime. L'applicazione effetti è di 09, flow 07, rendering 03, non del coordinatore.
