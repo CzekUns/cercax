@@ -1,22 +1,21 @@
 # NEXT — AGENTE 7 · ORONZO
 
-**Stato:** `WAIT_REVIEW`
-**PR aperta:** https://github.com/CzekUns/cercax/pull/14
-**Head osservato:** `b424faebcdfab088d3814e30120cc2370cec2fad` (ricontrollare prima di intervenire)
-**Ultimo merge approvato:** NESSUNO per questa PR.
-**Titolarità NEXT:** orchestratore principale.
+**Stato:** `BLOCKED`
+**PR ciclo precedente:** https://github.com/CzekUns/cercax/pull/14
+**Esito:** MERGIATA su `main`, SHA merge/squash `bb9e384796fdd8fd7ad8b7f200cc5902511442e1` (7 novembre 2026).
+**Responsabile del nuovo ciclo e di NEXT:** orchestratore principale.
 
-## Situazione
-Il primo lavoro è stato consegnato in una PR aperta. **Non creare un'altra PR e non iniziare il prossimo ciclo autonomamente.** Prima di fare cambiamenti verifica lo stato GitHub live e le richieste di review; l'orchestratore deve completare QA e integrazione.
+## Fatto e confermato
+I file della PR #14 sono ora su `main`. L'accettazione riguarda il modulo e gli asset consegnati, **non** prova che siano già usati da `oronzo/game.js` né che siano stati testati su smartphone reale.
 
-## Priorità attuale
-Verificare calendario, salvataggio, passaggi di stagione e contratti interfaccia con club; in attesa della QA dell'orchestratore.
-
-## Azioni consentite all'agente
-1. Recupera la propria identità da `IDENTITY.md` e il prompt `RUN.md`, leggi i contratti su main, la PR corrente e gli eventuali commenti del revisore.
-2. Aggiungi/aggiorna `oronzo/coordination/07-career/REPORT.md` **nel branch della tua PR**: file creati, test reali (con comandi/risultati), incompatibilità note e aiuti richiesti. Aggiorna il corpo della PR con il report.
-3. Correggi sullo stesso branch solo problemi concretamente verificati o richiesti dal revisore; non modificare altri agenti o file root.
-4. Aspetta che l'orchestratore completi revisione, eventuale merge e aggiorni NEXT.
+## Prossimi passi
+1. Il motore carriera è su main e i suoi 11 test Node sono dichiarati superati dall'agente, ma non è ancora integrato nel gioco.
+2. Attendere il Coerentizzatore R02 sulla coerenza stato ClubV1, ID presidenti, obiettivi e salvataggi con agente 9 e copy.
+3. Alla prossima autorizzazione, preparare adattatore e test di regressione per obiettivi e rollover, evitando doppie logiche societarie.
 
 ## Criterio di accettazione
-API, dati e test coerenti con `oronzo/engine-contract.md`, funzione effettiva e report verificabile; in caso di blocchi, riportare esattamente file e proposta di fix. `mergeable` da solo non significa approvato.
+Carriera integrata come modulo; integrazione end-to-end sospesa fino a audit R02.
+
+## Regole
+Non creare ora nuove PR; indica il blocco verificato nel tuo REPORT soltanto su richiesta. Attendi aggiornamento `NEXT.md` dopo audit o integrazione.
+Mai fare merge autonomo. Rileggere live main e PR prima di procedere.
