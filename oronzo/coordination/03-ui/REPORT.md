@@ -108,3 +108,45 @@ Il successivo ciclo di runtime UI su `index.html`, `game.js`, `ui.css`, `partita
 3. Solo dopo gate #33 e fix/merge 07+09, assegnare eventuale ciclo **runtime UI** separato con adapter 07 e contratti #31/#35 coerenti.
 
 **Conclusione:** gate Chromium DOM e touch emulato superato sul codice del kit; gate deploy reale/Android resta da certificare. PR #33 aperta per review.
+
+---
+
+## Addendum R07 — fix R07-1 e R07-2, verifica Chromium
+
+**Data:** 7 novembre 2026; **stato:** PR_OPEN, gate **R07B richiesto**.
+**PR:** https://github.com/CzekUns/cercax/pull/33
+**Commit sorgenti/test/screenshot R07:** `bb94ab59638921a9212167448091ca94afa5a792`.
+**HEAD precedente:** `c38be80c392939d042dd998e6d1bf655c259804d`.
+**Mandato:** `03-ui/NEXT.md` su main, **FIX_REQUESTED** solo R07-1/R07-2. Nessun merge, nessun R03.
+
+### Correzioni consegnate
+
+- **R07-1 — risolto nel kit demo:** `oronzo/assets/ui/demo-v02.js` rende la schermata iniziale con classi `entry-panel`, `entry-brief`, `entry-actions`, `entry-hint`; `demo-v02.css` riserva fisicamente altezza 44px a entrambe le CTA e comprime prima il testo decorativo. Si conserva la frase di avviso del salvataggio demo. I due pulsanti restano HTML con dati dinamici, senza scroll nascosto.
+- **R07-2 — risolto nel kit demo:** `demo-v02.html` sposta il nodo accessibile `#ui-toast` nello slot dedicato dentro `.gamebar`, sopra l'intera `#ui-screen`. `demo-v02.css` lo rende flessibile, a due righe, senza overlay assoluto; mantiene aria-live/status e `pointer-events:none` come difesa aggiuntiva. `notify()` e il comportamento `changeScreen()` (pulizia dei messaggi obsoleti R04) non sono stati modificati.
+- **Nuovo test:** `oronzo/assets/ui/qa/run_browser_r07.py`; risultati machine-readable `qa/R07B-RESULTS.json`; **12 screenshot Chromium reali**, 4 viste × 3 viewport: `qa/r07-entry-*`, `qa/r07-press-toast-*`, `qa/r07-hub-after-press-*`, `qa/r07-hub-toast-*`.
+
+### Test realmente eseguiti
+
+| Controllo | Evidenza osservata |
+| --- | --- |
+| `node --check demo-v02.js` | **PASS**, Node 22.16.0, sintassi senza errori |
+| Pillow sulle dieci immagini del kit | **PASS**, PNG e dimensioni attese; 10 file verificati |
+| `python qa/run_browser_r07.py` | **PASS**, Chromium 144.0.7559.96, 6 percorsi (desktop e `is_mobile/has_touch`) su **640×360**, **800×360**, **844×390** |
+| R07-1 clipping effettivo | **PASS 6/6**: `CARICA PARTITA` misura 44px nominali e **44px visibili** dopo intersezione con gli antenati con overflow; nota `entry-hint` dentro pannello; centro `document.elementFromPoint` identifica `sample-load`; tap/mouse fisico su coordinate centrali attiva `#ui-toast` senza auto-scroll |
+| R07-2 post-conferenza | **PASS 6/6**: percorso da Nuova → Avatar → 20 offerte → Presidente → 5 risposte stampa → hub; dopo quinta domanda, toast ancora visibile; hit-test al centro della CTA dorata restituisce `goto/prematch`; tocco immediato porta a `prematch` senza aspettare 2400ms |
+| Stato, menu e indicatori | **PASS 6/6**: intersezioni geometriche tra lo slot toast visibile e TUTTI i pulsanti, KPI, note, titoli del pannello, quick nav, brand e top-info = **zero**; stesso controllo dopo le risposte 1–4 e su menu `PRESIDENTE` con toast di funzione non collegata |
+| Caricamento JS/CSS/PNG | **PASS Chromium** per `demo-v02.js`, `demo-v02.css` e 9 PNG effettivamente richiesti per questi percorsi, senza eccezioni JS/console. Le richieste sono servite con `Playwright route.fulfill` dai byte locali (NON HTTP reale) |
+| SHA Git del file JS testato | **PASS**: hash blob di `demo-v02.js` usato nel browser = `99dff55566f7b0fd1053a190c32e352c7d281098`, esattamente il blob Git pubblicato; CSS/HTML/QA hanno anch'essi SHA uguali ai blob creati |
+
+**Evidenze e script:** https://github.com/CzekUns/cercax/tree/agent/oronzo-ui-r02/oronzo/assets/ui/qa/
+Le 12 immagini sono screenshot di Chromium, non screenshot di ImageGen/PIL né previsioni visive.
+
+### Limiti e gate non sostituiti
+
+- In questa sessione `page.goto(http://127.0.0.1/...)` ha fallito con **`net::ERR_BLOCKED_BY_ADMINISTRATOR`**. Il test utilizza Chromium effettivo e `page.set_content` con CSS/JS/asset richiesti tramite URL relativi e bytes originali forniti da `route.fulfill`. **Non è una nuova verifica HTTP reale.** Il report indipendente R07 del 00 aveva già verificato HTTP locale prima del fix.
+- **Android fisico NON testato**; desktop + emulazione touch su Chromium sì.
+- La suite R04 originale `qa/run_browser_r04.py` e il file `qa/check_assets.py` non sono stati rieseguiti come comandi separati in questo ambiente; la nuova suite R07 contiene i controlli funzionali specifici più stringenti e Pillow ha validato i dieci asset. R07B deve eventualmente rilanciare anche R04 in checkout.
+- La demo resta **standalone**, dati fittizi, nessun salvataggio, nessun match reale, nessuna modifica al controller 07, al motore 06 o ai file runtime root.
+- Nessun dato geografico raccolto o modificato: la raccolta approvata dei **100 comuni/500 cognomi** appartiene al flusso separato.
+
+**Proposta:** revisione mirata **R07B** del Coerentizzatore 00 sul nuovo HEAD della **PR #33** per i due soli fix; l'orchestratore decide il gate/merge. Nessuna richiesta di inizio R03.
