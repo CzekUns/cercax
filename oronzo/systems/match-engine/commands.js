@@ -1,4 +1,4 @@
-import { clamp } from './rng.js';
+import { clamp, conditionFactor } from './rng.js';
 import { FORMATIONS } from './movement.js';
 
 export const DEFAULT_TACTICS=Object.freeze({
@@ -57,9 +57,10 @@ export function executeCommand(state, command, emit) {
     out.active=false;out.hasBall=false;incoming.active=true;incoming.isKeeper=out.isKeeper;
     incoming.x=out.x;incoming.y=out.y;incoming.vx=0;incoming.vy=0;
     incoming.facing=out.facing;incoming.action='idle';
-    incoming.energy=clamp(100-incoming.fatigue,0,100);
+    incoming.energy=clamp((100-incoming.fatigue)*conditionFactor(incoming),0,100);
     if(state.ball.ownerId===outId) {state.ball.ownerId=inId;incoming.hasBall=true;}
-    emit('substitution',team.id,inId,{outId,inId,used:team.subsUsed,limit:state.rules.maxSubstitutions});
+    emit('substitution',team.id,inId,{outId,inId,goalkeeper:out.isKeeper,
+      used:team.subsUsed,limit:state.rules.maxSubstitutions});
     return {accepted:true,effects:{outId,inId,remaining:state.rules.maxSubstitutions-team.subsUsed}};
   }
   return reject('unsupported command');

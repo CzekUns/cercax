@@ -24,8 +24,8 @@ function preparePlayer(source,teamId,active) {
   const p=copy(source), status=p.status || {};
   p.teamId=teamId;p.positions=p.positions||[];
   p.active=active;p.hasBall=false;p.action='idle';p.x=.5;p.y=.5;
-  p.vx=0;p.vy=0;p.facing=0;p.energy=clamp((100-p.fatigue)*conditionFactor(p),0,100);
   p.fatigue=clamp(Number(status.fatigue)||0,0,100);
+  p.vx=0;p.vy=0;p.facing=0;p.energy=clamp((100-p.fatigue)*conditionFactor(p),0,100);
   p.injured=Number(status.injuryDays)>0 || Number(status.health)===0;
   p.suspended=Number(status.suspensionMatches)>0;
   p.isKeeper=p.positions.includes('GK');
