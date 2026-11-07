@@ -1,5 +1,5 @@
 # NEXT — AGENTE 08 · PERSONAGGIO GIOCATORE, REGIONALITÀ E NOMI · VISIONE v0.2
-**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
+**Stato:** `FIX_REQUESTED` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Precedente:** PR #16 MERGIATA (389dce444a7f7c19254381bfda2205acc4268f51).
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-attributes-r02` da ultimo main.
@@ -31,3 +31,8 @@ Il branch `agent/oronzo-attributes-r02` è identico a main e il REPORT disponibi
 3. Test incrociati sulle stesse fixture reali usate dal 06, fiducia/affinità/tone e due snapshot/reload; verificare che durata e rapporti non si raddoppino.
 4. **Dataset MVP aggiornato dall'utente:** **500 cognomi italiani distinti e verificati** sono sufficienti alla prima release; **5.000** restano obiettivo successivo. La ricerca spetta all'**automazione oraria** nel branch `data/oronzo-world-research`, `oronzo/data/research/`. L'08 deve preparare/importare/validare, dopo review/merge della PR dati, il catalogo con fonte/licenza/ID e deduplica: non ricercarlo su un branch concorrente e non spacciar per 500 i 20 comuni cognomi campione della PR attuale. Rarità solo se ranking verificato.
 5. Aggiornare REPORT e PR #31 esistente. Rimanere nello scope 08, no merge e no nuovo ciclo autonomo.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**Iniziare ORA sulla PR #31 esistente insieme al 06**; HEAD iniziale `979cde10412d0b67aab616653616205e444de8fa`, il blocco R04-3/4 non è ancora stato chiuso. Rendi espliciti e testati i campi canonici persistenti `origin:{comune,regione,macroregione}`, `relationships.coachTrust` e tono `gentle|hard` più mapping verso `encourage|harsh`; supporta origine ignota `null`, senza inventare biografie. Non riapplicare `applyShout` come secondo bonus temporaneo se l'engine 06 ha già risolto `coach_shout`: 06 calcola l'effetto 150s, 09 applica delta permanenti/idempotenza (no 180s aggiuntivi). Test su stessa fixture reale di 06, trust estremo, regione/macro, retry e reload, report con contratto univoco e API verso flow 07.
+**Dati M1:** 500 cognomi italiani verificati bastano al primo rilascio (5000 solo espansione). L'automazione oraria scrive la PR dati incrementale `oronzo/data/research/`; NON duplicare raccolta/scraping né spacciare il campione 20 per 500. Prepara l'importatore, poi dopo merge della PR dataset aggancia 500 voci con fonte/licenza/ID, senza rigenerare identità persistenti. REPORT aggiornato e **stessa PR #31**.
