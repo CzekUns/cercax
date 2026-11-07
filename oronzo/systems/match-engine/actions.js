@@ -300,8 +300,11 @@ export function advancePlay(state,dt,emit) {
   if(challenge(state,owner,emit))return;
   const distGoal=(dir===1?1-owner.x:owner.x)*105;
   const shooting=skill(owner,'technical','shooting');
-  const temptation=clamp(.048+(team.tactics.mentality-50)*.0015+
-    (shooting-50)*.0007+(22-distGoal)*.0025,.015,.21);
+  // Reduced trigger rate after the 100-seed QA: previous sample
+  // produced 48.45 attempts and 4.43 goals per full 90-minute match.
+  // Coefficients are gameplay calibration, not claimed historical data.
+  const temptation=clamp(.032+(team.tactics.mentality-50)*.0011+
+    (shooting-50)*.0006+(22-distGoal)*.0018,.010,.15);
   if(distGoal<27 && state.rng.next()<temptation)shoot(state,owner,emit);
   else if(state.rng.next()<(distGoal<35?.62:.81))pass(state,owner,emit);
   else dribble(state,owner,emit);
