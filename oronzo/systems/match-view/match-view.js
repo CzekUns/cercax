@@ -149,6 +149,9 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
     const previous=interpolation.latest;
     const normalized=interpolation.push(snapshot,now);
     if(!previous || normalized.t<previous.t || normalized.phase!==previous.phase || normalized.events.some(e=>e?.type==='kickoff'||e?.type==='halftime')) cameraCut=true;
+    // A rewind/replay invalidates old goal/card overlays and animation frames.
+    // Otherwise an expired goal may paint over the first frame of the replay.
+    if(previous && normalized.t<previous.t){overlay.clear();frameStates.clear();animationTime=0;}
     // Keeper identity must follow the accepted engine substitution event.
     for(const event of normalized.events){
       if(event?.type!=='substitution')continue;
