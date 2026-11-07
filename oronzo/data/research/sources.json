@@ -11,6 +11,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "Anno puntuale di riferimento della popolazione non esposto nei record; 2026 indica il dataset pubblicato, non il censimento. Non usare per simulare il 1979."
+    },
+    {
+      "id": "rp92-molise-2026",
+      "name": "RP92/comuni-italiani — Molise, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/molise.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "Campione di 30 comuni meno popolati nel file regionale Molise; nessun ranking nazionale. Anno puntuale della popolazione non specificato; non rappresenta il 1979."
     }
   ]
 }
