@@ -1,21 +1,24 @@
-# NEXT — AGENTE 9 · ORONZO
+# NEXT — ORONZO AGENTE 9 · CORREZIONI DA AUDIT R02
 
-**Stato:** `BLOCKED`
-**PR ciclo precedente:** https://github.com/CzekUns/cercax/pull/17
-**Esito:** MERGIATA su `main`, SHA merge/squash `7309f1fe908e2e62b4304f44261d026d2866755c` (7 novembre 2026).
-**Responsabile del nuovo ciclo e di NEXT:** orchestratore principale.
+**Stato:** `READY`
+**Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
+**Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
+**Precedente PR:** #17, merge `7309f1fe`.
+**Scope modificabile:** `oronzo/systems/coach-club/` e il tuo `REPORT.md`.
 
-## Fatto e confermato
-I file della PR #17 sono ora su `main`. L'accettazione riguarda il modulo e gli asset consegnati, **non** prova che siano già usati da `oronzo/game.js` né che siano stati testati su smartphone reale.
+## Azioni autorizzate
+Riparti dall'ultimo `main` in un nuovo branch di ciclo `agent/oronzo-coach-club-r02`. Implementa e testa:
+1. **R02-1: board/club devono risolvere `presidentId` canonico del club e rifiutare profili incoerenti nei verbali; non associare personaggi sbagliati.**
+2. **R02-2: `seasonObjective` enum tradotti esplicitamente prima di `reviewMatch`, mai fallback nascosti o soglie diverse.**
+3. **R02-3: payroll settimanale usa `contract.weeklyWage` dei giocatori forniti dalla carriera, controlla budget, arretrati e rifiuta importi non validi.**
+4. **R02-4: riunioni, spese settimanali, promesse ed idempotenza usano `absoluteWeek` o chiavi anno/settimana, così rollover non blocca il secondo anno.**
+5. **R02-5: `createCoach` deve preservare `employmentHistory`, `hiredSeason` e i campi contratto necessari al salvataggio e agli esoneri.**
 
-## Prossimi passi
-1. Sistema società e finanza su main; correzioni della validazione importi e test dell'agente consegnati, ma non collegati alla carriera.
-2. Attendere audit Coerentizzatore R02 su mapping presidentId canonici, stagione/obiettivi (`avoidRelegation` vs `avoid_last`) e semantica immutabile dei ClubV1 restituiti.
-3. Al prossimo ciclo autorizzato, implementare un adapter di interoperabilità dentro `oronzo/systems/coach-club/` e test con salvataggi; evitare duplicazione del catalogo copy o modifica dei file carriera.
+## Coordinamento
+L'altro agente (07/09) lavora su API/contratto complementari. Non modificare il suo codice. Se serve un adapter condiviso, documenta precisamente input/output e proprietà dello stato in `integration-notes.md`; il runner centrale sarà costruito dall'orchestratore. Il catalogo `oronzo/content/presidents.json` è autorevole e già su main; non duplicare i presidenti.
 
-## Criterio di accettazione
-Board/finanze implementati, ma compatibilità con carriera e copy ancora da verificare end-to-end.
-
-## Regole
-Non creare ora nuove PR; indica il blocco verificato nel tuo REPORT soltanto su richiesta. Attendi aggiornamento `NEXT.md` dopo audit o integrazione.
-Mai fare merge autonomo. Rileggere live main e PR prima di procedere.
+## Verifica/accettazione
+- Test nativi Node; includere almeno un test incrociato con **due stagioni** e salvataggio/ricarica.
+- Presidenti stabili con ID esistente; board e testi dello stesso presidente; obiettivi equivalenti; payroll > 0 per club con contratti, niente spese negative; settimane del secondo anno accettate una volta sola; esonero senza TypeError dopo save/load.
+- Conserva le API precedenti dove possibile, segnala breaking changes.
+- Scrivi `oronzo/coordination/09-coach-club/REPORT.md` sul branch, apri PR a main, **non fare merge**.
