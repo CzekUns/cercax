@@ -58,6 +58,17 @@
       "sourceSnapshotSha256": "ef5aba340714a285d7ef0d6d879bec2313ac03e7f793d9a3482a77efc8c2bda2",
       "rightsSnapshot": "https://github.com/ozdemirburak/full-name-generator/blob/main/scripts/data/rights/it-bergamo-surnames-license.json",
       "notes": "500 cognomi con cittadinanza Italiani, selezionati per frequenza locale crescente fra soli record pubblicati (>10); non rappresentano classifica nazionale, rarità nazionale o 1979. Dati aggregati, nessun individuo."
+    },
+    {
+      "id": "rp92-umbria-2026",
+      "name": "RP92/comuni-italiani — Umbria, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/umbria.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni selezionati per popolazione crescente dal file regionale Umbria; nessun ranking nazionale verificato; anno puntuale popolazione non attestato; non rappresenta il 1979."
     }
   ]
 }
