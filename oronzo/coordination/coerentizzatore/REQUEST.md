@@ -1,3 +1,13 @@
+# ORONZO — PREPARAZIONE GATE R06B DOPO CONSEGNA FIX 07 · SOLO #38/#39
+
+**Stato: `WAIT_FOR_07`, non eseguire ora.** Su main il NEXT 07 contiene il fix R06-1/2/3 richiesto dopo [R06](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md). L'ultimo CI [run 42381672625](https://github.com/CzekUns/cercax/actions/runs/42381672625) certifica **91 PASS suite** ma **un test E2E FAIL** per geografia mancante, e wiring API 09 non completo. Non dichiarare attualmente gate verde.
+
+**Quando il 07 avrà modificato la PR #38**: leggere HEAD live #38 e #39, REPORT07 aggiornato e contratto `MORALE-R03.md` del 09; checkout/sandbox combinata main+#39+#38; eseguire suite Node flow, career, coach e demo completa; creare/eseguire E2E con **vere** API 09/Copy04/Match06 e dati geografici verificabili di test, non stub. Controllare no-region path `geography_required` senza mutazione, offerta e risposta stampa con effetto applicato una sola volta, saldo e morale in save/load, game-over, due stagioni, legacy 1985, motore goal e avanzamento.
+**Se fallisce:** niente merge; owner e correzione puntuale. **Se tutto passa:** rapporto R06B con test/SHA, e **solo se l'utente conferisce nuova autorizzazione specifica**, merge nell'ordine dipendenze **#39 poi #38**, uno per volta, verificando main e regressioni dopo ogni passaggio. Non lavorare su #28/#29/#31/#33/#35/cutscene, nessun nuovo round.
+
+---
+
+## ARCHIVIO — audit R06 originale
 # ORONZO — REQUEST ATTUALE AGENTE 00 · AUDIT R06 MIRATO PR #38 + #39
 
 **Stato: READY per attivazione su chat Agente 00, 7 novembre 2026.** Le PR precedenti #30 e #32 sono già MERGED e non vanno riesaminate come incarico a sé. In questa sessione **nessun merge autorizzato automaticamente**. Nuove PR su GitHub:
