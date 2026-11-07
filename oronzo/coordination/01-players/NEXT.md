@@ -1,21 +1,14 @@
-# NEXT — AGENTE 1 · ORONZO
+# NEXT — AGENTE 01 · SPRITE CALCIATORI · VISIONE v0.2
+**Stato:** `READY` — nuovo ciclo dall'ultimo main.
+**Lavoro precedente:** PR #6 MERGIATA (3585b39596e6aa879c69e2136f8f22e2ca1ea102).
+**Nuova fonte di verità:** [specifica utente v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
+**Branch di ciclo:** `agent/oronzo-players-r02`.
+**Scope esclusivo:** `oronzo/assets/players/` e proprio `coordination/01-players/REPORT.md`.
 
-**Stato:** `READY`
-**PR ciclo precedente:** https://github.com/CzekUns/cercax/pull/6
-**Esito:** MERGIATA su `main`, SHA merge/squash `3585b39596e6aa879c69e2136f8f22e2ca1ea102` (7 novembre 2026).
-**Responsabile del nuovo ciclo e di NEXT:** orchestratore principale.
+## Task assegnati
+1. Da main, porta a qualità definitiva gli sprite 22v22? **Sul campo sono 22 calciatori in totale**, due squadre 11+11, con palette divisa realmente distinte, capelli/pelle e palette indicizzata. Demo verificabile sui 22 calciatori a 640×360 e 844×390. Mantieni tutte le otto direzioni e le azioni del manifest.
+2. QA artistica: proporzioni, dettagli, visibilità alla scala reale, differenze tra squadra, pose duplicate; correzioni mirate e prova PNG trasparenza/atlas con script.
+3. Documento di integrazione da fornire all'agente 05 e al 10 con formati, pivot, dimensioni, mapping palette e fallback.
 
-## Fatto e confermato
-I file della PR #6 sono ora su `main`. L'accettazione riguarda il modulo e gli asset consegnati, **non** prova che siano già usati da `oronzo/game.js` né che siano stati testati su smartphone reale.
-
-## Prossimi passi
-1. Partendo dall'ultimo main in un nuovo branch di ciclo, prepara una demo esclusivamente in `oronzo/assets/players/` con due squadre e almeno 22 sprite effettivi ricolorati sul campo, risoluzioni landscape 640×360 e 844×390.
-2. Verifica che ogni direzione/azione sia distinguibile a grandezza reale, cerca sprite brutti/pose duplicate e correggi solo problemi artistici/materiali verificati, senza riscrivere il motore.
-3. Aggiungi test riproducibili di palette, transparenza, atlas e un nuovo `REPORT.md`; produci PR separata verso main. Nessun codice del renderer o gioco.
-
-## Criterio di accettazione
-Preview reale delle divise su 22 giocatori, sprite più leggibili dove necessario, demo/test e QA riproducibile.
-
-## Regole
-Nuovo branch di ciclo creato esclusivamente dall'ultimo `main` (es. branch originale `-r02`), nuova PR verso `main` soltanto nel perimetro assegnato e aggiornamento `REPORT.md` sul branch.
-Mai fare merge autonomo. Rileggere live main e PR prima di procedere.
+## Gate
+Non implementare gli avatar allenatore o le schermate menu: proprietà agente 03. Non cambiare motore, renderer, HTML, CSS root. Modifica solo i file in scope, REPORT test reali, PR verso main e stop. Nessun merge autonomo.
