@@ -19,8 +19,20 @@ header{display:flex;justify-content:space-between;align-items:center;gap:12px;mi
 .scoreline strong{color:var(--gold);font-size:1.45em;vertical-align:middle}
 .clock{min-width:66px;text-align:right;color:var(--gold);font-size:clamp(15px,2.5vw,24px);font-weight:900}
 .shell{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(216px,27%);gap:7px;padding:7px}
-.field{min-width:0;min-height:0;display:flex;justify-content:center;align-items:center;background:#07173b;border:4px ridge #9fbcf6;overflow:hidden}
+.field{position:relative;min-width:0;min-height:0;display:flex;justify-content:center;align-items:center;background:#07173b;border:4px ridge #9fbcf6;overflow:hidden}
 #pitch{display:block;max-width:100%;max-height:100%;height:auto;width:auto;aspect-ratio:16/9;image-rendering:pixelated;object-fit:contain}
+.shape-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none}
+.shape-overlay.active{display:block}
+.shape-overlay circle{stroke:#ffdf75;fill:rgba(30,55,100,.28);stroke-width:2;stroke-dasharray:4 2}
+.shape-overlay text{fill:#ffecba;font:bold 12px monospace;paint-order:stroke;stroke:#17264d;stroke-width:3px;text-anchor:middle;dominant-baseline:central}
+.shape-toast{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:#0a2058e8;color:#ffe58c;border:2px solid #f1cc68;padding:5px 8px;text-align:center;pointer-events:none;font-size:11px;font-weight:bold;white-space:nowrap;max-width:98%;overflow:hidden;text-overflow:ellipsis}
+.shape-toast[hidden]{display:none}
+.tactics-applied{display:flex;align-items:center;justify-content:space-between;gap:4px;background:#051842;border:1px solid #6388cd;padding:4px;margin-top:6px}
+.tactics-applied .info{min-width:0}
+.tactics-applied strong{display:block;color:#ffe17e;font-size:11px}
+.tactics-applied span{display:block;color:#cbdafa;font-size:9px}
+.tactics-applied button{font-size:9px;min-height:31px;flex:0 0 auto;padding:3px 5px}
+
 .panel{min-width:0;min-height:0;overflow-y:auto;border:3px ridge #91a7ea;background:linear-gradient(#102b74,#07174d);padding:7px;scrollbar-color:#658cdb #081b57}
 .panel h2{color:var(--gold);font-size:12px;letter-spacing:.8px;margin:2px 0 7px}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:5px}
@@ -52,9 +64,17 @@ footer a{color:white;font-size:10px;white-space:nowrap}
  <div class="clock" id="clock">00:00</div>
 </header>
 <section class="shell">
- <div class="field"><canvas id="pitch" width="640" height="360" aria-label="Partita 11 contro 11 dall'alto"></canvas></div>
+ <div class="field">
+  <canvas id="pitch" width="640" height="360" aria-label="Partita 11 contro 11 dall'alto"></canvas>
+  <svg id="shapeOverlay" class="shape-overlay" viewBox="0 0 640 360" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g id="shapeMarkers"></g></svg>
+  <div id="shapeToast" class="shape-toast" hidden>MODULO APPLICATO · RIPOSIZIONAMENTO</div>
+ </div>
  <aside class="panel">
   <h2>LA PANCHINA DEL MISTER</h2>
+  <div class="tactics-applied">
+   <div class="info"><strong id="appliedShape">IN CAMPO: 4-4-2</strong><span id="appliedDetail">Pressing 50 · Mentalità 50</span></div>
+   <button id="shapeToggle" aria-pressed="false">SCHEMA ◯</button>
+  </div>
   <div class="actions">
    <button id="start" class="primary span2">▶ CALCIO D'INIZIO</button>
    <button id="pause" disabled>Ⅱ PAUSA</button><button id="speed">1× · ~15 MIN</button>
@@ -88,12 +108,14 @@ import {createMatch} from './systems/match-engine/match-engine.js';
 import {makeFixture} from './systems/match-engine/fixtures.js';
 import {createMatchView,createEngineViewBridge} from './systems/match-view/match-view.js';
 import {QUICK_MATCH_SIM_SECONDS_PER_REAL_SECOND,quickMatchSimDelta,quickMatchDurationMinutes} from './quick-match-clock.js';
+import {formationAnchors} from './systems/match-engine/movement.js';
 
 const el = id => document.getElementById(id);
 const HOME = 'montevento', AWAY = 'portoselva';
 const names = new Map();
 let serial = 41, input, match, view, bridge, playing = false, paused = false, finished = false, speed = 1, used = new Set();
 let lastFrame = performance.now(), lastRenderedT = -1;
+let appliedTactics = null, guidePinned = false, guideUntil = -1, guideFormation = null, guideSide = null, lastGuideMessage = '';
 const relevant = new Set(['goal','save','shot','foul','card','injury','substitution','offside','halftime','fulltime','kickoff']);
 const kits = {
   home:{skin:'#d6a16f',hair:'#38231a',shirt:'#245ad2',shirtB:'#f9e7ab',shorts:'#ededee',socks:'#f1e6b8',boots:'#22202c',pattern:'solid'},
@@ -144,9 +166,45 @@ function sync(){
  const batch=bridge.sync(performance.now());
  lastRenderedT=batch.snapshot.t;
  updateStats(batch.snapshot);
+ updateTacticalReadout(batch.snapshot.t);
  for(const e of batch.events)if(relevant.has(e.type))el('news').textContent=fmt(e.t)+' · '+describe(e);
  return batch.snapshot;
 }
+function drawShapeGuides(formation, simulatedTime=0){
+ const attackRight=simulatedTime<2700, group=el('shapeMarkers');
+ const anchors=formationAnchors(formation);
+ group.replaceChildren();
+ for(const [i,point] of anchors.entries()){
+  const x=44+(attackRight?point.x:1-point.x)*552,y=36+point.y*288;
+  const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('cx',x);circle.setAttribute('cy',y);circle.setAttribute('r',i===0?8:9);
+  const label=document.createElementNS('http://www.w3.org/2000/svg','text');
+  label.setAttribute('x',x);label.setAttribute('y',y+1);label.textContent=i===0?'P':String(i);
+  group.append(circle,label);
+ }
+ guideFormation=formation;
+ guideSide=attackRight?'first':'second';
+}
+function updateTacticalReadout(simTime=0){
+ if(!appliedTactics)return;
+ el('appliedShape').textContent='IN CAMPO: '+appliedTactics.formation;
+ el('appliedDetail').textContent='Pressing '+appliedTactics.pressing+' · Mentalità '+appliedTactics.mentality;
+ const active=guidePinned||simTime<guideUntil;
+ const side=simTime<2700?'first':'second';
+ if(active&&(guideFormation!==appliedTactics.formation||guideSide!==side))
+  drawShapeGuides(appliedTactics.formation,simTime);
+ el('shapeOverlay').classList.toggle('active',active);
+ el('shapeToggle').setAttribute('aria-pressed',String(guidePinned));
+ el('shapeToggle').textContent=guidePinned?'SCHEMA ●':'SCHEMA ◯';
+ const rearranging=simTime<guideUntil;
+ el('shapeToast').hidden=!rearranging;
+ if(rearranging)
+  el('shapeToast').textContent=lastGuideMessage;
+}
+el('shapeToggle').addEventListener('click',()=>{
+ guidePinned=!guidePinned;
+ updateTacticalReadout(match?.snapshot()?.t??0);
+});
 function newGame(){
  if(view)view.destroy();
  input=makeFixture('oronzo-1985-'+(++serial),{homeTactics:{
@@ -155,6 +213,8 @@ function newGame(){
  names.clear();
  for(const club of [input.homeClub,input.awayClub])for(const p of club.players)names.set(p.id,p.name);
  match=createMatch(input);
+ appliedTactics={...input.homeTactics};guideUntil=-1;guideFormation=null;guideSide=null;guidePinned=false;lastGuideMessage='';
+ updateTacticalReadout(0);
  used=new Set();speed=1;playing=false;paused=false;finished=false;
  view=createMatchView(el('pitch'),{config:{
   homeTeamId:HOME,awayTeamId:AWAY,
@@ -196,7 +256,20 @@ function tactic(payload){
  if(finished)return;
  const r=match.command({type:'tacticChange',teamId:HOME,payload});
  if(!r.accepted){message('Tattica respinta: '+r.reason);return;}
- sync();message('Ordine tattico ricevuto dalla squadra.');
+ appliedTactics={...r.effects.tactics};
+ const time=match.snapshot().t;
+ const changeFormation=Object.hasOwn(payload,'formation');
+ if(changeFormation){
+  guideUntil=time+45;guideFormation=null;
+  lastGuideMessage='NUOVO MODULO '+appliedTactics.formation+' · SI RIPOSIZIONANO';
+  el('news').textContent=fmt(time)+' · Mister cambia modulo: '+appliedTactics.formation+'.';
+ }else{
+  guideUntil=time+18;
+  lastGuideMessage='ORDINI APPLICATI · PRESS '+appliedTactics.pressing+' · ATT '+appliedTactics.mentality;
+ }
+ sync();
+ message(changeFormation?'Modulo '+appliedTactics.formation+' accettato: gli undici raggiungono il nuovo assetto.':
+  'Istruzioni ricevute: pressing '+appliedTactics.pressing+' e mentalità '+appliedTactics.mentality+'.');
 }
 el('start').addEventListener('click',resume);
 el('pause').addEventListener('click',pause);
