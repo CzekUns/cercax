@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ORONZO 05 — R04 QA camera in browser</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#07152c;color:#e7e9db;font:12px monospace}
+main{width:min(100%,1080px);margin:auto;padding:8px;display:grid;gap:8px}
+header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+button,select{font:inherit;color:#f1eccf;background:#1a3766;border:1px solid #81a0c9;border-radius:4px;min-height:38px;padding:6px 10px;touch-action:manipulation}
+button[aria-pressed=true]{background:#d3ad51;color:#111c31}
+#frame{display:flex;justify-content:center;align-items:center;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0a1729;border:1px solid #45698a}
+canvas{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+pre{overflow:auto;white-space:pre-wrap;font:11px/1.5 monospace;background:#0f2441;padding:8px;margin:0}small{opacity:.8}
+</style></head><body><main>
+<header><strong>AGENTE 05 · R04 QA VISIVA</strong><button id="full" aria-pressed="true">CAMPO COMPLETO</button><button id="broadcast" aria-pressed="false">CAMERA TV</button><select id="scenario" aria-label="Scenario"></select><button id="run">PROVA</button></header>
+<div id="frame"><canvas id="pitch" width="640" height="360"></canvas></div>
+<pre id="result">Caricamento atlas reali dal manifest...</pre><small>Solo QA: fixture visuale, non risultato del motore. Il gate richiede assetState=ready, allRealSprites=true e screenshot esaminati. Non modifica il runtime principale.</small>
+</main><script type="module">
+import {createMatchView} from './match-view.js';
+import {makeFixtureSnapshot} from './fixture.js';
+import {ballWorldPosition,worldToScreen} from './camera.js';
+const list=[['opening','Kickoff',0],['left','Angolo sinistro',450],['right','Angolo destro',900],['running','Gioco',1120],['restart','Ripresa dopo gol',1121],['halftime','Intervallo',2700],['paused','Pausa',3100],['replay','Replay rewind',1500],['late','Secondo tempo',4200]];
+const el=id=>document.getElementById(id),select=el('scenario');
+for(const [value,label] of list)select.add(new Option(label,value));
+const warnings=[];
+const view=createMatchView(el('pitch'),{config:{autoStart:false,cameraMode:'full',simSecondsPerRealSecond:6,homeTeamId:'home',awayTeamId:'away',keeperIds:['H0','A0'],onWarning:e=>warnings.push(e)}});
+let drawn=0,real=0,balls=0;
+const drawPlayer=view.assets.drawPlayer.bind(view.assets),drawBall=view.assets.drawBall.bind(view.assets);
+view.assets.drawPlayer=(...args)=>{drawn++;const ok=drawPlayer(...args);if(ok)real++;return ok;};
+view.assets.drawBall=(...args)=>{balls++;return drawBall(...args);};
+const ready=view.ready;
+function makeScene(name){
+ const [key,label,t]=list.find(([id])=>id===name)||list[0],s=makeFixtureSnapshot(t,t-1);s.events=[];
+ if(name==='opening')s.events=[{id:1,type:'kickoff',t}];
+ if(name==='left'){s.ball.x=0;s.ball.y=0;}
+ if(name==='right'){s.ball.x=1;s.ball.y=1;}
+ if(name==='restart'){s.events=[{id:7,type:'kickoff',t}];s.ball.x=.5;s.ball.y=.5;}
+ if(name==='halftime'){s.events=[{id:15,type:'halftime',t},{id:16,type:'kickoff',t}];s.phase='secondHalf';for(const p of s.players)p.x=1-p.x;s.ball.x=.5;s.ball.y=.5;}
+ return s;
+}
+function displayMode(mode){view.setCameraMode(mode);for(const m of ['full','broadcast'])el(m).setAttribute('aria-pressed',String(m===mode));}
+async function run(name=select.value,mode=view.cameraMode){
+ await ready;displayMode(mode);
+ const source=makeScene(name),original=JSON.stringify(source);view.interpolation.reset();view.overlay.clear();
+ const now=performance.now();
+ if(name==='restart'||name==='halftime'||name==='replay'){
+  const before=makeFixtureSnapshot(name==='halftime'?2699:name==='restart'?1120:1700);
+  before.events=name==='replay'?[{id:900,type:'goal',t:1700}]:[];
+  view.render(before,now-80);view.drawAt(now-79);
+ }
+ drawn=0;real=0;balls=0;view.render(source,now);
+ if(name==='paused')view.setPaused(true,now);
+ view.drawAt(now+16);const firstCamera=view.getCameraState();
+ if(name==='paused')view.drawAt(now+1000);
+ const pauseCameraStable=name==='paused'?firstCamera.cx===view.getCameraState().cx&&firstCamera.cy===view.getCameraState().cy:null;
+ const snap=view.interpolation.sample(now+16),cam=view.getCameraState();
+ const pt=ballWorldPosition(snap.ball),screen=worldToScreen(cam,pt.x,pt.y);
+ const data={scenario:name,mode,camera:cam,viewport:{width:innerWidth,height:innerHeight},
+  canvas:{width:el('pitch').width,height:el('pitch').height},
+  players:source.players.length,drawn,realSprites:real,ballDraws:balls,
+  assetState:view.assets.state.players,allRealSprites:drawn>=source.players.length&&real===drawn,
+  ballVisible:screen.x>=0&&screen.x<=640&&screen.y>=0&&screen.y<=360,
+  sourceIntact:JSON.stringify(source)===original,
+  snapshotScoreUnchanged:JSON.stringify(snap.score)===JSON.stringify(source.score),
+  pauseCameraStable,rewindOverlayCleared:name==='replay'?!view.overlay.active(now+16):null,
+  warnings:warnings.slice(-8)};
+ if(name==='paused')view.setPaused(false,now+1000);
+ el('result').textContent=JSON.stringify(data,null,2);return data;
+}
+for(const mode of ['full','broadcast'])el(mode).addEventListener('click',()=>run(select.value,mode));
+el('run').addEventListener('click',()=>run());select.addEventListener('change',()=>run());
+window.ORONZO_MATCH_VIEW_QA={run,makeScene,getView:()=>view,ready};
+await ready;await run('opening');
+</script></body></html>
