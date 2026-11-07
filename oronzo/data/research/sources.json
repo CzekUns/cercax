@@ -44,6 +44,20 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "25 comuni selezionati per popolazione crescente nel file regionale Basilicata, non ranking nazionale; anno puntuale della popolazione non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "bergamo-2021-italiani-cc0",
+      "name": "Comune di Bergamo — Serie storica cognomi più diffusi, anno 2021, residenti cittadinanza Italiani",
+      "url": "https://www.dati.lombardia.it/d/4pqu-7zkd",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenseEvidenceUrl": "https://www.dati.lombardia.it/api/views/4pqu-7zkd.json",
+      "publisher": "Comune di Bergamo",
+      "referenceYear": 2021,
+      "sourceSnapshot": "https://github.com/ozdemirburak/full-name-generator/blob/main/scripts/data/snapshots/it-bergamo-2021-surnames.json",
+      "sourceSnapshotSha256": "ef5aba340714a285d7ef0d6d879bec2313ac03e7f793d9a3482a77efc8c2bda2",
+      "rightsSnapshot": "https://github.com/ozdemirburak/full-name-generator/blob/main/scripts/data/rights/it-bergamo-surnames-license.json",
+      "notes": "500 cognomi con cittadinanza Italiani, selezionati per frequenza locale crescente fra soli record pubblicati (>10); non rappresentano classifica nazionale, rarità nazionale o 1979. Dati aggregati, nessun individuo."
     }
   ]
 }
