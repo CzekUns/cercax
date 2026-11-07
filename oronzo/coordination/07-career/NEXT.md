@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 7 · CORREZIONI DA AUDIT R02
 
-**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
+**Stato:** `FIX_REQUESTED` — decisione corrente R05-1, prevale su note R04 storiche.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #14, merge `bb9e3847`.
@@ -69,3 +69,17 @@ Dopo merge e verifica dei cinque fix R02, un ciclo ulteriore sarà assegnato all
 **Correzioni R04 consegnate nella stessa PR #30; attendere gate indipendente Work 00 R05.** HEAD osservato `f098b5474801171f55e451889eca8c65653000f3`: `migratePeriodLedgers`/schema del periodo v2, envelope legacy V1/V2 e test su 104 club/2 stagioni documentati nel REPORT. L'Agente 09 ha aggiornato #32. Prima di nuovo lavoro devono passare **insieme** su checkout Node completo, incluso `period-r04.test.js`, test anti-doppio pagamento payroll, test di migrazione indefinita, finance/board/coach storia, due stagioni/reload. Se 00 richiede correzione, **aggiornare questa PR #30**, non altra. **Niente game-flow su questo ramo.**
 
 **ITERAZIONE FUTURA PREPARATA — NON AUTORIZZATA ORA:** dopo merge reali #30+#32 e test Node sul main, nuovo NEXT e PR distinta del 07 per `oronzo/app/flow/` + moduli career: inizio **1979** (Promozione storica), 20 offerte deterministiche, avatar e dati presidente veri da 09/04, mondo importabile M1 **100 comuni verificati** dalla PR ricerca dell'automazione (espansione 500 successiva), squadre/rosa/partite/classifiche/save persistenti, interfacce di comando/eventi verso 03 e input del motore 06. Controller no HTML/CSS/UI; nessun codice 03. Contratto #31/#35 sugli shout va chiuso prima dell'integrazione degli ordini, senza duplicare gli effetti 09. Risultato: primo loop dati testabile senza schermate.
+
+## DIRETTIVA PUNTUALE POST-R05 — UNICO FIX R05-1 (7 novembre 2026)
+
+**Stato operativo: `FIX_REQUESTED` — PR #30 esistente.** La [revisione R05, PR #37](https://github.com/CzekUns/cercax/pull/37), ha eseguito l'intera suite Node dei due HEAD #30/#32: **76 PASS / 1 FAIL**. I difetti R04 di ledger V1/V2, anti-doppio stipendio e test payroll 09 sono **superati**: non riaprirli senza regressioni nuove. Lo **unico errore residuo** è un test obsoleto dell'Agente 07, non un nuovo bug produttivo dimostrato.
+
+**File esclusivo da correggere:** `oronzo/systems/career/tests/r02-cross.test.mjs`, test “R02 career + real Agent09 finance: two seasons, salary, saved absolute weeks and retries”, soprattutto righe 16–45 sul HEAD `f098b5474801171f55e451889eca8c65653000f3`.
+
+1. Sostituire `const period = s.absoluteWeek` usato come parametro `{week:period}` con `{week:s.week, absoluteWeek:s.absoluteWeek, seasonYear:s.seasonYear}` passato in ogni `settleWeek` e retry.
+2. Registrare `allKeys` come valori numerici `absoluteWeek`; controllare `settledWeeks` come `'a:'+period.absoluteWeek` anziché numeri legacy.
+3. Aggiornare le verifiche sul rollover: su un ledger moderno la chiamata con solo `week` deve restituire `period_migration_required`; la nuova settimana con i tre campi dev'essere accettata una volta e rifiutata al retry.
+4. Mantenere INTEGRI test su contratti reali, paghe, 104 club/2 stagioni dove previsti, save/load, nessun doppio addebito. I casi legacy restano nella suite di migrazione dedicata; non abbassare il guard del 09 per far passare il test.
+5. Eseguire `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js` sui moduli combinati #30+#32 **se tecnicamente possibile**; non dichiarare PASS per prove non eseguite. Aggiornare `oronzo/coordination/07-career/REPORT.md` e **la stessa PR #30**, con commit, file e pass/fail. **Non creare un'altra PR e non iniziare game-flow R03.**
+
+**Gate successivo:** dopo la consegna del fix, il revisore 00 può testare soltanto il nuovo HEAD di #30 con #32 invariata e procedere al merge condizionato **solo con nuova autorizzazione esplicita dell'utente**. 09 attende; non richiedere all'intera squadra un nuovo round.
