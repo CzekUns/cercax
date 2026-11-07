@@ -1,5 +1,5 @@
 # NEXT — AGENTE 03 · ART DIREZIONE UI · VISIONE v0.2
-**Stato:** `READY` — nuovo ciclo da main.
+**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
 **Lavoro precedente:** PR #5 MERGIATA (ad84dd134b98d5fde8017af3da5e6e7b1b21e63e).
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-ui-r02`.
@@ -19,3 +19,8 @@ Non modificare `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css` o sistemi 
 
 ## Controllo orchestratore — ripresa parallela del 7 novembre 2026
 Il branch `agent/oronzo-ui-r02` è **identico a main** (0 commit nuovi) e il REPORT leggibile riguarda il ciclo 01. **Stato READY confermato solo per il kit UI** in `oronzo/assets/ui/`. Al termine aprire PR con screenshot, manifest dinamico e report aggiornato. **NON autorizzato ora** scrivere `index.html`, `game.js`, `ui.css` e `partita-rapida.html`: il ciclo runtime sarà assegnato DOPO merge del kit UI e fix R02 degli agenti 07+09, con un nuovo NEXT esplicito e PR separata.
+
+## R04 — CONSEGNA IN REVISIONE WORK 00
+**PR:** [#33](https://github.com/CzekUns/cercax/pull/33). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
+**Gate di accettazione:** Gate kit: demo Chromium 640×360/800×360/844×390, hotspot e asset; non autorizzare runtime HTML finché R02 07/09 e questo kit non sono mergiati.
+**Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
