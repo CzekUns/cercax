@@ -1,3 +1,27 @@
+# ORONZO — AGENTE 03 · FIX R07-1 / R07-2, STESSA PR #33
+
+**STATO ATTUALE: `FIX_REQUESTED` (7 novembre 2026)**. Il Coerentizzatore 00 ha completato [REPORT-R07](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r07/oronzo/coordination/coerentizzatore/REPORT-R07.md) sulla **PR #33 OPEN**, HEAD osservato `c38be80c392939d042dd998e6d1bf655c259804d`. Nessun merge. Questo blocco prevale sui precedenti WAIT_REVIEW/READY riportati di seguito.
+
+**Scope:** esclusivamente `oronzo/assets/ui/` e `oronzo/coordination/03-ui/REPORT.md`, nella **stessa PR #33** `agent/oronzo-ui-r02`. Non creare nuova PR, non cambiare main, `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html` o codice gameplay. Il nuovo runtime mobile sarà autorizzato SOLO dopo superamento gate e merge #33.
+
+## R07-1 P1 — tasto CARICA PARTITA tagliato a 360px
+- In `oronzo/assets/ui/demo-v02.js` `renderEntry()`, CSS `demo-v02.css` layout `.panel`, `.news`, `.v-stack`, `.hint-line`: a 640×360 e 800×360 il pulsante ha height DOM 44px ma area realmente visibile ~21px, per clipping `overflow:hidden`; al centro il touch intercetta il pannello anziché il bottone. A 844×390 la CTA è visibile ma la didascalia sotto viene tagliata.
+- Correggere layout con spazio riservato alle **due** CTA Nuova/Carica, mantenendo almeno 44×44 px realmente visibili/toccabili e testo leggibile, senza scroll invisibile. Le decorazioni possono adattarsi alla risoluzione.
+- Test in Chromium **reale** a 640×360, 800×360 e 844×390, desktop e touch: no clipping su antenati, `document.elementFromPoint` al centro CTA identifica bottone/figlio, `page.touchscreen.tap` sul centro (NO locator automatic scroll) attiva la risposta corretta a tutte e tre.
+
+## R07-2 P2 — toast che occlude e intercetta CTA
+- In `demo-v02.css` `.toast` e `demo-v02.js` `notify()`, dopo 5 risposte stampa il toast copre la CTA PROSSIMA GIORNATA nell'hub, il menu presidente e/o valori UMORE TIFOSI. In viewport 640×360 toast x=160,y=266,w=320,h=46; CTA y=254,h=44; centro CTA intercettato da `#ui-toast`; la navigazione resta ferma su hub. Riprodotto anche a 800×360 e 844×390.
+- Preferire uno **slot status dedicato** con altezza riservata e testo adattivo; in alternativa posizione fuori da controlli/indicatori. `pointer-events:none` da solo non basta (testo comunque coperto). Mantenere il fix R04 `changeScreen()` che cancella toast vecchi.
+- Test Chromium: percorso Nuova → offerte → conferenza 5 risposte rapide → hub; tap immediato sul **centro reale** PROSSIMA GIORNATA, senza attendere 2400ms e senza scroll automatico, deve navigare alla schermata prepartita; nessun contenuto o CTA occlusi nelle tre risoluzioni. Ripetere test su menu presidente e indicatori.
+
+## Deliverable e QA
+1. Modificare **solo** le due regressioni e, se necessario, script QA e screenshot nella stessa PR #33. Esportare screenshot 640×360, 800×360, 844×390 dopo fix, con 10 PNG veri caricati su HTTP statico quando possibile. Nessun dato demo spacciato per gameplay.
+2. Rilanciare `node --check oronzo/assets/ui/demo-v02.js`, `python oronzo/assets/ui/qa/check_assets.py`, `python oronzo/assets/ui/qa/run_browser_r04.py` e test aggiuntivi di hit-testing, clipping e toast; distinguere prove realmente eseguite da quelle impossibili.
+3. Aggiornare `oronzo/coordination/03-ui/REPORT.md` con SHA, file modificati, riscontri e limiti, e aggiornare **solo PR #33**. **NON MERGIARE**. Richiedere review **R07B** del Coerentizzatore 00, limitata ai due difetti e regressioni, prima di un'eventuale autorizzazione merge.
+
+---
+
+## ARCHIVIO — direttive pre-R07, superate
 # ORONZO — AGENTE 03 · NEXT ATTUALE R07: REVISONE FINALE KIT UI #33
 
 **Stato attuale: `WAIT_REVIEW_R07` — PR #33 ancora OPEN.** Le PR **#39 e #38** sono MERGED e il gate R06B 97/97 PASS su main; il controller carriera 1979 è pronto per essere collegato alla UI. **Non** ripartire da R02 e non riscrivere logica 07/09.
