@@ -1,3 +1,35 @@
+# ORONZO — AGENTE 07 · correzione mirata R05-1
+**Identità:** ORONZO-AGENT-07  
+**Stato:** FIX_DELIVERED / PR_OPEN, senza merge  
+**PR:** https://github.com/CzekUns/cercax/pull/30 · **Branch:** `agent/oronzo-career-r02`  
+**Audit R05:** https://github.com/CzekUns/cercax/pull/37 · **NEXT:** `FIX_REQUESTED`  
+**Data:** 7 novembre 2026 (Europe/Rome)  
+**Commit codice R05:** `cd35d8838e46bdb1b4496523b39608b7a73af237`  
+**SHA blob del test aggiornato:** `586e6856910196965172e9488ff3bee8b839ee74`  
+**Agente 09 / PR #32 verificato per il test:** HEAD `89bb4944e6c6fc78ad9164c8e0d899355ec9d67f`.
+
+## Realizzato — solo R05-1
+- **Unico file sorgente cambiato:** `oronzo/systems/career/tests/r02-cross.test.mjs`. Tutti i file produttivi rimangono invariati.
+- Nel test "R02 career + real Agent09 finance: two seasons, salary, saved absolute weeks and retries" il parametro `period` ora è esattamente `{week:s.week,absoluteWeek:s.absoluteWeek,seasonYear:s.seasonYear}`, inviato a ogni `settleWeek` e retry. `allKeys` raccoglie numeri `absoluteWeek`; `settledWeeks` conserva chiavi `a:N`.
+- Dopo rollover, un `settleWeek(club,{week:s.week})` su ledger già assoluto verifica `period_migration_required`. Una simulazione su **copia immutabile restituita** accetta il periodo nuovo con tutti e tre i campi, conferma stipendio positivo e corretto, ultima chiave `a:N`, poi rifiuta il retry con `week_already_settled`. Il club originale rimane da contabilizzare nel normale loop della seconda stagione, così non si crea un pagamento anticipato duplicato.
+- Conservati i controlli esistenti su contratti reali, importi pagati, due stagioni, save/load a ogni giornata, unicità settimane, saldo decrescente, 12 pagamenti del club verificato, history di due stagioni, normalizzazione mister ed esonero dopo reload. **Nessun allentamento al guard societario o alla migrazione V1/V2.**
+
+## Test effettuati e limiti verificati
+1. **Esecuzione reale del test R02-cross in runtime JavaScript V8** con **11 file ESM effettivi e attuali** delle PR #30 e #32 recuperati tramite GitHub, caricati con un piccolo loader di verifica: **2 PASS / 0 FAIL**. Sono stati esercitati veri `newCareer`, `initializeFinances`, `weeklyPayroll`, `settleWeek`, `serialize/deserialize`, `finishSeason`, `createCoach` e `applyBoardDecision`. È una verifica V8 con assert/test adattati, **non** l'esecuzione nativa `node --test`.
+2. **Node.js v22.16.0 reale:** `node --check r02-cross.test.mjs` **PASS** su file locale byte-identico al blob remoto `586e6856910196965172e9488ff3bee8b839ee74` (verificato con `git hash-object`).
+3. Il checkout combinato integrale per `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js` **non è stato eseguito in questa sessione**: `git ls-remote https://github.com/CzekUns/cercax.git` dal container fallisce con `Could not resolve host: github.com`. Non attribuire 77/77 PASS finché Coerentizzatore o CI non lo rieseguono. La precedente R05 indipendente, su HEAD anteriori, documentava **76 PASS / 1 FAIL** limitato a questo test; non è un esito della suite dopo il nuovo commit.
+4. Nessun test browser/Android: questa iterazione riguarda solo la suite dei moduli, non l'UI.
+
+## API e dipendenze
+- Contratto Agent07 → Agent09: passare l'intero `{week,absoluteWeek,seasonYear}` per ogni transazione o riunione; usare il `result.club` restituito da Agent09 e mantenere periodi deduplicati. La prova rappresenta la nuova convenzione e verifica esplicitamente il rifiuto del vecchio `week` isolato.
+- Agente 09: nessun file modificato. Il suo HEAD #32 attuale rimane la dipendenza per il gate unificato.
+- Gli envelope V1/V2 ambigui restano gestiti dalle regressioni dedicate R04; nessuna modifica al comportamento di migrazione o salvataggio.
+
+## Prossima attività raccomandata (solo orchestratore / revisore 00)
+Eseguire sull'HEAD appena pubblicato di #30 con #32 invariata la **suite Node combinata completa**, verificare verde il gate e decidere separatamente ogni merge soltanto con autorizzazione esplicita. Nessun lavoro R03 o `oronzo/app/flow/` avviato.
+
+---
+
 # ORONZO — RAPPORTO AGENTE 07 · correzioni R04 su PR #30
 **ID:** `ORONZO-AGENT-07`  
 **Stato:** `FIX_DELIVERED / PR_OPEN` — in revisione, **nessun merge effettuato**.  
