@@ -1,6 +1,15 @@
 # ORONZO — Contratto dati V2 proposto per visione 1979
 **Stato:** proposta d'integrazione dell'Agente 10, 7 novembre 2026. Non sostituisce automaticamente le API V1 già presenti; ogni agente mantiene compatibilità e documenta la migrazione. Fonte: [Game Vision v0.2](../GAME-VISION-v02.md) e [epic #25](https://github.com/CzekUns/cercax/issues/25).
 
+## Soglia dei dataset per M1 e filiera dati approvata
+Decisione aggiornata dell'utente: **prima release = 100 comuni verificati e 500 cognomi italiani distinti verificati**, entrambi con provenienza/diritti di riuso. Obiettivo espansione **500 comuni e 5.000 cognomi**. Rarità/demografia vanno rivendicate solo con ranking verificabile, non inferite. La **raccolta** è dell'automazione oraria sul branch `data/oronzo-world-research` in `oronzo/data/research/`, senza codice engine né merge automatici; 07 importa/mappa i comuni e 08 importa i cognomi soltanto dopo QA dataset e approvazione della PR. Gli ID canonici non devono cambiare quando il catalogo viene ampliato; salvataggi/seed mantengono le identità già estratte.
+
+## Chiusura bug R04 — ownership del periodo e degli effetti
+- **07** migra V1/V2, incluso *ledger* transazioni, settledWeeks, board/meeting/promesse con anno originario verificabile; in casi ambigui segnala impossibilità di migrazione automatica e non consente addebiti duplicati.
+- **09** rifiuta contabilizzazione con periodo misto o registro legacy non migrato, usa chiavi concordate `{week,absoluteWeek,seasonYear}`, salva una sola volta.
+- **08** è fonte della struttura persistente PlayerV2 `origin:{comune,regione,macroregione}`, `relationships.coachTrust`; **06** legge/normalizza quella struttura nel comando partita. Tono API 06 `encourage|harsh`; etichette 08 `gentle|hard` mappate esplicitamente, mai passate senza conversione.
+- **06** è unico responsabile degli effetti *temporanei* dello shout durante il match. **09** applica una sola volta gli effetti persistenti, con chiave `matchId:eventId` salvata atomicamente ai delta; **08** non ricalcola/riapplica bonus temporanei su un evento già risolto dal 06. TEST obbligatorio su stessi eventi e reload.
+
 ## Ruolo di coordinamento
 Agente 10 **non scrive implementazioni**. Tutti gli schemi qui definiti sono contratti da recepire negli scope degli agenti. L'adapter `oronzo/app/flow/` sarà affidato all'agente 07 SOLO in un ciclo successivo al merge R02; il runtime HTML/CSS/JS sarà affidato all'agente 03 SOLO in un ciclo successivo alla consegna grafica e al gate R02. Non attribuire al coordinatore l'esecuzione di test, codice o asset.
 
