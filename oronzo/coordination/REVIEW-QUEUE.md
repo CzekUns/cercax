@@ -90,3 +90,10 @@ Il rapporto è stato creato nella [PR #19](https://github.com/CzekUns/cercax/pul
 - **Correzione documentale:** la riga PR #17 nella tabella di questa coda riportava ancora `WAIT_REVIEW` nonostante il NEXT dell'agente 09 fosse già `FIX_REQUESTED` per ORZ-P1-008 dalla R03. Ora allineata senza creare un nuovo difetto.
 - Ispezione statica aggiuntiva di `career.js`, `league.js`, `progression.js`, `save.js` della PR #14 e `finance.js` della PR #17: nessun nuovo difetto con prova sufficiente da assegnare in questo ciclo; il bug finanziario già registrato resta aperto. Non sono stati eseguiti test runtime né controlli visivi, e non sono stati fatti merge o modifiche al gioco.
 
+
+
+## Revisione di coordinamento v0.2 — 7 novembre 2026, Agente 10
+- **Nuovo prodotto:** [Game Vision v0.2](GAME-VISION-v02.md) su GitHub e Drive, [Epic #25](https://github.com/CzekUns/cercax/issues/25), integrazione [#26](https://github.com/CzekUns/cercax/issues/26). I documenti storici che menzionano 1985/86 e 90 secondi sono stati superati dalla direttiva utente: 1979, morale coach, 1× 15 minuti.
+- **Situazione LIVE verificata:** unica PR aperta `#12` cutscene, ancora DRAFT; `#24` fix reale modulo MERGIATA. Non risultano nuove PR aperte dagli agenti 07/09 alla data della verifica; le incompatibilità R02 restano **non dichiarabili risolte**.
+- **Assegnati su main:** 01 sprite READY; 02 cutscene WAIT_REVIEW; 03 UI READY; 04 copy READY; 05 match-view READY; 06 engine READY; 07 career READY per R02, ampliamento v0.2 solo dopo merge; 08 attributes READY; 09 club READY per R02, ampliamento v0.2 solo dopo merge. NEXT 01–09 aggiornati e file agent10 creati.
+- **Gate P0 invariato:** test incrociati di presidente, obiettivi, salari, absoluteWeek e Coach dopo save/load/seconda stagione. **Gate P1:** l'integrazione del primo ciclo Nuova partita→carriera→match→postmatch→save è ancora DA FARE. Non dichiarare che un incarico scritto equivale a codice consegnato o che una chat agente sia stata avviata.
