@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 7 · CORREZIONI DA AUDIT R02
 
-**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
+**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #14, merge `bb9e3847`.
@@ -63,3 +63,9 @@ Dopo merge e verifica dei cinque fix R02, un ciclo ulteriore sarà assegnato all
 3. Estendere i test su envelope V1/V2 con checksum valido e dati reali su due stagioni, retry stesso periodo prima/dopo reload, meeting, promesse e pagamento senza doppio addebito. Test API con `{week:seasonWeek,absoluteWeek,seasonYear}`, non sostituire semplicemente il numero assoluto dentro `week`.
 4. Aggiornare `REPORT.md` e la **PR #30 esistente** con SHA, test Node su branch combinato con #32, esiti PASS/FAIL e limiti. Niente nuova PR R03, nessun `oronzo/app/flow/` adesso.
 **Prossimo ciclo PREPARATO ma NON AUTORIZZATO:** dopo merge e suite verde #30+#32, 07 avrà in `oronzo/app/flow/` il game-flow e l'import del mondo. Per MVP sono sufficienti **100 comuni verificati** raccolti dalla revisione oraria su `data/oronzo-world-research`; 500 comuni restano fase successiva. Importare fonte/provenienza/ID, non fare ricerca duplicata e non presentare i 100 come ranking certo senza prova.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**Correzioni R04 consegnate nella stessa PR #30; attendere gate indipendente Work 00 R05.** HEAD osservato `f098b5474801171f55e451889eca8c65653000f3`: `migratePeriodLedgers`/schema del periodo v2, envelope legacy V1/V2 e test su 104 club/2 stagioni documentati nel REPORT. L'Agente 09 ha aggiornato #32. Prima di nuovo lavoro devono passare **insieme** su checkout Node completo, incluso `period-r04.test.js`, test anti-doppio pagamento payroll, test di migrazione indefinita, finance/board/coach storia, due stagioni/reload. Se 00 richiede correzione, **aggiornare questa PR #30**, non altra. **Niente game-flow su questo ramo.**
+
+**ITERAZIONE FUTURA PREPARATA — NON AUTORIZZATA ORA:** dopo merge reali #30+#32 e test Node sul main, nuovo NEXT e PR distinta del 07 per `oronzo/app/flow/` + moduli career: inizio **1979** (Promozione storica), 20 offerte deterministiche, avatar e dati presidente veri da 09/04, mondo importabile M1 **100 comuni verificati** dalla PR ricerca dell'automazione (espansione 500 successiva), squadre/rosa/partite/classifiche/save persistenti, interfacce di comando/eventi verso 03 e input del motore 06. Controller no HTML/CSS/UI; nessun codice 03. Contratto #31/#35 sugli shout va chiuso prima dell'integrazione degli ordini, senza duplicare gli effetti 09. Risultato: primo loop dati testabile senza schermate.
