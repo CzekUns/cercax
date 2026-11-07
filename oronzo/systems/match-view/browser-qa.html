@@ -2,14 +2,15 @@
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ORONZO 05 — R04 QA camera in browser</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#07152c;color:#e7e9db;font:12px monospace}
-main{width:min(100%,1080px);margin:auto;padding:8px;display:grid;gap:8px}
-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#07152c;color:#e7e9db;font:12px monospace}
+main{width:min(100%,1080px);height:100dvh;min-height:0;margin:auto;padding:6px;display:flex;flex-direction:column;gap:6px}
+header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:0 0 auto}
 button,select{font:inherit;color:#f1eccf;background:#1a3766;border:1px solid #81a0c9;border-radius:4px;min-height:38px;padding:6px 10px;touch-action:manipulation}
 button[aria-pressed=true]{background:#d3ad51;color:#111c31}
-#frame{display:flex;justify-content:center;align-items:center;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0a1729;border:1px solid #45698a}
-canvas{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
-pre{overflow:auto;white-space:pre-wrap;font:11px/1.5 monospace;background:#0f2441;padding:8px;margin:0}small{opacity:.8}
+#frame{flex:1 1 auto;min-height:0;display:flex;justify-content:center;align-items:center;width:100%;overflow:hidden;background:#0a1729;border:1px solid #45698a}
+canvas{display:block;width:auto;height:auto;max-width:100%;max-height:100%;aspect-ratio:16/9;object-fit:contain;image-rendering:pixelated}
+pre{flex:0 0 auto;max-height:88px;overflow:auto;white-space:pre-wrap;font:11px/1.5 monospace;background:#0f2441;padding:8px;margin:0}small{opacity:.8}
+@media(max-height:440px){main{padding:4px;gap:4px}header{gap:4px}pre,small{display:none}button,select{min-height:34px;padding:4px 6px}}
 </style></head><body><main>
 <header><strong>AGENTE 05 · R04 QA VISIVA</strong><button id="full" aria-pressed="true">CAMPO COMPLETO</button><button id="broadcast" aria-pressed="false">CAMERA TV</button><select id="scenario" aria-label="Scenario"></select><button id="run">PROVA</button></header>
 <div id="frame"><canvas id="pitch" width="640" height="360"></canvas></div>
@@ -39,7 +40,7 @@ function makeScene(name){
 }
 function displayMode(mode){view.setCameraMode(mode);for(const m of ['full','broadcast'])el(m).setAttribute('aria-pressed',String(m===mode));}
 async function run(name=select.value,mode=view.cameraMode){
- await ready;displayMode(mode);
+ await ready;select.value=name;displayMode(mode);
  const source=makeScene(name),original=JSON.stringify(source);view.interpolation.reset();view.overlay.clear();
  const now=performance.now();
  if(name==='restart'||name==='halftime'||name==='replay'){
