@@ -1,5 +1,5 @@
 import {integer,copy} from './core.js';
-import {periodOf,ledgerEntry} from './period.js';
+import {periodOf,ledgerEntry,periodLedgerError} from './period.js';
 
 // Whole nominal lire (ITL), never signed amounts. Safe-integer checks include totals.
 const money = (amount, label='amount') => integer(amount, label);
@@ -19,15 +19,17 @@ export function initializeFinances(club, options={}) {
   const budget=money(defaultIfMissing(club?.budget),'budget');
   const wageBudget=money(defaultIfMissing(club?.wageBudget),'wageBudget');
   const f=club?.finance || {};
+  const cash=money(defaultIfMissing(f.cash,budget),'cash');
   const arrears=money(defaultIfMissing(f.arrears),'arrears');
   const sponsorPerWeek=money(defaultIfMissing(options.sponsorPerWeek,defaultIfMissing(f.sponsorPerWeek)),'sponsorPerWeek');
   const travelCost=money(defaultIfMissing(options.travelCost,defaultIfMissing(f.travelCost)),'travelCost');
   weeklyPayroll(club);
   const c=copy(club);
-  c.budget=budget;
+  // An existing finance.cash is the authoritative paid balance on reload.
+  c.budget=cash;
   c.wageBudget=wageBudget;
   c.finance={
-    cash:c.budget,
+    cash,
     arrears,
     sponsorPerWeek,
     travelCost,
@@ -42,6 +44,8 @@ export function book(club, {amount,type,week=0,absoluteWeek,seasonYear,mandatory
   const period=periodOf({week,absoluteWeek,seasonYear});
   if (!['income','expense'].includes(type)) throw new Error('transaction type must be income or expense');
   if(!club?.finance) throw new Error('finances not initialized');
+  const domainError=periodLedgerError(club,period);
+  if(domainError)throw new Error(domainError);
   const cash=money(club.finance.cash,'cash');
   const arrears=money(club.finance.arrears,'arrears');
   if (type==='expense' && !mandatory && amount>cash)
@@ -68,6 +72,8 @@ export function settleWeek(club, {week,absoluteWeek,seasonYear,away=false,bonus=
   money(club.finance.sponsorPerWeek,'sponsorPerWeek');
   money(club.finance.travelCost,'travelCost');
   weeklyPayroll(club); // Verify all wages and their sum before settling.
+  const domainError=periodLedgerError(club,period);
+  if(domainError)return {accepted:false,reason:domainError,club};
   if (club.finance.settledWeeks.includes(period.key))
     return {accepted:false,reason:'week_already_settled',club};
   let c=copy(club);
