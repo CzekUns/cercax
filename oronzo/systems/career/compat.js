@@ -1,5 +1,6 @@
 /** R02 bridge: persistent club identity, objective semantics, wage contracts and time. */
 import { seededRandom } from './league.js';
+import { migratePeriodLedgers } from './period-migration.js';
 
 // IDs ONLY from oronzo/content/presidents.json (the canonical *profiles* stay owned by Agent 4).
 // Reusing a profile for multiple clubs is intentional: office identity is the club ID,
@@ -106,6 +107,9 @@ export function normalizeCareerCoach(coach, seasonYear) {
 /** In-place migration, suitable after CHECKSUM validation and before state schema validation. */
 export function normalizeCareerCompatibility(state) {
   if (!state || !Array.isArray(state.clubs)) throw new Error('Invalid career');
+  // R04: verify and migrate financial/board period provenance BEFORE any
+  // compatibility fallback can invent a season offset. Ambiguous saves fail closed.
+  migratePeriodLedgers(state);
   const ids = canonicalPresidentIds(state.presidentCatalogIds ?? PRESIDENT_PROFILE_IDS);
   state.presidentCatalogIds = ids;
   for (const club of state.clubs) {

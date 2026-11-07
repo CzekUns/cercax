@@ -1,5 +1,6 @@
 /** Versioned, checksummed, two-slot browser save with import/export and recovery. */
 import { normalizeCareerCompatibility, canonicalObjective } from './compat.js';
+import { migratePeriodLedgers, PERIOD_LEDGER_SCHEMA, PERIOD_AMBIGUOUS } from './period-migration.js';
 export const SAVE_VERSION = 2;
 export const SAVE_KIND = 'ORONZO_CAREER';
 function digest(text) {
@@ -15,6 +16,7 @@ export function validateCareer(state) {
     throw new Error('Invalid or unsupported career data');
   }
   if (!Number.isSafeInteger(state.absoluteWeek) || state.absoluteWeek < 1) throw new Error('Invalid absoluteWeek');
+  if (state.periodLedgerSchemaVersion !== PERIOD_LEDGER_SCHEMA) throw new Error('Unmigrated period ledger');
   const ids = new Set(state.clubs.map(c => c.id));
   if (ids.size !== state.clubs.length || (state.coach.clubId && !ids.has(state.coach.clubId))) {
     throw new Error('Corrupted clubs or coach reference');
@@ -54,6 +56,9 @@ export function migrateState(state) {
   return validateCareer(normalizeCareerCompatibility(state));
 }
 export function serialize(state, { sequence = 0 } = {}) {
+  // Canonicalize any newly supplied legacy week records before writing.
+  // If their season cannot be proven, fail WITHOUT overwriting old storage.
+  migratePeriodLedgers(state);
   validateCareer(state);
   const data = JSON.stringify(state);
   if (!Number.isSafeInteger(sequence) || sequence < 0) throw new Error('Invalid save sequence');
@@ -82,11 +87,16 @@ export function createSaveManager(storage, key = 'oronzo.career.v2') {
       if (!raw) return null;
       const envelope = JSON.parse(raw);
       return { state: deserialize(envelope), sequence: envelope.sequence ?? 0, slot: index };
-    } catch { return null; }
+    } catch (error) {
+      if (error?.code === PERIOD_AMBIGUOUS) return { blocked: error, slot: index };
+      return null;
+    }
   };
   return {
     save(state) {
       const copies = [read(0), read(1)];
+      const blocked = copies.find(copy => copy?.blocked);
+      if (blocked) throw blocked.blocked; // Preserve raw legacy bytes for explicit recovery.
       const existing = copies.filter(Boolean);
       const active = storage.getItem(activeKey);
       // Never overwrite the sole recoverable copy, even if :active points to
@@ -105,8 +115,13 @@ export function createSaveManager(storage, key = 'oronzo.career.v2') {
       const active = storage.getItem(activeKey);
       const preferred = active === 'A' ? 0 : active === 'B' ? 1 : -1;
       const both = [read(0), read(1)];
-      const good = preferred >= 0 && both[preferred] ? both[preferred] :
-        both.filter(Boolean).sort((a, b) => b.sequence - a.sequence)[0];
+      const valid = both.filter(copy => copy?.state);
+      const good = preferred >= 0 && both[preferred]?.state ? both[preferred] :
+        valid.sort((a, b) => b.sequence - a.sequence)[0];
+      if (!good) {
+        const blocked = both.find(copy => copy?.blocked);
+        if (blocked) throw blocked.blocked;
+      }
       return good ? { state: good.state, recovered: good.slot !== preferred,
         sequence: good.sequence } : null;
     },

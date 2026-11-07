@@ -5,6 +5,7 @@ import { clamp, updateReputation, seasonAssessment, createJobOffers,
   applyBoardDecision, takeJobOffer } from './progression.js';
 import { PRESIDENT_PROFILE_IDS, canonicalPresidentIds, ensureClubPresident,
   ensureClubContracts, normalizeCareerCoach } from './compat.js';
+import { PERIOD_LEDGER_SCHEMA } from './period-migration.js';
 
 const FIRST = ['Aldo', 'Renzo', 'Italo', 'Bruno', 'Nino', 'Silvano', 'Ruggero', 'Dario', 'Osvaldo', 'Lino', 'Tito', 'Piero'];
 const LAST = ['Rocchi', 'Valli', 'Ferretti', 'Morelli', 'Monti', 'Pagani', 'Bassi', 'Leoni', 'Rinaldi', 'Sala', 'Conti', 'Fabbri'];
@@ -77,7 +78,8 @@ export function newCareer(config = {}, seed = 1985) {
     hiredSeason: 1985, reputation: 18, contract: { until: 1986 },
     tactics: { formation: '4-4-2', mentality: 50, pressing: 50, tempo: 50, width: 50, marking: 'zonal' },
     relationships: {}, employmentHistory: [] };
-  const state = { schemaVersion: 2, seed, seasonYear: 1985, seasonIndex: 0,
+  const state = { schemaVersion: 2, periodLedgerSchemaVersion: PERIOD_LEDGER_SCHEMA,
+    seed, seasonYear: 1985, seasonIndex: 0,
     week: 1, absoluteWeek: 1, phase: 'inSeason', clubs, coach,
     presidentCatalogIds: canonicalPresidentIds(config.presidentIds ?? PRESIDENT_PROFILE_IDS),
     leagues: {}, rulesByDivision: config.rulesByDivision || {},
