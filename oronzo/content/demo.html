@@ -42,6 +42,10 @@ select{max-width:100%}
 <div class="main">
 <section class="panel" aria-label="Squadra">
 <p class="eyebrow">SQUADRA · CAMPANILE</p>
+<label>Presidente del club<select id="presidentSelect" aria-label="Presidente del club"></select></label>
+<label><input type="checkbox" id="presidentOnly" checked> Solo eventi del presidente</label>
+<label>Sconfitte consecutive <output id="lossesValue">2</output><input id="losses" aria-label="Sconfitte consecutive" type="range" min="0" max="5" value="2"></label>
+<div class="actions"><label><input type="checkbox" id="marketRequest" checked> Mercato</label><label><input type="checkbox" id="derbyWeek" checked> Derby</label><label><input type="checkbox" id="cupWeek"> Coppa</label><label><input type="checkbox" id="lowCash" checked> Cassa bassa</label></div>
 <div id="stats" class="status"></div>
 <label>Morale <output id="moraleValue">65</output><input id="morale" aria-label="Morale" type="range" min="10" max="95" value="65"></label>
 <label>Fatica <output id="fatigueValue">25</output><input id="fatigue" aria-label="Fatica" type="range" min="0" max="95" value="25"></label>
@@ -77,7 +81,7 @@ const codeNames={};
 let catalog=null, state=null, memory=makeMemory(), pending=null;
 const log=[];
 function sample(){
- return {week:4,trainingDone:false,players:Array.from({length:16},(_,i)=>({id:i+1,role:i===0||i===11?"POR":i%5===0?"ATT":"CEN",starter:i<11,morale:65,confidence:65,health:84,fatigue:25,luck:45,character:65,tech:60,speed:60,stamina:65})),table:[]};
+ return {week:6,trainingDone:false,club:{presidentId:$("presidentSelect").value,boardTrust:42,finance:{cash:85000}},narrativeContext:{lossStreak:2,marketRequest:true,derbyWeek:true,cupWeek:false},players:Array.from({length:16},(_,i)=>({id:i+1,role:i===0||i===11?"POR":i%5===0?"ATT":"CEN",starter:i<11,morale:65,confidence:65,health:84,fatigue:25,luck:45,character:65,tech:60,speed:60,stamina:65})),table:[]};
 }
 function logMessage(t){log.unshift(t);log.splice(8);$("log").textContent=log.join("\n");}
 function stats(){
@@ -87,10 +91,13 @@ function stats(){
  for(const [k,v] of pairs){const name=document.createElement("span"),value=document.createElement("strong");name.textContent=k;value.textContent=v;$("stats").append(name,value);}
  for(const key of ["morale","fatigue","confidence","health"]){const v=Math.round(m["team"+key[0].toUpperCase()+key.slice(1)]);$(key).value=v;$(key+"Value").textContent=v;}
  $("trainBtn").textContent=state.trainingDone?"SEDUTA: SÌ":"SEDUTA: NO";
- $("summary").textContent=catalog.events.events.length+" EVENTI · "+catalog.micro.entries.length+" MICROTESTI · "+catalog.dialogues.dialogues.length+" DIALOGHI";
+ $("losses").value=state.narrativeContext.lossStreak;$("lossesValue").textContent=state.narrativeContext.lossStreak;
+ $("presidentSelect").value=state.club.presidentId;
+ $("summary").textContent=catalog.presidents.presidents.length+" PRESIDENTI · "+catalog.events.events.length+" EVENTI · "+catalog.dialogues.dialogues.length+" DIALOGHI";
 }
 function newEvent(){
- pending=selectEvent(catalog.events,state,memory);
+ const subset=$("presidentOnly").checked?catalog.events.events.filter(e=>e.presidentId===state.club.presidentId):catalog.events;
+ pending=selectEvent(subset,state,memory);
  $("choices").replaceChildren();$("effect").textContent="";
  if(!pending){$("title").textContent="Nessun nuovo evento";$("body").textContent="I cooldown sono ancora attivi. Avanza la giornata o cambia il morale.";return;}
  const ev=pending.event;
@@ -112,20 +119,28 @@ function newMicro(){
  $("micro").textContent=entry?entry.text:"Nessun testo nuovo per ora. Prova un'altra giornata o categoria.";
 }
 function newDialogue(){
- const dlg=selectDialogue(catalog.dialogues,$("scene").value,state,memory);
+ const subset=$("presidentOnly").checked?catalog.dialogues.dialogues.filter(d=>d.presidentId===state.club.presidentId):catalog.dialogues;
+ const dlg=selectDialogue(subset,$("scene").value,state,memory);
  $("dialogue").replaceChildren();
  if(!dlg){$("dialogue").textContent="Nessun nuovo dialogo disponibile per questa settimana.";return;}
  for(const line of dlg.lines){const p=document.createElement("p"),name=document.createElement("strong"),text=document.createElement("span");p.className="dialogue";name.textContent=codeNames[line.speakerId]||line.speakerId;text.textContent=line.text;p.append(name,text);$("dialogue").appendChild(p);}
 }
 function reset(){memory=makeMemory();state=sample();pending=null;log.length=0;$("choices").replaceChildren();$("effect").textContent="";stats();newEvent();newMicro();newDialogue();logMessage("Stagione di prova pronta.");}
+$("presidentSelect").onchange=()=>{state.club.presidentId=$("presidentSelect").value;newEvent();newDialogue();};
+$("presidentOnly").onchange=()=>{newEvent();newDialogue();};
+$("losses").oninput=()=>{state.narrativeContext.lossStreak=Number($("losses").value);stats();};
+for(const id of ["marketRequest","derbyWeek","cupWeek"])$(id).onchange=()=>{state.narrativeContext[id]=$(id).checked;};
+$("lowCash").onchange=()=>{state.club.finance.cash=$("lowCash").checked?85000:750000;};
 for(const key of ["morale","fatigue","confidence","health"]) $(key).oninput=()=>{const n=Number($(key).value);state.players=state.players.map(p=>({...p,[key]:n}));stats();};
 $("weekBtn").onclick=()=>{state.week++;state.trainingDone=false;if(state.week>30){state.week=1;resetSeason(memory);}stats();logMessage("Nuova giornata: "+state.week);};
 $("trainBtn").onclick=()=>{state.trainingDone=!state.trainingDone;stats();};
 $("eventBtn").onclick=newEvent;$("microBtn").onclick=newMicro;$("dialogueBtn").onclick=newDialogue;
 $("category").onchange=newMicro;$("scene").onchange=newDialogue;$("reset").onclick=reset;
 try{
- const [characters,events,micro,dialogues]=await Promise.all(["characters","events","microcopy","dialogues"].map(n=>fetch("./"+n+".json").then(r=>{if(!r.ok)throw Error(n+" "+r.status);return r.json();})));
- catalog={events,micro,dialogues};
+ const [characters,events,micro,dialogues,presidents]=await Promise.all(["characters","events","microcopy","dialogues","presidents"].map(n=>fetch("./"+n+".json").then(r=>{if(!r.ok)throw Error(n+" "+r.status);return r.json();})));
+ catalog={events,micro,dialogues,presidents};
+ for(const p of presidents.presidents){const opt=document.createElement("option");opt.value=p.id;opt.textContent=p.name;$("presidentSelect").appendChild(opt);}
+ $("presidentSelect").value=presidents.presidents[0].id;
  for(const c of characters.characters)codeNames[c.id]=c.name;
  reset();
 }catch(e){$("title").textContent="Impossibile caricare i JSON";$("body").textContent=String(e)+". Avvia un server HTTP locale (vedi README.md).";$("summary").textContent="ERRORE DATI";}
