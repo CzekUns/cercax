@@ -93,6 +93,8 @@ function stats(){
  $("trainBtn").textContent=state.trainingDone?"SEDUTA: SÌ":"SEDUTA: NO";
  $("losses").value=state.narrativeContext.lossStreak;$("lossesValue").textContent=state.narrativeContext.lossStreak;
  $("presidentSelect").value=state.club.presidentId;
+ for(const id of ["marketRequest","derbyWeek","cupWeek"])$(id).checked=state.narrativeContext[id];
+ $("lowCash").checked=state.club.finance.cash<150000;
  $("summary").textContent=catalog.presidents.presidents.length+" PRESIDENTI · "+catalog.events.events.length+" EVENTI · "+catalog.dialogues.dialogues.length+" DIALOGHI";
 }
 function newEvent(){
@@ -125,9 +127,10 @@ function newDialogue(){
  if(!dlg){$("dialogue").textContent="Nessun nuovo dialogo disponibile per questa settimana.";return;}
  for(const line of dlg.lines){const p=document.createElement("p"),name=document.createElement("strong"),text=document.createElement("span");p.className="dialogue";name.textContent=codeNames[line.speakerId]||line.speakerId;text.textContent=line.text;p.append(name,text);$("dialogue").appendChild(p);}
 }
-function reset(){memory=makeMemory();state=sample();pending=null;log.length=0;$("choices").replaceChildren();$("effect").textContent="";stats();newEvent();newMicro();newDialogue();logMessage("Stagione di prova pronta.");}
-$("presidentSelect").onchange=()=>{state.club.presidentId=$("presidentSelect").value;newEvent();newDialogue();};
-$("presidentOnly").onchange=()=>{newEvent();newDialogue();};
+function alignPresidentScene(){const first=catalog.dialogues.dialogues.find(d=>d.presidentId===state.club.presidentId);if(first)$("scene").value=first.scene;}
+function reset(){memory=makeMemory();state=sample();alignPresidentScene();pending=null;log.length=0;$("choices").replaceChildren();$("effect").textContent="";stats();newEvent();newMicro();newDialogue();logMessage("Stagione di prova pronta.");}
+$("presidentSelect").onchange=()=>{state.club.presidentId=$("presidentSelect").value;alignPresidentScene();newEvent();newDialogue();};
+$("presidentOnly").onchange=()=>{if($("presidentOnly").checked)alignPresidentScene();newEvent();newDialogue();};
 $("losses").oninput=()=>{state.narrativeContext.lossStreak=Number($("losses").value);stats();};
 for(const id of ["marketRequest","derbyWeek","cupWeek"])$(id).onchange=()=>{state.narrativeContext[id]=$(id).checked;};
 $("lowCash").onchange=()=>{state.club.finance.cash=$("lowCash").checked?85000:750000;};
