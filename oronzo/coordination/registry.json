@@ -46,7 +46,14 @@
       "next": "oronzo/coordination/03-ui/NEXT.md",
       "report": "oronzo/coordination/03-ui/REPORT.md",
       "run": "oronzo/coordination/03-ui/RUN.md",
-      "initialPr": 5
+      "initialPr": 5,
+      "reservedFutureRuntimeScope": [
+        "oronzo/index.html",
+        "oronzo/game.js",
+        "oronzo/ui.css",
+        "oronzo/partita-rapida.html"
+      ],
+      "futureScopeGate": "Solo dopo PR UI corrente mergiata, gate R02 07/09 chiuso, NEXT ciclo successivo autorizzato"
     },
     {
       "id": 4,
@@ -102,7 +109,9 @@
       "next": "oronzo/coordination/07-career/NEXT.md",
       "report": "oronzo/coordination/07-career/REPORT.md",
       "run": "oronzo/coordination/07-career/RUN.md",
-      "initialPr": null
+      "initialPr": null,
+      "reservedFutureAdapterScope": "oronzo/app/flow/",
+      "futureScopeGate": "Solo dopo fix R02 07/09 mergiati e NEXT nuovo ciclo"
     },
     {
       "id": 8,
@@ -136,7 +145,7 @@
   "orchestrator": {
     "id": 10,
     "slug": "10-orchestrator",
-    "name": "Orchestratore di prodotto e integrazione",
+    "name": "Orchestratore delle regole e delle deleghe",
     "role": "ORONZO-AGENT-10",
     "coordinationDir": "oronzo/coordination/10-orchestrator/",
     "identity": "oronzo/coordination/10-orchestrator/IDENTITY.md",
@@ -145,6 +154,8 @@
     "plan": "oronzo/coordination/10-orchestrator/PLAN.md",
     "contract": "oronzo/coordination/10-orchestrator/CONTRACT-v02.md",
     "epicIssue": 25,
-    "integrationIssue": 26
+    "integrationIssue": 26,
+    "implementationAllowed": false,
+    "roleSummary": "Requisiti, contratti, NEXT, issue, review/merge; non scrive codice né asset"
   }
 }
