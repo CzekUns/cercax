@@ -26,6 +26,8 @@ import {
 
 **State stages:** `offers` → `opening_press` → `hub` → `pre_match` → `postmatch_press` → `postmatch_ready` → `hub` or `season_complete` or `unemployed`. New employment from vacancy returns to `hub`. All transitions require a non-game-over coach. `getStateForUI(state)` is a detached JSON projection. It exposes current game date, category, next fixture, coach, press state, club, offers, and `pendingEffectTransactions` to show the pending Agent09 integration honestly.
 
+**Matchday replay protection:** UI should always submit `advanceMatchday(state,{presidentCatalog,expectedAbsoluteWeek:state.absoluteWeek})`. The controller returns `stale_week_action` on a repeated click from an older week; `expectedAbsoluteWeek` is required when unemployed, where the stage remains `unemployed` across valid advancements. This is a domain check in addition to Agent09's accounting deduplication.
+
 **Important:** `saveGame` intentionally **rejects** `pre_match`/`match_live` (no Engine06 mid-match serialization). Save before preparing the match or after it is completed. Resume from a prepared fixture requires re-preparing from the saved prior hub, not resuming at an unverified tick. 03 must not store an engine object in Career JSON.
 
 ## Real data gate for first release
