@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a1b55">
+<title>ORONZO 1985 · Partita rapida</title>
+<meta name="description" content="ORONZO: partita rapida manageriale di calcio, 11 contro 11 in pixel art.">
+<style>
+:root{font-family:Consolas,'Courier New',monospace;color:#f2e9cf;background:#040b26;--blue:#0a1c59;--mid:#294c9d;--edge:#8ea9e9;--gold:#ffd22f;--ink:#080f2e}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}button,input,select{font:inherit}button,select{touch-action:manipulation}
+button{cursor:pointer;color:#f8eed6;background:linear-gradient(#3963aa,#183a81);border:2px outset #96afe1;font-weight:bold;min-height:36px;text-shadow:1px 1px #061335}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}button:disabled{opacity:.5;cursor:default}
+button.selected,button.primary{background:linear-gradient(#ffe04d,#e6a500);color:#131d4b;text-shadow:none;border-color:#ffec9d}
+main{height:100dvh;display:flex;flex-direction:column;background:repeating-linear-gradient(20deg,#06144b 0 18px,#081b5e 18px 36px)}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:51px;padding:5px 10px;border-bottom:4px ridge #668ade;background:linear-gradient(#122d7f,#071744)}
+.brand{font-weight:900;color:var(--gold);font-size:clamp(17px,2.9vw,27px);letter-spacing:1px;text-shadow:2px 2px #050c20;white-space:nowrap}.brand small{font-size:9px;color:white;display:block;letter-spacing:2px}
+.scoreline{flex:1;text-align:center;font-weight:bold;color:white;white-space:nowrap;font-size:clamp(12px,2.2vw,20px)}
+.scoreline strong{color:var(--gold);font-size:1.45em;vertical-align:middle}
+.clock{min-width:66px;text-align:right;color:var(--gold);font-size:clamp(15px,2.5vw,24px);font-weight:900}
+.shell{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(216px,27%);gap:7px;padding:7px}
+.field{min-width:0;min-height:0;display:flex;justify-content:center;align-items:center;background:#07173b;border:4px ridge #9fbcf6;overflow:hidden}
+#pitch{display:block;max-width:100%;max-height:100%;height:auto;width:auto;aspect-ratio:16/9;image-rendering:pixelated;object-fit:contain}
+.panel{min-width:0;min-height:0;overflow-y:auto;border:3px ridge #91a7ea;background:linear-gradient(#102b74,#07174d);padding:7px;scrollbar-color:#658cdb #081b57}
+.panel h2{color:var(--gold);font-size:12px;letter-spacing:.8px;margin:2px 0 7px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.actions button,.manager-actions button{font-size:clamp(9px,1.2vw,12px);padding:3px}
+.actions .span2{grid-column:1/3}
+fieldset{border:1px solid #789ade;padding:6px;margin:8px 0 4px;min-width:0}legend{color:var(--gold);font-size:10px;font-weight:bold}
+.control{display:flex;align-items:center;gap:6px;margin:6px 0;font-size:10px}.control label{min-width:74px}.control input{flex:1;min-width:0;accent-color:var(--gold)}.control output{min-width:22px;text-align:right}
+select{background:#152f7b;color:#ffe8b4;border:1px solid #88a5e4;min-width:0;width:100%;height:32px;font-size:11px}
+.manager-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-top:5px}
+.subrow{display:grid;grid-template-columns:1fr 1fr;gap:4px}.subrow label{font-size:9px;color:#cce2fa}
+.subrow button{grid-column:1/3}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px}.stat{text-align:center;border:1px solid #5079c4;background:#09245b;padding:5px 2px}.stat b{display:block;color:var(--gold);font-size:clamp(11px,1.7vw,16px)}.stat small{font-size:8px}
+#status{color:#dff1f5;font-size:10px;line-height:1.25;padding:5px 2px;min-height:22px}
+footer{display:flex;justify-content:space-between;gap:12px;min-height:31px;align-items:center;background:#112965;border-top:3px ridge #7d9adb;padding:4px 10px;font-size:11px}
+#news{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#ffe7a4;flex:1}
+footer a{color:white;font-size:10px;white-space:nowrap}
+.rotate{display:none}
+@media(max-height:395px){header{min-height:42px;padding:3px 8px}.brand{font-size:17px}.brand small{font-size:8px}.shell{padding:4px;gap:4px}.panel{padding:4px}footer{min-height:24px;font-size:10px}.actions button{min-height:31px}fieldset{margin-top:4px;padding:3px}}
+@media(max-width:730px) and (orientation:landscape){.shell{grid-template-columns:minmax(0,1fr) 210px}.panel h2{font-size:10px}}
+@media(orientation:portrait){.rotate{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:20px;background:#081c60;color:#ffe48b;font-size:24px;font-weight:bold}.rotate small{font-size:13px;font-weight:normal;color:#f4efde}main{visibility:hidden}}
+</style>
+</head>
+<body>
+<div class="rotate">↻ RUOTA IL TELEFONO <small>ORONZO si gioca in orizzontale.</small></div>
+<main>
+<header>
+ <div class="brand">ORONZO <small>PARTITA RAPIDA · 1985</small></div>
+ <div class="scoreline"><span id="homeName">MONTEVENTO</span> <strong id="score">0 – 0</strong> <span id="awayName">PORTO SELVA</span></div>
+ <div class="clock" id="clock">00:00</div>
+</header>
+<section class="shell">
+ <div class="field"><canvas id="pitch" width="640" height="360" aria-label="Partita 11 contro 11 dall'alto"></canvas></div>
+ <aside class="panel">
+  <h2>LA PANCHINA DEL MISTER</h2>
+  <div class="actions">
+   <button id="start" class="primary span2">▶ CALCIO D'INIZIO</button>
+   <button id="pause" disabled>Ⅱ PAUSA</button><button id="speed">VELOCITÀ 1×</button>
+   <button id="reset" class="span2">↺ NUOVA PARTITA</button>
+  </div>
+  <div class="stats">
+   <div class="stat"><b id="poss">50%</b><small>POSSESSO</small></div>
+   <div class="stat"><b id="shots">0 – 0</b><small>TIRI</small></div>
+   <div class="stat"><b id="onTarget">0 – 0</b><small>IN PORTA</small></div>
+  </div>
+  <fieldset><legend>TATTICA</legend>
+    <div class="control"><label for="formation">MODULO</label><select id="formation"><option>4-4-2</option><option>4-3-3</option><option>3-5-2</option><option>4-2-3-1</option><option>5-3-2</option></select></div>
+    <div class="control"><label for="press">PRESSING</label><input type="range" id="press" min="0" max="100" step="5" value="50"><output id="pressOut">50</output></div>
+    <div class="control"><label for="mental">MENTALITÀ</label><input type="range" id="mental" min="0" max="100" step="5" value="50"><output id="mentalOut">50</output></div>
+    <div class="manager-actions"><button id="attack">▲ ATTACCA</button><button id="balance" class="selected">▬ EQUILIBRIO</button><button id="defend">▼ DIFENDI</button></div>
+  </fieldset>
+  <fieldset><legend>CAMBIO GIOCATORE (MAX 2)</legend>
+    <div class="subrow">
+      <label>ESCE<select id="out"></select></label>
+      <label>ENTRA<select id="in"></select></label>
+      <button id="sub">⇄ EFFETTUA CAMBIO</button>
+    </div>
+  </fieldset>
+  <div id="status" aria-live="polite">Il mister controlla l'undici. Attendi il caricamento degli sprite.</div>
+ </aside>
+</section>
+<footer><span id="news" aria-live="polite">Spogliatoi: squadre pronte. Il presidente aspetta una vittoria.</span><a href="./index.html">← UFFICIO</a></footer>
+</main>
+<script type="module">
+import {createMatch} from './systems/match-engine/match-engine.js';
+import {makeFixture} from './systems/match-engine/fixtures.js';
+import {createMatchView,createEngineViewBridge} from './systems/match-view/match-view.js';
+
+const el = id => document.getElementById(id);
+const HOME = 'montevento', AWAY = 'portoselva';
+const names = new Map();
+let serial = 41, input, match, view, bridge, playing = false, paused = false, finished = false, speed = 1, used = new Set();
+let lastFrame = performance.now();
+const relevant = new Set(['goal','save','shot','foul','card','injury','substitution','offside','halftime','fulltime','kickoff']);
+const kits = {
+  home:{skin:'#d6a16f',hair:'#38231a',shirt:'#245ad2',shirtB:'#f9e7ab',shorts:'#ededee',socks:'#f1e6b8',boots:'#22202c',pattern:'solid'},
+  away:{skin:'#bb8158',hair:'#271b13',shirt:'#bc2933',shirtB:'#f7eee1',shorts:'#f4eee1',socks:'#b62532',boots:'#26202b',pattern:'vertical'},
+  homeKeeper:{shirt:'#f2c443',shirtB:'#f2c443',shorts:'#222e45',socks:'#e4c449'},
+  awayKeeper:{shirt:'#388e55',shirtB:'#388e55',shorts:'#202c31',socks:'#388e55'}
+};
+const message = value => {el('status').textContent = value;};
+const playerName = id => names.get(String(id)) || String(id||'calciatore');
+const fmt = t => {const m=Math.floor(Math.max(0,t)/60),s=Math.floor(Math.max(0,t)%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');};
+function describe(e){
+ const team=e.teamId===HOME?'MONTEVENTO':'PORTO SELVA', name=playerName(e.playerId);
+ switch(e.type){
+ case 'goal': return 'GOOOL! '+name+' per '+team+'.';
+ case 'save': return 'Gran parata di '+name+'.';
+ case 'shot': return 'Tiro di '+name+'.';
+ case 'foul': return 'Fallo fischiato a '+name+'.';
+ case 'card': return 'Cartellino per '+name+'.';
+ case 'injury': return 'Il medico è chiamato per '+name+'.';
+ case 'substitution': return 'Cambio: '+playerName(e.detail?.inId)+' per '+playerName(e.detail?.outId)+'.';
+ case 'offside': return 'Fuorigioco di '+name+'.';
+ case 'halftime': return 'Intervallo. Il mister ha trenta secondi per trovare una scusa.';
+ case 'fulltime': return 'Fischio finale. Il presidente attende in corridoio.';
+ case 'kickoff': return 'Fischio d’inizio. Si gioca!';
+ default: return 'Si riprende il gioco.';
+ }
+}
+function updateStats(snapshot){
+ el('score').textContent=snapshot.score.home+' – '+snapshot.score.away;
+ el('clock').textContent=fmt(snapshot.t);
+ el('poss').textContent=Math.round(snapshot.stats.home.possession)+'%';
+ el('shots').textContent=snapshot.stats.home.shots+' – '+snapshot.stats.away.shots;
+ el('onTarget').textContent=snapshot.stats.home.shotsOnTarget+' – '+snapshot.stats.away.shotsOnTarget;
+}
+function makeOptions(select,items,empty){
+ select.replaceChildren();
+ if(!items.length){const opt=new Option(empty,'');select.add(opt);select.disabled=true;return;}
+ select.disabled=false;
+ for(const p of items)select.add(new Option(p.name,p.id));
+}
+function rosterChoices(){
+ const onPitch=new Set(match.snapshot().players.filter(p=>p.teamId===HOME).map(p=>p.id));
+ const home = input.homeClub.players;
+ makeOptions(el('out'),home.filter(p=>onPitch.has(p.id)&&!p.positions.includes('GK')),'Nessun titolare');
+ makeOptions(el('in'),home.filter(p=>input.homeBench.includes(p.id)&&!used.has(p.id)&&!onPitch.has(p.id)&&!p.positions.includes('GK')),'Panchina esaurita');
+}
+function sync(){
+ const batch=bridge.sync(performance.now());
+ updateStats(batch.snapshot);
+ for(const e of batch.events)if(relevant.has(e.type))el('news').textContent=fmt(e.t)+' · '+describe(e);
+ return batch.snapshot;
+}
+function newGame(){
+ if(view)view.destroy();
+ input=makeFixture('oronzo-1985-'+(++serial),{homeTactics:{
+  formation:el('formation').value,pressing:+el('press').value,mentality:+el('mental').value,tempo:50,width:50,marking:'zonal'
+ }});
+ names.clear();
+ for(const club of [input.homeClub,input.awayClub])for(const p of club.players)names.set(p.id,p.name);
+ match=createMatch(input);
+ used=new Set();speed=1;playing=false;paused=false;finished=false;
+ view=createMatchView(el('pitch'),{config:{
+  homeTeamId:HOME,awayTeamId:AWAY,
+  keeperIds:[input.homeXI[0],input.awayXI[0]],
+  appearances:kits,autoStart:true,showTechnicalFallbackLabel:true,
+  onWarning:()=>{}
+ }});
+ view.ready.then(()=>{if(!playing&&!finished)message('Sprite caricati. Scegli tattica e premi CALCIO D’INIZIO.');})
+ .catch(()=>{message('Alcuni sprite non sono disponibili. La simulazione rimane attiva.');});
+ bridge=createEngineViewBridge(match,view,{keeperIds:[input.homeXI[0],input.awayXI[0]]});
+ view.setSpeed(speed);
+ sync();rosterChoices();
+ el('start').disabled=false;el('start').textContent='▶ CALCIO D’INIZIO';
+ el('pause').disabled=true;el('pause').textContent='Ⅱ PAUSA';
+ el('speed').textContent='VELOCITÀ 1×';
+ el('homeName').textContent=input.homeClub.name.toUpperCase();el('awayName').textContent=input.awayClub.name.toUpperCase();
+ el('news').textContent='Dallo spogliatoio: «Mister, speriamo ci sia ancora il pullman al ritorno.»';
+ message('Prepara gli ordini, poi inizia la partita.');
+}
+function resume(){
+ if(finished){newGame();}
+ playing=true;paused=false;match.setPaused(false);view.setPaused(false);
+ el('pause').disabled=false;el('pause').textContent='Ⅱ PAUSA';
+ el('start').disabled=true;el('start').textContent='IN CAMPO';
+ message('Partita in corso. Ordini e cambi incidono sul motore calcistico.');
+ lastFrame=performance.now();
+}
+function pause(){
+ if(!playing||finished)return;
+ paused=!paused;match.setPaused(paused);view.setPaused(paused);
+ el('pause').textContent=paused?'▶ RIPRENDI':'Ⅱ PAUSA';
+ el('start').disabled=!paused;
+ el('start').textContent=paused?'▶ RIPRENDI':'IN CAMPO';
+ message(paused?'Gioco in pausa. Il tempo e il risultato restano fermi.':'Il gioco riprende.');
+ lastFrame=performance.now();
+}
+function tactic(payload){
+ if(finished)return;
+ const r=match.command({type:'tacticChange',teamId:HOME,payload});
+ if(!r.accepted){message('Tattica respinta: '+r.reason);return;}
+ sync();message('Ordine tattico ricevuto dalla squadra.');
+}
+el('start').addEventListener('click',resume);
+el('pause').addEventListener('click',pause);
+el('reset').addEventListener('click',newGame);
+el('speed').addEventListener('click',()=>{
+ speed=speed===8?1:speed*2;
+ match.setSpeed(speed);view.setSpeed(speed);
+ el('speed').textContent='VELOCITÀ '+speed+'×';
+ message('Ritmo partita '+speed+'×. Gli eventi restano calcolati dal motore.');
+});
+for(const [id,key] of [['press','pressing'],['mental','mentality']]){
+ el(id).addEventListener('input',()=>{
+  el(id+'Out').textContent=el(id).value;
+  tactic({[key]:Number(el(id).value)});
+ });
+}
+el('formation').addEventListener('change',()=>tactic({formation:el('formation').value}));
+function pressPreset(kind,mentality,pressing){
+ el('mental').value=mentality;el('press').value=pressing;
+ el('mentalOut').textContent=mentality;el('pressOut').textContent=pressing;
+ for(const k of ['attack','balance','defend'])el(k).classList.toggle('selected',k===kind);
+ tactic({mentality,pressing});
+}
+el('attack').addEventListener('click',()=>pressPreset('attack',80,75));
+el('balance').addEventListener('click',()=>pressPreset('balance',50,50));
+el('defend').addEventListener('click',()=>pressPreset('defend',25,40));
+el('sub').addEventListener('click',()=>{
+ if(finished)return;
+ const outId=el('out').value,inId=el('in').value;
+ const r=match.command({type:'substitution',teamId:HOME,payload:{outId,inId}});
+ if(!r.accepted){message('Cambio non consentito: '+r.reason);return;}
+ used.add(inId);
+ sync();rosterChoices();
+ message('Cambio effettuato. Restano '+r.effects.remaining+' sostituzioni.');
+});
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden&&playing&&!paused)pause();
+});
+function loop(now){
+ const dt=Math.min(.12,Math.max(0,(now-lastFrame)/1000));lastFrame=now;
+ if(playing&&!paused&&!finished){
+  match.advanceRealSeconds(dt);
+  const s=sync();
+  if(match.isFinished()){
+   playing=false;finished=true;view.setPaused(true);el('pause').disabled=true;
+   el('start').disabled=false;el('start').textContent='▶ NUOVA PARTITA';
+   message('Partita terminata: '+s.score.home+' – '+s.score.away+'. Puoi iniziarne un’altra.');
+  }
+ }
+ requestAnimationFrame(loop);
+}
+newGame();requestAnimationFrame(loop);
+</script>
+</body>
+</html>
