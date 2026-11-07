@@ -1,8 +1,11 @@
 # ORONZO — Contratto dati V2 proposto per visione 1979
 **Stato:** proposta d'integrazione dell'Agente 10, 7 novembre 2026. Non sostituisce automaticamente le API V1 già presenti; ogni agente mantiene compatibilità e documenta la migrazione. Fonte: [Game Vision v0.2](../GAME-VISION-v02.md) e [epic #25](https://github.com/CzekUns/cercax/issues/25).
 
+## Ruolo di coordinamento
+Agente 10 **non scrive implementazioni**. Tutti gli schemi qui definiti sono contratti da recepire negli scope degli agenti. L'adapter `oronzo/app/flow/` sarà affidato all'agente 07 SOLO in un ciclo successivo al merge R02; il runtime HTML/CSS/JS sarà affidato all'agente 03 SOLO in un ciclo successivo alla consegna grafica e al gate R02. Non attribuire al coordinatore l'esecuzione di test, codice o asset.
+
 ## Convenzioni
-- Solo il match-engine 06 modifica punteggio, fatti e coordinate. Solo career 07 avanzamento del tempo, classifiche, fixtures, mercato calendarizzato e save. Solo coach-club 09 bilancio, relazioni, morale coach e decisioni societarie. Attributes 08 produce caratteristiche dei calciatori. Copy 04 fornisce testi ed effetti descritti con ID. Match-view 05 legge snapshot e sceglie camera. Integratore 10 compone.
+- Solo il match-engine 06 modifica punteggio, fatti e coordinate. Solo career 07 avanzamento del tempo, classifiche, fixtures, mercato calendarizzato e save. Solo coach-club 09 bilancio, relazioni, morale coach e decisioni societarie. Attributes 08 produce caratteristiche dei calciatori. Copy 04 fornisce testi ed effetti descritti con ID. Match-view 05 legge snapshot e sceglie camera. 07 compone i dati/lo stato di carriera nell'adapter; 03 compone la UI runtime; 10 assegna e verifica le regole.
 - Numeri affettivi/tratti 0..100, calcolo deterministico e clamp. Il morale del mister **è distinto** da tifosi, fiducia presidenza, gruppo, stampa e singoli. `coach.morale <= 0` crea stato game over persistito con causa/ID evento, applicato una sola volta.
 - ID persistenti stabili per coach, giocatore, club, comune, presidente, giornalista, evento, offerta. Non usare `Math.random()` in gameplay; salvare seed e stato RNG o i risultati random già scelti. Snapshot non è la fonte del ledger.
 
@@ -93,7 +96,7 @@ Conservare i campi già validati, non rinominare `technical.decisions` o `mental
   }]
 }
 ```
-04 produce un question bank seed-safe e 5 domande iniziali senza ripetizioni, più conferenza dopo ogni match. Gli effetti sono delta semanticamente dichiarati, non applicati dal testo. 09 applica e valida clamp, 10 costruisce UI, legge e visualizza variazioni. Non obbligare ogni risposta a cambiare tutti gli indicatori.
+04 produce un question bank seed-safe e 5 domande iniziali senza ripetizioni, più conferenza dopo ogni match. Gli effetti sono delta semanticamente dichiarati, non applicati dal testo. 09 applica e valida clamp, 03 costruisce la UI, legge e visualizza le variazioni; 10 verifica la coerenza dei requisiti. Non obbligare ogni risposta a cambiare tutti gli indicatori.
 
 ## Match command individuale (06)
 ```js
@@ -125,7 +128,7 @@ L'engine con seed e stato calcola risposta TEMPORANEA alla direttiva; produce un
 ```
 I nomi campo sono PROPOSTE di interoperabilità; R02 richiede intanto `absoluteWeek` persistente. Non usare sola `seasonWeek` come chiave di paghe, riunioni, promise e biglietti dopo rollover. Test: due stagioni con almeno un save/load, evento ripetuto non produce doppi delta.
 
-## Accettazione minima con integrazione agente 10
+## Accettazione minima dell'integrazione delegata agli agenti 03 (UI) e 07 (flow)
 1. A seed fisso e azioni fisse, stessa partita/ingaggi/stampa; due ricaricamenti non duplicano giornate, rapporti o spese.
 2. Dati UI originali, carichi coerenti: 20 offerte, 5 domande iniziali, presidente dal catalogo, lista rosa e formazione avversaria, score da eventi goal, cambio modulo fisico.
 3. Camera `full` e `broadcast` leggono stessi snapshot, senza ricalcolo.
