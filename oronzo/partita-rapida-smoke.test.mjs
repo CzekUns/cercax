@@ -4,6 +4,7 @@ import {createMatch} from './systems/match-engine/match-engine.js';
 import {makeFixture} from './systems/match-engine/fixtures.js';
 import {resolveFacing} from './systems/match-view/interpolation.js';
 import {createEngineViewBridge} from './systems/match-view/match-view.js';
+import {QUICK_MATCH_SIM_SECONDS_PER_REAL_SECOND,quickMatchSimDelta,quickMatchDurationMinutes} from './quick-match-clock.js';
 
 test('Partita rapida: 22 giocatori e un evento iniziale dal vero engine',()=>{
   const m=createMatch(makeFixture('quick-start'));
@@ -67,4 +68,23 @@ test('Partita rapida: convenzione angoli in radianti per gli sprite',()=>{
   for(const [a,dir] of [[0,'E'],[Math.PI,'W'],[Math.PI/2,'S'],[-Math.PI/2,'N'],[1,'SE'],[-1,'NE']]){
     assert.equal(resolveFacing(a),dir);
   }
+});
+
+test('Partita rapida: 90 minuti richiedono 15 minuti reali al ritmo normale',()=>{
+  assert.equal(QUICK_MATCH_SIM_SECONDS_PER_REAL_SECOND,6);
+  assert.equal(quickMatchDurationMinutes(1),15);
+  assert.equal(quickMatchDurationMinutes(2),7.5);
+  assert.equal(quickMatchDurationMinutes(4),3.75);
+  assert.equal(quickMatchDurationMinutes(8),1.88);
+  assert.equal(quickMatchSimDelta(1,1),6);
+  assert.equal(quickMatchSimDelta(1,2),12);
+  assert.equal(quickMatchSimDelta(1,4),24);
+  assert.equal(quickMatchSimDelta(1,8),48);
+  assert.throws(()=>quickMatchSimDelta(-1,1),RangeError);
+  assert.throws(()=>quickMatchSimDelta(1,0),RangeError);
+  const m=createMatch(makeFixture('quick-readable-clock'));
+  m.step(quickMatchSimDelta(1,1));
+  assert.equal(m.snapshot().t,6);
+  m.step(quickMatchSimDelta(1,2));
+  assert.equal(m.snapshot().t,18);
 });

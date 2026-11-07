@@ -4,8 +4,9 @@
 
 ## Funzionalità operative previste
 - Partita **11 contro 11** con il vero modulo `systems/match-engine/match-engine.js`, visualizzata con `systems/match-view/match-view.js`, che utilizza gli sprite pixel art `assets/players/`.
-- Due società dimostrative originali: **Montevento – Porto Selva**. Il seed cambia a ogni nuova partita. La gara dura 5400 secondi simulati, compressi in circa 90 secondi reali a velocità 1×.
+- Due società dimostrative originali: **Montevento – Porto Selva**. Il seed cambia a ogni nuova partita. La gara dura 5400 secondi simulati, distribuiti su **circa 15 minuti reali a velocità 1×** (6 secondi di gioco per secondo reale). Le velocità 2×/4×/8× riducono la durata a circa 7,5 / 3,75 / 1,875 minuti.
 - Calcio d'inizio, pausa/ripresa, velocità 1×/2×/4×/8×, selezione modulo, pressing, mentalità, ordini dalla panchina e fino a 2 cambi. I comandi sono inoltrati a `match.command()` e gli eventuali rifiuti sono mostrati a schermo.
+- Il runner avanza con `match.step(quickMatchSimDelta(dt,speed))` da `quick-match-clock.js` e invia snapshot al renderer **solo quando il tempo simulato è avanzato**, così le pose scorrono fluide fra due tick senza reset a ogni frame. Il renderer condivide la velocità base di 6 secondi simulati/secondo reale.
 - Risultato, tempo, possesso e tiri derivano dallo snapshot dell'engine. La vista usa `createEngineViewBridge` e `getEventsSince(lastId)` per eventi non persi o duplicati, e mostra scene o segnaposto degli eventi senza generare reti.
 - Se mancano cutscene o immagini, il renderer mostra un fallback tecnico chiaramente riconoscibile, mentre il motore continua. I file cutscene sono attualmente in PR separata #12 **draft**, da integrare dopo QA.
 
@@ -20,7 +21,7 @@ node --test oronzo/partita-rapida-smoke.test.mjs
 node --test oronzo/systems/match-engine/tests/*.test.mjs
 node --test oronzo/systems/match-view/*.test.mjs
 ```
-`partita-rapida-smoke.test.mjs` comprende 6 verifiche Node su XI, score/eventi goal, tempo e velocità, tattiche e sostituzioni, feed persistente del renderer e direzioni in radianti.
+`partita-rapida-smoke.test.mjs` comprende verifiche Node su XI, score/eventi goal, tempo e velocità, tattiche e sostituzioni, feed persistente del renderer e direzioni in radianti.
 
 ## Passi per la prova manuale
 1. Aprire `https://czekuns.github.io/cercax/oronzo/partita-rapida.html` su telefono **orizzontale** dopo la pubblicazione GitHub Pages.
