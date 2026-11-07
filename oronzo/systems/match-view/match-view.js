@@ -1,11 +1,12 @@
 /** ORONZO — Canvas MatchSnapshotV1 renderer, fully separate from simulation. */
 import {SnapshotInterpolator,clamp,resolveFacing,spriteAction} from './interpolation.js';
 import {createAssetAdapter} from './asset-adapter.js';
+import {initialCamera,followCamera,cameraTransform,validateCameraMode} from './camera.js';
 export const LOGICAL_WIDTH=640, LOGICAL_HEIGHT=360;
 export const PITCH=Object.freeze({x:44,y:36,w:552,h:288});
 const timeNow=()=>typeof performance!=='undefined'?performance.now():0;
 const SEQUENCE=Object.freeze({goal:'goal',save:'save',injury:'injury',card:'yellow',yellow_card:'yellow',red_card:'red'});
-const DEFAULTS={simSecondsPerRealSecond:60,eventCooldownMs:750,overlayDurationMs:1800,animationSpeedCap:2.5,autoStart:true,showTechnicalFallbackLabel:true};
+const DEFAULTS={simSecondsPerRealSecond:6,eventCooldownMs:750,overlayDurationMs:1800,animationSpeedCap:2.5,autoStart:true,showTechnicalFallbackLabel:true,cameraMode:'full',cameraZoom:2,cameraHalfLifeMs:190};
 export const projectPosition=(x,y)=>({x:Math.round(PITCH.x+clamp(x,0,1)*PITCH.w),y:Math.round(PITCH.y+clamp(y,0,1)*PITCH.h)});
 export function sceneForEvent(event) {
   const type=String(event?.type||'').toLowerCase();
@@ -86,6 +87,7 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
   const appearances=opt.appearances||{};
   let animationTime=0,lastDrawAt=null,rafId=null,destroyed=false,teamOrder=[opt.homeTeamId,opt.awayTeamId].filter(v=>v!==undefined).map(String),keepers=new Set((opt.keeperIds||[]).map(String)),selectedId=null;
   const frameStates=new Map();
+  let cameraMode=validateCameraMode(opt.cameraMode),cameraState=initialCamera({mode:cameraMode,zoom:opt.cameraZoom}),cameraCut=true;
   function teamOf(id){return teamOrder.indexOf(String(id))===1?'away':'home';}
   function kitFor(player){
     const team=teamOf(player.teamId);
@@ -104,9 +106,14 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
   }
   function drawAt(now=clock()){
     if(destroyed)return;
-    stepAnimation(now);ctx.imageSmoothingEnabled=false;drawPitch(ctx);
+    stepAnimation(now);ctx.imageSmoothingEnabled=false;
     const snap=interpolation.sample(now);
-    if(!snap){drawNoFeed(ctx);return;}
+    if(!snap){drawPitch(ctx);drawNoFeed(ctx);return;}
+    cameraState=followCamera(cameraState,snap.ball,{mode:cameraMode,now,zoom:opt.cameraZoom,halfLifeMs:opt.cameraHalfLifeMs,cut:cameraCut,paused:interpolation.paused});
+    cameraCut=false;
+    ctx.save();ctx.beginPath();ctx.rect(0,0,LOGICAL_WIDTH,LOGICAL_HEIGHT);ctx.clip();
+    if(cameraMode==='broadcast'){const tr=cameraTransform(cameraState);ctx.translate(tr.translateX,tr.translateY);ctx.scale(tr.zoom,tr.zoom);}
+    drawPitch(ctx);
     const actors=snap.players.slice().sort((a,b)=>a.y-b.y);
     let missing=0;
     for(const p of actors){
@@ -127,6 +134,7 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
       if(!ok)missing++;
     }
     const b=projectPosition(snap.ball.x,snap.ball.y);assets.drawBall(ctx,b.x,b.y,snap.ball.height);
+    ctx.restore(); // technical warnings and cutscenes remain screen-space overlays
     if(opt.showTechnicalFallbackLabel&&missing){ctx.fillStyle='#152b39';ctx.fillRect(6,4,168,13);ctx.font='9px monospace';ctx.fillStyle='#f5dba2';ctx.fillText('FALLBACK ASSET ('+missing+'/22)',11,14);}
     const active=overlay.active(now);
     if(active){
@@ -138,7 +146,9 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
   function drawNoFeed(ctx){ctx.fillStyle='#071722';ctx.fillRect(201,157,238,35);ctx.fillStyle='#e1d4b3';ctx.font='12px monospace';ctx.fillText('ATTESA SNAPSHOT PARTITA',213,179);}
   function render(snapshot,now=clock()){
     if(destroyed)return false;
+    const previous=interpolation.latest;
     const normalized=interpolation.push(snapshot,now);
+    if(!previous || normalized.t<previous.t || normalized.phase!==previous.phase || normalized.events.some(e=>e?.type==='kickoff'||e?.type==='halftime')) cameraCut=true;
     // Keeper identity must follow the accepted engine substitution event.
     for(const event of normalized.events){
       if(event?.type!=='substitution')continue;
@@ -156,14 +166,15 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
   function animate(now){if(destroyed)return;drawAt(now);rafId=request(animate);}
   function setSpeed(speed,now=clock()){interpolation.setSpeed(speed,now);}
   function setPaused(value,now=clock()){interpolation.setPaused(value,now);lastDrawAt=now;}
+  function setCameraMode(mode){const next=validateCameraMode(mode);if(cameraMode!==next){cameraMode=next;cameraCut=true;}return cameraMode;}
   function selectPlayer(id){selectedId=id===null?null:String(id);}
   function setKeepers(ids){keepers=new Set((ids||[]).map(String));}
   function resize(){canvas.width=LOGICAL_WIDTH;canvas.height=LOGICAL_HEIGHT;ctx.imageSmoothingEnabled=false;drawAt(clock());return {width:canvas.width,height:canvas.height};}
   function destroy(){if(destroyed)return;destroyed=true;if(rafId!==null&&cancel)cancel(rafId);frameStates.clear();overlay.clear();interpolation.reset();assets.destroy();}
   if(request&&opt.autoStart)rafId=request(animate);else drawAt(clock());
-  return {render,drawAt,setSpeed,setPaused,selectPlayer,setKeepers,
+  return {render,drawAt,setSpeed,setPaused,setCameraMode,selectPlayer,setKeepers,
     getKeeperIds:()=>[...keepers],resize,destroy,ready:assets.preload(),assets,interpolation,overlay,
-    get destroyed(){return destroyed;}};
+    get destroyed(){return destroyed;},get cameraMode(){return cameraMode;},getCameraState:()=>({...cameraState})};
 }
 /**
  * Optional runner adapter for Agent 6. Invokes getEventsSince(cursor) once per
