@@ -77,9 +77,14 @@ export function createSaveManager(storage, key = 'oronzo.career.v2') {
   };
   return {
     save(state) {
-      const existing = [read(0), read(1)].filter(Boolean);
+      const copies = [read(0), read(1)];
+      const existing = copies.filter(Boolean);
       const active = storage.getItem(activeKey);
-      const target = active === 'A' ? 1 : 0;
+      // Never overwrite the sole recoverable copy, even if :active points to
+      // a corrupt slot. Without a reliable active pointer, replace the older copy.
+      const target = !copies[0] ? 0 : !copies[1] ? 1 :
+        active === 'A' ? 1 : active === 'B' ? 0 :
+        copies[0].sequence <= copies[1].sequence ? 0 : 1;
       const sequence = Math.max(0, ...existing.map(x => x.sequence)) + 1;
       const contents = serialize(state, { sequence });
       storage.setItem(slots[target], contents); // If quota throws, active pointer is still intact.
