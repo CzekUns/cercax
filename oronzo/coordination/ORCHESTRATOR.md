@@ -64,3 +64,25 @@ Quando la chat principale si interrompe, è sufficiente dire: «Riprendi l'orche
 - Corretto in `REVIEW-QUEUE.md` un disallineamento puramente documentale: PR #17 era `WAIT_REVIEW` nella tabella, mentre il NEXT dell'agente 09 è già `FIX_REQUESTED` dalla R03 per ORZ-P1-008. Non duplicare l'issue.
 - Esaminati staticamente i file `career.js`, `league.js`, `progression.js`, `save.js` (PR #14) e `finance.js` (PR #17). Nessun nuovo difetto dimostrato da assegnare. Nessun test runtime, nessun merge, nessun intervento sul codice, nessuna sessione Work.
 - Restano prioritarie le correzioni già assegnate ai moduli 04/05/06/09 e i REPORT.md mancanti. Prossima revisione: cercare nuovi HEAD, test e rapporti, evitando audit duplicati.
+
+
+## Supervisione manuale e merge — 7 novembre 2026, mattina (STATO ATTUALE)
+La presente sezione **sostituisce i vecchi snapshot storici precedenti su PR ancora aperte**. Sono stati effettuati e confermati tramite GitHub `merge_pull_request` con SHA HEAD atteso **sette merge**:
+- [PR #19](https://github.com/CzekUns/cercax/pull/19): rapporto Coerentizzatore R01, merge commit `e3e1b85cfcbaac66db82d8e6b34042052e52e8d2`.
+- [PR #13](https://github.com/CzekUns/cercax/pull/13): Copy e 8 presidenti, merge `065dc4ee7e59e26612b14c471b9c2be99f43cad1`; verificati JSON e 23 personaggi, 73 eventi, 42 dialoghi, 144 microcopy.
+- [PR #16](https://github.com/CzekUns/cercax/pull/16): attributi e allenamento, merge `389dce444a7f7c19254381bfda2205acc4268f51`; audit R01 la considerava pronta per QA, 15 test dichiarti dall'agente.
+- [PR #5](https://github.com/CzekUns/cercax/pull/5): UI art direction, merge `ad84dd134b98d5fde8017af3da5e6e7b1b21e63e`; mockup 16:9 esaminati visivamente da GitHub su scelta allenatore, match HUD, tattiche, rosa.
+- [PR #6](https://github.com/CzekUns/cercax/pull/6): sprite/palette, merge `3585b39596e6aa879c69e2136f8f22e2ca1ea102`; preview PNG esaminata visivamente, QA raster e ricolorazione dichiarata dall'agente.
+- [PR #14](https://github.com/CzekUns/cercax/pull/14): carriera, merge `bb9e384796fdd8fd7ad8b7f200cc5902511442e1`; agente dichiara 11 test Node superati e correzione salvataggio. Integrazione reale con board non ancora provata.
+- [PR #17](https://github.com/CzekUns/cercax/pull/17): società, finanza, allenatore e presidenti, merge `7309f1fe908e2e62b4304f44261d026d2866755c`; fix sicurezza importi con 9 Node test e 14 V8 test dichiarati; da integrare con carriera/copy.
+
+**Ancora non mergiate:**
+- [PR #12](https://github.com/CzekUns/cercax/pull/12), agente 02: OPEN **draft**, PNG/cutscene strutturalmente verificati dall'agente e tavola esaminata; necessaria approvazione artistica e gate di review prima del merge.
+- [PR #15](https://github.com/CzekUns/cercax/pull/15), agente 05: OPEN `FIX_REQUESTED`, differenza `facing` engine radians vs renderer ±1. Verificata direttamente in `interpolation.js` vs `movement.js`, richiesta patch in NEXT e commento PR.
+- [PR #18](https://github.com/CzekUns/cercax/pull/18), agente 06: OPEN, fix precedenti dichiarati e test V8; attendere aggiornamento renderer e test veri combinati prima del merge.
+
+**Nuovo audit Work R02:** incarico pronto ma NON avviato in `oronzo/coordination/coerentizzatore/REQUEST.md`: verificare soltanto compatibilità dei sistemi **carriera #14 + società #17 + copy #13 già su main**, in particolare presidentId, obiettivi board, cassa/paghe, persistenza e mapping; non usare Work per controlli ordinari. Primo audit R01 è già archiviato.
+
+I NEXT sono stati aggiornati: 1 e 3 `READY` per iterazioni di QA/layout; 4,7,8,9 `BLOCKED` in attesa di integrazione/audit; 5 `FIX_REQUESTED`; 2 e 6 restano in revisione. Non aprire nuovi cicli di codice fuori da questi gate.
+
+**Avvertenza fondamentale:** i merge qui sopra **aggiungono moduli e asset al repository, ma non li cablano automaticamente** nel vecchio runtime `oronzo/game.js`. Il prossimo lavoro principale dell'orchestratore sarà uno slice verticale di integrazione, una volta superate PR #15 e #18, con QA browser landscape. I test nativi Node completi non sono stati ripetuti tutti in questa chat, perché il container non risolve github.com per scaricare il repo. Non dichiarare demo finale integrata o browser QA completata.
