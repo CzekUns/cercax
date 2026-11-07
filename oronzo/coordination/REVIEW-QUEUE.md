@@ -1,5 +1,22 @@
 # ORONZO — CODA DI REVISIONE DELL'ORCHESTRATORE
 
+## AGGIORNAMENTO ORCHESTRATORE — 7 novembre 2026, post audit R02 e Partita rapida
+
+**Questa sezione è lo stato più recente e prevale su tutte le tabelle storiche successive.** Integrate su main:
+- [PR #20](https://github.com/CzekUns/cercax/pull/20) — Coerentizzatore R02, `7212806be066c971a5479df162a2e60816fb1fcd`, cinque P1 di carriera/società; incarichi assegnati negli [agenti 07](07-career/NEXT.md) e [09](09-coach-club/NEXT.md).
+- [PR #15](https://github.com/CzekUns/cercax/pull/15) — renderer match 22 giocatori, merge `9dc68d21c6700d856104a1d3820b4dab1a00f83f`. Risolto ORZ-P1-009 (tutti i `facing` numerici sono angoli in radianti), verificato in V8 su orientamenti e intervallo.
+- [PR #18](https://github.com/CzekUns/cercax/pull/18) — motore 11v11 deterministico, merge `d98a2226e74b6083e4b0d085bb4d2fca8eea9902`.
+- [PR #21](https://github.com/CzekUns/cercax/pull/21) — schermata Partita rapida autonoma, merge `a0c2f9a89e76c301d1d834cc326d8e3bd1c25aac`; route `oronzo/partita-rapida.html`, pulsante nella home e sei test smoke allegati. **GitHub Pages deployment concluso con successo** per il commit. Browser/touch Android non ancora collaudati.
+
+**Smoke orchestratore realmente eseguito in V8 su codice vero engine:** 22 giocatori, tacticChange e substitution accettate, pausa/velocità, 90 minuti completi, risultato 0–2 coerente con due eventi goal. **Non** equivale a test Node nativo su checkout o E2E browser. Fino a QA su smartphone la pagina è una **prima versione da collaudare**, non una release stabile.
+
+**PR ancora aperta**: [#12](https://github.com/CzekUns/cercax/pull/12) cutscene (draft). Da rivedere prima del merge; la partita rapida usa overlay di fallback fino all'integrazione.
+
+**R02 P1 aperti, assegnati a 07/09 (in corso):** stabilità dei presidentId canonici, enum obiettivi carriera/board, stipendi iniziali non zero, settimana assoluta attraverso rollover, preservazione employmentHistory del mister dopo save/load. Il primo match singolo può funzionare indipendentemente da queste incompatibilità.
+
+**Coerentizzatore:** stato `COMPLETED_R02`, nessuna nuova sessione Work autorizzata.
+
+
 **STATO CORRENTE — 7 novembre 2026, revisione manuale su GitHub (prevale sui resoconti storici sottostanti).**
 La modifica dello stato di una PR è verificata dagli esiti della chiamata `merge_pull_request` con `expected_head_sha`. Sono stati esaminati scope e report degli agenti; per UI/sprite/cutscene sono stati aperti anche PNG reali. Le suite Node riportate dagli agenti non sono state tutte rieseguite dalla chat orchestratore a causa dell'accesso limitato al clone remoto. **Moduli mergiati in main ≠ funzionalità già cablate in `oronzo/game.js`.**
 
