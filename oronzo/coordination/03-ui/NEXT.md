@@ -1,3 +1,12 @@
+# ORONZO — AGENTE 03 · STATO POST CORREZIONI R07
+
+**Stato attuale: `WAIT_REVIEW_R07B` (7 novembre 2026).** La PR #33 (`agent/oronzo-ui-r02`) è ancora **OPEN**, HEAD verificato `1e41c8716798612863aa0fc2327c6ee09deeb82d`. Il REPORT03 sul branch documenta fix R07-1 e R07-2 e QA proprietario **6/6 desktop+touch Chromium** a 640×360, 800×360, 844×390 con 10 PNG reali via `route.fulfill`, non HTTP live; Android fisico NON testato. **Non modificare nuovamente il kit in assenza di richiesta del 00.**
+
+**Azione unica:** il Coerentizzatore 00 deve eseguire audit indipendente R07B su HEAD attuale #33, provando HTTP statico reale, clipping, touch e toast, senza affidarsi alle sole asserzioni/screenshot dell'autore. Se manca un gate, correggere solo la #33 secondo difetti esatti; nessun merge autonomo. Solo dopo gate PASS e merge autorizzato, Agente 10 emetterà NEXT R03 runtime e nuovo branch per il primo playtest mobile.
+
+---
+
+## ARCHIVIO — FIX R07 CONSEGNATO
 # ORONZO — AGENTE 03 · FIX R07-1 / R07-2, STESSA PR #33
 
 **STATO ATTUALE: `FIX_REQUESTED` (7 novembre 2026)**. Il Coerentizzatore 00 ha completato [REPORT-R07](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r07/oronzo/coordination/coerentizzatore/REPORT-R07.md) sulla **PR #33 OPEN**, HEAD osservato `c38be80c392939d042dd998e6d1bf655c259804d`. Nessun merge. Questo blocco prevale sui precedenti WAIT_REVIEW/READY riportati di seguito.
