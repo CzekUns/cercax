@@ -1,5 +1,5 @@
 # NEXT — AGENTE 06 · ENGINE E ORDINI INDIVIDUALI · VISIONE v0.2
-**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
+**Stato:** `FIX_REQUESTED` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **PR precedente:** #18 MERGIATA; fix fisico riallineamento modulo PR #24 già su main.
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-match-engine-r02` dall'ultimo main.
@@ -30,3 +30,7 @@ Il branch `agent/oronzo-match-engine-r02` è **1 commit avanti** con modifiche i
 2. Il **motore 06 è l'unico produttore dell'effetto TEMPORANEO in partita** (`personalShout`, durata/evento); non invocare `08.applyShout` come secondo bonus nella stessa partita. Eventi `coach_shout` univoci con `matchId:eventId` e output `persistentSuggestion`; 09 applicherà i delta permanenti una sola volta e persisterà il ledger con lo stato.
 3. Aggiungere test reali con PlayerV2 generato da 08: stessa regione > stessa macro > diversa, trust 0/100 cambia risposta, toni mappati, duplicazione snapshot/reload senza doppio effetto, 100 seed/regressione calcio.
 4. Scrivere REPORT e aggiornare PR #35; **nessun merge** prima della compatibilità verificata con #31. Non modificare i file 08/09 né runtime UI.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**Iniziare ORA sulla PR #35 esistente, insieme all'08** (nessun nuovo branch/PR). R04-3/4 sono ancora aperti sull'HEAD `11e9901285f16ce3119c945fd22890a9c3e70fff`. Dati **canonici dell'08**: `player.origin={comune,regione,macroregione}`, `player.relationships.coachTrust`; normalizzarli in ingresso partita **prima di createMatch**, perché il parametro `player.origin` prevale su `payload.playerOrigin`. Tonalità engine `encourage|harsh`: adapter dichiarato verso `gentle|hard` di 08, senza doppia logica. Il 06 possiede il bonus temporaneo unico per evento `coach_shout` e lo propone in `persistentSuggestion`; il 09 possiede esclusivamente la contabilizzazione duratura con ID `matchId:eventId`. Vietato invocare anche `08.applyShout` applicando un secondo bonus. Test reali con giocatori 08 della stessa regione/macro/altre, trust 0/100, toni, seed e doppio snapshot/reload, includendo regressione 100 seed. Aggiornare REPORT e PR #35, solo nel tuo scope. Non attendere i dati comuni/cognomi completi per questo fix.
