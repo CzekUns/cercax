@@ -1,5 +1,12 @@
 # ORONZO — CODA DI REVISIONE DELL'ORCHESTRATORE
 
+## Revisione oraria R09 — 7 novembre 2026, PR #24 di manutenzione
+
+- **ORZ-P2-010 · P2 · FIX_IN_PR:** l'overlay del modulo nella Partita rapida mostrava correttamente le posizioni di riferimento, ma i calciatori non le raggiungevano in modo visivamente riconoscibile durante il gioco. Prova: `oronzo/partita-rapida.html` e `oronzo/systems/match-engine/movement.js` su main `6204dcc`; il target di `desired()` veniva subito ricalcolato in base a pallone, pressing e marcature, senza una fase transitoria dopo `tacticChange`. Responsabile: orchestratore (integrazione motore/vista). Soluzione proposta e **realizzata su branch di manutenzione**: `fix/oronzo-formation-real-regroup-r01`, [PR #24](https://github.com/CzekUns/cercax/pull/24), HEAD `b6aaa7e`. Prima del fischio riposizionamento immediato, durante il gioco convergenza fisica senza teleport, feedback SVG delle distanze e test Node aggiunto. Verificati in V8 5 gruppi di prove (10 seed per la convergenza; secondo tempo, 90 minuti e gol coerenti); **test Node nativi e browser Android non eseguiti**. **Non mergiare prima della QA**.
+- Stato live: main `6204dcc679d15a569bc5b38de457ccf4469720f0`; PR #12 ancora aperta/draft, HEAD `b633cc20`; nuova PR #24 aperta per il fix. Issue #2 e #4 ancora aperte, altre sette issue agenti chiuse. PR #12 resta esclusivamente `oronzo/**`, ma la sua QA visiva/Chromium non è conclusa.
+- Nessuna nuova sessione del Coerentizzatore, nessun merge. I cinque P1 carriera/società restano assegnati agli agenti 07/09. Prossimo passo: test Node e collaudo landscape della PR #24; poi valutare merge solo dopo QA.
+
+
 ## AGGIORNAMENTO ORCHESTRATORE — 7 novembre 2026, post audit R02 e Partita rapida
 
 **Questa sezione è lo stato più recente e prevale su tutte le tabelle storiche successive.** Integrate su main:
