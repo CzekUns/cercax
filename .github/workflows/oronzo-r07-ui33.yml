@@ -1,0 +1,52 @@
+name: ORONZO R07 UI33 Chromium audit
+on:
+  push:
+    branches: [audit/oronzo-r07-ui33]
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Assemble exact PR33 on current main
+        run: |
+          git fetch origin main c38be80c392939d042dd998e6d1bf655c259804d
+          git checkout origin/main -- oronzo
+          git checkout c38be80c392939d042dd998e6d1bf655c259804d -- oronzo/assets/ui oronzo/coordination/03-ui/REPORT.md
+          git status --short
+      - name: Static and asset QA
+        run: |
+          node --check oronzo/assets/ui/demo-v02.js
+          python oronzo/assets/ui/qa/check_assets.py
+      - name: Install Chromium and Playwright
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y chromium
+          python -m pip install --user playwright
+      - name: Real Chromium touch three viewport QA
+        run: python oronzo/assets/ui/qa/run_browser_r04.py
+      - name: Real HTTP static Chromium smoke
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 &
+          sleep 2
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              b=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox'])
+              for w,h in [(640,360),(800,360),(844,390)]:
+                  page=b.new_page(viewport={'width':w,'height':h},has_touch=True,is_mobile=True)
+                  errors=[]
+                  page.on('pageerror',lambda e:errors.append(str(e)))
+                  page.goto('http://127.0.0.1:8765/oronzo/assets/ui/demo-v02.html',wait_until='load')
+                  assert page.locator('button.avatar-tile').count()>=0
+                  assert page.evaluate('typeof window.OronzoUIKitV02.createApp')=='function'
+                  imgs=page.evaluate("""async () => { const names=['coaches-atlas.png','presidents-atlas.png','journalists-atlas.png','pitch-textless.png']; return Promise.all(names.map(async n=>{const i=new Image();i.src=n;await i.decode();return [n,i.naturalWidth,i.naturalHeight]})) }""")
+                  assert all(x[1]>0 and x[2]>0 for x in imgs),imgs
+                  assert not errors,errors
+                  print('HTTP',w,h,'decoded',imgs,'errors',errors)
+                  page.close()
+              b.close()
+          PY
