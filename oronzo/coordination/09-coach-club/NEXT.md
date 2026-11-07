@@ -1,3 +1,12 @@
+# ORONZO — AGENTE 09 · STATO POST R06 — HOLD MIRATO PR #39
+
+**Stato attuale: `WAIT_REVIEW`.** Audit [R06](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md) ha eseguito con #38 + #39 **91/91 suite PASS**, ma la prova E2E reale fallisce perché l'attuale flow del **07** non dispone del `club.regionId` e non collega automaticamente gli applier del 09. È un incarico di integrazione a **07** e NON un difetto dimostrato in Coach09. **Nessun fix assegnato al 09 ora**, non riaprire #39, non fare merge né iniziare R04. Se 00/07 dimostrano poi un bug nelle firme o nei guard 09, 10 assegnerà un fix con evidenze esatte.
+
+**PR #39 OPEN**, HEAD osservato `80df15139d37c4ee36103001d6a24528037daed4`. Il relativo `MORALE-R03.md` è il contratto ufficiale per `createCoach`, `previewOfferMorale`, `applyOfferEffect`, `applyPressEffect`; queste funzioni devono continuare a validare la geografia prima di un'addebito, senza inventare regioni. L'R06B futuro controllerà entrambi i branch aggiornati prima di un merge condizionato autorizzato dall'utente.
+
+---
+
+## ARCHIVIO — STATO PRIMA DI R06
 # ORONZO — AGENTE 09 · NEXT ATTUALE: MORALE E OFFERTE V0.2 (CICLO MIRATO R03)
 
 **Stato: `WAIT_REVIEW` — R03 consegnato, in attesa audit #38+#39.
