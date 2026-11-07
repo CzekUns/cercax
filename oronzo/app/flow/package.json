@@ -1,0 +1,9 @@
+{
+  "name": "oronzo-career-r03-flow",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.mjs",
+    "demo": "node demo-r03.mjs"
+  }
+}

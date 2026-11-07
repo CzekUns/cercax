@@ -1,3 +1,91 @@
+# ORONZO — ORONZO-AGENT-07 · Fix R06-1 / R06-2 / R06-3
+**Stato:** FIX_DELIVERED · PR #38 aperta, **NO MERGE**.  
+**Branch:** `agent/oronzo-career-r03-flow`  
+**Audit di riferimento:** [REPORT-R06 — Coerentizzatore 00](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md)  
+**Dipendenza obbligatoria:** [PR #39 — Coach09 Morale R03](https://github.com/CzekUns/cercax/pull/39), HEAD audit `80df15139d37c4ee36103001d6a24528037daed4`.  
+**Data:** 7 novembre 2026 (Europe/Rome).
+**Commits R06 nel branch #38:** geografia `740dfaa1b36d0e5c057172d7988d67558a4dc1e1`; consumer morale `a1e39f17c7fd9a9554f16e383541c27795861a7a` e guard origine `1d61f326d9f5145b481706e2bcc09cb66c0accd3`; fixture QA `fa9ceea384cebde726fbd7bb9d4a9367078ecab9`; test E2E iniziale `c14a0e011889452e08d3597474b279592a360adc`, stabilizzazione test `51a3cc03abbbb6eaa7a9672406b649176f3f8068`, guard record origine `88f23d0402ad24cb94b979ec89605c15c1397fa2`; documentazione `12225de0bac9d5e514461136ea9e22c0934c361b`.
+
+## Correzioni eseguite
+1. **R06-1 — integrazione reale morale 09.** `oronzo/app/flow/controller.js` importa direttamente `previewOfferMorale`, `applyOfferEffect`, `applyPressEffect` e `createCoach` da `../../systems/coach-club/index.js` (export della PR #39); usa i metodi 09 senza formula parallela in 07. `newGame` inizializza il CoachV2 (morale numerico, `origin`, quattro tratti, `moraleEvents`, relazioni, `gameOver`). `acceptOffer` valuta offerta e applica mora **in una bozza atomica** insieme a contratto, scelta e conferenza; `answerOpeningPress` e `answerPostMatchPress` persistono risposta e gli effetti 09 **nella stessa mutazione di stato**, registrando `flow.effectTransactions[eventId].status='applied'` e `coach.moraleEvents[eventId]`. Duplicati non ricalcolano gli effetti dopo save/load. `morale=0` e `gameOver` bloccano le transizioni con `GAME_OVER`, salvo salvataggio di recupero. La sola modalità `effectsMode:'isolated_test'` (esplicita, vietata in UI) conserva comportamento `awaiting_agent09` per test R03 legacy.
+2. **R06-2 — geografia non inventata.** Se `club.regionId`, `club.macroRegion`, `coach.origin.regionId` o `coach.origin.macroRegion` mancano/non sono conformi, `acceptOffer` risponde `{accepted:false,reason:'geography_required',messageKey:'oronzo.geography_required',missing:[...]}` **prima di qualunque mutazione**. Nessun comune/club reale inventato; scelta 20 offerte rimane stabile anche se bloccata. Alias dichiarati `nord/centro/sud` diventano `north/centre/south`; se `municipalityId` è presente in un catalogo importato, regione/macroregione devono concordare col record. `world.js` marca esplicitamente `qaFixture:true` con `world.mode='qa_fixture'` e `datasetStatus='synthetic_test_only'`, senza chiamare verificati 100 record fittizi.
+3. **R06-3 — test integrato reale aggiunto.** `oronzo/app/flow/tests/morale-r06.e2e.test.mjs` (5 test nativi Node da eseguire su checkout #38+#39) importa direttamente gli **API 09 reali**, i 4 JSON/SDK 04 reali, Match06 e sistemi Career07. Casi: preflight assenza geografia e immutabilità, fixture QA 100 record e conflitto origine, ingaggio/pagamento morale + cinque conferenze opening + partita engine fulltime + due conferenze post + board/finanza + save/load/retry, game-over persistito, due stagioni con rollover e import 1985 legacy. `tests/qa-geography.mjs` è un generatore **sintetico dichiarato**, non dataset ISTAT. La CLI `demo-r03.mjs` ora usa il medesimo input sintetico e gli effetti veri di 09, senza stampa di `pending` spacciata per risultato.
+
+## File modificati, solo scope Agente 07
+- `oronzo/app/flow/controller.js` — wiring 09, transazioni atomiche, guard geografia/città.
+- `oronzo/app/flow/tests/morale-r06.e2e.test.mjs` — **nuovo**, test senza stub di produzione.
+- `oronzo/app/flow/tests/qa-geography.mjs` — **nuovo**, esclusivamente QA.
+- `oronzo/app/flow/tests/flow-r03.test.mjs` — isolamento R03 esplicito.
+- `oronzo/app/flow/demo-r03.mjs` — demo morale reale + fixture sintetica.
+- `oronzo/app/flow/README.md` — API, gate 09, sequenza merge e dati.
+- `oronzo/systems/career/world.js` — status dataset sintetico.
+- Questo `oronzo/coordination/07-career/REPORT.md`.
+**Nessun file nel perimetro 09**, nessun Next/Identity/asset/HTML root modificato. **Nessuna nuova PR.**
+
+## Verifiche eseguite DAVVERO
+- **Sorgenti GitHub su JavaScript V8, R06 morale reale / 04 reale:** scaricati 17 moduli effettivi #38/#39/main. Flusso 1979 seed 91 con 20 offerte, QA 100 comuni fittizi, primo ingaggio fuori macro con `previewOfferMorale` reale: **`effectStatus:'applied'`, delta −3**, `moraleEvents` 1. Cinque risposte reali Copy04 e due postpartita: **8 transazioni di morale `applied`**, `moraleEvents` 8, morale salvato **54**, risultato e log registrati e recuperati da serialize/deserialize. Retry della firma: `already_accepted`, stato identico. Assenza dataset: `geography_required` senza mutare lo stato/ledger. **LIMITAZIONE CRITICA:** in **questa** verifica V8, i moduli 09 di *morale e coach* e i moduli 04 press sono REALI; invece il **Match Engine 06 e il 09 board/finance sono fixture stub espliciti** per isolamento, quindi NON equivale a test E2E nativo con 04+06+07+09 completi.
+- **Parsing sintattico V8** su `controller.js`, `demo-r03.mjs`, `flow-r03.test.mjs`, `qa-geography.mjs`, `morale-r06.e2e.test.mjs`: **5/5 PASS** dopo rimozione superficiale di import/export ESM per il controllo sintattico, **non** `node --check`/test eseguito con Node.
+- **Gate R06 antecedente dell'Agente 00, non eseguito in questa sessione:** run GitHub Actions `42381672625`, **91/91 PASS** sui due HEAD PRECEDENTI, più un E2E reale FAIL (`club_region_required`). Il codice attuale corregge il caso ma **non** si riutilizza quel 91/91 come prova dei nuovi commit.
+- **Suite native Node post-fix NON eseguite:** GitHub dal container continua a fallire `Could not resolve host: github.com`; i test nuovi pubblicati su GitHub non sono stati eseguiti in questa sessione su checkout completo #38+#39. Il gate R06B resta OBBLIGATORIO: `node --test oronzo/app/flow/tests/*.mjs`, `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`, `node oronzo/app/flow/demo-r03.mjs`, con **tutti i file reali**. Nessuna QA Android/browser.
+- L'assenza del dataset italiano M1 verificato impedisce ancora un ingaggio normale nel mondo di default: il blocco `geography_required` è VOLUTO dall'incarico e richiede decisione prodotto/dati dell'orchestratore, non va eliminato dal 07.
+
+## Contratto, merge order e richiesta al Revisore 00
+- **PR #39 prima di #38** (solo se autorizzato dall'orchestratore): il nuovo import ESM diretto richiede gli export di `oronzo/systems/coach-club/index.js` presenti nella PR #39, non ancora in `main`. Eseguire QA su checkout combinato, evitando CI isolata di #38 contro vecchio main.
+- Il gioco usa solo le formule `previewOfferMorale/applyOfferEffect/applyPressEffect` del 09; `effectTransactionId` è persistito insieme a `coach.moraleEvents`, e il game-over 0 è terminale. Il 03 deve presentare `geography_required` con testo locale e non esporre `isolated_test`.
+- **Richiesta:** audit **R06B** sull'HEAD aggiornato della stessa PR #38 e sull'HEAD invariato #39. Eseguire i nuovi 5 test e i 91 baseline, demo, ispezionare eventuali nuovi P0; **nessun merge da parte del 07**.
+
+---
+
+# RAPPORTO ORONZO-AGENT-07 — R03 · primo flow dati 1979
+
+**Stato:** PR_OPEN / DELIVERED FOR QA, NO MERGE
+**Pull Request:** https://github.com/CzekUns/cercax/pull/38
+**Branch:** `agent/oronzo-career-r03-flow`
+**Issue:** https://github.com/CzekUns/cercax/issues/9
+**Base main originale verificata:** `dcec6acc931c440597c3c28a6bd9f7d24d9bb94e`
+**Commit codice iniziale:** `644948bc21eb8617528bea4efa7bee5161935c4a`  
+**Fix idempotenza/UI:** `abd35f578dee9ab3ff0101c6a1bb75996290d999` (controller), `305bbe4d9eab2a131faa56c1c76db36be2d83b1c` (test), `a6cb502d6199942bce59fdeb70133ee19e809078` (demo), `6387d49c15e5e94a6b856e7b5127edcb24b1e35c` (README)
+**Data:** 7 novembre 2026 (Europe/Rome)
+
+## Implementazione autorizzata — 1979, solo dati/controller
+- `oronzo/systems/career/career.js`: aggiunto parametro `startYear`; il nuovo controller usa 1979, mentre la precedente API `newCareer()` mantiene il comportamento del 1985 e i relativi save non vengono retrodatati.
+- `oronzo/systems/career/world.js` (nuovo): import controllato di 100+ comuni da dataset versionato, sorgenti/licenze, ID a 6 cifre, regione, macro Nord/Centro/Sud (Sicilia/Sardegna a Sud), anno/popolazione, assegnazione deterministica club; se dataset non fornito il mondo è dichiaratamente `demo`. Nessuna ricerca/comune fittizio spacciato per verificato, nessuna modifica alla PR dell'automazione.
+- `oronzo/systems/career/offers-r03.js` (nuovo): esattamente 20 offerte distinte, seme deterministico, contratti allenatore in lire come bilanciamento simulativo, preferenza iniziale Promozione/Interregionale quando disponibili, ID e stipendi persistiti, accettazione singola idempotente.
+- `oronzo/systems/career/uncontrolled-fixtures.js` (nuovo): simulazione sintetica *separata ed etichettata* per soli incontri non gestiti dal mister; gli incontri giocati richiedono fatti e risultato dal vero Engine06.
+- `oronzo/app/flow/controller.js` (nuovo): API ESM `newGame`, `loadGame`, `saveGame`, `listInitialOffers`, `acceptOffer`, `getStateForUI`, `getRosterPlayer`, `getTrainingPlayer`, `prepareMatch`, `tickMatch`, `consumeMatchResult`, `answerOpeningPress`, `answerPostMatchPress`, `advanceMatchday`, `rolloverSeason`, `takeCareerOffer`, `exportGame/importGame`. Controller senza HTML/CSS/renderer; il 03 riceve solo proiezioni stabili.
+- Ingresso avatar scelto esplicitamente con `avatarId`, `origin`, `traits.{luck,leadership,selfEsteem,patience}`, persistenza senza formula di morale 07. Identità giocatore/kit dalla sorgente passata dai proprietari 08/01 con `playerVisualById` e `clubVisualKitsById`; Rosa e Allenamento usano lo stesso `playerId` e lo stesso visual/kit, oppure `appearance:null` se non disponibili.
+- Chiamate reali previste a Copy04 per 5 domande iniziali e 2 postpartita; risposte idempotenti e `effectTransactionId` serializzato, effetti semantici pendenti finché 09 non fornisce l'applicatore. Collegamento a `prepareMatchday`, `conveneBoard`, `reviewMatch`, `endClubWeek` di 09 con periodo completo `{week,absoluteWeek,seasonYear}` e sostituzione del club restituito. MatchInput/handle da `createMatch` di 06, risultato accettato SOLO a fulltime e con eventi `goal` verificati da Career.
+- `tickMatch` applica 6 secondi simulati/1 reale a 1× = 5.400/6 = 900 secondi (15 minuti). Non cambia di nascosto il timer nativo di Engine06, ancora 60×.
+- Save dual-slot + checksum esistente; fallback read-only della vecchia chiave `oronzo.career.v2` e preservazione del 1985. `saveGame` blocca `pre_match` perché 06 non ha snapshot/restore di una partita in corso. Giornata e club in stato atomico; competizioni/graduatorie/migrazione V1/V2 esistenti rimangono nel modulo Career.
+- File QA/documenti: `oronzo/app/flow/{tests/flow-r03.test.mjs,demo-r03.mjs,package.json,README.md}`; nessun file degli altri agenti modificato.
+
+## Prove realmente osservate in questa sessione
+1. **JavaScript V8, codici originali di Career07 letti da blob GitHub** più controller/world/offers/simulator da blob di lavoro e *stub dichiarati* per Coach09, Copy04 e MatchEngine06: sequenza **PASS** (inizio 1979, 20 offerte uniche e deterministiche, una sola accettazione, 5 risposte, match 1–0 di fixture, 2 risposte post, 1 periodo pagato, advanceWeek a 2, save/import integro). Questa è una prova del controller, **NON** esecuzione autentica end-to-end di 04/06/09.
+2. **Actual Match Engine06**: codice `rng.js`, `movement.js`, `commands.js`, `actions.js`, `match-engine.js` letto dall'ultimo main e caricato in ambiente V8. Con formazione di prova a **un GK** per squadra, `createMatch` seguito da `step(5400)`: **PASS**, `fulltime` a t=5400, risultato **1–1**, 2 eventi goal nel feed autorevole, 1.556 eventi totali. La prova utilizza club fixture, non l'adapter R03/Coach09 completo.
+3. **World importer reale**: `world.js` + `league.js` da SHA GitHub, **PASS** con 100 record **sintetici di test**, 104 club e 100 ID località unici, assegnazione identica a seed fissato; catalogo da 99 record respinto con `WORLD_M1_GATE`. Questa verifica **non** prova che comuni o licenze del dataset reale siano verificati.
+4. **Copy04 reale, contenuti reali:** caricati `press-kit.js`, `press-opening.json`, `press-postmatch.json`, `press-media.json` dal main. `createPressConference` ha prodotto **5 domande opening**, e **2 postmatch** per ciascuno degli esiti `win/draw/loss`, tutti con i contesti richiesti; cinque risposte scelte con `answerPressConference` hanno completato la sessione. **PASS V8** senza contenuti inventati; non è una prova completa controller+09 morale.
+5. **Regressione mirata V8 post-commit** su `controller.js` esatto blob `c02b7b2c60e01bdb5252d40fa2d13f336a4e837c`: caricamento/parsing di **21 export PASS**; chiamata `advanceMatchday` con token vecchio → `stale_week_action`, senza token nello stato disoccupato → `expected_week_required_when_unemployed`, con stato `hub` non pronto → `postmatch_press_not_completed`. Il controllo `expectedAbsoluteWeek` serve alla UI 03 per prevenire doppio avanzamento anche quando il mister è senza club.
+6. **Codice di test nativo Node consegnato ma NON eseguito**: `oronzo/app/flow/tests/flow-r03.test.mjs` contiene test su 1979 vs vecchio 1985, 20 offerte, import M1, visual/kit, due stagioni, mercato/press/engine, rollback e test game-over. `oronzo/app/flow/demo-r03.mjs` è runnable da una checkout completa. **Non si dichiara Node PASS**.
+7. **Blocco ambiente Node:** `git ls-remote https://github.com/CzekUns/cercax.git HEAD` da container restituisce `Could not resolve host: github.com`; il checkout integrale su cui eseguire `node --test oronzo/app/flow/tests/*.mjs oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js` non è stato disponibile. I 77 test preesistenti furono attestati dal revisore R05B sui merge, non rieseguiti qui. QA browser/smartphone non eseguita.
+
+## Confini API e dipendenze
+- **03 UI:** usa `getStateForUI` e proiezioni `getRosterPlayer/getTrainingPlayer`, chiama `tickMatch` e non il timer 60×; rende le 20 offerte, 5/2 domande, roster, partita e history. 07 non crea HTML/CSS né sostituisce `game.js`.
+- **09 morale:** attualmente non esistono gli hook CoachV2 `previewOfferMorale`, `applyOfferEffect`, `applyPressEffect` nel main; il 07 espone l'iniezione e memorizza transazioni `awaiting_agent09`. **Il morale non varia e non è funzionalmente integrato** in questo R03. `coach.gameOver`/morale=0 se forniti da 09 bloccano l'avanzamento.
+- **04:** `press-kit.js` e i tre JSON reali devono essere passati al controller, non copiati in Career. Le sessioni restano persistite. **06:** Engine 06 è autorevole sulla partita del mister; altri esiti sono simulati da provider dichiarato. **08:** identità visual e kit sono importati/copiati, non generati dal 07. Shouts 06/08 restano esclusi in attesa del gate.
+- **Dati ricerca:** la PR `data/oronzo-world-research` non risultava disponibile nella verifica iniziale; non sono stati importati 100 comuni reali e non si dichiara il gate M1 superato. I 500 cognomi competono all'08 e al worker.
+- **Limite storico:** `1979-08-01` è data parametrica di *gioco* e non la data documentata della prima giornata di Promozione 1979. In R03 il modello rimane a un girone rappresentativo per categoria; quote e spareggi storici non sono attestati.
+
+## Prossimi gate per Agente 10
+1. Eseguire su checkout Node unico la suite originale Career + Coach-Club e la nuova `flow-r03.test.mjs` e demo; correggere nel medesimo branch qualunque test concreto che fallisca prima del merge.
+2. Collegare l'API morale univoca da 09 (preview, applicazione atomica con eventId, game-over), e inserire/validare i dati geografici reali dopo review del worker.
+3. UI 03 e QA Android 16:9 con passo 15 minuti e field camera; ordini individuali solo dopo contratto 06/08.
+
+**Nessun merge autonomo e nessuna modifica a NEXT/IDENTITY/RUN o ad altri agenti.**
+
+---
+
+## Archivio del rapporto precedente (R05/R04/R02, registrato su main prima di R03)
+
 # ORONZO — AGENTE 07 · correzione mirata R05-1
 **Identità:** ORONZO-AGENT-07  
 **Stato:** FIX_DELIVERED / PR_OPEN, senza merge  
