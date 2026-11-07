@@ -1,5 +1,6 @@
 import { clamp, conditionFactor } from './rng.js';
 import { FORMATIONS, resetPositions } from './movement.js';
+import { calculateIndividualShout } from './orders.js';
 
 export const DEFAULT_TACTICS=Object.freeze({
   formation:'4-4-2',mentality:50,pressing:50,tempo:50,width:50,marking:'zonal',
@@ -53,6 +54,30 @@ export function executeCommand(state, command, emit) {
     emit('tacticChange',team.id,null,{tactics:{...tactics}});
     return {accepted:true,effects:{tactics:{...tactics},
       ...(changedFormation?{regroupUntil:team.regroupUntil}:{})}};
+  }
+  if(command.type==='shout' && payload.targetPlayerId!==undefined) {
+    if(typeof payload.targetPlayerId!=='string' || !payload.targetPlayerId)
+      return reject('targetPlayerId must be a nonempty player id');
+    if(!team.lineup.includes(payload.targetPlayerId))return reject('target player not on pitch for team');
+    if(!['encourage','harsh'].includes(payload.tone))return reject('unsupported individual shout tone');
+    if(payload.utteranceId!==undefined && (typeof payload.utteranceId!=='string' || payload.utteranceId.length>128))
+      return reject('invalid utteranceId');
+    const target=state.byId.get(payload.targetPlayerId);
+    if(!target?.active || target.injured)return reject('target player unavailable');
+    if(target.lastIndividualShoutAt!==undefined && state.t-target.lastIndividualShoutAt<120)
+      return reject('individual shout cooldown (120 simulated seconds)');
+    const effect=calculateIndividualShout(target,payload,state.rng,state.t);
+    target.lastIndividualShoutAt=state.t;
+    target.personalShout=effect;
+    const detail={
+      tone:effect.tone,accepted:true,affinity:effect.affinity,
+      temporaryEffect:{modifier:effect.modifier,startedAt:effect.startedAt,
+        expiresAt:effect.expiresAt},
+      persistentSuggestion:effect.persistentSuggestion,
+      ...(payload.utteranceId!==undefined?{utteranceId:payload.utteranceId}:{}),
+    };
+    emit('coach_shout',team.id,target.id,detail);
+    return {accepted:true,effects:{playerId:target.id,...detail}};
   }
   if(command.type==='shout') {
     const tone=payload.tone;

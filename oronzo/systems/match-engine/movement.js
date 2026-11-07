@@ -1,4 +1,5 @@
 import { clamp, meters, stat, conditionFactor } from './rng.js';
+import { individualPerformanceFactor } from './orders.js';
 
 // Local anchors: x increases toward the opponent's goal; index 0 is goalkeeper.
 export const FORMATIONS = Object.freeze({
@@ -99,6 +100,7 @@ export function updateMovement(state, dt) {
     for(const id of team.lineup) {
       const p=state.byId.get(id);
       if(!p?.active)continue;
+      if(p.personalShout && state.t>=p.personalShout.expiresAt)p.personalShout=null;
       const target=positions.get(p.id), tired=clamp(p.fatigue/120,0,.72);
       const base=3.5+stat(p,'physical','pace')*.034;
       const character=stat(p,'mental','character');
@@ -109,7 +111,7 @@ export function updateMovement(state, dt) {
         state.t-team.regroupStarted<22 && !p.hasBall;
       const speed=base*(1-tired*.48)*(p.injured?.45:1)*(.9+morale*.0018)*
         (team.shout?.tone==='encourage'?(1+(character-35)*.0005):1)*
-        conditionFactor(p)*(earlyRegroup?.55:1);
+        conditionFactor(p)*individualPerformanceFactor(p,state.t)*(earlyRegroup?.55:1);
       const dx=(target.x-p.x)*105, dy=(target.y-p.y)*68, dist=Math.hypot(dx,dy);
       const move=Math.min(dist,speed*dt);
       const tx=dist>1e-6?(dx/dist)*move/105:0,ty=dist>1e-6?(dy/dist)*move/68:0;

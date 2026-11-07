@@ -1,5 +1,6 @@
 import { clamp, meters, stat, conditionFactor } from './rng.js';
 import { direction, resetPositions } from './movement.js';
+import { individualPerformanceFactor } from './orders.js';
 
 const opponent=(state,teamId)=>state.teams.find(t=>t.id!==teamId);
 const pick=(state,team)=>team.lineup.map(id=>state.byId.get(id)).filter(p=>p?.active);
@@ -108,7 +109,8 @@ function pass(state,p,emit) {
     (skill(p,'mental','morale')-50)*.0007+
     (skill(p,'mental','confidence')-50)*.0009+
     (team.shout?.tone==='focus'?.06:0);
-  const isAccurate=state.rng.next()<clamp(accuracy*conditionFactor(p),.27,.97);
+  const isAccurate=state.rng.next()<clamp(accuracy*conditionFactor(p)*
+    individualPerformanceFactor(p,state.t),.27,.97);
   const lead=dir*clamp(gap/105*.12,0,.026);
   let target={x:clamp(receiver.x+lead,.015,.985),y:receiver.y};
   if(!isAccurate) {
@@ -127,7 +129,8 @@ function dribble(state,p,emit) {
   const control=skill(p,'technical','control')+skill(p,'mental','composure')*.2;
   const risk=dist<4?.17:dist<8?.075:.018;
   const morale=skill(p,'mental','morale');
-  if(state.rng.next()<risk*(1.5-control/180)*(1.1-morale*.002) && closest) {
+  if(state.rng.next()<risk*(1.5-control/180)*(1.1-morale*.002)/
+      individualPerformanceFactor(p,state.t) && closest) {
     owns(state,closest);closest.action='tackle';closest.actionUntil=state.t+2;p.action='dribble';p.actionUntil=state.t+2;
     emit('tackle',closest.teamId,closest.id,{won:true,byDribble:true},p.id);
     state.actionCooldown=2;return;
@@ -144,10 +147,12 @@ function challenge(state,p,emit) {
   const press=opponent(state,p.teamId).tactics.pressing;
   if(state.rng.next() > (.048+press*.0012))return false;
   const attack=(skill(p,'technical','control')*.62+skill(p,'physical','strength')*.19+
-    skill(p,'mental','composure')*.19)*conditionFactor(p)-p.fatigue*.20;
+    skill(p,'mental','composure')*.19)*conditionFactor(p)*
+    individualPerformanceFactor(p,state.t)-p.fatigue*.20;
   const defend=(skill(defender,'technical','tackling')*.63+
     skill(defender,'physical','strength')*.22+
-    skill(defender,'technical','positioning')*.15)*conditionFactor(defender)-defender.fatigue*.24;
+    skill(defender,'technical','positioning')*.15)*conditionFactor(defender)*
+    individualPerformanceFactor(defender,state.t)-defender.fatigue*.24;
   const defenderTeam=opponent(state,p.teamId);
   const foulChance=clamp((.052 + (55-skill(defender,'mental','discipline'))*.0006)*
     (defenderTeam.shout?.tone==='calm'?.52:1),.012,.095);
@@ -195,7 +200,7 @@ function shoot(state,p,emit) {
     (.62+attrs/115)*(1-p.fatigue/250)*
     (1-(skill(gk,'technical','goalkeeping')*conditionFactor(gk)-50)*.003)*inspiration*
     (team.shout?.tone==='push'?1.07:1)*(.985+skill(p,'mental','luck')*.0003)*
-    conditionFactor(p),.012,.65);
+    conditionFactor(p)*individualPerformanceFactor(p,state.t),.012,.65);
   const onTargetChance=clamp(.46+skill(p,'technical','shooting')*.0035-dist*.005,.18,.79);
   const onTarget=state.rng.next()<onTargetChance;
   const probability=onTarget?clamp(xg/Math.max(.12,onTargetChance),.018,.90):0;
