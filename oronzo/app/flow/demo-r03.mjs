@@ -27,7 +27,7 @@ const played=consumeMatchResult(state,prepared.engine,{press});
 if(!played.accepted)throw Error('Cannot record engine match: '+played.reason);
 for(const q of state.flow.press.postmatch.questions)
   answerPostMatchPress(state,q.id,q.answers[0].id);
-const advanced=advanceMatchday(state,{presidentCatalog:presidents});
+const advanced=advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek:state.absoluteWeek});
 if(!advanced.accepted)throw Error('Cannot advance matchday: '+advanced.reason);
 const save=saveGame(state,storage);
 const loaded=loadGame(storage);
