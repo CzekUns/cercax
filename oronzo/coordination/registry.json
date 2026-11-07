@@ -132,5 +132,19 @@
       "run": "oronzo/coordination/09-coach-club/RUN.md",
       "initialPr": null
     }
-  ]
+  ],
+  "orchestrator": {
+    "id": 10,
+    "slug": "10-orchestrator",
+    "name": "Orchestratore di prodotto e integrazione",
+    "role": "ORONZO-AGENT-10",
+    "coordinationDir": "oronzo/coordination/10-orchestrator/",
+    "identity": "oronzo/coordination/10-orchestrator/IDENTITY.md",
+    "run": "oronzo/coordination/10-orchestrator/RUN.md",
+    "next": "oronzo/coordination/10-orchestrator/NEXT.md",
+    "plan": "oronzo/coordination/10-orchestrator/PLAN.md",
+    "contract": "oronzo/coordination/10-orchestrator/CONTRACT-v02.md",
+    "epicIssue": 25,
+    "integrationIssue": 26
+  }
 }
