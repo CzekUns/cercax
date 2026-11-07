@@ -1,5 +1,5 @@
 # NEXT — AGENTE 01 · SPRITE CALCIATORI · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
 **Lavoro precedente:** PR #6 MERGIATA (3585b39596e6aa879c69e2136f8f22e2ca1ea102).
 **Nuova fonte di verità:** [specifica utente v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch di ciclo:** `agent/oronzo-players-r02`.
@@ -20,3 +20,8 @@ Il branch `agent/oronzo-players-r02` è stato verificato **identico a main** (0 
 **PR:** [#29](https://github.com/CzekUns/cercax/pull/29). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** Gate artistico: verifica sprite e palette con preview/browser, non solo test di atlas; 22 giocatori leggibili nei due viewport.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #29, esito R04: HOLD artistico/browser.** Quattro test atlas nativi passati e preview 844×390 letta da Work 00 (due squadre e portieri distinguibili); non equivale a QA animazioni su Chrome o dispositivo.
+**Azione ammessa sulla stessa PR #29:** verifica visiva browser degli 11+11, idle/run/kick/tackle/keeper, otto direzioni, due palette, capelli/pelle, maschere/alpha, pixel crop, a 640×360 e 844×390 e nella camera broadcast di 05 quando disponibile. Fornire screenshot/filmato della demo e riferimenti al manifest/test. Correggere difetti artistici concreti nella propria PR, non sostituire con pallini geometrici. Nessun merge finché la resa non è verificata.
