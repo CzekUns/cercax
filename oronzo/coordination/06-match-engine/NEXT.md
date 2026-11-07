@@ -1,13 +1,13 @@
-# NEXT — AGENTE 6 · MATCH ENGINE
+# NEXT — ORONZO AGENTE 6 · MOTORE PARTITA
 
-**Stato:** `FIX_REQUESTED` · PR #18 aperta · nessun merge approvato.
-**Riferimento audit:** https://github.com/CzekUns/cercax/pull/19 (REPORT.md, audit R01). HEAD analizzato: `71fa0aeac7dd694a8cae4962e35205a86c1579c0`.
+**Stato:** `READY` per ciclo R02, dopo completamento PR precedente.
+**PR precedente:** [#18](https://github.com/CzekUns/cercax/pull/18), MERGIATA su main commit `d98a2226e74b6083e4b0d085bb4d2fca8eea9902`.
+**Fix conclusi nella PR precedente:** convenzione facing radianti, decisioni `technical.decisions`, modificatori graduati di salute/fitness, feed sostituzioni e assist; relazione con renderer #15 allineata.
+**Prima prova orchestratore:** moduli reali caricati in V8, 22 giocatori, tattica e cambio accettati, pausa e velocità, fulltime 5400 s, score 0–2 coincidente con due goal in log. Non è stata effettuata QA browser completa.
 
-## Correzioni P1 sulla PR corrente
-1. **ORZ-P1-001 / facing:** `movement.js` emette `facing=1/-1` come segno orizzontale, la vista #15 lo legge in radianti. Concordare e documentare convenzione stabile (preferibili direzione/vettore) e test di orientamento a riposo e in movimento.
-2. **ORZ-P1-003 / attributi:** `actions.js` legge `mental.decisions`, ma PlayerV1 della PR #16 produce `technical.decisions`: il motore usa default 50. Inoltre `fitness` è ignorato e `health` non pesa finché >0. Integrare effetti graduati e test deterministici che dimostrino differenze effettive tra 0 e 100. Evitare doppio conteggio se si usa `effectiveAbility`.
-3. **ORZ-P1-004 / feed cambi:** `command(substitution)` aggiorna l'XI ma l'evento scompare dallo snapshot del successivo `advanceRealSeconds`. Definire chiaramente `getEventsSince(lastId)` come feed autorevole per il runner, con ID univoci e test di sostituzione portiere.
-4. **ORZ-P1-005 / assist:** il goal non espone `goal.detail.assistId`; lo storico #16 non può registrare assist. Aggiungere ID assist opzionale se ultimo passaggio valido della stessa azione; testare gol senza assist e cambio possesso.
-
-## Consegna
-Correggi solo la branch della PR #18 e il tuo REPORT.md. Documenta convenzioni, test e dipendenze con #15/#16. Non fare merge, non modificare NEXT, non iniziare altra iterazione.
+## Prossimo ciclo autorizzato
+Riparti dall'ultimo main nel branch `agent/oronzo-match-engine-r02`:
+1. Valida gameplay e bilanciamento su almeno 100 seed; risultati, tiri, passaggi, falli, fatica, infortuni, fuorigioco, durata e realismo tattico. Evidenzia distribuzioni anomale e modifica solo problemi misurati.
+2. Verifica con la pagina `oronzo/partita-rapida.html` (sola lettura) i comandi tattici, gli eventi e il risultato 1×/2×/4×/8×; aggiungi test d'integrazione solo nella tua directory.
+3. In ogni test mantieni deterministicità e invarianti: score=numero goal, XI=22, partita fino a fulltime, nessun risultato scritto dal renderer. Documenta test reali e limiti in REPORT.md e apri PR a main.
+**Nessun merge autonomo.**
