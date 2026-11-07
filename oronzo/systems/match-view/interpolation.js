@@ -15,8 +15,18 @@ export function resolveFacing(facing, vx=0, vy=0, fallback='S') {
     const names={NORTH:'N',NORTHEAST:'NE',EAST:'E',SOUTHEAST:'SE',SOUTH:'S',SOUTHWEST:'SW',WEST:'W',NORTHWEST:'NW'};
     if (names[dir]) return names[dir];
   }
+  // Agent 6 emits +1 / -1 as the horizontal sign, not radians.
+  // Angles are still supported, but must use {radians} or {angle} for +/-1.
+  if (facing === 1) return 'E';
+  if (facing === -1) return 'W';
   if (Number.isFinite(facing)) return directionFromVector(Math.cos(facing),Math.sin(facing),fallback);
-  if (facing && typeof facing === 'object') return directionFromVector(finite(facing.x),finite(facing.y),fallback);
+  if (facing && typeof facing === 'object') {
+    if (Number.isFinite(facing.radians ?? facing.angle)) {
+      const a=facing.radians ?? facing.angle;
+      return directionFromVector(Math.cos(a),Math.sin(a),fallback);
+    }
+    return directionFromVector(finite(facing.x),finite(facing.y),fallback);
+  }
   return directionFromVector(finite(vx), finite(vy), fallback);
 }
 export function spriteAction(action, keeper=false, speed=0) {
@@ -28,10 +38,16 @@ export function spriteAction(action, keeper=false, speed=0) {
   if (keeper && a === 'defend') return 'keeper';
   return speed > 0.0035 ? 'run' : 'idle';
 }
+/** Match engine V1 reports energy in percentage points [0..100].
+ * Renderer normalizes to [0..1]; do not treat an engine value of 1 as 100%.
+ */
+export function normalizeEnergy(energy=100) {
+  return clamp01(finite(energy,100)/100);
+}
 function copyPlayer(p) {
   return {
     ...p, id: String(p.id), teamId: String(p.teamId), x:clamp01(p.x), y:clamp01(p.y),
-    vx:finite(p.vx), vy:finite(p.vy), energy:clamp01(p.energy ?? 1),
+    vx:finite(p.vx), vy:finite(p.vy), energy:normalizeEnergy(p.energy ?? 100),
     hasBall:Boolean(p.hasBall), action:String(p.action ?? 'idle')
   };
 }
@@ -82,7 +98,16 @@ export class SnapshotInterpolator {
   }
   push(raw,now=0) {
     const next=normalizeSnapshot(raw);
-    if (this.latest && next.t<this.latest.t) this.previous=null; // replay/rewind
+    // A restart is a hard scene cut: never tween a goalkeeper or ball
+    // across the field after a goal or when sides change at halftime.
+    // Also handle phase changes when a producer omits kickoff in a snapshot.
+    const events=next.events;
+    const hardCut=this.latest && (
+      next.t<this.latest.t ||
+      next.phase!==this.latest.phase ||
+      events.some(e=>e?.type==='kickoff' || e?.type==='halftime')
+    );
+    if (hardCut) this.previous=null;
     else this.previous=this.sample(now);
     const delta=this.latest ? Math.max(0,next.t-this.latest.t) : 0;
     this.latest=next;
