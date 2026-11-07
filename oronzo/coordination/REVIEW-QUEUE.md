@@ -119,3 +119,9 @@ Il rapporto è stato creato nella [PR #19](https://github.com/CzekUns/cercax/pul
 - #34: contenuto originale; QA semantica e contesti 1979; approvazione stilistica utente ancora pendente.
 - #31: pipeline cognomi non equivale a 5.000 cognomi già presenti, nessun claim finale.
 - 00 autorizzato ad effettuare MERGE SOLO se QA positiva, all'interno del mandato R04; altrimenti `FIX_REQUESTED` nel REPORT-R04. 10 mantiene gestione NEXT e cicli 07/03.
+
+
+## R04 — ESITO PROVATO E PROSSIMI GATE (7 novembre 2026)
+**#34 MERGED `b8976cb2b0129de9ee6537e1d624abce9ff1402f`** e 5 blob principali su main verificati. #30/#32 **FIX_REQUESTED**: R04-1 doppio pagamento V1 dopo `settledWeeks:[1]` a `a:1` (486k ITL), R04-2 Node combined **50 PASS / 1 FAIL** a causa di test expected 1.600 contro reale 472.000; correggere migrazione periodo e fixture. #31/#35 **FIX_REQUESTED**: R04-3/4 origine/tono/trust e rischio doppio bonus, richiedere test con PlayerV2 reale e ledger unico. #28/#29/#33 **HOLD per browser/arte**, #12 draft HOLD, #27 obsolete audit HOLD, #36 rapporto R04 OPEN non code mergeato.
+**Soglia M1 autorizzata dall'utente:** 100 piccoli comuni + 500 cognomi verificati, fonte/licenza e ID documentati; **500/5000 obiettivo di espansione**. Raccolta tramite automazione ORONZO oraria (attiva, istruita in prompt), branch `data/oronzo-world-research`, cartella `oronzo/data/research/`; dati non ancora verificati disponibili. 07/08 faranno import dopo QA/PR dataset e senza doppio scraping.
+**Gate 07 futuro adapter:** #30+#32 merge e tests V1/V2 verde; **gate 03 runtime:** #33 merge dopo browser e accettazione arte, e adapter 07 contrattualizzato. 10 non implementa gameplay e non autorizza R03 prematuro.
