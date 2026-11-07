@@ -26,9 +26,9 @@
 | ORZ-P1-005 | P1 | Audit R01: `goal.detail.assistId` non emesso, storico #16 non registra assist | 06, coordinamento 08 | Assist opzionale tracciato per stessa azione, test | FIX_REQUESTED |
 | ORZ-P2-001 | P2 | Audit R01: `energy` motore 0–100, vista clamp 0–1 | 05 | Normalizzare in renderer prima della UI | FIX_REQUESTED |
 | ORZ-P1-006 | P1 | Verificato su HEAD PR #13: elenco file non contiene `oronzo/content/presidents.json` (404), obbligatorio nel narrative-contract | 04 | Aggiungere >=8 presidenti originali e integrazione con PresidentProfileV1 | FIX_REQUESTED |
-| ORZ-P1-007 | P1 | 7 PR di produzione risultano `mergeable=false` (5,6,12,13,14,17; ricontare live): la causa precisa non è stata isolata | Agenti interessati/orchestratore | Verificare conflitti reali, aggiornare branch senza sovrascrivere altri agenti; nessun merge cieco | DA VERIFICARE |
+| ORZ-P1-007 | P1 | 6 PR di produzione risultano `mergeable=false` (#5,#6,#12,#13,#14,#17; ricontare live): la causa precisa non è stata isolata | Agenti interessati/orchestratore | Verificare conflitti reali, aggiornare branch senza sovrascrivere altri agenti; nessun merge cieco | DA VERIFICARE |
 
-**Nota ORZ-P1-007:** elenco corretto rilevato: **sei** PR (#5, #6, #12, #13, #14, #17), non sette. `mergeable=false` può dipendere da conflitti: la causa richiede diff/controllo ulteriore. Non trattare come prova di regressione del codice.
+**Nota ORZ-P1-007:** `mergeable=false` può dipendere da conflitti: la causa richiede diff/controllo ulteriore. Non trattare come prova di regressione del codice.
 
 ## Audit Work R01
 Il rapporto è stato creato nella [PR #19](https://github.com/CzekUns/cercax/pull/19), branch `audit/oronzo-coerentizzatore-r01`, HEAD `041ad5dfae72b4409ff4a8a06fba34fc002f0031`. Test **riportati dal revisore Work**: Node 24.22.1, 39 passati/0 falliti, smoke cross-module; non rieseguiti dall'orchestratore in questa revisione. L'audit conclude `needs changes` per #15/#18, `ready for orchestrator QA` per #16, nessun P0 nel perimetro verificato. Nessuna verifica visiva smartphone.
