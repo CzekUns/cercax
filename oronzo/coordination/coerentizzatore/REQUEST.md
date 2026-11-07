@@ -1,27 +1,26 @@
-# RICHIESTA ATTIVA — COERENTIZZATORE ORONZO
+# COERENTIZZATORE — INCARICO R02 PRONTO, NON AVVIATO
 
-**Stato:** `COMPLETED_R01` — audit consegnato in PR #19, nessun nuovo audit autorizzato.
-**Priorità:** audit R01 concluso. Il rapporto è in https://github.com/CzekUns/cercax/pull/19; le correzioni sono tracciate in REVIEW-QUEUE.md. Non ripetere la sessione senza nuovo incarico.
-**Creato da:** orchestratore principale, 7 novembre 2026.
+**Stato:** `READY_FOR_ONE_WORK_AUDIT`
+**Autorizzazione:** l'utente ha chiesto se ci siano nuovi incarichi per il revisore; l'orchestratore prepara qui una singola revisione mirata e l'utente potrà avviarla in Work quando desidera.
+**Priorità:** integrazione carriera + società + presidenti, moduli già su main, non revisionare tutta ORONZO.
 
-## Incarico unico
-Verifica che le seguenti tre PR aperte possano essere integrate senza rompere il gioco, limitandoti a **compatibilità tecnica tra moduli**, non a una valutazione estesa di grafica, UI, carriera, testo, società o gameplay completo:
-- **#18 Agente 6 / Match Engine**: https://github.com/CzekUns/cercax/pull/18 — branch `agent/oronzo-match-engine`, HEAD osservato `71fa0aeac7dd694a8cae4962e35205a86c1579c0`.
-- **#15 Agente 5 / Match View**: https://github.com/CzekUns/cercax/pull/15 — branch `agent/oronzo-movements`, HEAD osservato `5558c89f5104b40e49f74158b868e53966612dee`.
-- **#16 Agente 8 / Attributes**: https://github.com/CzekUns/cercax/pull/16 — branch `agent/oronzo-attributes`, HEAD osservato `9105014b569e3290ba86590f597c2202dbca846e`.
-Se gli HEAD sono cambiati, registra i nuovi SHA nel rapporto prima di procedere. Tutte e tre NON erano ancora mergiate al momento dell'assegnazione.
+## Ambito preciso: tre moduli su main
+- **Carriera / agente 7**: PR #14 MERGIATA, commit `bb9e384796fdd8fd7ad8b7f200cc5902511442e1`, `oronzo/systems/career/`.
+- **Società / agente 9**: PR #17 MERGIATA, commit `7309f1fe908e2e62b4304f44261d026d2866755c`, `oronzo/systems/coach-club/`.
+- **Copy e catalogo presidenti / agente 4**: PR #13 MERGIATA, commit `065dc4ee7e59e26612b14c471b9c2be99f43cad1`, `oronzo/content/`.
 
-## Verifiche mirate
-1. Contratto `oronzo/engine-contract.md`: MatchInputV1, MatchSnapshotV1 e PlayerV1. Confronta **nomi veri degli export JS**, import, struttura dei dati, coordinate normalizzate, tick `dt`, tempi, eventi goal/substitution e seed deterministico. Chiediti se il renderer #15 può usare direttamente gli snapshot prodotti da #18 e se #18 può consumare gli attributi di #16 senza adapter ambiguo o campi mancanti.
-2. Individua al massimo **5 problemi prioritari P0/P1**, con file e riga/commit, descrizione del fallimento e patch consigliata. Verifica test esistenti se possibile; segnala se test non eseguibili. Se non ci sono difetti bloccanti, descrivi esattamente come collegare i tre moduli, incluse eventuali conversioni strettamente necessarie.
-3. Produci una **matrice di interfaccia breve**: Origine -> Destinazione -> compatibilità (OK / INCOMPATIBILE / NON VERIFICATO) -> intervento/agente responsabile. Distinguere difetti effettivamente riprodotti da ipotesi.
+## Domanda
+**Possono i tre moduli funzionare insieme durante una carriera di due stagioni, conservando club/presidente/allenatore/finanze e testi coerenti, senza perdere dati o assegnare il presidente sbagliato?**
 
-## Limiti per risparmiare Work
-- **Non esaminare tutte e nove le PR**; esamina solo #15, #16, #18 e i file di contratto necessari.
-- Niente riscritture complete, niente ricerca storica, niente generazione immagini. Una sola passata mirata, poi fermati.
-- **NON fare merge, non modificare il gioco, i branch degli agenti, i 9 NEXT, ORCHESTRATOR o REVIEW-QUEUE.**
-- Se puoi scrivere GitHub, salva soltanto il rapporto in `oronzo/coordination/coerentizzatore/REPORT.md` sul tuo branch di audit e apri una PR di sola documentazione, senza merge; altrimenti consegna rapporto in chat.
-- La decisione delle correzioni e degli eventuali merge appartiene alla chat orchestratore principale.
+Verifica prioritariamente:
+1. **Identità dei club e presidenti:** `president:{club.id}` generato dalla carriera contro gli ID canonici di `content/presidents.json`; caricamento dei presidenti nel modulo `coach-club/presidents.js`; mapping deterministico/stabile dopo salvataggio e nuovo anno. Non attribuire automaticamente il medesimo presidente a ogni club.
+2. **Obiettivi societari:** Carriera usa `avoidRelegation|topHalf`, board usa `avoid_last|top_half`. Valuta se il fallback impone obiettivi sbagliati, e raccomanda un adapter o normalizzazione di una sola fonte, con test.
+3. **Stato mutabile vs copie:** società restituisce nuovo ClubV1 mentre carriera modifica il proprio stato; verifica che cassa, budget, fiducia ed esonero sopravvivano a `advanceWeek`, `finishSeason`, `serialize/deserialize` senza perdere aggiornamenti; il mister propone mercato ma la società delibera.
+4. **Contratti e salari:** Career PlayerV1 potrebbe non avere `contract.weeklyWage`. Verifica coerenza tra roster, payroll e salvataggio, e un caso di transazione senza fondi.
+5. Esegui test mirati (Node/JS quando possibile) e indica **al massimo 5 P0/P1** dimostrati, con file, linee e fix consigliati per agenti 4/7/9 o orchestratore.
 
-## Output richiesto
-Rapporto conciso: SHA analizzati, massimo cinque P0/P1 con prove, matrice delle interfacce, priorità di intervento per agenti 5/6/8 e verdetto **ready for orchestrator QA** oppure **needs changes** (NON 'mergiato'). Fermati qui.
+## Output limitato
+Rapporto R02 in `oronzo/coordination/coerentizzatore/REPORT-R02.md` in PR documentale separata oppure in chat se GitHub non scrivibile: SHA, massimo 5 problemi P0/P1, test effettivi pass/fail/non eseguiti, tabella di interfaccia e un **ordine di integrazione** ragionato. Non cambiare codice, `NEXT.md`, `ORCHESTRATOR.md` o `REVIEW-QUEUE.md`; non fare merge, non convocare agenti o creare lavori non richiesti. Nessun altro audit in questa sessione.
+
+## Contesto aggiuntivo: partita
+Le PR #15 (match-view) e #18 (motore) restano aperte. L'orchestratore ha già trovato un problema specifico in `resolveFacing`: il renderer interpreta `±1` come vecchi segni E/W, ma il motore emette radianti; è stato assegnato **direttamente all'agente 5** senza sprecare Work. Non riesaminare #15/#18 in questo audit R02, salvo che emerga una dipendenza strettamente necessaria alla carriera.
