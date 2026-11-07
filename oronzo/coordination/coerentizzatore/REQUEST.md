@@ -1,7 +1,7 @@
 # RICHIESTA ATTIVA — COERENTIZZATORE ORONZO
 
-**Stato:** `READY_FOR_ONE_WORK_AUDIT` (autorizzato dall'utente a una singola revisione Work, senza avvio automatico)
-**Priorità:** revisione rapida P0/P1 dei contratti del nucleo partita, UNA PASSATA SOLA.
+**Stato:** `COMPLETED_R01` — audit consegnato in PR #19, nessun nuovo audit autorizzato.
+**Priorità:** audit R01 concluso. Il rapporto è in https://github.com/CzekUns/cercax/pull/19; le correzioni sono tracciate in REVIEW-QUEUE.md. Non ripetere la sessione senza nuovo incarico.
 **Creato da:** orchestratore principale, 7 novembre 2026.
 
 ## Incarico unico
