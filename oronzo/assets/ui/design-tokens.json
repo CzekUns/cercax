@@ -1,0 +1,290 @@
+{
+  "project": "Oronzo UI Arcade 1995",
+  "version": "1.0.0",
+  "grid": {
+    "width": 640,
+    "height": 360,
+    "exportWidth": 1280,
+    "exportHeight": 720,
+    "nearestNeighbor": true
+  },
+  "palette": {
+    "navy": "#061144",
+    "deep": "#090E31",
+    "blue": "#073CD3",
+    "royal": "#1E35B0",
+    "azure": "#448EFF",
+    "ice": "#A9C8F1",
+    "purple": "#3B197A",
+    "gold": "#FFDA36",
+    "goldhi": "#FFF6A0",
+    "orange": "#EB872B",
+    "cream": "#FFF7D0",
+    "lime": "#9BFA45",
+    "green": "#177D48",
+    "grass": "#127A3B",
+    "red": "#E7423B",
+    "grey": "#AFC3E4",
+    "dark": "#03071B",
+    "white": "#FFFFFF"
+  },
+  "typography": {
+    "pixelFontRecommended": "Press Start 2P (SIL OFL 1.1); alternative Pixelify Sans (SIL OFL 1.1)",
+    "fallback": "DejaVu Sans Mono / monospace",
+    "source": "Use locally licensed font, do not redistribute system font files"
+  },
+  "components": {
+    "button": {
+      "height": 24,
+      "minTouchTargetCSSPixels": 44,
+      "styles": [
+        "normal",
+        "selected",
+        "disabled"
+      ]
+    },
+    "beveledPanel": {
+      "border": 3,
+      "radius": 0
+    },
+    "pitch": {
+      "stripes": 12,
+      "lines": 2
+    }
+  },
+  "screens": [
+    {
+      "id": "coach-select",
+      "path": "coach-select.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    },
+    {
+      "id": "office-home",
+      "path": "office-home.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    },
+    {
+      "id": "squad-roster",
+      "path": "squad-roster.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    },
+    {
+      "id": "tactics",
+      "path": "tactics.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    },
+    {
+      "id": "match-hud",
+      "path": "match-hud.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    },
+    {
+      "id": "training",
+      "path": "training.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    },
+    {
+      "id": "press",
+      "path": "press.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    },
+    {
+      "id": "result",
+      "path": "result.png",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "logical": [
+        640,
+        360
+      ],
+      "dynamicText": "Mockup labels are examples; HTML must render dynamic text in positioned layers"
+    }
+  ],
+  "assets": [
+    {
+      "path": "button-normal.png",
+      "width": 176,
+      "height": 44
+    },
+    {
+      "path": "press.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "training.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "result.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "office-home.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "button-disabled.png",
+      "width": 176,
+      "height": 44
+    },
+    {
+      "path": "components.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "button-selected.png",
+      "width": 176,
+      "height": 44
+    },
+    {
+      "path": "tactics.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "squad-roster.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "coach-select.png",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "match-hud.png",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "componentAtlas": {
+    "path": "components.png",
+    "scale": 2,
+    "rectsLogical": {
+      "buttonNormal": [
+        12,
+        12,
+        175,
+        44
+      ],
+      "buttonSelected": [
+        217,
+        12,
+        175,
+        44
+      ],
+      "buttonDisabled": [
+        422,
+        12,
+        175,
+        44
+      ],
+      "panelBlue": [
+        12,
+        70,
+        192,
+        110
+      ],
+      "panelGreen": [
+        217,
+        70,
+        192,
+        110
+      ],
+      "panelPurple": [
+        422,
+        70,
+        192,
+        110
+      ],
+      "barGold": [
+        12,
+        202,
+        175,
+        20
+      ],
+      "barLime": [
+        217,
+        202,
+        175,
+        20
+      ],
+      "barRed": [
+        422,
+        202,
+        175,
+        20
+      ]
+    }
+  },
+  "colorsAsCssVariables": {
+    "--or-blue": "#073CD3",
+    "--or-navy": "#061144",
+    "--or-gold": "#FFDA36",
+    "--or-lime": "#9BFA45",
+    "--or-rim": "#A9C8F1"
+  }
+}

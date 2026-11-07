@@ -1,0 +1,135 @@
+{
+  "version": "1.0.0",
+  "mockupCanvas": [
+    1280,
+    720
+  ],
+  "logicalCanvas": [
+    640,
+    360
+  ],
+  "frameCount": 1,
+  "fps": 0,
+  "pivot": [
+    0,
+    0
+  ],
+  "screens": [
+    {
+      "id": "coach-select",
+      "png": "coach-select.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "office-home",
+      "png": "office-home.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "squad-roster",
+      "png": "squad-roster.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tactics",
+      "png": "tactics.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "match-hud",
+      "png": "match-hud.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "training",
+      "png": "training.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "press",
+      "png": "press.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "result",
+      "png": "result.png",
+      "size": [
+        1280,
+        720
+      ],
+      "fps": 0,
+      "frames": 1,
+      "pivot": [
+        0,
+        0
+      ]
+    }
+  ],
+  "uiAtlas": "components.png",
+  "paletteReference": "design-tokens.json",
+  "dynamicLayers": true,
+  "sourceArtwork": "Original generated illustration used for portrait and office art; layouts and components authored separately; no historical screenshots redistributed"
+}
