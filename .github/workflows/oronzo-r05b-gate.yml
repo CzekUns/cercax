@@ -1,0 +1,26 @@
+name: ORONZO R05B combined Node gate
+on:
+  push:
+    branches:
+      - audit/oronzo-r05b-gate-blocked
+jobs:
+  combined:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Combine exact PR heads
+        run: |
+          git fetch origin 1fb92d5c249270dced1e18414ef70c022bf68722 89bb4944e6c6fc78ad9164c8e0d899355ec9d67f
+          git checkout origin/main -- oronzo
+          git checkout 1fb92d5c249270dced1e18414ef70c022bf68722 -- oronzo/systems/career oronzo/coordination/07-career/REPORT.md
+          git checkout 89bb4944e6c6fc78ad9164c8e0d899355ec9d67f -- oronzo/systems/coach-club oronzo/coordination/09-coach-club/REPORT.md
+          git status --short
+      - name: Node combined tests
+        run: node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js
