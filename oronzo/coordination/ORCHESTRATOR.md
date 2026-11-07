@@ -48,3 +48,8 @@ Quando la chat principale si interrompe, è sufficiente dire: «Riprendi l'orche
 - `NEXT.md` degli agenti 05 e 06 aggiornati con correzioni; quello di 08 con esito audit. PR #13 ancora priva di `oronzo/content/presidents.json` su HEAD verificato; agente 04 resta `FIX_REQUESTED`.
 - Metadati GitHub: PR #5,#6,#12,#13,#14,#17 risultavano `mergeable=false`; #15,#16,#18,#19 `mergeable=true`. La causa dei false è da isolare. Mergeability non equivale a QA.
 - Prossima azione: attendere fix agenti 05/06, verificare conflitti e report degli altri agenti, rieseguire test integrati e QA visuale; non avviare una seconda sessione Work sul medesimo problema.
+
+## Revisione oraria R02 — verifica indipendente della mergeability
+- Il campo `mergeable` restituito da `get_pr_info` si è rivelato **inaffidabile** per queste PR: REST diretto `GET /pulls/{n}` mostra `mergeable=true`, `mergeable_state=clean` per tutte e 10 le PR aperte (#5,#6,#12,#13,#14,#15,#16,#17,#18,#19), contrariamente al precedente rapporto di sei conflitti. PR #12 resta draft. La rettifica è registrata in REVIEW-QUEUE; non chiedere ai sei agenti di risolvere conflitti non dimostrati.
+- Nessun nuovo commit ai moduli core #15/#16/#18, quindi le cinque incompatibilità P1 dell'audit R01 restano da correggere. PR #13 continua senza presidents.json.
+- Le nove cartelle NEXT sono state lette; nessun REPORT.md presente sui branch originali al momento del controllo. Tutte le PR contengono solo file `oronzo/**` secondo i loro elenchi GitHub. Nessun test o merge effettuato in R02.
