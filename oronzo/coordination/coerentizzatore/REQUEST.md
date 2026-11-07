@@ -1,3 +1,24 @@
+# ORONZO — REQUEST ATTUALE AGENTE 00 · AUDIT R06 MIRATO PR #38 + #39
+
+**Stato: READY per attivazione su chat Agente 00, 7 novembre 2026.** Le PR precedenti #30 e #32 sono già MERGED e non vanno riesaminate come incarico a sé. In questa sessione **nessun merge autorizzato automaticamente**. Nuove PR su GitHub:
+- [#38](https://github.com/CzekUns/cercax/pull/38) — 07 game-flow 1979, HEAD verificato `94538ae97b3f7423a7d1e691a2e493524556142f`, **OPEN**.
+- [#39](https://github.com/CzekUns/cercax/pull/39) — 09 CoachV2/morale/offerte/stampa, HEAD verificato `80df15139d37c4ee36103001d6a24528037daed4`, **OPEN**.
+
+## Obiettivo del controllo
+Certificare o respingere la **compatibilità reale fra #38 e #39**, prima del loro merge e del mandato UI 03. Non usare solo le verifiche V8 isolate dichiarate dai due autori. Non allargare review a tutte le PR.
+
+1. Leggere entrambi i REPORT e le due documentazioni `oronzo/app/flow/README.md` e `oronzo/systems/coach-club/MORALE-R03.md`. Rileggere HEAD attuali all'avvio; il main potrebbe essere avanzato. Preparare checkout/sandbox combinato main + #38 + #39, byte e dipendenze verificati.
+2. Eseguire **Node nativo** completo: `node --test oronzo/app/flow/tests/*.mjs`; `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`; ed esecuzione reale `node oronzo/app/flow/demo-r03.mjs`. Eseguire anche test end-to-end mirato del **controller reale + Coach09 reale + Copy04 reale + Match06 reale**, non uno stub; se l'ambiente impedisce tale prova indicare con precisione cosa manca.
+3. **Gate P0 funzionale:** in `newGame`, `coach.morale` inizializzato tramite il nuovo CoachV2 e `traits/origin` coerenti con `previewOfferMorale`; venti offerte visibili; `acceptOffer` usa `previewOfferMorale` e `applyOfferEffect` con firma/contract effettivi e applica UNA SOLA VOLTA il delta; `answerOpeningPress` e `answerPostMatchPress` usano `applyPressEffect` reale con `eventId` persistente e NON lasciano `awaiting_agent09` se i moduli sono disponibili. Verificare `gameOver` a morale zero, ricaricamento, doppio clic/retry, cash/ledger 1979, save legacy 1985, due stagioni.
+4. **Rischio già documentato:** il 09 dice in #39 che gli applier non vengono agganciati automaticamente dal controller #38: serve wiring da 07 o consumer esplicito, con test che dimostri esecuzione effettiva. Il 07 mantiene i callback opzionali e lo status `awaiting_agent09`. Non considerare una semplice firma di callback, stub test o demo con dati sintetici come integrazione funzionante; classificare il problema con owner e file/linea. Non implementare tu il codice di 07 o 09.
+5. Verificare che l'interfaccia flow headless per il 03 sia reale e ben definita (incluso portiere, chiamata 1×15min, eventi goal e salvataggi); segnalare se la prova HTML/Android resta non eseguita, senza pretendere che i test Node la sostituiscano.
+6. Pubblicare rapporto **`oronzo/coordination/coerentizzatore/REPORT-R06.md`** su ramo documentale separato, distinguendo PASS/FAIL testati, SHA, blocchi esatti e owner. **NON effettuare merge #38/#39** in questo audit; 10 riassegna eventuale fix mirato al 07 o 09, poi autorizza un gate merge se verde.
+
+**Priorità:** rapidità nel raggiungere primo playtest utente; niente round generale né verifica arti/cutscene che non tocchino il flusso dati del 1979.
+
+---
+
+## ARCHIVIO — incarichi R05 precedenti, chiusi
 # ORONZO — INTEGRAZIONE MIRATA SUCCESSIVA A R05-1 · SOLO PR #30 E #32
 
 **Incarico attuale pronto per la chat 00, NON avviato automaticamente.** Leggere `coerentizzatore/RUN.md`, `PROTOCOL.md`, `10-orchestrator/CONTRACT-v02.md`, `10-orchestrator/DISPATCH-R05.md` e il report R05 nella [PR #37](https://github.com/CzekUns/cercax/pull/37). Il nuovo requisito di identità visiva è **solo documentale** e non fa parte di questa verifica.
