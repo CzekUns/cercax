@@ -13,3 +13,6 @@
 
 ## Accettazione
 A parità di snapshot, punteggio/coordinate/decisioni identici in entrambi i modi; tracking fluido, palla e giocatori visibili; test reali e REPORT. Niente HTML root, motore o asset degli altri agenti. PR senza merge.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+Non è ancora verificabile il branch `agent/oronzo-movements-r02` nel confronto con main (404); non risultano nuova PR o REPORT R02. **Stato READY**: confermare il ramo base main, sviluppare camera TV/follow-ball solo nella propria directory, verificare su snapshot identici le due viste e consegnare test/demo/REPORT. Non modificare la pagina partita rapida, che nel futuro ciclo è di proprietà UI 03.
