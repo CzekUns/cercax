@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ORONZO — Carriera 1985/86 · demo isolata</title>
+<style>
+:root{font-family:Verdana,Arial,sans-serif;color:#efecda;background:#0b1730;--panel:#1b3050;--line:#48617b;--gold:#ffc66d;--blue:#d6e6fc}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:repeating-linear-gradient(145deg,#0d1d36 0 18px,#0e213b 18px 20px)}
+main{width:min(1400px,100%);margin:auto;padding:16px 20px 28px}header{display:flex;justify-content:space-between;align-items:center;border:3px solid #bd9559;background:linear-gradient(#294769,#102742);padding:12px 18px;box-shadow:0 5px #020b14}header h1{font-size:clamp(1rem,3.5vw,2rem);margin:0;letter-spacing:.1em;color:var(--gold);text-shadow:2px 2px #080e1f}header small{color:#b4cbdf;letter-spacing:.1em}
+.notice{border-left:4px solid var(--gold);margin:12px 0;padding:8px 12px;background:#1a2842;font-size:.8rem;color:#ffdbab}
+.dashboard{display:grid;grid-template-columns:1.3fr 1fr 1.1fr;gap:12px}.box{background:linear-gradient(180deg,#223c5e,#152944);border:2px solid #5d7893;box-shadow:inset 2px 2px #395775,3px 3px #07101d;padding:12px;min-width:0}.box h2{font-size:1rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin:0 0 10px;border-bottom:1px solid #69839e;padding-bottom:8px}.big{font-size:1.35rem;color:white;font-weight:bold}.muted{color:#b7c6d9;font-size:.8rem;line-height:1.5}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#0c2038;text-align:center;padding:8px 5px;border:1px solid var(--line)}.stat b{color:var(--gold);display:block;font-size:1.35rem}.stat small{font-size:.65rem;color:#b7c6d9}button,select{background:linear-gradient(#526f93,#294565);color:white;border:2px solid #90acc5;box-shadow:2px 2px #091629;font-weight:bold;padding:9px 10px;cursor:pointer;font-size:.76rem}button:disabled{opacity:.4;cursor:default}button:focus-visible{outline:3px solid var(--gold)}button.primary{background:linear-gradient(#bc8d41,#765123);border-color:#ffd08a}button.red{background:linear-gradient(#9f5054,#642b31)}.controls{display:flex;flex-wrap:wrap;gap:7px}.two{display:grid;grid-template-columns:1.1fr 1fr;gap:12px;margin-top:12px}table{width:100%;border-collapse:collapse;font-size:.78rem;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:7px 5px;border-bottom:1px solid #46607c}th{color:#ffc66d;background:#132941;font-size:.66rem}td.num,th.num{text-align:right}tr.ours{background:#38563f;color:#fff0ca}tr.top{box-shadow:inset 3px 0 #d0b669}tr.bottom{box-shadow:inset 3px 0 #ce7272}.scroll{overflow:auto;max-height:275px}.line{padding:7px;border-bottom:1px solid #415877;font-size:.8rem}.line strong{color:var(--gold)}.offers button{margin:4px}label{font-size:.8rem}.toast{min-height:26px;margin-top:9px;color:#ffdc9e;font-size:.82rem}footer{font-size:.72rem;color:#9eb5cd;margin-top:20px}input[type=file]{display:none}select{max-width:100%}
+@media(max-width:850px) and (orientation:landscape){main{padding:9px}.dashboard{gap:7px}.box{padding:8px}.box h2{margin-bottom:5px;font-size:.83rem}.two{gap:7px;margin-top:7px}.scroll{max-height:180px}button{padding:6px 7px}.notice{margin:7px 0}}
+@media(max-width:690px){.dashboard{grid-template-columns:1fr 1fr}.dashboard>.box:last-child{grid-column:1 / -1}.two{grid-template-columns:1fr}}@media(orientation:portrait) and (max-width:750px){.orientation{display:block!important}}.orientation{display:none;position:fixed;inset:0;z-index:100;background:#0b1730;padding:30vh 10vw;text-align:center;font-size:1.2rem;color:var(--gold)}
+</style></head>
+<body><div class="orientation">Ruota lo smartphone in orizzontale per usare questa demo 16:9.</div>
+<main><header><div><small>ORONZO / MODO CARRIERA</small><h1>IL MESTIERE DEL MISTER</h1></div><div style="text-align:right"><strong id="season">1985/86</strong><div class="muted" id="week">Giornata 1</div></div></header>
+<p class="notice">DEMO ISOLATA — risultati prodotti da un simulatore-segnaposto deterministico, non dal motore calcistico Agente 6. Nessun collegamento a game.js.</p>
+<section class="dashboard"><div class="box"><h2>La panchina</h2><div class="big" id="club">Atletico Campanile</div><div class="muted" id="coach"></div><div class="stats"><div class="stat"><b id="rep">18</b><small>REPUTAZIONE</small></div><div class="stat"><b id="rank">–</b><small>POSIZIONE</small></div><div class="stat"><b id="points">0</b><small>PUNTI</small></div></div></div>
+<div class="box"><h2>Prossimo impegno</h2><div id="fixture" class="big">–</div><div id="fixtureMeta" class="muted"></div><div class="stats"><div class="stat"><b id="games">0</b><small>GARE DISPUTATE</small></div><div class="stat"><b id="goals">0</b><small>GOL FATTI</small></div><div class="stat"><b id="years">0</b><small>STAGIONI</small></div></div></div>
+<div class="box"><h2>Comandi demo</h2><div class="controls"><button id="play" class="primary">SIMULA GIORNATA</button><button id="fast">FINISCI STAGIONE</button><button id="next">NUOVA STAGIONE</button><button id="fire" class="red">ESONERA (TEST)</button><button id="renew">RINNOVA (TEST)</button></div><div class="toast" id="feedback" role="status"></div></div></section>
+<section class="two"><div class="box"><h2>Campionati e classifica</h2><label>Campionato <select id="division"></select></label><div id="table" class="scroll"></div></div><div class="box"><h2>Ultime partite · occasioni di carriera</h2><div id="recent" class="scroll"></div><h2 style="margin-top:15px">Offerte di panchina</h2><div id="offers" class="offers muted"></div><div class="controls" style="margin-top:12px"><button id="vacancy">CERCA PANCHINA (TEST)</button><button id="export">ESPORTA JSON</button><button id="import">IMPORTA JSON</button><button id="reset">NUOVA CARRIERA</button><input id="file" type="file" accept="application/json,.json"></div></div></section>
+<footer>Carriera demo · 104 società originali, 1664 calciatori, sei livelli e risultati a 2 punti. Salvataggio locale a due copie con recupero. Il formato è indipendente dall'interfaccia principale.</footer></main>
+<script type="module">
+import { newCareer, getUpcomingFixture, registerResult, advanceWeek, finishSeason,
+  addVacancy, applyJobOffer, applyBoardDecision, getStandings, fixturesForWeek } from './career.js';
+import { DIVISIONS } from './league.js';
+import { topScorers } from './league.js';
+import { createSaveManager } from './save.js';
+import { demoMatchResult } from './demo-adapter.js';
+const $ = id => document.getElementById(id), saves = createSaveManager(localStorage);
+let s; try { s = saves.load()?.state || newCareer(); } catch { s = newCareer(); }
+$('division').innerHTML = DIVISIONS.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+$('division').value = s.coach.clubId ? s.clubs.find(c => c.id === s.coach.clubId).divisionId : 'PROM';
+const club = id => s.clubs.find(c => c.id === id);
+const message = value => { $('feedback').textContent = value; };
+function persist() { try { saves.save(s); } catch (e) { message(`Salvataggio non riuscito: ${e.message}. Esporta un JSON.`); } }
+function playWeek() {
+  if (s.phase !== 'inSeason') return;
+  const fixtures = fixturesForWeek(s);
+  for (const f of fixtures) if (!f.result) registerResult(s, demoMatchResult(f, s));
+  advanceWeek(s);
+}
+function render() {
+  $('season').textContent = `${s.seasonYear}/${String((s.seasonYear+1)%100).padStart(2,'0')}`;
+  $('week').textContent = s.phase === 'inSeason' ? `Giornata ${s.week} di ${s.maxWeek}` : 'Stagione terminata';
+  $('rep').textContent = Math.round(s.coach.reputation); $('years').textContent = s.history.length;
+  const current = s.coach.clubId ? club(s.coach.clubId) : null;
+  $('club').textContent = current ? current.name : 'ALLENATORE SENZA SQUADRA';
+  $('coach').textContent = current ? `${current.divisionId} · obiettivo: ${current.seasonObjective} · contratto al ${s.coach.contract?.until}` : 'Sei disoccupato: il campionato continua. Cerca una nuova panchina.';
+  const fixture = getUpcomingFixture(s), row = current ? getStandings(s, current.divisionId).find(r => r.clubId === current.id) : null;
+  $('rank').textContent = row?.position ?? '—'; $('points').textContent = row?.points ?? '—';
+  $('games').textContent = row?.played ?? 0; $('goals').textContent = row?.goalsFor ?? 0;
+  $('fixture').textContent = fixture ? `${club(fixture.homeId).name} – ${club(fixture.awayId).name}` : s.phase === 'seasonComplete' ? 'Campionati conclusi' : current ? 'Giornata senza partita' : 'In attesa di un incarico';
+  $('fixtureMeta').textContent = fixture ? `Giornata ${fixture.round} · ${fixture.divisionId}` : '';
+  $('play').disabled = s.phase !== 'inSeason'; $('fast').disabled = s.phase !== 'inSeason';
+  $('next').disabled = s.phase !== 'seasonComplete'; $('fire').disabled = !current;
+  $('renew').disabled = !current;
+  const league = s.leagues[$('division').value], table = getStandings(s, league.id);
+  $('table').innerHTML = `<table><thead><tr><th>POS / SQUADRA</th><th class="num">PG</th><th class="num">V</th><th class="num">N</th><th class="num">DR</th><th class="num">PT</th></tr></thead><tbody>${table.map((r,i) => `<tr class="${r.clubId === s.coach.clubId ? 'ours' : ''} ${i===0?'top':''} ${i===table.length-1?'bottom':''}"><td>${r.position}. ${r.clubName}</td><td class="num">${r.played}</td><td class="num">${r.won}</td><td class="num">${r.drawn}</td><td class="num">${r.goalDifference}</td><td class="num">${r.points}</td></tr>`).join('')}</tbody></table>`;
+  const played = league.fixtures.filter(f => f.result).slice(-5).reverse();
+  const scorers = topScorers(league, s.clubs, 3);
+  $('recent').innerHTML = played.map(f => `<div class="line">${club(f.homeId).name} <strong>${f.result.score.home}–${f.result.score.away}</strong> ${club(f.awayId).name}</div>`).join('') +
+    `<div class="line muted">Marcatori: ${scorers.map(p => `${p.name} (${p.goals})`).join(', ') || '—'}</div>`;
+  const offers = s.offers.filter(o => o.status === 'open');
+  $('offers').replaceChildren();
+  if (!offers.length) $('offers').textContent = 'Nessuna offerta attiva. La ricerca di una panchina richiede posti vacanti.';
+  for (const offer of offers) {
+    const button = document.createElement('button');
+    button.textContent = `${club(offer.clubId).name} · ${club(offer.clubId).divisionId}`;
+    button.onclick = () => run(() => { applyJobOffer(s, offer.id); $('division').value = club(s.coach.clubId).divisionId; message('Nuovo contratto firmato.'); });
+    $('offers').append(button);
+  }
+}
+function run(fn) { try { fn(); persist(); render(); } catch (e) { message(e.message); render(); } }
+$('division').onchange = render;
+$('play').onclick = () => run(() => { playWeek(); message('Giornata completata: risultati demo registrati.'); });
+$('fast').onclick = () => run(() => { while (s.phase === 'inSeason') playWeek(); message('Intera stagione simulata. Ora passa alla successiva.'); });
+$('next').onclick = () => run(() => { finishSeason(s); $('division').value = s.coach.clubId ? club(s.coach.clubId).divisionId : 'PROM'; message('Nuovo campionato avviato. Organici e giocatori conservati.'); });
+$('fire').onclick = () => run(() => { applyBoardDecision(s, {type:'dismiss',clubId:s.coach.clubId}); message('Esonero di prova deliberato dalla società. La stagione continua.'); });
+$('renew').onclick = () => run(() => { applyBoardDecision(s,{type:'renew',clubId:s.coach.clubId,until:s.seasonYear+3}); message('Rinnovo triennale di prova registrato.'); });
+$('vacancy').onclick = () => run(() => { const target = s.clubs.filter(c => c.divisionId === 'PROM' && c.id !== s.coach.clubId && !s.vacancies.includes(c.id))[0]; if (!target) throw Error('Nessun ulteriore posto disponibile.'); addVacancy(s,target.id); message('Posto vacante dimostrativo: puoi accettare la proposta.'); });
+$('export').onclick = () => { const blob = new Blob([saves.export(s)],{type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download=`oronzo-carriera-${s.seasonYear}.json`; a.click(); setTimeout(()=>URL.revokeObjectURL(url),5000); };
+$('import').onclick = () => $('file').click();
+$('file').onchange = async event => { const file = event.target.files[0]; if (!file) return;
+  try { const candidate = saves.import(await file.text()); if (!confirm(`Importare la carriera ${candidate.seasonYear}, sostituendo quella corrente?`)) return;
+    s = candidate; persist(); $('division').value = s.coach.clubId ? club(s.coach.clubId).divisionId : 'PROM'; message('File importato e verificato.'); render();
+  } catch(e) { message(`Importazione rifiutata: ${e.message}`); } finally { event.target.value=''; } };
+$('reset').onclick = () => { if (!confirm('Creare una nuova carriera? Il vecchio salvataggio sarà sovrascritto, esportalo prima se vuoi conservarlo.')) return; s = newCareer(); $('division').value='PROM'; persist(); message('Nuova carriera creata.'); render(); };
+render();
+</script></body></html>
