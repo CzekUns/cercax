@@ -139,6 +139,14 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
   function render(snapshot,now=clock()){
     if(destroyed)return false;
     const normalized=interpolation.push(snapshot,now);
+    // Keeper identity must follow the accepted engine substitution event.
+    for(const event of normalized.events){
+      if(event?.type!=='substitution')continue;
+      const {outId,inId}=event.detail||{};
+      if(keepers.has(String(outId)) && inId!=null){
+        keepers.delete(String(outId));keepers.add(String(inId));
+      }
+    }
     for(const p of normalized.players){if(!teamOrder.includes(p.teamId))teamOrder.push(p.teamId);}
     overlay.ingest(normalized.events,now);
     const active=overlay.active(now);if(active)assets.preloadScene(active.type).catch(()=>{});
@@ -153,5 +161,47 @@ export function createMatchView(canvas,{assetLoader,config={}}={}) {
   function resize(){canvas.width=LOGICAL_WIDTH;canvas.height=LOGICAL_HEIGHT;ctx.imageSmoothingEnabled=false;drawAt(clock());return {width:canvas.width,height:canvas.height};}
   function destroy(){if(destroyed)return;destroyed=true;if(rafId!==null&&cancel)cancel(rafId);frameStates.clear();overlay.clear();interpolation.reset();assets.destroy();}
   if(request&&opt.autoStart)rafId=request(animate);else drawAt(clock());
-  return {render,drawAt,setSpeed,setPaused,selectPlayer,setKeepers,resize,destroy,ready:assets.preload(),assets,interpolation,overlay,get destroyed(){return destroyed;}};
+  return {render,drawAt,setSpeed,setPaused,selectPlayer,setKeepers,
+    getKeeperIds:()=>[...keepers],resize,destroy,ready:assets.preload(),assets,interpolation,overlay,
+    get destroyed(){return destroyed;}};
+}
+/**
+ * Optional runner adapter for Agent 6. Invokes getEventsSince(cursor) once per
+ * sync, replaces tick-only snapshot.events with the authoritative event stream,
+ * then calls view.render(). The simulation clock is NEVER advanced here.
+ * Initial keeperIds are the GK IDs in MatchInputV1.homeXI/awayXI.
+ */
+export function createEngineViewBridge(engine,view,{initialEventId=0,keeperIds=[]}={}){
+  if(!engine || typeof engine.snapshot!=='function' || typeof engine.getEventsSince!=='function')
+    throw new TypeError('Expected Agent 6 engine with snapshot()/getEventsSince()');
+  if(!view || typeof view.render!=='function' || typeof view.setKeepers!=='function')
+    throw new TypeError('Expected MatchView with render()/setKeepers()');
+  let cursor=initialEventId;
+  const keepers=new Set(keeperIds.map(String));
+  view.setKeepers([...keepers]);
+  function sync(now){
+    const snapshot=engine.snapshot();
+    const fetched=engine.getEventsSince(cursor);
+    if(!Array.isArray(fetched))throw new TypeError('getEventsSince must return an array');
+    const fresh=fetched.filter(e=>Number.isSafeInteger(e?.id) && e.id>cursor);
+    for(const e of fresh){
+      cursor=Math.max(cursor,e.id);
+      if(e.type==='substitution'){
+        const {outId,inId}=e.detail||{};
+        if(keepers.has(String(outId))&&inId!=null){
+          keepers.delete(String(outId));keepers.add(String(inId));
+          view.setKeepers([...keepers]);
+        }
+      }
+    }
+    // No double-delivery of snapshot tick events; the cursor is authoritative.
+    view.render({...snapshot,events:fresh},now);
+    return {snapshot,events:fresh,lastEventId:cursor};
+  }
+  function reset(lastEventId=0,nextKeeperIds=keeperIds){
+    cursor=lastEventId;keepers.clear();
+    for(const id of nextKeeperIds)keepers.add(String(id));
+    view.setKeepers([...keepers]);
+  }
+  return {sync,reset,get lastEventId(){return cursor;},get keeperIds(){return [...keepers];}};
 }
