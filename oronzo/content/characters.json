@@ -289,6 +289,146 @@
         "Quel ragazzo sbaglia, ma sa già cosa voleva fare."
       ],
       "rosterBinding": null
+    },
+    {
+      "id": "leandro_berti",
+      "name": "Leandro Berti",
+      "role": "presidente",
+      "voice": "Titoli formali, frasi con subordinate e richieste di protocollo.",
+      "strength": "Ottenere il riconoscimento regionale per la società più ordinata.",
+      "flaw": "Perde gli occhiali sotto i verbali che lui stesso ha ordinato.",
+      "goal": "Ottenere il riconoscimento regionale per la società più ordinata.",
+      "relations": [
+        "ada_poletti",
+        "livia_bassi"
+      ],
+      "lines": [
+        "Mister, una decisione senza numero di pratica espone tutti a una discussione.",
+        "Il calcio ha bisogno di disciplina. Anche la cartellina del calcio.",
+        "L'ordine del giorno verrà dopo la verifica della presenza."
+      ],
+      "rosterBinding": null,
+      "presidentProfileId": "leandro_berti"
+    },
+    {
+      "id": "vittorio_sella",
+      "name": "Vittorio Sella",
+      "role": "presidente",
+      "voice": "Confidenze rapide, 'ci parlo io', senza spiegare mai a chi.",
+      "strength": "Creare una rete di collaborazioni che renda il club indispensabile in città.",
+      "flaw": "Conosce tutti, ma non ricorda mai il nome dell'unico che firma.",
+      "goal": "Creare una rete di collaborazioni che renda il club indispensabile in città.",
+      "relations": [
+        "renato_delfino",
+        "saverio_ferri"
+      ],
+      "lines": [
+        "Per il pullman non si preoccupi. Mi preoccupo io, poi si preoccupa l'autista.",
+        "Di persone affidabili ne conosco molte. Quella disponibile la stiamo cercando.",
+        "Se manca una firma, so chi deve chiederla."
+      ],
+      "rosterBinding": null,
+      "presidentProfileId": "vittorio_sella"
+    },
+    {
+      "id": "arturo_milani",
+      "name": "Arturo Milani",
+      "role": "presidente",
+      "voice": "Poche parole, ogni frase termina con un importo o una scadenza.",
+      "strength": "Raggiungere la salvezza senza esporre i soci a debiti.",
+      "flaw": "Risparmia sulla carta, poi compra una calcolatrice che nessuno sa usare.",
+      "goal": "Raggiungere la salvezza senza esporre i soci a debiti.",
+      "relations": [
+        "livia_bassi",
+        "umberto_rota"
+      ],
+      "lines": [
+        "Il pallone costa. Per fortuna, una volta comprato rimbalza più volte.",
+        "Un pareggio fa un punto. La ricevuta ne fa zero, ma va conservata.",
+        "Le voglio bene, mister. Non abbastanza da firmare un assegno in bianco."
+      ],
+      "rosterBinding": null,
+      "presidentProfileId": "arturo_milani"
+    },
+    {
+      "id": "rinaldo_pavesi",
+      "name": "Rinaldo Pavesi",
+      "role": "presidente",
+      "voice": "Immagini enormi, aggettivi grandiosi, indicazioni tattiche non richieste.",
+      "strength": "Trasformare una squadra di provincia nel nome più pronunciato dalla radio.",
+      "flaw": "Disegna tribune nuove su carta lucida mentre il campo ha un rubinetto rotto.",
+      "goal": "Trasformare una squadra di provincia nel nome più pronunciato dalla radio.",
+      "relations": [
+        "piero_masi",
+        "renato_delfino"
+      ],
+      "lines": [
+        "Un progetto grande comincia da una parola grande. Per il prato vediamo dopo.",
+        "Mister, voglio una squadra che si noti anche quando entra in campo.",
+        "La tribuna stampa deve avere un'insegna visibile dalla strada."
+      ],
+      "rosterBinding": null,
+      "presidentProfileId": "rinaldo_pavesi"
+    },
+    {
+      "id": "silvano_righi",
+      "name": "Silvano Righi",
+      "role": "presidente",
+      "voice": "Ricordi di spogliatoio, consigli pratici, qualche paragone fuori tempo.",
+      "strength": "Ricostruire un vivaio competitivo e salvare la memoria della vecchia società.",
+      "flaw": "Parla di velocità e si ferma ogni tre gradini per riposare.",
+      "goal": "Ricostruire un vivaio competitivo e salvare la memoria della vecchia società.",
+      "relations": [
+        "tina_basile",
+        "franco_moro"
+      ],
+      "lines": [
+        "Ai ragazzi date un campo buono. Le parole le possono sentire anche al bar.",
+        "Il terzino deve guardare l'uomo, poi il pallone. Io sbagliavo nell'ordine opposto.",
+        "Una sconfitta si studia meglio quando non hai fretta di dimenticarla."
+      ],
+      "rosterBinding": null,
+      "presidentProfileId": "silvano_righi"
+    },
+    {
+      "id": "ernesto_valcavi",
+      "name": "Ernesto Valcavi",
+      "role": "presidente",
+      "voice": "Cortese, elenca i punti d'accordo prima di dire un no.",
+      "strength": "Tenere unito il direttivo e ottenere un impianto più dignitoso.",
+      "flaw": "Media tanto a lungo che non decide quando partire per la trasferta.",
+      "goal": "Tenere unito il direttivo e ottenere un impianto più dignitoso.",
+      "relations": [
+        "nella_bellini",
+        "livia_bassi"
+      ],
+      "lines": [
+        "Il direttivo ha tre opinioni, e tutte meriterebbero una riunione separata.",
+        "Abbiamo deciso di parlarne. Il primo passo è già compiuto.",
+        "Mister, mi dica la necessità. Poi verifichiamo chi può sostenerla."
+      ],
+      "rosterBinding": null,
+      "presidentProfileId": "ernesto_valcavi"
+    },
+    {
+      "id": "beatrice_orlandi",
+      "name": "Beatrice Orlandi",
+      "role": "presidente",
+      "voice": "Chiara, niente enfasi, pone domande a cui vuole risposte verificabili.",
+      "strength": "Rendere sostenibile la squadra e stabilizzare gli allenatori meritevoli.",
+      "flaw": "Pretende un piano impeccabile ma è la prima ad aiutare a sistemare gli spogliatoi.",
+      "goal": "Rendere sostenibile la squadra e stabilizzare gli allenatori meritevoli.",
+      "relations": [
+        "tina_basile",
+        "ada_poletti"
+      ],
+      "lines": [
+        "Se il ragazzo è pronto lo dica. Se non lo è, lo dica due volte.",
+        "La squadra costa una cifra precisa. L'impegno non ha fattura, però si vede.",
+        "Mister, mi porti un progetto di tre mesi. Il resto lo discutiamo insieme."
+      ],
+      "rosterBinding": null,
+      "presidentProfileId": "beatrice_orlandi"
     }
   ]
 }
