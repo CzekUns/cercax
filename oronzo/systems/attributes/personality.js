@@ -1,7 +1,7 @@
 import { clamp } from './rng.js';
 const technicalSkills = new Set(['passing','shooting','control','tackling','positioning','decisions','goalkeeping','vision','dribbling']);
 const physicalSkills = new Set(['pace','stamina','strength','durability','acceleration']);
-const mentalSkills = new Set(['composure','discipline','teamwork','confidence','morale','luck','character','ambition']);
+const mentalSkills = new Set(['composure','discipline','teamwork','confidence','morale','luck','character','ambition','pazzia','spericolatezza','coraggio','suscettibilita','impulsivita']);
 export function effectiveAbility(player, context = {}) {
   const skill = context.skill || 'passing';
   const group = technicalSkills.has(skill) ? 'technical' : physicalSkills.has(skill) ? 'physical' : mentalSkills.has(skill) ? 'mental' : null;
@@ -33,8 +33,10 @@ export function effectiveAbility(player, context = {}) {
     leadership: (leadership - 50) * .025 * (context.teamAction ? 1 : 0),
     relationship: relationship * (context.teamAction ? .035 : 0),
     injury: injuryPenalty,
+    riskyExecution: context.riskyAction ? (n('mental','coraggio')-50)*.025 - (n('mental','spericolatezza')-50)*.065 - (n('mental','impulsivita')-50)*.032 : 0,
+    temporary: Number.isFinite(context.t) ? clamp((player.temporaryEffects || []).filter(e => e.expiresAt > context.t && e.kind === 'coach-shout').reduce((sum,e)=>sum+(Number(e.bonus)||0),0), -8,8) : 0,
   };
-  const adherence = clamp(45 + discipline * .3 + teamwork * .15 + character * .1 - tactical * .18 - pressure * 12, 5, 98) / 100;
+  const adherence = clamp(45 + discipline * .3 + teamwork * .15 + character * .1 - tactical * .18 - pressure * 12 - (n('mental','impulsivita')-50)*.075 - (n('mental','pazzia')-50)*.045, 5, 98) / 100;
   modifiers.instructions = context.requiresInstruction ? -(1 - adherence) * 12 : 0;
   const effective = clamp(base + Object.values(modifiers).reduce((a,b) => a + b, 0));
   const luckDelta = ((n('mental', 'luck') - 50) / 50) * .025;
@@ -57,6 +59,7 @@ export function trainingInjuryProbability(player, load = 50) {
   const fatigue = clamp(player.status?.fatigue ?? 0);
   const health = clamp(player.status?.health ?? 90);
   const overload = Math.max(0, load - 55) / 45;
-  return clamp(.001 + overload * .012 + (100 - durability) * .00013 + Math.max(0, fatigue - 60) * .00035 + (100 - health) * .00006, 0, .09);
+  const risk = Math.max(0, load - 30) / 70 * ((clamp(player.mental?.spericolatezza ?? 50)-50)*.000065 + (clamp(player.mental?.pazzia ?? 50)-50)*.000035);
+  return clamp(.001 + overload * .012 + (100 - durability) * .00013 + Math.max(0, fatigue - 60) * .00035 + (100 - health) * .00006 + risk, 0, .09);
 }
 
