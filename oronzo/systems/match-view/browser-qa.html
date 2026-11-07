@@ -54,9 +54,11 @@ async function run(name=select.value,mode=view.cameraMode){
  if(name==='paused')view.drawAt(now+1000);
  const pauseCameraStable=name==='paused'?firstCamera.cx===view.getCameraState().cx&&firstCamera.cy===view.getCameraState().cy:null;
  const snap=view.interpolation.sample(now+16),cam=view.getCameraState();
+ const bounds=el('pitch').getBoundingClientRect();
  const pt=ballWorldPosition(snap.ball),screen=worldToScreen(cam,pt.x,pt.y);
  const data={scenario:name,mode,camera:cam,viewport:{width:innerWidth,height:innerHeight},
   canvas:{width:el('pitch').width,height:el('pitch').height},
+  canvasInViewport:bounds.left>=0&&bounds.top>=0&&bounds.right<=innerWidth+.5&&bounds.bottom<=innerHeight+.5,
   players:source.players.length,drawn,realSprites:real,ballDraws:balls,
   assetState:view.assets.state.players,allRealSprites:drawn>=source.players.length&&real===drawn,
   ballVisible:screen.x>=0&&screen.x<=640&&screen.y>=0&&screen.y<=360,
