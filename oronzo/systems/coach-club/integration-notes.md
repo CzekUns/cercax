@@ -34,3 +34,11 @@ Club.board.notices conserva media, richieste, risposte e motivi fiduciari; club.
 ## QA
 
 Comando riproducibile nella directory del modulo: node --test. Usare anche la demo HTML da un server statico su localhost, mantenendo landscape 16:9. Vedi README per i limiti distinti fra implementato e ancora da integrare.
+
+## Compatibilità accertata con le PR in revisione (7 novembre 2026)
+
+- **Career PR #14**: `oronzo/systems/career/career.js` costruisce `seasonObjective: 'avoidRelegation'|'topHalf'`, mentre questo modulo riconosce `'avoid_last'|'top_half'`. In `board.js` questi nomi ricadrebbero nel fallback `safety`; occorre concordare esplicitamente una mappatura nell'integrazione, senza silenzioso cambio di obiettivo.
+- **Career PR #14**: `presidentId: 'president:'+club.id` non corrisponde agli ID del catalogo originale; assegnare o risolvere i profili in modo persistente, evitando `fixture-*` nei salvataggi di produzione. La carriera genera i giocatori senza `contract.weeklyWage`, che attualmente significa paga zero: serve una policy esplicita di assegnazione stipendi, compatibile con il tetto settimanale.
+- **Career PR #14**: i metodi career mutano lo stato, quelli agent 9 restituiscono nuove copie: l'orchestratore dovrà sostituire `state.clubs[index]` con `result.club` e non ignorare il valore di ritorno. `applyBoardDecision(state,{type:'dismiss',clubId})` è il punto di aggancio per `reviewMatch().dismissed`.
+- **Copy PR #13**: al controllo di questa iterazione `presidents.json` non è presente nel branch copy; `loadPresidents` continua a usare fixture diagnostiche in caso di assenza. Non pubblicare quei personaggi come definitivi.
+- **Finanze ORZ-P1-008**: `finance.js` valida importi e totali come interi sicuri non negativi, **prima** del clone JSON. `finance-validation.test.js` copre i casi di rifiuto e mantiene la semantica degli arretrati.
