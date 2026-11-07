@@ -1,5 +1,5 @@
 # NEXT — AGENTE 06 · ENGINE E ORDINI INDIVIDUALI · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
 **PR precedente:** #18 MERGIATA; fix fisico riallineamento modulo PR #24 già su main.
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-match-engine-r02` dall'ultimo main.
@@ -21,3 +21,12 @@ Il branch `agent/oronzo-match-engine-r02` è **1 commit avanti** con modifiche i
 **PR:** [#35](https://github.com/CzekUns/cercax/pull/35). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** QA 100 seed e test input shout/deduplica; potenziale incompatibilità origine/tono/doppio effetto con 08. Non accettare bridge senza adapter.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #35**, stesso branch `agent/oronzo-match-engine-r02`. **Priorità P1 dopo #30/#32**. R04 **R04-3/4** riproduce `affinity:'unknown'` per due campani provenienti dalla forma PlayerV2 dell'08; cambiando trust da 0 a 100 il modificatore rimane identico (prova 0,05235). Il tono `encourage` non è ammesso dall'API `08.applyShout`.
+**Correzioni del 06, coordinate con 08 e 09:**
+1. Adattare l'input match a leggere **anche** `player.origin={comune,regione,macroregione}` e `player.relationships.coachTrust` prodotti davvero dall'08. Non basta normalizzare un `payload.playerOrigin` che viene scartato quando `player.origin` ha priorità. Concordare una rappresentazione normalizzata e una mappa esplicita `encourage/harsh ↔ gentle/hard`; niente parser dialettali nel motore.
+2. Il **motore 06 è l'unico produttore dell'effetto TEMPORANEO in partita** (`personalShout`, durata/evento); non invocare `08.applyShout` come secondo bonus nella stessa partita. Eventi `coach_shout` univoci con `matchId:eventId` e output `persistentSuggestion`; 09 applicherà i delta permanenti una sola volta e persisterà il ledger con lo stato.
+3. Aggiungere test reali con PlayerV2 generato da 08: stessa regione > stessa macro > diversa, trust 0/100 cambia risposta, toni mappati, duplicazione snapshot/reload senza doppio effetto, 100 seed/regressione calcio.
+4. Scrivere REPORT e aggiornare PR #35; **nessun merge** prima della compatibilità verificata con #31. Non modificare i file 08/09 né runtime UI.
