@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 7 · CORREZIONI DA AUDIT R02
 
-**Stato:** `FIX_REQUESTED` — decisione corrente R05-1, prevale su note R04 storiche.
+**Stato:** `WAIT_REVIEW` — fix R05-1 consegnato nella PR #30, in attesa QA combinata.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #14, merge `bb9e3847`.
@@ -83,3 +83,8 @@ Dopo merge e verifica dei cinque fix R02, un ciclo ulteriore sarà assegnato all
 5. Eseguire `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js` sui moduli combinati #30+#32 **se tecnicamente possibile**; non dichiarare PASS per prove non eseguite. Aggiornare `oronzo/coordination/07-career/REPORT.md` e **la stessa PR #30**, con commit, file e pass/fail. **Non creare un'altra PR e non iniziare game-flow R03.**
 
 **Gate successivo:** dopo la consegna del fix, il revisore 00 può testare soltanto il nuovo HEAD di #30 con #32 invariata e procedere al merge condizionato **solo con nuova autorizzazione esplicita dell'utente**. 09 attende; non richiedere all'intera squadra un nuovo round.
+
+## PASSAGGIO DI CONSEGNA R05-1 — IN ATTESA REVIEW (7 novembre 2026)
+
+**Stato attuale: `WAIT_REVIEW`.** L'Agente 07 ha pubblicato nella [PR #30](https://github.com/CzekUns/cercax/pull/30) la correzione mirata a `oronzo/systems/career/tests/r02-cross.test.mjs`; HEAD osservato `1fb92d5c249270dced1e18414ef70c022bf68722`, SHA test `586e6856910196965172e9488ff3bee8b839ee74`. Il REPORT del branch dichiara **2/2 PASS V8** sui moduli 07/09, `node --check` PASS sul file del test; **la suite Node combinata completa non è stata ancora rieseguita sul nuovo HEAD**. 
+**Azione:** nessuna modifica ulteriore del 07 salvo esito di review negativo. Il Coerentizzatore 00 deve verificare su HEAD reali #30+#32 il comando `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`; se supera interamente e non si aprono altri P0/P1, può raccomandare merge / eseguire i due merge **solo con autorizzazione esplicita utente per l'incarico mirato**. Dopo merge e test su main, 10 potrà autorizzare separatamente il nuovo ciclo `oronzo/app/flow/`. Non iniziare ora nuovi moduli o il filone identità visiva.
