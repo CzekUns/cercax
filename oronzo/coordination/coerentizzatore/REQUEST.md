@@ -1,3 +1,16 @@
+# ORONZO — REQUEST ATTUALE COERENTIZZATORE 00 · R07B DOPO FIX AGENTE 03
+
+**STATO: `WAIT_FOR_03` — NON avviare review ora.** L'audit [R07](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r07/oronzo/coordination/coerentizzatore/REPORT-R07.md) della sola PR #33 (HEAD `c38be80c392939d042dd998e6d1bf655c259804d`) ha dato **NEEDS CHANGES / NO MERGE**. Il NEXT03 su main ora assegna **R07-1 clipping CARICA PARTITA a 360px** e **R07-2 toast che copre/intercetta touch**. Gli altri test funzionali/asset/HTTP/Chromium sono passati nel gate R07.
+
+**Dopo che il 03 ha modificato la stessa #33**, controllare HEAD aggiornato e REPORT03, verificare le sole due correzioni e regressioni in **Chromium reale con file PNG/HTML/CSS/JS via HTTP** alle risoluzioni 640×360, 800×360, 844×390 in emulazione touch:
+- pulsanti Nuova/Carica interi e realmente tappabili (hit-test centro senza auto-scroll), testo e hint non tagliati;
+- tap immediato dopo 5 risposte per PROSSIMA GIORNATA e menu funzionanti, toast senza occlusioni e senza intercettazioni;
+- nessuna regressione su 8 avatar, 20 offerte/scroll, navigazione, 5 domande, full/TV demo, asset e console.
+Creare `REPORT-R07B.md` con prove, screenshot e SHA. Se uno dei gate fallisce, **no merge** e fix precisi al 03. Se tutti PASS, **solo con autorizzazione esplicita dell'utente in quella chat**, può mergiare #33 e verificare main. Non modificare altre PR. Dopo gate R07B e merge #33 il 10 attiva runtime R03 del 03 in nuova PR: prima partita 1979 su smartphone, con modello geografico sintetico *solo se etichettato demo*.
+
+---
+
+## ARCHIVIO — richieste prima di R07B
 # ORONZO — REQUEST ATTUALE AGENTE 00: R07 · GATE KIT UI #33 PER PRIMO PLAYTEST
 
 **Stato: READY · 7 novembre 2026.** **Unico obiettivo:** collaudare la [PR #33](https://github.com/CzekUns/cercax/pull/33) di Agente 03 ed esprimere giudizio sulla qualità e riusabilità del kit UI 1979 per **il primo playtest mobile**. PR #39 e #38 sono già **MERGED** (`cf4a8bc0046cc73cf9995f9dafb9a39a94c15626` e `12fe01ff53a8a366dfa35271aa21cb3244ee2c10`); [R06B](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06b-gate/oronzo/coordination/coerentizzatore/REPORT-R06B.md) documenta **97/97 Node PASS su main**. Non riaprire R06 e non riesaminare tutte le PR.
