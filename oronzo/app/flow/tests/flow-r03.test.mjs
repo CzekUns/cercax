@@ -25,7 +25,7 @@ const storage=()=>{
     removeItem:key=>data.delete(key),data};
 };
 function start(seed=31,visuals={}) {
-  const state=newGame({seed,avatar,leagueSizes:sizes,...visuals});
+  const state=newGame({seed,avatar,leagueSizes:sizes,effectsMode:'isolated_test',...visuals});
   const offered=listInitialOffers(state);
   const reply=acceptOffer(state,offered.find(o=>o.clubId!=='PROM-01')?.id??offered[0].id,
     {press:presses});
@@ -80,7 +80,7 @@ function playMatchday(state) {
 }
 
 test('R03 1979, 20 deterministic available jobs, one signed contract, persistent save',()=>{
-  const first=newGame({seed:211,avatar,leagueSizes:sizes});
+  const first=newGame({seed:211,avatar,leagueSizes:sizes,effectsMode:'isolated_test'});
   const second=newGame({seed:211,avatar,leagueSizes:sizes});
   const offers=listInitialOffers(first);
   assert.equal(first.seasonYear,1979);
