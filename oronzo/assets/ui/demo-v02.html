@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#061144"><title>ORONZO · UI dinamica v0.2 · Solo demo</title>
+<link rel="stylesheet" href="./demo-v02.css">
+</head>
+<body>
+<div class="site">
+  <div class="stage" id="oronzo-ui" aria-label="ORONZO, demo del kit grafico dinamico">
+    <header class="gamebar"><div class="brand"><strong>ORONZO</strong><small>MANAGERIALE CALCISTICO • KIT UI v0.2</small></div><div class="top-info"><span id="stageDate">1979 · DEMO</span><span class="demo-flag">DATI SIMULATI</span></div><div class="toast" id="ui-toast" role="status" aria-live="polite" hidden></div></header>
+    <main id="ui-screen" class="ui-screen" aria-live="polite"></main>
+    <nav class="quick-nav" aria-label="Navigazione demo">
+       <button type="button" data-action="goto" data-value="entry">INIZIO</button>
+       <button type="button" data-action="goto" data-value="avatar">AVATAR</button>
+       <button type="button" data-action="goto" data-value="offers">20 OFFERTE</button>
+       <button type="button" data-action="goto" data-value="hub">HUB</button>
+       <button type="button" data-action="goto" data-value="match">PARTITA</button>
+    </nav>
+  </div>
+  <p class="under">Dimostratore autonomo di UI. Nessun salvataggio di carriera o risultato di partita reale; nessuna integrazione con il motore.</p>
+</div>
+<script src="./demo-v02.js"></script>
+</body>
+</html>
