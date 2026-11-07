@@ -111,3 +111,11 @@ Il rapporto è stato creato nella [PR #19](https://github.com/CzekUns/cercax/pul
 
 **Integrazione futura:** developer 07 realizzerà `oronzo/app/flow/` SOLO dopo merge R02 07+09; developer 03 realizzerà runtime HTML/JS/CSS SOLO dopo merge arte UI corrente e R02, con NEXT e PR dedicati. Il 10 aggiorna regole, controlla review e non implementa.
 
+## R04 — Coda di PR consegnate e verifica Work 00 (7 novembre 2026)
+**Audit richiesto:** `coerentizzatore/REQUEST.md` R04. **Prima:** #30 (07) + #32 (09) insieme → Node cross 2 stagioni + migrazione + reale `absoluteWeek` → merge condizionati singoli. **Poi:** #28 (05), #35 (06), #31 (08), #34 (04), #33 (03), #29 (01) secondo dipendenze e QA; non considerare l'ordine vincolante se la prova lo sconsiglia. **HOLD:** #12 cutscene draft e #27 audit R03 obsoleto.
+- #30/#32: 5 incompatibilità R02, stessi presidenti e payroll, obiettivi, settimane+salvataggi, storico coach, no doppia contabilizzazione. NODE su checkout COMBINATA, non solo report di ciascun agente. 
+- #31/#35: P1 da verificare: naming origine e toni `regione/macroregione,gentle/hard` vs `regionId/macroRegion,encourage/harsh`, rischio doppio bonus/delta. Codice in directory diverse non equivale a contratto compatibile.
+- #33/#29/#12: gate grafico non sostituibile con successo di unit test; #12 DRAFT non pronto.
+- #34: contenuto originale; QA semantica e contesti 1979; approvazione stilistica utente ancora pendente.
+- #31: pipeline cognomi non equivale a 5.000 cognomi già presenti, nessun claim finale.
+- 00 autorizzato ad effettuare MERGE SOLO se QA positiva, all'interno del mandato R04; altrimenti `FIX_REQUESTED` nel REPORT-R04. 10 mantiene gestione NEXT e cicli 07/03.
