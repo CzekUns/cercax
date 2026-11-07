@@ -146,3 +146,10 @@ L'Agente 07 ha consegnato la correzione del test `r02-cross.test.mjs` nella [PR 
 
 ## R06 — Verdetto dopo audit #38 + #39 (7 novembre 2026)
 [REPORT-R06](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md), [GitHub Actions run 42381672625](https://github.com/CzekUns/cercax/actions/runs/42381672625): **91/91 test suite PASS + 1 test integrazione FAIL** (`club_region_required`). #38 agent 07 OPEN `94538ae97b3f7423a7d1e691a2e493524556142f` = `FIX_REQUESTED`; #39 agent 09 OPEN `80df15139d37c4ee36103001d6a24528037daed4` = `WAIT_REVIEW`. Unica azione: 07 collega `createCoach/previewOfferMorale/applyOfferEffect/applyPressEffect` vere, gestisce geografia mancante in modo atomico e trasparente senza inventare regioni, esegue E2E 1979 con morale e partita e save. NEXT 07 aggiornato e commento sulla PR #38. **Nessun merge né ripartenza di altri agenti**. Dopo fix: review 00 R06B limitata #38+#39 e controllo suite, eventuali merge **solo con mandato esplicito**. UI 03 successiva.
+
+## REVIEW CURRENT — R07 KIT UI, DOPO R06B (7 novembre 2026)
+
+- **#39 e #38 MERGED**, Node R06B **97/97 PASS**, partita E2E headless 1979 e salvataggi reali. Nessun fix P0 delle due PR da richiedere.
+- **#33 UI (Agente 03)**: `WAIT_REVIEW_R07`, PR aperta, HEAD noto `c38be80c392939d042dd998e6d1bf655c259804d`. Unico gate ora necessario all'utente per avviare runtime: controllo screenshot/Chromium/3 viewport/touch/asset reale/leggibilità, poi merge solo dietro mandato in chat 00.
+- **Dopo merge #33**: NEXT 03 runtime da emettere da 10, branch nuovo `agent/oronzo-ui-r03-runtime`, UI vera collegata a `oronzo/app/flow/controller.js` e ai moduli già mergiati. Test sul telefono in versione tecnica con *località sintetiche chiaramente etichettate*, non dati di produzione.
+- **#28/#29/#12/#31/#35** non bloccano questo primo playtest funzionale; restano in review nei loro scope.
