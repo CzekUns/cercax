@@ -14,3 +14,10 @@
 
 ## Stato riscontrato
 Partita rapida separata disponibile, PR #24 integrata; PR #12 cutscene in draft; cinque P1 R02 non ancora confermati come risolti nell'ultimo controllo; visione v0.2 documentata ma non implementata completamente. Evita affermazioni di avvio automatico dei nove agenti.
+
+## Riscontro LIVE dopo riavvio degli agenti (7 novembre 2026)
+- NEXT 01–09 aggiornati con situazione dei branch e criteri attesi; non si è modificato codice di gioco.
+- **P0 bloccante:** 07 R02 branch senza diff proprio, 09 R02 6 commit su sei file ma REPORT/PR e cross-test ancora assenti. Lavoro 09 in corso, niente merge; il 07 deve consegnare campo salario, presidentId, obiettivi, absoluteWeek e coach coerenti con le API dell'09.
+- 04 e 06 hanno un primo commit di secondo ciclo e nessuna PR; 01,03,08 sono senza commit propri ai primi confronti; 05 branch R02 ancora non risolto via compare; 02 WAIT_REVIEW su PR #12 draft. PR #27 R03 non costituisce QA integrata.
+- **Prossimo passaggio** dopo le due PR 07/09: leggere diff/REPORT, verificare test realmente eseguiti su due stagioni, eventuale review/merge; SOLO allora autorizzare il nuovo NEXT 07 per adapter `oronzo/app/flow/`. Il NEXT 03 per il runtime resta sospeso sino ai merge R02 e kit UI art. L'Agente 10 non scrive codice.
+
