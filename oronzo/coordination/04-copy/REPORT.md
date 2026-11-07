@@ -1,61 +1,59 @@
-# RAPPORTO AGENTE 04 — Copy, personaggi e comicità — ciclo 01 (correzione PR #13)
+# RAPPORTO AGENTE 04 — Copy, conferenze e media — ciclo R02 v0.2
 
 **Identità:** `ORONZO-AGENT-04`  
-**Stato:** DELIVERED — correzione FIX_REQUESTED consegnata su PR aperta, QA/merge a cura dell'orchestratore  
-**Branch:** `agent/oronzo-copy`  
-**PR:** https://github.com/CzekUns/cercax/pull/13  
-**Issue:** https://github.com/CzekUns/cercax/issues/4  
-**Commit verificato prima di questo rapporto:** `6f0815073d33adf57e395a82fc5b4b794c6ed6e4`  
+**Stato:** DELIVERED — in attesa di revisione orchestratore, NESSUN MERGE  
+**Branch:** `agent/oronzo-copy-r02`  
+**PR:** inserita nel corpo e nella descrizione dopo apertura  
+**Origine:** ultimo `main` al momento della creazione, `c9f52a1c2f60733a6ae1e0b63180fa4b5d0f9697`  
+**Precedente PR #13:** integrata, commit di merge `065dc4ee7e59e26612b14c471b9c2be99f43cad1`.  
 **Data:** 7 novembre 2026
 
 ## Realizzato
 
-La PR originale esisteva con 16 personaggi, 57 eventi, 144 microtesti e 26 dialoghi. L'orchestratore ha richiesto il fix [ORZ-P1-006](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/REVIEW-QUEUE.md): mancavano otto presidenti canonici. Ho eseguito **la correzione nello stesso branch e nella stessa PR**, senza riniziare il pacchetto.
+- `oronzo/content/press-opening.json`: **37 domande**, 30 universali, 3 risposte ciascuna; selezione seeded di **5** domande non ripetute e con temi distinti.
+- `oronzo/content/press-postmatch.json`: **32 domande** post-gara (9 universali, 5 su ciascun risultato, altre su fatti reali); 3 risposte ciascuna, 2 domande per gara, almeno una legata all'esito.
+- `oronzo/content/press-media.json`: **12 archetipi di giornalisti** (di cui i due già canonici Raffaele Corsi e Piero Masi) e **8 emittenti televisive private immaginarie**; nomi dei cronisti deterministici da pool e seed.
+- `oronzo/content/individual-shouts.json`: **80 battute** italiane originali di incoraggiamento/rimprovero a singoli giocatori, con situazione, tono e intensità; nessuna variante regionale non verificata pubblicata.
+- `oronzo/content/press-kit.js`: funzioni `seedHash`, `seededRng`, `seededShuffle`, `buildPressRoster`, `matchesPressContext`, `selectConferenceQuestions`, `createPressConference`, `answerPressConference`, `pickIndividualShout`. Sessioni serializzabili, risposta ammessa una volta e ID di transazione per prevenire doppi effetti. Nessuna mutazione di match, cassa, morale o relazioni reali.
+- `oronzo/content/press-demo.html`: demo landscape 16:9 che mostra tre risposte, speaker/emittenti e variazioni **simulate** dei quattro indicatori, con sessione locale recuperabile al reload.
+- `oronzo/content/validate-press.mjs`: QA riproducibile su dati e 400 sessioni seeded.
+- `oronzo/content/PRESS-R02.md`: contratto API, formati, necessità di dati reali e punti d'integrazione per 03/06/07/09.
+- `oronzo/content/PRESS-R02-QA.md`: evidenze dei test e limiti.
+- `oronzo/content/README.md`: avviso di prevalenza della visione v0.2 con inizio nel **1979**, riferimento al nuovo contratto.
 
-- **`oronzo/content/presidents.json` (NUOVO):** otto presidenti originali (Venturi, Berti, Sella, Milani, Pavesi, Righi, Valcavi, Orlandi), tutti con i sette tratti interi 0..100 del contratto `PresidentProfileV1`, biografia, background, archetipo, obiettivo, difetto privato, rapporto col mister, voce, almeno tre battute e due `behaviorTriggers` che puntano a eventi validi.
-- **`oronzo/content/characters.json`:** da 16 a **23** persone, preservando il precedente Gaetano Venturi e aggiungendo altri sette presidenti, con `relations` e `presidentProfileId`.
-- **`oronzo/content/events.json`:** da 57 a **73** eventi, 16 nuovi (due per presidente), per un totale di **20** con `presidentId` (inclusi quattro eventi Venturi originari ora correttamente circoscritti). Triggers basati su sconfitte, budget, fiducia, mercato, derby, coppa o settimana; due scelte ciascuno.
-- **`oronzo/content/dialogues.json`:** da 26 a **42** scene e da 52 a **84** varianti. Sedici scene nuove (due per presidente), **22** con `presidentId` dopo aver protetto anche sei scene originali Venturi. `linkedEventId` collega quelle nuove ai rispettivi eventi.
-- **`oronzo/content/narrative-engine.js`:** esporta ora `activePresidentId(state)`, ricava il presidente del club, filtra gli eventi/dialoghi con `presidentId` e legge nuovi trigger via contesto esplicito. Non applica soldi, risultati o decisioni societarie.
-- **`oronzo/content/demo.html`:** selettore degli otto presidenti, modalità eventi presidenziali e controlli di scenario (serie sconfitte, richieste di mercato, derby, coppa, cassa), sempre in layout orizzontale.
-- **`oronzo/content/validate.mjs`:** verifica completezza PresidentProfileV1, unicità e riferimenti degli hook, 2+ eventi/dialoghi per presidente, isolamento, condizioni e limiti.
-- **`oronzo/content/README.md`, `qa.md`:** documentazione e QA aggiornate.
-- **`oronzo/content/microcopy.json`:** invariato, 144 testi validati.
+**Nessuna modifica ai file narrativi canonici precedenti.** Confrontati blob SHA su main e branch per `characters.json`, `presidents.json`, `events.json`, `dialogues.json`, `microcopy.json`, `narrative-engine.js`, `validate.mjs`: 7/7 invariati.
 
-## Verifiche realmente effettuate
+## Verifiche
 
-- Accesso e lettura diretta dei dati dal branch GitHub, parsing con `JSON.parse` dei 5 archivi: **PASS**.
-- Test delle API del selettore in V8 su dati reali: trigger, random singolo, cooldown, immutabilità dello stato originale, classifica non modificata, speaker validi, tutti i presidenti isolati: **PASS**.
-- Logica integrale di `validate.mjs` eseguita in V8 con sostituzione delle sole funzioni Node di lettura file (gli stessi contenuti del branch): **`ORONZO COPY: OK`**, output **23 personaggi, 8 presidenti, 20 eventi presidenti, 22 dialoghi presidenti, 73 eventi, 144 microtesti, 42 dialoghi, 84 varianti**.
-- Parsing sintattico JavaScript del modulo ESM e dello script della demo tramite AsyncFunction: **PASS**.
-- **Compatibilità diretta con l'Agente 9 (PR #17, sola lettura):** letti gli ESM originali `core.js` e `presidents.js` e valutati insieme nel runtime V8. Gli otto profili canonici superano tutti `validatePresident`; `loadPresidents` restituisce `source:"copy"` e 8 profili; `presidentBehavior` produce decisioni deterministiche con lo stesso seed e profili con probabilità differenziate: **PASS**. Non implica che la PR #17 sia stata integrata o che il suo motore finanziario sia stato testato.
-- Verificati `presidentId` coerente con profilo del club, ID e relazioni univoci, `traits` 0..100, limiti di testo e nessun riferimento inter-presidenziale errato: **PASS**.
-- Verifica confronto con `main` dopo correzione: file cambiati limitati a `oronzo/content/` (prima dell'aggiunta del presente rapporto). Il branch discende da un precedente main ed è ora dietro a main di altri commit; l'orchestratore dovrà confermare mergeability corrente prima del merge.
+- Parse JSON dei 4 nuovi archivi e moduli riletti da GitHub: PASS.
+- Logica reale del validatore eseguita in V8 con le sorgenti GitHub, sostituendo soltanto I/O Node e assert: **`ORONZO PRESS R02: OK`, 4.772 assert PASS**.
+- **100** conferenze iniziali seeded: 5 domande non ripetute, argomenti differenti, reporter distinti, stesse domande col medesimo seed, risposte registrate senza doppio effetto dopo caricamento.
+- **300** postpartita seeded: 100 win, 100 draw e 100 loss; 2 domande ciascuno, minimo una domanda pertinente all'esito; nessun quesito contraddittorio. Rifiutato postmatch senza `matchFinal:true` e senza `matchId` coerente.
+- Nomi dei giornalisti unici, due ID canonici conservati, emittenti valide, cooldown esclusione shouts, limite caratteri/delta e blocco dialetti senza verifica: PASS.
+- Controllo sintattico dello script della demo via V8: PASS.
 
-**NON eseguiti:** comando `node oronzo/content/validate.mjs` su checkout reale, test E2E browser/touch su telefono, test E2E della PR #17. Nessuno di questi è dichiarato passato; procedure ripetibili indicate in README.
+**Non eseguiti:** `node oronzo/content/validate-press.mjs` su un clone locale (rete container non disponibile), QA visuale/touch su telefono ed E2E runtime. La demo è separata dal gioco e **non** può essere presentata come feature già integrata. La verifica via V8 è vera esecuzione del codice, non un test Node su filesystem.
 
-## Integrazione — contratti, API, dipendenze
+## Integrazione e dipendenze
 
-**Agente 9:** PR https://github.com/CzekUns/cercax/pull/17 espone `loadPresidents(fetchJson)`, `validatePresident`, `presidentBehavior(profile,state,seed)`. `presidents.json` fornisce il campo `presidents` accettato dal loader e tutti i tratti `PresidentProfileV1`. I campi editoriali extra non sono funzioni e non alterano il comportamento autonomamente. Il codice di Agente 9 rimane di sua esclusiva proprietà. La PR #17 ha un'altra correzione finanziaria richiesta (importi negativi); non ho interferito.
+- **07 Carriera/game-flow:** genera `createPressConference` UNA volta dopo ingaggio e presidente persistenti (`phase:"opening"`, `careerSeed`, `sessionKey:"start"`), salva ID e sessione con risposte. Dopo ogni `fulltime`, conferenza `postmatch` con `context.matchFinal:true`, `result` dedotto dal risultato reale e `sessionKey===context.matchId`. Non rigenerare al reload. Salva `effectTransactionId` per non duplicare l'applicazione.
+- **09 Società, coach, tifosi, stampa:** solo 09 applica i delta dichiarativi `coachMorale`, `supportersTrust`, `mediaReputation`, `presidentTrust` con clamp e ledger idempotente; il morale coach a zero implica GAME OVER secondo v0.2. Non assumere identità tra `presidentTrust` e `boardTrust`.
+- **03 UI runtime:** visualizza le cinque domande e due postpartita, con reporter/emittente realmente assegnati e tre opzioni. Non estrae domande sul client a ogni render né applica effetti.
+- **06 Motore partita:** restituisce fatti veri (gol, cartellini, infortuni, tiri, andamento) necessari al contesto post e ordini individuali. Efficacia dei richiami dipende dal motore e dagli attributi, non dai testi.
 
-**Orchestratore/Carriera:** scegliere un `ClubV1.presidentId` reale per ogni club. Il `narrative-engine` lo legge da `state.club.presidentId`, `state.currentClub.presidentId` oppure `state.presidentId`; senza identificatore gli eventi specifici non scattano. Alimentare `state.narrativeContext` con `lossStreak`, `marketRequest`, `derbyWeek`, `cupWeek` veri; fiducia e cassa dal club oppure da contesto esplicito. Tutte le condizioni sono documentate in README.
-
-**Effetti:** `applyChoice` modifica solo attributi dei giocatori esistenti, con delta piccoli; `futureEffects` rimangono `deferred`, non vengono applicati né interpretati come importi in lire. Per eventuale conversione a `ClubEventV1` serve adattatore con whitelist, autorizzazione e unità economiche definite. Nessuna scelta compra giocatori al posto del direttore sportivo, nessuna scelta garantisce gol o altera una partita.
-
-**Rosa:** i tre personaggi giocatori canonici del primo ciclo vanno legati a `PlayerV1` persistenti e alla formazione reale prima di mostrarli nel gioco.
+Il contratto puntuale è in [PRESS-R02.md](../../content/PRESS-R02.md). Per l'Agente 09 la relazione con gli otto presidenti precedenti rimane gestita dai medesimi ID: non è stato modificato `presidents.json`.
 
 ## Mancante / problemi
 
-- Mancano ancora integrazione nel `game.js` e QA visuale su smartphone: spettano all'orchestratore.
-- Lo stato dell'alpha non include `ClubV1`/narrativeContext; gli eventi dei presidenti sono progettati per il modulo società e per l'orchestrazione successiva.
-- La cassa della PR #17 usa lire nominali; il vecchio `futureEffects.clubCash` è un delta astratto, incompatibile direttamente senza mapping. Nessun effetto finanziario automatico è stato aggiunto.
-- Regole 1985 del vecchio `game.js` (tre punti per vittoria, cinque cambi) restano da confermare/correggere nel layer di competizione, fuori perimetro dell'agente 4.
-- Non sono state copiate battute/personaggi protetti; corrette le occorrenze storicamente incoerenti di «Tre punti» nel primo ciclo.
+- Non integrati UI, carriera, morale e partita nel runtime: scope riservati agli altri agenti nei NEXT successivi.
+- Emittenti e giornalisti sono fittizi ma i nomi non sono stati sottoposti a clearance di marchio per l'uso commerciale.
+- Localizzazioni napoletana, romana e siciliana sono **in revisione**, non disponibili come battute pubblicate; nessuna parola dialettale è stata inventata.
+- Importazione economica e conto morale effettivo restano dell'Agente 09.
 
-## Proposta prossimo ciclo (solo dopo approvazione/merge orchestratore)
+## Proposta prossimo ciclo (solo se autorizzato)
 
-1. Insieme ad Agente 9, validare un adapter `PresidentProfileV1`/`ClubEventV1` con fixture realistiche di cassa in lire e fiducia, senza toccare direttamente il suo motore.
-2. Rendere i nomi dei personaggi-calciatori coerenti con gli ID persistenti della carriera, evitando dialoghi riferiti a calciatori inesistenti.
-3. Eseguire prova in browser landscape con l'UI definitiva e ottimizzare i microtesti realmente troppo lunghi.
+1. QA UX reale in landscape 16:9 con i componenti definitivi di Agente 03, ritoccare lunghezze e ritmo.
+2. Primi dialetti solo con fonte e revisione competente documentata.
+3. QA integrato con 07/09 su ledger di risposte, reload, morale zero e conseguenze durature.
 
-**Nessun merge eseguito.** Lo stato resta sotto revisione dell'orchestratore.
+**Nessun merge autonomo.**

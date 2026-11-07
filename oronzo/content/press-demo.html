@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>ORONZO · Conferenze stampa R02 · Demo contenutistica</title>
+<style>
+:root{color-scheme:dark;--bg:#08162b;--panel:#18365c;--ink:#f0e8d5;--gold:#e5be75;--steel:#97b6cf;--accent:#99d1a9;--red:#d68c83}
+*{box-sizing:border-box}html,body{margin:0;height:100%;width:100%;color:var(--ink);background:var(--bg);font-family:system-ui,sans-serif;font-size:13px}
+button,select,input{font:inherit;color:var(--ink);background:#183d65;border:1px solid var(--steel);min-height:30px;padding:5px 8px}
+button{cursor:pointer}button:focus-visible,button:hover{outline:2px solid var(--gold);outline-offset:1px}button:disabled{opacity:.4;cursor:default}
+.app{height:100dvh;min-width:540px;display:grid;grid-template-rows:40px minmax(0,1fr) 28px;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff1 4px),linear-gradient(#173459,#071b39)}
+header{background:#102848;border-bottom:2px solid var(--gold);display:flex;align-items:center;justify-content:space-between;padding:3px 12px;gap:6px}
+.brand{font:800 17px/1 ui-monospace,monospace;letter-spacing:2px;color:var(--gold)}
+small,.mono,.label{font:11px ui-monospace,monospace}
+main{display:grid;grid-template-columns:minmax(160px,25%) minmax(240px,49%) minmax(145px,26%);gap:5px;padding:5px;min-height:0}
+.panel{border:2px ridge #7a9fbb;background:linear-gradient(#163960,#091f40);min-width:0;min-height:0;overflow:auto;padding:8px}
+.label{color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin:0 0 8px}
+h1{font-size:19px;line-height:1.2;margin:3px 0 9px;color:#fff4dc;font-family:Georgia,serif}
+h2{font-size:13px;margin:10px 0 6px;color:var(--gold)}
+p{margin:5px 0}
+select{max-width:100%;width:100%}
+nav{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.stats{display:grid;grid-template-columns:1fr auto;gap:5px;font:11px ui-monospace,monospace}.stats strong{text-align:right;color:var(--accent)}
+.mic{background:#07172f;border:1px solid #6783a1;padding:8px;box-shadow:3px 3px #061225;margin:6px 0}
+.reporter{font:11px ui-monospace,monospace;color:var(--gold);margin-bottom:4px}
+.question{font:17px/1.32 Georgia,serif;min-height:52px}
+.option{display:block;width:100%;text-align:left;margin:5px 0;line-height:1.28;white-space:normal}
+.option b{display:block;color:#fff3ca;font-size:12px}.option span{font-size:11px}
+.note{font:10px/1.45 ui-monospace,monospace;color:#c2d1e6;margin:8px 0}
+.positive{color:var(--accent)}.negative{color:var(--red)}
+.log{white-space:pre-wrap;font:11px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}
+.pill{border:1px solid #517797;padding:4px 6px;display:inline-block;margin:2px;font:10px ui-monospace,monospace}
+footer{display:flex;justify-content:space-between;gap:8px;padding:4px 10px;background:#0c2340;border-top:1px solid #52758f;font:10px ui-monospace,monospace}
+@media(max-height:480px){.panel{padding:5px}.question{font-size:14px;min-height:30px}.mic{padding:6px}.option{padding:3px}.label{margin:0 0 4px}}
+@media(orientation:portrait){#rotate{display:grid!important;position:fixed;inset:0;z-index:99;place-content:center;text-align:center;padding:25px;background:#08162b;color:var(--gold);font:17px ui-monospace,monospace}}
+#rotate{display:none}
+</style></head>
+<body><div id="rotate">ORONZO — DEMO STAMPA<br>Ruota il dispositivo in orizzontale.</div>
+<div class="app">
+<header><strong class="brand">ORONZO · 1979</strong><small>CONFERENZE STAMPA · LABORATORIO DATI, NON RUNTIME GIOCO</small><button id="reset" type="button">AZZERA DEMO</button></header>
+<main>
+<aside class="panel" aria-label="Scenari">
+<p class="label">Scenario di prova</p>
+<label class="mono" for="phase">Fase</label>
+<select id="phase"><option value="opening">Presentazione (5 domande)</option><option value="postmatch">Dopo la gara (2 domande)</option></select>
+<label class="mono" for="result">Esito finale simulato</label>
+<select id="result"><option value="win">Vittoria</option><option value="draw">Pareggio</option><option value="loss">Sconfitta</option></select>
+<label class="mono" for="seed">Seed carriera</label>
+<input id="seed" type="text" value="1979-campanile-01" aria-label="Seed della carriera" maxlength="40" style="width:100%">
+<nav><button id="start" type="button">INIZIA / RIPRENDI</button></nav>
+<p class="label">Rapporti simulati</p><div class="stats" id="metrics"></div>
+<p class="note">Le risposte modificano soltanto questi valori dimostrativi. Nessun evento modifica una partita vera.</p>
+</aside>
+<section class="panel" aria-label="Conferenza">
+<p class="label" id="progress">IN ATTESA · 0 / 5</p>
+<h1 id="title">La sala stampa attende il mister</h1>
+<div class="mic">
+<p class="reporter" id="reporter">Giornalisti e TV locali immaginari</p>
+<p class="question" id="question">Seleziona una fase e avvia la conferenza. Ogni domanda ha tre risposte.</p>
+</div>
+<div id="options" aria-live="polite"></div>
+<p class="note" id="effect">Nessun effetto applicato.</p>
+</section>
+<aside class="panel" aria-label="Diario">
+<p class="label">Giornale degli effetti</p>
+<div class="log" id="history">Le risposte verranno registrate qui.</div>
+<h2>Emittenti e giornalisti</h2><div id="reporterTags"></div>
+<p class="note">Domande e assegnazioni vengono salvate nella demo per evitare nuove estrazioni dopo il ricaricamento.</p>
+</aside>
+</main>
+<footer><span id="status">Lettura dati…</span><span>16:9 · CONTENUTO ORIGINALMENTE SCRITTO · R02</span></footer>
+</div>
+<script type="module">
+import {createPressConference,answerPressConference,buildPressRoster} from "./press-kit.js";
+const $=id=>document.getElementById(id);
+const storage="oronzo-copy-press-r02-demo-v1";
+let datasets=null,session=null,state={coachMorale:65,supportersTrust:60,mediaReputation:55,presidentTrust:58},history=[];
+const names={coachMorale:"MORALE MISTER",supportersTrust:"TIFOSERIA",mediaReputation:"STAMPA",presidentTrust:"PRESIDENTE"};
+const clamp=x=>Math.max(0,Math.min(100,x));
+const load=()=>{try{return JSON.parse(localStorage.getItem(storage))||{}}catch{return {}}};
+const persist=()=>{try{localStorage.setItem(storage,JSON.stringify({session,state,history}))}catch{}};
+function renderMetrics(){
+ $("metrics").replaceChildren();
+ for(const [key,label] of Object.entries(names)){
+ const n=document.createElement("span"),v=document.createElement("strong");
+ n.textContent=label;v.textContent=state[key];$("metrics").append(n,v);
+ }
+}
+function renderTags(){
+ $("reporterTags").replaceChildren();
+ if(!session)return;
+ const used=new Set;
+ for(const q of session.questions){
+  if(used.has(q.journalistId))continue;used.add(q.journalistId);
+  const p=document.createElement("p");p.className="pill";p.textContent=q.journalistName+" · "+q.broadcasterName;$("reporterTags").appendChild(p);
+ }
+}
+function render(){
+ renderMetrics();renderTags();
+ $("options").replaceChildren();
+ if(!session){$("progress").textContent="IN ATTESA";return;}
+ const n=Object.keys(session.answers||{}).length;
+ $("progress").textContent=(session.phase==="opening"?"PRESENTAZIONE":"POSTPARTITA")+" · "+n+" / "+session.questions.length;
+ $("title").textContent=session.phase==="opening"?"Il mister incontra la stampa":"Il mister dopo il fischio";
+ const q=session.questions.find(v=>!Object.prototype.hasOwnProperty.call(session.answers,v.id));
+ if(!q){
+  $("question").textContent="Conferenza conclusa. Gli effetti simulati sono nel diario.";
+  $("reporter").textContent="FINE CONFERENZA";$("effect").textContent="La sessione salvata non può essere risposta due volte.";return;
+ }
+ $("reporter").textContent=q.journalistName+" · "+q.broadcasterName;
+ $("question").textContent=q.text;
+ for(const a of q.answers){
+  const btn=document.createElement("button");btn.className="option";btn.type="button";
+  const title=document.createElement("b"),desc=document.createElement("span");
+  title.textContent=a.label;desc.textContent=a.text;btn.append(title,desc);
+  btn.addEventListener("click",()=>choose(q.id,a.id));$("options").appendChild(btn);
+ }
+}
+function choose(qid,aid){
+ const result=answerPressConference(session,qid,aid);
+ if(!result.accepted){$("effect").textContent=result.reason;return;}
+ session=result.session;
+ for(const [key,delta] of Object.entries(result.semanticEffects))state[key]=clamp(state[key]+delta);
+ const deltaText=Object.entries(result.semanticEffects).map(([k,v])=>names[k]+" "+(v>0?"+":"")+v).join(" · ");
+ history.unshift(result.selection.label+" — "+deltaText);
+ history=history.slice(0,12);
+ $("effect").textContent="Solo dimostrazione · "+deltaText;
+ $("history").textContent=history.join("\n");
+ persist();render();
+}
+function start(){
+ const phase=$("phase").value,seed=$("seed").value.trim()||"1979-campanile-01";
+ const result=$("result").value;
+ const matchId="demo-final-"+result;
+ const context={clubId:"campanile",clubObjective:"salvezza",offerDistance:"same_region",offerPayBand:"mid",
+  president:{traits:{frugality:62,ambition:76}},coachMorale:state.coachMorale,
+  supportersTrust:state.supportersTrust,mediaReputation:state.mediaReputation,
+  matchFinal:phase==="postmatch",matchId,fixtureType:"league",result};
+ const key=phase==="opening"?"start":matchId;
+ const sessionId="press:"+seed+":"+phase+":"+key;
+ const stored=load().session;
+ session=stored?.sessionId===sessionId?stored:createPressConference({catalog:phase==="opening"?datasets.opening:datasets.post,media:datasets.media,phase,context,careerSeed:seed,sessionKey:key});
+ $("status").textContent="Cataloghi caricati · sessione "+sessionId;
+ persist();render();
+}
+$("start").onclick=()=>{try{start()}catch(e){$("status").textContent=String(e);}};
+$("reset").onclick=()=>{try{localStorage.removeItem(storage)}catch{}session=null;state={coachMorale:65,supportersTrust:60,mediaReputation:55,presidentTrust:58};history=[];$("history").textContent="Demo azzerata.";$("status").textContent="Dati pronti.";render();};
+try{
+ const [opening,post,media]=await Promise.all(["press-opening.json","press-postmatch.json","press-media.json"].map(async n=>{const r=await fetch("./"+n);if(!r.ok)throw Error(n+" "+r.status);return r.json()}));
+ datasets={opening,post,media};
+ const restored=load();if(restored.session){session=restored.session;state=restored.state||state;history=restored.history||[];$("history").textContent=history.join("\n");}
+ $("status").textContent="37 domande iniziali · 32 postpartita · 12 giornalisti · 8 TV";
+ render();
+}catch(err){$("status").textContent="Impossibile leggere i dati: "+err+" · Avvia server HTTP locale."; }
+</script>
+</body></html>

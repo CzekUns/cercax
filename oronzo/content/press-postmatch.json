@@ -1,0 +1,1436 @@
+{
+  "schemaVersion": 2,
+  "phase": "postmatch",
+  "requestedQuestions": 2,
+  "effectKeys": [
+    "coachMorale",
+    "supportersTrust",
+    "mediaReputation",
+    "presidentTrust"
+  ],
+  "setting": "carriera dal 1979; fatti di gara forniti dal motore",
+  "questions": [
+    {
+      "id": "q_post_lettura",
+      "phase": "postmatch",
+      "topic": "analisi",
+      "text": "Come legge questa gara?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Dai dettagli",
+          "text": "Abbiamo fatto alcune cose bene. Rivedremo quelle sbagliate.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Dal carattere",
+          "text": "Ho visto una squadra che non smette di cercare il proprio gioco.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Dal tabellone",
+          "text": "Il risultato è lì. Il resto lo discuteremo in sede.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_cambi",
+      "phase": "postmatch",
+      "topic": "tattica",
+      "text": "Che cosa cercava con le sostituzioni?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Ritmo diverso",
+          "text": "Volevo più lucidità in una zona del campo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Proteggere il gruppo",
+          "text": "Ho considerato anche la fatica accumulata.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "L'ho detto ai ragazzi",
+          "text": "Le motivazioni le ho spiegate nello spogliatoio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_avversario",
+      "phase": "postmatch",
+      "topic": "analisi",
+      "text": "Che cosa ha imparato dall'avversario?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "A leggere gli spazi",
+          "text": "Ci ha obbligati a trovare soluzioni diverse.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Che il girone è duro",
+          "text": "Non esistono domeniche da affrontare senza attenzione.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Prima guardo noi",
+          "text": "La prossima seduta partirà dai nostri errori.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_spogliatoio",
+      "phase": "postmatch",
+      "topic": "gruppo",
+      "text": "Com'è l'umore dello spogliatoio?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Ha voglia di lavorare",
+          "text": "Ci sono cose da capire e una partita nuova da preparare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Resta tra noi",
+          "text": "Non tutto ciò che si dice lì dentro deve uscire qui.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Dobbiamo parlare",
+          "text": "Affronteremo le questioni senza cercare un colpevole.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_tifosi",
+      "phase": "postmatch",
+      "topic": "pubblico",
+      "text": "Che cosa dice a chi ha seguito la squadra?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Grazie per esserci",
+          "text": "La presenza della tribuna conta anche quando noi fatichiamo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ci rivediamo presto",
+          "text": "Spero che il pubblico continui a seguire il nostro lavoro.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Guardate l'impegno",
+          "text": "Le reazioni sono comprensibili. Il lavoro va giudicato tutto.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_capitano",
+      "phase": "postmatch",
+      "topic": "gruppo",
+      "text": "Che cosa le ha detto il capitano?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Parliamo del gruppo",
+          "text": "Il suo punto di vista aiuta il mio lavoro.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Merito di tutti",
+          "text": "Il capitano è importante quanto i compagni che lo aiutano.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Resta privato",
+          "text": "Ci sono discussioni che appartengono allo spogliatoio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_prossima",
+      "phase": "postmatch",
+      "topic": "allenamento",
+      "text": "Da dove comincerà la prossima settimana?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Dal recupero",
+          "text": "Voglio conoscere le condizioni di ogni giocatore.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Dalle difficoltà",
+          "text": "Lavoreremo sui problemi emersi oggi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Dalla preparazione",
+          "text": "Un passo alla volta, poi penseremo all'avversario.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_stampa",
+      "phase": "postmatch",
+      "topic": "media",
+      "text": "La critica della stampa le sembra giusta?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Ascolterò",
+          "text": "Una critica concreta può aiutare chi lavora.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Non sono d'accordo",
+          "text": "Alcuni giudizi mi sembrano affrettati.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": -1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Ho visto il campo",
+          "text": "Preferisco rispondere con il lavoro alla prossima gara.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_vice",
+      "phase": "postmatch",
+      "topic": "staff",
+      "text": "Lo staff è soddisfatto del piano di gara?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Ne discuteremo",
+          "text": "Voglio ascoltare anche chi oggi ha visto cose diverse.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Crediamo nel progetto",
+          "text": "Ci sono aspetti da correggere, ma il lavoro è condiviso.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Le riunioni sono private",
+          "text": "Daremo risposte tecniche quando servirà.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_win_lavoro",
+      "phase": "postmatch",
+      "topic": "vittoria",
+      "text": "Qual è stata la chiave della vittoria?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "L'allenamento",
+          "text": "I movimenti provati in settimana ci hanno aiutati.",
+          "effects": {
+            "coachMorale": 2,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Il gruppo",
+          "text": "Tutti hanno contribuito, anche chi è rimasto fuori.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "La pazienza",
+          "text": "Abbiamo aspettato il momento senza perdere ordine.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_win_euforia",
+      "phase": "postmatch",
+      "topic": "vittoria",
+      "text": "Questa vittoria cambia le aspettative?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "È un passo",
+          "text": "Non cambia da sola il nostro obiettivo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Possiamo crescere",
+          "text": "Il risultato ci dice che abbiamo margini.",
+          "effects": {
+            "coachMorale": 2,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Pensiamo a domani",
+          "text": "Prima recuperiamo; poi rivedremo la classifica.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_win_curva",
+      "phase": "postmatch",
+      "topic": "vittoria",
+      "text": "La curva canta ancora. Vuole unirsi alla festa?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Faccio un saluto",
+          "text": "La tribuna merita un ringraziamento.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Lasciamo festeggiare",
+          "text": "I ragazzi se lo sono meritato.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Ci sarà tempo",
+          "text": "Ora voglio parlare con chi ha giocato.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_win_presidente",
+      "phase": "postmatch",
+      "topic": "vittoria",
+      "text": "Il presidente ha parlato di svolta.",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Capisco l'entusiasmo",
+          "text": "Oggi abbiamo fatto un passo, vedremo i prossimi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Mi fa piacere",
+          "text": "Lavoriamo meglio quando la società ci sostiene.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 2
+          }
+        },
+        {
+          "id": "c",
+          "label": "Non cambio i piani",
+          "text": "Una vittoria non riscrive tutto il programma.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_win_undici",
+      "phase": "postmatch",
+      "topic": "vittoria",
+      "text": "Ora sarà difficile cambiare gli undici titolari?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Conta la condizione",
+          "text": "La prossima formazione dipenderà da chi sta meglio.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "C'è spazio per tutti",
+          "text": "Il campionato richiede giocatori pronti in ogni ruolo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Vedremo in settimana",
+          "text": "Non consegno oggi la distinta di domenica.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_draw_punto",
+      "phase": "postmatch",
+      "topic": "pareggio",
+      "text": "Un punto guadagnato o due lasciati sul campo?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Una base",
+          "text": "Abbiamo fatto cose utili e altre da migliorare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Potevamo fare di più",
+          "text": "La nostra manovra aveva bisogno di precisione.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "È un punto prezioso",
+          "text": "Nessun risultato arriva senza fatica.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": -1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_draw_ragioni",
+      "phase": "postmatch",
+      "topic": "pareggio",
+      "text": "Perché la partita non si è sbloccata?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Mancava precisione",
+          "text": "Non abbiamo sfruttato gli spazi trovati.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Hanno difeso bene",
+          "text": "Diamo merito anche a chi avevamo davanti.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Studieremo le occasioni",
+          "text": "Preferisco rivedere le scelte prima di giudicare.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_draw_classifica",
+      "phase": "postmatch",
+      "topic": "pareggio",
+      "text": "Il pareggio pesa in classifica?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Ogni punto conta",
+          "text": "Valutiamo le settimane, non una sola domenica.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Dobbiamo accelerare",
+          "text": "C'è bisogno di qualche occasione in più.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Serve continuità",
+          "text": "Il passo avanti deve durare oltre oggi.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_draw_ritmo",
+      "phase": "postmatch",
+      "topic": "pareggio",
+      "text": "La partita sembrava alla vostra portata.",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Lo era per entrambi",
+          "text": "L'equilibrio in campo si è visto.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Mi aspettavo di più",
+          "text": "La prossima volta dovremo osare con più ordine.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Niente rimpianti",
+          "text": "Guarderemo soltanto a come migliorare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_draw_senza",
+      "phase": "postmatch",
+      "topic": "pareggio",
+      "text": "Un pareggio può abbassare il morale?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Solo se lo permetti",
+          "text": "Il gruppo ha lavoro da fare, non tempo da perdere.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "È umano deludersi",
+          "text": "Ora bisogna rispondere allenandosi.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Il morale lo conosco",
+          "text": "Ne parlerò con i ragazzi, non con il tabellone.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_loss_perche",
+      "phase": "postmatch",
+      "topic": "sconfitta",
+      "text": "Come spiega questa sconfitta?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Errori miei",
+          "text": "La responsabilità del piano di gara è mia.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 2,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Poca continuità",
+          "text": "Abbiamo perso lucidità nei momenti difficili.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Nessun processo",
+          "text": "Una gara persa non autorizza a perdere la testa.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_loss_curva",
+      "phase": "postmatch",
+      "topic": "sconfitta",
+      "text": "Cosa dice ai tifosi delusi?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Hanno ragione",
+          "text": "Ci hanno seguito, meritavano un risultato migliore.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 2,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Restino vicini",
+          "text": "Non mancherà l'impegno nella prossima settimana.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Parlerà il campo",
+          "text": "Le parole oggi non cambiano il risultato.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_loss_presidente",
+      "phase": "postmatch",
+      "topic": "sconfitta",
+      "text": "Il presidente le ha confermato fiducia?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Parliamo di lavoro",
+          "text": "I rapporti si vedono nelle decisioni, non nelle frasi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ci siamo ascoltati",
+          "text": "Abbiamo parlato senza nascondere la difficoltà.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Chiedetelo a lui",
+          "text": "Non riporto le nostre conversazioni private.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_loss_cambio",
+      "phase": "postmatch",
+      "topic": "sconfitta",
+      "text": "Cambierà tutto per la prossima partita?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Solo il necessario",
+          "text": "Non rovinerò ciò che funziona per inseguire una reazione.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Serve una scossa",
+          "text": "Alcune abitudini vanno cambiate.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Prima valuto",
+          "text": "La formazione verrà dopo la verifica delle condizioni.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_loss_capitano",
+      "phase": "postmatch",
+      "topic": "sconfitta",
+      "text": "Il capitano ha chiesto di parlare alla squadra?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Lo ascolteremo",
+          "text": "Conosce i compagni e la loro fatica.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Parlerò io",
+          "text": "Non voglio che porti da solo il peso della gara.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Domani, con calma",
+          "text": "Una sera senza processi aiuterà tutti.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_derby",
+      "phase": "postmatch",
+      "topic": "rivalita",
+      "text": "Il derby ha pesato sulla lucidità?",
+      "when": {
+        "fixtureType": "derby"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "C'era tensione",
+          "text": "Fa parte di queste gare, bisogna saperla gestire.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "La curva ci ha aiutati",
+          "text": "La rivalità si può vivere senza smettere di giocare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Non vale punti in più",
+          "text": "Il derby è importante, la classifica rimane la stessa.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_cup",
+      "phase": "postmatch",
+      "topic": "coppa",
+      "text": "Questa gara di coppa condizionerà il campionato?",
+      "when": {
+        "fixtureType": "cup"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Valutiamo la fatica",
+          "text": "La rotazione dipenderà da come recuperano i ragazzi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Una gara alla volta",
+          "text": "Vogliamo preparare entrambe le competizioni.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Domani deciderò",
+          "text": "Prima ascolto il preparatore.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_injury",
+      "phase": "postmatch",
+      "topic": "salute",
+      "text": "Un giocatore è uscito per un problema fisico. Come sta?",
+      "when": {
+        "injuryOccurred": true
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Aspettiamo il medico",
+          "text": "Non faccio diagnosi dalla panchina.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Speriamo bene",
+          "text": "Il gruppo lo aspetta, senza forzare il rientro.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Parlerà lo staff",
+          "text": "Avrete informazioni quando saranno affidabili.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_red",
+      "phase": "postmatch",
+      "topic": "disciplina",
+      "text": "L'espulsione ha complicato il lavoro?",
+      "when": {
+        "redCard": true
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Valuteremo l'episodio",
+          "text": "Parlerò col giocatore e rivedrò ciò che è accaduto.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Serve controllo",
+          "text": "La tensione non può decidere al posto nostro.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Non giudico a caldo",
+          "text": "È meglio capire prima di distribuire colpe.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_late",
+      "phase": "postmatch",
+      "topic": "finale",
+      "text": "Un gol nel finale ha cambiato il risultato.",
+      "when": {
+        "lateGoal": true
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Conta la lucidità",
+          "text": "Gli ultimi minuti sono parte della partita.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "È il calcio",
+          "text": "Niente finisce prima del fischio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Rivedremo l'azione",
+          "text": "Non voglio indovinare cosa sia successo.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_away",
+      "phase": "postmatch",
+      "topic": "trasferta",
+      "text": "La trasferta ha inciso sulla prestazione?",
+      "when": {
+        "venue": "away"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Il viaggio pesa",
+          "text": "Controlliamo gli orari e i recuperi.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Niente alibi",
+          "text": "Il campo ci aspettava anche fuori casa.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Lo misureremo",
+          "text": "Valutiamo prima la condizione fisica reale.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_shots",
+      "phase": "postmatch",
+      "topic": "tattica",
+      "text": "L'avversario ha tirato più di voi. È preoccupato?",
+      "when": {
+        "shotsDisadvantage": true
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Troppo lenti",
+          "text": "Dovevamo costruire meglio l'ultimo passaggio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Loro sono stati bravi",
+          "text": "Serve trovare soluzioni anche contro chi chiude bene.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Rivedremo le cifre",
+          "text": "I numeri vanno letti insieme alle azioni.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_post_fischi",
+      "phase": "postmatch",
+      "topic": "tifosi",
+      "text": "Dalla curva si sono sentiti fischi.",
+      "when": {
+        "crowdWhistled": true
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Li capisco",
+          "text": "Il pubblico vuole vedere una squadra che provi a giocare.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Non decidono loro",
+          "text": "La tribuna non compila la formazione.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": -2,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Dobbiamo migliorare",
+          "text": "Proveremo a dare una risposta sul campo.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        }
+      ]
+    }
+  ]
+}

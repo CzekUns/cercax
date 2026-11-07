@@ -1,0 +1,448 @@
+{
+  "schemaVersion": 2,
+  "setting": "Italia di provincia, carriera dal 1979",
+  "disclaimer": "Tutte le emittenti, gli archetipi e le battute sono fittizi. Verificare distintività commerciale prima della pubblicazione.",
+  "journalists": [
+    {
+      "id": "raffaele_corsi",
+      "fixedName": "Raffaele Corsi",
+      "characterRef": "raffaele_corsi",
+      "role": "giornale_di_provincia",
+      "tone": "polemico",
+      "motivation": "Vuole un titolo leggibile anche a chi non ha visto la partita.",
+      "beats": [
+        "spogliatoio",
+        "crisi",
+        "presidente"
+      ],
+      "questionOpeners": [
+        "È davvero soddisfatto del risultato?",
+        "Mi dica ciò che risponderebbe senza microfono."
+      ],
+      "traits": {
+        "pressure": 78,
+        "precision": 46
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "piero_masi",
+      "fixedName": "Piero Masi",
+      "characterRef": "piero_masi",
+      "role": "cronista_radio_tv",
+      "tone": "descrittivo",
+      "motivation": "Prende nota dei piccoli gesti che cambiano la gara.",
+      "beats": [
+        "gioco",
+        "tattica",
+        "paese"
+      ],
+      "questionOpeners": [
+        "Che cosa ha capito la squadra oggi?",
+        "Mi racconta il passaggio che ha cambiato il ritmo?"
+      ],
+      "traits": {
+        "pressure": 34,
+        "precision": 88
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "jr_campanelli",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "inviato_municipale",
+      "tone": "formale",
+      "motivation": "Sogna una conferenza senza una sola domanda fuori ordine.",
+      "beats": [
+        "organizzazione",
+        "presidente",
+        "obiettivi"
+      ],
+      "questionOpeners": [
+        "Una risposta da inserire agli atti?",
+        "Possiamo considerarla una dichiarazione ufficiale?"
+      ],
+      "traits": {
+        "pressure": 58,
+        "precision": 71
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "jr_spigolosi",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "penna_critica",
+      "tone": "impaziente",
+      "motivation": "Vuole cogliere il momento in cui un allenatore cambia idea.",
+      "beats": [
+        "pressione",
+        "risultati",
+        "scelte"
+      ],
+      "questionOpeners": [
+        "Aveva previsto questo problema?",
+        "La scelta di oggi la rifarebbe?"
+      ],
+      "traits": {
+        "pressure": 84,
+        "precision": 30
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "jr_girelli",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "inviata_sportiva",
+      "tone": "curiosa",
+      "motivation": "Ascolta i giocatori prima di formulare la domanda.",
+      "beats": [
+        "giovani",
+        "fiducia",
+        "spogliatoio"
+      ],
+      "questionOpeners": [
+        "In campo chi l'ha sorpresa?",
+        "C'è un giocatore che merita una parola in più?"
+      ],
+      "traits": {
+        "pressure": 40,
+        "precision": 90
+      },
+      "nameGender": "f"
+    },
+    {
+      "id": "jr_pecorelli",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "cronista_di_tribuna",
+      "tone": "puntiglioso",
+      "motivation": "Ha sempre un taccuino separato per le rimesse laterali.",
+      "beats": [
+        "tattica",
+        "arbitro",
+        "minuti"
+      ],
+      "questionOpeners": [
+        "Quale minuto le resta impresso?",
+        "La vostra disposizione era quella prevista?"
+      ],
+      "traits": {
+        "pressure": 66,
+        "precision": 68
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "jr_sollecito",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "conduttrice_tv",
+      "tone": "sorridente",
+      "motivation": "Sa mettere a proprio agio prima di fare domande precise.",
+      "beats": [
+        "tifosi",
+        "ambiente",
+        "obiettivi"
+      ],
+      "questionOpeners": [
+        "Che cosa direbbe ai tifosi adesso?",
+        "Da dove conviene ripartire?"
+      ],
+      "traits": {
+        "pressure": 38,
+        "precision": 85
+      },
+      "nameGender": "f"
+    },
+    {
+      "id": "jr_brunelli",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "cronista_trasferte",
+      "tone": "pratico",
+      "motivation": "Conosce gli stadi dai parcheggi più che dai tabelloni.",
+      "beats": [
+        "trasferte",
+        "fatica",
+        "servizi"
+      ],
+      "questionOpeners": [
+        "Il viaggio ha pesato?",
+        "La squadra è arrivata nelle condizioni previste?"
+      ],
+      "traits": {
+        "pressure": 45,
+        "precision": 79
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "jr_piazzali",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "commentatore_locale",
+      "tone": "nostalgico",
+      "motivation": "Confronta i giocatori con fotografie di squadre di vent'anni prima.",
+      "beats": [
+        "identita",
+        "giovani",
+        "tattica"
+      ],
+      "questionOpeners": [
+        "Che calcio vuole portare qui?",
+        "È una squadra che può farsi ricordare?"
+      ],
+      "traits": {
+        "pressure": 51,
+        "precision": 75
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "jr_santini",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "intervistatrice_diretta",
+      "tone": "asciutta",
+      "motivation": "Chiede poco, si accorge di tutte le esitazioni.",
+      "beats": [
+        "morale",
+        "fiducia",
+        "risultati"
+      ],
+      "questionOpeners": [
+        "È tranquillo, mister?",
+        "Può dirlo con parole più semplici?"
+      ],
+      "traits": {
+        "pressure": 73,
+        "precision": 70
+      },
+      "nameGender": "f"
+    },
+    {
+      "id": "jr_dentella",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "collaboratore_di_settimanale",
+      "tone": "immaginifico",
+      "motivation": "Vede una vicenda epica anche in un allenamento sospeso.",
+      "beats": [
+        "paese",
+        "rivalita",
+        "squadra"
+      ],
+      "questionOpeners": [
+        "Questa settimana ha già un titolo?",
+        "È una partita che vale più della classifica?"
+      ],
+      "traits": {
+        "pressure": 60,
+        "precision": 47
+      },
+      "nameGender": "m"
+    },
+    {
+      "id": "jr_morena",
+      "fixedName": null,
+      "characterRef": null,
+      "role": "cronista_tecnico",
+      "tone": "metodico",
+      "motivation": "Porta schemi disegnati male ma fa buone domande.",
+      "beats": [
+        "allenamento",
+        "formazioni",
+        "tecnica"
+      ],
+      "questionOpeners": [
+        "Qual era il compito del centrocampo?",
+        "La scelta tattica ha dato i risultati che cercava?"
+      ],
+      "traits": {
+        "pressure": 30,
+        "precision": 96
+      },
+      "nameGender": "m"
+    }
+  ],
+  "journalistNamePools": {
+    "last": [
+      "Ardenti",
+      "Baldassi",
+      "Barletta",
+      "Beccari",
+      "Bordoni",
+      "Callegari",
+      "Carosio",
+      "Cavazza",
+      "Cerati",
+      "Colombi",
+      "Dallari",
+      "De Neri",
+      "Faccini",
+      "Falconi",
+      "Ferretti",
+      "Fiorini",
+      "Gamba",
+      "Garofali",
+      "Lanfranchi",
+      "Leoni",
+      "Lussani",
+      "Marchiori",
+      "Marchetti",
+      "Menotti",
+      "Neri",
+      "Orselli",
+      "Pagnini",
+      "Pallini",
+      "Pederzoli",
+      "Peruzzi",
+      "Rinaldesi",
+      "Ruggeri",
+      "Sabatelli",
+      "Sbaragli",
+      "Sestini",
+      "Zannoli"
+    ],
+    "firstMale": [
+      "Alfio",
+      "Armando",
+      "Bruno",
+      "Cesare",
+      "Corrado",
+      "Duilio",
+      "Elio",
+      "Ennio",
+      "Gino",
+      "Loris",
+      "Mauro",
+      "Nerio",
+      "Omero",
+      "Pietro",
+      "Remo",
+      "Sandro",
+      "Silvio",
+      "Tito",
+      "Vittorio",
+      "Zeno"
+    ],
+    "firstFemale": [
+      "Alba",
+      "Adele",
+      "Alma",
+      "Anita",
+      "Bice",
+      "Bruna",
+      "Diana",
+      "Edda",
+      "Ester",
+      "Fosca",
+      "Grazia",
+      "Iole",
+      "Irene",
+      "Luce",
+      "Maddalena",
+      "Nadia",
+      "Nives",
+      "Olga",
+      "Pina",
+      "Rina",
+      "Vera"
+    ]
+  },
+  "broadcasters": [
+    {
+      "id": "em_tele_sottoscala",
+      "name": "Tele Sottoscala",
+      "kind": "televisione privata di quartiere",
+      "style": "Interviste ravvicinate, microfono enorme e studio piccolo.",
+      "tagline": "L'immagine c'è. Per il suono ci stiamo lavorando.",
+      "tone": "piana",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    },
+    {
+      "id": "em_rete_fanalino",
+      "name": "Rete Fanalino",
+      "kind": "emittente televisiva del circondario",
+      "style": "Segue chi è ultimo con un'attenzione quasi scientifica.",
+      "tagline": "Dal fondo della classifica, la notizia.",
+      "tone": "ironica",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    },
+    {
+      "id": "em_canale_granatella",
+      "name": "Canale Granatella",
+      "kind": "televisione locale a copertura intermittente",
+      "style": "Camera ferma, domande ostinate e grandi primi piani.",
+      "tagline": "Se ci vedete, siamo in onda.",
+      "tone": "incalzante",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    },
+    {
+      "id": "em_tele_tettoia",
+      "name": "Tele Tettoia",
+      "kind": "emittente del borgo e delle frazioni",
+      "style": "Trasmette dagli spogliatoi e dai cortili se la luce basta.",
+      "tagline": "Una notizia alla volta, se il vento permette.",
+      "tone": "familiare",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    },
+    {
+      "id": "em_rete_fermaglio",
+      "name": "Rete Fermaglio",
+      "kind": "canale televisivo consortile",
+      "style": "Notiziari ordinati e corrispondenze timbrate.",
+      "tagline": "Tutto in ordine, per quanto possibile.",
+      "tone": "burocratica",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    },
+    {
+      "id": "em_tele_rondella",
+      "name": "Tele Rondella",
+      "kind": "televisione privata artigianale",
+      "style": "Parla soprattutto a meccanici, tornitori e tifosi di curva.",
+      "tagline": "Il campo gira, la telecamera pure.",
+      "tone": "pragmatica",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    },
+    {
+      "id": "em_canale_scorciatoia",
+      "name": "Canale Scorciatoia",
+      "kind": "televisione intercomunale",
+      "style": "Collegamenti corti, opinioni lunghe.",
+      "tagline": "Siamo arrivati per primi. O quasi.",
+      "tone": "esuberante",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    },
+    {
+      "id": "em_rete_gradinata",
+      "name": "Rete Gradinata",
+      "kind": "televisione nata tra bar e tribune",
+      "style": "Più vicina alle gradinate che alla sala stampa.",
+      "tagline": "La partita finisce, le domande no.",
+      "tone": "popolare",
+      "period": "1979–anni Ottanta",
+      "fictional": true
+    }
+  ],
+  "assignment": {
+    "seeded": true,
+    "uniqueJournalistNames": true,
+    "stableAcrossReload": true,
+    "existingCharacterIds": [
+      "raffaele_corsi",
+      "piero_masi"
+    ],
+    "stationPolicy": "one broadcasterId chosen once per journalist in saved conference context"
+  }
+}
