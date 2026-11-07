@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 9 · CORREZIONI DA AUDIT R02
 
-**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
+**Stato:** `WAIT_REVIEW` — decisione corrente R05-1, prevale su note R04 storiche.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #17, merge `7309f1fe`.
@@ -64,3 +64,7 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 ## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
 **Correzioni R04 consegnate nella stessa PR #32; attendere gate indipendente Work 00 R05.** HEAD `89bb4944e6c6fc78ad9164c8e0d899355ec9d67f`: guard `period_migration_required` su ledger misti, test payroll reali (non più asserzione fissa 1600), nuovi test `period-r04.test.js`, report dichiara 41/41 V8 e Node parziale. Rimane obbligatoria la suite Node **completa combinata** con HEAD #30 aggiornato. Se fallisce, correggere direttamente #32, senza cambiare la PR di 07. Niente merge autonomo.
 **ITERAZIONE FUTURA NON AUTORIZZATA:** dopo merge 07+09, CoachV2 (morale risorsa a zero gameOver), compatibilità ingaggi e avatar, presidenti con papponeria, rapporti coach/board/tifosi/stampa/calciatori, prezzi biglietti e conti, applicazione persistente *una sola volta* degli eventi shouts `matchId:eventId` con delta e ledger salvati atomici (06 effetto temporaneo). Test due stagioni, no formule hardcoded come se fossero approvate. Nuovo NEXT separato solo da 10.
+
+## ESITO R05 — NESSUN NUOVO FIX RICHIESTO AL 09 (7 novembre 2026)
+
+**Stato operativo: `WAIT_REVIEW` sulla PR #32**. Nella [PR audit #37](https://github.com/CzekUns/cercax/pull/37) il verificatore ha eseguito con i due HEAD #30/#32 la suite Node completa: **76 passati / 1 fallito**, localizzato al **test obsoleto del 07** `career/tests/r02-cross.test.mjs` che usa `{week}` invece del periodo moderno. `finance.js`, migration guard e test della #32 risultano superati nei casi eseguiti. **Non modificare la #32 per risolvere un test del 07**. Attendere soltanto nuovo HEAD #30, rerun combinato e decisione di merge; R03 di CoachV2 rimane separato e non ancora autorizzato.
