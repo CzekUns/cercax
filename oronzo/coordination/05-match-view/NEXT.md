@@ -1,5 +1,5 @@
 # NEXT — AGENTE 05 · MATCH VIEW E CAMERA TV · VISIONE v0.2
-**Stato:** `READY` (secondo ciclo).
+**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
 **PR precedente:** #15 MERGIATA, correzione `facing` in radianti e gestione snapshot.
 **Fonte:** [vision v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-movements-r02` dall'ultimo main.
@@ -16,3 +16,8 @@ A parità di snapshot, punteggio/coordinate/decisioni identici in entrambi i mod
 
 ## Controllo orchestratore — ripresa parallela del 7 novembre 2026
 Non è ancora verificabile il branch `agent/oronzo-movements-r02` nel confronto con main (404); non risultano nuova PR o REPORT R02. **Stato READY**: confermare il ramo base main, sviluppare camera TV/follow-ball solo nella propria directory, verificare su snapshot identici le due viste e consegnare test/demo/REPORT. Non modificare la pagina partita rapida, che nel futuro ciclo è di proprietà UI 03.
+
+## R04 — CONSEGNA IN REVISIONE WORK 00
+**PR:** [#28](https://github.com/CzekUns/cercax/pull/28). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
+**Gate di accettazione:** QA camera full/broadcast su stessi snapshot; unit test Node e compatibilità motore, browser richiesto se disponibile.
+**Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
