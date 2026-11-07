@@ -41,7 +41,8 @@
             }
           ]
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "dlg_conto_pompa",
@@ -83,7 +84,8 @@
             }
           ]
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "dlg_magazzino",
@@ -507,7 +509,8 @@
             }
           ]
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "dlg_gestione",
@@ -553,7 +556,8 @@
             }
           ]
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "dlg_scrivania",
@@ -603,7 +607,8 @@
             }
           ]
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "dlg_rientro",
@@ -1143,7 +1148,8 @@
             }
           ]
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "dlg_pres_venturi_crisi",
