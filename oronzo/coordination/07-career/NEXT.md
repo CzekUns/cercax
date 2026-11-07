@@ -22,3 +22,17 @@ L'altro agente (07/09) lavora su API/contratto complementari. Non modificare il 
 - Presidenti stabili con ID esistente; board e testi dello stesso presidente; obiettivi equivalenti; payroll > 0 per club con contratti, niente spese negative; settimane del secondo anno accettate una volta sola; esonero senza TypeError dopo save/load.
 - Conserva le API precedenti dove possibile, segnala breaking changes.
 - Scrivi `oronzo/coordination/07-career/REPORT.md` sul branch, apri PR a main, **non fare merge**.
+
+
+---
+
+## DIRETTIVA DI PRODOTTO v0.2 — DA ESEGUIRE SOLO DOPO MERGE DEL FIX R02
+Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/CzekUns/cercax/issues/25). **La priorità immediata rimane integralmente R02-1..R02-5 descritta sopra:** non allargare la PR `agent/oronzo-career-r02` con sistemi geografici o offerte prima che i 5 fix siano verificati e mergiati. La vecchia data 1985/86 è superata come visione di gioco; non cambiare storicità nel branch di bugfix.
+
+**Futuro ciclo R03, da autorizzare con nuovo NEXT dopo merge R02:**
+1. Parametrizza data reale d'inizio carriera nel **1979**, giornata e calendari, specificando la categoria storica della Promozione. Non chiamarla Eccellenza nel 1979 salvo scelta esplicitamente alternativa.
+2. Crea import del mondo da **500 comuni italiani poco popolati** con metadati verificabili (ISTAT/anno, fonte/licenza, regione, macroregione Nord/Centro/Sud, trattamento isole) e assegnazione deterministica alle squadre.
+3. Genera **20 offerte di ingaggio iniziali** riproducibili per seed, cachet e società, persistendo lista e scelta; fornisci input geografico/economico al sistema morale agente 09, senza calcolare dentro career costi morali.
+4. Calendario, classifica, transizioni, rosa e presidente persistenti; salvare stato RNG e data assoluta, test due stagioni e load senza rigenerazione delle offerte.
+
+**Proprietà confine:** agente 07 possiede club/dati geografici, offerte e save; agente 09 possiede impatto sul morale e compatibilità caratteri; agente 10 collegherà i due sistemi alle schermate. Nessun lavoro su R03 finché non autorizzato.
