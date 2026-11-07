@@ -165,7 +165,7 @@ test('R06-1+R06-3 one real 1979 E2E: Agent09 morale, Copy04, Match06, finance, s
   for(const event of state.coach.moraleEvents)
     assert.equal(state.flow.effectTransactions[event.eventId].status,'applied');
   assert.ok(state.clubs.every(c=>c.finance.settledWeeks.includes('a:1')));
-  const paid=state.clubs.find(c=>c.id===state.coach.clubId);
+  const paid=state.clubs.find(c=>c.id===offer.clubId); // May have been dismissed after the match.
   const retry=endClubWeek(paid,{week:1,absoluteWeek:1,seasonYear:1979});
   assert.equal(retry.accepted,false);
   assert.equal(retry.reason,'week_already_settled');
