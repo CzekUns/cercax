@@ -3,7 +3,7 @@
 **Identità:** `ORONZO-AGENT-04`  
 **Stato:** DELIVERED — in attesa di revisione orchestratore, NESSUN MERGE  
 **Branch:** `agent/oronzo-copy-r02`  
-**PR:** inserita nel corpo e nella descrizione dopo apertura  
+**PR:** https://github.com/CzekUns/cercax/pull/34  
 **Origine:** ultimo `main` al momento della creazione, `c9f52a1c2f60733a6ae1e0b63180fa4b5d0f9697`  
 **Precedente PR #13:** integrata, commit di merge `065dc4ee7e59e26612b14c471b9c2be99f43cad1`.  
 **Data:** 7 novembre 2026
