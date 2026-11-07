@@ -4,6 +4,7 @@ import {createMatch} from './systems/match-engine/match-engine.js';
 import {makeFixture} from './systems/match-engine/fixtures.js';
 import {resolveFacing} from './systems/match-view/interpolation.js';
 import {createEngineViewBridge} from './systems/match-view/match-view.js';
+import {formationAnchors} from './systems/match-engine/movement.js';
 import {QUICK_MATCH_SIM_SECONDS_PER_REAL_SECOND,quickMatchSimDelta,quickMatchDurationMinutes} from './quick-match-clock.js';
 
 test('Partita rapida: 22 giocatori e un evento iniziale dal vero engine',()=>{
@@ -87,4 +88,32 @@ test('Partita rapida: 90 minuti richiedono 15 minuti reali al ritmo normale',()=
   assert.equal(m.snapshot().t,6);
   m.step(quickMatchSimDelta(1,2));
   assert.equal(m.snapshot().t,18);
+});
+
+test('Partita rapida: gli ordini di cambio modulo alterano davvero le posizioni in campo',()=>{
+  const input=makeFixture('formation-physical-move');
+  const baseline=createMatch(input),changed=createMatch(input);
+  baseline.step(100);changed.step(100);
+  assert.deepEqual(baseline.snapshot().players,changed.snapshot().players);
+  const result=changed.command({type:'tacticChange',teamId:'montevento',payload:{
+    formation:'3-5-2',pressing:80,mentality:80
+  }});
+  assert.equal(result.accepted,true,result.reason);
+  assert.equal(result.effects.tactics.formation,'3-5-2');
+  assert.equal(result.effects.tactics.pressing,80);
+  assert.equal(result.effects.tactics.mentality,80);
+  assert.ok(changed.getEventsSince(0).some(e=>e.type==='tacticChange'&&e.detail?.tactics?.formation==='3-5-2'));
+  const originalAnchor=formationAnchors('4-4-2');
+  const newAnchor=formationAnchors('3-5-2');
+  assert.equal(originalAnchor.length,11);
+  assert.equal(newAnchor.length,11);
+  assert.ok(newAnchor.some((p,i)=>Math.abs(p.x-originalAnchor[i].x)+Math.abs(p.y-originalAnchor[i].y)>.1));
+  baseline.step(30);changed.step(30);
+  const original=baseline.snapshot().players.filter(p=>p.teamId==='montevento');
+  const updated=new Map(changed.snapshot().players.filter(p=>p.teamId==='montevento').map(p=>[p.id,p]));
+  const modified=original.filter(p=>{
+    const other=updated.get(p.id);
+    return Math.abs(p.x-other.x)+Math.abs(p.y-other.y)>.025;
+  });
+  assert.ok(modified.length>=4,'almeno quattro giocatori devono realmente riposizionarsi');
 });
