@@ -1,0 +1,5236 @@
+{
+  "schemaVersion": 1,
+  "batchId": "user-2026-11-07-20regions-50each",
+  "category": "regional_low_population_municipality_candidates",
+  "purpose": "ORONZO 1979 world research; candidate source only, not the approved world catalog",
+  "extractionSource": "user supplied Markdown incollato.md; each regional page URL preserved",
+  "claimedRegionalRankDate": "2026-01-01",
+  "populationAsOfDateSourceNotes": "Sampled source pages state ISTAT estimates as of 2026-01-01. Individual records, rank and historical year not independently verified.",
+  "submittedRegions": 20,
+  "totalCandidateRows": 1000,
+  "distinctRegionAndNameKeys": 1000,
+  "distinctNameStrings": 999,
+  "ambiguousSameNameAcrossRegions": [
+    {
+      "name": "peglio",
+      "regions": [
+        "Lombardia",
+        "Marche"
+      ]
+    }
+  ],
+  "previouslyVerifiedResearchDatasetRecordCount": 50,
+  "priorResearchNameOverlapsCount": 50,
+  "priorResearchNameOverlaps": [
+    "Molise / Castelverrino",
+    "Molise / Provvidenti",
+    "Molise / San Biase",
+    "Molise / Castelpizzuto",
+    "Molise / Molise",
+    "Molise / Conca Casale",
+    "Molise / Pietracupa",
+    "Molise / Chiauci",
+    "Molise / Castelbottaccio",
+    "Molise / Pescopennataro",
+    "Molise / Montelongo",
+    "Molise / Civitacampomarano",
+    "Molise / Montemitro",
+    "Molise / Pizzone",
+    "Molise / Sant’Elena Sannita",
+    "Molise / Sant’Angelo Limosano",
+    "Molise / Sant’Angelo del Pesco",
+    "Molise / Castel del Giudice",
+    "Molise / Montorio nei Frentani",
+    "Molise / Acquaviva d’Isernia",
+    "Molise / Duronia",
+    "Molise / San Pietro Avellana",
+    "Molise / Lupara",
+    "Molise / Ripabottoni",
+    "Molise / Castellino del Biferno",
+    "Molise / Castel San Vincenzo",
+    "Molise / Casalciprano",
+    "Molise / Macchia Valfortore",
+    "Molise / Monacilioni",
+    "Molise / Pettoranello del Molise",
+    "Valle d’Aosta / Rhêmes-Notre-Dame",
+    "Valle d’Aosta / Bard",
+    "Valle d’Aosta / La Magdeleine",
+    "Valle d’Aosta / Chamois",
+    "Valle d’Aosta / Valsavarenche",
+    "Valle d’Aosta / Rhêmes-Saint-Georges",
+    "Valle d’Aosta / Ollomont",
+    "Valle d’Aosta / Pontboset",
+    "Valle d’Aosta / Saint-Oyen",
+    "Valle d’Aosta / Valgrisenche",
+    "Valle d’Aosta / Allein",
+    "Valle d’Aosta / Oyace",
+    "Valle d’Aosta / Bionaz",
+    "Valle d’Aosta / Emarèse",
+    "Valle d’Aosta / Avise",
+    "Valle d’Aosta / Gressoney-La-Trinité",
+    "Valle d’Aosta / Saint-Nicolas",
+    "Valle d’Aosta / Saint-Rhémy-en-Bosses",
+    "Valle d’Aosta / Champorcher",
+    "Valle d’Aosta / Issime"
+  ],
+  "verification": {
+    "status": "candidate_pending_verification",
+    "validatedMunicipalityCountAdded": 0,
+    "sourceLicensing": "not_reviewed",
+    "municipalityIstatCodes": "not_available_in_submitted_list",
+    "actualPopulationValues": "not_available_in_submitted_list",
+    "1979HistoricalNamesAndBorders": "not_verified",
+    "sourceRanking": "regional_50_smallest_as_supplied; verification_incomplete",
+    "warning": "Not a national bottom 1000 ranking. Not safe for ingestion into 1979 gameplay until ISTAT codes, population year, historical jurisdiction and reuse rights have been checked."
+  },
+  "notableHistoricalMismatch": [
+    {
+      "name": "Treppo Ligosullo",
+      "region": "Friuli-Venezia Giulia",
+      "reason": "Present-day municipality created in 2018; cannot be treated as municipality extant in 1979 without historic mapping.",
+      "sourceUrl": "https://www.comune.treppoligosullo.ud.it/media/files/030191/attachment/Allegato_Nota_di_aggiornamento_DUP_2023-2025.pdf"
+    }
+  ],
+  "regions": [
+    {
+      "region": "Abruzzo",
+      "sourceUrl": "https://www.tuttitalia.it/abruzzo/42-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:abruzzo:carapelle-calvisio",
+          "name": "Carapelle Calvisio",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:abruzzo:montelapiano",
+          "name": "Montelapiano",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:abruzzo:villa-santa-lucia-degli-abruzzi",
+          "name": "Villa Santa Lucia degli Abruzzi",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:abruzzo:montebello-sul-sangro",
+          "name": "Montebello sul Sangro",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:abruzzo:monteferrante",
+          "name": "Monteferrante",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:abruzzo:san-benedetto-in-perillis",
+          "name": "San Benedetto in Perillis",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:abruzzo:roio-del-sangro",
+          "name": "Roio del Sangro",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:abruzzo:santo-stefano-di-sessanio",
+          "name": "Santo Stefano di Sessanio",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:abruzzo:calascio",
+          "name": "Calascio",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:abruzzo:fallo",
+          "name": "Fallo",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:abruzzo:castelvecchio-calvisio",
+          "name": "Castelvecchio Calvisio",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:abruzzo:pietraferrazzana",
+          "name": "Pietraferrazzana",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:abruzzo:san-giovanni-lipioni",
+          "name": "San Giovanni Lipioni",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:abruzzo:colledimacine",
+          "name": "Colledimacine",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:abruzzo:rocca-pia",
+          "name": "Rocca Pia",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:abruzzo:rosello",
+          "name": "Rosello",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:abruzzo:corvara",
+          "name": "Corvara",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:abruzzo:pietracamela",
+          "name": "Pietracamela",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:abruzzo:collepietro",
+          "name": "Collepietro",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:abruzzo:caporciano",
+          "name": "Caporciano",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:abruzzo:pennadomo",
+          "name": "Pennadomo",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:abruzzo:cocullo",
+          "name": "Cocullo",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:abruzzo:bisegna",
+          "name": "Bisegna",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:abruzzo:cansano",
+          "name": "Cansano",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:abruzzo:gagliano-aterno",
+          "name": "Gagliano Aterno",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:abruzzo:sant-eufemia-a-maiella",
+          "name": "Sant’Eufemia a Maiella",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:abruzzo:brittoli",
+          "name": "Brittoli",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:abruzzo:fraine",
+          "name": "Fraine",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:abruzzo:fano-adriano",
+          "name": "Fano Adriano",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:abruzzo:tione-degli-abruzzi",
+          "name": "Tione degli Abruzzi",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:abruzzo:salle",
+          "name": "Salle",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:abruzzo:acciano",
+          "name": "Acciano",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:abruzzo:gamberale",
+          "name": "Gamberale",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:abruzzo:castelguidone",
+          "name": "Castelguidone",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:abruzzo:civitaluparella",
+          "name": "Civitaluparella",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:abruzzo:castel-di-ieri",
+          "name": "Castel di Ieri",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:abruzzo:fontecchio",
+          "name": "Fontecchio",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:abruzzo:civitella-alfedena",
+          "name": "Civitella Alfedena",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:abruzzo:taranta-peligna",
+          "name": "Taranta Peligna",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:abruzzo:secinaro",
+          "name": "Secinaro",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:abruzzo:anversa-degli-abruzzi",
+          "name": "Anversa degli Abruzzi",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:abruzzo:dogliola",
+          "name": "Dogliola",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:abruzzo:lettopalena",
+          "name": "Lettopalena",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:abruzzo:tufillo",
+          "name": "Tufillo",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:abruzzo:borrello",
+          "name": "Borrello",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:abruzzo:molina-aterno",
+          "name": "Molina Aterno",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:abruzzo:fagnano-alto",
+          "name": "Fagnano Alto",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:abruzzo:abbateggio",
+          "name": "Abbateggio",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:abruzzo:vicoli",
+          "name": "Vicoli",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:abruzzo:sant-eusanio-forconese",
+          "name": "Sant’Eusanio Forconese",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Basilicata",
+      "sourceUrl": "https://www.tuttitalia.it/basilicata/81-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:basilicata:san-paolo-albanese",
+          "name": "San Paolo Albanese",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:basilicata:cirigliano",
+          "name": "Cirigliano",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:basilicata:oliveto-lucano",
+          "name": "Oliveto Lucano",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:basilicata:calvera",
+          "name": "Calvera",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:basilicata:missanello",
+          "name": "Missanello",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:basilicata:carbone",
+          "name": "Carbone",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:basilicata:cersosimo",
+          "name": "Cersosimo",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:basilicata:teana",
+          "name": "Teana",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:basilicata:guardia-perticara",
+          "name": "Guardia Perticara",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:basilicata:armento",
+          "name": "Armento",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:basilicata:fardella",
+          "name": "Fardella",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:basilicata:san-costantino-albanese",
+          "name": "San Costantino Albanese",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:basilicata:craco",
+          "name": "Craco",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:basilicata:trivigno",
+          "name": "Trivigno",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:basilicata:san-martino-d-agri",
+          "name": "San Martino d’Agri",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:basilicata:calciano",
+          "name": "Calciano",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:basilicata:ginestra",
+          "name": "Ginestra",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:basilicata:castelmezzano",
+          "name": "Castelmezzano",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:basilicata:campomaggiore",
+          "name": "Campomaggiore",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:basilicata:castelluccio-superiore",
+          "name": "Castelluccio Superiore",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:basilicata:noepoli",
+          "name": "Noepoli",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:basilicata:sasso-di-castalda",
+          "name": "Sasso di Castalda",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:basilicata:gallicchio",
+          "name": "Gallicchio",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:basilicata:brindisi-montagna",
+          "name": "Brindisi Montagna",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:basilicata:castelgrande",
+          "name": "Castelgrande",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:basilicata:aliano",
+          "name": "Aliano",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:basilicata:rapone",
+          "name": "Rapone",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:basilicata:gorgoglione",
+          "name": "Gorgoglione",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:basilicata:castronuovo-di-sant-andrea",
+          "name": "Castronuovo di Sant’Andrea",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:basilicata:pietrapertosa",
+          "name": "Pietrapertosa",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:basilicata:san-chirico-raparo",
+          "name": "San Chirico Raparo",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:basilicata:garaguso",
+          "name": "Garaguso",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:basilicata:ruvo-del-monte",
+          "name": "Ruvo del Monte",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:basilicata:terranova-di-pollino",
+          "name": "Terranova di Pollino",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:basilicata:savoia-di-lucania",
+          "name": "Savoia di Lucania",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:basilicata:san-giorgio-lucano",
+          "name": "San Giorgio Lucano",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:basilicata:colobraro",
+          "name": "Colobraro",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:basilicata:montemurro",
+          "name": "Montemurro",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:basilicata:san-chirico-nuovo",
+          "name": "San Chirico Nuovo",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:basilicata:cancellara",
+          "name": "Cancellara",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:basilicata:castelsaraceno",
+          "name": "Castelsaraceno",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:basilicata:banzi",
+          "name": "Banzi",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:basilicata:san-mauro-forte",
+          "name": "San Mauro Forte",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:basilicata:episcopia",
+          "name": "Episcopia",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:basilicata:abriola",
+          "name": "Abriola",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:basilicata:roccanova",
+          "name": "Roccanova",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:basilicata:spinoso",
+          "name": "Spinoso",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:basilicata:albano-di-lucania",
+          "name": "Albano di Lucania",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:basilicata:valsinni",
+          "name": "Valsinni",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:basilicata:sant-angelo-le-fratte",
+          "name": "Sant’Angelo Le Fratte",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Calabria",
+      "sourceUrl": "https://www.tuttitalia.it/calabria/65-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:calabria:staiti",
+          "name": "Staiti",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:calabria:carpanzano",
+          "name": "Carpanzano",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:calabria:castroregio",
+          "name": "Castroregio",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:calabria:nocara",
+          "name": "Nocara",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:calabria:roccaforte-del-greco",
+          "name": "Roccaforte del Greco",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:calabria:sant-alessio-in-aspromonte",
+          "name": "Sant’Alessio in Aspromonte",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:calabria:panettieri",
+          "name": "Panettieri",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:calabria:laganadi",
+          "name": "Laganadi",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:calabria:alessandria-del-carretto",
+          "name": "Alessandria del Carretto",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:calabria:centrache",
+          "name": "Centrache",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:calabria:marcedusa",
+          "name": "Marcedusa",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:calabria:san-giovanni-di-gerace",
+          "name": "San Giovanni di Gerace",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:calabria:argusto",
+          "name": "Argusto",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:calabria:terranova-sappo-minulio",
+          "name": "Terranova Sappo Minulio",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:calabria:candidoni",
+          "name": "Candidoni",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:calabria:gagliato",
+          "name": "Gagliato",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:calabria:caraffa-del-bianco",
+          "name": "Caraffa del Bianco",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:calabria:agnana-calabra",
+          "name": "Agnana Calabra",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:calabria:san-pietro-in-amantea",
+          "name": "San Pietro in Amantea",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:calabria:sellia",
+          "name": "Sellia",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:calabria:bova",
+          "name": "Bova",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:calabria:san-procopio",
+          "name": "San Procopio",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:calabria:cellara",
+          "name": "Cellara",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:calabria:martone",
+          "name": "Martone",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:calabria:olivadi",
+          "name": "Olivadi",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:calabria:pazzano",
+          "name": "Pazzano",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:calabria:san-lorenzo-bellizzi",
+          "name": "San Lorenzo Bellizzi",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:calabria:cenadi",
+          "name": "Cenadi",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:calabria:cimina",
+          "name": "Ciminà",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:calabria:jacurso",
+          "name": "Jacurso",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:calabria:serra-d-aiello",
+          "name": "Serra d’Aiello",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:calabria:sant-agata-del-bianco",
+          "name": "Sant’Agata del Bianco",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:calabria:fossato-serralta",
+          "name": "Fossato Serralta",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:calabria:carfizzi",
+          "name": "Carfizzi",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:calabria:san-cosmo-albanese",
+          "name": "San Cosmo Albanese",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:calabria:terravecchia",
+          "name": "Terravecchia",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:calabria:papasidero",
+          "name": "Papasidero",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:calabria:mongiana",
+          "name": "Mongiana",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:calabria:canna",
+          "name": "Canna",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:calabria:andali",
+          "name": "Andali",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:calabria:plataci",
+          "name": "Plataci",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:calabria:san-nicola-dell-alto",
+          "name": "San Nicola dell’Alto",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:calabria:zaccanopoli",
+          "name": "Zaccanopoli",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:calabria:altilia",
+          "name": "Altilia",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:calabria:miglierina",
+          "name": "Miglierina",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:calabria:samo",
+          "name": "Samo",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:calabria:casignana",
+          "name": "Casignana",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:calabria:malito",
+          "name": "Malito",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:calabria:canolo",
+          "name": "Canolo",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:calabria:umbriatico",
+          "name": "Umbriatico",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Campania",
+      "sourceUrl": "https://www.tuttitalia.it/campania/96-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:campania:valle-dell-angelo",
+          "name": "Valle dell’Angelo",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:campania:serramezzana",
+          "name": "Serramezzana",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:campania:cairano",
+          "name": "Cairano",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:campania:campora",
+          "name": "Campora",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:campania:petruro-irpino",
+          "name": "Petruro Irpino",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:campania:montaguto",
+          "name": "Montaguto",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:campania:ciorlano",
+          "name": "Ciorlano",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:campania:santomenna",
+          "name": "Santomenna",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:campania:romagnano-al-monte",
+          "name": "Romagnano al Monte",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:campania:ginestra-degli-schiavoni",
+          "name": "Ginestra degli Schiavoni",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:campania:sacco",
+          "name": "Sacco",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:campania:rocchetta-e-croce",
+          "name": "Rocchetta e Croce",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:campania:gallo-matese",
+          "name": "Gallo Matese",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:campania:salvitelle",
+          "name": "Salvitelle",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:campania:chianche",
+          "name": "Chianche",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:campania:sant-arcangelo-trimonte",
+          "name": "Sant’Arcangelo Trimonte",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:campania:torrioni",
+          "name": "Torrioni",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:campania:corleto-monforte",
+          "name": "Corleto Monforte",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:campania:tortorella",
+          "name": "Tortorella",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:campania:pietraroja",
+          "name": "Pietraroja",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:campania:sant-angelo-a-fasanella",
+          "name": "Sant’Angelo a Fasanella",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:campania:san-mauro-la-bruca",
+          "name": "San Mauro la Bruca",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:campania:cuccaro-vetere",
+          "name": "Cuccaro Vetere",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:campania:sorbo-serpico",
+          "name": "Sorbo Serpico",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:campania:monteforte-cilento",
+          "name": "Monteforte Cilento",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:campania:castelnuovo-di-conza",
+          "name": "Castelnuovo di Conza",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:campania:ottati",
+          "name": "Ottati",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:campania:roscigno",
+          "name": "Roscigno",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:campania:magliano-vetere",
+          "name": "Magliano Vetere",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:campania:morigerati",
+          "name": "Morigerati",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:campania:greci",
+          "name": "Greci",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:campania:sassinoro",
+          "name": "Sassinoro",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:campania:letino",
+          "name": "Letino",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:campania:parolise",
+          "name": "Parolise",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:campania:stella-cilento",
+          "name": "Stella Cilento",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:campania:pertosa",
+          "name": "Pertosa",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:campania:conca-dei-marini",
+          "name": "Conca dei Marini",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:campania:bellosguardo",
+          "name": "Bellosguardo",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:campania:laurito",
+          "name": "Laurito",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:campania:monteverde",
+          "name": "Monteverde",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:campania:giano-vetusto",
+          "name": "Giano Vetusto",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:campania:san-lupo",
+          "name": "San Lupo",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:campania:sant-angelo-a-scala",
+          "name": "Sant’Angelo a Scala",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:campania:furore",
+          "name": "Furore",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:campania:sant-angelo-all-esca",
+          "name": "Sant’Angelo all’Esca",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:campania:valle-agricola",
+          "name": "Valle Agricola",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:campania:senerchia",
+          "name": "Senerchia",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:campania:arpaise",
+          "name": "Arpaise",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:campania:salza-irpina",
+          "name": "Salza Irpina",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:campania:tora-e-piccilli",
+          "name": "Tora e Piccilli",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Emilia-Romagna",
+      "sourceUrl": "https://www.tuttitalia.it/emilia-romagna/89-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:emilia-romagna:zerba",
+          "name": "Zerba",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:cerignale",
+          "name": "Cerignale",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:casteldelci",
+          "name": "Casteldelci",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:ottone",
+          "name": "Ottone",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:corte-brugnatella",
+          "name": "Corte Brugnatella",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:valmozzola",
+          "name": "Valmozzola",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:piozzano",
+          "name": "Piozzano",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:bore",
+          "name": "Bore",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:riolunato",
+          "name": "Riolunato",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:premilcuore",
+          "name": "Premilcuore",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:portico-e-san-benedetto",
+          "name": "Portico e San Benedetto",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:san-pietro-in-cerro",
+          "name": "San Pietro in Cerro",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:maiolo",
+          "name": "Maiolo",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:monchio-delle-corti",
+          "name": "Monchio delle Corti",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:tornolo",
+          "name": "Tornolo",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:morfasso",
+          "name": "Morfasso",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:coli",
+          "name": "Coli",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:besenzone",
+          "name": "Besenzone",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:montecreto",
+          "name": "Montecreto",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:pellegrino-parmense",
+          "name": "Pellegrino Parmense",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:palanzano",
+          "name": "Palanzano",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:montegridolfo",
+          "name": "Montegridolfo",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:montecopiolo",
+          "name": "Montecopiolo",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:farini",
+          "name": "Farini",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:compiano",
+          "name": "Compiano",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:tredozio",
+          "name": "Tredozio",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:ferriere",
+          "name": "Ferriere",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:talamello",
+          "name": "Talamello",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:terenzo",
+          "name": "Terenzo",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:varsi",
+          "name": "Varsi",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:gemmano",
+          "name": "Gemmano",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:fiumalbo",
+          "name": "Fiumalbo",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:castel-del-rio",
+          "name": "Castel del Rio",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:mondaino",
+          "name": "Mondaino",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:sassofeltrio",
+          "name": "Sassofeltrio",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:dovadola",
+          "name": "Dovadola",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:polinago",
+          "name": "Polinago",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:solignano",
+          "name": "Solignano",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:villanova-sull-arda",
+          "name": "Villanova sull’Arda",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:montiano",
+          "name": "Montiano",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:frassinoro",
+          "name": "Frassinoro",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:verghereto",
+          "name": "Verghereto",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:corniglio",
+          "name": "Corniglio",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:vetto",
+          "name": "Vetto",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:rocca-san-casciano",
+          "name": "Rocca San Casciano",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:fontanelice",
+          "name": "Fontanelice",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:camugnano",
+          "name": "Camugnano",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:berceto",
+          "name": "Berceto",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:bardi",
+          "name": "Bardi",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:emilia-romagna:sant-agata-feltria",
+          "name": "Sant’Agata Feltria",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Friuli-Venezia Giulia",
+      "sourceUrl": "https://www.tuttitalia.it/friuli-venezia-giulia/79-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:drenchia",
+          "name": "Drenchia",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:dogna",
+          "name": "Dogna",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:barcis",
+          "name": "Barcis",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:andreis",
+          "name": "Andreis",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:preone",
+          "name": "Preone",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:resiutta",
+          "name": "Resiutta",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:tramonti-di-sopra",
+          "name": "Tramonti di Sopra",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:dolegna-del-collio",
+          "name": "Dolegna del Collio",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:stregna",
+          "name": "Stregna",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:grimacco",
+          "name": "Grimacco",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:tramonti-di-sotto",
+          "name": "Tramonti di Sotto",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:cimolais",
+          "name": "Cimolais",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:savogna",
+          "name": "Savogna",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:rigolato",
+          "name": "Rigolato",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:erto-e-casso",
+          "name": "Erto e Casso",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:sauris",
+          "name": "Sauris",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:clauzetto",
+          "name": "Clauzetto",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:comeglians",
+          "name": "Comeglians",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:raveo",
+          "name": "Raveo",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:montenars",
+          "name": "Montenars",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:forni-avoltri",
+          "name": "Forni Avoltri",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:ravascletto",
+          "name": "Ravascletto",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:forni-di-sotto",
+          "name": "Forni di Sotto",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:taipana",
+          "name": "Taipana",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:zuglio",
+          "name": "Zuglio",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:chiusaforte",
+          "name": "Chiusaforte",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:frisanco",
+          "name": "Frisanco",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:cercivento",
+          "name": "Cercivento",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:lusevera",
+          "name": "Lusevera",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:lauco",
+          "name": "Lauco",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:treppo-ligosullo",
+          "name": "Treppo Ligosullo",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:bordano",
+          "name": "Bordano",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:prepotto",
+          "name": "Prepotto",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:vito-d-asio",
+          "name": "Vito d’Asio",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:chiopris-viscone",
+          "name": "Chiopris-Viscone",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:san-floriano-del-collio",
+          "name": "San Floriano del Collio",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:moraro",
+          "name": "Moraro",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:prato-carnico",
+          "name": "Prato Carnico",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:castelnovo-del-friuli",
+          "name": "Castelnovo del Friuli",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:pulfero",
+          "name": "Pulfero",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:verzegnis",
+          "name": "Verzegnis",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:monrupino",
+          "name": "Monrupino",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:visco",
+          "name": "Visco",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:socchieve",
+          "name": "Socchieve",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:amaro",
+          "name": "Amaro",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:claut",
+          "name": "Claut",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:ampezzo",
+          "name": "Ampezzo",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:malborghetto-valbruna",
+          "name": "Malborghetto Valbruna",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:forni-di-sopra",
+          "name": "Forni di Sopra",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:friuli-venezia-giulia:resia",
+          "name": "Resia",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Lazio",
+      "sourceUrl": "https://www.tuttitalia.it/lazio/27-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:lazio:marcetelli",
+          "name": "Marcetelli",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:lazio:micigliano",
+          "name": "Micigliano",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:lazio:collegiove",
+          "name": "Collegiove",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:lazio:varco-sabino",
+          "name": "Varco Sabino",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:lazio:vivaro-romano",
+          "name": "Vivaro Romano",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:lazio:paganico-sabino",
+          "name": "Paganico Sabino",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:lazio:rocca-canterano",
+          "name": "Rocca Canterano",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:lazio:saracinesco",
+          "name": "Saracinesco",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:lazio:ascrea",
+          "name": "Ascrea",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:lazio:nespolo",
+          "name": "Nespolo",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:lazio:percile",
+          "name": "Percile",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:lazio:vacone",
+          "name": "Vacone",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:lazio:vallepietra",
+          "name": "Vallepietra",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:lazio:turania",
+          "name": "Turania",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:lazio:roccagiovine",
+          "name": "Roccagiovine",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:lazio:acquafondata",
+          "name": "Acquafondata",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:lazio:vallinfreda",
+          "name": "Vallinfreda",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:lazio:terelle",
+          "name": "Terelle",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:lazio:montenero-sabino",
+          "name": "Montenero Sabino",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:lazio:castel-di-tora",
+          "name": "Castel di Tora",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:lazio:viticuso",
+          "name": "Viticuso",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:lazio:concerviano",
+          "name": "Concerviano",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:lazio:tessennano",
+          "name": "Tessennano",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:lazio:san-biagio-saracinisco",
+          "name": "San Biagio Saracinisco",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:lazio:pozzaglia-sabina",
+          "name": "Pozzaglia Sabina",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:lazio:capranica-prenestina",
+          "name": "Capranica Prenestina",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:lazio:jenne",
+          "name": "Jenne",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:lazio:morro-reatino",
+          "name": "Morro Reatino",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:lazio:labro",
+          "name": "Labro",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:lazio:canterano",
+          "name": "Canterano",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:lazio:colle-di-tora",
+          "name": "Colle di Tora",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:lazio:rocca-di-cave",
+          "name": "Rocca di Cave",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:lazio:collalto-sabino",
+          "name": "Collalto Sabino",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:lazio:cittareale",
+          "name": "Cittareale",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:lazio:orvinio",
+          "name": "Orvinio",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:lazio:montasola",
+          "name": "Montasola",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:lazio:camerata-nuova",
+          "name": "Camerata Nuova",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:lazio:cervara-di-roma",
+          "name": "Cervara di Roma",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:lazio:salisano",
+          "name": "Salisano",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:lazio:colli-sul-velino",
+          "name": "Colli sul Velino",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:lazio:filacciano",
+          "name": "Filacciano",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:lazio:accumoli",
+          "name": "Accumoli",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:lazio:falvaterra",
+          "name": "Falvaterra",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:lazio:mompeo",
+          "name": "Mompeo",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:lazio:longone-sabino",
+          "name": "Longone Sabino",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:lazio:casalattico",
+          "name": "Casalattico",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:lazio:cottanello",
+          "name": "Cottanello",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:lazio:posta",
+          "name": "Posta",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:lazio:proceno",
+          "name": "Proceno",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:lazio:filettino",
+          "name": "Filettino",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Liguria",
+      "sourceUrl": "https://www.tuttitalia.it/liguria/98-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:liguria:rondanina",
+          "name": "Rondanina",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:liguria:fascia",
+          "name": "Fascia",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:liguria:gorreto",
+          "name": "Gorreto",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:liguria:massimino",
+          "name": "Massimino",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:liguria:montegrosso-pian-latte",
+          "name": "Montegrosso Pian Latte",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:liguria:propata",
+          "name": "Propata",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:liguria:armo",
+          "name": "Armo",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:liguria:castelvecchio-di-rocca-barbena",
+          "name": "Castelvecchio di Rocca Barbena",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:liguria:aquila-d-arroscia",
+          "name": "Aquila d’Arroscia",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:liguria:nasino",
+          "name": "Nasino",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:liguria:mendatica",
+          "name": "Mendatica",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:liguria:cosio-d-arroscia",
+          "name": "Cosio d’Arroscia",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:liguria:testico",
+          "name": "Testico",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:liguria:olivetta-san-michele",
+          "name": "Olivetta San Michele",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:liguria:montebruno",
+          "name": "Montebruno",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:liguria:onzo",
+          "name": "Onzo",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:liguria:terzorio",
+          "name": "Terzorio",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:liguria:fontanigorda",
+          "name": "Fontanigorda",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:liguria:castel-vittorio",
+          "name": "Castel Vittorio",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:liguria:coreglia-ligure",
+          "name": "Coreglia Ligure",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:liguria:erli",
+          "name": "Erli",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:liguria:cesio",
+          "name": "Cesio",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:liguria:caravonica",
+          "name": "Caravonica",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:liguria:rocchetta-nervina",
+          "name": "Rocchetta Nervina",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:liguria:vessalico",
+          "name": "Vessalico",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:liguria:zuccarello",
+          "name": "Zuccarello",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:liguria:seborga",
+          "name": "Seborga",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:liguria:lucinasco",
+          "name": "Lucinasco",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:liguria:bormida",
+          "name": "Bormida",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:liguria:rezzo",
+          "name": "Rezzo",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:liguria:castelbianco",
+          "name": "Castelbianco",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:liguria:aurigo",
+          "name": "Aurigo",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:liguria:vendone",
+          "name": "Vendone",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:liguria:bajardo",
+          "name": "Bajardo",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:liguria:vasia",
+          "name": "Vasia",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:liguria:portofino",
+          "name": "Portofino",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:liguria:vobbia",
+          "name": "Vobbia",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:liguria:airole",
+          "name": "Airole",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:liguria:lorsica",
+          "name": "Lorsica",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:liguria:giusvalla",
+          "name": "Giusvalla",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:liguria:borghetto-d-arroscia",
+          "name": "Borghetto d’Arroscia",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:liguria:osiglia",
+          "name": "Osiglia",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:liguria:pietrabruna",
+          "name": "Pietrabruna",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:liguria:triora",
+          "name": "Triora",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:liguria:favale-di-malvaro",
+          "name": "Favale di Malvaro",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:liguria:villa-faraldi",
+          "name": "Villa Faraldi",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:liguria:zignago",
+          "name": "Zignago",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:liguria:carrodano",
+          "name": "Carrodano",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:liguria:rovegno",
+          "name": "Rovegno",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:liguria:tiglieto",
+          "name": "Tiglieto",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Lombardia",
+      "sourceUrl": "https://www.tuttitalia.it/lombardia/20-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:lombardia:morterone",
+          "name": "Morterone",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:lombardia:rocca-de-giorgi",
+          "name": "Rocca de’ Giorgi",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:lombardia:pedesina",
+          "name": "Pedesina",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:lombardia:maccastorna",
+          "name": "Maccastorna",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:lombardia:villa-biscossi",
+          "name": "Villa Biscossi",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:lombardia:blello",
+          "name": "Blello",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:lombardia:velezzo-lomellina",
+          "name": "Velezzo Lomellina",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:lombardia:spriana",
+          "name": "Spriana",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:lombardia:piazzolo",
+          "name": "Piazzolo",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:lombardia:magasa",
+          "name": "Magasa",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:lombardia:cassiglio",
+          "name": "Cassiglio",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:lombardia:calvignano",
+          "name": "Calvignano",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:lombardia:bema",
+          "name": "Bema",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:lombardia:ornica",
+          "name": "Ornica",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:lombardia:valleve",
+          "name": "Valleve",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:lombardia:volpara",
+          "name": "Volpara",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:lombardia:brumano",
+          "name": "Brumano",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:lombardia:irma",
+          "name": "Irma",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:lombardia:oltressenda-alta",
+          "name": "Oltressenda Alta",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:lombardia:parlasco",
+          "name": "Parlasco",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:lombardia:curiglia-con-monteviasco",
+          "name": "Curiglia con Monteviasco",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:lombardia:foppolo",
+          "name": "Foppolo",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:lombardia:sueglio",
+          "name": "Sueglio",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:lombardia:gerola-alta",
+          "name": "Gerola Alta",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:lombardia:livo",
+          "name": "Livo",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:lombardia:golferenzo",
+          "name": "Golferenzo",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:lombardia:duno",
+          "name": "Duno",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:lombardia:oliva-gessi",
+          "name": "Oliva Gessi",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:lombardia:paisco-loveno",
+          "name": "Paisco Loveno",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:lombardia:valvestino",
+          "name": "Valvestino",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:lombardia:mezzoldo",
+          "name": "Mezzoldo",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:lombardia:cavargna",
+          "name": "Cavargna",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:lombardia:galliavola",
+          "name": "Galliavola",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:lombardia:isola-di-fondra",
+          "name": "Isola di Fondra",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:lombardia:val-rezzo",
+          "name": "Val Rezzo",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:lombardia:gambarana",
+          "name": "Gambarana",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:lombardia:averara",
+          "name": "Averara",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:lombardia:zelbio",
+          "name": "Zelbio",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:lombardia:ceretto-lomellina",
+          "name": "Ceretto Lomellina",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:lombardia:semiana",
+          "name": "Semiana",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:lombardia:valeggio",
+          "name": "Valeggio",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:lombardia:peglio",
+          "name": "Peglio",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:lombardia:veleso",
+          "name": "Veleso",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:lombardia:vedeseta",
+          "name": "Vedeseta",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:lombardia:cusio",
+          "name": "Cusio",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:lombardia:tartano",
+          "name": "Tartano",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:lombardia:valnegra",
+          "name": "Valnegra",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:lombardia:cornovecchio",
+          "name": "Cornovecchio",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:lombardia:moio-de-calvi",
+          "name": "Moio de’ Calvi",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:lombardia:fuipiano-valle-imagna",
+          "name": "Fuipiano Valle Imagna",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Marche",
+      "sourceUrl": "https://www.tuttitalia.it/marche/36-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:marche:monte-cavallo",
+          "name": "Monte Cavallo",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:marche:bolognola",
+          "name": "Bolognola",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:marche:palmiano",
+          "name": "Palmiano",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:marche:poggio-san-vicino",
+          "name": "Poggio San Vicino",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:marche:castelsantangelo-sul-nera",
+          "name": "Castelsantangelo sul Nera",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:marche:frontino",
+          "name": "Frontino",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:marche:monte-rinaldo",
+          "name": "Monte Rinaldo",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:marche:smerillo",
+          "name": "Smerillo",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:marche:ussita",
+          "name": "Ussita",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:marche:monteleone-di-fermo",
+          "name": "Monteleone di Fermo",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:marche:montefalcone-appennino",
+          "name": "Montefalcone Appennino",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:marche:montegallo",
+          "name": "Montegallo",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:marche:monte-vidon-combatte",
+          "name": "Monte Vidon Combatte",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:marche:cessapalombo",
+          "name": "Cessapalombo",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:marche:sefro",
+          "name": "Sefro",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:marche:montedinove",
+          "name": "Montedinove",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:marche:camporotondo-di-fiastrone",
+          "name": "Camporotondo di Fiastrone",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:marche:moresco",
+          "name": "Moresco",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:marche:gagliole",
+          "name": "Gagliole",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:marche:isola-del-piano",
+          "name": "Isola del Piano",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:marche:montemonaco",
+          "name": "Montemonaco",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:marche:borgo-pace",
+          "name": "Borgo Pace",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:marche:belmonte-piceno",
+          "name": "Belmonte Piceno",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:marche:monte-cerignone",
+          "name": "Monte Cerignone",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:marche:monsampietro-morico",
+          "name": "Monsampietro Morico",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:marche:fiastra",
+          "name": "Fiastra",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:marche:pietrarubbia",
+          "name": "Pietrarubbia",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:marche:monte-vidon-corrado",
+          "name": "Monte Vidon Corrado",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:marche:monte-san-martino",
+          "name": "Monte San Martino",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:marche:poggio-san-marcello",
+          "name": "Poggio San Marcello",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:marche:montelparo",
+          "name": "Montelparo",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:marche:peglio",
+          "name": "Peglio",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:marche:gualdo",
+          "name": "Gualdo",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:marche:belforte-all-isauro",
+          "name": "Belforte all’Isauro",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:marche:ortezzano",
+          "name": "Ortezzano",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:marche:monte-giberto",
+          "name": "Monte Giberto",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:marche:rotella",
+          "name": "Rotella",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:marche:muccia",
+          "name": "Muccia",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:marche:ripe-san-ginesio",
+          "name": "Ripe San Ginesio",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:marche:massa-fermana",
+          "name": "Massa Fermana",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:marche:fratte-rosa",
+          "name": "Fratte Rosa",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:marche:tavoleto",
+          "name": "Tavoleto",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:marche:serra-sant-abbondio",
+          "name": "Serra Sant’Abbondio",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:marche:serrapetrona",
+          "name": "Serrapetrona",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:marche:cossignano",
+          "name": "Cossignano",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:marche:valfornace",
+          "name": "Valfornace",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:marche:montottone",
+          "name": "Montottone",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:marche:penna-san-giovanni",
+          "name": "Penna San Giovanni",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:marche:san-paolo-di-jesi",
+          "name": "San Paolo di Jesi",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:marche:arquata-del-tronto",
+          "name": "Arquata del Tronto",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Molise",
+      "sourceUrl": "https://www.tuttitalia.it/molise/97-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:molise:castelverrino",
+          "name": "Castelverrino",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:molise:provvidenti",
+          "name": "Provvidenti",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:molise:san-biase",
+          "name": "San Biase",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:molise:castelpizzuto",
+          "name": "Castelpizzuto",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:molise:molise",
+          "name": "Molise",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:molise:conca-casale",
+          "name": "Conca Casale",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:molise:pietracupa",
+          "name": "Pietracupa",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:molise:chiauci",
+          "name": "Chiauci",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:molise:castelbottaccio",
+          "name": "Castelbottaccio",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:molise:pescopennataro",
+          "name": "Pescopennataro",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:molise:montelongo",
+          "name": "Montelongo",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:molise:civitacampomarano",
+          "name": "Civitacampomarano",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:molise:montemitro",
+          "name": "Montemitro",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:molise:pizzone",
+          "name": "Pizzone",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:molise:sant-elena-sannita",
+          "name": "Sant’Elena Sannita",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:molise:sant-angelo-limosano",
+          "name": "Sant’Angelo Limosano",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:molise:sant-angelo-del-pesco",
+          "name": "Sant’Angelo del Pesco",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:molise:castel-del-giudice",
+          "name": "Castel del Giudice",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:molise:montorio-nei-frentani",
+          "name": "Montorio nei Frentani",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:molise:acquaviva-d-isernia",
+          "name": "Acquaviva d’Isernia",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:molise:duronia",
+          "name": "Duronia",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:molise:san-pietro-avellana",
+          "name": "San Pietro Avellana",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:molise:lupara",
+          "name": "Lupara",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:molise:ripabottoni",
+          "name": "Ripabottoni",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:molise:castellino-del-biferno",
+          "name": "Castellino del Biferno",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:molise:castel-san-vincenzo",
+          "name": "Castel San Vincenzo",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:molise:casalciprano",
+          "name": "Casalciprano",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:molise:macchia-valfortore",
+          "name": "Macchia Valfortore",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:molise:monacilioni",
+          "name": "Monacilioni",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:molise:pettoranello-del-molise",
+          "name": "Pettoranello del Molise",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:molise:roccasicura",
+          "name": "Roccasicura",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:molise:montenero-val-cocchiara",
+          "name": "Montenero Val Cocchiara",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:molise:san-polo-matese",
+          "name": "San Polo Matese",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:molise:san-giovanni-in-galdo",
+          "name": "San Giovanni in Galdo",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:molise:morrone-del-sannio",
+          "name": "Morrone del Sannio",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:molise:poggio-sannita",
+          "name": "Poggio Sannita",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:molise:san-felice-del-molise",
+          "name": "San Felice del Molise",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:molise:acquaviva-collecroce",
+          "name": "Acquaviva Collecroce",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:molise:tavenna",
+          "name": "Tavenna",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:molise:campochiaro",
+          "name": "Campochiaro",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:molise:scapoli",
+          "name": "Scapoli",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:molise:pietrabbondante",
+          "name": "Pietrabbondante",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:molise:filignano",
+          "name": "Filignano",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:molise:roccavivara",
+          "name": "Roccavivara",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:molise:vastogirardi",
+          "name": "Vastogirardi",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:molise:belmonte-del-sannio",
+          "name": "Belmonte del Sannio",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:molise:bagnoli-del-trigno",
+          "name": "Bagnoli del Trigno",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:molise:lucito",
+          "name": "Lucito",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:molise:longano",
+          "name": "Longano",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:molise:forli-del-sannio",
+          "name": "Forlì del Sannio",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Piemonte",
+      "sourceUrl": "https://www.tuttitalia.it/piemonte/46-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:piemonte:briga-alta",
+          "name": "Briga Alta",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:piemonte:macra",
+          "name": "Macra",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:piemonte:ribordone",
+          "name": "Ribordone",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:piemonte:ingria",
+          "name": "Ingria",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:piemonte:moncenisio",
+          "name": "Moncenisio",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:piemonte:cervatto",
+          "name": "Cervatto",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:piemonte:torresina",
+          "name": "Torresina",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:piemonte:bergolo",
+          "name": "Bergolo",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:piemonte:castelmagno",
+          "name": "Castelmagno",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:piemonte:marmora",
+          "name": "Marmora",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:piemonte:massello",
+          "name": "Massello",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:piemonte:igliano",
+          "name": "Igliano",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:piemonte:isasca",
+          "name": "Isasca",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:piemonte:salza-di-pinerolo",
+          "name": "Salza di Pinerolo",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:piemonte:rassa",
+          "name": "Rassa",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:piemonte:olmo-gentile",
+          "name": "Olmo Gentile",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:piemonte:collobiano",
+          "name": "Collobiano",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:piemonte:pietraporzio",
+          "name": "Pietraporzio",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:piemonte:argentera",
+          "name": "Argentera",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:piemonte:canosio",
+          "name": "Canosio",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:piemonte:carrega-ligure",
+          "name": "Carrega Ligure",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:piemonte:cissone",
+          "name": "Cissone",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:piemonte:caprauna",
+          "name": "Caprauna",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:piemonte:carcoforo",
+          "name": "Carcoforo",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:piemonte:ostana",
+          "name": "Ostana",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:piemonte:malvicino",
+          "name": "Malvicino",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:piemonte:elva",
+          "name": "Elva",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:piemonte:sambuco",
+          "name": "Sambuco",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:piemonte:monasterolo-casotto",
+          "name": "Monasterolo Casotto",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:piemonte:oncino",
+          "name": "Oncino",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:piemonte:celle-di-macra",
+          "name": "Celle di Macra",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:piemonte:roascio",
+          "name": "Roascio",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:piemonte:castellania-coppi",
+          "name": "Castellania Coppi",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:piemonte:intragna",
+          "name": "Intragna",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:piemonte:roaschia",
+          "name": "Roaschia",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:piemonte:sali-vercellese",
+          "name": "Sali Vercellese",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:piemonte:valprato-soana",
+          "name": "Valprato Soana",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:piemonte:valloriate",
+          "name": "Valloriate",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:piemonte:rosazza",
+          "name": "Rosazza",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:piemonte:serole",
+          "name": "Serole",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:piemonte:balme",
+          "name": "Balme",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:piemonte:noasca",
+          "name": "Noasca",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:piemonte:rittana",
+          "name": "Rittana",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:piemonte:san-giorgio-scarampi",
+          "name": "San Giorgio Scarampi",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:piemonte:bellino",
+          "name": "Bellino",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:piemonte:mollia",
+          "name": "Mollia",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:piemonte:bonvicino",
+          "name": "Bonvicino",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:piemonte:castelnuovo-di-ceva",
+          "name": "Castelnuovo di Ceva",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:piemonte:stroppo",
+          "name": "Stroppo",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:piemonte:massiola",
+          "name": "Massiola",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Puglia",
+      "sourceUrl": "https://www.tuttitalia.it/puglia/74-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:puglia:celle-di-san-vito",
+          "name": "Celle di San Vito",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:puglia:volturara-appula",
+          "name": "Volturara Appula",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:puglia:isole-tremiti",
+          "name": "Isole Tremiti",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:puglia:motta-montecorvino",
+          "name": "Motta Montecorvino",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:puglia:faeto",
+          "name": "Faeto",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:puglia:panni",
+          "name": "Panni",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:puglia:carlantino",
+          "name": "Carlantino",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:puglia:san-marco-la-catola",
+          "name": "San Marco la Catola",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:puglia:alberona",
+          "name": "Alberona",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:puglia:monteleone-di-puglia",
+          "name": "Monteleone di Puglia",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:puglia:roseto-valfortore",
+          "name": "Roseto Valfortore",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:puglia:anzano-di-puglia",
+          "name": "Anzano di Puglia",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:puglia:giuggianello",
+          "name": "Giuggianello",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:puglia:castelluccio-valmaggiore",
+          "name": "Castelluccio Valmaggiore",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:puglia:castelnuovo-della-daunia",
+          "name": "Castelnuovo della Daunia",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:puglia:poggiorsini",
+          "name": "Poggiorsini",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:puglia:celenza-valfortore",
+          "name": "Celenza Valfortore",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:puglia:palmariggi",
+          "name": "Palmariggi",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:puglia:casalnuovo-monterotaro",
+          "name": "Casalnuovo Monterotaro",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:puglia:chieuti",
+          "name": "Chieuti",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:puglia:surano",
+          "name": "Surano",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:puglia:sanarica",
+          "name": "Sanarica",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:puglia:volturino",
+          "name": "Volturino",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:puglia:martignano",
+          "name": "Martignano",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:puglia:cannole",
+          "name": "Cannole",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:puglia:rocchetta-sant-antonio",
+          "name": "Rocchetta Sant’Antonio",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:puglia:casalvecchio-di-puglia",
+          "name": "Casalvecchio di Puglia",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:puglia:patu",
+          "name": "Patù",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:puglia:bagnolo-del-salento",
+          "name": "Bagnolo del Salento",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:puglia:rignano-garganico",
+          "name": "Rignano Garganico",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:puglia:roccaforzata",
+          "name": "Roccaforzata",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:puglia:sant-agata-di-puglia",
+          "name": "Sant’Agata di Puglia",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:puglia:secli",
+          "name": "Seclì",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:puglia:zollino",
+          "name": "Zollino",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:puglia:san-cassiano",
+          "name": "San Cassiano",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:puglia:giurdignano",
+          "name": "Giurdignano",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:puglia:castelluccio-dei-sauri",
+          "name": "Castelluccio dei Sauri",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:puglia:sternatia",
+          "name": "Sternatia",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:puglia:nociglia",
+          "name": "Nociglia",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:puglia:melpignano",
+          "name": "Melpignano",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:puglia:binetto",
+          "name": "Binetto",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:puglia:ortelle",
+          "name": "Ortelle",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:puglia:accadia",
+          "name": "Accadia",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:puglia:monteparano",
+          "name": "Monteparano",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:puglia:caprarica-di-lecce",
+          "name": "Caprarica di Lecce",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:puglia:castro",
+          "name": "Castro",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:puglia:pietramontecorvino",
+          "name": "Pietramontecorvino",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:puglia:orsara-di-puglia",
+          "name": "Orsara di Puglia",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:puglia:poggio-imperiale",
+          "name": "Poggio Imperiale",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:puglia:botrugno",
+          "name": "Botrugno",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Sardegna",
+      "sourceUrl": "https://www.tuttitalia.it/sardegna/97-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:sardegna:baradili",
+          "name": "Baradili",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:sardegna:monteleone-rocca-doria",
+          "name": "Monteleone Rocca Doria",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:sardegna:bidoni",
+          "name": "Bidonì",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:sardegna:soddi",
+          "name": "Soddì",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:sardegna:tadasuni",
+          "name": "Tadasuni",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:sardegna:semestene",
+          "name": "Semestene",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:sardegna:setzu",
+          "name": "Setzu",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:sardegna:boroneddu",
+          "name": "Boroneddu",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:sardegna:sennariolo",
+          "name": "Sennariolo",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:sardegna:modolo",
+          "name": "Modolo",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:sardegna:sagama",
+          "name": "Sagama",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:sardegna:las-plassas",
+          "name": "Las Plassas",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:sardegna:osidda",
+          "name": "Osidda",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:sardegna:pompu",
+          "name": "Pompu",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:sardegna:albagiara",
+          "name": "Albagiara",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:sardegna:siris",
+          "name": "Siris",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:sardegna:tinnura",
+          "name": "Tinnura",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:sardegna:borutta",
+          "name": "Borutta",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:sardegna:villa-verde",
+          "name": "Villa Verde",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:sardegna:noragugume",
+          "name": "Noragugume",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:sardegna:pau",
+          "name": "Pau",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:sardegna:simala",
+          "name": "Simala",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:sardegna:nureci",
+          "name": "Nureci",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:sardegna:villanova-truschedu",
+          "name": "Villanova Truschedu",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:sardegna:curcuris",
+          "name": "Curcuris",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:sardegna:lodine",
+          "name": "Lodine",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:sardegna:asuni",
+          "name": "Asuni",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:sardegna:genuri",
+          "name": "Genuri",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:sardegna:villa-sant-antonio",
+          "name": "Villa Sant’Antonio",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:sardegna:assolo",
+          "name": "Assolo",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:sardegna:allai",
+          "name": "Allai",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:sardegna:sorradile",
+          "name": "Sorradile",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:sardegna:siapiccia",
+          "name": "Siapiccia",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:sardegna:onani",
+          "name": "Onanì",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:sardegna:esporlatu",
+          "name": "Esporlatu",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:sardegna:bessude",
+          "name": "Bessude",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:sardegna:senis",
+          "name": "Senis",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:sardegna:aidomaggiore",
+          "name": "Aidomaggiore",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:sardegna:turri",
+          "name": "Turri",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:sardegna:cheremule",
+          "name": "Cheremule",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:sardegna:flussio",
+          "name": "Flussio",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:sardegna:mogorella",
+          "name": "Mogorella",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:sardegna:armungia",
+          "name": "Armungia",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:sardegna:tiana",
+          "name": "Tiana",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:sardegna:gonnoscodina",
+          "name": "Gonnoscodina",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:sardegna:nughedu-santa-vittoria",
+          "name": "Nughedu Santa Vittoria",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:sardegna:ussassai",
+          "name": "Ussassai",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:sardegna:lei",
+          "name": "Lei",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:sardegna:goni",
+          "name": "Goni",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:sardegna:montresta",
+          "name": "Montresta",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Sicilia",
+      "sourceUrl": "https://www.tuttitalia.it/sicilia/26-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:sicilia:roccafiorita",
+          "name": "Roccafiorita",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:sicilia:gallodoro",
+          "name": "Gallodoro",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:sicilia:sclafani-bagni",
+          "name": "Sclafani Bagni",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:sicilia:campofelice-di-fitalia",
+          "name": "Campofelice di Fitalia",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:sicilia:floresta",
+          "name": "Floresta",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:sicilia:bompensiere",
+          "name": "Bompensiere",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:sicilia:mandanici",
+          "name": "Mandanici",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:sicilia:condro",
+          "name": "Condrò",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:sicilia:mongiuffi-melia",
+          "name": "Mongiuffi Melia",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:sicilia:frazzano",
+          "name": "Frazzanò",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:sicilia:roccella-valdemone",
+          "name": "Roccella Valdemone",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:sicilia:scillato",
+          "name": "Scillato",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:sicilia:malvagna",
+          "name": "Malvagna",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:sicilia:ali",
+          "name": "Alì",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:sicilia:basico",
+          "name": "Basicò",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:sicilia:sperlinga",
+          "name": "Sperlinga",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:sicilia:motta-d-affermo",
+          "name": "Motta d’Affermo",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:sicilia:leni",
+          "name": "Leni",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:sicilia:casalvecchio-siculo",
+          "name": "Casalvecchio Siculo",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:sicilia:moio-alcantara",
+          "name": "Moio Alcantara",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:sicilia:limina",
+          "name": "Limina",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:sicilia:tripi-abakainon",
+          "name": "Tripi - Abakainon",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:sicilia:reitano",
+          "name": "Reitano",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:sicilia:cassaro",
+          "name": "Cassaro",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:sicilia:motta-camastra",
+          "name": "Motta Camastra",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:sicilia:antillo",
+          "name": "Antillo",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:sicilia:acquaviva-platani",
+          "name": "Acquaviva Platani",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:sicilia:blufi",
+          "name": "Blufi",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:sicilia:raccuja",
+          "name": "Raccuja",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:sicilia:ucria",
+          "name": "Ucria",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:sicilia:mirto",
+          "name": "Mirto",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:sicilia:gratteri",
+          "name": "Gratteri",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:sicilia:santa-domenica-vittoria",
+          "name": "Santa Domenica Vittoria",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:sicilia:santa-marina-salina",
+          "name": "Santa Marina Salina",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:sicilia:forza-d-agro",
+          "name": "Forza d’Agrò",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:sicilia:comitini",
+          "name": "Comitini",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:sicilia:buscemi",
+          "name": "Buscemi",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:sicilia:cefala-diana",
+          "name": "Cefalà Diana",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:sicilia:roccavaldina",
+          "name": "Roccavaldina",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:sicilia:godrano",
+          "name": "Godrano",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:sicilia:malfa",
+          "name": "Malfa",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:sicilia:aliminusa",
+          "name": "Aliminusa",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:sicilia:santa-cristina-gela",
+          "name": "Santa Cristina Gela",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:sicilia:milo",
+          "name": "Milo",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:sicilia:novara-di-sicilia",
+          "name": "Novara di Sicilia",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:sicilia:fondachelli-fantina",
+          "name": "Fondachelli-Fantina",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:sicilia:joppolo-giancaxio",
+          "name": "Joppolo Giancaxio",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:sicilia:castelmola",
+          "name": "Castelmola",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:sicilia:sutera",
+          "name": "Sutera",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:sicilia:pagliara",
+          "name": "Pagliara",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Toscana",
+      "sourceUrl": "https://www.tuttitalia.it/toscana/19-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:toscana:capraia-isola",
+          "name": "Capraia Isola",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:toscana:careggine",
+          "name": "Careggine",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:toscana:montemignaio",
+          "name": "Montemignaio",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:toscana:fosciandora",
+          "name": "Fosciandora",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:toscana:sassetta",
+          "name": "Sassetta",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:toscana:orciano-pisano",
+          "name": "Orciano Pisano",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:toscana:comano",
+          "name": "Comano",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:toscana:fabbriche-di-vergemoli",
+          "name": "Fabbriche di Vergemoli",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:toscana:vagli-sotto",
+          "name": "Vagli Sotto",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:toscana:monteverdi-marittimo",
+          "name": "Monteverdi Marittimo",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:toscana:ortignano-raggiolo",
+          "name": "Ortignano Raggiolo",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:toscana:chitignano",
+          "name": "Chitignano",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:toscana:zeri",
+          "name": "Zeri",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:toscana:casola-in-lunigiana",
+          "name": "Casola in Lunigiana",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:toscana:roccalbegna",
+          "name": "Roccalbegna",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:toscana:badia-tedalda",
+          "name": "Badia Tedalda",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:toscana:molazzana",
+          "name": "Molazzana",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:toscana:talla",
+          "name": "Talla",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:toscana:sillano-giuncugnano",
+          "name": "Sillano Giuncugnano",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:toscana:radicondoli",
+          "name": "Radicondoli",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:toscana:semproniano",
+          "name": "Semproniano",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:toscana:radicofani",
+          "name": "Radicofani",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:toscana:casale-marittimo",
+          "name": "Casale Marittimo",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:toscana:seggiano",
+          "name": "Seggiano",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:toscana:palazzuolo-sul-senio",
+          "name": "Palazzuolo sul Senio",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:toscana:san-godenzo",
+          "name": "San Godenzo",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:toscana:trequanda",
+          "name": "Trequanda",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:toscana:sestino",
+          "name": "Sestino",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:toscana:villa-collemandina",
+          "name": "Villa Collemandina",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:toscana:montieri",
+          "name": "Montieri",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:toscana:guardistallo",
+          "name": "Guardistallo",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:toscana:lajatico",
+          "name": "Lajatico",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:toscana:castell-azzara",
+          "name": "Castell’Azzara",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:toscana:monterotondo-marittimo",
+          "name": "Monterotondo Marittimo",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:toscana:chianni",
+          "name": "Chianni",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:toscana:isola-del-giglio",
+          "name": "Isola del Giglio",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:toscana:san-romano-in-garfagnana",
+          "name": "San Romano in Garfagnana",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:toscana:caprese-michelangelo",
+          "name": "Caprese Michelangelo",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:toscana:sambuca-pistoiese",
+          "name": "Sambuca Pistoiese",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:toscana:san-casciano-dei-bagni",
+          "name": "San Casciano dei Bagni",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:toscana:radda-in-chianti",
+          "name": "Radda in Chianti",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:toscana:villa-basilica",
+          "name": "Villa Basilica",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:toscana:santa-luce",
+          "name": "Santa Luce",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:toscana:monticiano",
+          "name": "Monticiano",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:toscana:castiglione-di-garfagnana",
+          "name": "Castiglione di Garfagnana",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:toscana:bagnone",
+          "name": "Bagnone",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:toscana:montecatini-val-di-cecina",
+          "name": "Montecatini Val di Cecina",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:toscana:riparbella",
+          "name": "Riparbella",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:toscana:chiusdino",
+          "name": "Chiusdino",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:toscana:minucciano",
+          "name": "Minucciano",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Trentino-Alto Adige",
+      "sourceUrl": "https://www.tuttitalia.it/trentino-alto-adige/77-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:trentino-alto-adige:massimeno",
+          "name": "Massimeno",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:sagron-mis",
+          "name": "Sagron Mis",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:palu-del-fersina",
+          "name": "Palù del Fersina",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:castel-condino",
+          "name": "Castel Condino",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:vignola-falesina",
+          "name": "Vignola-Falesina",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:cavizzana",
+          "name": "Cavizzana",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:bresimo",
+          "name": "Bresimo",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:proves",
+          "name": "Proves",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:luserna",
+          "name": "Luserna",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:ponte-gardena",
+          "name": "Ponte Gardena",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:cis",
+          "name": "Cis",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:lauregno",
+          "name": "Lauregno",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:frassilongo",
+          "name": "Frassilongo",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:cinte-tesino",
+          "name": "Cinte Tesino",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:sfruz",
+          "name": "Sfruz",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:caines",
+          "name": "Caines",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:anterivo",
+          "name": "Anterivo",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:pelugo",
+          "name": "Pelugo",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:dambel",
+          "name": "Dambel",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:ruffre-mendola",
+          "name": "Ruffrè-Mendola",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:bocenago",
+          "name": "Bocenago",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:garniga-terme",
+          "name": "Garniga Terme",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:ronchi-valsugana",
+          "name": "Ronchi Valsugana",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:fierozzo",
+          "name": "Fierozzo",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:valfloriana",
+          "name": "Valfloriana",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:bieno",
+          "name": "Bieno",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:predoi",
+          "name": "Predoi",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:ronzone",
+          "name": "Ronzone",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:carzano",
+          "name": "Carzano",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:samone",
+          "name": "Samone",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:amblar-don",
+          "name": "Amblar-Don",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:strembo",
+          "name": "Strembo",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:capriana",
+          "name": "Capriana",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:cavedago",
+          "name": "Cavedago",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:drena",
+          "name": "Drena",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:mazzin",
+          "name": "Mazzin",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:telve-di-sopra",
+          "name": "Telve di Sopra",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:bondone",
+          "name": "Bondone",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:terzolas",
+          "name": "Terzolas",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:campitello-di-fassa",
+          "name": "Campitello di Fassa",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:pieve-tesino",
+          "name": "Pieve Tesino",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:cortina-sulla-strada-del-vino",
+          "name": "Cortina sulla Strada del Vino",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:croviana",
+          "name": "Croviana",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:braies",
+          "name": "Braies",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:caderzone-terme",
+          "name": "Caderzone Terme",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:terragnolo",
+          "name": "Terragnolo",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:torcegno",
+          "name": "Torcegno",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:soraga-di-fassa",
+          "name": "Soraga di Fassa",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:sporminore",
+          "name": "Sporminore",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:trentino-alto-adige:borgo-lares",
+          "name": "Borgo Lares",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Umbria",
+      "sourceUrl": "https://www.tuttitalia.it/umbria/19-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:umbria:poggiodomo",
+          "name": "Poggiodomo",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:umbria:polino",
+          "name": "Polino",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:umbria:vallo-di-nera",
+          "name": "Vallo di Nera",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:umbria:scheggino",
+          "name": "Scheggino",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:umbria:sant-anatolia-di-narco",
+          "name": "Sant’Anatolia di Narco",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:umbria:parrano",
+          "name": "Parrano",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:umbria:monteleone-di-spoleto",
+          "name": "Monteleone di Spoleto",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:umbria:lisciano-niccone",
+          "name": "Lisciano Niccone",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:umbria:preci",
+          "name": "Preci",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:umbria:sellano",
+          "name": "Sellano",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:umbria:paciano",
+          "name": "Paciano",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:umbria:cerreto-di-spoleto",
+          "name": "Cerreto di Spoleto",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:umbria:costacciaro",
+          "name": "Costacciaro",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:umbria:penna-in-teverina",
+          "name": "Penna in Teverina",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:umbria:monte-santa-maria-tiberina",
+          "name": "Monte Santa Maria Tiberina",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:umbria:montegabbione",
+          "name": "Montegabbione",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:umbria:scheggia-e-pascelupo",
+          "name": "Scheggia e Pascelupo",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:umbria:montefranco",
+          "name": "Montefranco",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:umbria:valtopina",
+          "name": "Valtopina",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:umbria:alviano",
+          "name": "Alviano",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:umbria:monteleone-d-orvieto",
+          "name": "Monteleone d’Orvieto",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:umbria:monte-castello-di-vibio",
+          "name": "Monte Castello di Vibio",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:umbria:lugnano-in-teverina",
+          "name": "Lugnano in Teverina",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:umbria:montecchio",
+          "name": "Montecchio",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:umbria:montone",
+          "name": "Montone",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:umbria:ficulle",
+          "name": "Ficulle",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:umbria:calvi-dell-umbria",
+          "name": "Calvi dell’Umbria",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:umbria:allerona",
+          "name": "Allerona",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:umbria:guardea",
+          "name": "Guardea",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:umbria:otricoli",
+          "name": "Otricoli",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:umbria:ferentillo",
+          "name": "Ferentillo",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:umbria:porano",
+          "name": "Porano",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:umbria:giove",
+          "name": "Giove",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:umbria:fratta-todina",
+          "name": "Fratta Todina",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:umbria:attigliano",
+          "name": "Attigliano",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:umbria:castel-giorgio",
+          "name": "Castel Giorgio",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:umbria:pietralunga",
+          "name": "Pietralunga",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:umbria:san-venanzo",
+          "name": "San Venanzo",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:umbria:sigillo",
+          "name": "Sigillo",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:umbria:avigliano-umbro",
+          "name": "Avigliano Umbro",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:umbria:campello-sul-clitunno",
+          "name": "Campello sul Clitunno",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:umbria:arrone",
+          "name": "Arrone",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:umbria:baschi",
+          "name": "Baschi",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:umbria:fabro",
+          "name": "Fabro",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:umbria:fossato-di-vico",
+          "name": "Fossato di Vico",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:umbria:castel-viscardo",
+          "name": "Castel Viscardo",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:umbria:cascia",
+          "name": "Cascia",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:umbria:castel-ritaldi",
+          "name": "Castel Ritaldi",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:umbria:valfabbrica",
+          "name": "Valfabbrica",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:umbria:collazzone",
+          "name": "Collazzone",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Valle d’Aosta",
+      "sourceUrl": "https://www.tuttitalia.it/valle-d-aosta/35-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:valle-d-aosta:rhemes-notre-dame",
+          "name": "Rhêmes-Notre-Dame",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:bard",
+          "name": "Bard",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:la-magdeleine",
+          "name": "La Magdeleine",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:chamois",
+          "name": "Chamois",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:valsavarenche",
+          "name": "Valsavarenche",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:rhemes-saint-georges",
+          "name": "Rhêmes-Saint-Georges",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:ollomont",
+          "name": "Ollomont",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:pontboset",
+          "name": "Pontboset",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:saint-oyen",
+          "name": "Saint-Oyen",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:valgrisenche",
+          "name": "Valgrisenche",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:allein",
+          "name": "Allein",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:oyace",
+          "name": "Oyace",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:bionaz",
+          "name": "Bionaz",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:emarese",
+          "name": "Emarèse",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:avise",
+          "name": "Avise",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:gressoney-la-trinite",
+          "name": "Gressoney-La-Trinité",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:saint-nicolas",
+          "name": "Saint-Nicolas",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:saint-rhemy-en-bosses",
+          "name": "Saint-Rhémy-en-Bosses",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:champorcher",
+          "name": "Champorcher",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:saint-denis",
+          "name": "Saint-Denis",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:issime",
+          "name": "Issime",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:gaby",
+          "name": "Gaby",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:lillianes",
+          "name": "Lillianes",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:fontainemore",
+          "name": "Fontainemore",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:perloz",
+          "name": "Perloz",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:etroubles",
+          "name": "Etroubles",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:doues",
+          "name": "Doues",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:antey-saint-andre",
+          "name": "Antey-Saint-André",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:torgnon",
+          "name": "Torgnon",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:valpelline",
+          "name": "Valpelline",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:challand-saint-victor",
+          "name": "Challand-Saint-Victor",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:introd",
+          "name": "Introd",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:jovencan",
+          "name": "Jovençan",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:champdepraz",
+          "name": "Champdepraz",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:la-thuile",
+          "name": "La Thuile",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:challand-saint-anselme",
+          "name": "Challand-Saint-Anselme",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:gressoney-saint-jean",
+          "name": "Gressoney-Saint-Jean",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:pontey",
+          "name": "Pontey",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:arvier",
+          "name": "Arvier",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:brusson",
+          "name": "Brusson",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:chambave",
+          "name": "Chambave",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:pre-saint-didier",
+          "name": "Pré-Saint-Didier",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:brissogne",
+          "name": "Brissogne",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:roisan",
+          "name": "Roisan",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:hone",
+          "name": "Hône",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:arnad",
+          "name": "Arnad",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:verrayes",
+          "name": "Verrayes",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:villeneuve",
+          "name": "Villeneuve",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:issogne",
+          "name": "Issogne",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:valle-d-aosta:saint-marcel",
+          "name": "Saint-Marcel",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    },
+    {
+      "region": "Veneto",
+      "sourceUrl": "https://www.tuttitalia.it/veneto/38-comuni/popolazione/",
+      "order": "ascending_population_as_supplied",
+      "candidates": [
+        {
+          "candidateId": "proposed:veneto:laghi",
+          "name": "Laghi",
+          "regionRankAsSupplied": 1
+        },
+        {
+          "candidateId": "proposed:veneto:lastebasse",
+          "name": "Lastebasse",
+          "regionRankAsSupplied": 2
+        },
+        {
+          "candidateId": "proposed:veneto:zoppe-di-cadore",
+          "name": "Zoppè di Cadore",
+          "regionRankAsSupplied": 3
+        },
+        {
+          "candidateId": "proposed:veneto:ospitale-di-cadore",
+          "name": "Ospitale di Cadore",
+          "regionRankAsSupplied": 4
+        },
+        {
+          "candidateId": "proposed:veneto:ferrara-di-monte-baldo",
+          "name": "Ferrara di Monte Baldo",
+          "regionRankAsSupplied": 5
+        },
+        {
+          "candidateId": "proposed:veneto:cibiana-di-cadore",
+          "name": "Cibiana di Cadore",
+          "regionRankAsSupplied": 6
+        },
+        {
+          "candidateId": "proposed:veneto:colle-santa-lucia",
+          "name": "Colle Santa Lucia",
+          "regionRankAsSupplied": 7
+        },
+        {
+          "candidateId": "proposed:veneto:perarolo-di-cadore",
+          "name": "Perarolo di Cadore",
+          "regionRankAsSupplied": 8
+        },
+        {
+          "candidateId": "proposed:veneto:soverzene",
+          "name": "Soverzene",
+          "regionRankAsSupplied": 9
+        },
+        {
+          "candidateId": "proposed:veneto:san-nicolo-di-comelico",
+          "name": "San Nicolò di Comelico",
+          "regionRankAsSupplied": 10
+        },
+        {
+          "candidateId": "proposed:veneto:danta-di-cadore",
+          "name": "Danta di Cadore",
+          "regionRankAsSupplied": 11
+        },
+        {
+          "candidateId": "proposed:veneto:vallada-agordina",
+          "name": "Vallada Agordina",
+          "regionRankAsSupplied": 12
+        },
+        {
+          "candidateId": "proposed:veneto:selva-di-cadore",
+          "name": "Selva di Cadore",
+          "regionRankAsSupplied": 13
+        },
+        {
+          "candidateId": "proposed:veneto:tonezza-del-cimone",
+          "name": "Tonezza del Cimone",
+          "regionRankAsSupplied": 14
+        },
+        {
+          "candidateId": "proposed:veneto:gosaldo",
+          "name": "Gosaldo",
+          "regionRankAsSupplied": 15
+        },
+        {
+          "candidateId": "proposed:veneto:lorenzago-di-cadore",
+          "name": "Lorenzago di Cadore",
+          "regionRankAsSupplied": 16
+        },
+        {
+          "candidateId": "proposed:veneto:barbona",
+          "name": "Barbona",
+          "regionRankAsSupplied": 17
+        },
+        {
+          "candidateId": "proposed:veneto:posina",
+          "name": "Posina",
+          "regionRankAsSupplied": 18
+        },
+        {
+          "candidateId": "proposed:veneto:rivamonte-agordino",
+          "name": "Rivamonte Agordino",
+          "regionRankAsSupplied": 19
+        },
+        {
+          "candidateId": "proposed:veneto:san-tomaso-agordino",
+          "name": "San Tomaso Agordino",
+          "regionRankAsSupplied": 20
+        },
+        {
+          "candidateId": "proposed:veneto:san-mauro-di-saline",
+          "name": "San Mauro di Saline",
+          "regionRankAsSupplied": 21
+        },
+        {
+          "candidateId": "proposed:veneto:rotzo",
+          "name": "Rotzo",
+          "regionRankAsSupplied": 22
+        },
+        {
+          "candidateId": "proposed:veneto:foza",
+          "name": "Foza",
+          "regionRankAsSupplied": 23
+        },
+        {
+          "candidateId": "proposed:veneto:pedemonte",
+          "name": "Pedemonte",
+          "regionRankAsSupplied": 24
+        },
+        {
+          "candidateId": "proposed:veneto:calto",
+          "name": "Calto",
+          "regionRankAsSupplied": 25
+        },
+        {
+          "candidateId": "proposed:veneto:portobuffole",
+          "name": "Portobuffolè",
+          "regionRankAsSupplied": 26
+        },
+        {
+          "candidateId": "proposed:veneto:velo-veronese",
+          "name": "Velo Veronese",
+          "regionRankAsSupplied": 27
+        },
+        {
+          "candidateId": "proposed:veneto:voltago-agordino",
+          "name": "Voltago Agordino",
+          "regionRankAsSupplied": 28
+        },
+        {
+          "candidateId": "proposed:veneto:borca-di-cadore",
+          "name": "Borca di Cadore",
+          "regionRankAsSupplied": 29
+        },
+        {
+          "candidateId": "proposed:veneto:canda",
+          "name": "Canda",
+          "regionRankAsSupplied": 30
+        },
+        {
+          "candidateId": "proposed:veneto:zovencedo",
+          "name": "Zovencedo",
+          "regionRankAsSupplied": 31
+        },
+        {
+          "candidateId": "proposed:veneto:vodo-cadore",
+          "name": "Vodo Cadore",
+          "regionRankAsSupplied": 32
+        },
+        {
+          "candidateId": "proposed:veneto:asigliano-veneto",
+          "name": "Asigliano Veneto",
+          "regionRankAsSupplied": 33
+        },
+        {
+          "candidateId": "proposed:veneto:erbezzo",
+          "name": "Erbezzo",
+          "regionRankAsSupplied": 34
+        },
+        {
+          "candidateId": "proposed:veneto:villanova-marchesana",
+          "name": "Villanova Marchesana",
+          "regionRankAsSupplied": 35
+        },
+        {
+          "candidateId": "proposed:veneto:selva-di-progno",
+          "name": "Selva di Progno",
+          "regionRankAsSupplied": 36
+        },
+        {
+          "candidateId": "proposed:veneto:gaiba",
+          "name": "Gaiba",
+          "regionRankAsSupplied": 37
+        },
+        {
+          "candidateId": "proposed:veneto:salcedo",
+          "name": "Salcedo",
+          "regionRankAsSupplied": 38
+        },
+        {
+          "candidateId": "proposed:veneto:salara",
+          "name": "Salara",
+          "regionRankAsSupplied": 39
+        },
+        {
+          "candidateId": "proposed:veneto:la-valle-agordina",
+          "name": "La Valle Agordina",
+          "regionRankAsSupplied": 40
+        },
+        {
+          "candidateId": "proposed:veneto:canale-d-agordo",
+          "name": "Canale d’Agordo",
+          "regionRankAsSupplied": 41
+        },
+        {
+          "candidateId": "proposed:veneto:concamarise",
+          "name": "Concamarise",
+          "regionRankAsSupplied": 42
+        },
+        {
+          "candidateId": "proposed:veneto:pincara",
+          "name": "Pincara",
+          "regionRankAsSupplied": 43
+        },
+        {
+          "candidateId": "proposed:veneto:alleghe",
+          "name": "Alleghe",
+          "regionRankAsSupplied": 44
+        },
+        {
+          "candidateId": "proposed:veneto:san-bellino",
+          "name": "San Bellino",
+          "regionRankAsSupplied": 45
+        },
+        {
+          "candidateId": "proposed:veneto:guarda-veneta",
+          "name": "Guarda Veneta",
+          "regionRankAsSupplied": 46
+        },
+        {
+          "candidateId": "proposed:veneto:villamarzana",
+          "name": "Villamarzana",
+          "regionRankAsSupplied": 47
+        },
+        {
+          "candidateId": "proposed:veneto:rocca-pietore",
+          "name": "Rocca Pietore",
+          "regionRankAsSupplied": 48
+        },
+        {
+          "candidateId": "proposed:veneto:valdastico",
+          "name": "Valdastico",
+          "regionRankAsSupplied": 49
+        },
+        {
+          "candidateId": "proposed:veneto:palu",
+          "name": "Palù",
+          "regionRankAsSupplied": 50
+        }
+      ]
+    }
+  ]
+}
