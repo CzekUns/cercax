@@ -57,3 +57,16 @@ Comando riproducibile nella directory del modulo: node --test. Usare anche la de
 07 saves coach.employmentHistory, hiredSeason and contract.until and can normalize through createCoach; 09 functions return fresh Club/Coach objects and 07 must replace the stored object with result.club/result.coach. No modifications to career.js from agent 09.
 
 QA commands (from module folder): node --test ; tests use actual ../career modules and ../../content/presidents.json. UI/game integration is not part of this R02 cycle.
+
+
+## Accordo R04-1 / R04-2 con l'Agente 07 — migration guard
+
+**Un unico dominio temporale per tutti i registri di uno stesso Club:** preferenza `absoluteWeek` monotono del mondo Career 07, con chiavi `a:N`. La modalità anno+settimana `s:YYYY:w:N` è alternativa completa; le vecchie chiavi numeriche `N` non possono convivere con nessuna delle due. Per R04 nessuna conversione implicita dal `week` legacy alla settimana assoluta.
+
+L'Agente 07, nel proprio `compat.js` e nella migrazione save, deve trasformare/attestare insieme: `finance.settledWeeks`, `finance.transactions[].periodKey`, `board.results[].periodKey`, i `board.notices` con significato di periodo (meeting/media/event/dismissal), `board.promises` con deadline, e `board.eventsUsed` con cooldown. Preservare importi `cash/arrears`, ID, esiti, ordini ed eventuali promesse già concluse. Se la stagione di origine di un vecchio week non è ricostruibile da metadati affidabili, il consumer deve bloccare la partita importata e segnalare la migrazione necessaria senza addebiti.
+
+L'Agente 09 impone il gate tramite `periodLedgerError(club,period)` prima delle mutazioni. `settleWeek`, `conveneBoard`, `reviewMatch`, `answerBoardRequest`, `applyClubEvent` restituiscono `accepted:false, reason:'period_migration_required'` in caso di dominio misto; `book` e `resolvePromises` lanciano errore (API storicamente senza esito condizionale in quel percorso). `endClubWeek` propaga il rifiuto di `settleWeek`. Nessuna mutazione né credito automatico. Test negative V1/V2 inclusi in `period-r04.test.js`.
+
+**Paghe R04-2:** `compat-r02.test.js` legge gli ID presidente e i contratti salariali **reali** prodotti da `newCareer` R02; `contractPayroll` è calcolato dalla rosa, poi confrontato con `weeklyPayroll`. Il test non scrive più stipendi a 100 lire né forza il profilo Venturi e non presume un fisso di 1.600 ITL. Per test di scenario multi-stagione non si accreditano sponsor/ricavi senza evento.
+
+**Interoperabilità:** il doppio ciclo su 104 club richiede che 07 passi `{week: state.week,absoluteWeek: state.absoluteWeek,seasonYear: state.seasonYear}` per ogni chiamata e riassegni ogni `result.club`. Dopo save/load la stessa settimana deve rispondere `week_already_settled`, ma un ledger precedente mai migrato deve rispondere `period_migration_required`. Le attività R03 (shouts permanenti, morale, papponeria) restano escluse.
