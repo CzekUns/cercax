@@ -153,3 +153,11 @@ L'Agente 07 ha consegnato la correzione del test `r02-cross.test.mjs` nella [PR 
 - **#33 UI (Agente 03)**: `WAIT_REVIEW_R07`, PR aperta, HEAD noto `c38be80c392939d042dd998e6d1bf655c259804d`. Unico gate ora necessario all'utente per avviare runtime: controllo screenshot/Chromium/3 viewport/touch/asset reale/leggibilità, poi merge solo dietro mandato in chat 00.
 - **Dopo merge #33**: NEXT 03 runtime da emettere da 10, branch nuovo `agent/oronzo-ui-r03-runtime`, UI vera collegata a `oronzo/app/flow/controller.js` e ai moduli già mergiati. Test sul telefono in versione tecnica con *località sintetiche chiaramente etichettate*, non dati di produzione.
 - **#28/#29/#12/#31/#35** non bloccano questo primo playtest funzionale; restano in review nei loro scope.
+
+## ORONZO POST R07B — GATE SUPERATO, NUOVO RUNTIME R03 03 AUTORIZZATO (7 novembre 2026)
+
+- **#33 MERGED** `c019d511af89eb54851b3743fba598254d59707f`; [REPORT-R07B](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r07b/oronzo/coordination/coerentizzatore/REPORT-R07B.md): 6/6 percorsi Chromium HTTP **prima e dopo merge**; tasto Carica 44px, toast non occlusivo, asset e regressioni PASS; nessun Android fisico/deploy Pages certificato.
+- **#38/#39 MERGED**, R06B 97/97 Node PASS; career 1979+morale già integrati e validati headless.
+- **Nuovo incarico correntemente READY** soltanto **Agente 03**: `oronzo/coordination/03-ui/NEXT.md` R03 runtime giocabile, branch nuovo `agent/oronzo-ui-r03-runtime`, PR nuova. Scope originariamente riservato ora AUTORIZZATO in `03-ui/IDENTITY.md` e `RUN.md`. Nessun implementatore altro agente.
+- **Gate successivo dopo la PR runtime 03:** Agente 00 R08 sul percorso gioco vero (controller07/Coach09/Copy04/Match06/UI/Save), Chromium HTTP/touch tre risoluzioni; merge successivo solo con permesso utente.
+- Prima prova personale ammessa **solo come demo tecnica chiaramente etichettata** con località sintetiche; dati geografici M1 ancora assenti. Non confondere kit UI mergiato con runtime funzionante.
