@@ -1,0 +1,1309 @@
+{
+  "schemaVersion": 2,
+  "setting": "dal 1979",
+  "scope": "allenatore -> un singolo calciatore",
+  "shouts": [
+    {
+      "id": "sh_after_error_encourage_1",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "La prossima palla è tua. Rialza la testa.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_after_error_encourage_2",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Hai capito l'errore. Adesso gioca semplice.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_after_error_encourage_3",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Ci sei ancora. Scegli bene il prossimo passaggio.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_after_error_encourage_4",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Guarda avanti. Hai tempo per rimediare.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_after_error_reprimand_1",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Non sparire dopo l'errore. Fatti vedere.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_after_error_reprimand_2",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Basta con le scuse. Torna nella tua posizione.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_after_error_reprimand_3",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "La palla è persa. Il recupero dipende da te.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_after_error_reprimand_4",
+      "target": "single_player",
+      "situation": "after_error",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Serve attenzione, subito. Il resto dopo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_encourage_1",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "L'occasione l'hai trovata. Continua a cercarla.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_encourage_2",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Hai fatto il movimento giusto. Riprova.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_encourage_3",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non forzare il prossimo tiro. Guarda il portiere.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_encourage_4",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Sei arrivato lì. Ci puoi tornare.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_reprimand_1",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Alza la testa prima di tirare.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_reprimand_2",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non buttare via una buona azione per la fretta.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_reprimand_3",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Se il compagno è libero, passagli il pallone.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_missed_chance_reprimand_4",
+      "target": "single_player",
+      "situation": "missed_chance",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Il prossimo pallone va giocato con criterio.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_encourage_1",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Prenditi un tocco in più, se serve.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_encourage_2",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Cerca il compagno vicino. La giocata arriverà.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_encourage_3",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non devi inventare tutto tu.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_encourage_4",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Guarda il campo e usa il passaggio facile.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_reprimand_1",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Così regaliamo il pallone.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_reprimand_2",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non tentare il passaggio se non vedi la linea.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_reprimand_3",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Fermati un momento e scegli.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_bad_pass_reprimand_4",
+      "target": "single_player",
+      "situation": "bad_pass",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Hai un compagno a cinque metri. Usalo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_encourage_1",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Gestisci il fiato. Non devi correre da solo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_encourage_2",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Respira e resta vicino al compagno.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_encourage_3",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Se hai bisogno, dimmelo dalla fascia.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_encourage_4",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Conserva energie per l'azione utile.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_reprimand_1",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Non inseguire ogni palla senza criterio.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_reprimand_2",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Se non reggi il ritmo, avvisami subito.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_reprimand_3",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Fai il movimento necessario, niente giri a vuoto.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_tired_reprimand_4",
+      "target": "single_player",
+      "situation": "tired",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Non lasciare il reparto scoperto per stanchezza.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_encourage_1",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Non ascoltare le proteste. Guarda il gioco.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_encourage_2",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Il primo contrasto è passato. Calmati.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_encourage_3",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Respira. Ti serve la testa lucida.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_encourage_4",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Il pallone non sa se sei nervoso.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_reprimand_1",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Basta discutere. Rimettiti in posizione.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_reprimand_2",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Lascia parlare l'arbitro e pensa a giocare.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_reprimand_3",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Un'altra protesta e perdiamo tempo utile.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_nervous_reprimand_4",
+      "target": "single_player",
+      "situation": "nervous",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Se perdi il controllo, fai male alla squadra.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_encourage_1",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Bel movimento. Rifallo quando c'è spazio.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_encourage_2",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Hai trovato la corsia. Tienila d'occhio.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_encourage_3",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Bravo a seguire l'azione fino in fondo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_encourage_4",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Continua così, ma guarda anche chi ti copre.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_reprimand_1",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Bene lo scatto, ma poi torna nel ruolo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_reprimand_2",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non basta correre: serve scegliere dove.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_reprimand_3",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Il compagno ti copre una volta, non sempre.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_good_run_reprimand_4",
+      "target": "single_player",
+      "situation": "good_run",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Non uscire dalla posizione senza un motivo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_encourage_1",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Ritrova la distanza dal tuo uomo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_encourage_2",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Non inseguirlo da dietro. Chiudi la linea.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_encourage_3",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Hai tempo per rimetterti tra lui e la porta.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_encourage_4",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Parla col compagno e ricomponetevi.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_reprimand_1",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "L'hai perso di vista. Non succeda ancora.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_reprimand_2",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Il tuo uomo era solo. Controllalo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_reprimand_3",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non guardare soltanto il pallone.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_lost_mark_reprimand_4",
+      "target": "single_player",
+      "situation": "lost_mark",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Se sbagli la marcatura, avvisa chi ti copre.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_encourage_1",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Grande intervento. Rimetti ordine davanti.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_encourage_2",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Bravo. Adesso pensa alla ripresa del gioco.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_encourage_3",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Una parata fatta bene. Non perdere concentrazione.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_encourage_4",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Ci hai tenuti lì. Parla con la difesa.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_reprimand_1",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Ottima parata, ma sistema subito la barriera.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_reprimand_2",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "La respinta deve essere più lontana, se puoi.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_reprimand_3",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non guardare la tribuna, ordina la difesa.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_keeper_save_reprimand_4",
+      "target": "single_player",
+      "situation": "keeper_save",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Il secondo pallone è ancora pericoloso.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_encourage_1",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Ancora qualche minuto. Restate lucidi.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_encourage_2",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Non hai finito. C'è un'azione da giocare.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_encourage_3",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Pensa alla palla che arriva, non al tempo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_encourage_4",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Siamo ancora in partita. Resta con noi.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_reprimand_1",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Niente fretta inutile adesso.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_reprimand_2",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non regalare un pallone per guardare l'orologio.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_reprimand_3",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "L'ultimo minuto va giocato con la testa.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_late_match_reprimand_4",
+      "target": "single_player",
+      "situation": "late_match",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Se ti fermi ora, lasci solo il compagno.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_encourage_1",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Entra con calma. La partita è già cominciata.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_encourage_2",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "encourage",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Prima scelta semplice, poi cerca lo spazio.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_encourage_3",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Hai visto dalla panchina cosa serve. Fallo.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_encourage_4",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "encourage",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Resta vicino al reparto fin dal primo pallone.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "potential_up",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_reprimand_1",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "reprimand",
+      "tone": "gentle",
+      "intensity": 1,
+      "language": "it-IT",
+      "text": "Non entrare per fare una partita tutta tua.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_reprimand_2",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Ti ho chiamato per un compito preciso.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_reprimand_3",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "reprimand",
+      "tone": "firm",
+      "intensity": 2,
+      "language": "it-IT",
+      "text": "Non perdere i primi minuti a cercare applausi.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    },
+    {
+      "id": "sh_sub_entry_reprimand_4",
+      "target": "single_player",
+      "situation": "sub_entry",
+      "intent": "reprimand",
+      "tone": "harsh",
+      "intensity": 3,
+      "language": "it-IT",
+      "text": "Segui l'ordine dato, poi usa il tuo talento.",
+      "hint": {
+        "effect": "playerConfidence",
+        "direction": "context_dependent",
+        "application": "agent_06_or_09_only"
+      },
+      "cooldownActions": 4
+    }
+  ],
+  "regionalVariants": [],
+  "regionalReviewQueue": [
+    {
+      "locale": "nap",
+      "display": "Campania / napoletano",
+      "status": "awaiting_native_review_and_source",
+      "releaseAllowed": false
+    },
+    {
+      "locale": "rom",
+      "display": "Lazio / romanesco",
+      "status": "awaiting_native_review_and_source",
+      "releaseAllowed": false
+    },
+    {
+      "locale": "sic",
+      "display": "Sicilia / siciliano",
+      "status": "awaiting_native_review_and_source",
+      "releaseAllowed": false
+    }
+  ],
+  "policy": "Nessuna battuta in dialetto non verificato viene distribuita. Italiane complete e immediatamente utilizzabili. Lingua regionale solo con fonti o revisione qualificata documentata."
+}

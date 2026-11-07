@@ -1,0 +1,1730 @@
+{
+  "schemaVersion": 2,
+  "phase": "opening",
+  "requestedQuestions": 5,
+  "setting": "carriera 1979, Italia provinciale",
+  "effectKeys": [
+    "coachMorale",
+    "supportersTrust",
+    "mediaReputation",
+    "presidentTrust"
+  ],
+  "questions": [
+    {
+      "id": "q_start_obiettivo",
+      "phase": "opening",
+      "topic": "obiettivi",
+      "text": "Mister, che stagione devono aspettarsi i tifosi?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Partiamo dai fatti",
+          "text": "Abbiamo una rosa da conoscere. Il nostro obiettivo è migliorare ogni settimana.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Sostegno moderato, prudenza apprezzata."
+        },
+        {
+          "id": "b",
+          "label": "Puntiamo in alto",
+          "text": "Il gruppo può sorprendere. Chiedo a tutti il coraggio di crederci.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "La curva applaude, il presidente teme le promesse."
+        },
+        {
+          "id": "c",
+          "label": "Non faccio pronostici",
+          "text": "I pronostici li lascio ai giornali. Io rispondo del lavoro.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "La società apprezza la cautela; la stampa insiste."
+        }
+      ]
+    },
+    {
+      "id": "q_start_paese",
+      "phase": "opening",
+      "topic": "identita",
+      "text": "Che cosa significa allenare la squadra di questo paese?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "È una responsabilità",
+          "text": "Qui le persone riconoscono i calciatori per strada. Dobbiamo meritarci la loro fiducia.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Tifosi coinvolti."
+        },
+        {
+          "id": "b",
+          "label": "È calcio, anzitutto",
+          "text": "Il nome del paese conta. Ma domenica conta soprattutto la partita.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Risposta tecnica."
+        },
+        {
+          "id": "c",
+          "label": "Lo scopriremo",
+          "text": "Non conosco ancora tutti. Preferisco ascoltare prima di promettere.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Disponibilità verso i tifosi, perplessità societaria."
+        }
+      ]
+    },
+    {
+      "id": "q_start_presidente",
+      "phase": "opening",
+      "topic": "societa",
+      "text": "Il presidente le ha già spiegato che cosa si aspetta?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Abbiamo parlato",
+          "text": "Gli obiettivi sono stati discussi. Tocca a me scegliere il lavoro sul campo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Rapporto istituzionale rafforzato."
+        },
+        {
+          "id": "b",
+          "label": "Siamo su posizioni diverse",
+          "text": "Su alcune idee non siamo d'accordo. È normale, purché ci si rispetti.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": -2
+          },
+          "consequence": "Trasparenza, frizione col presidente."
+        },
+        {
+          "id": "c",
+          "label": "Domandatelo a lui",
+          "text": "Preferisco parlare del gruppo. Le richieste del presidente restano in ufficio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "Meno informazioni per la stampa."
+        }
+      ]
+    },
+    {
+      "id": "q_start_tifosi",
+      "phase": "opening",
+      "topic": "pubblico",
+      "text": "Che messaggio manda a chi verrà allo stadio?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Chiedo pazienza",
+          "text": "Per costruire qualcosa serve tempo. Vi faremo vedere il lavoro.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          },
+          "consequence": "Aspettative prudenti."
+        },
+        {
+          "id": "b",
+          "label": "Venite in tanti",
+          "text": "La squadra sente la tribuna. Ci serve il paese, anche quando giochiamo male.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Tifoseria incoraggiata."
+        },
+        {
+          "id": "c",
+          "label": "Giudicateci sul campo",
+          "text": "Risparmiamo gli slogan. Voglio che il pubblico trovi una squadra seria.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Promessa misurata."
+        }
+      ]
+    },
+    {
+      "id": "q_start_giovani",
+      "phase": "opening",
+      "topic": "vivaio",
+      "text": "Le giovanili avranno una possibilità?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Quando saranno pronti",
+          "text": "Un ragazzo merita di giocare quando il lavoro lo rende pronto.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Criterio meritocratico."
+        },
+        {
+          "id": "b",
+          "label": "Presto li vedrete",
+          "text": "In settimana voglio provare alcuni ragazzi insieme ai grandi.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Apertura al vivaio; impegno anticipato."
+        },
+        {
+          "id": "c",
+          "label": "Decideremo con lo staff",
+          "text": "Tina e gli altri allenatori conoscono i ragazzi meglio di me.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Riconosciuto il lavoro dello staff."
+        }
+      ]
+    },
+    {
+      "id": "q_start_allenamento",
+      "phase": "opening",
+      "topic": "preparazione",
+      "text": "Quale sarà il primo lavoro alla ripresa?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Organizzazione",
+          "text": "Inizieremo dai movimenti senza palla. Tutti devono sapere dove stare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Programma ordinato."
+        },
+        {
+          "id": "b",
+          "label": "Condizione fisica",
+          "text": "Con lo staff valuteremo la condizione e calibremo i carichi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Priorità al recupero."
+        },
+        {
+          "id": "c",
+          "label": "Ascoltare i calciatori",
+          "text": "Voglio parlare con ognuno prima di definire il programma.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Clima aperto; tempi non immediati."
+        }
+      ]
+    },
+    {
+      "id": "q_start_modulo",
+      "phase": "opening",
+      "topic": "tattica",
+      "text": "Ha già scelto il modulo titolare?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Prima vedo la rosa",
+          "text": "Il sistema deve servire i giocatori disponibili, non il contrario.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          },
+          "consequence": "Risposta tecnica credibile."
+        },
+        {
+          "id": "b",
+          "label": "Ho un'idea chiara",
+          "text": "Partiremo da un modulo, ma non avremo paura di cambiarlo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Fiducia nella direzione tattica."
+        },
+        {
+          "id": "c",
+          "label": "Non lo annuncio",
+          "text": "Preferisco mostrarlo in allenamento. È presto per una lista di numeri.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 0
+          },
+          "consequence": "La stampa resta senza schema."
+        }
+      ]
+    },
+    {
+      "id": "q_start_capitano",
+      "phase": "opening",
+      "topic": "spogliatoio",
+      "text": "Il capitano avrà voce nelle sue decisioni?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Sì, sulle persone",
+          "text": "Voglio ascoltarlo sul gruppo. La formazione, però, la scelgo io.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Ruoli chiari."
+        },
+        {
+          "id": "b",
+          "label": "Decidiamo insieme",
+          "text": "Le scelte migliori nascono spesso da chi vive lo spogliatoio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Il gruppo apprezza, la società teme ambiguità."
+        },
+        {
+          "id": "c",
+          "label": "Solo quando serve",
+          "text": "Ascolterò tutti, ma non terrò un'assemblea per ogni cambio.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": -1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Autorevolezza; qualche freddezza."
+        }
+      ]
+    },
+    {
+      "id": "q_start_scelte",
+      "phase": "opening",
+      "topic": "responsabilita",
+      "text": "Chi si prenderà le responsabilità nelle domeniche storte?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Io per primo",
+          "text": "Se sbaglieremo il piano di gara, risponderò io.",
+          "effects": {
+            "coachMorale": 2,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Fiducia verso il mister."
+        },
+        {
+          "id": "b",
+          "label": "Tutti al lavoro",
+          "text": "Allenatore e squadra rispondono insieme, ciascuno del proprio compito.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Responsabilità condivise."
+        },
+        {
+          "id": "c",
+          "label": "Meglio parlarne dopo",
+          "text": "Prima di una partita non distribuisco colpe per errori che non esistono.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Nessuna promessa immediata."
+        }
+      ]
+    },
+    {
+      "id": "q_start_cronisti",
+      "phase": "opening",
+      "topic": "stampa",
+      "text": "I giornali locali potranno seguire qualche allenamento?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Porte aperte",
+          "text": "Dove il lavoro lo permette, sarete i benvenuti.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          },
+          "consequence": "Buon rapporto con i cronisti."
+        },
+        {
+          "id": "b",
+          "label": "Uno alla settimana",
+          "text": "Concordiamo una seduta aperta e lasciamo tranquille le altre.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Compromesso prevedibile."
+        },
+        {
+          "id": "c",
+          "label": "Per ora no",
+          "text": "Devo conoscere la squadra. Poi vedremo come organizzare gli accessi.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": -2,
+            "presidentTrust": 1
+          },
+          "consequence": "Stampa irritata; scelta prudente."
+        }
+      ]
+    },
+    {
+      "id": "q_start_trasferta",
+      "phase": "opening",
+      "topic": "logistica",
+      "text": "Le trasferte le preoccupano più degli avversari?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Sono parte del mestiere",
+          "text": "Un viaggio lungo si prepara come un allenamento.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Serenità logistica."
+        },
+        {
+          "id": "b",
+          "label": "La società deve aiutarci",
+          "text": "Se arriviamo stanchi lo segnalo. Serve collaborazione per giocare bene.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": -2
+          },
+          "consequence": "Richiesta chiara alla società."
+        },
+        {
+          "id": "c",
+          "label": "Non cerco scuse",
+          "text": "Che si viaggi un'ora o cinque, l'impegno lo dobbiamo portare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Messaggio duro al gruppo."
+        }
+      ]
+    },
+    {
+      "id": "q_start_bar",
+      "phase": "opening",
+      "topic": "paese",
+      "text": "Ha già imparato dove si discute la formazione?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Al bar, immagino",
+          "text": "Mi hanno indicato tre bar. La formazione la preparo al campo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          },
+          "consequence": "Sorriso con autonomia."
+        },
+        {
+          "id": "b",
+          "label": "Aspetto inviti",
+          "text": "Prima devo conoscere i giocatori. Il caffè può aspettare.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Priorità al lavoro."
+        },
+        {
+          "id": "c",
+          "label": "Niente fughe di notizie",
+          "text": "Le chiacchiere fanno parte del calcio. Io darò risposte alla domenica.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Rapporto equilibrato con la piazza."
+        }
+      ]
+    },
+    {
+      "id": "q_start_direttore",
+      "phase": "opening",
+      "topic": "mercato",
+      "text": "Quanto conta il direttore sportivo nelle sue scelte?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "È un alleato",
+          "text": "Io descrivo ciò che serve alla squadra, lui valuta se si può ottenere.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Competenze separate."
+        },
+        {
+          "id": "b",
+          "label": "Servono rinforzi",
+          "text": "La rosa ha dei bisogni. Spero che il direttore possa intervenire.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Pressione alla dirigenza."
+        },
+        {
+          "id": "c",
+          "label": "Parlo solo del campo",
+          "text": "Le trattative spettano alla società. Ho già abbastanza lavoro.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "Mercato non commentato."
+        }
+      ]
+    },
+    {
+      "id": "q_start_infermeria",
+      "phase": "opening",
+      "topic": "salute",
+      "text": "Darà spazio anche a chi non è ancora in condizione?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Gradualmente",
+          "text": "Un rientro deve essere sicuro. Non accelero per una fotografia.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Cautela sul recupero."
+        },
+        {
+          "id": "b",
+          "label": "Dipende dal medico",
+          "text": "Il medico ha l'ultima parola sulla salute; io sul loro impiego.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Confini chiariti."
+        },
+        {
+          "id": "c",
+          "label": "Valuto ogni giorno",
+          "text": "Non prometto una maglia a chi oggi non può allenarsi.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Nessun azzardo medico."
+        }
+      ]
+    },
+    {
+      "id": "q_start_disciplina",
+      "phase": "opening",
+      "topic": "spogliatoio",
+      "text": "Quale regola vuole far rispettare per prima?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Puntualità",
+          "text": "Non è necessario essere amici. È necessario arrivare tutti allo stesso orario.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Regola semplice."
+        },
+        {
+          "id": "b",
+          "label": "Parlarsi con rispetto",
+          "text": "Nessuno giochi contro un compagno. Le discussioni si affrontano qui.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Clima umano."
+        },
+        {
+          "id": "c",
+          "label": "Si decide insieme",
+          "text": "Partiamo da poche regole discusse nello spogliatoio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Consenso; leadership più morbida."
+        }
+      ]
+    },
+    {
+      "id": "q_start_tribuna",
+      "phase": "opening",
+      "topic": "ambiente",
+      "text": "Quale atmosfera spera di trovare alla prima giornata?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Una tribuna vicina",
+          "text": "Voglio sentire la gente e darle un motivo per tornare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          },
+          "consequence": "Entusiasmo condiviso."
+        },
+        {
+          "id": "b",
+          "label": "Una squadra attenta",
+          "text": "Mi basta che i giocatori si ascoltino. Poi parlerà il pubblico.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Concentrazione."
+        },
+        {
+          "id": "c",
+          "label": "Anche i fischi servono",
+          "text": "Se arrivano fischi, preferisco sapere subito perché.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          },
+          "consequence": "Schiettezza mediatica."
+        }
+      ]
+    },
+    {
+      "id": "q_start_esordio",
+      "phase": "opening",
+      "topic": "inizio",
+      "text": "Nella prima gara sarà più emozionato o più concentrato?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Entrambe le cose",
+          "text": "È normale sentire il peso dell'esordio. Si può lavorare anche con quel peso.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Risposta autentica."
+        },
+        {
+          "id": "b",
+          "label": "Molto concentrato",
+          "text": "L'emozione viene dopo aver preparato la formazione.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Controllo percepito."
+        },
+        {
+          "id": "c",
+          "label": "Lo scoprirò al fischio",
+          "text": "La prima giornata dà sempre risposte che non trovi sui fogli.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Nessuna promessa."
+        }
+      ]
+    },
+    {
+      "id": "q_start_panchina",
+      "phase": "opening",
+      "topic": "turnover",
+      "text": "Che cosa dice ai calciatori che inizieranno in panchina?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Siete tutti importanti",
+          "text": "Mi servirà ogni giocatore. Il lavoro settimanale conterà.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Buona gestione del gruppo."
+        },
+        {
+          "id": "b",
+          "label": "Chi merita giocherà",
+          "text": "Non prometto minuti, prometto attenzione al rendimento.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Meritocrazia."
+        },
+        {
+          "id": "c",
+          "label": "Ne parlo in privato",
+          "text": "Preferisco parlarne con loro, non davanti alle telecamere.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "Tutela spogliatoio."
+        }
+      ]
+    },
+    {
+      "id": "q_start_tifo_organizzato",
+      "phase": "opening",
+      "topic": "tifosi",
+      "text": "Il gruppo di tifosi le ha già chiesto un incontro?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Ci incontreremo",
+          "text": "Sono pronto ad ascoltarli. Hanno a cuore questa maglia.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Curva rassicurata."
+        },
+        {
+          "id": "b",
+          "label": "Prima la squadra",
+          "text": "Il dialogo è utile. Prima voglio completare la preparazione.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Priorità all'allenamento."
+        },
+        {
+          "id": "c",
+          "label": "Niente promesse",
+          "text": "Li rispetto troppo per promettere risultati prima della partita.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Attese realistiche."
+        }
+      ]
+    },
+    {
+      "id": "q_start_preparatore",
+      "phase": "opening",
+      "topic": "staff",
+      "text": "Qual è il ruolo del preparatore nelle sue decisioni?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Decisivo",
+          "text": "Il suo lavoro determinerà quanto saremo lucidi nei finali di gara.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Riconoscimento allo staff."
+        },
+        {
+          "id": "b",
+          "label": "Ci confrontiamo",
+          "text": "Le sue valutazioni devono entrare nel piano di allenamento.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Collaborazione."
+        },
+        {
+          "id": "c",
+          "label": "La responsabilità è mia",
+          "text": "Ascolto tutti. Poi definisco io il carico della settimana.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Autorità organizzativa."
+        }
+      ]
+    },
+    {
+      "id": "q_start_schemi",
+      "phase": "opening",
+      "topic": "tattica",
+      "text": "Preferisce una squadra prudente o coraggiosa?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Dipende dalle gare",
+          "text": "Dobbiamo leggere l'avversario senza dimenticare il nostro gioco.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          },
+          "consequence": "Flessibilità tecnica."
+        },
+        {
+          "id": "b",
+          "label": "Cercheremo spazio",
+          "text": "Voglio che la squadra provi a giocare e sappia difendersi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Curva incoraggiata; aspettative elevate."
+        },
+        {
+          "id": "c",
+          "label": "Prima non subire",
+          "text": "L'equilibrio conta. La partita dura novanta minuti.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Messaggio prudente."
+        }
+      ]
+    },
+    {
+      "id": "q_start_valutazioni",
+      "phase": "opening",
+      "topic": "lavoro",
+      "text": "Come misurerà i progressi oltre alla classifica?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Guardando le occasioni",
+          "text": "Voglio capire se creiamo gioco e concediamo meno spazi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          },
+          "consequence": "Criteri osservabili."
+        },
+        {
+          "id": "b",
+          "label": "Confrontando il gruppo",
+          "text": "Guarderò chi cresce e chi fatica anche lontano dalla palla.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Attenzione individuale."
+        },
+        {
+          "id": "c",
+          "label": "Solo dai risultati",
+          "text": "La classifica non è l'unica cosa, ma alla fine resta quella.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Risultato in primo piano."
+        }
+      ]
+    },
+    {
+      "id": "q_start_radio",
+      "phase": "opening",
+      "topic": "media",
+      "text": "La sua voce arriverà anche nelle case con la radiolina accesa.",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Parlerò con chiarezza",
+          "text": "Chi ascolta merita risposte che capisca, anche quando perdiamo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          },
+          "consequence": "Fiducia radiofonica."
+        },
+        {
+          "id": "b",
+          "label": "Darò poche parole",
+          "text": "Non sempre un discorso lungo aggiunge qualcosa alla partita.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Sobrietà."
+        },
+        {
+          "id": "c",
+          "label": "Spero si senta bene",
+          "text": "Basta che il microfono funzioni: il resto possiamo discuterlo.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Ironia asciutta."
+        }
+      ]
+    },
+    {
+      "id": "q_start_programma",
+      "phase": "opening",
+      "topic": "obiettivi",
+      "text": "Ha presentato un programma al consiglio direttivo?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Sì, con scadenze",
+          "text": "Ho indicato lavoro, recuperi e obiettivi verificabili.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 2
+          },
+          "consequence": "Società rassicurata."
+        },
+        {
+          "id": "b",
+          "label": "Lo costruiremo insieme",
+          "text": "Prima ascolto lo staff, poi consegno un programma serio.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Pazienza richiesta."
+        },
+        {
+          "id": "c",
+          "label": "I programmi si correggono",
+          "text": "Una buona idea deve poter cambiare dopo aver visto il campo.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          },
+          "consequence": "Flessibilità, meno certezze per il direttivo."
+        }
+      ]
+    },
+    {
+      "id": "q_start_fango",
+      "phase": "opening",
+      "topic": "campo",
+      "text": "Se il campo sarà pesante, cambierà il suo piano?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Quanto serve",
+          "text": "Non faccio giocare i ragazzi come se il terreno fosse asciutto.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Adattabilità."
+        },
+        {
+          "id": "b",
+          "label": "Prepariamo due soluzioni",
+          "text": "Faremo prove diverse per non essere sorpresi dalla pioggia.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Prontezza percepita."
+        },
+        {
+          "id": "c",
+          "label": "Non cerco alibi",
+          "text": "Il campo è lo stesso per entrambe le squadre.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Responsabilità senza lamentele."
+        }
+      ]
+    },
+    {
+      "id": "q_start_calciatori",
+      "phase": "opening",
+      "topic": "spogliatoio",
+      "text": "Ha già un calciatore su cui costruire il gruppo?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Conta il gruppo",
+          "text": "Vorrei che undici giocatori si fidassero l'uno dell'altro.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Solidarietà."
+        },
+        {
+          "id": "b",
+          "label": "Il capitano sarà centrale",
+          "text": "Parlerò con il capitano, poi con tutti gli altri.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Gerarchie chiare."
+        },
+        {
+          "id": "c",
+          "label": "Non faccio nomi",
+          "text": "Prima di allenarli preferisco non assegnare ruoli davanti alla stampa.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "Nessun favoritismo anticipato."
+        }
+      ]
+    },
+    {
+      "id": "q_start_presenza",
+      "phase": "opening",
+      "topic": "pubblico",
+      "text": "Chi non può permettersi il biglietto deve sentirsi parte della squadra?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Certo, è il paese",
+          "text": "Il calcio qui appartiene anche a chi resta fuori dal cancello.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          },
+          "consequence": "Sostegno popolare; pressione sull'accessibilità."
+        },
+        {
+          "id": "b",
+          "label": "Ne parliamo col club",
+          "text": "La società decide i prezzi. Io posso chiedere che si ascolti tutti.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Ruoli distinti."
+        },
+        {
+          "id": "c",
+          "label": "Il mio compito è il campo",
+          "text": "Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -2,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Presa di distanza dalla curva."
+        }
+      ]
+    },
+    {
+      "id": "q_start_pazienza",
+      "phase": "opening",
+      "topic": "carattere",
+      "text": "Quanta pazienza chiede per mettere insieme la squadra?",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Quella necessaria",
+          "text": "Valuteremo il lavoro ogni settimana. Nessuno sarà protetto dai risultati.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Realismo."
+        },
+        {
+          "id": "b",
+          "label": "Molto poco",
+          "text": "Voglio vedere segnali chiari fin dalle prime sedute.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Aspettative più alte."
+        },
+        {
+          "id": "c",
+          "label": "Prima la fiducia",
+          "text": "Con un gruppo nuovo serve il tempo di conoscersi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          },
+          "consequence": "Clima positivo, tempi lunghi."
+        }
+      ]
+    },
+    {
+      "id": "q_start_sponsor",
+      "phase": "opening",
+      "topic": "societa",
+      "text": "Lo sponsor ha chiesto una foto con tutta la squadra.",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "La facciamo volentieri",
+          "text": "Se la società lo ha organizzato, ci ritagliamo il tempo necessario.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Rapporti istituzionali."
+        },
+        {
+          "id": "b",
+          "label": "Fuori dagli allenamenti",
+          "text": "La foto si può fare. Gli esercizi non si interrompono.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Autonomia della preparazione."
+        },
+        {
+          "id": "c",
+          "label": "Vengano al campo",
+          "text": "Così vedranno anche il lavoro che sostengono.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Invito aperto."
+        }
+      ]
+    },
+    {
+      "id": "q_start_giornale",
+      "phase": "opening",
+      "topic": "stampa",
+      "text": "Un settimanale ha già preparato il titolo sul suo esordio.",
+      "when": {},
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Lo cambierà il campo",
+          "text": "Vediamo prima i novanta minuti.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Attesa misurata."
+        },
+        {
+          "id": "b",
+          "label": "Spero sia un bel titolo",
+          "text": "Lavoreremo per meritarcelo, senza chiedere regali.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Disponibilità verso la stampa."
+        },
+        {
+          "id": "c",
+          "label": "Non leggo i titoli in anticipo",
+          "text": "Preferisco conoscere le notizie quando sono diventate vere.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "Distanza dalla retorica."
+        }
+      ]
+    },
+    {
+      "id": "q_start_distanza",
+      "phase": "opening",
+      "topic": "ingaggio",
+      "text": "Ha lasciato la sua regione per questa panchina. Ne valeva la pena?",
+      "when": {
+        "offerDistance": "other_region"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Sì, per il progetto",
+          "text": "Mi hanno parlato di una squadra e di persone che vogliono lavorare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Trasferimento valorizzato."
+        },
+        {
+          "id": "b",
+          "label": "Non è stato semplice",
+          "text": "Mi mancherà casa. Ma ho deciso con convinzione.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          },
+          "consequence": "Risposta personale."
+        },
+        {
+          "id": "c",
+          "label": "Lo diranno i mesi",
+          "text": "Una firma apre un lavoro. Non ne dimostra ancora il valore.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          },
+          "consequence": "Giudizio rimandato."
+        }
+      ]
+    },
+    {
+      "id": "q_start_macroregione",
+      "phase": "opening",
+      "topic": "ingaggio",
+      "text": "Un viaggio così lungo per allenare qui: è stata una scelta difficile?",
+      "when": {
+        "offerDistance": "other_macroregion"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Molto, ma consapevole",
+          "text": "Ho valutato la distanza. Il progetto mi interessa davvero.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Scelta motivata."
+        },
+        {
+          "id": "b",
+          "label": "È una sfida personale",
+          "text": "Voglio conoscere un modo nuovo di vivere il calcio.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Curiosità."
+        },
+        {
+          "id": "c",
+          "label": "Parliamo di campo",
+          "text": "La strada per arrivare qui l'ho già fatta. Da oggi conta lavorare.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Ritorno agli aspetti tecnici."
+        }
+      ]
+    },
+    {
+      "id": "q_start_compenso",
+      "phase": "opening",
+      "topic": "ingaggio",
+      "text": "Lo stipendio le sembra adeguato alle responsabilità?",
+      "when": {
+        "offerPayBand": "low"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "La scelta è sportiva",
+          "text": "Ho accettato sapendo quali fossero le condizioni.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Impegno davanti ai tifosi."
+        },
+        {
+          "id": "b",
+          "label": "Il lavoro va riconosciuto",
+          "text": "Se costruiremo risultati, potremo rivedere gli accordi.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          },
+          "consequence": "Pressione contrattuale."
+        },
+        {
+          "id": "c",
+          "label": "Non parlo di cifre",
+          "text": "Gli accordi privati non riguardano il risultato.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "Riservatezza."
+        }
+      ]
+    },
+    {
+      "id": "q_start_salvezza",
+      "phase": "opening",
+      "topic": "obiettivi",
+      "text": "La società le chiede anzitutto di restare in categoria?",
+      "when": {
+        "clubObjective": "salvezza"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "È una base seria",
+          "text": "Prima rendiamo la squadra stabile. Il resto si potrà costruire.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Prudenza condivisa."
+        },
+        {
+          "id": "b",
+          "label": "Possiamo fare meglio",
+          "text": "Non bisogna trasformare un obiettivo minimo in un limite.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          },
+          "consequence": "Ambizione extra."
+        },
+        {
+          "id": "c",
+          "label": "Conteremo ogni punto",
+          "text": "Il margine è stretto. Ogni domenica deve darci informazioni.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Approccio pratico."
+        }
+      ]
+    },
+    {
+      "id": "q_start_promozione",
+      "phase": "opening",
+      "topic": "obiettivi",
+      "text": "Vi chiedono la promozione prima ancora del primo allenamento?",
+      "when": {
+        "clubObjective": "promozione"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "È una responsabilità",
+          "text": "L'obiettivo è alto. Serviranno risorse e una squadra convinta.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Ambizione condizionata."
+        },
+        {
+          "id": "b",
+          "label": "Ci proveremo",
+          "text": "Voglio una squadra che sappia guardare in alto.",
+          "effects": {
+            "coachMorale": 2,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          },
+          "consequence": "Entusiasmo crescente."
+        },
+        {
+          "id": "c",
+          "label": "Chiedo cautela",
+          "text": "Non basta pronunciare promozione per battere chi abbiamo davanti.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          },
+          "consequence": "Aspettative corrette."
+        }
+      ]
+    },
+    {
+      "id": "q_start_frugale",
+      "phase": "opening",
+      "topic": "dirigenza",
+      "text": "Il presidente è noto per controllare ogni spesa. La preoccupa?",
+      "when": {
+        "presidentFrugalityAbove": 75
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Serve un piano preciso",
+          "text": "Presenterò esigenze concrete. Il direttivo potrà valutarle.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Collaborazione col presidente."
+        },
+        {
+          "id": "b",
+          "label": "Servono mezzi",
+          "text": "Una società deve capire che il risparmio ha un limite.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": -2
+          },
+          "consequence": "Critica pubblica al rigore finanziario."
+        },
+        {
+          "id": "c",
+          "label": "Non è compito mio",
+          "text": "Lavorerò con ciò che la società rende disponibile.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": -1,
+            "presidentTrust": 1
+          },
+          "consequence": "Cautela senza pressione."
+        }
+      ]
+    },
+    {
+      "id": "q_start_ambizioso",
+      "phase": "opening",
+      "topic": "dirigenza",
+      "text": "Il presidente parla già di una stagione eccezionale.",
+      "when": {
+        "presidentAmbitionAbove": 80
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Condivido l'energia",
+          "text": "Ma gli obiettivi li costruiremo da una seduta all'altra.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          },
+          "consequence": "Ambizione moderata."
+        },
+        {
+          "id": "b",
+          "label": "Siamo d'accordo",
+          "text": "Sogniamo in grande, poi lavoriamo il doppio.",
+          "effects": {
+            "coachMorale": 2,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": 1
+          },
+          "consequence": "Aspettative alte."
+        },
+        {
+          "id": "c",
+          "label": "Meglio un passo alla volta",
+          "text": "Una promozione annunciata non è una promozione conquistata.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": -2
+          },
+          "consequence": "Frizione sulle aspettative."
+        }
+      ]
+    }
+  ]
+}

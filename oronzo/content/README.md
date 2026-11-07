@@ -1,3 +1,5 @@
+> **Visione v0.2 · nuovo ciclo R02:** la carriera inizia nel **1979** e prevale sui riferimenti 1985/86 del primo pacchetto. Per le conferenze (37 domande iniziali, 32 postpartita), cronisti/TV, shouts e nuova API di sessione vedi [PRESS-R02.md](PRESS-R02.md). Il runtime generale resta di competenza degli agenti 03/07/09.
+>
 # ORONZO · Copy & Comedy Pack (1985–86)
 
 Pacchetto **originale** per il Campanile, squadra di provincia immaginaria. È separato dal motore e non altera risultati o calciomercato. Il giocatore è l'allenatore; presidente, direttore sportivo e stampa agiscono secondo le rispettive responsabilità.
