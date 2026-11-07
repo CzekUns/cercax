@@ -1,3 +1,48 @@
+# ORONZO — AGENTE 07 · NEXT ATTUALE: PRIMA CARRIERA GIOCABILE, 1979 (ciclo mirato R03)
+
+**Stato: `READY` — autorizzato dall'Agente 10 il 7 novembre 2026.**
+**Precedente gate superato:** [PR #30](https://github.com/CzekUns/cercax/pull/30) MERGED `aab48f0be77f022dbb7d915ab44187037d96b5f0`, [PR #32](https://github.com/CzekUns/cercax/pull/32) MERGED `5b1dcd7c71435709d8b2c62d5455720b73691eb8`. Fix R05-1 del cross-test presente su main (`r02-cross.test.mjs`, blob `586e6856910196965172e9488ff3bee8b839ee74`). Il precedente ciclo di correzione è **CONCLUSO**: vecchie direttive `FIX_REQUESTED`, `WAIT_REVIEW` e divieti R03 erano validi *prima* dei merge e non si applicano più.
+**Repository:** `CzekUns/cercax`, branch di partenza obbligatorio: **ultimo `main`**, **nuovo branch** consigliato `agent/oronzo-career-r03-flow`, **nuova PR dedicata** (non riaprire la #30).
+**Proprietà di codice autorizzata SOLO per questo incarico:** `oronzo/systems/career/`, `oronzo/app/flow/` e `oronzo/coordination/07-career/REPORT.md`; vedi deroga esplicita al tuo IDENTITY e al RUN. Qualsiasi altro file richiede prima un nuovo mandato. In particolare **non** modificare `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html`, `oronzo/systems/coach-club/`, `oronzo/systems/match-engine/` o asset altrui.
+
+## Obiettivo immediato
+Produrre il **controller dati della prima carriera 1979 realmente utilizzabile**, indipendente dai menu, con API ESM chiare e test riproducibili. Il 03 collegherà la UI in una PR distinta **quando il suo kit sarà approvato**. Il prodotto finale deve poter seguire *Nuova partita → scelta mister → venti offerte iniziali → ingaggio → presidente/squadra → conferenza iniziale (5 domande) → hub/calendario → prepartita → partita/risultato reale → postpartita → paghe/relazioni → save/load → prossima giornata*, senza sostituire gli eventi reali con risultati fittizi spacciati per gameplay.
+
+### Passo A — mondo, anno e persistenza
+1. Rendere **1979** l'avvio per una **nuova carriera v0.2**, mantenendo i salvataggi storici 1985–86 esistenti (non retrodatare i save). Impostare data e stagione in modo coerente, ID, calendario, classifica, `week` stagionale e `absoluteWeek` monotono con contratto economico `{week,absoluteWeek,seasonYear}`. Promozione coerente col 1979; non introdurre “Eccellenza”.
+2. Un modello seed-stabile di mondo di gioco e club, con importatore per **100 comuni italiani verificati** (M1) dalla futura PR `data/oronzo-world-research` della revisione oraria. Il contratto importa ID, fonte/licenza, regione/macroregione e anno; **non generare ora un finto dataset di 100 comuni verificati**. Se la PR dati non è ancora pronta, prevedere fixture demo chiaramente etichettata e un gate che impedisca di dichiarare M1 completata.
+3. Conservare ID canonici dei club, presidenti, calciatori, `player.visual` (tratti come carnagione/capelli/barba/baffi, se disponibili), `club.visualKits` e kit associato; evitare rigenerazioni in save/load, cambi squadra e avanzamento anno. Per visual legacy mancanti adottare default stabiliti da 08/01, senza pretendere di implementare grafica nel 07.
+
+### Passo B — offerte e onboarding
+4. Consentire selezione dell'avatar coach con 4 attributi (fortuna, leadership, autostima, pazienza), città d'origine e ID persistente; i **dati/funzioni di morale appartengono al 09**. Lato 07 preparare input/output documentati e preservare le scelte senza creare una seconda formula morale.
+5. Generare esattamente **20 offerte iniziali** riproducibili da seed, di 20 club distinti e disponibili, con ID, categoria, località, cachet/condizioni, presidente e contesto; lista immutabile al reload prima della scelta. L'ingaggio singolo è idempotente e cambia club/contratto/stato una volta. La valutazione e l'applicazione di morale devono chiamare l'API 09 quando disponibile; **se manca, dichiarare la dipendenza bloccata**, senza valori arbitrari o pretendere che la morale sia già integrata.
+
+### Passo C — API di game-flow consumabili da 03
+6. Implementare in `oronzo/app/flow/` un'interfaccia semplice, testabile ed esplicitamente documentata: `newGame`, `loadGame`, `listInitialOffers`, `acceptOffer`, `getStateForUI`, `getRosterPlayer`, `getTrainingPlayer`, `prepareMatch`, `consumeMatchResult`, `answerOpeningPress`, `answerPostMatchPress`, `advanceMatchday`, `saveGame` (nomi/shape finali da esporre nel REPORT). I metodi non devono inventare cambi di morale/stampa/finanze: 04 fornisce contenuti, 09 applica gli effetti **una volta sola**.
+7. La composizione dei dati deve esporre le schermate **Rosa e Allenamento** con la *stessa* identità di `playerId` e il kit corrente, secondo `AppearanceV1` nel `CONTRACT-v02.md`; nessuna generazione separata per UI o cutscene. Esportare dati e interfacce verso 03; non creare HTML.
+8. Usare **Match Engine 06** quale autorità sui risultati della partita giocata: adapter fixture/rose, conversione snapshot + eventi `goal` in `registerResult` (score coerente). Per gli incontri non controllati dal mister, progettare un provider simulativo deterministico esplicitamente documentato e separato; mai chiamare giocata una gara con esito artificiale 0–0 della fixture di test. Mantenere avanzamento solo se ogni risultato del turno è valido. Non alterare engine né camera (05). L'1× della versione finale deve rappresentare **90 minuti simulati in circa 15 minuti reali**; il controller può esporre velocità/tempo, senza cambiare di nascosto la scala attuale dell'engine.
+9. **Ordini individuali temporaneamente fuori dal gate R03** finché #31/08 + #35/06 non sono compatibili sul contratto shout; il flusso base può avere formazione, tattiche e partita. Non duplicare bonus temporanei/persistenti. La cutscene 02 è overlay opzionale, non gate per il ciclo dati.
+
+## Verifiche obbligatorie / limiti
+- Eseguire **Node nativo** dei test propri, Career e Coach-Club su main aggiornato e contro il nuovo adapter; assicurarsi che gli ex 77 test continuino a passare. Test di 20 offerte deterministiche, accettazione una sola volta, ID persistenti, nuovi save 1979 e salvataggi legacy 1985, payroll una sola volta/periodo, due stagioni/reload, campionato senza risultati duplicati, salvataggio con personaggi/kit stabili.
+- Scenario automatico **end-to-end del controller** con seed fisso; reportare separatamente lo scenario realmente completo e gli hook bloccati da API 09, #31/#35 o dataset. Falsi mock/stub sono ammessi SOLO nei test unitari e dichiarati, mai per dichiarare gioco pronto.
+- Non introdurre regressioni in finanza/presidenza né in save recovery V1/V2 già validati. Se nuovo formato save necessario, schema/versioning e migrazione conservativa. Documentare cronologia 1979 senza far passare il vecchio demo 1985 per nuova carriera.
+- Scrivere `oronzo/coordination/07-career/REPORT.md` nel **nuovo branch**, con file, commit, test PASS/FAIL realmente svolti, API per il 03, dipendenze residue per 09 e gate. Aprire **una sola PR** dedicata a `main`, non mergiare. Se la prima tranche non copre tutto, dare un controller verticale funzionante e riferire chiaramente ciò che resta.
+
+## Dipendenze e confini
+- **09:** valuta/applica morale e rapporti, presidenti, finanze, game over a morale 0. Il 07 espone e consuma API 09; non riscrive formule di 09.
+- **03:** UI 16:9, navigazione, interazioni e rendering; PR runtime separata in seguito, non deve bloccare i test headless del 07.
+- **06/08:** loro ownership di match engine e PlayerV2. Ordini shouts avanzati differiti finché il loro contratto non è verificato.
+- **01/02/05:** sprites, cutscene, camera; nessuno di questi modifica la persistenza di calciatori da 07.
+- **Dati world M1:** l'automazione oraria è unica responsabile della ricerca. Il 07 ne predispone importazione ma **non** crea dataset non verificati.
+
+**Priorità all'esecuzione:** partire da un loop minimo verificabile (1979, 20 ingaggi, scelta squadra, giornata/save/load), consolidare contratti, poi collegare ulteriori passaggi nei confini descritti. Nessun round generale necessario.
+
+---
+
+## ARCHIVIO — ISTRUZIONI DEL CICLO R02/R05 GIÀ COMPLETATO
+Il testo seguente appartiene al periodo **anteriore ai merge #30/#32**; qualsiasi divieto R03 o stato di bugfix elencato qui è **storico e superato** dal NEXT READY sopra.
+
 # NEXT — ORONZO AGENTE 7 · CORREZIONI DA AUDIT R02
 
 **Stato:** `WAIT_REVIEW` — fix R05-1 consegnato nella PR #30, in attesa QA combinata.
