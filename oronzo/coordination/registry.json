@@ -53,7 +53,7 @@
         "oronzo/ui.css",
         "oronzo/partita-rapida.html"
       ],
-      "futureScopeGate": "Solo dopo PR UI corrente mergiata, gate R02 07/09 chiuso, NEXT ciclo successivo autorizzato"
+      "futureScopeGate": "Solo dopo PR UI #33 mergiata con QA browser/arte, gate R02 #30+#32 chiuso e adapter 07 stabile; #31/#35 compatibili prima degli ordini individuali nel runtime"
     },
     {
       "id": 4,
@@ -111,7 +111,7 @@
       "run": "oronzo/coordination/07-career/RUN.md",
       "initialPr": null,
       "reservedFutureAdapterScope": "oronzo/app/flow/",
-      "futureScopeGate": "Solo dopo fix R02 07/09 mergiati e NEXT nuovo ciclo"
+      "futureScopeGate": "Solo dopo #30 e #32 fix R02 mergiati con suite Node V1/V2 verde; coordinare contratto #31/#35 prima di integrare shouts"
     },
     {
       "id": 8,
@@ -157,5 +157,14 @@
     "integrationIssue": 26,
     "implementationAllowed": false,
     "roleSummary": "Requisiti, contratti, NEXT, issue, review/merge; non scrive codice né asset"
+  },
+  "initialWorldMilestone": {
+    "municipalities": 100,
+    "surnames": 500,
+    "source": "scheduled ORONZO hourly data research PR, verified only",
+    "expansion": {
+      "municipalities": 500,
+      "surnames": 5000
+    }
   }
 }
