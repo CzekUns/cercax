@@ -293,8 +293,9 @@ function tactic(payload){
   lastGuideMessage='NUOVO MODULO '+appliedTactics.formation+' · SI RIPOSIZIONANO';
   el('news').textContent=fmt(time)+' · Mister cambia modulo: '+appliedTactics.formation+'.';
  }else{
-  guideUntil=time+18;
-  lastGuideMessage='ORDINI APPLICATI · PRESS '+appliedTactics.pressing+' · ATT '+appliedTactics.mentality;
+  // Pressing/mentality change normal movement, but do NOT trigger a fake
+  // eleven-player regroup or show misleading target dots.
+  if(guideUntil<=time)lastGuideMessage='PRESS '+appliedTactics.pressing+' · ATT '+appliedTactics.mentality;
  }
  sync();
  message(changeFormation?'Modulo '+appliedTactics.formation+' accettato: gli undici raggiungono il nuovo assetto.':
