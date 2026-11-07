@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 9 · CORREZIONI DA AUDIT R02
 
-**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
+**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #17, merge `7309f1fe`.
@@ -59,3 +59,8 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 3. Eseguire con 07 **suite Node combinata** 2 stagioni, 104 club o fixture significativa, save/load, storico preservato, obiettivi/presidenti corretti, cash/arrears non negativi, periodo `{week,absoluteWeek,seasonYear}`, migrazione V1/V2 e doppio evento respinto.
 4. Aggiornare il REPORT R02 e la PR #32, non aprire un ciclo indipendente. Nessun CoachV2, papponeria o nuovo saldo morale prima del merge R02.
 **Futuro 09 R03** conserva ownership degli effetti persistenti degli shouts (un solo event ledger `matchId:eventId`), ma **non avviarlo** finché i fix R02 non sono approvati.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**Correzioni R04 consegnate nella stessa PR #32; attendere gate indipendente Work 00 R05.** HEAD `89bb4944e6c6fc78ad9164c8e0d899355ec9d67f`: guard `period_migration_required` su ledger misti, test payroll reali (non più asserzione fissa 1600), nuovi test `period-r04.test.js`, report dichiara 41/41 V8 e Node parziale. Rimane obbligatoria la suite Node **completa combinata** con HEAD #30 aggiornato. Se fallisce, correggere direttamente #32, senza cambiare la PR di 07. Niente merge autonomo.
+**ITERAZIONE FUTURA NON AUTORIZZATA:** dopo merge 07+09, CoachV2 (morale risorsa a zero gameOver), compatibilità ingaggi e avatar, presidenti con papponeria, rapporti coach/board/tifosi/stampa/calciatori, prezzi biglietti e conti, applicazione persistente *una sola volta* degli eventi shouts `matchId:eventId` con delta e ledger salvati atomici (06 effetto temporaneo). Test due stagioni, no formule hardcoded come se fossero approvate. Nuovo NEXT separato solo da 10.
