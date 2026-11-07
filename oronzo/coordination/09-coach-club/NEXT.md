@@ -37,3 +37,6 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 5. Prezzi biglietti determinati da papponeria e successi, condizioni stadio e divise, calciomercato e risultati influenzano tifosi; chiusura di conti per giornate, finestre mercato coerenti con 1979, nessuna spesa duplicata.
 
 **Proprietà confine:** l'agente 04 fornisce testi/stampa; 06 effetti TEMPORANEI sul campo; 08 stati calciatori; 07 geografia/calendario. Agente 09 applica effetti relazionali ed economici persistenti. Tali formule sono proposte da bilanciare e non decisioni definitive dell'utente. Non iniziare R03 prima del merge R02.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+**PRIORITÀ MASSIMA — FIX R02 NON CONSEGNATI.** Il branch `agent/oronzo-coach-club-r02` è identico a main (0 commit nuovi), REPORT soltanto del vecchio ciclo. Implementare *prima* i cinque fix R02: identità presidenza coerente, mapping obiettivi, paga settimanale reale e valida, contabilizzazione con `absoluteWeek`, ricostruzione Coach con storico/esoneri dopo save/load. Concordare con 07 gli stessi campi e creare test incrociati di **due stagioni**, salari addebitati esattamente una volta e presidenti corretti, poi REPORT R02 e PR. **Non iniziare** papponeria, mercato 1979 o nuove relazioni/morale prima del merge R02; il futuro ciclo viene assegnato nel NEXT successivo.
