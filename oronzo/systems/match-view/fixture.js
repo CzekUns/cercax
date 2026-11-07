@@ -47,7 +47,7 @@ export function makeFixtureSnapshot(t,lastT=-1){
     const vx=(pos.x-older.x)/18,vy=(pos.y-older.y)/18;
     return {id:p.id,name:p.name,teamId:p.teamId,...pos,vx,vy,
       facing:directionFromVector(vx,vy,p.teamId==='home'?'E':'W'),
-      action:currentAction(p,t),energy:1-t/7800,hasBall:p.id===ownerId};
+      action:currentAction(p,t),energy:100*(1-t/7800),hasBall:p.id===ownerId};
   });
   const owner=players.find(p=>p.id===ownerId);
   const airborne=t%340>230&&t%340<315;
