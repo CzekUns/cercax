@@ -31,7 +31,7 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 
 **Futuro ciclo R03, da autorizzare con nuovo NEXT dopo merge R02:**
 1. Parametrizza data reale d'inizio carriera nel **1979**, giornata e calendari, specificando la categoria storica della Promozione. Non chiamarla Eccellenza nel 1979 salvo scelta esplicitamente alternativa.
-2. Crea import del mondo da **500 comuni italiani poco popolati** con metadati verificabili (ISTAT/anno, fonte/licenza, regione, macroregione Nord/Centro/Sud, trattamento isole) e assegnazione deterministica alle squadre.
+2. Crea import del mondo da **100 comuni italiani verificati per M1** (espandibili a **500** dopo il primo rilascio) con metadati verificabili (ISTAT/anno, fonte/licenza, regione, macroregione Nord/Centro/Sud, trattamento isole) e assegnazione deterministica alle squadre.
 3. Genera **20 offerte di ingaggio iniziali** riproducibili per seed, cachet e società, persistendo lista e scelta; fornisci input geografico/economico al sistema morale agente 09, senza calcolare dentro career costi morali.
 4. Calendario, classifica, transizioni, rosa e presidente persistenti; salvare stato RNG e data assoluta, test due stagioni e load senza rigenerazione delle offerte.
 
