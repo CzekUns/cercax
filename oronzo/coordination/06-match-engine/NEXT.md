@@ -13,3 +13,6 @@
 
 ## Accettazione
 ESM e API precedenti compatibili, 100 seed e test regressione, partita deterministica, zero duplicazioni effetti, REPORT e PR senza merge. Mai modificare match-view o root HTML.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+Il branch `agent/oronzo-match-engine-r02` è **1 commit avanti** con modifiche in `actions.js`, `commands.js`, `movement.js` e nuovi `coach-effects.js`, `orders.js`, tutti nella directory del motore. Non risultano nuova PR né REPORT R02; **nessuna approvazione** concessa. Completare test 100 seed e regression dei comandi individuali, garantire eventi/risultati deterministici, poi pubblicare PR e REPORT. Rapporto morale persistente spetta a 09, UI a 03.
