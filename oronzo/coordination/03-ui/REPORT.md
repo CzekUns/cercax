@@ -1,56 +1,110 @@
-# RAPPORTO AGENTE 03 — UI Art Director — ciclo 01
+# RAPPORTO AGENTE 03 — UI dinamica e avatar · ciclo R02
 
-**Stato:** PR_OPEN (NEXT.md su main: `WAIT_REVIEW`; nessun ciclo 02 autorizzato)
-**Identificatore:** `ORONZO-AGENT-03`
-**Branch:** `agent/oronzo-ui`
-**PR:** https://github.com/CzekUns/cercax/pull/5
+**Stato:** PR_OPEN, senza merge.
+**Identità:** ORONZO-AGENT-03 — UI Art Director.
+**Repository:** CzekUns/cercax.
+**Branch:** `agent/oronzo-ui-r02`.
+**PR:** https://github.com/CzekUns/cercax/pull/33
 **Issue:** https://github.com/CzekUns/cercax/issues/3
-**Commit arte verificato:** `f87fafe9a9330c6ae9e802da5a979ccd7e776deb`
-**Main consultato:** `3e611f64d2f7c5129ec3cb912223a1fd87e33ee9`
-**Data:** 7 novembre 2026 (Europe/Rome)
+**Arte/kit commit:** `dfaef4c94cdb08aee8ba3c12814f4753c59f6a5d`.
+**Baseline verificata:** `c9f52a1c2f60733a6ae1e0b63180fa4b5d0f9697` su main al momento della creazione branch.
+**Ciclo:** visione v0.2 / 7 novembre 2026.
+**Precedente:** PR #5 mergiata, merge `ad84dd134b98d5fde8017af3da5e6e7b1b21e63e`.
 
 ## Realizzato
 
-Consegna precedente ripresa senza ripartire da zero: 8 mockup PNG 1280×720 in `oronzo/assets/ui/`:
-`coach-select.png`, `office-home.png`, `squad-roster.png`, `tactics.png`, `match-hud.png`, `training.png`, `press.png`, `result.png`.
+Consegnato **kit componibile** in `oronzo/assets/ui/`, senza editare i runtime:
+- `demo-v02.html`, `demo-v02.css`, `demo-v02.js`: interfaccia HTML/CSS/JS con otto viste effettivamente navigabili in una demo autonoma: Nuova/Carica, avatar, 20 ingaggi, presidente, 5 domande conferenza iniziale, hub 1979 Campionato/Rosa/Tifoseria/Ufficio Presidente, prepartita, match con commutazione full campo/TV.
+- `coaches-atlas.png` 416×256: 8 caricature originali 4×2, celle 104×128; `presidents-atlas.png` 208×256: 4 presidenti; `journalists-atlas.png` 312×256: 6 volti stampa. Ritratti senza valori statistici, nomi e città incorporati.
+- `navy-noise.png` / `panel-noise.png` 96×96, `office-desk-v02.png` 375×160, `pitch-textless.png` 496×272, `btn-{blue,gold,disabled}-v02.png` 164×44. Texture/asset senza punteggi, nomi giocatori o HUD fissi; testo e controlli sono DOM.
+- `ui-v02-manifest.json` identifica asset, frame atlas, selettori di hot spot touch `data-action`, aree bindabili, dimensioni e responsabili dei dati.
+- `INTEGRATION-R02.md` descrive consumer/API e dipendenze; `qa/check_assets.py` e `qa/run_browser_qa.py` forniscono test ripetibili.
+- Screenshot verificati e salvati in PR: `qa/avatar-640x360.png`, `qa/offers-800x360.png`, `qa/match-tv-844x390.png`; script QA genera localmente anche entry/hub/full per tutti i viewport.
 
-Ulteriori asset: `components.png`, `button-normal.png`, `button-selected.png`, `button-disabled.png`; file di interfaccia `design-tokens.json`, `manifest.json`, `integration-notes.md`, `gallery.html`; 6 immagini di prova in `qa/` per rosa e partita a 640×360, 800×360 e 844×390.
+**Nessun file** `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html` o sistemi gameplay modificato in R02.
 
-**In questa ripresa:** verifica dello stato GitHub, dei contratti, del materiale esistente e creazione di questo rapporto. Nessuna immagine modificata: `NEXT.md` è `WAIT_REVIEW`, review/commenti PR non richiedono correzioni. Nessun merge.
+## Verifiche effettivamente eseguite
 
-## Verifiche eseguite (reali)
+1. `node --check demo-v02.js`: **PASS**.
+2. `python qa/check_assets.py`: **PASS**, 10 PNG con dimensioni/formati previsti, 8 schermate nel manifest, conteggi 8 coach/4 presidenti/6 giornalisti e file demo esistenti.
+3. `python qa/run_browser_qa.py`: **PASS** eseguito con Chromium + Playwright per **640×360, 800×360, 844×390**; pagina caricata con `page.set_content` (HTML+CSS+JS+PNG data URI dagli identici file perché il sandbox blocca `file://` e `localhost`). Non è la prova di deploy via HTTP, ma usa DOM vero ed esegue i callback JS nel browser.
+4. Verifiche browser: layout 16:9 letterboxed; 8 avatar selezionabili con cambio visibile di città/4 statistiche DOM; 20 offerte reali nel listbox scorrevole, selezione ed anteprima; presidente; sequenza 5 risposte; hub; prepartita; 22 calciatori **dimostrativi** renderizzati; commutazione full ↔ TV con marker invariati; nessun `pageerror`.
+5. Geometry QA: pulsanti interni alla scena almeno 44 px in altezza CSS (esclusi elementi listbox fuori viewport per scroll intenzionale), non tagliati da nav; nav inferiore ≥44px nei tre viewport. Prove screenshot 3 risoluzioni prodotte e ispezionate localmente, incluso avatar 640 e campo match full 640.
+6. `ui-v02-manifest.json` parsato senza errori. Nessuna prova reale di rendering Android né prova di salva/carica, logica partita o eventi deterministici.
 
-1. **GitHub/contratti**: letti su main `PROTOCOL.md`, `IDENTITY.md`, `RUN.md`, `NEXT.md`, issue #3, `03-ui.md`, `AGENTS.md`, `asset-contract.md`; PR #5 verificata **open**, non merged. Non risultano review formali, commenti PR o thread con fix richiesti al momento della verifica.
-2. **Scope PR**: `list_pr_changed_filenames(#5)` ha restituito **22 file; 22/22 sotto `oronzo/assets/ui/`** prima dell'aggiunta di `REPORT.md`. Il report è l'unica eccezione aggiunta, autorizzata da PROTOCOL.
-3. **PNG reali**: letti con Pillow su byte della consegna già montati in `/mnt/data/oronzo_ui`; tutti gli **8 mockup sono RGB 1280×720**. Confronto dei quattro pixel di ogni blocco 2×2: **100% dei blocchi uniformi per ciascuna delle otto immagini**, coerente con esportazione nearest-neighbor 640×360. Le SHA1 in formato Git blob calcolate sui byte locali coincidono con quelle usate nella pubblicazione precedente (es. `coach-select: ef5a2743fb9951d4bb82aa73006438d13852df5c`, `match-hud: d0f9c91e48ad3501e7e34ea23b53e1950fddcbad`).
-4. **Componenti/alpha**: `components.png` 1280×720 con alpha comprendente 0 e 255; `button-{normal,selected,disabled}.png` **176×44 e opachi** (alpha 255); sono bitmap di sfondo, non overlay a trasparenza. Esistenza e dimensione confermate.
-5. **Prove landscape**: file PNG `qa/match-hud-{640x360,800x360,844x390}.png` e `qa/squad-roster-{640x360,800x360,844x390}.png` aperti tramite Pillow, ciascuno con le dimensioni dichiarate.
-6. **JSON e galleria**: parsing `manifest.json` e `design-tokens.json` riuscito; **8 voci schermata** in entrambi; tutti gli 8 percorsi schermata del manifest esistono; `gallery.html` cita tutti gli 8 nomi PNG. `frameCount=1`, `fps=0`, `pivot=[0,0]`: corretti per mockup statici, non per animazioni.
-7. **Verifica visiva**: aperti direttamente e osservati almeno `coach-select.png`, `office-home.png`, `match-hud.png` e `components.png` in questa ripresa. Stessa palette/cornice/nav, 8 ritratti selezionabili nella selezione, campo grande a sinistra e pannello ordini a destra nel mockup partita.
+## API / Integrazione
 
-**Test NON eseguiti**: browser/DOM touch, misurazione reale di target ≥44 CSS px, Android fisico, responsive effettivo, intercettazione eventi JavaScript, runtime match, overlay con contenuti live. Le prove `qa/` sono render bitmap/letterboxing, NON screenshot end-to-end di una UI HTML eseguita su tre viewport.
+API demo osservabile in `window.OronzoUIKitV02.createApp(root, {data,onIntent})`. L'istanza espone `navigate(screen)`, `render()`, `getScreen()`, `getState()`, `getPreview()`, `setData(partialData)`, `destroy()`. Gli intent sono `{type,value,screen,selectedCoach,selectedOffer,camera}`; `onIntent` può restituire `false` per impedire l'azione mock. Non è ancora un adapter al gameplay.
 
-## Integrazione / API per orchestratore
+Dati di esempio: 8 coach, 20 club, 4 presidenti e 5 domande in JS **fittizi**. Città e nomi di club non sono il dataset verificato da 500 comuni né i 5000 cognomi finali. Preview morale territoriale 0/-1/-3 come **esempio** senza bonus salariale e moltiplicatori in attesa di specifica approvata. La fiducia tifosi locale alla pressione delle risposte è **soltanto un esempio di rendering UI**, non modifica il sistema 09. Header data «settembre 1979» è un placeholder d'ambientazione, non una data canonica di turno.
 
-- `manifest.json`: lookup schermate statiche `screens[].id/png/size/frames/fps/pivot`, canvas logico `640×360`; `uiAtlas=components.png`.
-- `design-tokens.json`: `palette`, `grid`, `components`, `componentAtlas.rectsLogical` e `colorsAsCssVariables`, tra cui `--or-blue`, `--or-navy`, `--or-gold`, `--or-lime`, `--or-rim`.
-- `integration-notes.md`: mapping orientativo verso `.game`, `.top`, `#home`, `#squadTable`, `#tactics`, `#pitch`, `#match`, `.bottom-nav`; l'orchestratore possiede `oronzo/index.html`, `oronzo/ui.css`, `oronzo/game.js`. **Non usare i PNG di mockup come unico livello cliccabile**: menu, testi, statistiche e comandi devono essere DOM/canvas interattivi senza valori illustrativi fissati.
-- Dipendenza **agente 1** per sprite giocatori definitivi e palette divise; **agente 2** per cutscene; **agente 5** per movimenti/vista match; **agente 6** per eventi della simulazione. Il coordinamento di camere/overlay, caricamento degli asset e fallback canvas spetta all'orchestratore.
+Dipendenze:
+- **07** per game-flow e seed delle venti offerte, calendarizzazione 1979, save/load, identità del club e progresso prepartita;
+- **09** per avatar (fortune/leadership/self-esteem/patience), risorsa morale e game over, presidente persistente/papponeria e relazioni;
+- **04** per banca di domande e giornalisti/emittenti originali; **08** per valori calciatori;
+- **05** per API due camere dallo stesso snapshot, **06** per contenuti e conseguenze degli ordini; l'UI non deve inventare eventi o punteggi.
+- **01**/02 per sprite e cutscene definitive dopo gate.
+Il successivo ciclo di runtime UI su `index.html`, `game.js`, `ui.css`, `partita-rapida.html` resta **prenotato ma non autorizzato** fino a nuovo NEXT.
 
-## Mancante / problemi aperti
+## Mancante / problemi / qualità
 
-- `WAIT_REVIEW`: ancora nessuna approvazione ufficiale o richiesta esplicita di fix. Non è autorizzato sviluppare una seconda iterazione, toccare runtime o correggere autonomamente asset fuori dallo scope.
-- I mockup contengono testi, numeri, nomi, barra score e icone illustrativi impressi nel bitmap: usarli **solo come reference visiva**; servono sfondi/elementi ritagliati e dati dinamici reali per l'HTML.
-- `button-*.png` opachi: integrarli come sfondo/9-slice, **non** come layer trasparente sopra il gioco.
-- Il touch minimo di 44 CSS px è **dichiarato nel design**, ma **non collaudato in runtime**.
-- Nessuna prova Android fisico; font locali suggeriti ma non distribuiti.
-- Il precedente prototipo aveva una vista match `320×440` verticale: da riallineare a camera landscape da parte dell'orchestratore e/o agente 5 (verificare stato corrente prima di modificare).
-- La PR resta aperta fino a QA/decisione dell'orchestratore; nessun merge è stato fatto da questo agente.
+- Demo standalone disponibile nel branch, non collegata al vero runtime: `Carica partita`, cambio giocatore e incitamento mostrano esplicitamente che l'azione è non collegata.
+- Nessuna persistenza; punteggio 0–0 e ore 00:00 di scena sono esempi; 22 marker in campo **non** sono sprite 11v11 del motore.
+- Il cambio camera in questo kit usa esclusivamente trasformazione CSS di un campo dimostrativo. La vera camera ball-follow dell'Agente 05 deve consumare gli snapshot corretti; nessuna promessa che il gioco già disponga di questa modalità.
+- L'illustrazione d'ufficio è decorativa e contiene un titolo di giornale della proprietà ORONZO, non dati dinamici. Le immagini di ritratti sono ritagli di un'illustrazione generata appositamente per il kit R02, senza marche/emittenti reali incorporate negli atlas consegnati.
+- QA Chromium `page.set_content` supera il blocco della navigazione locale, ma non dimostra che GitHub Pages carichi gli URL relativi: verificare post-deploy. Non eseguito test Android fisico.
+- Font di sistema, nessun file di font distribuito.
+- Gli asset cromatici sono in continuità con il design system PR #5; il mockup R01 resta solo reference, non livello click-through.
 
-## Proposta prossimo ciclo (NON autorizzata fino a NEXT = READY/FIX_REQUESTED)
+## Prossimo ciclo proposto (NON autorizzato in R02)
 
-1. Estrarre gli sfondi senza testi statici e dichiarare hotspot/layout responsive parametrico per ogni vista, preservando l'art direction.
-2. Produrre prova runtime HTML touch a 640×360 / 800×360 / 844×390 con target realmente misurati; intervento solo nel perimetro `oronzo/assets/ui/` e sotto consenso dell'orchestratore.
-3. Consolidare l'atlante 9-slice/contrasti e l'integrazione con agenti 1, 2, 5 senza riscrivere il core.
+1. Collegare `OronzoUIKitV02` al controller dati e al flow del 07/09, mantenendo read-only la visualizzazione dei loro effetti e rispettando idempotenza/save.
+2. Integrare in app vera il canvas partita 05/06 con switching camere e comandi reali; match e prepartita leggono lo stesso snapshot, non valori DOM demo.
+3. QA Android e hosting statico, contrasto/font touch e casi edge game over, traduzioni e salvataggi.
 
-**Gate:** attendere QA e istruzioni su `oronzo/coordination/03-ui/NEXT.md` su main.
+**Gate richiesto:** revisione orchestratore della PR #33, nessun merge autonomo.
+
+---
+
+## Addendum R04 — correzione gate browser
+
+**Data:** 7 novembre 2026. **Stato:** PR #33 OPEN / HOLD per review finale. **NEXT su main:** `WAIT_REVIEW`, gate R04 specifico. Nessun merge; nessun R03 autorizzato.
+
+### Correzioni pubblicate nella PR corrente
+
+- `oronzo/assets/ui/demo-v02.js`: corretta esclusivamente la permanenza del toast quando si cambia schermata (il precedente messaggio stampa copriva temporaneamente i comandi del match in navigazione rapida). `changeScreen()` cancella il timer del toast e nasconde il messaggio prima di ridisegnare la nuova vista. **Commit** `353d4eddb426c73d94bb23f48dbc5bf344738d5b`; blob JS nuovo `3bdb10678ff2810296385dc6937d851f48ddbcc8`.
+- `oronzo/assets/ui/qa/run_browser_r04.py`: nuovo QA **riproducibile con Chromium vero**, emulazione touch, tre viewport e URL CSS/JS/PNG separati attraverso richieste browser intercettate da `page.route(...).fulfill(...)`.
+- `oronzo/assets/ui/qa/R04-BROWSER-RESULTS.json`: dati di verifica con versione browser, regioni, controlli e risorse decodificate.
+- Screenshot Chromium reali pubblicati nella PR (non mockup di PIL):
+  `qa/r04-entry-640x360.png`, `qa/r04-avatar-640x360.png`, `qa/r04-avatar-dynamic-640x360.png`, `qa/r04-press-1-640x360.png`, `qa/r04-offers-800x360.png`, `qa/r04-hub-800x360.png`, `qa/r04-match-tv-844x390.png`, `qa/r04-match-full-844x390.png`.
+- Commit che pubblica QA e screenshot: **`f49a79ab55a09ec06b7390a41ab8e10c51fac226`**.
+- File modificati esclusivamente dentro `oronzo/assets/ui/` più questo `REPORT.md`. Niente modifiche al runtime, engine, contratti dei colleghi, `NEXT`, dati o NEXT R03.
+
+### Test realmente eseguiti
+
+| Comando | Esito osservato |
+|---|---|
+| `node --check oronzo/assets/ui/demo-v02.js` | **PASS** (sintassi JS dopo fix; Node 22.16.0 nel sandbox) |
+| `python oronzo/assets/ui/qa/check_assets.py` | **PASS** sui file R02 originali recuperati, 10 PNG, dimensioni, 3 atlanti RGBA, 8 viste e manifest. |
+| `python oronzo/assets/ui/qa/run_browser_qa.py` | **PASS**, vecchia suite Chromium con `set_content` e immagini in data URI, tre risoluzioni. |
+| `python oronzo/assets/ui/qa/run_browser_r04.py` | **PASS**, Chromium 144.0.7559.96 reale, `/usr/bin/chromium`, Playwright Python, emulazione `is_mobile=True/has_touch=True`; 640×360, 800×360, 844×390. |
+
+**Verifiche R04 browser puntuali**: layout centrato e 16:9 (letterbox a 800×360 e 844×390); click/tap reali, 8 avatar con 4 tratti originali e cambio mostrato nel DOM; `setData` cambia effettivamente nome, luogo e valori (fixture `MISTER DINAMICO`), senza alterare il portrait bitmap; 20 offerte vere nel DOM con selezione dell'ultima e **scroll** positivo; anteprima morale solo `0/-1/-3` **mock**; 4 presidenti disponibili nel kit e scena presentazione; **5 domande** di conferenza con 3 risposte ciascuna e fan mood demo finale 53; quattro menu hub premibili; prepartita; 22 marcatori dimostrativi invariati tra FULL/TV; screenshot full e TV; pulsanti visibili con **larghezza e altezza >=43,5 CSS px** (tolleranza geometrica 0,5 px sul target 44), nessun controllo principale tagliato; navigazione cancella toast passato; **zero `pageerror`, errori console e richieste fallite nel browser intercettato**; 10 PNG decorativi decodificati da Chromium con dimensioni reali.
+
+**Evidence**: lo script ha prodotto **45 screenshot locali = 15 viste × 3 viewport** e la PR ne include **8 rappresentativi**; `qa/R04-BROWSER-RESULTS.json` ne conserva i dati. I file `demo-v02.js`, `demo-v02.html`, `demo-v02.css`, atlanti e altri PNG usati nel test corrispondono ai file pubblicati, non a una reimplementazione mock. Sorgente JS verificato via SHA Git blob prima del fix e dopo il fix.
+
+### Limiti documentati senza PASS improprio
+
+- **HTTP/deploy reale NON verificato.** In questo sandbox la navigazione top-level verso `http://127.0.0.1` e `https://oronzo-qa.invalid` fallisce con `net::ERR_BLOCKED_BY_ADMINISTRATOR`, anche con un server HTTP locale e route Playwright. Il browser ha tuttavia richiesto i veri URL relativi CSS/JS/PNG dal documento HTML; Playwright ne ha restituito esattamente i byte locali via `route.fulfill` con status 200 e content-type corretto. Questo prova il caricamento delle risorse lato Chromium, **non** la reale raggiungibilità HTTP di GitHub Pages, server o CDN.
+- **Android fisico NON testato.** Sono test Chromium mobile-touch emulati; non misura densità, leggibilità, prestazioni e navigazione su dispositivo reale. Le didascalie retro di 8–9px visibili negli screenshot richiedono approvazione artistica su telefono prima del gate finale.
+- Demo standalone, **NON runtime della carriera**. Avatar, offerte, morale, presidente, tifosi, giornalisti, 22 posizioni e punteggio sono fixture dimostrative. Camera TV è zoom CSS locale, non implementazione ball-follow dell'agente 05. Save/load e game-over non implementati qui.
+- La fase M1 è limitata a **100 comuni / 500 cognomi verificati**, la raccolta appartiene già all'automazione; nessun duplicato e nessun testo/dato demografico inciso nelle immagini.
+- I moduli 07/09 R02, il futuro adapter 07, gli shout 06/08 e la camera 05 restano prerequisiti contrattuali. Nessun `index.html`, `game.js`, `ui.css`, `partita-rapida.html` alterato; il successivo ciclo runtime richiede autorizzazione esplicita in NEXT.
+
+### Raccomandazioni all'orchestratore (non autorizzazione R03)
+
+1. Rieseguire `python oronzo/assets/ui/qa/run_browser_r04.py` nel checkout della PR #33 con Chromium disponibile, esaminare i PNG caricati e verificare personalmente la leggibilità/touch.
+2. Validare il **deploy statico HTTP/GitHub Pages e almeno un Android fisico** nell'ambiente appropriato; la prova in sandbox via route non li sostituisce.
+3. Solo dopo gate #33 e fix/merge 07+09, assegnare eventuale ciclo **runtime UI** separato con adapter 07 e contratti #31/#35 coerenti.
+
+**Conclusione:** gate Chromium DOM e touch emulato superato sul codice del kit; gate deploy reale/Android resta da certificare. PR #33 aperta per review.

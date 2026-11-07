@@ -1,0 +1,292 @@
+{
+  "status": "PASS",
+  "chromiumVersion": "144.0.7559.96",
+  "exe": "/usr/bin/chromium",
+  "servedBy": "Playwright route.fulfill for CSS/JS/PNG (not a real remote HTTP server)",
+  "topLevelNavigation": "page.set_content due to sandbox ERR_BLOCKED_BY_ADMINISTRATOR",
+  "externalNetworkDeployedHTTPVerified": false,
+  "androidPhysicalDeviceVerified": false,
+  "uiOnlyNoCareerRuntime": true,
+  "viewportResults": [
+    {
+      "viewport": "640x360",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 640,
+        "height": 360
+      },
+      "screenshots": 15,
+      "counts": {
+        "entry": 7,
+        "avatar": 15,
+        "offers": 7,
+        "president": 7,
+        "press-1": 8,
+        "press-2": 8,
+        "press-3": 8,
+        "press-4": 8,
+        "press-5": 8,
+        "hub": 13,
+        "prematch": 8,
+        "match-tv": 10,
+        "match-full": 10
+      },
+      "requestedAssets": [
+        "btn-blue-v02.png",
+        "btn-disabled-v02.png",
+        "btn-gold-v02.png",
+        "coaches-atlas.png",
+        "demo-v02.css",
+        "demo-v02.js",
+        "journalists-atlas.png",
+        "navy-noise.png",
+        "office-desk-v02.png",
+        "panel-noise.png",
+        "pitch-textless.png",
+        "presidents-atlas.png"
+      ],
+      "decodedImages": [
+        [
+          "coaches-atlas.png",
+          416,
+          256
+        ],
+        [
+          "presidents-atlas.png",
+          208,
+          256
+        ],
+        [
+          "journalists-atlas.png",
+          312,
+          256
+        ],
+        [
+          "navy-noise.png",
+          96,
+          96
+        ],
+        [
+          "panel-noise.png",
+          96,
+          96
+        ],
+        [
+          "pitch-textless.png",
+          496,
+          272
+        ],
+        [
+          "office-desk-v02.png",
+          375,
+          160
+        ],
+        [
+          "btn-blue-v02.png",
+          164,
+          44
+        ],
+        [
+          "btn-gold-v02.png",
+          164,
+          44
+        ],
+        [
+          "btn-disabled-v02.png",
+          164,
+          44
+        ]
+      ],
+      "pageErrors": [],
+      "touchEmulated": true
+    },
+    {
+      "viewport": "800x360",
+      "stage": {
+        "x": 80,
+        "y": 0,
+        "width": 640,
+        "height": 360
+      },
+      "screenshots": 15,
+      "counts": {
+        "entry": 7,
+        "avatar": 15,
+        "offers": 7,
+        "president": 7,
+        "press-1": 8,
+        "press-2": 8,
+        "press-3": 8,
+        "press-4": 8,
+        "press-5": 8,
+        "hub": 13,
+        "prematch": 8,
+        "match-tv": 10,
+        "match-full": 10
+      },
+      "requestedAssets": [
+        "btn-blue-v02.png",
+        "btn-disabled-v02.png",
+        "btn-gold-v02.png",
+        "coaches-atlas.png",
+        "demo-v02.css",
+        "demo-v02.js",
+        "journalists-atlas.png",
+        "navy-noise.png",
+        "office-desk-v02.png",
+        "panel-noise.png",
+        "pitch-textless.png",
+        "presidents-atlas.png"
+      ],
+      "decodedImages": [
+        [
+          "coaches-atlas.png",
+          416,
+          256
+        ],
+        [
+          "presidents-atlas.png",
+          208,
+          256
+        ],
+        [
+          "journalists-atlas.png",
+          312,
+          256
+        ],
+        [
+          "navy-noise.png",
+          96,
+          96
+        ],
+        [
+          "panel-noise.png",
+          96,
+          96
+        ],
+        [
+          "pitch-textless.png",
+          496,
+          272
+        ],
+        [
+          "office-desk-v02.png",
+          375,
+          160
+        ],
+        [
+          "btn-blue-v02.png",
+          164,
+          44
+        ],
+        [
+          "btn-gold-v02.png",
+          164,
+          44
+        ],
+        [
+          "btn-disabled-v02.png",
+          164,
+          44
+        ]
+      ],
+      "pageErrors": [],
+      "touchEmulated": true
+    },
+    {
+      "viewport": "844x390",
+      "stage": {
+        "x": 75.328125,
+        "y": 0,
+        "width": 693.328125,
+        "height": 390
+      },
+      "screenshots": 15,
+      "counts": {
+        "entry": 7,
+        "avatar": 15,
+        "offers": 7,
+        "president": 7,
+        "press-1": 8,
+        "press-2": 8,
+        "press-3": 8,
+        "press-4": 8,
+        "press-5": 8,
+        "hub": 13,
+        "prematch": 8,
+        "match-tv": 10,
+        "match-full": 10
+      },
+      "requestedAssets": [
+        "btn-blue-v02.png",
+        "btn-disabled-v02.png",
+        "btn-gold-v02.png",
+        "coaches-atlas.png",
+        "demo-v02.css",
+        "demo-v02.js",
+        "journalists-atlas.png",
+        "navy-noise.png",
+        "office-desk-v02.png",
+        "panel-noise.png",
+        "pitch-textless.png",
+        "presidents-atlas.png"
+      ],
+      "decodedImages": [
+        [
+          "coaches-atlas.png",
+          416,
+          256
+        ],
+        [
+          "presidents-atlas.png",
+          208,
+          256
+        ],
+        [
+          "journalists-atlas.png",
+          312,
+          256
+        ],
+        [
+          "navy-noise.png",
+          96,
+          96
+        ],
+        [
+          "panel-noise.png",
+          96,
+          96
+        ],
+        [
+          "pitch-textless.png",
+          496,
+          272
+        ],
+        [
+          "office-desk-v02.png",
+          375,
+          160
+        ],
+        [
+          "btn-blue-v02.png",
+          164,
+          44
+        ],
+        [
+          "btn-gold-v02.png",
+          164,
+          44
+        ],
+        [
+          "btn-disabled-v02.png",
+          164,
+          44
+        ]
+      ],
+      "pageErrors": [],
+      "touchEmulated": true
+    }
+  ],
+  "errors": []
+}
