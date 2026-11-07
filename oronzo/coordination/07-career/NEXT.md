@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 7 · CORREZIONI DA AUDIT R02
 
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #14, merge `bb9e3847`.
@@ -53,3 +53,13 @@ Dopo merge e verifica dei cinque fix R02, un ciclo ulteriore sarà assegnato all
 **PR:** [#30](https://github.com/CzekUns/cercax/pull/30). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** GATE P0: cinque fix R02 con 09 in checkout unificato; Node due stagioni, save/load, presidente/obiettivi/paghe/absoluteWeek/history. Dopo merge nuovo ciclo adapter solo con NEXT separato.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #30**, stesso branch `agent/oronzo-career-r02`. **Priorità P0, NON MERGIARE ora.** Audit Work 00: [REPORT-R04](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r04/oronzo/coordination/coerentizzatore/REPORT-R04.md), difetto **R04-1** riprodotto. Il salvataggio V1 con `finance.settledWeeks:[1]` può essere ricaricato, calcolare `absoluteWeek:1` e pagare **una seconda volta** perché l'09 usa la chiave `a:1`. In prova il saldo è sceso da 9.234.000 a 8.748.000 ITL per pagamento duplicato 486.000.
+**Correzioni assegnate a 07:**
+1. In `oronzo/systems/career/compat.js` e migrazione/salvataggi V1/V2, mappare con tracciabilità la versione del registro finanziario e del board: `settledWeeks`, `transactions`, verbali, promesse, cooldown, scadenze. La conversione dev'essere *una volta sola*, deterministica, persistita, senza cancellare lo storico.
+2. Recuperare la stagione originaria quando documentata da save/stato; dove `week` legacy non identifica univocamente la stagione, segnalare **non migrabile automaticamente** e bloccare la ricontabilizzazione anziché indovinare. Coordinare col 09 una sola chiave periodo.
+3. Estendere i test su envelope V1/V2 con checksum valido e dati reali su due stagioni, retry stesso periodo prima/dopo reload, meeting, promesse e pagamento senza doppio addebito. Test API con `{week:seasonWeek,absoluteWeek,seasonYear}`, non sostituire semplicemente il numero assoluto dentro `week`.
+4. Aggiornare `REPORT.md` e la **PR #30 esistente** con SHA, test Node su branch combinato con #32, esiti PASS/FAIL e limiti. Niente nuova PR R03, nessun `oronzo/app/flow/` adesso.
+**Prossimo ciclo PREPARATO ma NON AUTORIZZATO:** dopo merge e suite verde #30+#32, 07 avrà in `oronzo/app/flow/` il game-flow e l'import del mondo. Per MVP sono sufficienti **100 comuni verificati** raccolti dalla revisione oraria su `data/oronzo-world-research`; 500 comuni restano fase successiva. Importare fonte/provenienza/ID, non fare ricerca duplicata e non presentare i 100 come ranking certo senza prova.
