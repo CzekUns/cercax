@@ -68,6 +68,17 @@ function desired(state, team, p, slot, pursuers) {
     }
     if(p.hasBall) { x=p.x; y=p.y; }
   }
+  // Formation switching produces a real, visible tactical regroup:
+  // off-ball players run to their new slots, then gradually leave those
+  // base positions to follow the ball and opponents. The carrier can play on.
+  if(!p.hasBall && Number.isFinite(team.regroupStarted) &&
+     Number.isFinite(team.regroupUntil) && state.t < team.regroupUntil) {
+    const elapsed=state.t-team.regroupStarted;
+    const strength=elapsed<22?1:
+      clamp((team.regroupUntil-state.t)/(team.regroupUntil-team.regroupStarted-22),0,1);
+    x=x*(1-strength)+initialX*strength;
+    y=y*(1-strength)+a.y*strength;
+  }
   return {x,y};
 }
 export function updateMovement(state, dt) {
@@ -92,8 +103,13 @@ export function updateMovement(state, dt) {
       const base=3.5+stat(p,'physical','pace')*.034;
       const character=stat(p,'mental','character');
       const morale=stat(p,'mental','morale');
+      // A brief, walkable repositioning run rather than an instantaneous jump.
+      const earlyRegroup=Number.isFinite(team.regroupStarted) &&
+        Number.isFinite(team.regroupUntil) && state.t<team.regroupUntil &&
+        state.t-team.regroupStarted<22 && !p.hasBall;
       const speed=base*(1-tired*.48)*(p.injured?.45:1)*(.9+morale*.0018)*
-        (team.shout?.tone==='encourage'?(1+(character-35)*.0005):1)*conditionFactor(p);
+        (team.shout?.tone==='encourage'?(1+(character-35)*.0005):1)*
+        conditionFactor(p)*(earlyRegroup?.55:1);
       const dx=(target.x-p.x)*105, dy=(target.y-p.y)*68, dist=Math.hypot(dx,dy);
       const move=Math.min(dist,speed*dt);
       const tx=dist>1e-6?(dx/dist)*move/105:0,ty=dist>1e-6?(dy/dist)*move/68:0;

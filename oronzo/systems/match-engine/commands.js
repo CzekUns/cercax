@@ -1,5 +1,5 @@
 import { clamp, conditionFactor } from './rng.js';
-import { FORMATIONS } from './movement.js';
+import { FORMATIONS, resetPositions } from './movement.js';
 
 export const DEFAULT_TACTICS=Object.freeze({
   formation:'4-4-2',mentality:50,pressing:50,tempo:50,width:50,marking:'zonal',
@@ -31,9 +31,28 @@ export function executeCommand(state, command, emit) {
   if(command.type==='tacticChange') {
     let tactics;
     try{tactics=validateTactics(payload,team.tactics)}catch(e){return reject(e.message);}
+    const changedFormation=tactics.formation!==team.tactics.formation;
     team.tactics=tactics;
+    if(changedFormation) {
+      if(state.t===0) {
+        // During prematch preparation there is no running clock: update the
+        // real XI immediately. Keep the kick-off ball carrier at the centre.
+        resetPositions(state);
+        const carrier=state.byId.get(state.ball.ownerId);
+        if(carrier) {carrier.x=.5;carrier.y=.5;carrier.vx=0;carrier.vy=0;}
+        state.ball.x=.5;state.ball.y=.5;state.ball.vx=0;state.ball.vy=0;
+        team.regroupStarted=null;team.regroupUntil=null;
+      } else {
+        // Players now physically move to new formation slots (no teleport).
+        // After the first 22 simulated seconds, their ball-aware movement
+        // returns progressively before the regroup window expires.
+        team.regroupStarted=state.t;
+        team.regroupUntil=Math.min(5400,state.t+64);
+      }
+    }
     emit('tacticChange',team.id,null,{tactics:{...tactics}});
-    return {accepted:true,effects:{tactics:{...tactics}}};
+    return {accepted:true,effects:{tactics:{...tactics},
+      ...(changedFormation?{regroupUntil:team.regroupUntil}:{})}};
   }
   if(command.type==='shout') {
     const tone=payload.tone;

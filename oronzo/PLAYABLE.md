@@ -43,3 +43,13 @@ Il motore già accettava `tacticChange`, ma sul campo non era immediato distingu
 - Premendo Attacca, Equilibrio o Difendi oppure modificando pressing/mentalità i valori attivi cambiano solo se il motore accetta il comando.
 
 **Verifica orchestratore:** confronto deterministico di due match uguali a t=100, con e senza `tacticChange({formation:'3-5-2',pressing:80,mentality:80})`. Dopo 30 s simulati **10 dei 11 calciatori** della squadra hanno posizioni differenti per più di 0,025 in coordinate normalizzate; il comando ed evento tattico sono accettati e registrati. Prova eseguita in V8 con sorgenti reali; la resa SVG su Android richiede ancora il controllo manuale.
+
+
+## Cambio modulo: comportamento fisico verificabile
+Dopo il feedback dell'utente che i pallini del modulo cambiavano ma gli sprite non li raggiungevano, è stata corretta la **logica reale del motore**:
+- Prima del calcio d'inizio, il modulo scelto dispone subito gli 11 sul nuovo schema, lasciando il portatore del calcio d'inizio al centro.
+- Durante la partita un cambio modulo crea una fase transitoria nel match-engine: gli uomini **senza pallone** corrono davvero verso i nuovi riferimenti, per 22 secondi simulati con velocità ridotta; poi tornano progressivamente a rispondere a palla, marcature e avversari entro 64 secondi simulati. Il portatore mantiene l'azione. Nessuna teletrasportazione a partita avviata.
+- L'overlay tattico mostra per circa 35 secondi simulati linee tratteggiate dai giocatori verso i loro riferimenti, pallini verdi se la distanza è entro 3,5 m e il numero di calciatori effettivamente allineati. Il comando SCHEMA permette di osservare le posizioni di riferimento, senza pretendere che gli undici rimangano incollati ai pallini durante l'azione.
+- Cambiare soltanto pressing/mentalità non attiva una finta riorganizzazione.
+- Prova orchestratore in V8 sui moduli reali: **5 gruppi di test PASS** (prematch, 10 seed in-play senza teleport, inversione dopo l'intervallo, pressing senza spostamenti immediati, 90 minuti con score coerente con gli eventi gol). Per i 10 seed la soglia minima dopo 20 secondi simulati è 11/11 giocatori entro 3 m nelle fixture usate; un altro campione con pallone in possesso ha 10/11. Nuovo test Node in `systems/match-engine/tests/formation-regroup.test.mjs`. Non sostituisce la verifica visuale su Android.
+- La durata normale **1× = 15 minuti reali** resta invariata.
