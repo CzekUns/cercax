@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 7 · CORREZIONI DA AUDIT R02
 
-**Stato:** `READY`
+**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #14, merge `bb9e3847`.
@@ -48,3 +48,8 @@ Dopo merge e verifica dei cinque fix R02, un ciclo ulteriore sarà assegnato all
 
 ## Controllo orchestratore — ripresa parallela del 7 novembre 2026
 **PRIORITÀ MASSIMA — FIX R02 NON CONSEGNATI.** Il branch `agent/oronzo-career-r02` è identico a main (0 commit nuovi); il REPORT su main riguarda solo il ciclo 01. Procedere *esclusivamente* ai cinque fix R02 del presente NEXT e test incrociati con 09: `presidentId` canonico, `seasonObjective` coerente, `contract.weeklyWage` non nullo, `absoluteWeek` oltre 2 stagioni, `employmentHistory`/`hiredSeason`/contratto dopo save/load ed esonero. Pubblicare PR R02 e REPORT con esito Node, fixture 2 stagioni e API di frontiera. **VIETATO partire ora con `oronzo/app/flow/`**: solo dopo verifica e merge delle PR R02 di 07 **e** 09 l'orchestratore autorizzerà in un nuovo NEXT il ciclo adapter/ingaggi/1979.
+
+## R04 — CONSEGNA IN REVISIONE WORK 00
+**PR:** [#30](https://github.com/CzekUns/cercax/pull/30). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
+**Gate di accettazione:** GATE P0: cinque fix R02 con 09 in checkout unificato; Node due stagioni, save/load, presidente/obiettivi/paghe/absoluteWeek/history. Dopo merge nuovo ciclo adapter solo con NEXT separato.
+**Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
