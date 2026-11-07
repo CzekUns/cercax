@@ -1,0 +1,385 @@
+/** ORONZO R03: headless career flow. No UI/rendering, no fabricated coach morale.
+ * Dependencies: Career07, real Board09, MatchEngine06, Copy04 press.
+ */
+import { newCareer, getUpcomingFixture, fixturesForWeek, registerResult, advanceWeek,
+  finishSeason, applyBoardDecision, applyJobOffer } from '../../systems/career/career.js';
+import { createInitialOffers, listInitialOffers as offersView,
+  selectInitialOffer } from '../../systems/career/offers-r03.js';
+import { assignWorldToClubs, getClubGeography } from '../../systems/career/world.js';
+import { simulateOtherFixture } from '../../systems/career/uncontrolled-fixtures.js';
+import { seededRandom } from '../../systems/career/league.js';
+import { createSaveManager, serialize, deserialize } from '../../systems/career/save.js';
+import { createClub, createCoach, prepareMatchday, conveneBoard,
+  reviewMatch, endClubWeek, resolveClubPresident } from '../../systems/coach-club/index.js';
+import { createMatch } from '../../systems/match-engine/match-engine.js';
+import { createPressConference, answerPressConference } from '../../content/press-kit.js';
+
+export const FLOW_VERSION=1;
+export const START_YEAR=1979;
+export const MATCH_SIM_SECONDS_PER_REAL_SECOND=6; // 5400 simulated / 900 real = 15 min at 1x
+const clone=value=>JSON.parse(JSON.stringify(value));
+const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+const dateAt=(year,week,month=8,day=1)=>{
+  const date=new Date(Date.UTC(year,month-1,day)+ (week-1)*7*86400000);
+  return date.toISOString().slice(0,10);
+};
+function ensureLive(state) {
+  if(!state?.flow || state.flow.version!==FLOW_VERSION)throw new Error('Flow V1 state required');
+  if(state.coach.gameOver || state.coach.morale===0)throw new Error('GAME_OVER: coach morale exhausted');
+}
+function clubById(state,id) {
+  const club=state.clubs.find(c=>c.id===id);
+  if(!club)throw new Error('Unknown club: '+id);
+  return club;
+}
+const lineUp=club=>{
+  const eligible=club.players.filter(p=>!p.status?.injuryDays&&!p.status?.suspensionMatches&&
+    p.status?.health!==0);
+  const keeper=eligible.find(p=>p.positions?.includes('GK'));
+  const others=eligible.filter(p=>!p.positions?.includes('GK')).slice(0,10);
+  if(!keeper || others.length<10)throw new Error('Not enough fit players for XI: '+club.id);
+  const xi=[keeper.id,...others.map(p=>p.id)];
+  const bench=eligible.filter(p=>!xi.includes(p.id)).slice(0,5).map(p=>p.id);
+  return {xi,bench,captainId:others[0].id};
+};
+const uiPlayer=(state,id)=>{
+  const club=state.clubs.find(c=>c.players.some(p=>p.id===id));
+  if(!club)throw new Error('Unknown player');
+  const player=club.players.find(p=>p.id===id),kit=club.visualKits?.home??null;
+  const visual=player.visual??null;
+  const appearance=visual && kit ? {
+    playerId:player.id,role:player.positions?.[0]??null,
+    skinToneId:visual.skinToneId, hairColorId:visual.hairColorId,
+    hairStyleId:visual.hairStyleId, facialHairStyleId:visual.facialHairStyleId,
+    facialHairColorId:visual.facialHairColorId,
+    portraitAssetId:visual.portraitAssetId??null,
+    shirtA:kit.shirtA,shirtB:kit.shirtB,shirtPatternId:kit.shirtPatternId,
+    shorts:kit.shorts,socks:kit.socks,trim:kit.trim
+  } : null;
+  return clone({playerId:player.id,clubId:club.id,player,visual,visualKits:club.visualKits??null,
+    kitId:'home',appearance,
+    appearanceStatus:appearance?'ready':'awaiting_canonical_visual_data_from_08_01'});
+};
+function pressContext(state, extra={}) {
+  const club=clubById(state,state.coach.clubId);
+  return {clubId:club.id,clubObjective:club.seasonObjective,
+    president:null,clubCash:club.finance?.cash??club.budget,
+    coachMorale:state.coach.morale??null, ...extra};
+}
+function startPress(state,phase,press,sessionKey,context={}) {
+  if(state.flow.press[phase])return state.flow.press[phase];
+  const catalog=press?.[phase],media=press?.media;
+  if(!catalog || !media) return null; // Clear dependency, no dummy questions.
+  const session=createPressConference({
+    catalog,media,phase,context:pressContext(state,context),
+    careerSeed:state.seed,sessionKey
+  });
+  state.flow.press[phase]=session;
+  return session;
+}
+function recordEffect(state, eventId,kind,semanticEffects,applier,additional={}) {
+  if(own(state.flow.effectTransactions,eventId))
+    return {status:state.flow.effectTransactions[eventId].status,duplicate:true};
+  const stored={eventId,kind,semanticEffects:clone(semanticEffects),status:'awaiting_agent09',...additional};
+  if(applier) {
+    const club=state.coach.clubId?clubById(state,state.coach.clubId):null;
+    const result=applier({
+      eventId,kind,semanticEffects:clone(semanticEffects),offer:additional.offer??null,
+      coach:clone(state.coach),club:club?clone(club):null
+    });
+    if(!result || result.accepted!==true || !result.coach)
+      throw new Error('Agent09 effect applier must atomically confirm applied coach');
+    state.coach=clone(result.coach);
+    if(result.club)state.clubs[state.clubs.findIndex(c=>c.id===result.club.id)]=clone(result.club);
+    stored.status='applied';
+  }
+  state.flow.effectTransactions[eventId]=stored;
+  return {status:stored.status,duplicate:false};
+}
+function answerPress(state,phase,questionId,answerId,{press,applyPressEffect}={}) {
+  ensureLive(state);
+  const stage=phase==='opening'?'opening_press':'postmatch_press';
+  if(state.flow.stage!==stage)return {accepted:false,reason:'wrong_stage'};
+  const key=phase==='opening'?state.flow.acceptedOfferId:state.flow.finalMatch?.fixtureId;
+  const context=phase==='postmatch'?{
+    matchFinal:true,matchId:key,result:state.flow.finalMatch.result,
+    venue:state.flow.finalMatch.homeId===state.coach.clubId?'home':'away'
+  }:{};
+  const session=startPress(state,phase,press,key,context);
+  if(!session)return {accepted:false,reason:'press_catalog_required'};
+  const answer=answerPressConference(session,questionId,answerId);
+  if(!answer.accepted)return answer;
+  // Perform external effect first (if available), so failed applier leaves answers uncommitted.
+  const status=recordEffect(state,answer.effectTransactionId,'press',answer.semanticEffects,applyPressEffect);
+  state.flow.press[phase]=answer.session;
+  if(answer.session.completed)state.flow.stage=phase==='opening'?'hub':'postmatch_ready';
+  return {...answer,effectStatus:status.status};
+}
+
+export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il Mister',
+  leagueSizes,playerVisualById={},clubVisualKitsById={},startDate='1979-08-01'}={}) {
+  if(!Number.isSafeInteger(seed))throw new Error('seed must be an integer');
+  if(!avatar || !String(avatar.id??'').trim())throw new Error('Selected avatar ID required');
+  const traits=avatar.traits;
+  if(!traits || ['luck','leadership','selfEsteem','patience']
+    .some(k=>!Number.isInteger(traits[k]) || traits[k]<0 || traits[k]>100))
+    throw new Error('Avatar must define four 0..100 integer traits');
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(startDate) ||
+     !Number.isFinite(Date.parse(startDate)) || !startDate.startsWith('1979-'))
+    throw new Error('Start date must be an explicit 1979 date');
+  const state=newCareer({startYear:START_YEAR,coachName,leagueSizes},seed);
+  const assignment=assignWorldToClubs(state.clubs,seed,municipalityCatalog);
+  // Caller supplies visual identity owned by Agent08 and kits owned by the club.
+  // We keep these unchanged: no alternative generator or fabricated portrait.
+  const knownPlayers=new Set(assignment.clubs.flatMap(c=>c.players.map(p=>p.id)));
+  const knownClubs=new Set(assignment.clubs.map(c=>c.id));
+  if(Object.keys(playerVisualById).some(id=>!knownPlayers.has(id)) ||
+     Object.keys(clubVisualKitsById).some(id=>!knownClubs.has(id)))
+    throw new Error('Unknown visual player/club ID');
+  for(const club of assignment.clubs) {
+    if(own(clubVisualKitsById,club.id))club.visualKits=clone(clubVisualKitsById[club.id]);
+    for(const player of club.players)
+      if(own(playerVisualById,player.id))player.visual=clone(playerVisualById[player.id]);
+  }
+  state.clubs=assignment.clubs.map(c=>({
+    ...createClub(c),
+    // createClub owns finance/board fields; 07 owns geography and kit identity.
+    ...(c.municipalityId?{municipalityId:c.municipalityId}:{}),
+    ...(c.regionId?{regionId:c.regionId}:{}),
+    ...(c.macroRegion?{macroRegion:c.macroRegion}:{}),
+    ...(c.provinceCode?{provinceCode:c.provinceCode}:{}),
+    ...(c.geographicSourceId?{geographicSourceId:c.geographicSourceId}:{}),
+    ...(c.geographicReferenceYear?{geographicReferenceYear:c.geographicReferenceYear}:{}),
+    ...(c.visualKits?{visualKits:clone(c.visualKits)}:{})
+  }));
+  state.world=assignment.world;
+  if(state.world.mode==='reviewed_data' && avatar.origin?.municipalityId &&
+    !state.world.data.records.some(r=>r.municipalityId===avatar.origin.municipalityId))
+    throw new Error('Coach home city not found in reviewed dataset');
+  state.coach=createCoach({...state.coach,clubId:null,contract:null,avatarId:avatar.id,
+    origin:avatar.origin??null,traits:clone(traits),hiredSeason:START_YEAR,
+    employmentHistory:[],gameOver:null});
+  // Morale is Agent09-owned. No invented default or discount is applied here.
+  state.gameDate=startDate;
+  state.calendarPolicy={kind:'gameplay_assumption',seasonStartMonth:Number(startDate.slice(5,7)),
+    seasonStartDay:Number(startDate.slice(8,10)),
+    description:'Configured gameplay date, not a verified 1979 fixture date'};
+  state.rngState={version:1,mode:'seed_derived_per_event',seed,cursor:0};
+  state.flow={version:FLOW_VERSION,stage:'offers',initialOffers:[],acceptedOfferId:null,
+    acceptedOffer:null,press:{opening:null,postmatch:null},
+    finalMatch:null,pendingMatch:null,resultSources:{},
+    effectTransactions:{},history:[],pressDependency:'agent09_effects_unavailable_without_adapter'};
+  createInitialOffers(state);
+  return state;
+}
+
+export function listInitialOffers(state) { return offersView(state); }
+export function acceptOffer(state,offerId,{previewOfferMorale,applyOfferEffect,press}={}) {
+  ensureLive(state);
+  const found=state.flow.initialOffers.find(o=>o.id===offerId);
+  if(!found)return {accepted:false,reason:'unknown_offer'};
+  if(state.flow.acceptedOfferId)return {
+    accepted:false,reason:state.flow.acceptedOfferId===offerId?'already_accepted':'opening_contract_already_signed'
+  };
+  // Compute the effect on a detached draft before accepting/persisting the offer.
+  const draft=clone(state);
+  const preview=previewOfferMorale ? previewOfferMorale(clone(draft.coach),clone(found),
+    clone(clubById(draft,found.clubId))) : null;
+  const accepted=selectInitialOffer(draft,offerId);
+  if(!accepted.accepted)return accepted;
+  const eventId='offer-morale:'+offerId;
+  const effect=recordEffect(draft,eventId,'initial_offer',{preview},applyOfferEffect,{offer:found});
+  startPress(draft,'opening',press,offerId);
+  for(const k of Object.keys(state))delete state[k];
+  Object.assign(state,draft);
+  return {...accepted,effectStatus:effect.status,previewMorale:preview};
+}
+export function answerOpeningPress(state,questionId,answerId,options) {
+  return answerPress(state,'opening',questionId,answerId,options);
+}
+export function answerPostMatchPress(state,questionId,answerId,options) {
+  return answerPress(state,'postmatch',questionId,answerId,options);
+}
+export function getRosterPlayer(state,playerId) { return uiPlayer(state,playerId); }
+export function getTrainingPlayer(state,playerId) { return uiPlayer(state,playerId); }
+
+export function getStateForUI(state) {
+  const club=state.coach.clubId?clubById(state,state.coach.clubId):null;
+  return clone({
+    version:state.flow?.version??null,stage:state.flow?.stage??'legacy_career',
+    gameDate:state.gameDate??null,seasonYear:state.seasonYear,seasonWeek:state.week,
+    absoluteWeek:state.absoluteWeek,coach:state.coach,
+    club:club?{id:club.id,name:club.name,divisionId:club.divisionId,
+      presidentId:club.presidentId,world:getClubGeography(state,club.id),
+      players:club.players.map(p=>({playerId:p.id,name:p.name,positions:p.positions,
+        visual:p.visual??null}))}:null,
+    offers:state.flow?.initialOffers??[],careerOffers:state.offers,
+    press:state.flow?.press??null,upcomingFixture:getUpcomingFixture(state),
+    resultSources:state.flow?.resultSources??{},
+    pendingEffectTransactions:Object.values(state.flow?.effectTransactions??{})
+      .filter(e=>e.status!=='applied'),
+    worldStatus:state.world?.datasetStatus??'legacy',worldMode:state.world?.mode??'legacy',
+    gameOver:state.coach.gameOver??(state.coach.morale===0?{reason:'morale_zero'}:null)
+  });
+}
+export function prepareMatch(state,{xi,bench,captainId}={}) {
+  ensureLive(state);
+  if(state.flow.stage!=='hub'&&state.flow.stage!=='pre_match')
+    return {accepted:false,reason:'wrong_stage'};
+  const fixture=getUpcomingFixture(state);
+  if(!fixture)return {accepted:false,reason:'no_coach_fixture'};
+  if(state.flow.pendingMatch && state.flow.pendingMatch.fixtureId!==fixture.id)
+    throw new Error('Another match is pending');
+  const club=clubById(state,state.coach.clubId);
+  const home=clubById(state,fixture.homeId),away=clubById(state,fixture.awayId);
+  const ownerXI=xi??lineUp(club).xi;
+  const ownerBench=bench??lineUp(club).bench;
+  const ownerCaptain=captainId??ownerXI.find(id=>!club.players.find(p=>p.id===id).positions.includes('GK'));
+  const formation=prepareMatchday(club,state.coach,{
+    xi:ownerXI,bench:ownerBench,captainId:ownerCaptain
+  });
+  if(!formation.accepted)return formation;
+  const other=lineUp(home.id===club.id?away:home);
+  const isHome=fixture.homeId===club.id;
+  const matchSeed=Math.floor(seededRandom('match06:'+state.seed+':'+fixture.id)()*4294967296);
+  const input={seed:matchSeed,homeClub:home,awayClub:away,
+    homeXI:isHome?formation.selection.xi:other.xi,
+    awayXI:isHome?other.xi:formation.selection.xi,
+    homeBench:isHome?formation.selection.bench:other.bench,
+    awayBench:isHome?other.bench:formation.selection.bench,
+    homeTactics:isHome?formation.selection.tactics:state.coach.tactics,
+    awayTactics:isHome?state.coach.tactics:formation.selection.tactics,
+    competitionRules:{maxSubstitutions:2}};
+  const engine=createMatch(input); // Actual Match Engine 06; no synthetic score for played matches.
+  state.flow.pendingMatch={fixtureId:fixture.id,homeId:home.id,awayId:away.id,seed:matchSeed,
+    lineup:clone(formation.selection),phase:'prepared'};
+  state.flow.stage='pre_match';
+  return {accepted:true,fixture:clone(fixture),matchInput:input,engine,
+    engineProvenance:{fixtureId:fixture.id,seed:matchSeed,source:'match-engine-06'},
+    timeScale:{simulatedSeconds:5400,realSecondsAt1x:900}};
+}
+export function tickMatch(engine,realSeconds,{speed=1}={}) {
+  if(![1,2,4,8].includes(speed)||!Number.isFinite(realSeconds)||realSeconds<0)
+    throw new Error('Invalid match speed/time');
+  return engine.step(realSeconds*MATCH_SIM_SECONDS_PER_REAL_SECOND*speed);
+}
+export function consumeMatchResult(state,engine,{press}={}) {
+  ensureLive(state);
+  if(state.flow.stage!=='pre_match'||!state.flow.pendingMatch)
+    return {accepted:false,reason:'no_prepared_match'};
+  if(!engine || typeof engine.isFinished!=='function' || !engine.isFinished())
+    return {accepted:false,reason:'engine_not_fulltime'};
+  const meta=state.flow.pendingMatch,fixture=fixturesForWeek(state).find(f=>f.id===meta.fixtureId);
+  if(!fixture || fixture.result)return {accepted:false,reason:'already_recorded'};
+  const final=engine.snapshot(),events=engine.getEventsSince(0);
+  if(final.phase!=='fulltime'||final.t!==5400)throw new Error('Invalid Match Engine 06 fulltime');
+  const score={home:final.score.home,away:final.score.away};
+  const normalizedEvents=events.map(e=>({...e,id:String(e.id)}));
+  registerResult(state,{fixtureId:fixture.id,homeId:fixture.homeId,awayId:fixture.awayId,
+    score,events:normalizedEvents});
+  const coachHome=fixture.homeId===state.coach.clubId;
+  const ours=coachHome?score.home:score.away,opponent=coachHome?score.away:score.home;
+  const result=ours>opponent?'win':ours<opponent?'loss':'draw';
+  state.flow.resultSources[fixture.id]='match_engine_06';
+  state.flow.finalMatch={fixtureId:fixture.id,homeId:fixture.homeId,awayId:fixture.awayId,
+    score,result,phase:'fulltime',t:5400,eventCount:events.length};
+  state.flow.stage='postmatch_press';
+  state.flow.press.postmatch=null;
+  startPress(state,'postmatch',press,fixture.id,
+    {matchFinal:true,matchId:fixture.id,result,venue:coachHome?'home':'away'});
+  return {accepted:true,fixtureId:fixture.id,score,result,
+    pressReady:!!state.flow.press.postmatch,source:'match_engine_06'};
+}
+
+export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulateOtherFixture}={}) {
+  ensureLive(state);
+  if(!['postmatch_ready','unemployed'].includes(state.flow.stage))
+    return {accepted:false,reason:'postmatch_press_not_completed'};
+  if(state.phase!=='inSeason')return {accepted:false,reason:'season_not_active'};
+  if(!presidentCatalog)return {accepted:false,reason:'president_catalog_required'};
+  const draft=clone(state); // Atomic: no scores, payroll or meeting committed on exception.
+  const playerClub=draft.coach.clubId;
+  const period={week:draft.week,absoluteWeek:draft.absoluteWeek,seasonYear:draft.seasonYear};
+  const fixtures=fixturesForWeek(draft);
+  if(playerClub && !fixtures.some(f=>f.result && (f.homeId===playerClub||f.awayId===playerClub)))
+    return {accepted:false,reason:'coach_match_not_recorded'};
+  for(const fixture of fixtures)if(!fixture.result){
+    if(fixture.homeId===playerClub||fixture.awayId===playerClub)
+      throw new Error('Coach match cannot be AI-simulated');
+    const result=simulateFixture(draft,fixture);
+    registerResult(draft,result);
+    draft.flow.resultSources[fixture.id]='deterministic_uncontrolled_fixture_v1';
+  }
+  let dismissed=false;
+  for(let i=0;i<draft.clubs.length;i++) {
+    let club=draft.clubs[i];
+    if(club.id===playerClub) {
+      const president=resolveClubPresident(club,presidentCatalog);
+      const meeting=conveneBoard(club,president,{...period,seed:draft.seed});
+      if(meeting.accepted)club=meeting.club;
+      else if(meeting.reason!=='already_met_this_week')
+        throw new Error('Board meeting denied: '+meeting.reason);
+      const fixture=fixtures.find(f=>f.homeId===club.id||f.awayId===club.id);
+      const reviewed=reviewMatch(club,president,{
+        ...period,matchId:fixture.id,homeClubId:fixture.homeId,awayClubId:fixture.awayId,
+        snapshot:{phase:'fulltime',t:5400,score:fixture.result.score}
+      },draft.seed);
+      if(!reviewed.accepted && reviewed.reason!=='already_recorded')
+        throw new Error('Board review denied: '+reviewed.reason);
+      if(reviewed.accepted) {club=reviewed.club;dismissed=reviewed.dismissed;}
+    }
+    const settled=endClubWeek(club,period);
+    if(!settled.accepted)throw new Error('Payroll denied: '+settled.reason);
+    draft.clubs[i]=settled.club;
+  }
+  const matchday=period.absoluteWeek;
+  advanceWeek(draft);
+  if(dismissed && playerClub)applyBoardDecision(draft,{type:'dismiss',clubId:playerClub});
+  draft.flow.history.push({seasonYear:period.seasonYear,week:period.week,
+    absoluteWeek:period.absoluteWeek,fixtureCount:fixtures.length,
+    playedFixtureId:draft.flow.finalMatch?.fixtureId??null});
+  draft.flow.pendingMatch=null;draft.flow.finalMatch=null;draft.flow.press.postmatch=null;
+  draft.flow.stage=draft.phase==='seasonComplete'?'season_complete':
+    draft.coach.clubId?'hub':'unemployed';
+  draft.gameDate=dateAt(draft.seasonYear,draft.week,draft.calendarPolicy.seasonStartMonth,
+    draft.calendarPolicy.seasonStartDay);
+  // Replace validated state only after all per-club finance and game rules succeed.
+  for(const k of Object.keys(state))delete state[k];
+  Object.assign(state,draft);
+  return {accepted:true,completedAbsoluteWeek:matchday,nextStage:state.flow.stage,
+    gameDate:state.gameDate,simulatedOtherFixtures:fixtures.filter(f=>f.id!==state.flow.history.at(-1).playedFixtureId).length};
+}
+export function rolloverSeason(state) {
+  ensureLive(state);
+  if(state.flow.stage!=='season_complete')return {accepted:false,reason:'season_not_complete'};
+  finishSeason(state);
+  state.gameDate=dateAt(state.seasonYear,1,state.calendarPolicy.seasonStartMonth,
+    state.calendarPolicy.seasonStartDay);
+  state.flow.stage=state.coach.clubId?'hub':'unemployed';
+  return {accepted:true,seasonYear:state.seasonYear,gameDate:state.gameDate};
+}
+export function takeCareerOffer(state,offerId) {
+  ensureLive(state);
+  if(state.flow.stage!=='unemployed')return {accepted:false,reason:'coach_not_unemployed'};
+  applyJobOffer(state,offerId);
+  state.flow.stage='hub';
+  return {accepted:true,clubId:state.coach.clubId};
+}
+export function saveGame(state,storage,{key='oronzo.career.flow.r03'}={}) {
+  // The 06 handle has no hydrate/serialize API: only save between matches.
+  if(['pre_match','match_live'].includes(state?.flow?.stage))
+    throw new Error('MID_MATCH_SAVE_UNSUPPORTED: save before preparation or after fulltime');
+  return createSaveManager(storage,key).save(state);
+}
+export function loadGame(storage,{key='oronzo.career.flow.r03'}={}) {
+  // Preserve the old v2 localStorage key and its 1985 date, without rewriting it.
+  const loaded=createSaveManager(storage,key).load();
+  if(loaded)return {...loaded,legacy:false};
+  if(key==='oronzo.career.flow.r03') {
+    const legacy=createSaveManager(storage,'oronzo.career.v2').load();
+    if(legacy)return {...legacy,legacy:true};
+  }
+  return null;
+}
+export function exportGame(state) { return serialize(state); }
+export function importGame(json) { return deserialize(json); }
