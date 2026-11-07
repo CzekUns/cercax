@@ -1,0 +1,15 @@
+{
+  "id": "wikipedia-mappa-italy-most-common-sample",
+  "url": "https://en.wikipedia.org/wiki/List_of_most_common_surnames_in_European_countries#Italy",
+  "license": "CC BY-SA 4.0",
+  "year": "2026",
+  "description": "Sample of 20 most common Italian surnames, NOT rare. Rank and estimated family counts transcribed from the Italy table, attributed to Mappa dei Cognomi; NOT official census or 1979 measurements.",
+  "attribution": "Wikipedia contributors, List of most common surnames in European countries, Italy section, CC BY-SA 4.0. Estimates originally attributed to Mappa dei Cognomi.",
+  "futureSource": {
+    "url": "https://github.com/onomaverse/datasets/releases/tag/v2026.10",
+    "license": "CC BY 4.0",
+    "id": "onomaverse-surname-frequency-v2026.10",
+    "year": "2026",
+    "note": "To produce up to 5000 rare surnames, import the licensed CSV after checking country IT coverage; Onomaverse shares are coverage estimates, not census counts."
+  }
+}

@@ -12,3 +12,15 @@
 
 Nessuna dipendenza npm obbligatoria. ESM browser e `node:test`. UI interattiva autonoma in `demo.html` (smartphone orizzontale 16:9).
 
+
+## Adattatori v0.2 — da realizzare negli altri moduli (NO runtime collegato in questa PR)
+
+**06 match-engine:** ricevere `PlayerV1.mental.pazzia/spericolatezza/coraggio/suscettibilita/impulsivita` (0–100), leggere `analyzeDisposition` per propensione alle azioni rischiose, senza ricalcolare bonus duplicati rispetto a `effectiveAbility`. Gli ordini di tono passano per `applyShout` **una sola volta per `eventId`**, aggiornano l'oggetto calciatore nel successivo stato persistito, e valutano `effectiveAbility(player,{skill,t:matchTimeSeconds,...})` solo durante la finestra temporanea. Esempio `temporaryEffects: [{id,kind:'coach-shout',bonus,expiresAt}]` con `expiresAt` tempo match simulato, non wall-clock. L'engine mantiene responsabilità di snapshot, transizioni e probabilità finali. Stampa/lessico dei rimproveri spetta al 04.
+
+**09 coach/club:** fornire `coachLeadership`, `coachOrigin`, `tone`; il campo `relationships.coachTrust` è la fiducia DEL CALCIATORE nel mister, distinta da morale coach/currency e board trust. `previewShout` calcola delta previsionali senza mutare; `applyShout` restituisce i nuovi dati e l'ID applicato, conservabili nel save. Niente game over nel modulo 08.
+
+**07 carriera/dataset comuni:** passare ai generatori `origins` dal dataset verificato dei comuni, es. `[{comune:'...',regione:'...'}]`; il modulo valida la macroregione ma non può verificare che ogni comune sia effettivamente nella regione: 07 deve fornire record affidabili. Salvare `origin`, `surname`, `surnameSourceId`, `coachInteractionIds`, `temporaryEffects` insieme a PlayerV1 e NON rigenerarli a load. Il campione demo usa capoluoghi autentici, non è il dataset dei ~500 piccoli comuni della carriera.
+
+**Nome/rarità:** l'ordinamento meno frequente si applica **dentro una sola sorgente e popolazione**; non combinare ranking locale 2026 con un ipotetico ranking nazionale 1979. `surname-sample.csv` contiene 20 cognomi COMUNI: sostituirlo con sorgente autorizzata e verificata prima di dichiarare il target 5000.
+
+**Compatibilità:** le API v1 restano e i salvataggi legacy si normalizzano; `origin:null` significa dati ignoti, non fallback casuale. QA di runtime e salvataggi integrati ancora da eseguire nell'owner rispettivo.

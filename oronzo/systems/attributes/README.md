@@ -78,3 +78,36 @@ Test di 120 giocatori, 8 squadre/176 calciatori, 11 titolari più riserve, gener
 - Chiamare `applyTrainingWeek` **una sola volta** per settimana. Il chiamante deve registrare la settimana completata; questa funzione non fa deduplica temporale.
 - Le posizioni sono categorie base PlayerV1; eventuali sottoruoli tattici saranno estensioni interoperabili.
 
+
+## Ciclo R02 · Visione 1979: carattere, geografia e cognomi (moduli, non runtime)
+
+Il codice originale `PlayerV1` rimane compatibile (stesse proprietà obbligatorie e API): estensioni addizionali `mental.pazzia`, `mental.spericolatezza`, `mental.coraggio`, `mental.suscettibilita`, `mental.impulsivita` (0–100), `origin: {comune,regione,macroregione}|null`, `surname`, `surnameSourceId`, `relationships.coachTrust`, `temporaryEffects` e `coachInteractionIds`. I vecchi salvataggi senza origine mantengono `origin:null`: il modulo **non inventa** il comune natale dopo load. Le regioni vengono validate in `geography.js`; per ORONZO Sicilia, Sardegna, Abruzzo, Molise sono **Sud** (scelta di gioco esplicita, non classificazione ufficiale universale).
+
+### Provenienza cognomi e copertura reale
+
+- `surnames.js`: `loadSurnameCSV(csv,{source,limit:5000,country:'IT'})`. Accetta un CSV attribuito e dichiarato riutilizzabile con `name`/`surname`, `country_code` e almeno una metrica **attestata** (`pct_in_country`, `frequency`, `rank`). Scarta record non italiani, deduplica i nomi (confronto NFC e maiuscole), valida eventuali varianti `variant_of`, ordina dal **meno frequente**; se la fonte espone solo `rank` (1=più comune) ordina il ranking in senso decrescente. Non confronta metriche/anni di fonti diverse in un unico ranking.
+- `chooseSurname(catalog,createRng(seed))` seleziona riproducibilmente un cognome da un catalogo già limitato, senza inventare frequenze. `generatePlayer`, `generateSquad`, `generatePlayers`, `generateLeague` ricevono opzionalmente `surnameCatalog` e `origins`.
+- **Campione effettivamente incluso:** `data/surname-sample.csv` contiene **20 cognomi italiani diffusi** con ranking/stime di famiglie riportati nella tabella Italia della voce [List of most common surnames in European countries](https://en.wikipedia.org/wiki/List_of_most_common_surnames_in_European_countries#Italy), che attribuisce tali stime a Mappa dei Cognomi. Licenza **CC BY-SA 4.0** della pubblicazione Wikipedia; attribuzione, avvertenze e fonte in `data/surname-sample.source.json`. **NON sono cognomi rari, NON sono dati censuari ufficiali e NON sono conteggi del 1979.** Il campo `year:2026` indica la consultazione, non la data della popolazione stimata.
+- **Per arrivare a 5.000:** fonte potenziale riutilizzabile [Onomaverse surname-frequency v2026.10](https://github.com/onomaverse/datasets/releases/tag/v2026.10), **CC BY 4.0**, file `surname-frequency.csv` con `name,country_code,pct_in_country`. La documentazione Onomaverse dichiara **41.162 righe globali**, non 5.000 cognomi italiani garantiti. Verificare copertura IT e provenienza/anno prima di importare; non certificare il ranking come censimento. Attribuzione richiesta: "Names data from Onomaverse (https://onomaverse.com/datasets), licensed CC BY 4.0." Il file completo non è stato vendorizzato e NON si dichiara 5.000 raggiunto.
+- Senza un catalogo documentato il generatore conserva il fallback dei 35 cognomi legacy con `surnameSourceId:'legacy-fallback-unverified'`; **questo fallback non costituisce un archivio documentato**.
+
+### Personalità e feedback tecnico
+
+- `player-traits.js` esporta `analyzeDisposition(player,context)`, `previewShout(player,{tone,coachOrigin,coachLeadership,pressure})`, `applyShout(player,{eventId,t,tone,coachOrigin,coachLeadership,pressure})`. Calcola `riskPreference`, `orderCompliance`, `errorOnRiskyAction`, `emotionalSensitivity` senza mutare la tecnica di base.
+- `effectiveAbility(player,{skill,pressure,riskyAction,t,...})` penalizza azioni rischiose condizionate da spericolatezza/impulsività, e legge gli effetti `temporaryEffects` solo se `t` (secondi di partita) è fornito e `t < expiresAt`. Gli effetti sono limitati a 8 punti complessivi. Il motore resta responsabile di *quali* azioni tentare: non generiamo tiri, gol o comandi.
+- `applyShout` richiede ID evento stabile, non duplica modifiche dopo retry/reload, applica delta misurabili a morale/fiducia e memorizza un bonus temporaneo di **180 secondi simulati**. Risposta media stessa regione > stessa macroregione > macroregione diversa, ponderata da leadership e carattere; gli shouts ripetuti devono essere gestiti e limitati dall'Agente 06/09. La morale di **allenatore**, game over e costi ingaggi sono esclusivamente dell'Agente 09.
+- Rischio infortunio da seduta: pazzia e spericolatezza influenzano le **probabilità** di sovraccarico senza creare esiti certi; piani/allenamenti rimangono deterministici a seed. L'origine è immutabile durante progressione stagionale e serializzabile.
+
+### Esempio R02
+
+```js
+import {loadSurnameCSV} from './surnames.js';
+import {generateSquad} from './generator.js';
+import {applyShout} from './player-traits.js';
+const catalog=loadSurnameCSV(csvText,{source:sourceMetadata,limit:5000});
+const players=generateSquad({seed:1979,teamId:'club-17',surnameCatalog:catalog,origins:verifiedTownRecords});
+const {player,applied,effects}=applyShout(players[0],{eventId:'match-100-shout-1',t:1800,tone:'gentle',
+ coachOrigin:{comune:'Napoli',regione:'Campania'},coachLeadership:75});
+```
+
+`demo.html` usa un import dinamico del campione locale per la scheda, mostra tratti e regione e permette di simulare richiami; non è collegata alla partita reale. Avviarla via HTTP per permettere il caricamento del CSV locale.
