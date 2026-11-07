@@ -1,21 +1,15 @@
-# NEXT — AGENTE 8 · ORONZO
+# NEXT — AGENTE 08 · PERSONAGGIO GIOCATORE, REGIONALITÀ E NOMI · VISIONE v0.2
+**Stato:** `READY` (sbloccato per ciclo indipendente rispetto al vecchio BLOCKED: la PR #18 engine è integrata).
+**Precedente:** PR #16 MERGIATA (389dce444a7f7c19254381bfda2205acc4268f51).
+**Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
+**Branch:** `agent/oronzo-attributes-r02` da ultimo main.
+**Scope:** `oronzo/systems/attributes/` e proprio REPORT.
 
-**Stato:** `BLOCKED`
-**PR ciclo precedente:** https://github.com/CzekUns/cercax/pull/16
-**Esito:** MERGIATA su `main`, SHA merge/squash `389dce444a7f7c19254381bfda2205acc4268f51` (7 novembre 2026).
-**Responsabile del nuovo ciclo e di NEXT:** orchestratore principale.
+## Attività
+1. Mantieni `PlayerV1` compatibile; estendi in modo esplicito e validato con tratti giocatore `pazzia`/impulsività, `spericolatezza`, fortuna e mentalità storiche già concordate, insieme a comune/regione/macroregione di origine. Tratti su scala stabile e con effetti numerici testabili in allenamento, fatica, risposta a incoraggiamento/rimprovero; non aumentare artificialmente le abilità calcistiche per etichetta.
+2. Prepara pipeline per un set fino a **5000 cognomi italiani dei meno diffusi**, con fonte reale, anno/licenza, duplicati/varianti e ranking documentati. Non fabbricare frequenze; se non è disponibile una fonte che permetta il riuso, consegna loader/generatore con dataset campione verificato e segnala il limite invece di dichiarare 5000 completati.
+3. Generatore seed-based che mantiene identità, cognome, regione e tratti dopo save/load, senza collisioni di ID; evitare associare cognomi reali a biografie inventate di persone riconoscibili.
+4. Concorda import di attributi temporanei col motore e del rapporto individuale con agente 09 tramite dati/adapter; nessuna scrittura fuori scope. Test di regressione e demo reali.
 
-## Fatto e confermato
-I file della PR #16 sono ora su `main`. L'accettazione riguarda il modulo e gli asset consegnati, **non** prova che siano già usati da `oronzo/game.js` né che siano stati testati su smartphone reale.
-
-## Prossimi passi
-1. PlayerV1, allenamenti, fortuna e storico sono su main. Audit R01 ha considerato il modulo compatibile con il contratto ma motore partita #18 non è ancora integrato.
-2. Attendere esito PR #18 e la sua API definitiva per evitare doppio conteggio dei fattori fitness/health con `effectiveAbility`. Non aprire PR autonoma di adattatore fino alla decisione dell'orchestratore.
-3. Quando NEXT diventa READY, aggiungere test cross-module e recordMatch su feed reale, senza inventare assist.
-
-## Criterio di accettazione
-Moduli testati e mergiati; collegamento al motore da approvare dopo verifica #18.
-
-## Regole
-Non creare ora nuove PR; indica il blocco verificato nel tuo REPORT soltanto su richiesta. Attendi aggiornamento `NEXT.md` dopo audit o integrazione.
-Mai fare merge autonomo. Rileggere live main e PR prima di procedere.
+## Gate
+Contratto coach/avatar e MORALE coach appartengono all'agente 09. Tu modelli **calciatori**, non le finanze o l'intero campionato. REPORT, PR, no merge autonomo.
