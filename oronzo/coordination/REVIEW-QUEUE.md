@@ -12,7 +12,7 @@
 | [#18](https://github.com/CzekUns/cercax/pull/18) | 06 · Match Engine | FIX_REQUESTED dopo audit R01; REST mergeable=clean ma incompatibilità P1 | NO |
 | [#14](https://github.com/CzekUns/cercax/pull/14) | 07 · Career | WAIT_REVIEW; QA salvataggi/calendario non eseguita; REST mergeable=clean | NO |
 | [#16](https://github.com/CzekUns/cercax/pull/16) | 08 · Attributes | WAIT_REVIEW; audit R01: ready for orchestrator QA, non ancora approvata; REST mergeable=clean | NO |
-| [#17](https://github.com/CzekUns/cercax/pull/17) | 09 · Coach/Club | WAIT_REVIEW; QA economia/presidenti non eseguita; REST mergeable=clean | NO |
+| [#17](https://github.com/CzekUns/cercax/pull/17) | 09 · Coach/Club | FIX_REQUESTED; ORZ-P1-008 (validazione importi negativi), test regressione richiesti; QA completa non eseguita | NO |
 | [#19](https://github.com/CzekUns/cercax/pull/19) | Coerentizzatore | Rapporto R01 di sola documentazione; REST mergeable=clean; rapporto letto, non ancora mergiato | NO |
 
 ## Difetti registrati (ID stabili)
@@ -50,3 +50,8 @@ Il rapporto è stato creato nella [PR #19](https://github.com/CzekUns/cercax/pul
 - **ORZ-P1-008 — P1 · PR #17 / agente 09 / FIX_REQUESTED.** Esame statico del commit `e5ea061e90371ca507e91bd04169dd408093c71e`, file `oronzo/systems/coach-club/finance.js`: `book()` chiama `integer(amount)` ma non impone `amount >= 0`; un input `{type:'expense',amount:-100}` segue il ramo `paid=Math.min(amount,c.finance.cash)` e `c.finance.cash -= paid`, **aumentando** il denaro. Lo stesso vale per entrate negative e per parametri `bonus`/`otherIncome` e costi iniziali privi di guardia di segno. Evidenza: flusso del codice; **non è stato eseguito un test runtime**. Richiesto all'agente 09 sul suo NEXT: rifiutare importi negativi e verificare i limiti degli interi sicuri, aggiungere test regressione per `book`, `settleWeek`, `initializeFinances`. PR non mergiata.
 - Le 10 PR (#5,#6,#12,#13,#14,#15,#16,#17,#18,#19) restano aperte e **gli HEAD sono invariati** rispetto a R02. #12 è draft. Tutti i nove `NEXT.md` riletti, nessuno dei nove `REPORT.md` presente sui branch delle PR. Le nove issue di agente #1,#2,#3,#4,#7,#8,#9,#10,#11 consultate. Non ripetere audit Work R01.
 - Nessun merge, nessuna esecuzione di test runtime e nessuna modifica al codice di gioco durante R03. Prossimo passo: ricevere test e fix da agente 09 e da agenti 05/06, quindi verificare QA integrata prima del merge.
+
+## Revisione R05 — 7 novembre 2026, controllo di coerenza del registro
+- Riletti i 9 NEXT su `main` e verificata l'assenza dei 9 REPORT.md sui branch degli agenti. Le PR #5,#6,#12,#13,#14,#15,#16,#17,#18,#19 risultano ancora aperte, con HEAD identici alla R03/R04; #12 è draft. Le 9 issue di sviluppo sono accessibili. Nessun nuovo fix consegnato.
+- **Correzione documentale:** la riga PR #17 nella tabella di questa coda riportava ancora `WAIT_REVIEW` nonostante il NEXT dell'agente 09 fosse già `FIX_REQUESTED` per ORZ-P1-008 dalla R03. Ora allineata senza creare un nuovo difetto.
+- Ispezione statica aggiuntiva di `career.js`, `league.js`, `progression.js`, `save.js` della PR #14 e `finance.js` della PR #17: nessun nuovo difetto con prova sufficiente da assegnare in questo ciclo; il bug finanziario già registrato resta aperto. Non sono stati eseguiti test runtime né controlli visivi, e non sono stati fatti merge o modifiche al gioco.
