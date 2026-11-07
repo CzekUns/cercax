@@ -127,6 +127,10 @@ test('R06-2 validated synthetic fixture has traceable regions; errors are atomic
   assert.equal(state.coach.origin.macroRegion,'south'); // canonical "sud" input mapping.
   assert.ok(state.clubs.every(c=>['south','north'].includes(c.macroRegion)));
   assert.ok(state.clubs.every(c=>c.municipalityId));
+  assert.throws(()=>newGame({seed:319,leagueSizes:sizes,
+    municipalityCatalog:qaMunicipalityCatalog(),avatar:{
+      ...qaAvatar,origin:{municipalityId:'000001',regionId:'piemonte',macroRegion:'north'}
+    }}),/Coach origin region conflicts/);
   const initial=JSON.stringify(state);
   const offer=listInitialOffers(state)[0];
   assert.throws(()=>acceptOffer(state,offer.id,{press:{
