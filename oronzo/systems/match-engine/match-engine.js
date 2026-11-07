@@ -1,4 +1,4 @@
-import { createRng, clamp, stat } from './rng.js';
+import { createRng, clamp, conditionFactor } from './rng.js';
 import { resetPositions, updateMovement } from './movement.js';
 import { validateTactics, executeCommand } from './commands.js';
 import { advancePlay, kickoff } from './actions.js';
@@ -24,7 +24,7 @@ function preparePlayer(source,teamId,active) {
   const p=copy(source), status=p.status || {};
   p.teamId=teamId;p.positions=p.positions||[];
   p.active=active;p.hasBall=false;p.action='idle';p.x=.5;p.y=.5;
-  p.vx=0;p.vy=0;p.facing=1;p.energy=100;
+  p.vx=0;p.vy=0;p.facing=0;p.energy=clamp((100-p.fatigue)*conditionFactor(p),0,100);
   p.fatigue=clamp(Number(status.fatigue)||0,0,100);
   p.injured=Number(status.injuryDays)>0 || Number(status.health)===0;
   p.suspended=Number(status.suspensionMatches)>0;
@@ -56,7 +56,7 @@ export function createMatch(input) {
     stats:{home:{shots:0,shotsOnTarget:0,possessingSeconds:0,fouls:0,corners:0},
            away:{shots:0,shotsOnTarget:0,possessingSeconds:0,fouls:0,corners:0}},
     ball:{x:.5,y:.5,height:0,vx:0,vy:0,ownerId:null,flight:null},
-    events:[],tickEvents:[],cards:new Map(),actionCooldown:0,possessingTeamId:null,
+    events:[],tickEvents:[],pendingCommandEvents:[],lastAssist:null,cards:new Map(),actionCooldown:0,possessingTeamId:null,
     paused:false,speed:1,carry:0,
   };
   function emit(type,teamId=null,playerId=null,detail={},otherPlayerId=null) {
@@ -93,11 +93,15 @@ export function createMatch(input) {
   }
   function apply(command) {
     state.tickEvents=[];
-    return executeCommand(state,command,emit);
+    const result=executeCommand(state,command,emit);
+    // The next step carries command-only events once; getEventsSince remains
+    // the authoritative cursor feed for reliable replay and substitutions.
+    state.pendingCommandEvents.push(...state.tickEvents);
+    return result;
   }
   function step(dt,commands=[]) {
     if(!Number.isFinite(dt)||dt<0)throw Error('dt must be finite nonnegative simulated seconds');
-    state.tickEvents=[];
+    state.tickEvents=state.pendingCommandEvents.splice(0);
     const inputs=Array.isArray(commands)?commands:[commands];
     const commandResults=inputs.map(c=>executeCommand(state,c,emit));
     if(!state.paused && state.phase!=='fulltime') {

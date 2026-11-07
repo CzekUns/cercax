@@ -1,4 +1,4 @@
-import { clamp, meters, stat } from './rng.js';
+import { clamp, meters, stat, conditionFactor } from './rng.js';
 import { direction, resetPositions } from './movement.js';
 
 const opponent=(state,teamId)=>state.teams.find(t=>t.id!==teamId);
@@ -8,6 +8,10 @@ const nearest=(players,point,filter=()=>true)=>players.filter(filter).sort((a,b)
 const skill=(p,g,k)=>stat(p,g,k);
 const d100=(state)=>state.rng.next()*100;
 function owns(state,p) {
+  // An assist candidate survives only if the intended receiver keeps possession.
+  if(!p || (state.lastAssist &&
+      (p.id!==state.lastAssist.receiverId || p.teamId!==state.lastAssist.teamId)))
+    state.lastAssist=null;
   for(const other of state.byId.values())other.hasBall=false;
   state.ball.ownerId=p?.id ?? null;
   if(p) {
@@ -17,6 +21,8 @@ function owns(state,p) {
   } else state.possessingTeamId=null;
 }
 function startFlight(state,kind,from,to,duration,extra={}) {
+  // A fresh pass begins a new potential assist chain.
+  if(kind==='pass')state.lastAssist=null;
   state.ball.flight={kind,from:{x:from.x,y:from.y},to:{x:clamp(to.x,.01,.99),y:clamp(to.y,.025,.975)},
     elapsed:0,duration:Math.max(.5,duration),...extra};
   state.ball.ownerId=null;
@@ -28,6 +34,7 @@ function startFlight(state,kind,from,to,duration,extra={}) {
 }
 function clearFlight(state) {state.ball.flight=null;state.ball.vx=0;state.ball.vy=0;state.ball.height=0;}
 function restart(state, teamId, point, emit, type=null, detail={}) {
+  state.lastAssist=null;
   const team=state.teams.find(t=>t.id===teamId);
   const candidates=pick(state,team);
   const receiver=nearest(candidates,point,p=>!p.injured) || candidates[0];
@@ -40,6 +47,7 @@ function restart(state, teamId, point, emit, type=null, detail={}) {
   if(type)emit(type,teamId,receiver?.id??null,detail);
 }
 export function kickoff(state,teamId,emit) {
+  state.lastAssist=null;
   clearFlight(state);
   resetPositions(state);
   const team=state.teams.find(t=>t.id===teamId);
@@ -96,11 +104,11 @@ function pass(state,p,emit) {
     return;
   }
   const gap=meters(p,receiver), accuracy=.68+skill(p,'technical','passing')*.002+
-    skill(p,'mental','decisions')*.0009-p.fatigue*.0016+
+    skill(p,'technical','decisions')*.00125-p.fatigue*.0016+
     (skill(p,'mental','morale')-50)*.0007+
     (skill(p,'mental','confidence')-50)*.0009+
     (team.shout?.tone==='focus'?.06:0);
-  const isAccurate=state.rng.next()<clamp(accuracy,.38,.96);
+  const isAccurate=state.rng.next()<clamp(accuracy*conditionFactor(p),.27,.97);
   const lead=dir*clamp(gap/105*.12,0,.026);
   let target={x:clamp(receiver.x+lead,.015,.985),y:receiver.y};
   if(!isAccurate) {
@@ -135,11 +143,11 @@ function challenge(state,p,emit) {
   if(!defender || meters(defender,p)>3.4)return false;
   const press=opponent(state,p.teamId).tactics.pressing;
   if(state.rng.next() > (.048+press*.0012))return false;
-  const attack=skill(p,'technical','control')*.62+skill(p,'physical','strength')*.19+
-    skill(p,'mental','composure')*.19-p.fatigue*.20;
-  const defend=skill(defender,'technical','tackling')*.63+
+  const attack=(skill(p,'technical','control')*.62+skill(p,'physical','strength')*.19+
+    skill(p,'mental','composure')*.19)*conditionFactor(p)-p.fatigue*.20;
+  const defend=(skill(defender,'technical','tackling')*.63+
     skill(defender,'physical','strength')*.22+
-    skill(defender,'technical','positioning')*.15-defender.fatigue*.24;
+    skill(defender,'technical','positioning')*.15)*conditionFactor(defender)-defender.fatigue*.24;
   const defenderTeam=opponent(state,p.teamId);
   const foulChance=clamp((.052 + (55-skill(defender,'mental','discipline'))*.0006)*
     (defenderTeam.shout?.tone==='calm'?.52:1),.012,.095);
@@ -185,8 +193,9 @@ function shoot(state,p,emit) {
     (skill(p,'mental','character')-50)*.0005;
   const xg=clamp((.16*Math.exp(-Math.max(0,dist-12)/17))*angle*
     (.62+attrs/115)*(1-p.fatigue/250)*
-    (1-(skill(gk,'technical','goalkeeping')-50)*.003)*inspiration*
-    (team.shout?.tone==='push'?1.07:1)*(.985+skill(p,'mental','luck')*.0003),.012,.65);
+    (1-(skill(gk,'technical','goalkeeping')*conditionFactor(gk)-50)*.003)*inspiration*
+    (team.shout?.tone==='push'?1.07:1)*(.985+skill(p,'mental','luck')*.0003)*
+    conditionFactor(p),.012,.65);
   const onTargetChance=clamp(.46+skill(p,'technical','shooting')*.0035-dist*.005,.18,.79);
   const onTarget=state.rng.next()<onTargetChance;
   const probability=onTarget?clamp(xg/Math.max(.12,onTargetChance),.018,.90):0;
@@ -195,8 +204,14 @@ function shoot(state,p,emit) {
     clamp(.5+(state.rng.next()-.5)*.12,.43,.57);
   const target={x:dir===1?.995:.005,y:targetY};
   const duration=clamp(dist/28,.6,2.15);
+  const candidate=state.lastAssist;
+  const assistId=candidate &&
+    candidate.teamId===p.teamId && candidate.receiverId===p.id &&
+    candidate.passerId!==p.id && state.t-candidate.t<=20
+      ?candidate.passerId:null;
   startFlight(state,'shot',p,target,duration,
-    {teamId:p.teamId,shooterId:p.id,outcome,xg,keeperId:gk?.id??null,dir});
+    {teamId:p.teamId,shooterId:p.id,outcome,xg,keeperId:gk?.id??null,dir,assistId});
+  state.lastAssist=null;
   p.action='shot';p.actionUntil=state.t+2;state.actionCooldown=2;
   state.stats[team.side].shots++;
   emit('shot',p.teamId,p.id,{xg:Number(xg.toFixed(4)),outcomePending:true,from:{x:p.x,y:p.y},to:target});
@@ -215,6 +230,10 @@ function receivePass(state,flight,emit) {
     emit('interception',defender.teamId,defender.id,{fromId:flight.passerId,toId:flight.receiverId});
   } else if(flight.accuracy && intended?.active && receiverGap<15) {
     owns(state,intended);intended.action='control';
+    if(flight.passerId && flight.passerId!==intended.id) {
+      state.lastAssist={passerId:flight.passerId,receiverId:intended.id,
+        teamId:flight.teamId,t:state.t};
+    }
   } else {
     const candidates=[...opponents,...pick(state,team)];
     const winner=nearest(candidates,state.ball);
@@ -228,7 +247,9 @@ function finishShot(state,flight,emit) {
   if(flight.outcome!=='miss')state.stats[team.side].shotsOnTarget++;
   if(flight.outcome==='goal') {
     state.score[team.side]++;
-    emit('goal',team.id,flight.shooterId,{from:flight.from,xg:Number(flight.xg.toFixed(4)),score:{...state.score}});
+    const detail={from:flight.from,xg:Number(flight.xg.toFixed(4)),score:{...state.score}};
+    if(flight.assistId)detail.assistId=flight.assistId;
+    emit('goal',team.id,flight.shooterId,detail);
     kickoff(state,defending.id,emit);
   } else if(flight.outcome==='save') {
     if(gk) {

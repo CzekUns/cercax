@@ -51,11 +51,13 @@ export function executeCommand(state, command, emit) {
     if(team.subsUsed>=state.rules.maxSubstitutions)return reject('substitution limit reached');
     const out=state.byId.get(outId), incoming=state.byId.get(inId);
     if(!incoming || incoming.injured || incoming.suspended || incoming.status?.injuryDays>0)return reject('incoming player unavailable');
-    if(out.isKeeper!==incoming.positions.includes('GK') && out.isKeeper) return reject('goalkeeper must be replaced by goalkeeper');
+    if(out.isKeeper!==incoming.positions.includes('GK')) return reject('goalkeeper role must be preserved');
     const slot=team.lineup.indexOf(outId);
     team.lineup[slot]=inId;team.bench=team.bench.filter(id=>id!==inId);team.subsUsed++;
     out.active=false;out.hasBall=false;incoming.active=true;incoming.isKeeper=out.isKeeper;
-    incoming.x=out.x;incoming.y=out.y;incoming.vx=0;incoming.vy=0;incoming.energy=clamp(100-incoming.fatigue,0,100);
+    incoming.x=out.x;incoming.y=out.y;incoming.vx=0;incoming.vy=0;
+    incoming.facing=out.facing;incoming.action='idle';
+    incoming.energy=clamp(100-incoming.fatigue,0,100);
     if(state.ball.ownerId===outId) {state.ball.ownerId=inId;incoming.hasBall=true;}
     emit('substitution',team.id,inId,{outId,inId,used:team.subsUsed,limit:state.rules.maxSubstitutions});
     return {accepted:true,effects:{outId,inId,remaining:state.rules.maxSubstitutions-team.subsUsed}};

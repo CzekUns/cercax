@@ -1,4 +1,4 @@
-import { clamp, meters, stat } from './rng.js';
+import { clamp, meters, stat, conditionFactor } from './rng.js';
 
 // Local anchors: x increases toward the opponent's goal; index 0 is goalkeeper.
 export const FORMATIONS = Object.freeze({
@@ -26,7 +26,9 @@ export function resetPositions(state) {
     team.lineup.forEach((id,i)=>{
       const p=state.byId.get(id), a=anchors[i] || {x:.5,y:.5};
       p.x=dir===1?a.x:1-a.x; p.y=a.y; p.vx=0; p.vy=0;
-      p.facing=dir; p.action='idle';
+      // facing is an angle in radians, matching match-view.resolveFacing:
+      // E=0, S=PI/2, W=PI, N=-PI/2. At rest retain it.
+      p.facing=dir===1?0:Math.PI; p.action='idle';
     });
   }
 }
@@ -91,7 +93,7 @@ export function updateMovement(state, dt) {
       const character=stat(p,'mental','character');
       const morale=stat(p,'mental','morale');
       const speed=base*(1-tired*.48)*(p.injured?.45:1)*(.9+morale*.0018)*
-        (team.shout?.tone==='encourage'?(1+(character-35)*.0005):1);
+        (team.shout?.tone==='encourage'?(1+(character-35)*.0005):1)*conditionFactor(p);
       const dx=(target.x-p.x)*105, dy=(target.y-p.y)*68, dist=Math.hypot(dx,dy);
       const move=Math.min(dist,speed*dt);
       const tx=dist>1e-6?(dx/dist)*move/105:0,ty=dist>1e-6?(dy/dist)*move/68:0;
@@ -102,13 +104,14 @@ export function updateMovement(state, dt) {
       p.vy=clamp(p.vy*(1-inertia)+ty/Math.max(dt,.001)*inertia,-.13,.13);
       p.x=clamp(p.x+p.vx*dt,.012,.988);
       p.y=clamp(p.y+p.vy*dt,.025,.975);
-      if(Math.abs(p.vx)+Math.abs(p.vy)>.001) p.facing=p.vx>0?1:-1;
+      const physicalVx=p.vx*105, physicalVy=p.vy*68;
+      if(Math.hypot(physicalVx,physicalVy)>.1) p.facing=Math.atan2(physicalVy,physicalVx);
       if(!p.hasBall && (p.actionUntil===undefined || state.t>=p.actionUntil)) {
         p.action=meters({x:oldX,y:oldY},p)>.28?'run':'idle';
       }
       const effort=state.possessingTeamId!==team.id ? team.tactics.pressing/100 : .48;
       p.fatigue=clamp(p.fatigue + dt*(.0031+effort*.0035)*(1.35-stat(p,'physical','stamina')/260),0,100);
-      p.energy=clamp(100-p.fatigue,0,100);
+      p.energy=clamp((100-p.fatigue)*conditionFactor(p),0,100);
     }
   }
   // Resolve the worst overlaps without changing the tactical choices.

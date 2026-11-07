@@ -19,4 +19,11 @@ export function createRng(seed) {
 export const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));
 export const meters = (a, b) => Math.hypot((a.x-b.x)*105, (a.y-b.y)*68);
 export const stat = (p, group, field, fallback=50) =>
-  clamp(Number(p[group]?.[field] ?? fallback) || 0, 0, 100);
+  clamp(Number(p?.[group]?.[field] ?? fallback) || 0, 0, 100);
+// Availability is gradual. These factors are applied once per physical/action
+// calculation to raw PlayerV1 abilities (not on top of effectiveAbility()).
+export function conditionFactor(p) {
+  const fitness = stat(p, 'status', 'fitness', 80);
+  const health = stat(p, 'status', 'health', 90);
+  return (.82 + fitness*.002) * (.77 + health*.0025);
+}
