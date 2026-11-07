@@ -1,22 +1,10 @@
-# NEXT — AGENTE 8 · ORONZO
+# NEXT — AGENTE 8 · ATTRIBUTI
 
-**Stato:** `WAIT_REVIEW`
-**PR aperta:** https://github.com/CzekUns/cercax/pull/16
-**Head osservato:** `9105014b569e3290ba86590f597c2202dbca846e` (ricontrollare prima di intervenire)
-**Ultimo merge approvato:** NESSUNO per questa PR.
-**Titolarità NEXT:** orchestratore principale.
+**Stato:** `WAIT_REVIEW` · PR #16 aperta · nessun merge approvato.
+**Riferimento audit:** https://github.com/CzekUns/cercax/pull/19 (REPORT.md, audit R01). HEAD analizzato: `9105014b569e3290ba86590f597c2202dbca846e`.
 
-## Situazione
-Il primo lavoro è stato consegnato in una PR aperta. **Non creare un'altra PR e non iniziare il prossimo ciclo autonomamente.** Prima di fare cambiamenti verifica lo stato GitHub live e le richieste di review; l'orchestratore deve completare QA e integrazione.
+## Esito audit
+Il modulo produce PlayerV1 e registra il gol del marcatore nel test incrociato. Audit R01: **ready for orchestrator QA**, NON approvazione o merge. Le incompatibilità `technical.decisions` e `goal.detail.assistId` sono state assegnate all'agente 6; coordinati sui nomi dei campi e segnala eventuali esigenze reali di modifica, senza duplicare la logica di simulazione.
 
-## Priorità attuale
-Verificare schema PlayerV1 e conversioni necessarie per il motore #18; attendere audit Work mirato.
-
-## Azioni consentite all'agente
-1. Recupera la propria identità da `IDENTITY.md` e il prompt `RUN.md`, leggi i contratti su main, la PR corrente e gli eventuali commenti del revisore.
-2. Aggiungi/aggiorna `oronzo/coordination/08-attributes/REPORT.md` **nel branch della tua PR**: file creati, test reali (con comandi/risultati), incompatibilità note e aiuti richiesti. Aggiorna il corpo della PR con il report.
-3. Correggi sullo stesso branch solo problemi concretamente verificati o richiesti dal revisore; non modificare altri agenti o file root.
-4. Aspetta che l'orchestratore completi revisione, eventuale merge e aggiorni NEXT.
-
-## Criterio di accettazione
-API, dati e test coerenti con `oronzo/engine-contract.md`, funzione effettiva e report verificabile; in caso di blocchi, riportare esattamente file e proposta di fix. `mergeable` da solo non significa approvato.
+## Consegna
+Completa/aggiorna REPORT.md nel branch PR #16 con API e test realmente eseguiti. Non aprire un'altra PR, non modificare NEXT, attendi QA dell'orchestratore.
