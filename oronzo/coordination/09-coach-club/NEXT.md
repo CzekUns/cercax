@@ -1,6 +1,6 @@
 # NEXT — ORONZO AGENTE 9 · CORREZIONI DA AUDIT R02
 
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
 **Incarico:** secondo ciclo, correzioni e test di compatibilità documentate dal Coerentizzatore.
 **Origine:** [Rapporto Work R02](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/coerentizzatore/REPORT-R02.md), mergeto su main commit `7212806be066c971a5479df162a2e60816fb1fcd`.
 **Precedente PR:** #17, merge `7309f1fe`.
@@ -49,3 +49,13 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 **PR:** [#32](https://github.com/CzekUns/cercax/pull/32). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** GATE P0: cinque fix R02 con 07 in checkout unificato; Node due stagioni, save/load, cassa/arretrati/settledWeeks absoluteWeek, coach persistente. Nuove relazioni V2 vietate finché non autorizzate.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #32**, stesso branch `agent/oronzo-coach-club-r02`. **Priorità P0, NON MERGIARE ora.** Audit R04 **R04-1** conferma doppio payroll quando un ledger con `settledWeeks:[1]` passa alla nuova chiave `a:1`. **R04-2**: suite combinata Node **50 PASS / 1 FAIL**; fixture `compat-r02.test.js` assume 1.600 ITL mentre il nuovo Career 07 genera realmente 472.000 ITL (aspettativa obsoleta, non prova di bug nel payroll nuovo).
+**Correzioni assegnate a 09:**
+1. `period.js`, `finance.js`, board/eventi: definire **un unico dominio del periodo** (absoluteWeek o anno+week) e guardia all'ingresso che respinga ledger legacy non migrati prima del pagamento/riunione. Mai pagare di nuovo un periodo già registrato. L'07 migra i dati sorgenti; il 09 valida e preserva idempotenza.
+2. In `compat-r02.test.js` eliminare l'importo fisso 1.600 e calcolare l'atteso dai contratti reali del nuovo Career con `weeklyPayroll`. Non gonfiare/ridurre contratti o modificare gameplay per far tornare il test.
+3. Eseguire con 07 **suite Node combinata** 2 stagioni, 104 club o fixture significativa, save/load, storico preservato, obiettivi/presidenti corretti, cash/arrears non negativi, periodo `{week,absoluteWeek,seasonYear}`, migrazione V1/V2 e doppio evento respinto.
+4. Aggiornare il REPORT R02 e la PR #32, non aprire un ciclo indipendente. Nessun CoachV2, papponeria o nuovo saldo morale prima del merge R02.
+**Futuro 09 R03** conserva ownership degli effetti persistenti degli shouts (un solo event ledger `matchId:eventId`), ma **non avviarlo** finché i fix R02 non sono approvati.
