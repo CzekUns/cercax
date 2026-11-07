@@ -1,5 +1,5 @@
 # NEXT — AGENTE 06 · ENGINE E ORDINI INDIVIDUALI · VISIONE v0.2
-**Stato:** `READY` (secondo ciclo).
+**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
 **PR precedente:** #18 MERGIATA; fix fisico riallineamento modulo PR #24 già su main.
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-match-engine-r02` dall'ultimo main.
@@ -16,3 +16,8 @@ ESM e API precedenti compatibili, 100 seed e test regressione, partita determini
 
 ## Controllo orchestratore — ripresa parallela del 7 novembre 2026
 Il branch `agent/oronzo-match-engine-r02` è **1 commit avanti** con modifiche in `actions.js`, `commands.js`, `movement.js` e nuovi `coach-effects.js`, `orders.js`, tutti nella directory del motore. Non risultano nuova PR né REPORT R02; **nessuna approvazione** concessa. Completare test 100 seed e regression dei comandi individuali, garantire eventi/risultati deterministici, poi pubblicare PR e REPORT. Rapporto morale persistente spetta a 09, UI a 03.
+
+## R04 — CONSEGNA IN REVISIONE WORK 00
+**PR:** [#35](https://github.com/CzekUns/cercax/pull/35). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
+**Gate di accettazione:** QA 100 seed e test input shout/deduplica; potenziale incompatibilità origine/tono/doppio effetto con 08. Non accettare bridge senza adapter.
+**Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
