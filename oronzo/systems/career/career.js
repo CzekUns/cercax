@@ -3,6 +3,9 @@ import { DIVISIONS, DEFAULT_RULES, seededRandom, generateSchedule, standings,
   promotionRelegation } from './league.js';
 import { clamp, updateReputation, seasonAssessment, createJobOffers,
   applyBoardDecision, takeJobOffer } from './progression.js';
+import { PRESIDENT_PROFILE_IDS, canonicalPresidentIds, ensureClubPresident,
+  ensureClubContracts, normalizeCareerCoach } from './compat.js';
+import { PERIOD_LEDGER_SCHEMA } from './period-migration.js';
 
 const FIRST = ['Aldo', 'Renzo', 'Italo', 'Bruno', 'Nino', 'Silvano', 'Ruggero', 'Dario', 'Osvaldo', 'Lino', 'Tito', 'Piero'];
 const LAST = ['Rocchi', 'Valli', 'Ferretti', 'Morelli', 'Monti', 'Pagani', 'Bassi', 'Leoni', 'Rinaldi', 'Sala', 'Conti', 'Fabbri'];
@@ -34,16 +37,22 @@ function createClubs(config, seed) {
   if (spec.some(d => !Number.isInteger(d.clubs) || d.clubs < 2 || d.clubs > 24 || d.clubs % 2)) {
     throw new Error('League sizes must be even integers from 2 to 24');
   }
+  const presidentIds = canonicalPresidentIds(config.presidentIds ?? PRESIDENT_PROFILE_IDS);
   for (const [tier, division] of spec.entries()) for (let i = 0; i < division.clubs; i++) {
     const id = `${division.id}-${String(i + 1).padStart(2, '0')}`;
     const name = i === 0 && division.id === 'PROM' ? 'Atletico Campanile' :
       `${PLACES[(i + tier * 3) % PLACES.length]} ${SUFFIX[(i * 7 + tier) % SUFFIX.length]} ${tier + 1}${String(i + 1).padStart(2, '0')}`;
     const rating = clamp(83 - tier * 9 + numberIn(rng, -5, 5), 20, 90);
-    clubs.push({ id, name, divisionId: division.id, budget: Math.round((6 - tier) * 17500),
-      wageBudget: Math.round((6 - tier) * 2600), boardTrust: tier === 5 && i === 0 ? 28 : 55,
-      seasonObjective: tier === 5 && i === 0 ? 'avoidRelegation' : 'topHalf',
-      presidentId: `president:${id}`, reputation: rating,
-      players: POSITIONS.map((_, j) => newPlayer(`${id}:P${String(j + 1).padStart(2, '0')}`, id, j, rng, rating)) });
+    const club = { id, name, divisionId: division.id, budget: 0, wageBudget: 0,
+      boardTrust: tier === 5 && i === 0 ? 28 : 55,
+      seasonObjective: tier === 5 && i === 0 ? 'avoid_last' : 'top_half',
+      presidentId: null, reputation: rating,
+      players: POSITIONS.map((_, j) => newPlayer(`${id}:P${String(j + 1).padStart(2, '0')}`, id, j, rng, rating)) };
+    ensureClubPresident(club, seed, presidentIds);
+    const { payroll } = ensureClubContracts(club, seed);
+    // A deterministic starting reserve covers ~20 weeks; sponsor/expenses are Agent9 inputs.
+    club.budget = payroll * 20;
+    clubs.push(club);
   }
   return clubs;
 }
@@ -69,8 +78,11 @@ export function newCareer(config = {}, seed = 1985) {
     hiredSeason: 1985, reputation: 18, contract: { until: 1986 },
     tactics: { formation: '4-4-2', mentality: 50, pressing: 50, tempo: 50, width: 50, marking: 'zonal' },
     relationships: {}, employmentHistory: [] };
-  const state = { schemaVersion: 2, seed, seasonYear: 1985, seasonIndex: 0,
-    week: 1, phase: 'inSeason', clubs, coach, leagues: {}, rulesByDivision: config.rulesByDivision || {},
+  const state = { schemaVersion: 2, periodLedgerSchemaVersion: PERIOD_LEDGER_SCHEMA,
+    seed, seasonYear: 1985, seasonIndex: 0,
+    week: 1, absoluteWeek: 1, phase: 'inSeason', clubs, coach,
+    presidentCatalogIds: canonicalPresidentIds(config.presidentIds ?? PRESIDENT_PROFILE_IDS),
+    leagues: {}, rulesByDivision: config.rulesByDivision || {},
     exchangeCount: config.exchangeCount ?? 1, maxWeek: 0, vacancies: [], offers: [], history: [], log: [] };
   if (!Number.isInteger(state.exchangeCount) || state.exchangeCount < 0) throw new Error('Invalid exchange count');
   buildLeagues(state);
@@ -158,6 +170,8 @@ export function advanceWeek(state, options = {}) {
     updateReputation(state.coach, us > them ? 'win' : us === them ? 'draw' : 'loss');
   }
   if (options.boardDecision) applyBoardDecision(state, options.boardDecision);
+  if (!Number.isSafeInteger(state.absoluteWeek + 1)) throw new Error('absoluteWeek overflow');
+  state.absoluteWeek++;
   state.week++;
   if (state.week > state.maxWeek) state.phase = 'seasonComplete';
   for (const offer of state.offers) if (offer.status === 'open' && offer.expiresWeek < state.week) offer.status = 'expired';
@@ -173,6 +187,7 @@ export function finishSeason(state, options = {}) {
   if (state.phase !== 'seasonComplete' || Object.values(state.leagues).some(l => l.fixtures.some(f => !f.result))) {
     throw new Error('All league fixtures must be completed before season rollover');
   }
+  normalizeCareerCoach(state.coach, state.seasonYear);
   const tables = Object.fromEntries(DIVISIONS.map(d => [d.id, getStandings(state, d.id)]));
   let assessment = null;
   if (state.coach.clubId) {
@@ -197,6 +212,8 @@ export function finishSeason(state, options = {}) {
     player.age++; player.stats.seasonGoals = 0;
   }
   if (options.onRollover) options.onRollover(state.clubs, snapshot);
+  if (!Number.isSafeInteger(state.absoluteWeek + 1)) throw new Error('absoluteWeek overflow');
+  state.absoluteWeek++; // Off-season transition is a distinct period in the ledger.
   state.seasonYear++; state.seasonIndex++; state.week = 1; state.phase = 'inSeason';
   state.offers = []; state.vacancies = [...new Set(state.vacancies)];
   buildLeagues(state);
