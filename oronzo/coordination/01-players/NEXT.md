@@ -1,5 +1,5 @@
 # NEXT — AGENTE 01 · SPRITE CALCIATORI · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
+**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Lavoro precedente:** PR #6 MERGIATA (3585b39596e6aa879c69e2136f8f22e2ca1ea102).
 **Nuova fonte di verità:** [specifica utente v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch di ciclo:** `agent/oronzo-players-r02`.
@@ -25,3 +25,7 @@ Il branch `agent/oronzo-players-r02` è stato verificato **identico a main** (0 
 ## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
 **PR #29, esito R04: HOLD artistico/browser.** Quattro test atlas nativi passati e preview 844×390 letta da Work 00 (due squadre e portieri distinguibili); non equivale a QA animazioni su Chrome o dispositivo.
 **Azione ammessa sulla stessa PR #29:** verifica visiva browser degli 11+11, idle/run/kick/tackle/keeper, otto direzioni, due palette, capelli/pelle, maschere/alpha, pixel crop, a 640×360 e 844×390 e nella camera broadcast di 05 quando disponibile. Fornire screenshot/filmato della demo e riferimenti al manifest/test. Correggere difetti artistici concreti nella propria PR, non sostituire con pallini geometrici. Nessun merge finché la resa non è verificata.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**Attività immediata facoltativa su PR #29, senza crearne altre.** Completare la prova di leggibilità artistica dei 22 sprite a scala di campo (11+11, due portieri), reale PNG/alpha/palette/mask 8×4 nelle cinque azioni, con screenshot **da Chromium** a 640×360 e 844×390; verificare l'interazione col renderer #28 quando disponibile. Niente pallini o fallback presentati come immagini definitive. Il REPORT R04 ha 4/4 test Node atlas PASS e preview visualizzata; questo **non è** il gate artistico/mobile. Se il browser resta inaccessibile, produrre esattamente log/comandi e blocco `HOLD`, senza inventare PASS. Aggiornare solo REPORT e PR #29 nel tuo scope. **NON** modificare renderer/motore/HTML root.
