@@ -26,7 +26,6 @@ header{display:flex;justify-content:space-between;align-items:center;gap:12px;mi
 .shape-overlay circle{stroke:#ffdf75;fill:rgba(30,55,100,.28);stroke-width:2;stroke-dasharray:4 2}
 .shape-overlay circle.reached{fill:rgba(18,154,88,.55);stroke:#abffb7;stroke-dasharray:none}
 .shape-overlay line{stroke:#f4d77c;stroke-width:1;stroke-dasharray:3 4;opacity:.75}
-.shape-overlay line[hidden]{display:none}
 .shape-overlay text{fill:#ffecba;font:bold 12px monospace;paint-order:stroke;stroke:#17264d;stroke-width:3px;text-anchor:middle;dominant-baseline:central}
 .shape-toast{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:#0a2058e8;color:#ffe58c;border:2px solid #f1cc68;padding:5px 8px;text-align:center;pointer-events:none;font-size:11px;font-weight:bold;white-space:nowrap;max-width:98%;overflow:hidden;text-overflow:ellipsis}
 .shape-toast[hidden]{display:none}
@@ -220,7 +219,7 @@ function updateTacticalReadout(simTime=0,snapshot=null){
    if(connectors[i]){
     connectors[i].setAttribute('x1',44+p.x*552);
     connectors[i].setAttribute('y1',36+p.y*288);
-    connectors[i].hidden=!rearrangingGuide(simTime,guideUntil)||p.hasBall||reached;
+    connectors[i].setAttribute('visibility',rearrangingGuide(simTime,guideUntil)&&!p.hasBall&&!reached?'visible':'hidden');
    }
   }
  }
