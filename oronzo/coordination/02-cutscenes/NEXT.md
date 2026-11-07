@@ -1,5 +1,5 @@
 # NEXT — AGENTE 02 · CUTSCENES · GATE ARTISTICO
-**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
+**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **PR corrente:** [#12](https://github.com/CzekUns/cercax/pull/12) OPEN DRAFT, da esaminare artisticamente; nessun merge.
 **Fonte nuova:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md) e [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Scope:** `oronzo/assets/cutscenes/` e proprio REPORT.
@@ -21,3 +21,7 @@ La [PR #12](https://github.com/CzekUns/cercax/pull/12) è ancora **OPEN/DRAFT**.
 
 ## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
 **PR #12 resta OPEN/DRAFT e HOLD.** Il rapporto R04 non ha fatto merge: approvazione artistica della vista laterale, pose non duplicate (cartellini 5 uniche su 6), trasparenze/maschere, sincronismo e Chromium effettivo ancora mancanti. Restare su #12, non aprire una nuova PR né integrare la scena nel runtime. Un'eventuale correzione puntuale va documentata sul REPORT del branch, seguita dal gate artistico. Non confondere con R02 degli altri agenti.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**PR #12 resta DRAFT e non mergeabile per gate artistico.** Puoi esaminare e ritoccare **nella stessa PR** le cinque cutscene laterali (goal, parata, cartellini, infortunio): verifica reference laterale, pose e **6 frame distinti** dove richiesti, maschere, pubblico, leggibilità e sincronismo, demo Chromium effettiva. Allegare prove visive e REPORT; indicare esplicitamente eventuali frame duplicati e bug non risolti. Se l'arte non ha ricevuto approvazione, mantenere DRAFT/HOLD; non inserire cutscene nel gioco principale né creare PR alternative.
