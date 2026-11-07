@@ -1,3 +1,14 @@
+# ORONZO — REQUEST ATTUALE 00 · ESEGUIRE AUDIT R07B PR #33
+
+**Stato: `READY` (7 novembre 2026).** Il 03 ha aggiornato la **stessa PR #33**, nuovo HEAD verificato `1e41c8716798612863aa0fc2327c6ee09deeb82d` (prima `c38be80c392939d042dd998e6d1bf655c259804d`). Il suo REPORT sul branch dichiara due fix R07-1/R07-2 con 6/6 test Chromium e screenshot, ma non ha potuto verificare HTTP reale; il precedente [REPORT-R07](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r07/oronzo/coordination/coerentizzatore/REPORT-R07.md) riproduceva due difetti in Chromium 149 via HTTP statico. **Incarico: verificare autonomamente R07B ora.**
+
+1. Rileggere HEAD reale #33 e REPORT03. Ricostruire browser Chromium con veri HTML/CSS/JS/10 PNG **via server HTTP** dove possibile. Ripetere almeno 640×360, 800×360, 844×390 in desktop+touch; testare senza auto-scroll centrale il tasto CARICA PARTITA (44px visibili, hit corretto, clic funzionante, hint visibile), e dopo 5 Q stampa toast ancora presente con tap immediato su PROSSIMA GIORNATA (niente coperture, navigazione corretta) oltre a presidente e UMORE TIFOSI. Prove grafiche personalmente, senza fidarsi di screenshot già presenti. Regredire 8 avatar, 20 offerte, 5 Q, menu, switch camera demo, 10 PNG, console. Non dichiarare Android fisico testato.
+2. Consegnare `oronzo/coordination/coerentizzatore/REPORT-R07B.md` in branch documentale separato, con risultati, SHA e screenshot/limitazioni, e non modificare codice 03.
+3. **Se fallisce un qualsiasi gate: NO MERGE**, segnala file/selettore/condizione esatti. **Se passa: merge #33 solo dietro autorizzazione esplicita dell'utente** e verifica main dopo merge. Non iniziare runtime del 03 e non toccare altre PR.
+
+---
+
+## ARCHIVIO — REQUEST R07B PRE-CONSEGNA
 # ORONZO — REQUEST ATTUALE COERENTIZZATORE 00 · R07B DOPO FIX AGENTE 03
 
 **STATO: `WAIT_FOR_03` — NON avviare review ora.** L'audit [R07](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r07/oronzo/coordination/coerentizzatore/REPORT-R07.md) della sola PR #33 (HEAD `c38be80c392939d042dd998e6d1bf655c259804d`) ha dato **NEEDS CHANGES / NO MERGE**. Il NEXT03 su main ora assegna **R07-1 clipping CARICA PARTITA a 360px** e **R07-2 toast che copre/intercetta touch**. Gli altri test funzionali/asset/HTTP/Chromium sono passati nel gate R07.
