@@ -15,6 +15,9 @@
 | Sprite e cutscene | Sprite #6 e UI mockup #5 su main; cutscene #12 draft | demo 22 player leggibili, asset UI dinamici, gate cutscene | 01/03; 02 in review |
 | Save multi-stagione | Career save presente ma incompatibilità R02 | persistenza identità presidenti, salari, settimana assoluta, coach esonerabile | 07/09 R02 e QA 10 |
 
+## Direttrice dati aggiornata
+Il primo rilascio è autorizzato dall'utente con **100 comuni e 500 cognomi verificati**, raccolti dall'automazione oraria in una PR separata. Gli agenti 07/08 importano dopo verifica, senza modificare il ramo di raccolta; 500/5000 resta estensione. Il gate R04 su #30/#32 richiede correzioni di ledger legacy; #31/#35 richiede un contratto unico degli shout; #28/#29/#33 browser e art. Non autorizzare adapter 07 né runtime 03 prima del relativo merge/verifica.
+
 ## Ordine eseguibile
 **M0 — Contratto e bugfix:** v0.2 su Drive/GitHub; NEXT 01–09; test R02 su due stagioni e adattatori di confine. Stop se presidente/obiettivo/salario/anno/coach non tornano.
 
@@ -22,7 +25,7 @@
 
 **M2 — Profondità gestione:** report singoli giocatori, tifosi/stadio, papponeria/prezzi, mercato nei periodi consentiti, relazione giornalisti, coach e singoli. Camera TV, comandi individuali, asset artistici, cutscene dopo gate.
 
-**M3 — Scala e rifinitura:** import verificato di 500 comuni e 5000 cognomi, gironi coerenti, progression/test due stagioni, QA visivo/touch Android; controllo licenze e marchi.
+**M3 — Scala e rifinitura:** dopo il rilascio M1 con **100 comuni + 500 cognomi verificati**, espandere a 500 comuni e 5000 cognomi, gironi coerenti, progression/test due stagioni, QA visivo/touch Android; controllo licenze e marchi.
 
 ## PROPRIETÀ DELLA REALIZZAZIONE (rettifica esplicita)
 L'Agente 10 **non implementa codice né arte**: coordina regole e deleghe, verifica REPORT/PR e gate. **07**, dopo R02, è l'integratore dei dati e del flusso carriera in `oronzo/app/flow/` con ciclo autonomo autorizzato in NEXT. **03**, dopo il ciclo UI e dopo il gate R02, integra le schermate nel runtime (`oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html`) in una PR dedicata; 07 non modifica questi file. 05/06/08/09 continuano a possedere i propri sistemi. Fino alla nuova autorizzazione tali estensioni di scope sono **riservate per i cicli futuri**, non immediatamente attive.
