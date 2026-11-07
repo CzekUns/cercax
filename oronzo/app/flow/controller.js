@@ -291,8 +291,15 @@ export function consumeMatchResult(state,engine,{press}={}) {
     pressReady:!!state.flow.press.postmatch,source:'match_engine_06'};
 }
 
-export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulateOtherFixture}={}) {
+export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulateOtherFixture,
+  expectedAbsoluteWeek}={}) {
   ensureLive(state);
+  // Use a period precondition in UI clicks/retries. Unemployed coaches may advance
+  // repeatedly, so without it a network/button replay could skip another week.
+  if(expectedAbsoluteWeek!==undefined && expectedAbsoluteWeek!==state.absoluteWeek)
+    return {accepted:false,reason:'stale_week_action'};
+  if(state.flow.stage==='unemployed' && expectedAbsoluteWeek===undefined)
+    return {accepted:false,reason:'expected_week_required_when_unemployed'};
   if(!['postmatch_ready','unemployed'].includes(state.flow.stage))
     return {accepted:false,reason:'postmatch_press_not_completed'};
   if(state.phase!=='inSeason')return {accepted:false,reason:'season_not_active'};
