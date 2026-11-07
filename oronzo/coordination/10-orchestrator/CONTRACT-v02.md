@@ -79,6 +79,48 @@ Un presidente viene estratto una sola volta alla creazione del mondo ed è persi
 ```
 Conservare i campi già validati, non rinominare `technical.decisions` o `mental.luck` dal v1. Il rapporto singolo persistente è contabilizzato da 09, 08 può inizializzarlo ed esporre modificatori stabili. Cognomi richiesti 5000, usare fonti verificabili e dataset versionati, non inventare frequenze.
 
+## Contratto trasversale AppearanceV1 / KitV1 — requisito visivo approvato, pianificazione a richiesta (7 novembre 2026)
+
+**Scopo:** lo **stesso calciatore** deve usare **la medesima identità cromatica e fisionomica** nella scheda da ROSA e ALLENAMENTO, negli 11v11, nelle cutscene e in una futura figurina/ritratto pixel art. **Fonte unica:** ID stabile del calciatore e dati cosmetici persistiti dal **08**; l'oggetto `appearance` del renderer si ottiene combinando dati cosmetici, divisa del club attivo e ruolo. Questo schema è **un contratto di prossima integrazione**, non si dichiara già implementato nei branch.
+
+```js
+// Sottostruttura serializzabile canonica del calciatore (08; 07 conserva dopo save/load)
+player.visual = {
+  skinToneId: "skin-tone-id",
+  hairColorId: "hair-color-id",
+  hairStyleId: "hair-style-id",
+  facialHairStyleId: "none|moustache|goatee|short-beard|full-beard", // valore esemplificativo fra gli enum ammessi
+  facialHairColorId: "hair-color-id",
+  portraitAssetId: null // futura figurina/ritratto pixel art, opzionale
+};
+
+// Dati della divisa appartenenti al club e alla selezione kit, NON ai tratti del calciatore
+club.visualKits = {
+  home: {
+    shirtA: "palette-id",
+    shirtB: "palette-id",
+    shirtPatternId: "solid|vertical-stripes|horizontal-stripes|band|halves",
+    shorts: "palette-id",
+    socks: "palette-id",
+    trim: "palette-id"
+  },
+  away: { /* stessa shape: opzionale sino alla rispettiva iterazione */ },
+  keeper: { /* palette e pattern del portiere, distinti dai giocatori di movimento */ }
+};
+
+// Proiezione (non una seconda fonte dati): resolveAppearance(player, club, kitId, role)
+// -> {playerId, skinToneId, hairColorId, hairStyleId,
+//     facialHairStyleId, facialHairColorId, shirtA, shirtB,
+//     shirtPatternId, shorts, socks, trim, role, portraitAssetId}
+```
+
+- Le stringhe/enum negli esempi non rappresentano dati già presenti. I nomi effettivi vanno concordati in una sola interfaccia versionata prima dell'implementazione; il contratto non deve introdurre duplicati dei campi `origin`/trust oggi in correzione 06/08. Il `playerId` è la chiave autorevole; non rigenerare a ogni apertura o alterare dopo save/reload.
+- La **fotografia di riferimento**, qualora venga fornita in futuro, alimenta la **figurina in pixel art** senza sostituire i dati visuali canonici: capelli, barba/baffi, pelle e kit devono coincidere. Asset/diritti di utilizzo da verificare prima di pubblicazione. Una figurina assente deve usare un placeholder pixel art coerente con i tratti.
+- **Trasferimento/sostituzione kit:** cambiano colori e pattern, non viso/identità. Portiere distinto. Il sistema deve supportare 4–6 fantasie base alla prima release e restare estendibile; le micro-trame hanno fallback leggibile a 32×32.
+- **Ownership:** 08 tratti/player ID; 07 persistenza e clubKit-ID nello stato di carriera; 01 sprites e maschere, 02 cutscene e maschere, 05 consumo da snapshot/render, 03 schede e ritratti/figurine UI. Nessun owner genera dati visuali divergenti in locale.
+- **QA di accettazione futura:** stesso `playerId` e kit producono colori/tratti coerenti in scheda, formazione/match, cutscene, figurina; cambia club/kit senza cambiare barba, capelli o pelle; save/load mantiene `visual`; almeno due giocatori con capelli/barba/pelle diversi e due squadre con pattern diversi; casi portiere e dati visuali legacy assenti con default seed-stabile. Non forzare dettagli impossibili ai pixel senza intaccare la leggibilità.
+- Questa direttiva **non riapre PR**, non chiede cambiamenti immediati al test `r02-cross.test.mjs` del 07 e non avvia un round di tutti gli agenti. Si applica ai cicli pertinenti quando 10 li autorizza.
+
 ## OfferV1 (owner 07 crea/offre, 09 valuta morale)
 ```js
 {
