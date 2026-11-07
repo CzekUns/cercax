@@ -1,57 +1,70 @@
-# RAPPORTO AGENTE 08 — Attributi, carattere e allenamenti — ciclo R01
+# RAPPORTO AGENTE 08 — Attributi, regionalità e cognomi — ciclo R02 / visione v0.2
 
-**ID:** `ORONZO-AGENT-08`  
-**Stato:** `PR_OPEN` / `WAIT_REVIEW` (nessun merge, nessun nuovo ciclo autorizzato)  
-**Branch:** `agent/oronzo-attributes`  
-**PR:** https://github.com/CzekUns/cercax/pull/16  
-**Issue:** https://github.com/CzekUns/cercax/issues/10  
-**Codice verificato:** `9105014b569e3290ba86590f597c2202dbca846e`  
-**Data verifica:** 2026-11-07T06:41:48.986Z (UTC)
+**ID immutabile:** `ORONZO-AGENT-08`  
+**Stato:** `PR_OPEN` / `DELIVERED` per R02; QA e merge spettano all'orchestratore  
+**Branch:** `agent/oronzo-attributes-r02`  
+**PR:** https://github.com/CzekUns/cercax/pull/31  
+**Ciclo precedente:** PR #16 integrata nel commit `389dce444a7f7c19254381bfda2205acc4268f51`  
+**Codice R02 verificato:** `9247e84bbc45949cee35c07b6b168e4ccc591e0e`  
+**Base di riallineamento:** `7e65a1370d7a3afe6704bbc2d40dfdca2aa4479c` (ultimo `main` osservato prima della PR)  
+**Data rapporto:** 7 novembre 2026 (Europe/Rome)  
+**Fonte decisionale:** `oronzo/coordination/08-attributes/NEXT.md` `READY` per R02, `GAME-VISION-v02.md`, `10-orchestrator/PLAN.md`.
 
-## Realizzato nel ciclo R01
+## Realizzato
 
-- `oronzo/systems/attributes/player-model.js`: `PlayerV1`, normalizzazione/validazione, parametri 0–100, ruoli, ID stabili; `importLegacyPlayers` mantiene anche i valori grezzi del vecchio prototipo.
-- `generator.js`: `generatePlayer`, `generatePlayers`, `generateSquad`, `generateLeague`; generatori riproducibili a seed e archetipi differenziati, con portieri e titolari/riserve.
-- `rng.js`: `createRng`, `seedNumber`, helper seed-based (nessun `Math.random` nella logica).
-- `personality.js`: `effectiveAbility` restituisce `base`, `effective`, `executionProbability`, `adherence`, `luckDelta`, `modifiers`; `resolveAction` richiede RNG iniettato; `trainingInjuryProbability` quantifica rischio senza esiti garantiti.
-- `training.js`: `TRAINING_PLANS`, `applyTrainingWeek`, `applyMatchLoad`, `applyObservedInjury`, `advanceSeason`. Piani tecnici/atletici/tattici/equilibrati/riposo, recupero, sovraccarico, crescita/declino legati all'età.
-- `career-stats.js`: `createCareerRecord`, `recordMatch`, `recordSeasonSnapshot`: storico basato su minuti ed eventi del motore, con deduplica partita.
-- `demo.html`, `demo.js`: schede, training, pressione/probabilità, stagioni in laboratorio landscape 16:9 indipendente dal runtime principale.
-- `tests/attributes.test.js`: 15 casi di regressione.
-- `README.md`, `integration-notes.md`: API, vincoli e istruzioni di integrazione.
+### Estensioni compatibili con PlayerV1
 
-**Questo intervento di ripresa:** creato il presente `oronzo/coordination/08-attributes/REPORT.md` su PR #16. **Nessuna modifica al codice di gioco**, coerentemente con `NEXT.md` su main (`WAIT_REVIEW`).
+- `oronzo/systems/attributes/player-model.js`: 5 tratti nuovi 0–100 (`mental.pazzia`, `spericolatezza`, `coraggio`, `suscettibilita`, `impulsivita`), `origin:{comune,regione,macroregione}|null`, `surname`, `surnameSourceId`, `relationships.coachTrust`, `temporaryEffects` e `coachInteractionIds`. I campi core esistenti restano invariati. Origini dei vecchi save **null** invece che generate silenziosamente.
+- `geography.js`: `REGION_MACRO` (20 regioni, Nord/Centro/Sud), `normalizeOrigin`, `regionAffinity`, `DEMO_ORIGINS` (17 capoluoghi autentici come fixture di demo). Sicilia/Sardegna, Abruzzo/Molise mappati a Sud per scelta progettuale; l'identità del comune deve essere provata dai dati Agente 07.
 
-## Verifiche effettivamente svolte in questa ripresa
+### Pipeline cognomi
 
-1. Letti `PROTOCOL.md`, `IDENTITY.md`, `RUN.md`, `NEXT.md`, issue #10, contratto `engine-contract.md`, `AGENTS.md`, specifica `08-attributes.md`, documentazione dell'orchestratore, audit R01 e PR #16.
-2. GitHub REST `GET /pulls/16`: PR `open`, `merged=false`, HEAD `9105014b...`, `mergeable_state=clean` al controllo (dato GitHub variabile; non equivale ad approvazione). Nessuna review, commento di review o richiesta di correzione su PR.
-3. PR #16: prima di questo report, esattamente **11 file**, tutti in `oronzo/systems/attributes/`. Directory del sistema assente su main, dunque codice non integrato.
-4. Eseguita **integralmente la suite di 15 test** scaricata dal branch GitHub, insieme ai 6 moduli JS da cui dipende, in un isolate **V8 JavaScript**, tramite trasformazione *solo in memoria* degli `import/export` ESM in binding locali e adattatore compatibile per le asserzioni Node; `structuredClone` sostituito per questi payload JSON da un clone via `JSON.parse(JSON.stringify(...))`. **Risultato: 15 passati, 0 falliti**. Casi: seed, 120/176 calciatori, ID, ruoli/portieri, archetipi, import legacy, 0–100, fortuna, rendimento, ordini, rapporti, training, riposo, infortuni, fatica partita, invecchiamento, record di gara e retry.
-5. **Non eseguito direttamente `node --test` in questa ripresa:** Node v22.16.0 presente nel container, ma `git ls-remote https://github.com/CzekUns/cercax.git ...` fallisce con `Could not resolve host: github.com`. La prova V8 NON va confusa con un run Node nativo. Comando riproducibile in ambiente con repository accessibile: `node --test oronzo/systems/attributes/tests/*.test.js`.
-6. L'audit indipendente [PR #19](https://github.com/CzekUns/cercax/pull/19) riferisce separatamente **39 test Node passati** sull'insieme #15/#16/#18 e qualifica #16 come `ready for orchestrator QA`; **non ho rieseguito né attribuisco a questa ripresa** la prova incrociata 39/39.
-7. Demo: verificata separatamente la **sintassi JavaScript** di `demo.js` (compilazione V8 dopo rimozione dei soli import ESM), la presenza del collegamento a `demo.js`, dei **21 ID HTML** richiesti e della regola landscape. Risultato: sintassi valida, 0 ID mancanti. **Nessuna verifica visuale/touch su dispositivo o screenshot** in questa ripresa.
+- `surnames.js`: `loadSurnameCSV(csv,{source,limit,country})`, `chooseSurname(catalog,rng)`. Validazione di fonte/anno/licenza, parser CSV quote-aware, filtro country IT, deduplica, varianti `variant_of`, gestione collisone canonico/alias, ranking comparabile dentro **una sola sorgente** per quota/frequenza/rank, 5.000 massimi.
+- `data/surname-sample.csv`: **20 cognomi COMUNI** italiani con stime per famiglie dalla tabella Italia di Wikipedia ("List of most common surnames in European countries"). NON 5.000, NON rari, NON conteggi ISTAT, NON 1979. `data/surname-sample.source.json` e `data/SOURCES.md`: attribuzione **CC BY-SA 4.0**, fonte secondaria originale ("Mappa dei Cognomi"), limite della certificazione storica, fonte integrale futura candidata Onomaverse v2026.10 **CC BY 4.0** (41.162 righe globali, numero italiano non verificato). Non sono state inventate frequenze o distribuzioni regionali.
+- `generator.js`: input opzionali `surnameCatalog`, `origins`; inserisce origine, cognome, fonte, nuovi tratti su giocatori con ID stabile basato su team/index. Fallback legacy dei nomi marcato `legacy-fallback-unverified`. Stesso seed/input = stessa rosa e serializzazione JSON senza perdita.
 
-## Integrazione, dipendenze e contratti
+### Gameplay del carattere
 
-- **Agente 6 / PR #18**: consuma i `PlayerV1` in `ClubV1.players`. Difetto audit `ORZ-P1-003`: il motore legge `mental.decisions` mentre il contratto e questo modulo emettono `technical.decisions`; inoltre deve gestire valori graduati di `fitness` e `health` evitando doppio conteggio se usa `effectiveAbility`. Correzione assegnata dal `NEXT.md` all'agente 6.
-- **Agente 6 / PR #18**: `ORZ-P1-005` — il motore non emette `goal.detail.assistId` o evento `assist`; il conteggio assist in `recordMatch` resta zero per il feed attuale. Il marcatore è correttamente registrato. Ownership del feed attribuita all'agente 6; nessuna generazione artificiale di assist in Attributes.
-- **Agente 7 / PR #14**: persistenza dei `PlayerV1` e dei registri; una applicazione di `applyTrainingWeek` per settimana; `recordMatch` con `minutes` e `started` affidabili; fine stagione una volta sola. Il modulo Attributes non gestisce calendario o save game.
-- **Agente 9 / PR #17**: può passare `plan`, `coachQuality`, `intensity`, valori di morale e relazioni; sistema club/presidente distinto. Nessuna modifica qui.
-- **Orchestratore**: innesto nel vecchio `oronzo/game.js`, completamento QA e prove browser landscape. Nessuna integrazione runtime dichiarata.
+- `player-traits.js`: `analyzeDisposition`, `previewShout`, `applyShout`. Tratti influenzano propensione rischiosa, disponibilità a seguire ordini e reazioni a incoraggiamento/rimprovero.
+- `applyShout` applica morale, fiducia nel mister e confidence individuale; usa `eventId` per evitare duplicazione dopo save/load; differenziale regionale stessa regione > stessa macro > altre; `temporaryEffects` limitati a 180 secondi di partita simulata. Questa è **una API**, non ancora un comando effettivo della partita integrata.
+- `personality.js`: rischio contestuale e consumazione opzionale bonus temporanei con `effectiveAbility(player,{skill,t,riskyAction,...})`. Nessuna promozione artificiale dell'attributo tecnico base tramite etichetta.
+- `training.js`: spericolatezza incide modestamente sul carico, e pazzia/spericolatezza sul rischio **probabilistico** di incidente da allenamento; disciplina sulla crescita, con limiti e normalizzazione. Nessun incidente è determinato al 100% dai tratti.
 
-## Mancante / problemi noti
+### Demo e documentazione
 
-- PR #16 **non approvata, non mergiata**; `NEXT.md` indica `WAIT_REVIEW`, senza fix espressamente assegnati a 08.
-- Lo storico assist richiede il feed del motore #18 (`ORZ-P1-005`), non una modifica a `career-stats.js`.
-- Il calcolo di rendimento deve essere inserito nei punti decisionali del motore (ownership agente 6); il successo di `resolveAction` non determina un gol.
-- `applyTrainingWeek` è pura e non deduplica settimane: la carriera deve garantire chiamata unica per settimana.
-- Demo indipendente non verificata sul dispositivo fisico in questa ripresa.
+- `demo.html`, `demo.js`: anno di demo 1979, nuovi tratti/regione e fiducia mister, controlli tono/luogo del mister, simulazione dei richiami, import facoltativo via HTTP del CSV campione. La schermata rimane **landscape 16:9**, indipendente da `oronzo/game.js`.
+- `README.md`, `integration-notes.md`, `data/SOURCES.md`: API R02, fonte/licenza, vincoli e contratti per gli altri agenti.
+- `tests/attributes-r02.test.js`: 17 nuove prove; i 15 test originali restano nel branch senza modifica funzionale.
 
-## Proposta prossimo ciclo (solo dopo autorizzazione orchestratore)
+## Verifiche realmente effettuate
 
-1. Dopo la correzione #18, ripetere test incrociati verificando `technical.decisions`, forma e salute, senza doppio conteggio delle probabilità.
-2. Validare flussi di assist/gol senza assist e infortuni tra motore e `recordMatch` con eventi reali e minuti effettivi.
-3. Verificare demo e trainer su smartphone landscape 16:9 e integrazione con persistenza della carriera #14.
+1. Riletti su GitHub `PROTOCOL.md`, `GAME-VISION-v02.md`, `PLAN.md`, `IDENTITY.md`, `RUN.md`, `NEXT.md`, report R01 e issue #10. REST GitHub: PR #16 **merged=true**, issue #10 closed/completed. Branch R02 creato da `main` e poi riallineato in sicurezza su base più recente `7e65a137...`. `NEXT.md` resta `READY` per il ciclo R02.
+2. Suite **realmente eseguita** in isolate JavaScript **V8**, ottenendo i sorgenti GitHub e sostituendo **solo in memoria** le righe `import/export` ESM con binding locali; adattatore `assert` Node e `readFileSync` del CSV tramite contenuto recuperato. La logica originale dei moduli e le funzioni dei test sono state eseguite. Primo run: 30/32, due **fixture di test** non ammessi dal validatore; corretti i fixture senza indebolire la validazione. Run finale: **32 test passati su 32, 0 falliti** (15 R01 + 17 R02).
+3. Casi nuovi: clamp dei tratti, legacy con origine ignota, 20 regioni, isole, affinità, CSV documentato e ordinamento per rarità, deduplica/varianti e rigetti, prova sintetica 5.100 righe→5.000 selezionate (numeri artificiali **solo nel test**, non dataset), seed/ID/JSON, scelta rischiosa, carichi/infortuni probabilistici, richiami gentile/duro, effetto regionale, idempotenza su JSON save/load e scadenza 180s.
+4. `demo.js` compilato sintatticamente in V8 senza gli import ESM; `demo.html` contiene **24/24 ID** usati, collegamento `type=module`, regola portrait→ruota e anno 1979. Controllo sorgenti/markup, **NON** QA browser Android, screenshot né test touch.
+5. **Non eseguito `node --test` nativo in questa ripresa**: il container non risolve `github.com` (`Temporary failure in name resolution`) e non può clonare il repository. I test V8 sono effettivamente eseguiti, non vanno descritti come test Node. Comando riproducibile con checkout reale: `node --test oronzo/systems/attributes/tests/*.test.js`.
+6. Dati di cognomi: fonte/licenza esaminate su pagine pubbliche; il campione di 20 non equivale a verifica di 5.000 cognomi rari. Il file completo Onomaverse non è stato scaricato (limite del container/connessione). Nessuna affermazione di download o di copertura 5.000.
 
-**Nessun merge eseguito e nessun nuovo branch/PR aperto.**
+## Integrazione e responsabilità esterne
+
+- **Agente 06 — match engine:** consumare `analyzeDisposition` per propensione azioni, `effectiveAbility` per resa contestuale e `temporaryEffects` mediante `t` in secondi simulati. Da `CoachCommandV1` convertire azioni individuali di tono in `applyShout` **una volta per ID**; l'evento score resta esclusivamente del motore. **Non sommare due volte** i modificatori di forma/salute/fortuna. Gli ordini effettivi e UI match non sono qui integrati.
+- **Agente 07 — career/data:** iniettare `origins` da comuni autorizzati, verificando associazione comune→regione; salvare `origin`, `surname`, `surnameSourceId`, `coachInteractionIds` e `temporaryEffects` del PlayerV1 esistente; non rigenerare identità dopo load. I 17 capoluoghi della demo non sono i 500 comuni meno popolati.
+- **Agente 09 — coach/club:** fornire `coachLeadership`, `coachOrigin`, `tone` e consumare `relationships.coachTrust` del **singolo giocatore**. `previewShout` restituisce effetti previsionali; `applyShout` aggiorna il calciatore. Morale coach come risorsa, GAME OVER, ingaggi, papponeria e finanze restano proprietà Agente 09.
+- **Agente 04 — copy:** tono e dialetti mediante dialoghi verificati, nessun dialetto inventato in questo sistema.
+- **Agente 03 — UI/runtime:** eventuale scheda dinamica con tratti e regione solo dopo NEXT autorizzato; questa PR non altera file UI del runtime.
+
+## Mancante / problemi e limiti
+
+- **Target di 5.000 cognomi rari NON raggiunto**: loader pronto a massimo 5.000; campione incluso = **20 cognomi comuni** con stime secondarie, senza rango certificato su 1979. Necessaria importazione autorizzata e auditing IT di un dataset integrale, controllo licenza, copertura e versione.
+- `regionAffinity` non dimostra la correttezza geografica del comune: il catalogo dei comuni dell'Agente 07 dovrà verificarla; città demo sono capoluoghi d'esempio.
+- Nessun comando nel runtime principale è stato collegato. `applyShout` non modifica morale del mister né crea gol/eventi di partita.
+- Il demo HTML non è stato provato su browser reale; QA touch/landscape ancora dovuta.
+- Nuovo roster con cognomi documentati richiede la fonte `surnameCatalog` esplicitamente passata; fallback legacy non verificato resta a supporto salvataggi esistenti.
+
+## Proposta prossimo ciclo (solo se NEXT lo autorizzerà)
+
+1. Importare e congelare un dataset integrale di cognomi Italia con licenza/dati di rarità riusabili; verificare il numero effettivo di righe nazionali e raggiungere 5.000 solo se supportati.
+2. Con Agente 06: test su seed identico degli effetti di carattere e richiami nei veri eventi del match, minimizzando doppio conteggio.
+3. Con Agenti 07/09: test di migrazione e persistenza multi-stagione di origine, relazione individuale, eventi idempotenti e bonus temporanei; QA browser Android landscape.
+
+**Nessun merge, nessuna modifica a `NEXT.md`, né a file degli altri agenti.**
