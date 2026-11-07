@@ -28,10 +28,11 @@ La PR originale esisteva con 16 personaggi, 57 eventi, 144 microtesti e 26 dialo
 - Test delle API del selettore in V8 su dati reali: trigger, random singolo, cooldown, immutabilità dello stato originale, classifica non modificata, speaker validi, tutti i presidenti isolati: **PASS**.
 - Logica integrale di `validate.mjs` eseguita in V8 con sostituzione delle sole funzioni Node di lettura file (gli stessi contenuti del branch): **`ORONZO COPY: OK`**, output **23 personaggi, 8 presidenti, 20 eventi presidenti, 22 dialoghi presidenti, 73 eventi, 144 microtesti, 42 dialoghi, 84 varianti**.
 - Parsing sintattico JavaScript del modulo ESM e dello script della demo tramite AsyncFunction: **PASS**.
+- **Compatibilità diretta con l'Agente 9 (PR #17, sola lettura):** letti gli ESM originali `core.js` e `presidents.js` e valutati insieme nel runtime V8. Gli otto profili canonici superano tutti `validatePresident`; `loadPresidents` restituisce `source:"copy"` e 8 profili; `presidentBehavior` produce decisioni deterministiche con lo stesso seed e profili con probabilità differenziate: **PASS**. Non implica che la PR #17 sia stata integrata o che il suo motore finanziario sia stato testato.
 - Verificati `presidentId` coerente con profilo del club, ID e relazioni univoci, `traits` 0..100, limiti di testo e nessun riferimento inter-presidenziale errato: **PASS**.
 - Verifica confronto con `main` dopo correzione: file cambiati limitati a `oronzo/content/` (prima dell'aggiunta del presente rapporto). Il branch discende da un precedente main ed è ora dietro a main di altri commit; l'orchestratore dovrà confermare mergeability corrente prima del merge.
 
-**NON eseguiti:** comando `node oronzo/content/validate.mjs` su checkout reale, test E2E browser/touch su telefono, import diretto dal branch #17. Nessuno di questi è dichiarato passato; procedure ripetibili indicate in README.
+**NON eseguiti:** comando `node oronzo/content/validate.mjs` su checkout reale, test E2E browser/touch su telefono, test E2E della PR #17. Nessuno di questi è dichiarato passato; procedure ripetibili indicate in README.
 
 ## Integrazione — contratti, API, dipendenze
 
