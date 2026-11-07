@@ -22,6 +22,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "Campione di 30 comuni meno popolati nel file regionale Molise; nessun ranking nazionale. Anno puntuale della popolazione non specificato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-abruzzo-2026",
+      "name": "RP92/comuni-italiani — Abruzzo, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/abruzzo.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente dal file regionale; nessun ranking nazionale verificato. Anno demografico puntuale non attestato. Non rappresenta il 1979."
     }
   ]
 }
