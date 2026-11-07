@@ -169,3 +169,30 @@ test('V1 known career shape migration and unknown schema refusal', () => {
   assert.deepEqual(deserialize(older).offers, []);
   assert.throws(() => deserialize({ ...older, checksum: 'deadbeef' }), /checksum mismatch/);
 });
+
+test('a failed write after active-slot corruption preserves the sole good backup', () => {
+  const state = small(19), data = new Map(), key = 'recovery';
+  let interrupt = false;
+  const storage = {
+    getItem: k => data.get(k) ?? null,
+    setItem(k, v) {
+      if (interrupt && k === `${key}:B`) {
+        data.set(k, '{incomplete'); // Simulate a non-atomic provider/interrupted write.
+        throw new Error('Interrupted write');
+      }
+      data.set(k, v);
+    }
+  };
+  const saves = createSaveManager(storage, key);
+  saves.save(state);             // A is valid, sequence 1.
+  completeWeek(state);
+  saves.save(state);             // B is valid, sequence 2; active=B.
+  data.set(`${key}:B`, '{corrupt');
+  assert.equal(saves.load().state.week, 1); // A is the only valid fallback.
+  interrupt = true;
+  assert.throws(() => saves.save(state), /Interrupted write/);
+  const restored = saves.load();
+  assert.ok(restored, 'the last valid snapshot must remain recoverable');
+  assert.equal(restored.state.week, 1);
+  assert.equal(data.get(`${key}:active`), 'B');
+});
