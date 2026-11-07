@@ -15,11 +15,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Combine merged main and PR 32
+      - name: Checkout merged main
         run: |
-          git fetch origin 89bb4944e6c6fc78ad9164c8e0d899355ec9d67f
+          git fetch origin main
           git checkout origin/main -- oronzo
-          git checkout 89bb4944e6c6fc78ad9164c8e0d899355ec9d67f -- oronzo/systems/coach-club oronzo/coordination/09-coach-club/REPORT.md
+          git rev-parse origin/main
           git status --short
-      - name: Node combined tests
+      - name: Node combined tests on merged main
         run: node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js
