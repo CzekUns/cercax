@@ -16,3 +16,6 @@ Dopo merge della PR UI corrente e dopo risoluzione/merge R02 di 07+09, il 03 ric
 
 ## Gate
 Non modificare `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css` o sistemi di gameplay. Lo scopo è artwork e kit di UI, non logica. Testa dimensioni e demo, REPORT concreto, PR verso main senza merge.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+Il branch `agent/oronzo-ui-r02` è **identico a main** (0 commit nuovi) e il REPORT leggibile riguarda il ciclo 01. **Stato READY confermato solo per il kit UI** in `oronzo/assets/ui/`. Al termine aprire PR con screenshot, manifest dinamico e report aggiornato. **NON autorizzato ora** scrivere `index.html`, `game.js`, `ui.css` e `partita-rapida.html`: il ciclo runtime sarà assegnato DOPO merge del kit UI e fix R02 degli agenti 07+09, con un nuovo NEXT esplicito e PR separata.
