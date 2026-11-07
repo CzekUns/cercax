@@ -36,3 +36,8 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 4. Calendario, classifica, transizioni, rosa e presidente persistenti; salvare stato RNG e data assoluta, test due stagioni e load senza rigenerazione delle offerte.
 
 **Proprietà confine:** agente 07 possiede club/dati geografici, offerte e save; agente 09 possiede impatto sul morale e compatibilità caratteri; agente 10 collegherà i due sistemi alle schermate. Nessun lavoro su R03 finché non autorizzato.
+
+### Fonti candidate per il futuro R03 (non implementazione e non prova di licenza)
+- [ISTAT — codici e denominazioni dei comuni/regioni](https://www.istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/).
+- [ISTAT — bilancio demografico per comune e CSV](https://demo.istat.it/app/?i=P02&l=it).
+- [ISTAT — serie censuaria anche storica 1951–2011](https://www.istat.it/statistiche-per-temi/censimenti/popolazione-e-abitazioni/risultati/): verificare anno e confini di riferimento prima di classificare i «500 comuni meno popolati» per un gioco ambientato nel 1979.
