@@ -68,8 +68,7 @@ non chiamare entrambi i canali in parallelo.
 
 ### Convenzioni allineate con #18 (FIX ORZ-P1-001, 002, P2-001)
 
-- `facing: 1` significa **E** e `facing: -1` **W**, anche per i giocatori fermi;
-  altre direzioni con stringhe N/NE/E/SE/S/SW/W/NW o `{x,y}`. Per radianti usare `{radians:number}`.
+- `facing` **numerico è SEMPRE in radianti** (E=0, S=π/2, W=π, N=−π/2); `1` indica SE e `-1` indica NE. Sono inoltre ammesse direzioni cardinali come stringhe N/NE/E/SE/S/SW/W/NW, oggetti `{x,y}` o `{radians:number}`. Non usare più la vecchia convenzione ±1 come segni.
 - `kickoff` e `halftime` sono **tagli istantanei di scena**, come il cambio di `phase`;
   niente blend attraverso il campo; normale movimento fra tick continua interpolato.
 - `energy` in `MatchSnapshotV1` motore e' un valore **0..100**: `normalizeEnergy`
@@ -78,7 +77,7 @@ non chiamare entrambi i canali in parallelo.
 
 `render(snapshot)` non imposta un altro timer di simulazione. Soltanto il runner chiama `engine.step(dt)`. Il renderer usa `t` per calcolare il tempo di transizione; presuppone che 1× faccia trascorrere 60 secondi di gioco per secondo reale (5400s / 90s), valore configurabile `simSecondsPerRealSecond`. Il backend può emettere snapshot a cadenza diversa, ma deve sempre includere `t` monotono. `setSpeed` e `setPaused` devono essere chiamati **insieme ai comandi del runner**.
 
-`facing` opzionale: cardinale, segno E/W ±1, vettore o oggetto radianti. Azioni consigliate: `idle`, `run`, `sprint`, `chase`, `unmark`, `dribble`, `pass`, `shot`, `tackle`, `save`. La vista usa l'immagine `kick` per pass/shot, `keeper` per save, `tackle` per intercettazioni, `run` per corse e smarcamento; senza un'action la velocità determina il passo e il resto è `idle`.
+`facing` opzionale: radiante numerico (come nel motore), cardinale stringa, vettore o oggetto radianti. Azioni consigliate: `idle`, `run`, `sprint`, `chase`, `unmark`, `dribble`, `pass`, `shot`, `tackle`, `save`. La vista usa l'immagine `kick` per pass/shot, `keeper` per save, `tackle` per intercettazioni, `run` per corse e smarcamento; senza un'action la velocità determina il passo e il resto è `idle`.
 
 ### Eventi cutscene
 
