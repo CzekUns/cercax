@@ -1,4 +1,5 @@
 /** Versioned, checksummed, two-slot browser save with import/export and recovery. */
+import { normalizeCareerCompatibility, canonicalObjective } from './compat.js';
 export const SAVE_VERSION = 2;
 export const SAVE_KIND = 'ORONZO_CAREER';
 function digest(text) {
@@ -13,18 +14,26 @@ export function validateCareer(state) {
     !state.leagues || !Array.isArray(state.history) || !Array.isArray(state.offers) || !Array.isArray(state.vacancies)) {
     throw new Error('Invalid or unsupported career data');
   }
+  if (!Number.isSafeInteger(state.absoluteWeek) || state.absoluteWeek < 1) throw new Error('Invalid absoluteWeek');
   const ids = new Set(state.clubs.map(c => c.id));
   if (ids.size !== state.clubs.length || (state.coach.clubId && !ids.has(state.coach.clubId))) {
     throw new Error('Corrupted clubs or coach reference');
   }
   const players = new Set(), fixtureIds = new Set();
   for (const club of state.clubs) {
-    if (!Array.isArray(club.players)) throw new Error('Invalid club roster');
+    if (!Array.isArray(club.players) || !state.presidentCatalogIds?.includes(club.presidentId)) throw new Error('Invalid club roster or president');
+    canonicalObjective(club.seasonObjective);
+    let payroll = 0;
     for (const p of club.players) {
       if (players.has(p.id) || p.teamId !== club.id) throw new Error('Duplicate or misassigned footballer');
       players.add(p.id);
+      if (!Number.isSafeInteger(p.contract?.weeklyWage) || p.contract.weeklyWage < 0) throw new Error('Invalid wage');
+      payroll += p.contract.weeklyWage;
+      if (!Number.isSafeInteger(payroll)) throw new Error('Invalid payroll');
     }
+    if (payroll > club.wageBudget) throw new Error('Payroll exceeds wageBudget');
   }
+  if (!Array.isArray(state.coach.employmentHistory) || !Number.isInteger(state.coach.hiredSeason)) throw new Error('Invalid coach employment');
   for (const league of Object.values(state.leagues)) {
     if (!Array.isArray(league.clubIds) || !Array.isArray(league.fixtures) ||
       league.clubIds.some(id => !ids.has(id))) throw new Error('Invalid league');
@@ -42,7 +51,7 @@ export function migrateState(state) {
     state = { ...state, schemaVersion: 2, history: state.history || [],
       offers: state.offers || [], vacancies: state.vacancies || [], log: state.log || [] };
   }
-  return validateCareer(state);
+  return validateCareer(normalizeCareerCompatibility(state));
 }
 export function serialize(state, { sequence = 0 } = {}) {
   validateCareer(state);

@@ -22,3 +22,29 @@ Historical real-world competition groups, quotas, bonus decisions, classifica av
 - A dismissal does not end the game; job offers require board-declared vacancies.
 - Save/load tested under partial-write corruption and quota exceptions; locally exporting backups is recommended.
 - No file outside `oronzo/systems/career/` touched by this PR.
+
+## Agent 07 R02 — integration contract (cross-module)
+
+**Scope:** career-only compatibility fixes. No production runner or browser UI was integrated. The v0.2 world (1979/municipalities/20 initial offers) is gated until a future NEXT.
+
+1. **Catalog & president:** `club.presidentId` is an ID from the eight profiles of `oronzo/content/presidents.json`, assigned deterministically from `seed:club.id` once and stored. The eight **profiles/archetypes** are reused among 104 clubs; `club.id` is the unique office/club identity. `PRESIDENT_PROFILE_IDS` contains **only canonical IDs** and never duplicates PresidentProfile content. Agent09 must resolve `profile=presidents.find(p=>p.id===club.presidentId)` from the copy catalog, reject mismatched profiles in `conveneBoard` and `reviewMatch`; copy/journalist texts must resolve the exact same profile. `newCareer({ presidentIds })` supports injecting the actual catalog ID set if it changes (the set is saved).
+2. **Objectives:** Persist exactly `promotion|top_half|safety|avoid_last|development` in `club.seasonObjective`. `canonicalObjective` explicitly migrates `title|topHalf|survival|avoidRelegation`; unknown inputs throw, no safety fallback. Existing thresholds in `seasonAssessment`: promotion=1st, top_half=top ceil(n/2), safety/avoid_last=not last. Development returns `fulfilled:null`, since no sports threshold was authorized; Agent09's board remains owner of its actual assessment.
+3. **Wage economy:** New players get `player.contract.weeklyWage`, safe integer ITL, deterministic by player ID and seed. Game-only weekly bases PROM 32k, INTER 65k, C2 100k, C1 180k, B 320k, A 600k; NOT historically verified salaries. Every starting roster's `weeklyPayroll<=wageBudget`. Legacy missing wages migrated **once**, old negotiated wages preserved and only old cap expanded when essential; don't add funds to pre-existing `finance.cash` on load. Agent09 processes accounts/arrears with `settleWeek`, not career.
+4. **Absolute weeks:** `state.week` is relative fixture round (reset 1 on season rollover). `state.absoluteWeek` starts 1, increases once in `advanceWeek` and once again in `finishSeason` (off-season distinct period); NEVER resets. Capture `const period = state.absoluteWeek` **before** advancing; pass `{week: period}` to Agent09 `settleWeek/endClubWeek`, `conveneBoard`, `resolvePromises`, `reviewMatch`, `applyClubEvent` and financial/board event deduplication. Retry same period with same ID. Legacy saves missing an absolute counter are migrated with a 60-slot band per `seasonIndex` (max league rounds 46); historical weekly ledger data absent from older saves cannot be reconstructed.
+5. **CoachV1 history:** Career keeps `coach.employmentHistory[]`, `coach.hiredSeason`, `coach.contract.until`. `normalizeCareerCoach` recovers missing fields in old saves and converts Agent09 `expiresSeason` when needed; it prevents a crash on subsequent `applyBoardDecision`. **Agent09 must update `createCoach` to PRESERVE existing fields**; no module can reconstruct history already destroyed by another factory. Replacement `state.coach = createCoach(state.coach)` is **not safe** on the current main until Agent09 R02 ships.
+
+**Adapter outline**, not runtime code:
+```js
+const period = state.absoluteWeek;
+const club = state.clubs.find(c=>c.id===state.coach.clubId);
+const profile = presidents.find(p=>p.id===club.presidentId);
+if (!profile) throw Error('Missing canonical president');
+const settled = endClubWeek(club, { week: period }); // Agent09, AFTER once-only createClub
+if (settled.accepted) state.clubs[state.clubs.findIndex(c=>c.id===club.id)] = settled.club;
+// Only once all results in the season round have been submitted by Agent06:
+advanceWeek(state);
+// Finish season via finishSeason(state) after state.phase === 'seasonComplete'.
+```
+Agent09 helpers use immutable club copies; always replace the returned club by ID. Don't call `createClub` again on a club with persisted `finance`, because that factory initializes cash. Agent08 player evolution must preserve `contract.weeklyWage`. Event/scores are solely from Agent06; `demo-adapter.js` is not production.
+
+**QA:** `node --test tests/*.test.mjs` covers deterministic president catalog IDs, objectives and thresholds, 104 payrolls, legacy v2 import, two season rollovers and coach reassignment. Full cross-run against Agent09 and Android UI remain gate checks, not claimed as completed by Agent07.

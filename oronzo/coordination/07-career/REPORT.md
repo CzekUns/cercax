@@ -1,50 +1,41 @@
-# RAPPORTO AGENTE 07 — Carriera e campionati — ciclo 01, revisione della PR
-
-**Identità:** `ORONZO-AGENT-07`  
-**Stato:** `PR_OPEN` — `WAIT_REVIEW` su `main`; nessun merge autorizzato.  
-**Branch:** `agent/oronzo-career`  
-**PR:** https://github.com/CzekUns/cercax/pull/14  
-**Issue:** https://github.com/CzekUns/cercax/issues/9  
-**Data:** 7 novembre 2026 (Europe/Rome)  
-**Head originario verificato:** `b424faebcdfab088d3814e30120cc2370cec2fad`  
-**Commit dei test e della correzione verificati:** `bd13be7ef064bf662b4d1292c8e805a7d17cc40a`, `0a4afb8da0eca1a8db18de478727af9824247a6c`
+# RAPPORTO AGENTE 07 — Carriera e campionati — R02
+**Identità:** ORONZO-AGENT-07  
+**Stato:** DELIVERED / PR aperta, non mergiata  
+**Branch:** `agent/oronzo-career-r02`  
+**PR:** vedere la PR dal branch `agent/oronzo-career-r02` (aggiunta dopo apertura)  
+**Base main verificata:** `c9f52a1c2f60733a6ae1e0b63180fa4b5d0f9697`  
+**Data:** 7 novembre 2026 (Europe/Rome)
 
 ## Realizzato
+- **R02-1 presidente:** `compat.js` assegna ID canonici dal catalogo copy, seed/club deterministici, persistenza anche dopo cambio stagione e import vecchi ID `president:*`. Più club riusano lo stesso archetipo, l'istanza è identificata dal club.
+- **R02-2 obiettivi:** canonici `promotion|top_half|safety|avoid_last|development` compatibili con Agent09. Mapping dei legacy alias, soglie identiche a prima e `development` senza valutazione fittizia.
+- **R02-3 salari:** ogni nuovo calciatore ha `contract.weeklyWage>0` intero in ITL, monte salari entro `wageBudget`; migrazione idempotente che preserva i contratti esistenti, senza creare depositi sulla cassa esistente. Importi di bilanciamento gioco, non fonte salariale storica.
+- **R02-4 settimane:** `absoluteWeek` incrementale, anche al rollover; `week` stagionale preservata. Chiave univoca da passare ai ledger del board e finanze.
+- **R02-5 coach:** campi `employmentHistory`, `hiredSeason`, `contract.until` persistiti e normalizzati nei legacy save. Evitato TypeError su dismiss; il vero `createCoach` dell'Agente09 deve mantenere questi campi o distrugge la cronologia prima che la carriera la riceva.
+- **File toccati:** `oronzo/systems/career/{compat.js,career.js,progression.js,save.js,tests/r02.test.mjs,README.md,integration-notes.md}` e questo REPORT. **Nessun altro modulo modificato**.
 
-- **Già consegnato nella PR:** `oronzo/systems/career/career.js` per stagione, registrazione risultati, promozioni/retrocessioni, cambio panchina e rollover; `league.js` per calendari/classifiche; `progression.js` per reputazione/offerte/contratti; `save.js` per salvataggio; `demo-adapter.js`, `career-demo.html`, `tests/career.test.mjs`, `README.md`, `integration-notes.md`, `package.json`.
-- **Correzione puntuale 7 novembre, solo in PR #14:** `save.js` ora sceglie uno slot non valido prima di sovrascrivere l'unica copia recuperabile. Se lo slot attivo è corrotto, la copia integra rimane protetta durante un nuovo tentativo di scrittura; se entrambi gli slot sono integri ma il puntatore manca, rimpiazza quello con sequenza inferiore.
-- **Test di regressione aggiunto:** `tests/career.test.mjs`, scenario attivo `B` corrotto, backup `A` integro, scrittura `B` interrotta. Prima della correzione il recupero restituiva `null`; dopo la correzione resta leggibile `A`.
-- Nessun nuovo ciclo o seconda PR, nessun cambio ad altri moduli o ai file dell'orchestratore.
-
-## Verifiche
-
-1. Letti su `main`: `oronzo/coordination/PROTOCOL.md`, `07-career/{IDENTITY,RUN,NEXT}.md`, `oronzo/AGENTS.md`, `oronzo/engine-contract.md`, la specifica agente 07, la issue #9, lo stato live di PR #14 e le note dell'orchestratore.
-2. **GitHub:** PR #14 aperta e non mergiata, base `main`, nessuna review submission/thread/commento con richieste di fix. HEAD precedente `b424fae` (2 commit). Verificati i blob SHA di **tutti e 10** i file estratti dal pacchetto già consegnato contro i blob della PR su GitHub: corrispondenza esatta.
-3. **Node.js v22.16.0:** nella directory `oronzo/systems/career/`, eseguito `node --test tests/*.test.mjs` dopo la correzione: **11 test superati, 0 falliti**, inclusi calendario, due stagioni, esonero/offerte, checksum/migrazione, quota storage e nuovo caso di recupero.
-4. **Riproduzione del bug prima del fix:** lo slot `B` corrotto con `:active=B`, `A` valido; simulata scrittura parziale interrotta su `A` → `load()` restituiva `null`. Dopo la patch il test conserva `A`. Il guasto parziale è simulato per stressare un provider di storage non atomico; non si afferma che `localStorage.setItem` del browser produca normalmente scritture parziali.
-5. **Smoke completo a dimensioni predefinite con provider DEMO:** 104 società, 1.664 ID calciatore unici, **1.712 partite registrate** nella stagione 1985-86; round-trip `serialize/deserialize` riuscito; `finishSeason` ha prodotto 1986-87 con 6 campionati e 104 club persistenti. Stringa di salvataggio dopo la prima stagione: 1.844.618 caratteri (indicazione di dimensione, non misura quota reale dispositivo).
-6. **Browser demo:** tentato Playwright/Chromium headless su server locale per avvio, giornata, refresh, rollover, esonero e nuova offerta; il browser ha bloccato la navigazione con `net::ERR_BLOCKED_BY_ADMINISTRATOR` prima di caricare la pagina. **Test visivo browser NON eseguito**, da ripetere su browser/smartphone autorizzato.
-7. I blob SHA pubblicati per i due file corretti sono `save.js`: `3d38981a5d97e1bfd33f07484be95c2d5e97110b`; `tests/career.test.mjs`: `4ebd51a9d25fd58310f1e026116413055f9b092e`. Corrispondono ai file testati localmente.
+## Verifiche realmente eseguite
+- Node v22.16.0: `cd oronzo/systems/career && node --test tests/*.test.mjs`: **17 passati / 0 falliti** (11 test precedenti e 6 nuove prove R02), incluse 2 stagioni consecutive con save/load, promozioni e status mister, 104 club con stipendi e cap.
+- Sorgenti `career.js`, `progression.js`, `save.js`, `compat.js`, `tests/r02.test.mjs` confrontati con SHA blob GitHub e repository locale.
+- Test locale letto catalogo ridotto a soli 8 ID; tali otto ID sono stati verificati contro il catalogo **reale** `oronzo/content/presidents.json` su main. Una volta in checkout GitHub, `tests/r02.test.mjs` legge automaticamente il JSON reale.
+- **Non eseguiti** QA Android/browser né test con l'intero runtime societario Agent09: i suoi cinque fix sono una PR separata, richiesta per prova cross-module conclusiva.
 
 ## Integrazione / dipendenze
-
-- **Agente 6:** deve fornire i veri risultati partita, `score` e l'insieme degli eventi `goal` raccolti dai tick. L'API `registerResult(state,{fixtureId,homeId,awayId,score,events})` rifiuta punteggi senza eventi-gol corrispondenti. `demo-adapter.js` è un provider fittizio per dimostrazione/test, non per il runtime.
-- **Agente 9:** deve chiamare `applyBoardDecision(state,{type:'dismiss'|'renew'|'retain',clubId,...})` e comunicare posti vacanti tramite `addVacancy(state,clubId)`. Il modulo carriera non decide autonomamente esoneri o bilanci.
-- **Agente 8:** collegare progressione degli attributi, salute, contratti e mercato tramite il callback `finishSeason(state,{onRollover(clubs,snapshot)})`.
-- **Orchestratore:** collegare questi moduli a `oronzo/game.js`, gestire checkpoint delle partite in corso separatamente e verificare UI landscape smartphone. Gli export principali sono `newCareer`, `fixturesForWeek`, `getUpcomingFixture`, `registerResult`, `advanceWeek`, `finishSeason`, `getStandings`, `addVacancy`, `applyJobOffer`; da `save.js`: `serialize`, `deserialize`, `createSaveManager`.
-- Il conteggio di partite e i risultati del demo **non provano** l'integrazione con il motore calcistico reale.
+- Agent09: profilo/ID presidente identico per board/testi, obiettivi canonici, trasmissione di `absoluteWeek` a salari/riunioni/promesse, factory `createCoach` che preserva storia e scadenza. Usare `result.club` di finance/board, senza ri-inizializzare la cassa a ogni load.
+- Agent04: unica fonte dei profili presidente, nessun catalogo narrativo duplicato nel career.
+- Agent06: score ed eventi goal per `registerResult` (il provider della demo rimane di test).
+- Agent08: conservazione `contract.weeklyWage` e ID dei giocatori.
+- Proprietà futura `oronzo/app/flow/` e avvio nel 1979 sono **NON AUTORIZZATI** in questo ciclo.
 
 ## Mancante / problemi
+- Cross-09 end-to-end R02: bloccato dall'aggiornamento del modulo 09; compatibilità del lato career documentata in `integration-notes.md`.
+- Migrazione di carriera esistente non può recuperare cronologia già distrutta da factory esterne; normale importazione di v2 mantiene i campi esistenti.
+- Wages ITL sono parametri fittizi dichiarati; vecchia cassa con poca liquidità può creare arretrati, non vengono inventate entrate.
+- Nessuna verifica visiva telefono; calendario v0.2 e 500 comuni/20 offerte rinviati a R03.
 
-- Storicamente è **una semplificazione dichiarata**: un girone rappresentativo per ogni categoria, scambio parametrico 1 promossa/1 retrocessa per confine, non quote o spareggi reali del 1985-86; Eccellenza non utilizzata.
-- Misurare su dispositivi reali il limite `localStorage`: un salvataggio con 104 società e 1.664 giocatori è voluminoso e mantiene due copie. Nessun cloud backup; esportazione JSON disponibile.
-- Smoke browser bloccato dall'ambiente, quindi non esiste prova visiva di funzionamento su smartphone per questa iterazione.
-- `WAIT_REVIEW`: nessuna approvazione/merge, nessun incarico `READY`; non aggiungo nuove funzionalità senza `NEXT.md` aggiornato.
+## Proposta prossimo ciclo
+1. Gate incrociato dopo PR Agent09: due stagioni, stessa identità presidente, payroll unico per assoluta settimana, esonero/reingaggio con load.
+2. Dopo il merge e nuovo NEXT, mondo 1979, base geografica documentata e 20 offerte seed-stabili.
+3. Adapter `oronzo/app/flow/` solo dopo autorizzazione separata.
 
-## Proposta prossimo ciclo (da autorizzare)
-
-1. Dopo QA e merge dell'orchestratore, sviluppare un adattatore di torneo che supporti più gironi e quote/promozioni storiche per divisione/anno, senza inventare criteri.
-2. Verificare budget di spazio e strategie di compattazione dei salvataggi su Android/iOS reali, con test dei rollback dopo interruzioni.
-3. Con l'orchestratore, validare il mapping degli eventi reali dell'Agente 6 e i callback di Agenti 8/9 in test d'integrazione tra moduli.
-
-**Nessun merge eseguito.**
+**Nessun merge effettuato.**

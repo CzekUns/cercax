@@ -78,3 +78,7 @@ Reputation is updated with results and season objective measurements; job offers
 ## Known limits
 
 The demo provider (`demo-adapter.js`) uses deterministic seeded chance to produce artificial matches **solely to exercise season orchestration**. These scores are not match-engine outcomes. No live match pause/resume UI here (owned by Agents 5/6). No simultaneous multi-group national federation model, formal playoff fixtures or transfers yet. The agent owns this directory only; the orchestrator is responsible for wiring production match, board, attributes, art and copy modules.
+
+## R02 compatibility — 7 November 2026
+
+The previously merged career module now exports `PRESIDENT_PROFILE_IDS`, `canonicalPresidentIds`, `canonicalObjective`, `WEEKLY_WAGE_BASE_ITL`, `ensureClubContracts`, `normalizeCareerCoach` and `normalizeCareerCompatibility` from `compat.js`. Each `newCareer` persists `presidentCatalogIds` and `absoluteWeek`; players receive integer positive `contract.weeklyWage` in **fictional** 1985 ITL game economy and a complete club `wageBudget`. Career and Agent09 now share the same season objective strings. Old version-2 saves are upgraded after verifying the original checksum; envelope remains version 2, but old versions of the client should not consume the new fields. See `integration-notes.md` for the precise board and payroll boundaries. This PR deliberately does **not** change the starting season to 1979, add 500 municipalities, or wire the production runtime.
