@@ -12,3 +12,6 @@
 
 ## Gate
 Non implementare gli avatar allenatore o le schermate menu: proprietà agente 03. Non cambiare motore, renderer, HTML, CSS root. Modifica solo i file in scope, REPORT test reali, PR verso main e stop. Nessun merge autonomo.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+Il branch `agent/oronzo-players-r02` è stato verificato **identico a main** (0 commit nuovi) e non risulta nuova PR. Il REPORT disponibile descrive ancora il ciclo 01, quindi non costituisce consegna del ciclo 02. **Stato READY confermato**: procedere con i 22 sprite e QA misurabile, poi aggiornare REPORT e aprire PR. Nessuna modifica al perimetro.
