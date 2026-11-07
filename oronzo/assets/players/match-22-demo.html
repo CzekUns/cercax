@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ORONZO · 22 Sprite QA · 01 R02</title>
+<style>
+:root { color-scheme: dark; font-family: system-ui, Arial, sans-serif; }
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#081221;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+#screen{position:relative;aspect-ratio:16/9;width:min(100vw,177.77778dvh);height:min(100dvh,56.25vw);max-height:100dvh;overflow:hidden;background:#092f28;border:1px solid #2f5064}
+canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+#panel{position:absolute;bottom:0;left:0;right:0;height:10%;display:flex;align-items:center;justify-content:center;gap:.6rem;padding:2px 8px;background:rgba(9,22,43,.96);border-top:2px solid #738da1}
+button,select{font:700 clamp(10px,1.7vw,15px) system-ui,sans-serif;color:#f7ebce;background:#1e3451;border:1px solid #7b93ac;min-height:32px;padding:4px 10px;border-radius:2px}
+#state{position:absolute;right:1.4%;top:2%;font-size:clamp(9px,1.3vw,12px);font-weight:700;color:#d5f1e0;text-shadow:1px 1px #09201a;pointer-events:none}
+@media (orientation:portrait){body:before{content:"ORONZO · RUOTA IL TELEFONO";position:absolute;top:8px;left:8px;color:#ffe092;font:700 13px monospace}}
+</style></head><body>
+<div id="screen">
+<canvas id="pitch" width="640" height="360" aria-label="Campo intero, 22 giocatori pixel art, due squadre distinte, animazioni e palla"></canvas>
+<span id="state" aria-live="polite">CARICAMENTO SPRITE...</span>
+<div id="panel">
+ <select id="action" aria-label="Animazione da verificare">
+  <option value="run">CORSA</option><option value="idle">FERMO</option>
+  <option value="kick">TIRO</option><option value="tackle">CONTRASTO</option>
+  <option value="keeper">PORTIERE</option>
+ </select>
+ <select id="facing" aria-label="Direzioni">
+  <option value="auto">DIR. AUTO</option>
+  <option value="N">N</option><option value="NE">NE</option><option value="E">E</option><option value="SE">SE</option>
+  <option value="S">S</option><option value="SW">SW</option><option value="W">W</option><option value="NW">NW</option>
+ </select>
+ <button id="pause">PAUSA</button><button id="reset">RESET</button>
+</div>
+</div>
+<script src="palette.js"></script><script src="team-looks.js"></script>
+<script>
+"use strict";
+(function(){
+ const canvas=document.getElementById("pitch"),ctx=canvas.getContext("2d",{alpha:false});
+ const status=document.getElementById("state"),actionSelect=document.getElementById("action");
+ const faceSelect=document.getElementById("facing"),pause=document.getElementById("pause");
+ const teamLooks=window.OronzoTeamLooks,players=teamLooks.roster();
+ const baseY=[181,80,144,219,283,85,149,215,279,139,225];
+ const homes=[52,142,142,142,142,235,235,235,235,302,302];
+ const aways=[588,498,498,498,498,407,407,407,407,338,338];
+ const values={run:9,idle:3,kick:8,tackle:7,keeper:7};
+ let atlasById=new Map(),ready=false,error="",playing=true,last=0,elapsed=0,chosen="run";
+ function box(x,y,w,h,fill){ctx.fillStyle=fill;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}
+ function pitch(){
+  box(0,0,640,360,"#101b34");
+  box(0,0,640,34,"#172947");box(0,31,640,3,"#6887ae");
+  ctx.fillStyle="#fff1ca";ctx.font="bold 14px monospace";ctx.fillText("ORONZO 1979  /  SPRITE QA",11,23);
+  ctx.font="bold 12px monospace";ctx.fillText("11   -   11",327,22);
+  box(9,37,622,283,"#173b32");
+  for(let i=0;i<12;i++)box(15+i*51,41,51,274,i%2?"#2e854b":"#2a7945");
+  ctx.strokeStyle="#e9f0dc";ctx.lineWidth=2;ctx.strokeRect(19,46,602,266);
+  ctx.beginPath();ctx.moveTo(320,46);ctx.lineTo(320,312);ctx.stroke();
+  ctx.beginPath();ctx.arc(320,179,42,0,2*Math.PI);ctx.stroke();
+  ctx.strokeRect(19,109,93,140);ctx.strokeRect(528,109,93,140);
+  ctx.strokeRect(19,144,38,69);ctx.strokeRect(583,144,38,69);
+  ctx.beginPath();ctx.arc(320,179,2,0,2*Math.PI);ctx.fillStyle="#f2eedc";ctx.fill();
+  box(11,162,9,32,"#e4efea");box(620,162,9,32,"#e4efea");
+  ctx.strokeStyle="#d2dfd2";ctx.lineWidth=1;ctx.strokeRect(11,162,9,32);ctx.strokeRect(620,162,9,32);
+ }
+ function position(p,t){
+  const home=p.team==="home",i=p.index;
+  let x=(home?homes:aways)[i],y=home?baseY[i]:(360-baseY[i]);
+  if(i===0)return {x,y:181};
+  const wave=t/340+i*.92;
+  // deterministic *visual* sway for sprite QA, not tactical movement or match physics
+  x+=(home?1:-1)*Math.sin(wave)*Math.min(7,3+(i%3)*1.5);
+  y+=Math.cos(wave*.83)*Math.min(5,2+i%3);
+  return {x,y};
+ }
+ function direction(p,t){
+  const override=faceSelect.value;if(override!=="auto")return override;
+  const sign=p.team==="home"?1:-1;
+  if(p.index===0)return sign>0?"E":"W";
+  const s=Math.sin(t/430+p.index*1.31);
+  return sign>0?(s>0.4?"SE":s<-.4?"NE":"E"):(s>0.4?"SW":s<-.4?"NW":"W");
+ }
+ function draw(t){
+  pitch();
+  if(ready){
+   const roster=players.map(p=>({p,pos:position(p,t)})).sort((a,b)=>a.pos.y-b.pos.y);
+   for(const {p,pos} of roster){
+     const act=p.keeper?"keeper":chosen,cache=atlasById.get(p.id);
+     const atlas=cache&&cache[act];
+     if(atlas){
+       const frame=Math.floor(t/1000*values[act]+p.index*.27)%4;
+       window.OronzoPalette.draw(ctx,atlas,direction(p,t),frame,pos.x,pos.y,1);
+     }
+   }
+   // Ball drawn as small test motif at center. Engine owns actual ball coordinates.
+   box(317+Math.round(Math.sin(t/640)*9),176+Math.round(Math.cos(t/880)*5),5,5,"#f5ead5");
+   box(319+Math.round(Math.sin(t/640)*9),178+Math.round(Math.cos(t/880)*5),2,2,"#25263a");
+  }
+  ctx.fillStyle="#d7e9da";ctx.font="bold 10px monospace";
+  ctx.fillText("22 SPRITE   2 SQUADRE   MATERIALI RICOLORABILI",12,334);
+  ctx.textAlign="right";ctx.fillText("DEMO GRAFICA · NON SIMULAZIONE",627,334);ctx.textAlign="left";
+  if(!ready){ctx.fillStyle="#f7c279";ctx.font="bold 15px monospace";ctx.fillText(error||"PREPARAZIONE 22 SPRITE...",157,188)}
+ }
+ async function prepare(){
+  ready=false;error="";status.textContent="CARICAMENTO";
+  const actions=["idle","run","kick","tackle","keeper"];
+  try{
+   const pairs=Object.fromEntries(await Promise.all(actions.map(async action=>[action,await OronzoPalette.load(action,"")])));
+   atlasById=new Map();
+   for(const p of players){
+     const map={};
+     for(const action of [p.keeper?"keeper":"idle",...(p.keeper?[]:["run","kick","tackle","keeper"])]){
+       map[action]=OronzoPalette.recolorAtlas(pairs[action],action,p.appearance);
+     }
+     atlasById.set(p.id,map);
+   }
+   ready=true;status.textContent="22/22 ASSET PRONTI";
+  }catch(e){error="FALLBACK: ASSET NON CARICATI";status.textContent="ERRORE ASSET";console.error(e)}
+ }
+ function loop(now){
+  const dt=last?Math.min(0.06,(now-last)/1000):0;last=now;if(playing)elapsed+=dt;
+  draw(elapsed*1000);requestAnimationFrame(loop);
+ }
+ actionSelect.addEventListener("change",()=>{chosen=actionSelect.value});
+ pause.addEventListener("click",()=>{playing=!playing;pause.textContent=playing?"PAUSA":"RIPRENDI"});
+ document.getElementById("reset").addEventListener("click",()=>{elapsed=0;chosen="run";actionSelect.value="run";faceSelect.value="auto"});
+ window.__ORONZO_22_QA__={players,positions:(t=0)=>players.map(p=>({...p,position:position(p,t)})),get ready(){return ready},get error(){return error}};
+ prepare();requestAnimationFrame(loop);
+})();
+</script></body></html>
