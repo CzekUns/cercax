@@ -1,0 +1,1753 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "mc_giornale_01",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Il Campanile cerca un gioco, trova una settimana",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_02",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Due punti e un parere contrario",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_03",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Il pareggio divide anche la redazione",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_04",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Il capitano parla: il paese ascolta a metà",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_05",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Mercato fermo, taccuini pieni",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_06",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Reti pulite, conti meno",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_07",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Il mister prova una nuova disposizione",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_08",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Un tiro in porta riapre il dibattito",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_09",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Venturi vede il vertice dal balcone",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_10",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Il derby comincia davanti all'edicola",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_11",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Campanile, una domenica da ricordare",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_12",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Due assenze complicano la seduta",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_13",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Fischi all'intervallo, applausi a fine gara",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_giornale_14",
+      "channel": "headline",
+      "category": "giornale",
+      "text": "Una squadra intera sotto esame",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "giornale"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_01",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "Il presidente chiede pazienza fino alla prossima domenica. Il resto del consiglio chiede il bilancio.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_02",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "La prova è stata ordinata. Sul tabellino il risultato pesa più dei complimenti.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_03",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "Il centravanti contesta i palloni ricevuti. I compagni contano quelli restituiti.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_04",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "Un tifoso ha seguito l'allenamento per intero e ha chiesto il rimborso della mattinata.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_05",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "L'allenatore deve scegliere undici uomini. In redazione ne hanno già scelti quindici.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_06",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "La società annuncia una riunione per chiarire chi ha annunciato la precedente.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_07",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "Il medico predica cautela. Il preparatore lo appoggia per la prima volta da settembre.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_sommario_08",
+      "channel": "subhead",
+      "category": "sommario",
+      "text": "Il capitano invita tutti a tenere la testa sul campo. Il titolo di domani è già pronto.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "sommario"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_01",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "NON APPOGGIARE I TACCHETTI SULLA SCRIVANIA.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_02",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "PER IL RIMBORSO SPESE RIVOLGERSI A CHI È RIMASTO.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_03",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "VIETATO FUMARE NELLO SPOGLIATOIO. VALE ANCHE PER IL PRESIDENTE.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_04",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "LA SALA STAMPA È APERTA. LA FINESTRA SI CHIUDE DA FUORI.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_05",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "I PALLONI OLTRE IL MURO VANNO RIPORTATI ENTRO SERA.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_06",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "PER LE CHIAVI DEL CAMPO CHIEDERE AL BAR.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_07",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "L'ACQUA CALDA NON È UNA PROMESSA DELLA SOCIETÀ.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_08",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "LE RETI SI CONTROLLANO PRIMA DELLA PARTITA.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_09",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "IL REGISTRO DELLE PRESENZE NON È UN SONDAGGIO.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_cartelli_10",
+      "channel": "notice",
+      "category": "cartelli",
+      "text": "RITIRARE I PROPRI INDUMENTI. I CALZINI SENZA NOME RESTANO QUI.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "cartelli"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_01",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Segreteria: «Il presidente è in riunione.» Rumore di tazzine sullo sfondo.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_02",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Dal campo avversario chiedono conferma dell'orario. È il terzo tentativo.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_03",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Il bar del paese offre il caffè al mister. Solo dopo una vittoria.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_04",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Il direttore sportivo richiama: «Il ragazzo interessa, la società deve decidere.»",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_05",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Il giornalista chiede una dichiarazione. «Va bene anche una pausa lunga.»",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_06",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "L'autista domanda se al ritorno saliranno gli stessi undici.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_07",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Ada ha rintracciato la distinta. Era sotto il telefono.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_08",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Un tifoso vuole sapere quando inizia la vendita dei biglietti. I biglietti ci sono?",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_09",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Dal municipio chiedono chi ha autorizzato il cartello sul cancello.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_telefonate_10",
+      "channel": "notice",
+      "category": "telefonate",
+      "text": "Il preparatore telefona per ricordare che il recupero è lavoro.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "telefonate"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_01",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Il pallone scivola sulla fascia. Anche il guardalinee deve accelerare.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_02",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Si apre uno spazio a centrocampo, e subito si richiude.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_03",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Il portiere chiama la palla. La chiama due volte, per sicurezza.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_04",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Cross dalla destra. Il vento fa sentire la propria candidatura.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_05",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "La tribuna si alza. Era un passaggio, ma prometteva bene.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_06",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Il centravanti prende posizione. Il difensore non gliela regala.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_07",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Un contrasto pulito, il pubblico preferiva comunque il fallo.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_08",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Il numero quattro ferma l'azione e si prende il tempo di guardare avanti.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_09",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Un tiro rasoterra, trattenuto senza affanni dal portiere.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_10",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "L'arbitro lascia correre. Il pubblico ha già scritto ricorso.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_11",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Due minuti al riposo. Nessuno vuole cedere proprio adesso.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_radiocronaca_12",
+      "channel": "commentary",
+      "category": "radiocronaca",
+      "text": "Il mister chiama il cambio. La panchina ha capito chi deve alzarsi.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "radiocronaca"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_01",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Oggi il preparatore conta le ripetute. I giocatori contano i minuti.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_02",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Seduta tecnica: si prova il passaggio corto finché diventa davvero corto.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_03",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Il campo è segnato con calce fresca. Evitare le discussioni sulle linee.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_04",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Per il recupero bastano scarpe leggere e una buona ragione.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_05",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Il capitano prepara gli esercizi insieme al mister.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_06",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Ivo ha spostato i coni. Qualcuno li ha rimessi dove piacevano di più.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_07",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Il portiere di riserva arriva per primo anche nei giorni di scarico.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_08",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Il centrocampo prova l'uscita dal pressing. Il pressing è quello dei compagni.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_09",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Il medico consiglia una seduta a ritmo ridotto.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_allenamento_10",
+      "channel": "notice",
+      "category": "allenamento",
+      "text": "Dieci minuti dedicati ai calci piazzati. Nessuno discute l'ordine dei tiratori.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "allenamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_01",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Il capitano ha chiesto silenzio. La radio di Umberto continua a parlare.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_02",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Uno ha portato i pasticcini. Nessuno rivendica l'idea.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_03",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "La lavagna tattica ha perso una puntina. La squadra ne cerca tre.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_04",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Si discute la formazione con molta competenza e nessuna responsabilità.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_05",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Il numero nove vuole un pallone in più. Il portiere vorrebbe una rete in meno.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_06",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Un giocatore è rimasto dopo la seduta per riprovare i calci di punizione.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_07",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Il discorso del mister è durato poco. L'acqua calda non ha aspettato.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_08",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Le scarpe sono in fila. I loro proprietari un po' meno.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_09",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Un silenzio lungo dopo la sconfitta. Si sentono i rubinetti.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_spogliatoio_10",
+      "channel": "notice",
+      "category": "spogliatoio",
+      "text": "Il preparatore ha appeso il programma. Qualcuno ha coperto il venerdì.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "spogliatoio"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_01",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "La curva vende sciarpe. Il resto si paga alla fine.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_02",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "Uno striscione chiede impegno e una penna per firmare.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_03",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "La banda cittadina prova fuori dallo stadio.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_04",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "Il bar segna i risultati sul retro dello scontrino.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_05",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "Un tifoso conosce la formazione da martedì. Dice lui.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_06",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "I posti in piedi sono quasi finiti. Sono tutti in piedi.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_07",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "Nella ha chiesto meno parole e più rincorse.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_08",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "L'edicola conserva le prime pagine delle vittorie.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_09",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "La trasferta è lunga. Le discussioni partiranno prima.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tifoseria_10",
+      "channel": "ticker",
+      "category": "tifoseria",
+      "text": "Per il derby si arriva al campo già con un'opinione.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tifoseria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_01",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "Si cercano due palloni ancora gonfi.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_02",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "La segreteria riordina il calendario.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_03",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "Il preparatore controlla il cronometro.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_04",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "Il tabellone attende il gesso nuovo.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_05",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "L'autista conta i posti sul pullman.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_06",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "Il custode ha trovato il lucchetto.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_07",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "Le distinte sono quasi pronte.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_08",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "Si batte la calce lungo le linee.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_09",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "La radiolina prende meglio vicino alla finestra.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_caricamento_10",
+      "channel": "ticker",
+      "category": "caricamento",
+      "text": "Il presidente rilegge l'ultima classifica.",
+      "weight": 5,
+      "cooldownWeeks": 0,
+      "tags": [
+        "caricamento"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_01",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "GIORNATA IN CORSO · RISULTATI PROVVISORI",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_02",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "TERRENO PESANTE · GIOCO REGOLARE",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_03",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "PRIMO TEMPO · NESSUN RISULTATO DEFINITIVO",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_04",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "CLASSIFICA AGGIORNATA DOPO IL TRIPLICE FISCHIO",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_05",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "CAMBI RIMASTI · CONTROLLARE LA PANCHINA",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_06",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "PANCHINA · ORDINI IN ATTESA",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_07",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "ALLENAMENTO SVOLTO · CARICHI REGISTRATI",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_08",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "RIPOSO · LA SQUADRA RECUPERA",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_09",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "FORMAZIONE CONFERMATA · SI VA IN CAMPO",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tabellone_10",
+      "channel": "ticker",
+      "category": "tabellone",
+      "text": "ULTIMI MINUTI · RESTARE CONCENTRATI",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tabellone"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_01",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "La visita dura il tempo necessario, anche se fuori è già pronta la foto.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_02",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Il ghiaccio è in infermeria. Il secchio è del magazziniere.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_03",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Sarti annota ogni fastidio. Le superstizioni restano fuori dal referto.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_04",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Per un recupero completo non esistono scorciatoie.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_05",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Il medico ha chiesto una seconda visita, senza suonare allarme.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_06",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "La borsa medica parte sempre col pullman. Almeno lei.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_07",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Un calciatore è a riposo per precauzione.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_08",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Il preparatore ascolta il medico e sposta la seduta.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_09",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Due caviglie controllate, due calzini ancora da trovare.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_infermeria_10",
+      "channel": "notice",
+      "category": "infermeria",
+      "text": "Il referto è pronto. La società è invitata a leggerlo.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "infermeria"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_01",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Il presidente ha richiesto la promozione. Ada ha richiesto la data.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_02",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Il consiglio direttivo ha approvato l'ordine del giorno. Non ancora le spese.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_03",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Le sedie della sala riunioni sono sette. I presenti, nove.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_04",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Il bilancio è chiuso a matita. Livia porta la gomma.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_05",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Due preventivi per una sola rete. Nessuno coincide con la misura.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_06",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Il direttore sportivo porta un nome. Il presidente preferisce una classifica.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_07",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Il bollettino federale è arrivato con una settimana di ritardo.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_08",
+      "channel": "notice",
+      "category": "societa",
+      "text": "La ricevuta del pullman è in cerca di una cartellina.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_09",
+      "channel": "notice",
+      "category": "societa",
+      "text": "Ada conserva tutte le copie. Anche quelle da rifare.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_societa_10",
+      "channel": "notice",
+      "category": "societa",
+      "text": "La società ringrazia i volontari. I volontari aspettano la chiave.",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "societa"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_result_01",
+      "channel": "headline",
+      "category": "result",
+      "text": "Due punti al Campanile, la città si conta",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "win"
+      }
+    },
+    {
+      "id": "mc_result_02",
+      "channel": "headline",
+      "category": "result",
+      "text": "Vittoria di misura, grandi parole in società",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "win"
+      }
+    },
+    {
+      "id": "mc_result_03",
+      "channel": "headline",
+      "category": "result",
+      "text": "Una domenica utile senza clamore",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "win"
+      }
+    },
+    {
+      "id": "mc_result_04",
+      "channel": "headline",
+      "category": "result",
+      "text": "Il Campanile resiste e porta via un punto",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "draw"
+      }
+    },
+    {
+      "id": "mc_result_05",
+      "channel": "headline",
+      "category": "result",
+      "text": "Pareggio combattuto, restano i dubbi",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "draw"
+      }
+    },
+    {
+      "id": "mc_result_06",
+      "channel": "headline",
+      "category": "result",
+      "text": "Un punto che muove la classifica",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "draw"
+      }
+    },
+    {
+      "id": "mc_result_07",
+      "channel": "headline",
+      "category": "result",
+      "text": "Campanile battuto, ora conta la risposta",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "loss"
+      }
+    },
+    {
+      "id": "mc_result_08",
+      "channel": "headline",
+      "category": "result",
+      "text": "Una gara storta, una settimana lunga",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "loss"
+      }
+    },
+    {
+      "id": "mc_result_09",
+      "channel": "headline",
+      "category": "result",
+      "text": "Il risultato ferma la serie positiva",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "loss"
+      }
+    },
+    {
+      "id": "mc_result_10",
+      "channel": "headline",
+      "category": "result",
+      "text": "Il campo dice zero, la lavagna resta piena",
+      "weight": 5,
+      "cooldownWeeks": 2,
+      "tags": [
+        "result"
+      ],
+      "when": {
+        "lastResult": "loss"
+      }
+    },
+    {
+      "id": "mc_tooltip_01",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "Il morale descrive la tenuta del gruppo, non promette un gol.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_02",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "La fatica aumenta coi carichi e si riduce col riposo.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_03",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "La fiducia aiuta i giocatori a eseguire ciò che sanno fare.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_04",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "La salute va protetta: un recupero affrettato non porta vantaggi certi.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_05",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "Le scelte tattiche restano del mister.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_06",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "I nuovi acquisti dipendono dalla società e dal direttore sportivo.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_07",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "Una dichiarazione alla stampa non cambia il punteggio.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_08",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "Il calendario può creare stanchezza, non scrive i risultati.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_09",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "Le partite si giocano: nessun evento garantisce una vittoria.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    },
+    {
+      "id": "mc_tooltip_10",
+      "channel": "notice",
+      "category": "tooltip",
+      "text": "Le scelte con effetti futuri attendono nuove funzioni del motore.",
+      "weight": 1,
+      "cooldownWeeks": 2,
+      "tags": [
+        "tooltip"
+      ],
+      "when": {}
+    }
+  ]
+}

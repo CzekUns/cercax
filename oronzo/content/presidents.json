@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "contract": "PresidentProfileV1",
+  "season": "1985-86",
+  "presidents": [
+    {
+      "id": "gaetano_venturi",
+      "name": "Gaetano Venturi",
+      "archetype": "tribuno_di_paese",
+      "clubFlavor": "club di borgo con sponsor tra artigiani e commercianti",
+      "background": "Ex rappresentante di materiale elettrico, eletto dal direttivo perché sa parlare a un'intera piazza.",
+      "goal": "Promozione e tribuna piena senza annunciare una spesa impopolare.",
+      "voice": "Discorso solenne, parole come missione e decoro; elude le cifre.",
+      "privateContradiction": "Promette il pullman nuovo, poi chiede un passaggio a Livia.",
+      "coachRelationship": "Difende il mister in pubblico, nel corridoio chiede una vittoria subito.",
+      "traits": {
+        "authoritarianism": 52,
+        "frugality": 70,
+        "vanity": 84,
+        "patience": 34,
+        "interference": 62,
+        "ambition": 93,
+        "riskTolerance": 63
+      },
+      "relations": [
+        "livia_bassi",
+        "renato_delfino",
+        "nella_bellini"
+      ],
+      "lines": [
+        "Non chiedo un miracolo. Chiedo una classifica che si faccia rispettare.",
+        "Le spese sono temporanee. La promozione entrerà negli annali.",
+        "Domenica vorrei vedere il paese in piedi. Per motivi sportivi, possibilmente."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_gaetano_venturi_1",
+          "eventId": "ev_pres_venturi_sconfitte",
+          "when": {
+            "lossStreakMin": 2
+          }
+        },
+        {
+          "id": "hook_gaetano_venturi_2",
+          "eventId": "ev_pres_venturi_cassa",
+          "when": {
+            "clubCashBelow": 150000
+          }
+        }
+      ]
+    },
+    {
+      "id": "leandro_berti",
+      "name": "Leandro Berti",
+      "archetype": "cerimoniale",
+      "clubFlavor": "società municipale che vive di assemblee e contributi",
+      "background": "Ex funzionario di consorzio, ha portato al calcio una gerarchia di protocolli e verbali.",
+      "goal": "Ottenere il riconoscimento regionale per la società più ordinata.",
+      "voice": "Titoli formali, frasi con subordinate e richieste di protocollo.",
+      "privateContradiction": "Perde gli occhiali sotto i verbali che lui stesso ha ordinato.",
+      "coachRelationship": "Chiede il piano per iscritto; una volta approvato lo difende con ostinazione.",
+      "traits": {
+        "authoritarianism": 94,
+        "frugality": 66,
+        "vanity": 78,
+        "patience": 73,
+        "interference": 81,
+        "ambition": 57,
+        "riskTolerance": 18
+      },
+      "relations": [
+        "ada_poletti",
+        "livia_bassi"
+      ],
+      "lines": [
+        "Mister, una decisione senza numero di pratica espone tutti a una discussione.",
+        "Il calcio ha bisogno di disciplina. Anche la cartellina del calcio.",
+        "L'ordine del giorno verrà dopo la verifica della presenza."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_leandro_berti_1",
+          "eventId": "ev_pres_berti_modulo",
+          "when": {
+            "marketRequest": true
+          }
+        },
+        {
+          "id": "hook_leandro_berti_2",
+          "eventId": "ev_pres_berti_coppa",
+          "when": {
+            "cupWeek": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "vittorio_sella",
+      "name": "Vittorio Sella",
+      "archetype": "intermediario",
+      "clubFlavor": "club di zona industriale e piccoli favori di quartiere",
+      "background": "Gestisce un'agenzia di trasporti; conosce fornitori, magazzinieri e amministratori.",
+      "goal": "Creare una rete di collaborazioni che renda il club indispensabile in città.",
+      "voice": "Confidenze rapide, 'ci parlo io', senza spiegare mai a chi.",
+      "privateContradiction": "Conosce tutti, ma non ricorda mai il nome dell'unico che firma.",
+      "coachRelationship": "Offre soluzioni immediate, poi pretende gratitudine anche quando saltano.",
+      "traits": {
+        "authoritarianism": 61,
+        "frugality": 33,
+        "vanity": 68,
+        "patience": 46,
+        "interference": 74,
+        "ambition": 79,
+        "riskTolerance": 91
+      },
+      "relations": [
+        "renato_delfino",
+        "saverio_ferri"
+      ],
+      "lines": [
+        "Per il pullman non si preoccupi. Mi preoccupo io, poi si preoccupa l'autista.",
+        "Di persone affidabili ne conosco molte. Quella disponibile la stiamo cercando.",
+        "Se manca una firma, so chi deve chiederla."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_vittorio_sella_1",
+          "eventId": "ev_pres_sella_favore",
+          "when": {
+            "marketRequest": true
+          }
+        },
+        {
+          "id": "hook_vittorio_sella_2",
+          "eventId": "ev_pres_sella_trasferta",
+          "when": {
+            "derbyWeek": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "arturo_milani",
+      "name": "Arturo Milani",
+      "archetype": "contabile_austero",
+      "clubFlavor": "società operaia con bilancio sostenuto da quote sociali",
+      "background": "Proprietario di un'officina metalmeccanica; annota ogni spesa sul retro di una scheda.",
+      "goal": "Raggiungere la salvezza senza esporre i soci a debiti.",
+      "voice": "Poche parole, ogni frase termina con un importo o una scadenza.",
+      "privateContradiction": "Risparmia sulla carta, poi compra una calcolatrice che nessuno sa usare.",
+      "coachRelationship": "Rispetta il lavoro del mister, ma rifiuta acquisti promessi senza copertura.",
+      "traits": {
+        "authoritarianism": 75,
+        "frugality": 97,
+        "vanity": 19,
+        "patience": 78,
+        "interference": 42,
+        "ambition": 34,
+        "riskTolerance": 9
+      },
+      "relations": [
+        "livia_bassi",
+        "umberto_rota"
+      ],
+      "lines": [
+        "Il pallone costa. Per fortuna, una volta comprato rimbalza più volte.",
+        "Un pareggio fa un punto. La ricevuta ne fa zero, ma va conservata.",
+        "Le voglio bene, mister. Non abbastanza da firmare un assegno in bianco."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_arturo_milani_1",
+          "eventId": "ev_pres_milani_sponsor",
+          "when": {
+            "clubCashBelow": 100000
+          }
+        },
+        {
+          "id": "hook_arturo_milani_2",
+          "eventId": "ev_pres_milani_premi",
+          "when": {
+            "boardTrustBelow": 45
+          }
+        }
+      ]
+    },
+    {
+      "id": "rinaldo_pavesi",
+      "name": "Rinaldo Pavesi",
+      "archetype": "visionario_esibizionista",
+      "clubFlavor": "squadra sponsorizzata da una ditta di insegne luminose",
+      "background": "Ha costruito un'impresa di cartellonistica e sogna uno stadio degno della provincia.",
+      "goal": "Trasformare una squadra di provincia nel nome più pronunciato dalla radio.",
+      "voice": "Immagini enormi, aggettivi grandiosi, indicazioni tattiche non richieste.",
+      "privateContradiction": "Disegna tribune nuove su carta lucida mentre il campo ha un rubinetto rotto.",
+      "coachRelationship": "Interferisce sulla disposizione, poi affida al mister ogni responsabilità.",
+      "traits": {
+        "authoritarianism": 86,
+        "frugality": 28,
+        "vanity": 98,
+        "patience": 16,
+        "interference": 96,
+        "ambition": 99,
+        "riskTolerance": 84
+      },
+      "relations": [
+        "piero_masi",
+        "renato_delfino"
+      ],
+      "lines": [
+        "Un progetto grande comincia da una parola grande. Per il prato vediamo dopo.",
+        "Mister, voglio una squadra che si noti anche quando entra in campo.",
+        "La tribuna stampa deve avere un'insegna visibile dalla strada."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_rinaldo_pavesi_1",
+          "eventId": "ev_pres_pavesi_derby",
+          "when": {
+            "derbyWeek": true
+          }
+        },
+        {
+          "id": "hook_rinaldo_pavesi_2",
+          "eventId": "ev_pres_pavesi_ultimatum",
+          "when": {
+            "lossStreakMin": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "silvano_righi",
+      "name": "Silvano Righi",
+      "archetype": "ex_campione_memorioso",
+      "clubFlavor": "squadra nata attorno a vecchio campo parrocchiale",
+      "background": "Ex terzino di categorie maggiori, tornato al paese per insegnare calcio ai ragazzi.",
+      "goal": "Ricostruire un vivaio competitivo e salvare la memoria della vecchia società.",
+      "voice": "Ricordi di spogliatoio, consigli pratici, qualche paragone fuori tempo.",
+      "privateContradiction": "Parla di velocità e si ferma ogni tre gradini per riposare.",
+      "coachRelationship": "Discute di tecnica con competenza, ma fatica a riconoscere che il gioco cambia.",
+      "traits": {
+        "authoritarianism": 42,
+        "frugality": 55,
+        "vanity": 44,
+        "patience": 82,
+        "interference": 58,
+        "ambition": 68,
+        "riskTolerance": 31
+      },
+      "relations": [
+        "tina_basile",
+        "franco_moro"
+      ],
+      "lines": [
+        "Ai ragazzi date un campo buono. Le parole le possono sentire anche al bar.",
+        "Il terzino deve guardare l'uomo, poi il pallone. Io sbagliavo nell'ordine opposto.",
+        "Una sconfitta si studia meglio quando non hai fretta di dimenticarla."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_silvano_righi_1",
+          "eventId": "ev_pres_righi_vivaio",
+          "when": {
+            "weekMin": 6
+          }
+        },
+        {
+          "id": "hook_silvano_righi_2",
+          "eventId": "ev_pres_righi_sconfitta",
+          "when": {
+            "lossStreakMin": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ernesto_valcavi",
+      "name": "Ernesto Valcavi",
+      "archetype": "notabile_diplomatico",
+      "clubFlavor": "club cittadino sostenuto da una cooperativa di esercenti",
+      "background": "Ex presidente di un'associazione di commercianti; tratta i conflitti come assemblee.",
+      "goal": "Tenere unito il direttivo e ottenere un impianto più dignitoso.",
+      "voice": "Cortese, elenca i punti d'accordo prima di dire un no.",
+      "privateContradiction": "Media tanto a lungo che non decide quando partire per la trasferta.",
+      "coachRelationship": "Ascolta il mister, ma tenta sempre di accontentare anche i consiglieri.",
+      "traits": {
+        "authoritarianism": 32,
+        "frugality": 58,
+        "vanity": 63,
+        "patience": 91,
+        "interference": 35,
+        "ambition": 54,
+        "riskTolerance": 45
+      },
+      "relations": [
+        "nella_bellini",
+        "livia_bassi"
+      ],
+      "lines": [
+        "Il direttivo ha tre opinioni, e tutte meriterebbero una riunione separata.",
+        "Abbiamo deciso di parlarne. Il primo passo è già compiuto.",
+        "Mister, mi dica la necessità. Poi verifichiamo chi può sostenerla."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_ernesto_valcavi_1",
+          "eventId": "ev_pres_valcavi_assemblea",
+          "when": {
+            "boardTrustBelow": 55
+          }
+        },
+        {
+          "id": "hook_ernesto_valcavi_2",
+          "eventId": "ev_pres_valcavi_rivalita",
+          "when": {
+            "derbyWeek": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "beatrice_orlandi",
+      "name": "Beatrice Orlandi",
+      "archetype": "imprenditrice_pragmatica",
+      "clubFlavor": "società sostenuta da una piccola cooperativa tessile",
+      "background": "Dirige una cooperativa di confezioni e ha rilevato il club per salvare il vivaio.",
+      "goal": "Rendere sostenibile la squadra e stabilizzare gli allenatori meritevoli.",
+      "voice": "Chiara, niente enfasi, pone domande a cui vuole risposte verificabili.",
+      "privateContradiction": "Pretende un piano impeccabile ma è la prima ad aiutare a sistemare gli spogliatoi.",
+      "coachRelationship": "Offre autonomia tattica in cambio di obiettivi concreti e relazioni sincere.",
+      "traits": {
+        "authoritarianism": 26,
+        "frugality": 62,
+        "vanity": 17,
+        "patience": 86,
+        "interference": 14,
+        "ambition": 76,
+        "riskTolerance": 47
+      },
+      "relations": [
+        "tina_basile",
+        "ada_poletti"
+      ],
+      "lines": [
+        "Se il ragazzo è pronto lo dica. Se non lo è, lo dica due volte.",
+        "La squadra costa una cifra precisa. L'impegno non ha fattura, però si vede.",
+        "Mister, mi porti un progetto di tre mesi. Il resto lo discutiamo insieme."
+      ],
+      "behaviorTriggers": [
+        {
+          "id": "hook_beatrice_orlandi_1",
+          "eventId": "ev_pres_orlandi_piano",
+          "when": {
+            "marketRequest": true
+          }
+        },
+        {
+          "id": "hook_beatrice_orlandi_2",
+          "eventId": "ev_pres_orlandi_coppa",
+          "when": {
+            "cupWeek": true
+          }
+        }
+      ]
+    }
+  ]
+}

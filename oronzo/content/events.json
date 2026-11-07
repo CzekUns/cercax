@@ -1,0 +1,3046 @@
+{
+  "schemaVersion": 1,
+  "season": "1985-86",
+  "effectModel": "player-delta",
+  "events": [
+    {
+      "id": "ev_pullman",
+      "speakerId": "saverio_ferri",
+      "channel": "dialogue",
+      "title": "Partenza incerta",
+      "body": "Il pullman è pronto. Manca il pieno e il presidente parla già della trasferta memorabile.",
+      "variants": [
+        "L'autista ha il mezzo, ma la carta carburante è rimasta in ufficio.",
+        "Il pullman ha fatto il tagliando. Il libretto viaggia in un'altra macchina."
+      ],
+      "triggers": {
+        "weekMin": 2
+      },
+      "weight": 7,
+      "cooldownWeeks": 4,
+      "oncePerSeason": false,
+      "tags": [
+        "trasferta",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Anticipa il raduno",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {
+            "clubCash": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Conferma l'orario",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_premio",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "Premio in sospeso",
+      "body": "Il presidente ha annunciato un premio ai giocatori. La segreteria chiede come registrarlo.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3,
+        "teamMoraleBelow": 75
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "dirigenza",
+        "spogliatoio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi una cifra scritta",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Parla solo del campo",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "ev_conti",
+      "speakerId": "livia_bassi",
+      "channel": "dialogue",
+      "title": "Bilancio a matita",
+      "body": "Livia ha rifatto i conti delle trasferte. Gli imprevisti costano più dei palloni.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4
+      },
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "dirigenza",
+        "economia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Riduci gli spostamenti",
+          "target": "all",
+          "effects": {
+            "fatigue": -1
+          },
+          "futureEffects": {
+            "clubCash": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Difendi il ritiro",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {
+            "clubCash": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_intervista_presidente",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "Le parole pesano",
+      "body": "In radio il presidente ha parlato di promozione. Il girone, per ora, non lo sa.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2
+      },
+      "weight": 7,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Abbassa le aspettative",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Accetta l'obiettivo",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "morale": -1
+          },
+          "futureEffects": {
+            "boardPressure": 2
+          }
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "ev_moduli",
+      "speakerId": "ada_poletti",
+      "channel": "dialogue",
+      "title": "Firma mancante",
+      "body": "Ada ha trovato un modulo senza firma. Il giocatore è regolare, ma il fascicolo no.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2
+      },
+      "weight": 4,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "burocrazia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Convoca il giocatore",
+          "target": "reserves",
+          "effects": {
+            "confidence": -1
+          },
+          "futureEffects": {
+            "administration": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Lascia fare ad Ada",
+          "target": "reserves",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "administration": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_orario_sbagliato",
+      "speakerId": "ada_poletti",
+      "channel": "dialogue",
+      "title": "Due convocazioni",
+      "body": "La segreteria ha spedito due orari diversi. Metà squadra è già al campo.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2,
+        "trainingDone": false
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "burocrazia",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Unifica la seduta",
+          "target": "all",
+          "effects": {
+            "fatigue": 1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Rimanda il lavoro",
+          "target": "all",
+          "effects": {
+            "fatigue": -2,
+            "confidence": -1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_maglie",
+      "speakerId": "umberto_rota",
+      "channel": "dialogue",
+      "title": "Maglia numero nove",
+      "body": "Due maglie portano il nove. Umberto sa quale sia quella giusta: l'altra ha un buco.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 1
+      },
+      "weight": 4,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "spogliatoio",
+        "attrezzatura"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Controlla le divise",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Lascia fare al gruppo",
+          "target": "starters",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_palloni",
+      "speakerId": "umberto_rota",
+      "channel": "dialogue",
+      "title": "Undici palloni",
+      "body": "All'inventario mancano due palloni. Uno è sul tetto dell'oratorio, l'altro è un mistero.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2
+      },
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "attrezzatura",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Allenamento a gruppi",
+          "target": "all",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Recupero leggero",
+          "target": "all",
+          "effects": {
+            "fatigue": -2
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_scarpe",
+      "speakerId": "umberto_rota",
+      "channel": "dialogue",
+      "title": "Tacchetti sbagliati",
+      "body": "Il campo è pesante e sono arrivate le scarpe per terreno asciutto.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3,
+        "teamFatigueAbove": 15
+      },
+      "weight": 6,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "attrezzatura",
+        "salute"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Adatta la seduta",
+          "target": "starters",
+          "effects": {
+            "fatigue": -2,
+            "health": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Esercizi senza palla",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_borsoni",
+      "speakerId": "saverio_ferri",
+      "channel": "dialogue",
+      "title": "Bagagli separati",
+      "body": "Il pullman è arrivato. I borsoni viaggeranno sul furgone del panettiere.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4
+      },
+      "weight": 4,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "trasferta",
+        "attrezzatura"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Parti in anticipo",
+          "target": "starters",
+          "effects": {
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Aspetta tutti",
+          "target": "all",
+          "effects": {
+            "morale": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_visita",
+      "speakerId": "aldo_sarti",
+      "channel": "dialogue",
+      "title": "Controllo prudente",
+      "body": "Il medico consiglia di ridurre i carichi: due titolari lamentano lo stesso fastidio.",
+      "variants": [],
+      "triggers": {
+        "teamHealthBelow": 78
+      },
+      "weight": 8,
+      "cooldownWeeks": 3,
+      "oncePerSeason": false,
+      "tags": [
+        "salute",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Accogli il parere",
+          "target": "starters",
+          "effects": {
+            "health": 2,
+            "fatigue": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Fai tecnica leggera",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "health": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_talismano",
+      "speakerId": "aldo_sarti",
+      "channel": "dialogue",
+      "title": "Il giorno sbagliato",
+      "body": "Sarti misura la febbre con metodo. Poi chiede di non spostare il lettino di martedì.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3
+      },
+      "weight": 3,
+      "cooldownWeeks": 9,
+      "oncePerSeason": false,
+      "tags": [
+        "salute",
+        "superstizione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Asseconda il rito",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Chiedi il referto",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_rientro",
+      "speakerId": "aldo_sarti",
+      "channel": "dialogue",
+      "title": "Rientro graduale",
+      "body": "Un giocatore vuole tornare subito. I valori medici suggeriscono un rientro più lento.",
+      "variants": [],
+      "triggers": {
+        "teamHealthBelow": 83
+      },
+      "weight": 8,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "salute",
+        "tensione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Aspetta la visita",
+          "target": "starters",
+          "effects": {
+            "health": 2,
+            "confidence": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Riduci il carico",
+          "target": "starters",
+          "effects": {
+            "health": 1,
+            "fatigue": -2
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_fatica",
+      "speakerId": "ivo_greco",
+      "channel": "dialogue",
+      "title": "Gambe pesanti",
+      "body": "Il preparatore nota che la squadra recupera male dopo le ultime sedute.",
+      "variants": [],
+      "triggers": {
+        "teamFatigueAbove": 25
+      },
+      "weight": 9,
+      "cooldownWeeks": 3,
+      "oncePerSeason": false,
+      "tags": [
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Concedi riposo",
+          "target": "all",
+          "effects": {
+            "fatigue": -3,
+            "confidence": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Lavoro di mobilità",
+          "target": "all",
+          "effects": {
+            "fatigue": -2,
+            "health": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_scatti",
+      "speakerId": "ivo_greco",
+      "channel": "dialogue",
+      "title": "Scatti al venerdì",
+      "body": "Greco vuole pochi scatti di qualità. Alcuni calciatori chiedono ancora il pallone.",
+      "variants": [],
+      "triggers": {
+        "trainingDone": false,
+        "teamFatigueBelow": 35
+      },
+      "weight": 7,
+      "cooldownWeeks": 4,
+      "oncePerSeason": false,
+      "tags": [
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Segui il preparatore",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 2
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Alterna lavoro e palla",
+          "target": "all",
+          "effects": {
+            "morale": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_pioggia",
+      "speakerId": "ivo_greco",
+      "channel": "dialogue",
+      "title": "Campo zuppo",
+      "body": "La pioggia ha lasciato due pozzanghere davanti alle porte. Il terreno è praticabile.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5
+      },
+      "weight": 5,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "allenamento",
+        "impianti"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Riduci il campo",
+          "target": "starters",
+          "effects": {
+            "fatigue": 1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Lavora al coperto",
+          "target": "all",
+          "effects": {
+            "fatigue": -1,
+            "confidence": -1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_capitano",
+      "speakerId": "franco_moro",
+      "channel": "dialogue",
+      "title": "La parola al capitano",
+      "body": "Moro chiede cinque minuti nello spogliatoio. Ci sono troppe lamentele sottovoce.",
+      "variants": [],
+      "triggers": {
+        "teamMoraleBelow": 65
+      },
+      "weight": 8,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "spogliatoio",
+        "tensione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Lascialo parlare",
+          "target": "all",
+          "effects": {
+            "morale": 2
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Entra nel confronto",
+          "target": "all",
+          "effects": {
+            "morale": 1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_responsabilita",
+      "speakerId": "franco_moro",
+      "channel": "dialogue",
+      "title": "Troppi rimproveri",
+      "body": "Il capitano si prende colpe che non sono tutte sue. Il gruppo se ne accorge.",
+      "variants": [],
+      "triggers": {
+        "teamConfidenceBelow": 65
+      },
+      "weight": 7,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "spogliatoio",
+        "fiducia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Difendi il capitano",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "morale": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Distribuisci i compiti",
+          "target": "all",
+          "effects": {
+            "confidence": 1,
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_centravanti",
+      "speakerId": "dario_lenzi",
+      "channel": "dialogue",
+      "title": "Il nove reclama",
+      "body": "Lenzi chiede più palloni in area. I compagni gli ricordano quante volte rientra.",
+      "variants": [],
+      "triggers": {
+        "teamMoraleBelow": 80
+      },
+      "weight": 7,
+      "cooldownWeeks": 4,
+      "oncePerSeason": false,
+      "tags": [
+        "spogliatoio",
+        "tattica"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi movimenti",
+          "target": "strikers",
+          "effects": {
+            "confidence": 1,
+            "morale": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Rivedi i cross",
+          "target": "strikers",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_lenzi_stampa",
+      "speakerId": "dario_lenzi",
+      "channel": "dialogue",
+      "title": "Il goleador in pagina",
+      "body": "Il centravanti ha promesso molti gol al settimanale. Ora il titolo è appeso al bar.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3,
+        "teamConfidenceAbove": 63
+      },
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "spogliatoio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Lascia correre",
+          "target": "strikers",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Parla di gioco di squadra",
+          "target": "strikers",
+          "effects": {
+            "morale": 1,
+            "confidence": -1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_ritardo",
+      "speakerId": "dario_lenzi",
+      "channel": "dialogue",
+      "title": "Ingresso tardivo",
+      "body": "Lenzi arriva tardi all'allenamento. Dice di aver cercato una farmacia aperta.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2,
+        "trainingDone": false
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "disciplina",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Richiama in privato",
+          "target": "strikers",
+          "effects": {
+            "morale": -1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Stabilisci una regola",
+          "target": "all",
+          "effects": {
+            "morale": -2,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_panchina",
+      "speakerId": "giorgio_piras",
+      "channel": "dialogue",
+      "title": "Un portiere aspetta",
+      "body": "Piras ha lavorato bene tutta la settimana. Vorrebbe sapere quando avrà una possibilità.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4
+      },
+      "weight": 8,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "spogliatoio",
+        "turnover"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Spiega le gerarchie",
+          "target": "reserves",
+          "effects": {
+            "confidence": 1,
+            "morale": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Valuta una rotazione",
+          "target": "reserves",
+          "effects": {
+            "morale": 2,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_primavera",
+      "speakerId": "tina_basile",
+      "channel": "dialogue",
+      "title": "Un ragazzo in tribuna",
+      "body": "Tina segnala un giovane interessante. La società deve decidere se seguirlo.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5
+      },
+      "weight": 5,
+      "cooldownWeeks": 9,
+      "oncePerSeason": false,
+      "tags": [
+        "vivaio",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi una scheda",
+          "target": "reserves",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Invitalo in prova",
+          "target": "reserves",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_vivaio",
+      "speakerId": "tina_basile",
+      "channel": "dialogue",
+      "title": "Allenamento condiviso",
+      "body": "Le giovanili hanno lo stesso campo dei grandi. Tina chiede un'ora senza interferenze.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2,
+        "trainingDone": false
+      },
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "vivaio",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Dividi il terreno",
+          "target": "all",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Cedi mezz'ora",
+          "target": "all",
+          "effects": {
+            "morale": 1,
+            "fatigue": -1
+          },
+          "futureEffects": {
+            "youthTrust": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_mercato",
+      "speakerId": "renato_delfino",
+      "channel": "dialogue",
+      "title": "Un nome sul taccuino",
+      "body": "Delfino ha visto un centrocampista. Serve l'autorizzazione della società per trattare.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5
+      },
+      "weight": 6,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "mercato",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi scheda tecnica",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Segnala il ruolo urgente",
+          "target": "starters",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "boardPressure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_agente",
+      "speakerId": "beppe_salvi",
+      "channel": "dialogue",
+      "title": "Una telefonata lunga",
+      "body": "Salvi sostiene che il suo assistito meriti un adeguamento. Non parla di prestazioni.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 6
+      },
+      "weight": 5,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "mercato",
+        "contratti"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Rimanda al direttore",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "agentRelation": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ascolta, senza promettere",
+          "target": "strikers",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "agentRelation": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_offerta",
+      "speakerId": "renato_delfino",
+      "channel": "dialogue",
+      "title": "La società valuta",
+      "body": "Il direttore ha ricevuto una richiesta per un giocatore. Ti chiede una valutazione tecnica.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 8
+      },
+      "weight": 5,
+      "cooldownWeeks": 10,
+      "oncePerSeason": false,
+      "tags": [
+        "mercato",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Difendi la continuità",
+          "target": "starters",
+          "effects": {
+            "morale": 1,
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Indica un sostituto",
+          "target": "reserves",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_titolo",
+      "speakerId": "raffaele_corsi",
+      "channel": "dialogue",
+      "title": "Titolo di provincia",
+      "body": "Corsi ha scritto 'Crisi' dopo due partite difficili. Ti aspetta davanti agli spogliatoi.",
+      "variants": [],
+      "triggers": {
+        "teamMoraleBelow": 70,
+        "weekMin": 3
+      },
+      "weight": 8,
+      "cooldownWeeks": 4,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "tensione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Rispondi con i dati",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "pressRelation": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Proteggi il gruppo",
+          "target": "all",
+          "effects": {
+            "morale": 2
+          },
+          "futureEffects": {
+            "pressRelation": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_rettifica",
+      "speakerId": "raffaele_corsi",
+      "channel": "dialogue",
+      "title": "Il giornale corregge",
+      "body": "Il settimanale ti attribuisce una frase mai detta. La rettifica comparirà venerdì.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4
+      },
+      "weight": 5,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "burocrazia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi la rettifica",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "pressRelation": -2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiudi la questione",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "pressRelation": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_derby",
+      "speakerId": "nella_bellini",
+      "channel": "dialogue",
+      "title": "La settimana del derby",
+      "body": "Nella chiede impegno, senza promesse sul risultato. Ha già preparato lo striscione.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4
+      },
+      "weight": 8,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "tifosi",
+        "pressione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Vai tra i tifosi",
+          "target": "starters",
+          "effects": {
+            "morale": 2,
+            "confidence": 1
+          },
+          "futureEffects": {
+            "supportersTrust": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Concentrati sulla gara",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "supportersTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_trasferta_tifosi",
+      "speakerId": "nella_bellini",
+      "channel": "dialogue",
+      "title": "Voci dal pullman",
+      "body": "I tifosi propongono di pagare la benzina del secondo pullman. La società è in imbarazzo.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5
+      },
+      "weight": 5,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "tifosi",
+        "trasferta"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Ringrazia i tifosi",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Non coinvolgere il gruppo",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "supportersTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_radio",
+      "speakerId": "piero_masi",
+      "channel": "dialogue",
+      "title": "Onde disturbate",
+      "body": "La radiocronaca salta ogni volta che parte il motore del furgone delle bibite.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3
+      },
+      "weight": 3,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "ambiente"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Fai spostare il furgone",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "pressRelation": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Lascia fare a Masi",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_cabina",
+      "speakerId": "piero_masi",
+      "channel": "dialogue",
+      "title": "Tribuna stampa",
+      "body": "Masi chiede un riparo dalla pioggia per il microfono. Le tavole del custode non bastano.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5
+      },
+      "weight": 4,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "impianti"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Cerca un telo",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "pressRelation": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Rimanda alla società",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "pressRelation": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_tabellone",
+      "speakerId": "ada_poletti",
+      "channel": "dialogue",
+      "title": "Risultato sbiadito",
+      "body": "I numeri del tabellone sono consumati. Da lontano il pareggio sembra una vittoria.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 6
+      },
+      "weight": 4,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "impianti",
+        "burocrazia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Ripara i numeri",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "clubCash": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Usa la lavagna",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_campo_comune",
+      "speakerId": "livia_bassi",
+      "channel": "dialogue",
+      "title": "Il campo comunale",
+      "body": "Il Comune promette di rifare la recinzione. Chiede una relazione entro domani.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 7
+      },
+      "weight": 4,
+      "cooldownWeeks": 9,
+      "oncePerSeason": false,
+      "tags": [
+        "impianti",
+        "burocrazia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Scrivi la relazione",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "facilityTrust": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Delega ad Ada",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "facilityTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_gettone",
+      "speakerId": "ada_poletti",
+      "channel": "dialogue",
+      "title": "Telefonata interrotta",
+      "body": "La chiamata al comitato cade mentre Ada detta il numero della distinta.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2
+      },
+      "weight": 4,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "burocrazia",
+        "ambiente"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Rifai la chiamata",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "administration": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Porta i fogli a mano",
+          "target": "reserves",
+          "effects": {
+            "fatigue": 1
+          },
+          "futureEffects": {
+            "administration": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_arbitri",
+      "speakerId": "franco_moro",
+      "channel": "dialogue",
+      "title": "Proteste preventive",
+      "body": "Il capitano teme un direttore di gara severo. Nessuno ha ancora visto l'arbitro.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4,
+        "teamConfidenceBelow": 75
+      },
+      "weight": 6,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "partita",
+        "disciplina"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Invita alla calma",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "morale": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Lavora sui contrasti",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_osservatore",
+      "speakerId": "renato_delfino",
+      "channel": "dialogue",
+      "title": "Un uomo in tribuna",
+      "body": "Un uomo prende appunti sulla tua seduta. Potrebbe seguire un giocatore, oppure il bar.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5,
+        "trainingDone": false
+      },
+      "weight": 4,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "avversari",
+        "tattica"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Proteggi gli schemi",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Prosegui la seduta",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_classifica",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "Calcoli sul tavolo",
+      "body": "Il presidente ha fatto i conti per il primo posto. Ha dimenticato due trasferte.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5
+      },
+      "weight": 5,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "classifica",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Correggi il prospetto",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Pensa alla prossima",
+          "target": "starters",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "ev_filotto",
+      "speakerId": "franco_moro",
+      "channel": "dialogue",
+      "title": "Troppa sicurezza",
+      "body": "Lo spogliatoio si sente già più forte di chiunque. Moro teme un calo di attenzione.",
+      "variants": [],
+      "triggers": {
+        "teamMoraleAbove": 77,
+        "teamConfidenceAbove": 74
+      },
+      "weight": 7,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "spogliatoio",
+        "tensione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Rivedi gli errori",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "morale": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Conserva l'entusiasmo",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_sfiducia",
+      "speakerId": "franco_moro",
+      "channel": "dialogue",
+      "title": "Una sconfitta pesa",
+      "body": "I giocatori evitano di parlare dopo una gara storta. Servono parole semplici.",
+      "variants": [],
+      "triggers": {
+        "teamMoraleBelow": 57
+      },
+      "weight": 9,
+      "cooldownWeeks": 4,
+      "oncePerSeason": false,
+      "tags": [
+        "spogliatoio",
+        "tensione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Parla del prossimo lavoro",
+          "target": "all",
+          "effects": {
+            "confidence": 2,
+            "morale": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Lascia una sera libera",
+          "target": "all",
+          "effects": {
+            "fatigue": -1,
+            "morale": 2
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_turno_vicino",
+      "speakerId": "ivo_greco",
+      "channel": "dialogue",
+      "title": "Due gare vicine",
+      "body": "Il calendario lascia poco spazio al recupero. Greco propone una settimana diversa.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 6,
+        "teamFatigueAbove": 20
+      },
+      "weight": 6,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "calendario",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Taglia i carichi",
+          "target": "starters",
+          "effects": {
+            "fatigue": -3,
+            "confidence": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Conferma la tecnica",
+          "target": "starters",
+          "effects": {
+            "fatigue": 1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_lavagna",
+      "speakerId": "renato_delfino",
+      "channel": "dialogue",
+      "title": "Un foglio tattico",
+      "body": "Il direttore trova una formazione disegnata al contrario. Il mister riconosce la propria.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2
+      },
+      "weight": 5,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "tattica",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Rifai gli schemi",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Usa la vecchia lavagna",
+          "target": "all",
+          "effects": {
+            "confidence": 1,
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_ponte",
+      "speakerId": "saverio_ferri",
+      "channel": "dialogue",
+      "title": "Strada interrotta",
+      "body": "Un ponte è chiuso ai mezzi pesanti. Ferri propone una deviazione di venti chilometri.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 8
+      },
+      "weight": 5,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "trasferta",
+        "logistica"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Parti prima",
+          "target": "starters",
+          "effects": {
+            "fatigue": 1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Viaggia la sera prima",
+          "target": "starters",
+          "effects": {
+            "fatigue": -1
+          },
+          "futureEffects": {
+            "clubCash": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_colletta",
+      "speakerId": "nella_bellini",
+      "channel": "dialogue",
+      "title": "La colletta",
+      "body": "La curva ha raccolto denaro per sistemare due reti. Nella vuole sapere quando saranno montate.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5
+      },
+      "weight": 4,
+      "cooldownWeeks": 9,
+      "oncePerSeason": false,
+      "tags": [
+        "tifosi",
+        "impianti"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Ringrazia e coinvolgi",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Affida tutto al custode",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "supportersTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_rete",
+      "speakerId": "umberto_rota",
+      "channel": "dialogue",
+      "title": "La rete del fondo",
+      "body": "Una porta ha la rete rammendata. Per allenarsi regge, per giocare serve un controllo.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3
+      },
+      "weight": 5,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "impianti",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Controlla prima di iniziare",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "facilityTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Sposta la seduta",
+          "target": "all",
+          "effects": {
+            "fatigue": -1,
+            "confidence": -1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_fotografia",
+      "speakerId": "raffaele_corsi",
+      "channel": "dialogue",
+      "title": "La foto ufficiale",
+      "body": "Il fotografo è arrivato quando metà squadra era sotto la doccia. Vuole tornare martedì.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3
+      },
+      "weight": 4,
+      "cooldownWeeks": 9,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "spogliatoio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Organizza cinque minuti",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "pressRelation": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Rimanda a fine mese",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "pressRelation": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_ferita",
+      "speakerId": "aldo_sarti",
+      "channel": "dialogue",
+      "title": "Un fastidio al ginocchio",
+      "body": "Il medico segnala un fastidio lieve e chiede di valutare il carico della settimana.",
+      "variants": [],
+      "triggers": {
+        "teamHealthBelow": 88,
+        "weekMin": 4
+      },
+      "weight": 7,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "salute",
+        "tensione"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Precauzione in seduta",
+          "target": "starters",
+          "effects": {
+            "health": 2,
+            "fatigue": -1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Visita prima della gara",
+          "target": "starters",
+          "effects": {
+            "health": 1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_festa",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "Invito in municipio",
+      "body": "Il presidente vuole la squadra in municipio per una foto prima del girone di ritorno.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 8
+      },
+      "weight": 4,
+      "cooldownWeeks": 12,
+      "oncePerSeason": true,
+      "tags": [
+        "dirigenza",
+        "comunita"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Vai con la delegazione",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi un'altra data",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "ev_pagelle",
+      "speakerId": "raffaele_corsi",
+      "channel": "dialogue",
+      "title": "Pagelle puntigliose",
+      "body": "Corsi ha dato voti bassi dopo una buona prova. I giocatori vogliono una risposta.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4,
+        "teamConfidenceAbove": 55
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "stampa",
+        "spogliatoio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Ignora le pagelle",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "pressRelation": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Discutile senza nomi",
+          "target": "starters",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "pressRelation": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_scorta",
+      "speakerId": "aldo_sarti",
+      "channel": "dialogue",
+      "title": "Scorta di garze",
+      "body": "La borsa medica è completa ma Sarti chiede una riserva per le trasferte lunghe.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 6
+      },
+      "weight": 4,
+      "cooldownWeeks": 9,
+      "oncePerSeason": false,
+      "tags": [
+        "salute",
+        "logistica"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Segui il medico",
+          "target": "all",
+          "effects": {
+            "health": 1
+          },
+          "futureEffects": {
+            "clubCash": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Rivedi l'inventario",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "clubCash": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_mercato_rionale",
+      "speakerId": "ivo_greco",
+      "channel": "dialogue",
+      "title": "Mercoledì libero",
+      "body": "Il campo ospita il mercato rionale. Greco propone una seduta breve sulle gradinate.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 2,
+        "trainingDone": false
+      },
+      "weight": 6,
+      "cooldownWeeks": 8,
+      "oncePerSeason": false,
+      "tags": [
+        "allenamento",
+        "ambiente"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Tecnica il giovedì",
+          "target": "all",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Concedi riposo",
+          "target": "all",
+          "effects": {
+            "fatigue": -2,
+            "morale": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_pali_e_rimbalzi",
+      "speakerId": "franco_moro",
+      "channel": "dialogue",
+      "title": "Quando non gira",
+      "body": "Il gruppo parla di pali e rimpalli. Moro chiede di continuare a costruire occasioni.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 4,
+        "teamLuckBelow": 45
+      },
+      "weight": 7,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "fortuna",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Prova i tiri piazzati",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Alleggerisci la pressione",
+          "target": "all",
+          "effects": {
+            "morale": 2
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_gruppo_tenace",
+      "speakerId": "franco_moro",
+      "channel": "dialogue",
+      "title": "Undici volontà",
+      "body": "La squadra ha carattere, ma in spogliatoio nessuno vuole cedere la parola.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 3,
+        "teamCharacterAbove": 70
+      },
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "oncePerSeason": false,
+      "tags": [
+        "personalita",
+        "spogliatoio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Ascolta tutti",
+          "target": "all",
+          "effects": {
+            "morale": 1,
+            "confidence": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Stabilisci le priorità",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "morale": -1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_classifica_corta",
+      "speakerId": "livia_bassi",
+      "channel": "dialogue",
+      "title": "Punti da recuperare",
+      "body": "La classifica si è allungata. Livia chiede al mister un obiettivo per le prossime settimane.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 5,
+        "standingsPositionAbove": 5
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "classifica",
+        "dirigenza"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Fissa un obiettivo realistico",
+          "target": "all",
+          "effects": {
+            "confidence": 1,
+            "morale": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Chiedi tempo alla società",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_dopo_successo",
+      "speakerId": "ivo_greco",
+      "channel": "dialogue",
+      "title": "Dopo la vittoria",
+      "body": "La squadra vorrebbe festeggiare ancora. Greco ricorda che la settimana di lavoro è iniziata.",
+      "variants": [],
+      "triggers": {
+        "lastResult": "win",
+        "weekMin": 2
+      },
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "risultato",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Recupero organizzato",
+          "target": "starters",
+          "effects": {
+            "fatigue": -2,
+            "morale": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Riprendi la tecnica",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_dopo_sconfitta",
+      "speakerId": "tina_basile",
+      "channel": "dialogue",
+      "title": "Una gara da capire",
+      "body": "Tina ha visto una squadra contratta. Propone una seduta senza titolari e riserve separati.",
+      "variants": [],
+      "triggers": {
+        "lastResult": "loss",
+        "weekMin": 2
+      },
+      "weight": 7,
+      "cooldownWeeks": 5,
+      "oncePerSeason": false,
+      "tags": [
+        "risultato",
+        "allenamento"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Allena il gruppo insieme",
+          "target": "all",
+          "effects": {
+            "morale": 2,
+            "fatigue": 1
+          },
+          "futureEffects": {}
+        },
+        {
+          "id": "b",
+          "label": "Analizza gli errori",
+          "target": "starters",
+          "effects": {
+            "confidence": 1,
+            "morale": -1
+          },
+          "futureEffects": {}
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_venturi_sconfitte",
+      "presidentId": "gaetano_venturi",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "La fiducia in piazza",
+      "body": "Dopo due sconfitte Venturi vuole parlare alla squadra prima della seduta. Ha portato un discorso.",
+      "variants": [],
+      "triggers": {
+        "lossStreakMin": 2
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "risultati"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Lascia parlare Venturi",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Parla tu al gruppo",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_venturi_cassa",
+      "presidentId": "gaetano_venturi",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "La spesa di domenica",
+      "body": "La cassa è corta. Venturi propone una festa per chiamare i tifosi e raccogliere contributi.",
+      "variants": [],
+      "triggers": {
+        "clubCashBelow": 150000
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "bilancio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi un piano al direttivo",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Offri il tuo intervento",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_berti_modulo",
+      "presidentId": "leandro_berti",
+      "speakerId": "leandro_berti",
+      "channel": "dialogue",
+      "title": "Richiesta protocollata",
+      "body": "Berti riceve la richiesta di un rinforzo. Vuole prima un modulo con il ruolo scritto per esteso.",
+      "variants": [],
+      "triggers": {
+        "marketRequest": true
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "mercato"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Compila la relazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi una risposta rapida",
+          "target": "all",
+          "effects": {
+            "morale": -1
+          },
+          "futureEffects": {
+            "presidentTrust": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_berti_coppa",
+      "presidentId": "leandro_berti",
+      "speakerId": "leandro_berti",
+      "channel": "dialogue",
+      "title": "La coppa e il registro",
+      "body": "La gara di coppa richiede un viaggio extra. Berti vuole che tutti firmino il registro di partenza.",
+      "variants": [],
+      "triggers": {
+        "cupWeek": true
+      },
+      "weight": 5,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "coppa"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Organizza le firme",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "administration": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Delega alla segreteria",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_sella_favore",
+      "presidentId": "vittorio_sella",
+      "speakerId": "vittorio_sella",
+      "channel": "dialogue",
+      "title": "Una conoscenza utile",
+      "body": "Sella conosce un procuratore che può segnalare un terzino. Il direttore chiede di valutare i dati.",
+      "variants": [],
+      "triggers": {
+        "marketRequest": true
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "mercato"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi una scheda tecnica",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ringrazia senza promettere",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "agentRelation": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_sella_trasferta",
+      "presidentId": "vittorio_sella",
+      "speakerId": "vittorio_sella",
+      "channel": "dialogue",
+      "title": "Pullman di cortesia",
+      "body": "Per il derby Sella offre un pullman di un conoscente. L'autista vuole prima vedere i documenti.",
+      "variants": [],
+      "triggers": {
+        "derbyWeek": true
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "trasferta"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Controlla con Ferri",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Lascia valutare alla società",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_milani_sponsor",
+      "presidentId": "arturo_milani",
+      "speakerId": "arturo_milani",
+      "channel": "dialogue",
+      "title": "Il libretto dei conti",
+      "body": "Le entrate sono scese. Milani chiede di ridurre le attività non indispensabili del ritiro.",
+      "variants": [],
+      "triggers": {
+        "clubCashBelow": 100000
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "bilancio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Concedi un giorno di riposo",
+          "target": "all",
+          "effects": {
+            "fatigue": -2
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Difendi la preparazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "fatigue": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_milani_premi",
+      "presidentId": "arturo_milani",
+      "speakerId": "arturo_milani",
+      "channel": "dialogue",
+      "title": "Premi sospesi",
+      "body": "La fiducia del direttivo cala. Milani chiede di rimandare ogni premio non ancora formalizzato.",
+      "variants": [],
+      "triggers": {
+        "boardTrustBelow": 45
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "fiducia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Spiega la situazione",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi chiarezza scritta",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_pavesi_derby",
+      "presidentId": "rinaldo_pavesi",
+      "speakerId": "rinaldo_pavesi",
+      "channel": "dialogue",
+      "title": "Un derby da manifesto",
+      "body": "Pavesi ha commissionato un grande manifesto per il derby. Sul foglio la partita è già una festa.",
+      "variants": [],
+      "triggers": {
+        "derbyWeek": true
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "derby"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Proteggi la concentrazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ringrazia senza fare pronostici",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_pavesi_ultimatum",
+      "presidentId": "rinaldo_pavesi",
+      "speakerId": "rinaldo_pavesi",
+      "channel": "dialogue",
+      "title": "Il progetto accelera",
+      "body": "Due sconfitte non erano previste nei manifesti di Pavesi. Vuole un cambio di modulo immediato.",
+      "variants": [],
+      "triggers": {
+        "lossStreakMin": 2
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "tattica"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Difendi le tue scelte",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": -2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Prometti di valutare",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1,
+            "boardPressure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_righi_vivaio",
+      "presidentId": "silvano_righi",
+      "speakerId": "silvano_righi",
+      "channel": "dialogue",
+      "title": "Il vivaio al centro",
+      "body": "Righi propone di far allenare un ragazzo delle giovanili con i grandi. Tina chiede una prova senza pressioni.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 6
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "giovanili"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Concorda una prova",
+          "target": "reserves",
+          "effects": {
+            "confidence": 1,
+            "morale": 1
+          },
+          "futureEffects": {
+            "youthTrust": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Prima osserva dal campo",
+          "target": "reserves",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "youthTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_righi_sconfitta",
+      "presidentId": "silvano_righi",
+      "speakerId": "silvano_righi",
+      "channel": "dialogue",
+      "title": "L'ultima fotografia",
+      "body": "Dopo due sconfitte Righi racconta di quando ripartì da una salvezza. Il gruppo ascolta in silenzio.",
+      "variants": [],
+      "triggers": {
+        "lossStreakMin": 2
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "spogliatoio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Fagli parlare al gruppo",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Rendi concreto il ricordo",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_valcavi_assemblea",
+      "presidentId": "ernesto_valcavi",
+      "speakerId": "ernesto_valcavi",
+      "channel": "dialogue",
+      "title": "Il direttivo discute",
+      "body": "La fiducia cala. Valcavi convoca un'assemblea e chiede al mister una proposta realistica.",
+      "variants": [],
+      "triggers": {
+        "boardTrustBelow": 55
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "assemblea"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Presenta un piano sobrio",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi una settimana",
+          "target": "starters",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "boardPressure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_valcavi_rivalita",
+      "presidentId": "ernesto_valcavi",
+      "speakerId": "ernesto_valcavi",
+      "channel": "dialogue",
+      "title": "La stretta di mano",
+      "body": "Valcavi propone un incontro con la società rivale prima del derby. La curva non è entusiasta.",
+      "variants": [],
+      "triggers": {
+        "derbyWeek": true
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "derby"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Accetta l'incontro",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Resta al campo",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_orlandi_piano",
+      "presidentId": "beatrice_orlandi",
+      "speakerId": "beatrice_orlandi",
+      "channel": "dialogue",
+      "title": "Un acquisto motivato",
+      "body": "Orlandi chiede tre ragioni tecniche per la richiesta di mercato e una stima dell'impatto sul vivaio.",
+      "variants": [],
+      "triggers": {
+        "marketRequest": true
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "mercato"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Porta la relazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi tempo per i dati",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_orlandi_coppa",
+      "presidentId": "beatrice_orlandi",
+      "speakerId": "beatrice_orlandi",
+      "channel": "dialogue",
+      "title": "La coppa si prepara",
+      "body": "Orlandi propone un obiettivo di coppa misurabile: giocare bene e rientrare senza infortuni evitabili.",
+      "variants": [],
+      "triggers": {
+        "cupWeek": true
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "coppa"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Dai priorità al recupero",
+          "target": "starters",
+          "effects": {
+            "fatigue": -2,
+            "health": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Prova la formazione titolare",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "fatigue": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ]
+    }
+  ]
+}

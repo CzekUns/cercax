@@ -1,0 +1,1907 @@
+{
+  "schemaVersion": 1,
+  "dialogues": [
+    {
+      "id": "dlg_preventivo",
+      "scene": "board",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamMoraleBelow": 60
+          },
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Serve una vittoria che rimetta tutti in piedi."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Per il resto abbiamo solo due paia di scarpe nuove."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Allora cominciamo dalla vittoria."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Dobbiamo fare il salto di categoria."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Il salto costa. Persino quello sul posto."
+            }
+          ]
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "dlg_conto_pompa",
+      "scene": "away",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 5
+          },
+          "lines": [
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Per la salita serve un altro pieno."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "E per la discesa?"
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "La benzina non ascolta i discorsi."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Partiamo alle sette, stavolta."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Ho scritto sei e mezza. Così alle sette partiamo."
+            }
+          ]
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "dlg_magazzino",
+      "scene": "training",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "trainingDone": false
+          },
+          "lines": [
+            {
+              "speakerId": "umberto_rota",
+              "text": "Ho portato otto palloni per il lavoro di oggi."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Ne avevo chiesti dieci."
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Gli altri due devono ancora tornare dall'allenamento scorso."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "umberto_rota",
+              "text": "Le pettorine sono lavate."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Mancano due colori."
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Ne abbiamo uno solo da ottobre."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_caviglia",
+      "scene": "medical",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamHealthBelow": 80
+          },
+          "lines": [
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Questo fastidio va seguito. Oggi niente scatti."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Tolgo gli scatti. Lunedì lo rivediamo."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "aldo_sarti",
+              "text": "I valori sono buoni."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Bene. Posso riprendermi il cronometro?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_riti",
+      "scene": "medical",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 6
+          },
+          "lines": [
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Non spostate il lettino vicino alla porta."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Per quale motivo medico?"
+            },
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Per nessuno. La porta fa corrente."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Una visita breve, per favore."
+            },
+            {
+              "speakerId": "dario_lenzi",
+              "text": "Dottore, lei ha chiesto una visita. Io sono venuto."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_fascia",
+      "scene": "locker",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamMoraleBelow": 60
+          },
+          "lines": [
+            {
+              "speakerId": "franco_moro",
+              "text": "Oggi non voglio sentire chi ha sbagliato."
+            },
+            {
+              "speakerId": "dario_lenzi",
+              "text": "Nemmeno chi non ha tirato?"
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Soprattutto lui. Domenica siamo undici."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "franco_moro",
+              "text": "Entriamo insieme, usciamo insieme."
+            },
+            {
+              "speakerId": "dario_lenzi",
+              "text": "E i palloni?"
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Quelli, possibilmente, entrano in porta."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_nove",
+      "scene": "locker",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamConfidenceBelow": 65
+          },
+          "lines": [
+            {
+              "speakerId": "dario_lenzi",
+              "text": "Sono tre partite che vedo la porta da lontano."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Allora vieni incontro. Ti vedremo anche noi."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "dario_lenzi",
+              "text": "Ho contato quattro cross nel primo tempo."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Io cinque. Uno era per l'arbitro."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_panchinaro",
+      "scene": "locker",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 7
+          },
+          "lines": [
+            {
+              "speakerId": "giorgio_piras",
+              "text": "Ho preparato i guanti come se giocassi."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "È anche per questo che possiamo contare su di te."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "giorgio_piras",
+              "text": "Nessuno mi ha chiamato per l'intervista."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Segno che oggi hai parato bene tutto quello che arrivava qui."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_giovani",
+      "scene": "youth",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamConfidenceBelow": 65
+          },
+          "lines": [
+            {
+              "speakerId": "tina_basile",
+              "text": "Il ragazzo ha talento, ma ha paura di sbagliare."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Possiamo seguirlo senza bruciare le tappe."
+            },
+            {
+              "speakerId": "tina_basile",
+              "text": "È la prima cosa sensata che sento oggi."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "tina_basile",
+              "text": "Un terzino delle giovanili legge bene il campo."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Mandami una relazione."
+            },
+            {
+              "speakerId": "tina_basile",
+              "text": "Con il suo nome, stavolta."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_intervista",
+      "scene": "press",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamMoraleBelow": 65
+          },
+          "lines": [
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Dicono che lo spogliatoio non segua più il mister."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Chi lo dice?"
+            },
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Per questo sono venuto a chiedere."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Mister, una parola sulla gara?"
+            },
+            {
+              "speakerId": "piero_masi",
+              "text": "Corsi, una parola te la regala. Due devi meritartele."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_radio",
+      "scene": "press",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 6
+          },
+          "lines": [
+            {
+              "speakerId": "piero_masi",
+              "text": "Il microfono funziona. Il temporale meno."
+            },
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Puoi sempre descrivere la pioggia."
+            },
+            {
+              "speakerId": "piero_masi",
+              "text": "È già più precisa di certi tuoi voti."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "piero_masi",
+              "text": "La radio arriva fino alla collina."
+            },
+            {
+              "speakerId": "nella_bellini",
+              "text": "Da mia zia prende solo quando apre il frigorifero."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_tifosi",
+      "scene": "supporters",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamMoraleBelow": 63
+          },
+          "lines": [
+            {
+              "speakerId": "nella_bellini",
+              "text": "Non chiediamo dieci gol."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Ne basterebbe uno."
+            },
+            {
+              "speakerId": "nella_bellini",
+              "text": "Chiediamo che corriate anche quando non arriva."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "nella_bellini",
+              "text": "La curva oggi è piena."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Merito dei nostri risultati."
+            },
+            {
+              "speakerId": "nella_bellini",
+              "text": "Anche del biglietto a prezzo ridotto."
+            }
+          ]
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "dlg_gestione",
+      "scene": "board",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 8
+          },
+          "lines": [
+            {
+              "speakerId": "livia_bassi",
+              "text": "Il bilancio non si chiude da solo."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Un successo domenica aiuterebbe."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "La banca non accetta punti in classifica."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "livia_bassi",
+              "text": "Ho portato il rendiconto."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "È lungo?"
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "La parte delle entrate è breve."
+            }
+          ]
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "dlg_scrivania",
+      "scene": "office",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 2
+          },
+          "lines": [
+            {
+              "speakerId": "ada_poletti",
+              "text": "Ci sono tre timbri, tutti senza tampone."
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Nel magazzino c'è il tampone."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Da quanti anni?"
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Era già lì quando sono arrivato."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "ada_poletti",
+              "text": "La riunione comincia appena arrivano tutti."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Io sono arrivato."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Appunto, manca ancora qualcuno."
+            }
+          ]
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "dlg_rientro",
+      "scene": "medical",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamFatigueAbove": 28
+          },
+          "lines": [
+            {
+              "speakerId": "ivo_greco",
+              "text": "Sono stanchi, non pigri."
+            },
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Allora domani scarico."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Segna anche sul referto che l'ho proposto io."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "ivo_greco",
+              "text": "Stamattina lavoriamo piano."
+            },
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Hai controllato la febbre?"
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Non serve la febbre per concedere riposo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_giornale",
+      "scene": "press",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "lastResult": "loss"
+          },
+          "lines": [
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Titolerò 'La domenica più lunga'."
+            },
+            {
+              "speakerId": "piero_masi",
+              "text": "Sono novanta minuti come le altre."
+            },
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Allora scriverò il tempo recuperato."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Non hai visto il secondo tempo?"
+            },
+            {
+              "speakerId": "piero_masi",
+              "text": "Ero lì per trasmetterlo."
+            },
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Io ero alla tipografia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_sesta_maglia",
+      "scene": "training",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 5
+          },
+          "lines": [
+            {
+              "speakerId": "umberto_rota",
+              "text": "Il numero sei ha chiesto una maglia nuova."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Perché?"
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Quella vecchia porta ancora la sconfitta di domenica, dice."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "umberto_rota",
+              "text": "Le maglie asciugano sul filo dietro il campo."
+            },
+            {
+              "speakerId": "dario_lenzi",
+              "text": "La mia è ancora umida."
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Se smetti di provarla ogni mezz'ora asciuga."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_formazione",
+      "scene": "tactics",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamConfidenceBelow": 65
+          },
+          "lines": [
+            {
+              "speakerId": "ivo_greco",
+              "text": "Il gruppo chiede una formazione chiara."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "E un motivo per crederci."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Quello lo costruiamo in campo."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "renato_delfino",
+              "text": "Perché quel cambio di modulo?"
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Perché lo abbiamo provato."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Domanda ingenua. Scusa."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_mercato",
+      "scene": "board",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 8
+          },
+          "lines": [
+            {
+              "speakerId": "beppe_salvi",
+              "text": "Il mio assistito sta valutando le proposte."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Noi stiamo valutando se farne una."
+            },
+            {
+              "speakerId": "beppe_salvi",
+              "text": "Allora siamo già d'accordo sul verbo."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "beppe_salvi",
+              "text": "Porto una proposta interessante."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Per quale ruolo?"
+            },
+            {
+              "speakerId": "beppe_salvi",
+              "text": "Dipende da quanto vi interessa."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_derby",
+      "scene": "supporters",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 5
+          },
+          "lines": [
+            {
+              "speakerId": "nella_bellini",
+              "text": "Sono passati quelli dell'altra curva."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Problemi?"
+            },
+            {
+              "speakerId": "nella_bellini",
+              "text": "Solo opinioni. Ne avevano parecchie."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "nella_bellini",
+              "text": "Abbiamo preparato lo striscione."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Che dice?"
+            },
+            {
+              "speakerId": "nella_bellini",
+              "text": "Ve lo diciamo dopo la partita."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_municipio",
+      "scene": "office",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 10
+          },
+          "lines": [
+            {
+              "speakerId": "ada_poletti",
+              "text": "Il Comune vuole la planimetria degli spogliatoi."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Ne abbiamo una?"
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Sì. Fa risultare una doccia in più."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "ada_poletti",
+              "text": "C'è da consegnare una domanda entro venerdì."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Completa?"
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Per ora esiste la busta."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_aspetta",
+      "scene": "away",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamFatigueAbove": 30
+          },
+          "lines": [
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Mi fermo cinque minuti. Li vedo stanchi."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Va bene, ma niente corsa al bar."
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Per questo ho scelto un posto senza bar."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Ho controllato la strada."
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "E i borsoni?"
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Quelli controllali tu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_silenzio",
+      "scene": "locker",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "lastResult": "win"
+          },
+          "lines": [
+            {
+              "speakerId": "franco_moro",
+              "text": "Bella partita. Domani si ricomincia."
+            },
+            {
+              "speakerId": "dario_lenzi",
+              "text": "Almeno stasera posso parlarne?"
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Fino a domani mattina."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "franco_moro",
+              "text": "Oggi abbiamo fatto il necessario."
+            },
+            {
+              "speakerId": "giorgio_piras",
+              "text": "Da qui si vedeva bene."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Da domenica voglio vederti più vicino."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_arbitro",
+      "scene": "pre_match",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamConfidenceBelow": 68
+          },
+          "lines": [
+            {
+              "speakerId": "franco_moro",
+              "text": "I ragazzi parlano già dell'arbitro."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Bene. Quando finiscono, facciamo anche la partita."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "franco_moro",
+              "text": "Si gioca senza protestare per ogni fallo."
+            },
+            {
+              "speakerId": "dario_lenzi",
+              "text": "Anche quelli che non ci fischiano?"
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Soprattutto."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_panchina_stampa",
+      "scene": "press",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 9
+          },
+          "lines": [
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Dicono che il mister cambi troppo."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "La scorsa settimana scrivevi che cambiava poco."
+            },
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "È una situazione in evoluzione."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "piero_masi",
+              "text": "La panchina ha scelto una variante."
+            },
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Se non funziona, la chiamiamo esperimento."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_relazione",
+      "scene": "board",
+      "weight": 5,
+      "cooldownWeeks": 5,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "teamMoraleAbove": 75
+          },
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "L'ambiente è sereno. Merito del progetto."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Il progetto lo abbiamo scritto?"
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "È una fase successiva."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Dovremmo organizzare un incontro con i soci."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Prima o dopo aver pagato le sedie?"
+            }
+          ]
+        }
+      ],
+      "presidentId": "gaetano_venturi"
+    },
+    {
+      "id": "dlg_pres_venturi_crisi",
+      "presidentId": "gaetano_venturi",
+      "linkedEventId": "ev_pres_venturi_sconfitte",
+      "scene": "board",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "lossStreakMin": 2
+          },
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Due sconfitte fanno rumore perfino in piazza."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Le voci sono gratis. La risalita richiede lavoro."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Allora concentriamoci sul lavoro. La piazza l'affronto io."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Ci aspetta una grande domenica."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Ci aspetta anzitutto un pullman."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Anche il pullman fa parte della grandezza."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_venturi_spese",
+      "presidentId": "gaetano_venturi",
+      "linkedEventId": "ev_pres_venturi_cassa",
+      "scene": "office",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "clubCashBelow": 150000
+          },
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Vorrei un'iniziativa per raccogliere fondi."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Prima scriviamo quanto serve."
+            },
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Allora abbiamo già iniziato con prudenza."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "gaetano_venturi",
+              "text": "Il nuovo striscione deve essere visibile dalla tribuna."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "La tribuna è già davanti allo striscione, presidente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_berti_distinta",
+      "presidentId": "leandro_berti",
+      "linkedEventId": "ev_pres_berti_modulo",
+      "scene": "board",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "marketRequest": true
+          },
+          "lines": [
+            {
+              "speakerId": "leandro_berti",
+              "text": "La sua richiesta di rinforzo è incompleta, mister."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Manca l'importo?"
+            },
+            {
+              "speakerId": "leandro_berti",
+              "text": "Manca la data in cui ha pensato di chiederlo."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "leandro_berti",
+              "text": "L'ordine del giorno prevede tre interventi."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Sono arrivati in quattro."
+            },
+            {
+              "speakerId": "leandro_berti",
+              "text": "Uno ascolterà."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_berti_viaggio",
+      "presidentId": "leandro_berti",
+      "linkedEventId": "ev_pres_berti_coppa",
+      "scene": "away",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "cupWeek": true
+          },
+          "lines": [
+            {
+              "speakerId": "leandro_berti",
+              "text": "Per la coppa pretendo un elenco dei presenti."
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Li conto mentre salgono."
+            },
+            {
+              "speakerId": "leandro_berti",
+              "text": "Il conteggio va messo a verbale."
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Allora apra la porta dopo averli contati."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "leandro_berti",
+              "text": "Qual è l'orario ufficiale di partenza?"
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Quello che riesco a rispettare."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_sella_terzino",
+      "presidentId": "vittorio_sella",
+      "linkedEventId": "ev_pres_sella_favore",
+      "scene": "board",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "marketRequest": true
+          },
+          "lines": [
+            {
+              "speakerId": "vittorio_sella",
+              "text": "Per il terzino ho una persona fidata."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Sa se il ragazzo è disponibile?"
+            },
+            {
+              "speakerId": "vittorio_sella",
+              "text": "Su quello dobbiamo sentire un'altra persona."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "vittorio_sella",
+              "text": "Mister, per le attrezzature ho un contatto."
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Per la misura delle scarpe ne ha uno?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_sella_pullman",
+      "presidentId": "vittorio_sella",
+      "linkedEventId": "ev_pres_sella_trasferta",
+      "scene": "away",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "derbyWeek": true
+          },
+          "lines": [
+            {
+              "speakerId": "vittorio_sella",
+              "text": "Il pullman è sistemato. Questione di conoscenze."
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Ha la revisione?"
+            },
+            {
+              "speakerId": "vittorio_sella",
+              "text": "Questa è una questione di documenti."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "vittorio_sella",
+              "text": "Ho trovato chi ci apre il cancello dell'impianto."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "È il custode?"
+            },
+            {
+              "speakerId": "vittorio_sella",
+              "text": "Allora lo conosce anche lei."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_milani_fattura",
+      "presidentId": "arturo_milani",
+      "linkedEventId": "ev_pres_milani_sponsor",
+      "scene": "office",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "clubCashBelow": 100000
+          },
+          "lines": [
+            {
+              "speakerId": "arturo_milani",
+              "text": "Qui bisogna togliere una spesa."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Quale?"
+            },
+            {
+              "speakerId": "arturo_milani",
+              "text": "La prima che nessuno sa giustificare."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "arturo_milani",
+              "text": "I conti sono precisi."
+            },
+            {
+              "speakerId": "umberto_rota",
+              "text": "Ho contato anche i tacchetti."
+            },
+            {
+              "speakerId": "arturo_milani",
+              "text": "Quelli almeno restano in magazzino."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_milani_rimborsi",
+      "presidentId": "arturo_milani",
+      "linkedEventId": "ev_pres_milani_premi",
+      "scene": "board",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "boardTrustBelow": 45
+          },
+          "lines": [
+            {
+              "speakerId": "arturo_milani",
+              "text": "I rimborsi non possono uscire prima delle entrate."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Lo spiego ai compagni."
+            },
+            {
+              "speakerId": "arturo_milani",
+              "text": "Lo spieghi con delicatezza. I numeri sono già duri."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "arturo_milani",
+              "text": "Domani il pullman parte mezz'ora prima."
+            },
+            {
+              "speakerId": "saverio_ferri",
+              "text": "Perché?"
+            },
+            {
+              "speakerId": "arturo_milani",
+              "text": "Per non pagare una sosta in più."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_pavesi_manifesto",
+      "presidentId": "rinaldo_pavesi",
+      "linkedEventId": "ev_pres_pavesi_derby",
+      "scene": "press",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "derbyWeek": true
+          },
+          "lines": [
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "Il derby avrà un manifesto alto tre metri."
+            },
+            {
+              "speakerId": "piero_masi",
+              "text": "Il campo quanto è grande?"
+            },
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "Masi, lei vede sempre il particolare."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "Vorrei una foto che mostri il futuro."
+            },
+            {
+              "speakerId": "raffaele_corsi",
+              "text": "Mi dia almeno una data."
+            },
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "Il futuro non è mai stato così vicino."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_pavesi_modulo",
+      "presidentId": "rinaldo_pavesi",
+      "linkedEventId": "ev_pres_pavesi_ultimatum",
+      "scene": "board",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "lossStreakMin": 2
+          },
+          "lines": [
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "Basta sconfitte. Invertiamo il triangolo a centrocampo."
+            },
+            {
+              "speakerId": "ivo_greco",
+              "text": "Quale triangolo?"
+            },
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "Quello che ci sta impedendo di vincere."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "La squadra deve giocare in grande."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Nel campo di oggi, però."
+            },
+            {
+              "speakerId": "rinaldo_pavesi",
+              "text": "Il campo è un limite amministrativo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_righi_ragazzo",
+      "presidentId": "silvano_righi",
+      "linkedEventId": "ev_pres_righi_vivaio",
+      "scene": "youth",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "weekMin": 6
+          },
+          "lines": [
+            {
+              "speakerId": "silvano_righi",
+              "text": "Tina dice che quel ragazzo legge già la partita."
+            },
+            {
+              "speakerId": "tina_basile",
+              "text": "Legge il gioco. La partita deve ancora imparare a reggerla."
+            },
+            {
+              "speakerId": "silvano_righi",
+              "text": "Allora lo guardiamo senza correre."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "silvano_righi",
+              "text": "Quando giocavo io, il campo finiva più lontano."
+            },
+            {
+              "speakerId": "tina_basile",
+              "text": "Era lei che correva di più."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_righi_memoria",
+      "presidentId": "silvano_righi",
+      "linkedEventId": "ev_pres_righi_sconfitta",
+      "scene": "locker",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "lossStreakMin": 2
+          },
+          "lines": [
+            {
+              "speakerId": "silvano_righi",
+              "text": "Ho perso un derby che mi ricordo ancora."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Come ne siete usciti?"
+            },
+            {
+              "speakerId": "silvano_righi",
+              "text": "Allenandoci il lunedì. Il ricordo ha fatto il resto."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "silvano_righi",
+              "text": "Qui dentro una volta c'era un'unica panca."
+            },
+            {
+              "speakerId": "franco_moro",
+              "text": "Adesso siamo in venti."
+            },
+            {
+              "speakerId": "silvano_righi",
+              "text": "Almeno le discussioni stanno più comode."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_valcavi_consiglio",
+      "presidentId": "ernesto_valcavi",
+      "linkedEventId": "ev_pres_valcavi_assemblea",
+      "scene": "board",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "boardTrustBelow": 55
+          },
+          "lines": [
+            {
+              "speakerId": "ernesto_valcavi",
+              "text": "Ci sono tre proposte per uscire dal momento difficile."
+            },
+            {
+              "speakerId": "livia_bassi",
+              "text": "Qual è quella approvata?"
+            },
+            {
+              "speakerId": "ernesto_valcavi",
+              "text": "Ne stiamo cercando una che le comprenda tutte."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "ernesto_valcavi",
+              "text": "Abbiamo raggiunto un accordo di principio."
+            },
+            {
+              "speakerId": "ada_poletti",
+              "text": "Quando lo mettiamo per iscritto?"
+            },
+            {
+              "speakerId": "ernesto_valcavi",
+              "text": "Appena avremo un accordo sulla data."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_valcavi_derby",
+      "presidentId": "ernesto_valcavi",
+      "linkedEventId": "ev_pres_valcavi_rivalita",
+      "scene": "supporters",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "derbyWeek": true
+          },
+          "lines": [
+            {
+              "speakerId": "ernesto_valcavi",
+              "text": "Vorrei salutare gli avversari prima del derby."
+            },
+            {
+              "speakerId": "nella_bellini",
+              "text": "Li salutiamo dopo. Prima dobbiamo giocare."
+            },
+            {
+              "speakerId": "ernesto_valcavi",
+              "text": "Anche questa è una forma di prudenza."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "ernesto_valcavi",
+              "text": "La rivalità deve restare civile."
+            },
+            {
+              "speakerId": "nella_bellini",
+              "text": "È civile. La discutiamo già da martedì."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_orlandi_acquisto",
+      "presidentId": "beatrice_orlandi",
+      "linkedEventId": "ev_pres_orlandi_piano",
+      "scene": "board",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "marketRequest": true
+          },
+          "lines": [
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "Per il rinforzo mi servono tre valutazioni tecniche."
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Ne abbiamo due."
+            },
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "Allora il terzo foglio può aspettare il prossimo allenamento."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "Qual è il problema più urgente della squadra?"
+            },
+            {
+              "speakerId": "renato_delfino",
+              "text": "Vorrei rivedere le ultime due gare."
+            },
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "Bene. Poi ne parliamo con i dati."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dlg_pres_orlandi_riposo",
+      "presidentId": "beatrice_orlandi",
+      "linkedEventId": "ev_pres_orlandi_coppa",
+      "scene": "medical",
+      "weight": 6,
+      "cooldownWeeks": 6,
+      "variants": [
+        {
+          "id": "situation",
+          "when": {
+            "cupWeek": true
+          },
+          "lines": [
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "La coppa conta. Contano anche i recuperi."
+            },
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Ho chiesto un giorno in più per un titolare."
+            },
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "Allora si prende quel giorno."
+            }
+          ]
+        },
+        {
+          "id": "default",
+          "when": {},
+          "lines": [
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "Dottore, come sta il gruppo?"
+            },
+            {
+              "speakerId": "aldo_sarti",
+              "text": "Bene, finché non confondiamo la stanchezza con il coraggio."
+            },
+            {
+              "speakerId": "beatrice_orlandi",
+              "text": "È scritto in modo abbastanza chiaro."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

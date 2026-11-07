@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>ORONZO · Laboratorio eventi 1985</title>
+<style>
+:root {color-scheme:dark;--ink:#f1ead3;--blue:#172f5a;--deep:#07172f;--rim:#8294b9;--gold:#f0c66e;--red:#ad5147;--green:#77d4a8}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font:13px/1.36 Georgia,serif;background:#071226;color:var(--ink)}
+button,select,input{font:inherit}button,select{background:#173a67;color:var(--ink);border:2px solid #8093b4;padding:5px 8px;cursor:pointer;box-shadow:inset -2px -2px #0b1b35;min-height:30px}
+button:hover,button:focus-visible{border-color:var(--gold)}button:disabled{opacity:.35;cursor:default}
+strong,nav,.brand,.caps,.eyebrow,label{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.app{height:100dvh;display:grid;grid-template-rows:42px minmax(0,1fr) 27px;min-width:560px;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,#ffffff04 4px),linear-gradient(#173868,#081b3b)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 14px;border-bottom:3px ridge var(--rim);background:#102a50}
+.brand{font-size:18px;font-weight:bold;letter-spacing:3px;color:var(--gold);text-shadow:2px 2px #050b16}
+header small{font:10px ui-monospace,monospace;color:#bccce1}
+.main{min-height:0;display:grid;grid-template-columns:minmax(175px,24%) minmax(260px,51%) minmax(155px,25%);gap:5px;padding:5px}
+.panel{min-width:0;min-height:0;overflow:auto;border:3px ridge var(--rim);background:linear-gradient(#183663,#0b2042);padding:9px;scrollbar-width:thin}
+.eyebrow{color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px}
+h1,h2,p{margin:0 0 8px}h1{font-size:21px;line-height:1.1;color:#fff4cb}h2{font-size:15px;color:var(--gold)}
+.status{display:grid;grid-template-columns:1fr auto;gap:3px 7px;font:11px ui-monospace,monospace;margin:5px 0 12px}
+.status strong{color:var(--green);font-weight:normal;text-align:right}
+label{font-size:10px;display:block;margin-top:8px;color:#cad8ef}input[type=range]{display:block;width:100%;height:17px;accent-color:var(--gold)}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}.primary{background:#80522b;border-color:var(--gold);color:#fff1d1;font-weight:bold}
+.card{border:1px solid #7993b9;box-shadow:3px 3px #040b1b;background:#091b37;padding:12px;margin:7px 0}
+.quote{font-size:16px;line-height:1.42;min-height:75px}.by{font:11px ui-monospace,monospace;color:#91b7df;padding-top:5px}
+.choice{display:block;width:100%;text-align:left;margin-top:5px;white-space:normal}.delta{font:10px/1.4 ui-monospace,monospace;color:#b5d8bf;margin:6px 0}
+.journal{min-height:72px;border-top:2px solid var(--gold);padding:7px 2px;font-size:16px;font-weight:bold;line-height:1.2}
+.dialogue{font-size:12px;margin:6px 0;border-left:2px solid #849bbc;padding-left:7px}
+.dialogue strong{display:block;color:var(--gold);font-size:10px}
+.log{font:10px/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;opacity:.9}
+footer{display:flex;align-items:center;justify-content:space-between;padding:3px 12px;background:#0a1e3c;border-top:2px ridge #7287a9;font:10px ui-monospace,monospace;color:#c5d0e4}
+select{max-width:100%}
+#portrait{display:none}
+@media(max-height:470px){.panel{padding:5px}.quote{font-size:13px;min-height:50px}h1{font-size:17px}.card{padding:8px}.status{margin-bottom:3px}label{margin-top:4px}header{padding:2px 10px}header small{display:none}}
+@media(orientation:portrait){#portrait{position:fixed;inset:0;background:#081a35;z-index:9;display:grid;place-content:center;text-align:center;font:16px ui-monospace,monospace;color:#f0c66e;padding:20px}#portrait strong{font-size:24px;margin-bottom:12px}}
+</style>
+</head>
+<body>
+<div id="portrait"><strong>ORONZO · 1985</strong>Ruota il telefono in orizzontale per provare il laboratorio narrativo.</div>
+<div class="app">
+<header><span class="brand">ORONZO <span style="font-size:10px">1985/86</span></span><small>LABORATORIO NARRATIVO · DATI DI PROVA · NESSUNA PARTITA ALTERATA</small><button id="reset" type="button">RICOMINCIA</button></header>
+<div class="main">
+<section class="panel" aria-label="Squadra">
+<p class="eyebrow">SQUADRA · CAMPANILE</p>
+<label>Presidente del club<select id="presidentSelect" aria-label="Presidente del club"></select></label>
+<label><input type="checkbox" id="presidentOnly" checked> Solo eventi del presidente</label>
+<label>Sconfitte consecutive <output id="lossesValue">2</output><input id="losses" aria-label="Sconfitte consecutive" type="range" min="0" max="5" value="2"></label>
+<div class="actions"><label><input type="checkbox" id="marketRequest" checked> Mercato</label><label><input type="checkbox" id="derbyWeek" checked> Derby</label><label><input type="checkbox" id="cupWeek"> Coppa</label><label><input type="checkbox" id="lowCash" checked> Cassa bassa</label></div>
+<div id="stats" class="status"></div>
+<label>Morale <output id="moraleValue">65</output><input id="morale" aria-label="Morale" type="range" min="10" max="95" value="65"></label>
+<label>Fatica <output id="fatigueValue">25</output><input id="fatigue" aria-label="Fatica" type="range" min="0" max="95" value="25"></label>
+<label>Fiducia <output id="confidenceValue">65</output><input id="confidence" aria-label="Fiducia" type="range" min="10" max="95" value="65"></label>
+<label>Salute <output id="healthValue">84</output><input id="health" aria-label="Salute" type="range" min="20" max="99" value="84"></label>
+<div class="actions"><button id="weekBtn" type="button">+ GIORNATA</button><button id="trainBtn" type="button">SEDUTA: NO</button></div>
+<p class="delta">Le statistiche sono medie dei titolari. Trascina gli indicatori per provare nuovi trigger.</p>
+</section>
+<section class="panel" aria-label="Evento">
+<p class="eyebrow">DALLA VITA DI SOCIETÀ</p>
+<h1 id="title">Il telefono del presidente</h1>
+<div class="card"><p id="body" class="quote">Premi «NUOVO EVENTO» per vedere una situazione con due scelte.</p><p class="by" id="speaker"></p></div>
+<div class="actions"><button id="eventBtn" class="primary" type="button">NUOVO EVENTO</button></div>
+<div id="choices" aria-live="polite"></div>
+<p id="effect" class="delta"></p>
+<p class="eyebrow" style="margin-top:14px">ULTIMO VERBALE</p><div class="log" id="log"></div>
+</section>
+<aside class="panel" aria-label="Stampa e dialoghi">
+<p class="eyebrow">EDICOLA DI PAESE</p>
+<select id="category" aria-label="Categoria microtesti"><option value="giornale">Giornale</option><option value="cartelli">Cartelli</option><option value="telefonate">Telefonate</option><option value="radiocronaca">Radiocronaca</option><option value="spogliatoio">Spogliatoio</option><option value="tifoseria">Tifosi</option><option value="societa">Società</option><option value="infermeria">Infermeria</option><option value="allenamento">Allenamento</option></select>
+<div class="journal" id="micro">Il settimanale esce di venerdì.</div><button id="microBtn" type="button">ALTRO TESTO</button>
+<hr style="border:0;border-top:1px solid #8798ae;margin:12px 0">
+<p class="eyebrow">VOCI IN CORRIDOIO</p>
+<select id="scene" aria-label="Scena dialogo"><option value="locker">Spogliatoio</option><option value="board">Consiglio</option><option value="training">Allenamento</option><option value="medical">Infermeria</option><option value="press">Stampa</option><option value="away">Trasferta</option><option value="supporters">Tifosi</option><option value="office">Segreteria</option><option value="tactics">Tattica</option><option value="youth">Giovanili</option></select>
+<div id="dialogue"></div><button id="dialogueBtn" type="button">ALTRO DIALOGO</button>
+</aside></div>
+<footer><span>PROTOTIPO DI CONTENUTI · i contratti futuri sono simulati, non applicati</span><span id="summary">Caricamento…</span></footer>
+</div>
+<script type="module">
+import {makeMemory,deriveMetrics,selectEvent,applyChoice,selectDialogue,selectMicrocopy,resetSeason} from "./narrative-engine.js";
+const $=id=>document.getElementById(id);
+const codeNames={};
+let catalog=null, state=null, memory=makeMemory(), pending=null;
+const log=[];
+function sample(){
+ return {week:6,trainingDone:false,club:{presidentId:$("presidentSelect").value,boardTrust:42,finance:{cash:85000}},narrativeContext:{lossStreak:2,marketRequest:true,derbyWeek:true,cupWeek:false},players:Array.from({length:16},(_,i)=>({id:i+1,role:i===0||i===11?"POR":i%5===0?"ATT":"CEN",starter:i<11,morale:65,confidence:65,health:84,fatigue:25,luck:45,character:65,tech:60,speed:60,stamina:65})),table:[]};
+}
+function logMessage(t){log.unshift(t);log.splice(8);$("log").textContent=log.join("\n");}
+function stats(){
+ const m=deriveMetrics(state);
+ $("stats").replaceChildren();
+ const pairs=[["GIORNATA",m.week],["MORALE",Math.round(m.teamMorale)],["FATICA",Math.round(m.teamFatigue)],["FIDUCIA",Math.round(m.teamConfidence)],["SALUTE",Math.round(m.teamHealth)]];
+ for(const [k,v] of pairs){const name=document.createElement("span"),value=document.createElement("strong");name.textContent=k;value.textContent=v;$("stats").append(name,value);}
+ for(const key of ["morale","fatigue","confidence","health"]){const v=Math.round(m["team"+key[0].toUpperCase()+key.slice(1)]);$(key).value=v;$(key+"Value").textContent=v;}
+ $("trainBtn").textContent=state.trainingDone?"SEDUTA: SÌ":"SEDUTA: NO";
+ $("losses").value=state.narrativeContext.lossStreak;$("lossesValue").textContent=state.narrativeContext.lossStreak;
+ $("presidentSelect").value=state.club.presidentId;
+ for(const id of ["marketRequest","derbyWeek","cupWeek"])$(id).checked=state.narrativeContext[id];
+ $("lowCash").checked=state.club.finance.cash<150000;
+ $("summary").textContent=catalog.presidents.presidents.length+" PRESIDENTI · "+catalog.events.events.length+" EVENTI · "+catalog.dialogues.dialogues.length+" DIALOGHI";
+}
+function newEvent(){
+ const subset=$("presidentOnly").checked?catalog.events.events.filter(e=>e.presidentId===state.club.presidentId):catalog.events;
+ pending=selectEvent(subset,state,memory);
+ $("choices").replaceChildren();$("effect").textContent="";
+ if(!pending){$("title").textContent="Nessun nuovo evento";$("body").textContent="I cooldown sono ancora attivi. Avanza la giornata o cambia il morale.";return;}
+ const ev=pending.event;
+ $("title").textContent=ev.title;$("body").textContent=pending.text;
+ $("speaker").textContent=codeNames[ev.speakerId] || ev.speakerId;
+ for(const choice of ev.choices){const b=document.createElement("button");b.type="button";b.className="choice";b.textContent=choice.label;b.onclick=()=>choose(choice);$("choices").appendChild(b);}
+}
+function choose(choice){
+ if(!pending)return;
+ const old=deriveMetrics(state);const result=applyChoice(state,choice);state=result.state;
+ const applied=Object.entries(choice.effects).map(([k,v])=>(v>=0?"+":"")+v+" "+k).join(", ");
+ const deferred=Object.keys(result.deferred).length?" · futuro: "+Object.entries(result.deferred).map(([k,v])=>k+" "+v).join(", "):"";
+ $("effect").textContent=choice.label+" · "+result.applied.affectedPlayers+" giocatori · "+applied+deferred;
+ logMessage("G"+state.week+" · "+pending.event.title+" → "+choice.label);
+ pending=null;$("choices").replaceChildren();stats();
+}
+function newMicro(){
+ const entry=selectMicrocopy(catalog.micro,$("category").value,state,memory);
+ $("micro").textContent=entry?entry.text:"Nessun testo nuovo per ora. Prova un'altra giornata o categoria.";
+}
+function newDialogue(){
+ const subset=$("presidentOnly").checked?catalog.dialogues.dialogues.filter(d=>d.presidentId===state.club.presidentId):catalog.dialogues;
+ const dlg=selectDialogue(subset,$("scene").value,state,memory);
+ $("dialogue").replaceChildren();
+ if(!dlg){$("dialogue").textContent="Nessun nuovo dialogo disponibile per questa settimana.";return;}
+ for(const line of dlg.lines){const p=document.createElement("p"),name=document.createElement("strong"),text=document.createElement("span");p.className="dialogue";name.textContent=codeNames[line.speakerId]||line.speakerId;text.textContent=line.text;p.append(name,text);$("dialogue").appendChild(p);}
+}
+function alignPresidentScene(){const first=catalog.dialogues.dialogues.find(d=>d.presidentId===state.club.presidentId);if(first)$("scene").value=first.scene;}
+function reset(){memory=makeMemory();state=sample();alignPresidentScene();pending=null;log.length=0;$("choices").replaceChildren();$("effect").textContent="";stats();newEvent();newMicro();newDialogue();logMessage("Stagione di prova pronta.");}
+$("presidentSelect").onchange=()=>{state.club.presidentId=$("presidentSelect").value;alignPresidentScene();newEvent();newDialogue();};
+$("presidentOnly").onchange=()=>{if($("presidentOnly").checked)alignPresidentScene();newEvent();newDialogue();};
+$("losses").oninput=()=>{state.narrativeContext.lossStreak=Number($("losses").value);stats();};
+for(const id of ["marketRequest","derbyWeek","cupWeek"])$(id).onchange=()=>{state.narrativeContext[id]=$(id).checked;};
+$("lowCash").onchange=()=>{state.club.finance.cash=$("lowCash").checked?85000:750000;};
+for(const key of ["morale","fatigue","confidence","health"]) $(key).oninput=()=>{const n=Number($(key).value);state.players=state.players.map(p=>({...p,[key]:n}));stats();};
+$("weekBtn").onclick=()=>{state.week++;state.trainingDone=false;if(state.week>30){state.week=1;resetSeason(memory);}stats();logMessage("Nuova giornata: "+state.week);};
+$("trainBtn").onclick=()=>{state.trainingDone=!state.trainingDone;stats();};
+$("eventBtn").onclick=newEvent;$("microBtn").onclick=newMicro;$("dialogueBtn").onclick=newDialogue;
+$("category").onchange=newMicro;$("scene").onchange=newDialogue;$("reset").onclick=reset;
+try{
+ const [characters,events,micro,dialogues,presidents]=await Promise.all(["characters","events","microcopy","dialogues","presidents"].map(n=>fetch("./"+n+".json").then(r=>{if(!r.ok)throw Error(n+" "+r.status);return r.json();})));
+ catalog={events,micro,dialogues,presidents};
+ for(const p of presidents.presidents){const opt=document.createElement("option");opt.value=p.id;opt.textContent=p.name;$("presidentSelect").appendChild(opt);}
+ $("presidentSelect").value=presidents.presidents[0].id;
+ for(const c of characters.characters)codeNames[c.id]=c.name;
+ reset();
+}catch(e){$("title").textContent="Impossibile caricare i JSON";$("body").textContent=String(e)+". Avvia un server HTTP locale (vedi README.md).";$("summary").textContent="ERRORE DATI";}
+</script>
+</body></html>
