@@ -6,3 +6,5 @@ export * from './club.js';
 export * from './presidents.js';
 export * from './negotiations.js';
 export * from './board.js';
+export * from './objectives.js';
+export * from './period.js';
