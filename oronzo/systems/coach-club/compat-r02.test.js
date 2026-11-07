@@ -151,19 +151,17 @@ test('R02 integration: real Career 07 across two seasons, save/load and dismissa
  const sizes={PROM:2,INTER:2,C2:2,C1:2,B:2,A:2};
  let state=newCareer({leagueSizes:sizes},1985);
  const coachClubId=state.coach.clubId;
- // Explicit test adapter while agent 07 is implementing real salaries / IDs.
- for(const c of state.clubs){
-  c.presidentId=profiles[0].id;
-  for(const p of c.players) if(!Object.prototype.hasOwnProperty.call(p.contract??{},'weeklyWage'))
-   p.contract={...(p.contract||{}),weeklyWage:100};
- }
+ // Use the real canonical IDs and contracts created by Career 07 R02.
  const idx=state.clubs.findIndex(c=>c.id===coachClubId);
+ const currentProfile=resolveClubPresident(state.clubs[idx],catalog);
+ const contractPayroll=state.clubs[idx].players.reduce((n,p)=>n+p.contract.weeklyWage,0);
+ assert.ok(contractPayroll>0);
  state.clubs[idx]=createClub(state.clubs[idx],{sponsorPerWeek:0,travelCost:0,presidentCatalog:catalog});
  state.coach.contract={until:1988};
  state.coach=createCoach(state.coach);
- assert.equal(weeklyPayroll(state.clubs[idx]),1600);
+ assert.equal(weeklyPayroll(state.clubs[idx]),contractPayroll);
  let c=state.clubs[idx];
- c=conveneBoard(c,venturi,{week:1,absoluteWeek:1,seasonYear:1985,seed:7}).club;
+ c=conveneBoard(c,currentProfile,{week:1,absoluteWeek:1,seasonYear:1985,seed:7}).club;
  c=endClubWeek(c,{week:1,absoluteWeek:1,seasonYear:1985}).club;
  state.clubs[idx]=c;
  state=deserialize(serialize(state));
@@ -180,10 +178,10 @@ test('R02 integration: real Career 07 across two seasons, save/load and dismissa
  state=deserialize(serialize(state));
  c=state.clubs[idx];
  assert.equal(c.budget,initialCash);
- assert.equal(c.presidentId,venturi.id);
+ assert.equal(c.presidentId,currentProfile.id);
  assert.equal(c.finance.settledWeeks.includes('a:1'),true);
- const p2={week:1,absoluteWeek:state.maxWeek+1,seasonYear:state.seasonYear};
- const meeting=conveneBoard(c,venturi,{...p2,seed:8});
+ const p2={week:1,absoluteWeek:state.absoluteWeek,seasonYear:state.seasonYear};
+ const meeting=conveneBoard(c,currentProfile,{...p2,seed:8});
  assert.equal(meeting.accepted,true);
  c=endClubWeek(meeting.club,p2).club;
  assert.equal(c.finance.settledWeeks.length,2);
