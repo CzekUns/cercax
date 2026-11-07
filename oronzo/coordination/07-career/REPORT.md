@@ -1,6 +1,7 @@
 # RAPPORTO ORONZO-AGENT-07 — R03 · primo flow dati 1979
 
-**Stato:** DELIVERED / PR aperta da creare, NO MERGE
+**Stato:** PR_OPEN / DELIVERED FOR QA, NO MERGE
+**Pull Request:** https://github.com/CzekUns/cercax/pull/38
 **Branch:** `agent/oronzo-career-r03-flow`
 **Issue:** https://github.com/CzekUns/cercax/issues/9
 **Base main originale verificata:** `dcec6acc931c440597c3c28a6bd9f7d24d9bb94e`
