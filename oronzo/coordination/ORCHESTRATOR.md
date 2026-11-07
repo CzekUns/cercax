@@ -58,3 +58,9 @@ Quando la chat principale si interrompe, è sufficiente dire: «Riprendi l'orche
 - Verificato su GitHub che tutte le 10 PR sono ancora aperte, senza cambiamenti degli HEAD rispetto a R02; la PR #12 è draft. Tutti i 9 NEXT letti, nessuno dei 9 REPORT.md presente sui branch. Consultate le nove issue richieste e i contratti su main.
 - Nuovo **ORZ-P1-008** nella PR #17: `oronzo/systems/coach-club/finance.js` permette importi monetari negativi, e un'uscita negativa aumenta la cassa. Verifica **statica del codice**, senza esecuzione test; l'agente 09 è stato impostato `FIX_REQUESTED` nel suo NEXT su main, con richiesta di validazione e test regressione. Vedi REVIEW-QUEUE.
 - Non sono stati fatti merge, test runtime, correzioni al codice o nuovi incarichi Work. Gli altri problemi già registrati restano aperti; evitare duplicati.
+
+## Revisione oraria R05 — 7 novembre 2026
+- Controllati LIVE i 10 HEAD PR (#5,#6,#12–#19), ancora invariati; #12 draft. Letti i 9 NEXT, ricercati i 9 REPORT.md sui branch (tutti assenti), consultate le 9 issue richieste e i contratti condivisi. Nessun nuovo fix consegnato.
+- Corretto in `REVIEW-QUEUE.md` un disallineamento puramente documentale: PR #17 era `WAIT_REVIEW` nella tabella, mentre il NEXT dell'agente 09 è già `FIX_REQUESTED` dalla R03 per ORZ-P1-008. Non duplicare l'issue.
+- Esaminati staticamente i file `career.js`, `league.js`, `progression.js`, `save.js` (PR #14) e `finance.js` (PR #17). Nessun nuovo difetto dimostrato da assegnare. Nessun test runtime, nessun merge, nessun intervento sul codice, nessuna sessione Work.
+- Restano prioritarie le correzioni già assegnate ai moduli 04/05/06/09 e i REPORT.md mancanti. Prossima revisione: cercare nuovi HEAD, test e rapporti, evitando audit duplicati.
