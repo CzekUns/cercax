@@ -3,7 +3,7 @@ import {applyTrust} from './club.js';
 import {book,settleWeek} from './finance.js';
 import {presidentBehavior,presidentMatchesClub} from './presidents.js';
 import {normalizeSeasonObjective} from './objectives.js';
-import {periodOf,samePeriod,ledgerEntry} from './period.js';
+import {periodOf,samePeriod,ledgerEntry,periodLedgerError} from './period.js';
 
 const outcomeTrust={
   promotion:{win:4,draw:-1,loss:-5},top_half:{win:3,draw:0,loss:-4},
@@ -16,6 +16,8 @@ const wrongPresident=(club,profile)=>presidentMatchesClub(club,profile)?null:
 export function reviewMatch(club,profile,{matchId,snapshot,homeClubId,awayClubId,week,absoluteWeek,seasonYear},seed=1) {
   const mismatch=wrongPresident(club,profile);if(mismatch)return mismatch;
   const period=periodOf({week,absoluteWeek,seasonYear});
+  const domainError=periodLedgerError(club,period);
+  if(domainError)return {accepted:false,reason:domainError,club};
   if(!matchId)throw new Error('matchId required');
   // Unknown objectives are an integration error, never silent safety fallback.
   const objective=normalizeSeasonObjective(club.seasonObjective);
@@ -58,6 +60,8 @@ export function reviewMatch(club,profile,{matchId,snapshot,homeClubId,awayClubId
 export function conveneBoard(club,profile,{week,absoluteWeek,seasonYear,seed=1,marketNeed=0}={}) {
   const mismatch=wrongPresident(club,profile);if(mismatch)return mismatch;
   const period=periodOf({week,absoluteWeek,seasonYear});
+  const domainError=periodLedgerError(club,period);
+  if(domainError)return {accepted:false,reason:domainError,club};
   integer(marketNeed,'marketNeed');
   if(club.board.notices.some(n=>n.kind==='meeting'&&samePeriod(n,period)))
     return {accepted:false,reason:'already_met_this_week',club};
@@ -89,6 +93,8 @@ export function answerBoardRequest(club,coach,{week,absoluteWeek,seasonYear,requ
   if(!['accept','negotiate','decline'].includes(response))
     return {accepted:false,reason:'bad_response',club};
   const period=periodOf({week,absoluteWeek,seasonYear});
+  const domainError=periodLedgerError(club,period);
+  if(domainError)return {accepted:false,reason:domainError,club};
   const meeting=club.board.notices.find(n=>n.kind==='meeting'&&samePeriod(n,period));
   if(meeting && meeting.presidentId!==club.presidentId)
     return {accepted:false,reason:'president_mismatch',club};
@@ -106,6 +112,8 @@ export function answerBoardRequest(club,coach,{week,absoluteWeek,seasonYear,requ
 
 export function resolvePromises(club,{week,absoluteWeek,seasonYear,confirmedContributions={}}={}) {
   const period=periodOf({week,absoluteWeek,seasonYear});
+  const domainError=periodLedgerError(club,period);
+  if(domainError)throw new Error(domainError);
   let c=copy(club);
   for(let i=0;i<c.board.promises.length;i++) {
     const promise=c.board.promises[i];
@@ -141,6 +149,8 @@ export function resolvePromises(club,{week,absoluteWeek,seasonYear,confirmedCont
 
 export function applyClubEvent(club,event,optionId,{week,absoluteWeek,seasonYear}={}) {
   const period=periodOf({week,absoluteWeek,seasonYear});
+  const domainError=periodLedgerError(club,period);
+  if(domainError)return {accepted:false,reason:domainError,club};
   if(!event?.id || event.clubId!==club.id || !Array.isArray(event.options))
     return {accepted:false,reason:'invalid_event',club};
   const option=event.options.find(o=>o.id===optionId);
