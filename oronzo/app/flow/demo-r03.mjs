@@ -6,18 +6,23 @@ import {
   newGame,listInitialOffers,acceptOffer,answerOpeningPress,prepareMatch,tickMatch,
   consumeMatchResult,answerPostMatchPress,advanceMatchday,saveGame,loadGame
 } from './controller.js';
+import {qaAvatar,qaMunicipalityCatalog} from './tests/qa-geography.mjs';
 const json=p=>JSON.parse(readFileSync(new URL(p,import.meta.url),'utf8'));
 const press={opening:json('../../content/press-opening.json'),
   postmatch:json('../../content/press-postmatch.json'),media:json('../../content/press-media.json')};
 const presidents=json('../../content/presidents.json');
 const store=new Map(),storage={getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,v)};
 const state=newGame({
- seed:1979,avatar:{id:'mister-demo',traits:{luck:50,leadership:60,selfEsteem:60,patience:50},
-   origin:{municipalityId:null,regionId:null,macroRegion:null}},
+ seed:1979,avatar:qaAvatar,municipalityCatalog:qaMunicipalityCatalog(),
  leagueSizes:{PROM:4,INTER:4,C2:4,C1:4,B:4,A:4}
 });
-const offer=listInitialOffers(state).find(o=>o.clubId!=='PROM-01');
-acceptOffer(state,offer.id,{press});
+// Synthetic QA geography, never advertised as reviewed real ISTAT places.
+const offer=listInitialOffers(state).find(o=>state.clubs.find(c=>c.id===o.clubId)
+  ?.macroRegion!==state.coach.origin.macroRegion);
+if(!offer)throw Error('QA test fixture needs an out-of-macro offer');
+const signed=acceptOffer(state,offer.id,{press});
+if(!signed.accepted || signed.effectStatus!=='applied')
+  throw Error('Real Agent09 morale must be applied: '+signed.reason);
 for(const q of state.flow.press.opening.questions)
   answerOpeningPress(state,q.id,q.answers[0].id);
 const prepared=prepareMatch(state);
@@ -35,5 +40,9 @@ if(loaded?.state?.absoluteWeek!==2)throw Error('Save/load lost week 2');
 console.log(JSON.stringify({status:'HEADLESS_R03_DEMO',startYear:1979,clubId:state.coach.clubId,
   offerId:offer.id,playedFixtureId:played.fixtureId,engineScore:played.score,
   nextGameDate:loaded.state.gameDate,absoluteWeek:loaded.state.absoluteWeek,
-  simulator:'other fixtures only',world:'fictional demo, no verified municipality dataset',
-  coachMorale:'Agent09 effect API pending',saveSequence:save.sequence},null,2));
+  simulator:'other fixtures only',
+  world:'SYNTHETIC_QA_ONLY_NOT_ISTAT (fictional input, never reviewed national data)',
+  coachMorale:loaded.state.coach.morale,
+  moraleEvents:loaded.state.coach.moraleEvents.length,
+  pendingEffects:Object.values(loaded.state.flow.effectTransactions).filter(e=>e.status!=='applied').length,
+  saveSequence:save.sequence},null,2));
