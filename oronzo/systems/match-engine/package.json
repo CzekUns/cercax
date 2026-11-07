@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "demo": "node cli-demo.mjs"
+    "demo": "node cli-demo.mjs",
+    "qa": "node cli-qa.mjs"
   },
   "engines": { "node": ">=18" }
 }
