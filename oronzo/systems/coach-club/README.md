@@ -4,7 +4,7 @@ Sistema ESM autonomo per una carriera calcistica ambientata nel 1985–86. L'ute
 
 ## Esecuzione
 
-Nella directory di questo modulo, lanciare: **node --test** (14 test), oppure **npm test**. Per la demo HTML servire la root del repository con **python3 -m http.server 8000**, poi aprire http://localhost:8000/oronzo/systems/coach-club/coach-club-demo.html in landscape 16:9. La demo è diagnostica, non grafica finale.
+Nella directory di questo modulo, lanciare: **node --test** (23 test), oppure **npm test**. Per la demo HTML servire la root del repository con **python3 -m http.server 8000**, poi aprire http://localhost:8000/oronzo/systems/coach-club/coach-club-demo.html in landscape 16:9. La demo è diagnostica, non grafica finale.
 
 ## API pubbliche
 
@@ -23,7 +23,7 @@ Le azioni con esiti condizionali restituiscono un oggetto con accepted, reason e
 
 - budget e finance.cash rappresentano la **cassa disponibile in lire nominali intere (ITL)**. wageBudget rappresenta un **tetto salariale settimanale**, non denaro depositato.
 - player.contract.weeklyWage è lo stipendio settimanale in lire, estensione di PlayerV1; valore mancante = 0. Sponsor, trasferte e bonus sono parametri del gioco, non listini storici verificati.
-- Ogni settimana si incassano sponsor ed eventuali entrate documentate, si pagano arretrati, stipendi, trasferta e premi. Gli oneri obbligatori non pagati diventano arrears: la cassa non scende sotto zero. Spese discrezionali superiori alla cassa vengono rifiutate.
+- La validazione finanziaria rifiuta importi negativi, null, non interi, NaN/Infinity e somme oltre Number.MAX_SAFE_INTEGER. Controlla i valori **prima** della serializzazione JSON, impedendo che NaN/Infinity vengano convertiti a null. Test in finance-validation.test.js.\n- Ogni settimana si incassano sponsor ed eventuali entrate documentate, si pagano arretrati, stipendi, trasferta e premi. Gli oneri obbligatori non pagati diventano arrears: la cassa non scende sotto zero. Spese discrezionali superiori alla cassa vengono rifiutate.
 - Il mister avvia una richiesta, il direttore sportivo e il presidente la valutano, poi si negozia con il club cedente. L'acquisto modifica rosa e cassa **solo** al perfezionamento, con nuovo controllo di liquidità e monte stipendi. Le cessioni richiedono approvazione e offerta reale.
 - Promesse del presidente restano pledged finché il chiamante non attesta un contributo esterno; a scadenza possono diventare broken, con conseguenze su fiducia e morale.
 
@@ -41,6 +41,6 @@ reviewMatch accetta soltanto snapshot del match engine con phase=fulltime, t>=54
 
 ## Funzionalità e limiti
 
-**Implementate:** cassa e arretrati, sponsor/trasferte/stipendi, personale societario elementare, mister e comandi, mercato mediato con rifiuti e contro-verifiche, presidenti a otto archetipi, fiducia e possibile esonero, riunioni e risposte, promesse, eventi con whitelist/cooldown, demo locale e 14 test.
+**Implementate:** cassa e arretrati, sponsor/trasferte/stipendi, personale societario elementare, mister e comandi, mercato mediato con rifiuti e contro-verifiche, presidenti a otto archetipi, fiducia e possibile esonero, riunioni e risposte, promesse, eventi con whitelist/cooldown, demo locale e 23 test (14 test funzionali + 9 regressioni ORZ-P1-008).
 
 **Da integrare nel gioco globale:** match engine, carriera, contenuti originali dell'agente 4, allenamento dell'agente 8 e interfaccia pixel-art dell'agente 3. Da ampliare in futuro: durate/rinnovi dei contratti, cessioni con aste multi-club, staff completo, dati economici d'epoca verificati.
