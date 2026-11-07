@@ -57,7 +57,7 @@ footer a{color:white;font-size:10px;white-space:nowrap}
   <h2>LA PANCHINA DEL MISTER</h2>
   <div class="actions">
    <button id="start" class="primary span2">▶ CALCIO D'INIZIO</button>
-   <button id="pause" disabled>Ⅱ PAUSA</button><button id="speed">VELOCITÀ 1×</button>
+   <button id="pause" disabled>Ⅱ PAUSA</button><button id="speed">1× · ~15 MIN</button>
    <button id="reset" class="span2">↺ NUOVA PARTITA</button>
   </div>
   <div class="stats">
@@ -87,12 +87,13 @@ footer a{color:white;font-size:10px;white-space:nowrap}
 import {createMatch} from './systems/match-engine/match-engine.js';
 import {makeFixture} from './systems/match-engine/fixtures.js';
 import {createMatchView,createEngineViewBridge} from './systems/match-view/match-view.js';
+import {QUICK_MATCH_SIM_SECONDS_PER_REAL_SECOND,quickMatchSimDelta,quickMatchDurationMinutes} from './quick-match-clock.js';
 
 const el = id => document.getElementById(id);
 const HOME = 'montevento', AWAY = 'portoselva';
 const names = new Map();
 let serial = 41, input, match, view, bridge, playing = false, paused = false, finished = false, speed = 1, used = new Set();
-let lastFrame = performance.now();
+let lastFrame = performance.now(), lastRenderedT = -1;
 const relevant = new Set(['goal','save','shot','foul','card','injury','substitution','offside','halftime','fulltime','kickoff']);
 const kits = {
   home:{skin:'#d6a16f',hair:'#38231a',shirt:'#245ad2',shirtB:'#f9e7ab',shorts:'#ededee',socks:'#f1e6b8',boots:'#22202c',pattern:'solid'},
@@ -141,6 +142,7 @@ function rosterChoices(){
 }
 function sync(){
  const batch=bridge.sync(performance.now());
+ lastRenderedT=batch.snapshot.t;
  updateStats(batch.snapshot);
  for(const e of batch.events)if(relevant.has(e.type))el('news').textContent=fmt(e.t)+' · '+describe(e);
  return batch.snapshot;
@@ -158,6 +160,7 @@ function newGame(){
   homeTeamId:HOME,awayTeamId:AWAY,
   keeperIds:[input.homeXI[0],input.awayXI[0]],
   appearances:kits,autoStart:true,showTechnicalFallbackLabel:true,
+  simSecondsPerRealSecond:QUICK_MATCH_SIM_SECONDS_PER_REAL_SECOND,
   onWarning:()=>{}
  }});
  view.ready.then(()=>{if(!playing&&!finished)message('Sprite caricati. Scegli tattica e premi CALCIO D’INIZIO.');})
@@ -167,7 +170,7 @@ function newGame(){
  sync();rosterChoices();
  el('start').disabled=false;el('start').textContent='▶ CALCIO D’INIZIO';
  el('pause').disabled=true;el('pause').textContent='Ⅱ PAUSA';
- el('speed').textContent='VELOCITÀ 1×';
+ el('speed').textContent='1× · ~'+quickMatchDurationMinutes(1)+' MIN';
  el('homeName').textContent=input.homeClub.name.toUpperCase();el('awayName').textContent=input.awayClub.name.toUpperCase();
  el('news').textContent='Dallo spogliatoio: «Mister, speriamo ci sia ancora il pullman al ritorno.»';
  message('Prepara gli ordini, poi inizia la partita.');
@@ -177,7 +180,7 @@ function resume(){
  playing=true;paused=false;match.setPaused(false);view.setPaused(false);
  el('pause').disabled=false;el('pause').textContent='Ⅱ PAUSA';
  el('start').disabled=true;el('start').textContent='IN CAMPO';
- message('Partita in corso. Ordini e cambi incidono sul motore calcistico.');
+ message('Partita in corso. Ritmo normale: 90 minuti in circa 15 minuti reali.');
  lastFrame=performance.now();
 }
 function pause(){
@@ -201,7 +204,7 @@ el('reset').addEventListener('click',newGame);
 el('speed').addEventListener('click',()=>{
  speed=speed===8?1:speed*2;
  match.setSpeed(speed);view.setSpeed(speed);
- el('speed').textContent='VELOCITÀ '+speed+'×';
+ el('speed').textContent=speed+'× · ~'+quickMatchDurationMinutes(speed)+' MIN';
  message('Ritmo partita '+speed+'×. Gli eventi restano calcolati dal motore.');
 });
 for(const [id,key] of [['press','pressing'],['mental','mentality']]){
@@ -235,12 +238,17 @@ document.addEventListener('visibilitychange',()=>{
 function loop(now){
  const dt=Math.min(.12,Math.max(0,(now-lastFrame)/1000));lastFrame=now;
  if(playing&&!paused&&!finished){
-  match.advanceRealSeconds(dt);
-  const s=sync();
-  if(match.isFinished()){
-   playing=false;finished=true;view.setPaused(true);el('pause').disabled=true;
-   el('start').disabled=false;el('start').textContent='▶ NUOVA PARTITA';
-   message('Partita terminata: '+s.score.home+' – '+s.score.away+'. Puoi iniziarne un’altra.');
+  // 1× = six simulated seconds per real second (a readable ~15-minute match).
+  match.step(quickMatchSimDelta(dt,speed));
+  const latest=match.snapshot();
+  // Do not push duplicate snapshots each animation frame: that resets sprite blending.
+  if(latest.t!==lastRenderedT){
+   const s=sync();
+   if(match.isFinished()){
+    playing=false;finished=true;view.setPaused(true);el('pause').disabled=true;
+    el('start').disabled=false;el('start').textContent='▶ NUOVA PARTITA';
+    message('Partita terminata: '+s.score.home+' – '+s.score.away+'. Puoi iniziarne un’altra.');
+   }
   }
  }
  requestAnimationFrame(loop);
