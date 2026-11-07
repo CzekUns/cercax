@@ -1,0 +1,26 @@
+name: ORONZO R06B combined native gate
+on:
+  push:
+    branches: [audit/oronzo-r06b-gate]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Assemble exact PR39 and PR38
+        run: |
+          git fetch origin main 80df15139d37c4ee36103001d6a24528037daed4 fdb73078b0c83fe917424c94265c09ddec8b3adf
+          git checkout origin/main -- oronzo
+          git checkout 80df15139d37c4ee36103001d6a24528037daed4 -- oronzo/systems/coach-club oronzo/coordination/09-coach-club/REPORT.md
+          git checkout fdb73078b0c83fe917424c94265c09ddec8b3adf -- oronzo/app/flow oronzo/systems/career oronzo/coordination/07-career/REPORT.md
+          git status --short
+      - name: Native flow and E2E
+        run: node --test oronzo/app/flow/tests/*.mjs
+      - name: Native career and coach club
+        run: node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js
+      - name: Real demo
+        run: node oronzo/app/flow/demo-r03.mjs
