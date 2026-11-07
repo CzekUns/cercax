@@ -1,68 +1,52 @@
-# QA · Agente 4 — ORONZO Copy
+# QA · Agente 4 — ORONZO Copy · correzione PR #13
 
-**Branch:** agent/oronzo-copy
-**Perimetro:** esclusivamente oronzo/content/
-**Campione ambiente:** Italia provinciale, 1985–86; UI orizzontale 16:9.
+**Stato:** correzione FIX_REQUESTED completata sul branch `agent/oronzo-copy` (merge demandato all'orchestratore).
+**Perimetro:** `oronzo/content/`. Ambientazione: provincia italiana, stagione 1985–86.
 
-## Conteggi verificati su dati letti dal branch
+## Conteggi verificati sul HEAD remoto (7 novembre 2026)
 
-| Materiale | Verificati | Minimo richiesto |
-| --- | ---: | ---: |
-| Personaggi ricorrenti | **16** | 12 |
-| Eventi con scelte | **57** | 40 |
-| Microtesti | **144** | 80 |
-| Categorie microcopy | **14** | — |
-| Dialoghi brevi | **26** | 20 |
-| Varianti di dialogo | **52** | — |
+| Dato | Prima | Ora | Minimo |
+| --- | ---: | ---: | ---: |
+| Personaggi | 16 | **23** | 12 |
+| Presidenti PresidentProfileV1 | 0 | **8** | 8 |
+| Eventi totali | 57 | **73** | 40 |
+| Eventi con `presidentId` | 0 | **20** (16 nuovi + 4 originali protetti) | 16 |
+| Microcopy | 144 | **144** | 80 |
+| Dialoghi | 26 | **42** | 20 |
+| Dialoghi con `presidentId` | 0 | **22** (16 nuovi + 6 originali protetti) | 12 |
+| Varianti dialoghi | 52 | **84** | — |
 
-Tutti e quattro i JSON sono stati ripresi da GitHub e analizzati con JSON.parse; controllo ID unici, speaker e relazioni valide, 2 scelte per evento, condizioni documentate, target ed effetti nei limiti del contratto. **Nessun errore rilevato**. Nessun duplicato esatto tra i 144 microtesti.
+Tutti gli otto presidenti hanno un archetipo differente, biografia, obiettivo, contraddizione privata, rapporto col mister, almeno tre battute, sette valori `traits` interi nel range 0–100 e due `behaviorTriggers` che puntano a eventi esistenti. `gaetano_venturi` mantiene il proprio ID storico. Gli altri sette presidenti sono presenti anche in `characters.json`. Ogni presidente dispone di almeno due nuovi eventi e due nuovi dialoghi.
 
-### Lunghezze massime rilevate (in caratteri)
+## Validazioni realmente eseguite
 
-| Canale | Massimo rilevato | Limite |
-| --- | ---: | ---: |
-| headline | 48 | 55 |
-| subhead | 101 | 140 |
-| notice | 83 | 110 |
-| commentary | 73 | 110 |
-| ticker | 56 | 65 |
-| dialogue (eventi, varianti, dialoghi, personaggi) | sotto 180 | 180 |
-| choice_label | sotto 38 | 38 |
+1. Letti via connettore GitHub i file `characters.json`, `presidents.json`, `events.json`, `microcopy.json`, `dialogues.json`, `narrative-engine.js`, `validate.mjs`, `demo.html` dal branch.
+2. Eseguito `JSON.parse` per tutti e cinque i JSON, senza errori.
+3. Valutato l'ESM `narrative-engine.js` in un runtime JavaScript V8 (rimuovendo soltanto i token `export` per l'esecuzione isolata).
+4. Eseguita la **logica reale di `validate.mjs`** in V8 sostituendo soltanto le API Node di lettura filesystem con oggetti caricati da GitHub: esito `ORONZO COPY: OK`, nessun errore. Output: 23 personaggi, 8 presidenti, 20 eventi e 22 dialoghi presidenziali, 73 eventi, 144 microcopy, 42 dialoghi, 84 varianti e 83 riferimenti a futureEffects.
+5. Verificati ID univoci, speaker e relazioni esistenti, metadati `PresidentProfileV1`, campi numerici e limiti UI, scelta evento, random campionato una sola volta, cooldown, trigger ignoti rifiutati, mutazione evitata, statistiche clamp e classifica non modificata.
+6. Per ciascuno degli 8 presidenti, costruito uno stato di prova con `club.presidentId` e contesto narrativo, verificato che **almeno due eventi risultino eleggibili**, che nessun evento di altri presidenti sia presente e che un dialogo collegato sia selezionabile.
+7. Il codice JS del `<script type="module">` della demo passa la compilazione sintattica come AsyncFunction, con rimozione della sola istruzione `import`.
 
-### Smoke test del selettore, eseguito sui dati reali
+**Non eseguiti e non dichiarati:** `node oronzo/content/validate.mjs` in una vera checkout locale, test visuale/touch su telefono, E2E browser, import diretto dalla PR #17 dell'Agente 9. Il codice Node è stato testato per la sua logica in V8 con input equivalenti, non come processo Node con filesystem reale. Comando che l'orchestratore può riprodurre su una checkout:
 
-La sorgente ESM e lo script della demo sono stati sottoposti a parsing; il selettore è stato eseguito in ambiente JavaScript su uno stato simulato a 16 calciatori. Verifiche positive:
+    node oronzo/content/validate.mjs
 
-- Le soglie di fortuna, carattere e classifica derivano correttamente dallo stato.
-- I trigger sconosciuti vengono rifiutati, non ignorati.
-- La selezione pesata chiama la funzione random una sola volta per estrazione.
-- Un evento appena presentato non si ripete immediatamente nella stessa giornata.
-- Gli effetti modificano una nuova copia dei calciatori, senza mutare l'originale.
-- Una scelta non modifica punteggi, classifica o risultati.
-- Gli effetti societari futuri vengono restituiti come deferred, senza applicarli.
-- Microtesti e dialoghi vengono selezionati con i rispettivi contesti.
-- Reset stagionale azzera le memorie di cooldown.
+## Proprietà narrative e controllo qualità
 
-**Il file validate.mjs è stato consegnato per la ripetizione locale e la futura CI.** I controlli equivalenti sono stati eseguiti sul contenuto remoto con il runtime JS disponibile. Non si dichiara un test reale della demo su dispositivo né l'esecuzione del comando Node direttamente nel repository remoto.
+- **Stile:** dialoghi originali con voce distinta (presidente formale, intermediario, industriale, visionario, ex calciatore, notabile, imprenditrice, tribuno). Tensione reale e comicità distribuite, nessuna battuta riconoscibile di film o giochi citati come ispirazione.
+- **1985:** mercato attraverso società/direttore, uso di carta, telefonate e radio; il copy non usa social/VAR/smartphone. Le notizie di risultati sono condizionate allo stato realmente disponibile.
+- **Selettore:** senza `presidentId` attivo, gli eventi e dialoghi specifici del presidente non scattano; nemmeno quelli di Venturi all'interno del nuovo sistema. Questo evita la comparsa simultanea di presidenti di club differenti.
+- **Economia:** le condizioni di cassa leggono lire nominali dello stato reale; i `futureEffects` restano inattivi. I vecchi `clubCash` astratti non possono essere passati all'Agente 9 come importi ITL senza un adattatore.
+- **Risultati:** eventi, personaggi e microtesti non modificano mai direttamente score, goal, infortuni o classifica. Le due correzioni storiche al vecchio game.js (due punti per vittoria; limite cambi) restano fuori scope.
 
-## Revisione editoriale
+## Dipendenze e limiti per integrazione
 
-- I personaggi hanno obiettivi che entrano in conflitto: Venturi chiede ambizione, Bassi chiede conti, Moro protegge il gruppo, Lenzi vuole segnare, Corsi cerca il titolo, Sarti tutela la salute.
-- Si alternano eventi ordinari, tensioni credibili, satira amministrativa e imprevisti. Nessun evento scritto forza una rete, un'infortunio grave o una vittoria.
-- La scaramanzia è comportamento del personaggio: non viene spacciata per terapia o manipolazione certa della fortuna.
-- I testi evitano nomi, citazioni e situazioni distintive protette delle opere ispiratrici; niente imitazioni di volti o voci.
-- Lessico analogico 1985: quotidiani locali, radiolina, gettoni, segreteria, timbri, pullman, municipio. Nessun dialetto fabbricato.
-- Individuate e corrette in microcopy due occorrenze di «Tre punti» a «Due punti», coerenti col sistema storico del 1985.
+- Agente 9 (PR #17): `loadPresidents(fetchJson)` accetta l'involucro `{presidents:[...]}`, `validatePresident` richiede i sette tratti e il profilo base. I campi extra `behaviorTriggers`, `lines`, `relations`, `coachRelationship` restano proprietà narrative; non sono input comportamentali automatici del suo `presidentBehavior`.
+- Orchestratore: deve associare un solo `ClubV1.presidentId` alla società attiva e fornire `narrativeContext.lossStreak/marketRequest/derbyWeek/cupWeek` da dati veri di risultati, richieste e calendario, oltre a `club.boardTrust` e `club.finance.cash`.
+- I tre calciatori ricorrenti con nomi narrativi richiedono binding a `PlayerV1` della rosa reale; nessuna rinomina automatica dei salvataggi.
+- Il pacchetto è ancora isolato dal gioco `game.js`. Demo ed ESM sono per l'orchestratore; nessun merge effettuato.
 
-## Rischi e handoff
+## Esito
 
-1. **Integrazione non effettuata:** game.js resta immutato. Al momento manca il caricamento eventi in partita/gestione; tocca all'orchestratore.
-2. **Rosa procedurale:** i tre calciatori ricorrenti con nome devono essere legati alle posizioni reali, senza inventare presenza nella formazione esistente.
-3. **Effetti futuri:** finanza, dirigenti, amministrazione, tifoseria e stampa sono annotati, non persistiti dal motore.
-4. **lastResult:** non compare nello stato persistito attuale; i trigger su vittoria/sconfitta richiedono il valore reale derivato dal match.
-5. **Storicamente incoerente nel motore attuale:** 3 punti a vittoria anziché 2 e 5 sostituzioni invece delle 2 comunemente permesse nel 1985. Segnalazione documentata in README, senza toccare i file dell'orchestratore.
-6. **Demo:** ESM e script verificati sintatticamente; resa grafica su smartphone e comportamento browser reale richiedono test manuale dopo l'integrazione.
-
-Test locale ripetibile: node oronzo/content/validate.mjs
-
-I contenuti non si basano su immagini o musica di terzi. L'umorismo è pensato per restare in secondo piano rispetto alla simulazione sportiva.
+**Controlli strutturali e smoke test V8: PASS.** QA browser/manuale e integrazione transmodulare: da eseguire da orchestratore. Nessun conflitto di proprietà con gli altri agenti.
