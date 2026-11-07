@@ -10,7 +10,8 @@ import { simulateOtherFixture } from '../../systems/career/uncontrolled-fixtures
 import { seededRandom } from '../../systems/career/league.js';
 import { createSaveManager, serialize, deserialize } from '../../systems/career/save.js';
 import { createClub, createCoach, prepareMatchday, conveneBoard,
-  reviewMatch, endClubWeek, resolveClubPresident } from '../../systems/coach-club/index.js';
+  reviewMatch, endClubWeek, resolveClubPresident,
+  previewOfferMorale, applyOfferEffect, applyPressEffect } from '../../systems/coach-club/index.js';
 import { createMatch } from '../../systems/match-engine/match-engine.js';
 import { createPressConference, answerPressConference } from '../../content/press-kit.js';
 
@@ -19,6 +20,31 @@ export const START_YEAR=1979;
 export const MATCH_SIM_SECONDS_PER_REAL_SECOND=6; // 5400 simulated / 900 real = 15 min at 1x
 const clone=value=>JSON.parse(JSON.stringify(value));
 const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+const knownMacros=new Set(['north','centre','south']);
+const macroAlias=Object.freeze({nord:'north',centro:'centre',sud:'south'});
+const normalizeOrigin=origin=>{
+  if(!origin)return null;
+  const result=clone(origin);
+  if(result.macroRegion in macroAlias)result.macroRegion=macroAlias[result.macroRegion];
+  return result;
+};
+const commitDraft=(state,draft)=>{
+  for(const key of Object.keys(state))delete state[key];
+  Object.assign(state,draft);
+};
+function preflightOfferGeography(state,club) {
+  const origin=state.coach.origin, missing=[];
+  for(const [label,geo] of [['coach',origin],['club',club]]) {
+    if(typeof geo?.regionId!=='string'||!geo.regionId.trim())missing.push(label+'.regionId');
+    if(!knownMacros.has(geo?.macroRegion))missing.push(label+'.macroRegion');
+  }
+  if(origin?.regionId===club?.regionId && origin?.macroRegion!==club?.macroRegion)
+    missing.push('region_macroRegion_mismatch');
+  return missing.length ? {
+    accepted:false,reason:'geography_required',messageKey:'oronzo.geography_required',
+    missing,worldStatus:state.world?.datasetStatus??'unknown'
+  } : null;
+}
 const dateAt=(year,week,month=8,day=1)=>{
   const date=new Date(Date.UTC(year,month-1,day)+ (week-1)*7*86400000);
   return date.toISOString().slice(0,10);
@@ -77,48 +103,66 @@ function startPress(state,phase,press,sessionKey,context={}) {
   state.flow.press[phase]=session;
   return session;
 }
-function recordEffect(state, eventId,kind,semanticEffects,applier,additional={}) {
+function recordEffect(state,eventId,kind,semanticEffects,additional={}) {
   if(own(state.flow.effectTransactions,eventId))
     return {status:state.flow.effectTransactions[eventId].status,duplicate:true};
-  const stored={eventId,kind,semanticEffects:clone(semanticEffects),status:'awaiting_agent09',...additional};
-  if(applier) {
+  const stored={eventId,kind,semanticEffects:clone(semanticEffects),
+    status:'awaiting_agent09',...additional};
+  if(state.flow.effectsMode!=='isolated_test') {
+    const applier=kind==='initial_offer' ? applyOfferEffect :
+      kind==='press' ? applyPressEffect : null;
+    if(typeof applier!=='function')throw new Error('AGENT09_MORALE_UNAVAILABLE');
     const club=state.coach.clubId?clubById(state,state.coach.clubId):null;
     const result=applier({
       eventId,kind,semanticEffects:clone(semanticEffects),offer:additional.offer??null,
-      coach:clone(state.coach),club:club?clone(club):null
+      coach:clone(state.coach),club:club?clone(club):null,date:state.gameDate
     });
-    if(!result || result.accepted!==true || !result.coach)
-      throw new Error('Agent09 effect applier must atomically confirm applied coach');
+    const applied=Boolean(result?.accepted===true && result.coach);
+    const replay=Boolean(result?.accepted===false &&
+      ['already_applied','source_already_applied'].includes(result.reason) &&
+      result.coach?.moraleEvents?.some(e=>e.eventId===eventId));
+    if(!applied && !replay)
+      throw new Error('AGENT09_MORALE_NOT_APPLIED: '+String(result?.reason??'invalid_result'));
     state.coach=clone(result.coach);
-    if(result.club)state.clubs[state.clubs.findIndex(c=>c.id===result.club.id)]=clone(result.club);
+    if(result.club) {
+      const index=state.clubs.findIndex(c=>c.id===result.club.id);
+      if(index<0)throw new Error('AGENT09_UNKNOWN_CLUB');
+      state.clubs[index]=clone(result.club);
+    }
     stored.status='applied';
+    stored.moraleEventId=eventId;
+    stored.moraleAfter=state.coach.morale;
   }
   state.flow.effectTransactions[eventId]=stored;
   return {status:stored.status,duplicate:false};
 }
-function answerPress(state,phase,questionId,answerId,{press,applyPressEffect}={}) {
+function answerPress(state,phase,questionId,answerId,{press}={}) {
   ensureLive(state);
   const stage=phase==='opening'?'opening_press':'postmatch_press';
   if(state.flow.stage!==stage)return {accepted:false,reason:'wrong_stage'};
-  const key=phase==='opening'?state.flow.acceptedOfferId:state.flow.finalMatch?.fixtureId;
+  const draft=clone(state); // The coach event and the conference answer commit together.
+  const key=phase==='opening'?draft.flow.acceptedOfferId:draft.flow.finalMatch?.fixtureId;
   const context=phase==='postmatch'?{
-    matchFinal:true,matchId:key,result:state.flow.finalMatch.result,
-    venue:state.flow.finalMatch.homeId===state.coach.clubId?'home':'away'
+    matchFinal:true,matchId:key,result:draft.flow.finalMatch.result,
+    venue:draft.flow.finalMatch.homeId===draft.coach.clubId?'home':'away'
   }:{};
-  const session=startPress(state,phase,press,key,context);
+  const session=startPress(draft,phase,press,key,context);
   if(!session)return {accepted:false,reason:'press_catalog_required'};
   const answer=answerPressConference(session,questionId,answerId);
   if(!answer.accepted)return answer;
-  // Perform external effect first (if available), so failed applier leaves answers uncommitted.
-  const status=recordEffect(state,answer.effectTransactionId,'press',answer.semanticEffects,applyPressEffect);
-  state.flow.press[phase]=answer.session;
-  if(answer.session.completed)state.flow.stage=phase==='opening'?'hub':'postmatch_ready';
+  const status=recordEffect(draft,answer.effectTransactionId,'press',answer.semanticEffects);
+  draft.flow.press[phase]=answer.session;
+  if(answer.session.completed)draft.flow.stage=phase==='opening'?'hub':'postmatch_ready';
+  commitDraft(state,draft);
   return {...answer,effectStatus:status.status};
 }
 
 export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il Mister',
-  leagueSizes,playerVisualById={},clubVisualKitsById={},startDate='1979-08-01'}={}) {
+  leagueSizes,playerVisualById={},clubVisualKitsById={},startDate='1979-08-01',
+  effectsMode='integrated'}={}) {
   if(!Number.isSafeInteger(seed))throw new Error('seed must be an integer');
+  if(!['integrated','isolated_test'].includes(effectsMode))
+    throw new Error('Unknown morale integration mode');
   if(!avatar || !String(avatar.id??'').trim())throw new Error('Selected avatar ID required');
   const traits=avatar.traits;
   if(!traits || ['luck','leadership','selfEsteem','patience']
@@ -153,13 +197,13 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
     ...(c.visualKits?{visualKits:clone(c.visualKits)}:{})
   }));
   state.world=assignment.world;
-  if(state.world.mode==='reviewed_data' && avatar.origin?.municipalityId &&
+  if(state.world.data && avatar.origin?.municipalityId &&
     !state.world.data.records.some(r=>r.municipalityId===avatar.origin.municipalityId))
-    throw new Error('Coach home city not found in reviewed dataset');
+    throw new Error('Coach home city not found in supplied catalog');
   state.coach=createCoach({...state.coach,clubId:null,contract:null,avatarId:avatar.id,
-    origin:avatar.origin??null,traits:clone(traits),hiredSeason:START_YEAR,
+    origin:normalizeOrigin(avatar.origin),traits:clone(traits),hiredSeason:START_YEAR,
     employmentHistory:[],gameOver:null});
-  // Morale is Agent09-owned. No invented default or discount is applied here.
+  // Agent09 createCoach supplies numerical V2 morale, moraleEvents and relationships.
   state.gameDate=startDate;
   state.calendarPolicy={kind:'gameplay_assumption',seasonStartMonth:Number(startDate.slice(5,7)),
     seasonStartDay:Number(startDate.slice(8,10)),
@@ -168,32 +212,39 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
   state.flow={version:FLOW_VERSION,stage:'offers',initialOffers:[],acceptedOfferId:null,
     acceptedOffer:null,press:{opening:null,postmatch:null},
     finalMatch:null,pendingMatch:null,resultSources:{},
-    effectTransactions:{},history:[],pressDependency:'agent09_effects_unavailable_without_adapter'};
+    effectTransactions:{},history:[],effectsMode,
+    pressDependency:effectsMode==='isolated_test'?'isolated_test_only':'agent09_integrated'};
   createInitialOffers(state);
   return state;
 }
 
 export function listInitialOffers(state) { return offersView(state); }
-export function acceptOffer(state,offerId,{previewOfferMorale,applyOfferEffect,press}={}) {
+export function acceptOffer(state,offerId,{press}={}) {
   ensureLive(state);
   const found=state.flow.initialOffers.find(o=>o.id===offerId);
   if(!found)return {accepted:false,reason:'unknown_offer'};
   if(state.flow.acceptedOfferId)return {
     accepted:false,reason:state.flow.acceptedOfferId===offerId?'already_accepted':'opening_contract_already_signed'
   };
-  // Compute the effect on a detached draft before accepting/persisting the offer.
+  const club=clubById(state,found.clubId);
+  if(state.flow.effectsMode!=='isolated_test') {
+    // In real gameplay location is mandatory. Never infer an Italian region for
+    // fictional demo clubs and never partially sign an unpreviewable contract.
+    const unavailable=preflightOfferGeography(state,club);
+    if(unavailable)return unavailable;
+  }
   const draft=clone(state);
-  const preview=previewOfferMorale ? previewOfferMorale(clone(draft.coach),clone(found),
-    clone(clubById(draft,found.clubId))) : null;
+  const preview=draft.flow.effectsMode==='isolated_test' ? null :
+    previewOfferMorale(clone(draft.coach),clone(found),clone(club));
   const accepted=selectInitialOffer(draft,offerId);
   if(!accepted.accepted)return accepted;
   const eventId='offer-morale:'+offerId;
-  const effect=recordEffect(draft,eventId,'initial_offer',{preview},applyOfferEffect,{offer:found});
+  const effect=recordEffect(draft,eventId,'initial_offer',{preview},{offer:found});
   startPress(draft,'opening',press,offerId);
-  for(const k of Object.keys(state))delete state[k];
-  Object.assign(state,draft);
+  commitDraft(state,draft);
   return {...accepted,effectStatus:effect.status,previewMorale:preview};
 }
+
 export function answerOpeningPress(state,questionId,answerId,options) {
   return answerPress(state,'opening',questionId,answerId,options);
 }
