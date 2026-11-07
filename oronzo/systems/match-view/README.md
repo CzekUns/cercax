@@ -96,3 +96,24 @@ Verificato in locale con Node 22.16.0: **22 test passati / 0 falliti** (`node --
 - Sprite `32 × 32` ancorati al pivot `(16,29)`, atlas direzioni 8 e 4 frame. Le 5 azioni condivise sono reali. Tackle, shot e save one-shot mantengono l'ultimo frame finché lo snapshot del motore non cambia azione.
 - Cutscene: ricostruzione tramite strip, background e maschere degli asset dell'Agente 2; l'overlay non interrompe gli snapshot. In assenza delle immagini, titolo testuale di emergenza.
 - Full-field: l'intero terreno è sempre visibile; nessun pan che tagli una porta. Interpolazione lineare a fine corsa per non inventare traiettorie, durata ancorata al tempo calcistico/velocità del runner.
+## R04 — QA browser riproducibile e gate ancora aperto
+
+Nuovo harness esclusivamente nella directory dell'Agente 05:
+- **browser-qa.html**: scenario UI FULL/TV, 22 giocatori e palla, 9 casi (kickoff, angoli, ripresa gol, intervallo, pausa, replay), carica i veri manifest/PNG quando la pagina è servita via HTTP. Espone window.ORONZO_MATCH_VIEW_QA.run(scenario,mode), che verifica numero sprite realmente disegnati, ball screen bounds, score e viewport.
+- **browser-qa-playwright.py**: avvia server HTTP temporaneo da root, usa Chromium, salva screenshot e results.json con SHA-256, 3 viewport × 2 camere × 9 scenari = 54 prove. Senza --allow-fallback FALLISCE se assetState non è ready o se gli atlas non disegnano i 22 sprite.
+- **camera-r04.test.mjs**: tre nuovi test Node, incluso fix overlay vecchio gol dopo rewind. match-view.js ora cancella overlay e frame state quando il tempo della partita torna indietro.
+
+### Esecuzione dalla root del repository
+
+    python3 -m pip install playwright
+    python3 oronzo/systems/match-view/browser-qa-playwright.py --browser /usr/bin/chromium --output /tmp/oronzo-r04
+    node --test oronzo/systems/match-view/*.test.mjs
+
+Esaminare gli screenshot prodotti e il JSON. Il browser Playwright va installato se non si indica un Chromium di sistema. L'opzione --allow-fallback è soltanto diagnostica: non supera il gate visivo degli asset.
+
+### Verificato e non verificato in R04
+
+- Il report Work 00 R04 certifica 34/34 test Node sul branch PR #28 precedente (non ripetuti integralmente in questa chat).
+- Su copia locale compatibile: tre test di regressione nuovi 3/3 e suite locale ricostruita 15/15. Browser Chromium 144 tramite pagina in memoria: 54/54 scenari geometrici con fallback tecnico (realSprites=0) e screenshot; controllo CSS della pagina QA a 640×360, 800×360 e 844×390 3/3.
+- Tentativo di caricare la pagina via HTTP con asset originali: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR, zero screenshot con PNG reali. Perciò rimangono NON VERIFICATI qualità finale, palette e animazioni degli atlas in browser reale e su Android. L'orchestratore deve mantenere HOLD per il gate artistico.
+- Nessun intervento in oronzo/partita-rapida.html o nei moduli degli altri agenti.
