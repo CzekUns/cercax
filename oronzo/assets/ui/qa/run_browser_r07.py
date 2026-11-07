@@ -72,6 +72,15 @@ with sync_playwright() as pw:
             html=(ROOT/'demo-v02.html').read_text().replace('<head>','<head><base href="https://oronzo-qa.invalid/">')
             page.set_content(html,wait_until='load')
             page.wait_for_function('!!window.oronzoUIDemo')
+            # Decode all ten original PNGs, including the disabled-state bitmap.
+            pngs=['coaches-atlas.png','presidents-atlas.png','journalists-atlas.png',
+                  'navy-noise.png','panel-noise.png','pitch-textless.png',
+                  'office-desk-v02.png','btn-blue-v02.png','btn-gold-v02.png','btn-disabled-v02.png']
+            decoded=page.evaluate('''async names=>await Promise.all(names.map(async name=>{
+                const img=new Image();img.src=name;await img.decode();
+                return {name,width:img.naturalWidth,height:img.naturalHeight};
+            }))''',pngs)
+            assert len(decoded)==10 and all(im['width']>0 and im['height']>0 for im in decoded)
             entry='[data-action="sample-load"]'
             dim=visible_fraction(page,entry)
             b,hit=click_center(page,entry,touch)
@@ -110,7 +119,7 @@ with sync_playwright() as pw:
                 assert_toast_clear(page)
                 page.screenshot(path=str(SHOTS/f'r07-hub-toast-{width}x{height}.png'))
             assert not errors,(width,height,'console/page error',errors)
-            log.append({'viewport':[width,height],'touch':touch,'entryButton':entry_box,'entryClipping':dim,'entryHit':entry_hit,'hubCTA':before,'assetRequests':dict(requested),'errors':errors,'result':'PASS'})
+            log.append({'viewport':[width,height],'touch':touch,'entryButton':entry_box,'entryClipping':dim,'entryHit':entry_hit,'hubCTA':before,'assetRequests':dict(requested),'decodedPNG':decoded,'errors':errors,'result':'PASS'})
             ctx.close()
     browser.close()
 print(json.dumps({'browser':'Chromium /usr/bin/chromium','cases':len(log),'passed':sum(x['result']=='PASS' for x in log),'assets':dict(requested),'results':log},ensure_ascii=False,indent=2))

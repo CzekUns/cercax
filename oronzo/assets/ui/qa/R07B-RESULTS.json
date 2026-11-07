@@ -4,15 +4,16 @@
   "assets": {
     "demo-v02.css": 6,
     "demo-v02.js": 6,
-    "navy-noise.png": 6,
-    "panel-noise.png": 6,
-    "btn-gold-v02.png": 6,
-    "btn-blue-v02.png": 6,
-    "office-desk-v02.png": 6,
-    "coaches-atlas.png": 6,
-    "presidents-atlas.png": 6,
-    "journalists-atlas.png": 6,
-    "pitch-textless.png": 6
+    "navy-noise.png": 12,
+    "panel-noise.png": 12,
+    "btn-gold-v02.png": 12,
+    "btn-blue-v02.png": 12,
+    "office-desk-v02.png": 12,
+    "coaches-atlas.png": 12,
+    "presidents-atlas.png": 12,
+    "journalists-atlas.png": 12,
+    "pitch-textless.png": 12,
+    "btn-disabled-v02.png": 6
   },
   "results": [
     {
@@ -48,16 +49,69 @@
       "assetRequests": {
         "demo-v02.css": 1,
         "demo-v02.js": 1,
-        "navy-noise.png": 1,
-        "panel-noise.png": 1,
-        "btn-gold-v02.png": 1,
-        "btn-blue-v02.png": 1,
-        "office-desk-v02.png": 1,
-        "coaches-atlas.png": 1,
-        "presidents-atlas.png": 1,
-        "journalists-atlas.png": 1,
-        "pitch-textless.png": 1
+        "navy-noise.png": 2,
+        "panel-noise.png": 2,
+        "btn-gold-v02.png": 2,
+        "btn-blue-v02.png": 2,
+        "office-desk-v02.png": 2,
+        "coaches-atlas.png": 2,
+        "presidents-atlas.png": 2,
+        "journalists-atlas.png": 2,
+        "pitch-textless.png": 2,
+        "btn-disabled-v02.png": 1
       },
+      "decodedPNG": [
+        {
+          "name": "coaches-atlas.png",
+          "width": 416,
+          "height": 256
+        },
+        {
+          "name": "presidents-atlas.png",
+          "width": 208,
+          "height": 256
+        },
+        {
+          "name": "journalists-atlas.png",
+          "width": 312,
+          "height": 256
+        },
+        {
+          "name": "navy-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "panel-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "pitch-textless.png",
+          "width": 496,
+          "height": 272
+        },
+        {
+          "name": "office-desk-v02.png",
+          "width": 375,
+          "height": 160
+        },
+        {
+          "name": "btn-blue-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-gold-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-disabled-v02.png",
+          "width": 164,
+          "height": 44
+        }
+      ],
       "errors": [],
       "result": "PASS"
     },
@@ -94,16 +148,69 @@
       "assetRequests": {
         "demo-v02.css": 2,
         "demo-v02.js": 2,
-        "navy-noise.png": 2,
-        "panel-noise.png": 2,
-        "btn-gold-v02.png": 2,
-        "btn-blue-v02.png": 2,
-        "office-desk-v02.png": 2,
-        "coaches-atlas.png": 2,
-        "presidents-atlas.png": 2,
-        "journalists-atlas.png": 2,
-        "pitch-textless.png": 2
+        "navy-noise.png": 4,
+        "panel-noise.png": 4,
+        "btn-gold-v02.png": 4,
+        "btn-blue-v02.png": 4,
+        "office-desk-v02.png": 4,
+        "coaches-atlas.png": 4,
+        "presidents-atlas.png": 4,
+        "journalists-atlas.png": 4,
+        "pitch-textless.png": 4,
+        "btn-disabled-v02.png": 2
       },
+      "decodedPNG": [
+        {
+          "name": "coaches-atlas.png",
+          "width": 416,
+          "height": 256
+        },
+        {
+          "name": "presidents-atlas.png",
+          "width": 208,
+          "height": 256
+        },
+        {
+          "name": "journalists-atlas.png",
+          "width": 312,
+          "height": 256
+        },
+        {
+          "name": "navy-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "panel-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "pitch-textless.png",
+          "width": 496,
+          "height": 272
+        },
+        {
+          "name": "office-desk-v02.png",
+          "width": 375,
+          "height": 160
+        },
+        {
+          "name": "btn-blue-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-gold-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-disabled-v02.png",
+          "width": 164,
+          "height": 44
+        }
+      ],
       "errors": [],
       "result": "PASS"
     },
@@ -140,16 +247,69 @@
       "assetRequests": {
         "demo-v02.css": 3,
         "demo-v02.js": 3,
-        "navy-noise.png": 3,
-        "panel-noise.png": 3,
-        "btn-gold-v02.png": 3,
-        "btn-blue-v02.png": 3,
-        "office-desk-v02.png": 3,
-        "coaches-atlas.png": 3,
-        "presidents-atlas.png": 3,
-        "journalists-atlas.png": 3,
-        "pitch-textless.png": 3
+        "navy-noise.png": 6,
+        "panel-noise.png": 6,
+        "btn-gold-v02.png": 6,
+        "btn-blue-v02.png": 6,
+        "office-desk-v02.png": 6,
+        "coaches-atlas.png": 6,
+        "presidents-atlas.png": 6,
+        "journalists-atlas.png": 6,
+        "pitch-textless.png": 6,
+        "btn-disabled-v02.png": 3
       },
+      "decodedPNG": [
+        {
+          "name": "coaches-atlas.png",
+          "width": 416,
+          "height": 256
+        },
+        {
+          "name": "presidents-atlas.png",
+          "width": 208,
+          "height": 256
+        },
+        {
+          "name": "journalists-atlas.png",
+          "width": 312,
+          "height": 256
+        },
+        {
+          "name": "navy-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "panel-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "pitch-textless.png",
+          "width": 496,
+          "height": 272
+        },
+        {
+          "name": "office-desk-v02.png",
+          "width": 375,
+          "height": 160
+        },
+        {
+          "name": "btn-blue-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-gold-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-disabled-v02.png",
+          "width": 164,
+          "height": 44
+        }
+      ],
       "errors": [],
       "result": "PASS"
     },
@@ -186,16 +346,69 @@
       "assetRequests": {
         "demo-v02.css": 4,
         "demo-v02.js": 4,
-        "navy-noise.png": 4,
-        "panel-noise.png": 4,
-        "btn-gold-v02.png": 4,
-        "btn-blue-v02.png": 4,
-        "office-desk-v02.png": 4,
-        "coaches-atlas.png": 4,
-        "presidents-atlas.png": 4,
-        "journalists-atlas.png": 4,
-        "pitch-textless.png": 4
+        "navy-noise.png": 8,
+        "panel-noise.png": 8,
+        "btn-gold-v02.png": 8,
+        "btn-blue-v02.png": 8,
+        "office-desk-v02.png": 8,
+        "coaches-atlas.png": 8,
+        "presidents-atlas.png": 8,
+        "journalists-atlas.png": 8,
+        "pitch-textless.png": 8,
+        "btn-disabled-v02.png": 4
       },
+      "decodedPNG": [
+        {
+          "name": "coaches-atlas.png",
+          "width": 416,
+          "height": 256
+        },
+        {
+          "name": "presidents-atlas.png",
+          "width": 208,
+          "height": 256
+        },
+        {
+          "name": "journalists-atlas.png",
+          "width": 312,
+          "height": 256
+        },
+        {
+          "name": "navy-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "panel-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "pitch-textless.png",
+          "width": 496,
+          "height": 272
+        },
+        {
+          "name": "office-desk-v02.png",
+          "width": 375,
+          "height": 160
+        },
+        {
+          "name": "btn-blue-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-gold-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-disabled-v02.png",
+          "width": 164,
+          "height": 44
+        }
+      ],
       "errors": [],
       "result": "PASS"
     },
@@ -232,16 +445,69 @@
       "assetRequests": {
         "demo-v02.css": 5,
         "demo-v02.js": 5,
-        "navy-noise.png": 5,
-        "panel-noise.png": 5,
-        "btn-gold-v02.png": 5,
-        "btn-blue-v02.png": 5,
-        "office-desk-v02.png": 5,
-        "coaches-atlas.png": 5,
-        "presidents-atlas.png": 5,
-        "journalists-atlas.png": 5,
-        "pitch-textless.png": 5
+        "navy-noise.png": 10,
+        "panel-noise.png": 10,
+        "btn-gold-v02.png": 10,
+        "btn-blue-v02.png": 10,
+        "office-desk-v02.png": 10,
+        "coaches-atlas.png": 10,
+        "presidents-atlas.png": 10,
+        "journalists-atlas.png": 10,
+        "pitch-textless.png": 10,
+        "btn-disabled-v02.png": 5
       },
+      "decodedPNG": [
+        {
+          "name": "coaches-atlas.png",
+          "width": 416,
+          "height": 256
+        },
+        {
+          "name": "presidents-atlas.png",
+          "width": 208,
+          "height": 256
+        },
+        {
+          "name": "journalists-atlas.png",
+          "width": 312,
+          "height": 256
+        },
+        {
+          "name": "navy-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "panel-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "pitch-textless.png",
+          "width": 496,
+          "height": 272
+        },
+        {
+          "name": "office-desk-v02.png",
+          "width": 375,
+          "height": 160
+        },
+        {
+          "name": "btn-blue-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-gold-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-disabled-v02.png",
+          "width": 164,
+          "height": 44
+        }
+      ],
       "errors": [],
       "result": "PASS"
     },
@@ -278,16 +544,69 @@
       "assetRequests": {
         "demo-v02.css": 6,
         "demo-v02.js": 6,
-        "navy-noise.png": 6,
-        "panel-noise.png": 6,
-        "btn-gold-v02.png": 6,
-        "btn-blue-v02.png": 6,
-        "office-desk-v02.png": 6,
-        "coaches-atlas.png": 6,
-        "presidents-atlas.png": 6,
-        "journalists-atlas.png": 6,
-        "pitch-textless.png": 6
+        "navy-noise.png": 12,
+        "panel-noise.png": 12,
+        "btn-gold-v02.png": 12,
+        "btn-blue-v02.png": 12,
+        "office-desk-v02.png": 12,
+        "coaches-atlas.png": 12,
+        "presidents-atlas.png": 12,
+        "journalists-atlas.png": 12,
+        "pitch-textless.png": 12,
+        "btn-disabled-v02.png": 6
       },
+      "decodedPNG": [
+        {
+          "name": "coaches-atlas.png",
+          "width": 416,
+          "height": 256
+        },
+        {
+          "name": "presidents-atlas.png",
+          "width": 208,
+          "height": 256
+        },
+        {
+          "name": "journalists-atlas.png",
+          "width": 312,
+          "height": 256
+        },
+        {
+          "name": "navy-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "panel-noise.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "name": "pitch-textless.png",
+          "width": 496,
+          "height": 272
+        },
+        {
+          "name": "office-desk-v02.png",
+          "width": 375,
+          "height": 160
+        },
+        {
+          "name": "btn-blue-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-gold-v02.png",
+          "width": 164,
+          "height": 44
+        },
+        {
+          "name": "btn-disabled-v02.png",
+          "width": 164,
+          "height": 44
+        }
+      ],
       "errors": [],
       "result": "PASS"
     }
