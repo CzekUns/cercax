@@ -44,12 +44,13 @@ export function book(club, {amount,type,week=0,absoluteWeek,seasonYear,mandatory
   const period=periodOf({week,absoluteWeek,seasonYear});
   if (!['income','expense'].includes(type)) throw new Error('transaction type must be income or expense');
   if(!club?.finance) throw new Error('finances not initialized');
-  const domainError=periodLedgerError(club,period);
-  if(domainError)throw new Error(domainError);
   const cash=money(club.finance.cash,'cash');
   const arrears=money(club.finance.arrears,'arrears');
+  // A declined transaction makes no movement and needs no calendar key.
   if (type==='expense' && !mandatory && amount>cash)
     return {accepted:false,reason:'insufficient_cash',club};
+  const domainError=periodLedgerError(club,period);
+  if(domainError)throw new Error(domainError);
   const paid=type==='income' ? amount : Math.min(amount,cash);
   const unpaid=type==='expense' ? amount-paid : 0;
   // Validate both computed totals before any new state or transaction is returned.
