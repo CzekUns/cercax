@@ -55,6 +55,18 @@ REQUISITI UTENTE — La rosa è consultabile giocatore per giocatore. Ai valori 
 
 Ogni calciatore riceve un cognome dal dataset, identità persistente, un'origine geografica con regione/macroregione, fiducia nel mister, morale individuale, condizione fisica e stato del contratto. Gli allenamenti incidono in modo misurabile e possono comportare affaticamento/infortuni. La fiducia del gruppo cresce soprattutto vincendo, ma le relazioni con i singoli evolvono anche per minutaggio, esclusioni, direttive e tono dei richiami.
 
+### Identità estetica persistente di ciascun calciatore — requisito utente (7 novembre 2026)
+
+Ogni calciatore è riconoscibile per **un'identità visiva unica e persistente**, condivisa fra **scheda giocatore accessibile da ROSA e ALLENAMENTO**, **sprite nella partita**, **cutscene** e, in una fase successiva, **figurina/ritratto in pixel art**. La figurina potrà essere realizzata a partire da fotografie/reference che verranno fornite in futuro, ma deve rappresentare lo *stesso* calciatore e conservare gli attributi estetici; non è necessario produrre ora né raccogliere fotografie.
+
+**Tratti individuali:** tonalità della pelle, colore dei capelli (biondi, castani, neri, rossi, grigi ecc.), acconciatura, barba e baffi (assenza, baffi, pizzetto, barba corta/piena ecc.), colore dei peli facciali e varianti del volto. Queste caratteristiche sono legate al `playerId`, non alla squadra, e persistono attraverso save/load, trasferimenti e avanzamento stagioni.
+
+**Divisa:** colori principali/secondari, pantaloncini, calzettoni, eventuali bordi e soprattutto **trama/fantasia** (tinta unita, strisce verticali/orizzontali, banda, metà-metà e future varianti). La divisa dipende dal **club, kit selezionato e ruolo** (portiere distinto), si applica allo stesso giocatore in tutte le viste, e si aggiorna in caso di trasferimento senza modificare viso, pelle, capelli, barba o baffi.
+
+**Coerenza fra rappresentazioni:** nel campo 32×32 i dettagli microscopici possono essere semplificati ma i colori e le silhouette devono differenziare gli individui; scheda, cutscene e futura figurina devono mostrare i dettagli leggibili. Niente ventidue cloni di palette o di volto; evitare differenze arbitrarie dello stesso giocatore fra schermi. Tutti gli asset rimangono pixel art originali, con maschere di ricolorazione; verificare su più giocatori e kit con test e schermate reali.
+
+**Pianificazione senza round generali:** il requisito è già acquisito nel design. Agente **08** mantiene i dati cosmetici persistenti del giocatore, **07** li preserva nella carriera e nei salvataggi, **01** prepara sprite/materiali e varianti leggibili, **02** usa i medesimi attributi nelle cutscene, **05** li legge nella vista partita, **03** espone la scheda giocatore in Rosa/Allenamento e successivamente le figurine. Gli incarichi esecutivi vanno aperti solo quando necessario e senza interferire con l'attuale correzione R05-1 del 07 o con i gate delle PR esistenti.
+
 ## 07. Conferenze stampa e giornalisti
 
 REQUISITI UTENTE — Prima del campionato: conferenza con CINQUE domande casuali e risposte selezionabili che determinano il morale iniziale della tifoseria. Giornalisti generati con nomi casuali, emittenti televisive private inventate, comiche e provinciali. Dopo OGNI partita: breve conferenza con conseguenze sul rapporto con i media, i tifosi, la società e l'allenatore.
