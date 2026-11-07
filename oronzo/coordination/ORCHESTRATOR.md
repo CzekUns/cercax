@@ -139,3 +139,11 @@ L'utente assegna formalmente a questa chat il numero **10**, orchestratore di pr
 - PR aperte: #12 draft cutscene; #27 report preliminare R03 su integrazione v0.2 ancora incompleta. Nessuna sessione Coerentizzatore avviata da questa revisione.
 - Fonte di verità prodotto v0.2: **1979**, **1× ~15 minuti**, avatar e morale, 20 offerte e percorso completo; vecchi riferimenti 1985/86 e 90 s nei contratti v1 non prevalgono. L'integrazione completa non è stata verificata. Cinque P1 R02 restano assegnati a 07/09 e bloccano il gate di integrazione.
 - In R10 nessun test eseguito, nessuna modifica al gameplay e nessun merge. Prossimo controllo: nuovi branch/PR dei fix 07/09 e QA runtime della Partita rapida.
+
+
+## Rettifica VINCOLANTE del mandato dell'Agente 10 — 7 novembre 2026
+**Correzione esplicita dell'utente:** «Tu devi solo fare il tuo ruolo di stabilire le regole mie nei posti giusti», istruendo gli agenti paralleli. **Tutte le note storiche che assegnano al 10 l'implementazione diretta, l'adapter o il runtime sono superate.**
+- 10: regole utente → specifiche verificabili → proprietario agente 01–09 → NEXT/contratti/issue → report/review e gate di merge. Nessun HTML, JS, CSS, asset o test codificato da 10.
+- 07: proprietario futuro del controller dati/game-flow `oronzo/app/flow/`, esclusivamente DOPO che i 5 fix R02 di carriera/società sono approvati e mergiati, con nuovo NEXT autorizzato; attualmente resta sul fix R02.
+- 03: proprietario futuro dei file UI runtime `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html`, esclusivamente DOPO il merge del suo ciclo UI e il gate R02 e con nuovo NEXT; attualmente resta solo in `oronzo/assets/ui/`.
+- Nessun altro agente può scrivere in tali file, mantenere API e scope. Issue #26, CONTRACT-v02, registry, PROTOCOL e AGENTS sono stati aggiornati di conseguenza. I commit della documentazione non attivano automaticamente le chat né implementano le funzionalità.
