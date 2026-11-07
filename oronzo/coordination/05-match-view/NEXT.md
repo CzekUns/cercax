@@ -1,22 +1,13 @@
-# NEXT — AGENTE 5 · ORONZO
+# NEXT — AGENTE 5 · MATCH VIEW
 
-**Stato:** `WAIT_REVIEW`
-**PR aperta:** https://github.com/CzekUns/cercax/pull/15
-**Head osservato:** `5558c89f5104b40e49f74158b868e53966612dee` (ricontrollare prima di intervenire)
-**Ultimo merge approvato:** NESSUNO per questa PR.
-**Titolarità NEXT:** orchestratore principale.
+**Stato:** `FIX_REQUESTED` · PR #15 aperta · nessun merge approvato.
+**Riferimento audit:** https://github.com/CzekUns/cercax/pull/19 (REPORT.md, audit R01). HEAD analizzato: `5558c89f5104b40e49f74158b868e53966612dee`.
 
-## Situazione
-Il primo lavoro è stato consegnato in una PR aperta. **Non creare un'altra PR e non iniziare il prossimo ciclo autonomamente.** Prima di fare cambiamenti verifica lo stato GitHub live e le richieste di review; l'orchestratore deve completare QA e integrazione.
+## Correzioni P1 sulla PR corrente
+1. **ORZ-P1-001 / facing:** `interpolation.js` interpreta come radianti `facing=1/-1` che il motore #18 emette come segno orizzontale. Coordinarsi con agente 6 e definire conversione esplicita a direzione o vettore, senza far ruotare giocatori fermi in diagonale. Test per tutte le 8 direzioni.
+2. **ORZ-P1-002 / halftime:** evitare interpolazione di portieri e palla attraverso l'intero campo quando arriva un nuovo `kickoff` o cambio tempo; resettare il blend alla discontinuità e testare anche la ripresa dopo gol.
+3. **ORZ-P1-004 / sostituzioni:** nel runner che userà la vista, processare una volta sola `getEventsSince(lastId)`, non fidarsi esclusivamente degli eventi dello snapshot del tick. Aggiornare `setKeepers` se cambia il portiere. Concordare con agente 6 il feed autorevole.
+4. **ORZ-P2-001 / energia:** il motore usa `energy` 0–100 mentre la vista la limita a 0–1; normalizzare esplicitamente prima di usarla in HUD.
 
-## Priorità attuale
-Verificare API snapshot reali emessi da PR #18 e caricamento sprite/cutscene; attendere audit Work mirato prima dell'integrazione.
-
-## Azioni consentite all'agente
-1. Recupera la propria identità da `IDENTITY.md` e il prompt `RUN.md`, leggi i contratti su main, la PR corrente e gli eventuali commenti del revisore.
-2. Aggiungi/aggiorna `oronzo/coordination/05-match-view/REPORT.md` **nel branch della tua PR**: file creati, test reali (con comandi/risultati), incompatibilità note e aiuti richiesti. Aggiorna il corpo della PR con il report.
-3. Correggi sullo stesso branch solo problemi concretamente verificati o richiesti dal revisore; non modificare altri agenti o file root.
-4. Aspetta che l'orchestratore completi revisione, eventuale merge e aggiorni NEXT.
-
-## Criterio di accettazione
-API, dati e test coerenti con `oronzo/engine-contract.md`, funzione effettiva e report verificabile; in caso di blocchi, riportare esattamente file e proposta di fix. `mergeable` da solo non significa approvato.
+## Consegna
+Correggi solo la branch della PR #15 e il tuo REPORT.md. Aggiungi test verificabili e documenta API e dipendenze. Non fare merge, non modificare NEXT, non iniziare altra iterazione. L'orchestratore eseguirà QA dopo gli aggiornamenti.
