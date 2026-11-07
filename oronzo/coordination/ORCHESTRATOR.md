@@ -53,3 +53,8 @@ Quando la chat principale si interrompe, è sufficiente dire: «Riprendi l'orche
 - Il campo `mergeable` restituito da `get_pr_info` si è rivelato **inaffidabile** per queste PR: REST diretto `GET /pulls/{n}` mostra `mergeable=true`, `mergeable_state=clean` per tutte e 10 le PR aperte (#5,#6,#12,#13,#14,#15,#16,#17,#18,#19), contrariamente al precedente rapporto di sei conflitti. PR #12 resta draft. La rettifica è registrata in REVIEW-QUEUE; non chiedere ai sei agenti di risolvere conflitti non dimostrati.
 - Nessun nuovo commit ai moduli core #15/#16/#18, quindi le cinque incompatibilità P1 dell'audit R01 restano da correggere. PR #13 continua senza presidents.json.
 - Le nove cartelle NEXT sono state lette; nessun REPORT.md presente sui branch originali al momento del controllo. Tutte le PR contengono solo file `oronzo/**` secondo i loro elenchi GitHub. Nessun test o merge effettuato in R02.
+
+## Revisione oraria R03 — difetto finanziario
+- Verificato su GitHub che tutte le 10 PR sono ancora aperte, senza cambiamenti degli HEAD rispetto a R02; la PR #12 è draft. Tutti i 9 NEXT letti, nessuno dei 9 REPORT.md presente sui branch. Consultate le nove issue richieste e i contratti su main.
+- Nuovo **ORZ-P1-008** nella PR #17: `oronzo/systems/coach-club/finance.js` permette importi monetari negativi, e un'uscita negativa aumenta la cassa. Verifica **statica del codice**, senza esecuzione test; l'agente 09 è stato impostato `FIX_REQUESTED` nel suo NEXT su main, con richiesta di validazione e test regressione. Vedi REVIEW-QUEUE.
+- Non sono stati fatti merge, test runtime, correzioni al codice o nuovi incarichi Work. Gli altri problemi già registrati restano aperti; evitare duplicati.
