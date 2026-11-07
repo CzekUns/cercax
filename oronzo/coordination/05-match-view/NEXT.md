@@ -1,12 +1,15 @@
-# NEXT — ORONZO AGENTE 5 · MOVIMENTI E RENDERING
+# NEXT — AGENTE 05 · MATCH VIEW E CAMERA TV · VISIONE v0.2
+**Stato:** `READY` (secondo ciclo).
+**PR precedente:** #15 MERGIATA, correzione `facing` in radianti e gestione snapshot.
+**Fonte:** [vision v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
+**Branch:** `agent/oronzo-movements-r02` dall'ultimo main.
+**Scope:** `oronzo/systems/match-view/` e proprio REPORT.
 
-**Stato:** `READY` per ciclo R02, dopo completamento PR precedente.
-**PR precedente:** [#15](https://github.com/CzekUns/cercax/pull/15), MERGIATA su main commit `9dc68d21c6700d856104a1d3820b4dab1a00f83f`.
-**Fix concluso:** ORZ-P1-009, `resolveFacing` accetta ogni numero come radianti, come il motore; verificati in V8 E/W/N/S, ±1 come diagonali e hard cut all'intervallo. Bug originale R01/P1 lato renderer risolto come correzione puntuale dell'orchestratore, ora su main.
+## Attività
+1. Fai QA dei 22 sprite effettivi, interpolazione, palla, animazioni, riposizionamento fisico dopo cambio modulo (PR #24), portieri, intervallo, pausa e velocità. Leggi come esempio `oronzo/partita-rapida.html` ma non modificarlo.
+2. Implementa in renderer API `cameraMode: 'full'|'broadcast'` oppure `setCameraMode(mode)`: full campo identica all'esistente, TV con zoom e scrolling sul pallone, smoothing e clamp ai bordi del campo; su gol, ripartenze e cambio campo non lasciare inquadrature vuote. La camera è solo visiva e non altera il motore.
+3. Test deterministici su stessi snapshot in due camere, viewport landscape 640×360 / 800×360 / 844×390, pan/zoom e regressioni di scala. Demo nel proprio scope, documenta hookup UI all'agente 10.
+4. Identifica miglioramenti di movimento (scatti/collisioni visive) senza modificare la simulazione.
 
-## Prossimo ciclo autorizzato
-Riparti dall'ultimo `main` in branch `agent/oronzo-movements-r02`. Non riscrivere la PR precedente:
-1. Esamina il runtime già integrato in `oronzo/partita-rapida.html` (sola lettura). Verifica nella tua directory la qualità dei movimenti dei 22 calciatori, allineamento tra sprite e palla, 8 orientazioni, cambio campo, animazioni e caricamento asset reali.
-2. Aggiungi nei soli `oronzo/systems/match-view/` correzioni e test, se effettivamente necessarie, per movimenti troppo bruschi, sovrapposizioni, animazioni di giocatori che scattano e casi limite pause/velocità.
-3. Prepara QA browser Android/Chromium su landscape 640×360, 800×360, 844×390, se disponibile; non spacciarla per completata se non eseguita. Documenta regressioni e risultati nel tuo `REPORT.md`, poi PR verso main. Non modificare il motore o l'HTML integratore.
-**Nessun merge autonomo** e niente nuova sessione Coerentizzatore su R01.
+## Accettazione
+A parità di snapshot, punteggio/coordinate/decisioni identici in entrambi i modi; tracking fluido, palla e giocatori visibili; test reali e REPORT. Niente HTML root, motore o asset degli altri agenti. PR senza merge.
