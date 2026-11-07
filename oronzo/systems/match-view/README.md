@@ -38,7 +38,17 @@ view.resize();                   // buffer sempre 640×360, CSS responsive
 view.destroy();                  // annulla RAF e rilascia cache
 ```
 
-`render()` preserva `snapshot.t`, risultato, possesso e statistiche. L'interpolazione collega giocatori per **ID**, non per ordine in array. `facing` accetta N/NE/E/SE/S/SW/W/NW, i nomi estesi inglesi, radianti, o vettore `{x,y}`; come fallback si usano `vx/vy`. Nessun calcolo di collisione, possesso o fuori gioco. `action` si mappa a `idle/run/kick/tackle/keeper` e usa la sequenza/fps documentata dal manifest degli sprite.
+### Bridge consigliato per gli eventi del motore (FIX ORZ-P1-004)
+
+`createEngineViewBridge(engine, view, {keeperIds,initialEventId})` usa **una sola chiamata** a
+`getEventsSince(cursor)` per ogni `sync()`; sovrascrive `snapshot.events` con il feed autorevole
+per non perdere gli eventi `command()` cancellati dallo `step()` successivo. Mantiene un cursore
+numerico monotono, evita consegne duplicate, e sostituisce l'ID portiere in `setKeepers()`
+quando riceve `substitution` con `detail.outId`/`detail.inId`. `sync()` **non chiama**
+`engine.step()`/`advanceRealSeconds()` e non altera il punteggio. Per rigiocare una partita
+chiamare `bridge.reset(0, [nuoviGK])`. Esempio in `integration-notes.md`.
+
+`render()` preserva `snapshot.t`, risultato, possesso e statistiche. L'interpolazione collega giocatori per **ID**, non per ordine in array. `facing` accetta N/NE/E/SE/S/SW/W/NW, i nomi estesi inglesi, **+1 = E / -1 = W** (convenzione motore Agente 6), radianti espliciti `{radians}`, o vettore `{x,y}`; come fallback si usano `vx/vy`. Nessun calcolo di collisione, possesso o fuori gioco. `energy` arriva dal motore su **0..100** e diventa **0..1** nel renderer; la fixture usa anch'essa 0..100. Il valore 1 del motore rappresenta l'1%, non il 100%. I nuovi `kickoff`/`halftime` e i cambi fase sono scene cut senza interpolazione di posizioni e palla. `action` si mappa a `idle/run/kick/tackle/keeper` e usa la sequenza/fps documentata dal manifest degli sprite.
 
 `createMatchView(canvas,{assetLoader,config})` accetta un loader opzionale `{loadJson(url),loadImage(url)}`; utile per test/offline e per l'integrazione. `config.clock`, `requestFrame`, `cancelFrame` permettono test deterministici. `onWarning` raccoglie fallimenti non fatali degli asset.
 
@@ -48,7 +58,7 @@ view.destroy();                  // annulla RAF e rilascia cache
 - `asset-adapter.js`: carica i manifest, atlas/mask dell'Agente 1, ricolora le uniformi con cache; mostra la palla PNG; visualizza strisce/bkg cutscene dell'Agente 2.
 - `match-view.js`: campo pixelated 16:9, proiezione delle posizioni, frame delle animazioni, indicatori, selezione, eventi con cooldown.
 - `fixture.js`, `match-view-demo.html`: feed dimostrativo e pannello di prova landscape.
-- `match-view.test.mjs`, `asset-adapter.test.mjs`: test nativi.
+- `match-view.test.mjs`, `asset-adapter.test.mjs`, `compatibility.test.mjs`: test nativi + regressioni per gli ID dell'audit R01.
 - `integration-notes.md`: passaggio operativo all'orchestratore.
 
 ## Test eseguiti
@@ -58,6 +68,8 @@ node --test oronzo/systems/match-view/*.test.mjs
 ```
 
 Non serve `npm install`. La demo è servita con HTTP statico perché i browser applicano restrizioni CORS ai moduli e a `fetch()` di `file://`.
+
+Verificato in locale con Node 22.16.0: **22 test passati / 0 falliti** (`node --test *.test.mjs` dalla directory). Il test del bridge usa una fixture che riproduce il comportamento osservato nel motore di PR #18; **il vero runner completo e il browser smartphone non sono ancora stati integrati né testati**.
 
 ## Limiti dichiarati
 
