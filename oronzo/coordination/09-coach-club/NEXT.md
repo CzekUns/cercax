@@ -39,7 +39,7 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 **Proprietà confine:** l'agente 04 fornisce testi/stampa; 06 effetti TEMPORANEI sul campo; 08 stati calciatori; 07 geografia/calendario. Agente 09 applica effetti relazionali ed economici persistenti. Tali formule sono proposte da bilanciare e non decisioni definitive dell'utente. Non iniziare R03 prima del merge R02.
 
 ## Controllo orchestratore — ripresa parallela del 7 novembre 2026
-**Aggiornamento successivo al primo controllo:** il branch `agent/oronzo-coach-club-r02` ha ora **6 commit propri** e risulta divergente dal `main` di coordinamento. File modificati: `club.js`, `coach-model.js`, `finance.js`, `presidents.js`; nuovi `objectives.js` e `period.js`. **Questa è lavorazione in corso, non consegna**: nessuna PR R02 né REPORT R02 aggiornato e verificabile rilevati.
+**Aggiornamento successivo al primo controllo:** il branch `agent/oronzo-coach-club-r02` ha ora **almeno 9 commit propri** e risulta divergente dal `main` di coordinamento. File modificati: `board.js`, `club.js`, `coach-model.js`, `finance.js`, `index.js`, `negotiations.js`, `presidents.js`; nuovi `objectives.js` e `period.js` (ultimo controllo, branch in aggiornamento). **Questa è lavorazione in corso, non consegna**: nessuna PR R02 né REPORT R02 aggiornato e verificabile rilevati.
 
 **Osservazioni statiche preliminari:** è presente una normalizzazione esplicita degli obiettivi; `periodOf()` usa la chiave `absoluteWeek` o anno+settimana; `createCoach()` conserva `employmentHistory`/`hiredSeason`; il modulo finance richiede `weeklyWage`, campo che il branch dell'Agente 07 non ha ancora fornito. Nessun test Node eseguito dall'orchestratore: non dichiarare risolti i cinque P1.
 
