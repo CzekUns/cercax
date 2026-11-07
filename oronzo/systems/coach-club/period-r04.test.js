@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {
   createClub, initializeFinances, settleWeek, conveneBoard, applyClubEvent,
   resolvePromises, book, weeklyPayroll, periodOf, periodLedgerError,
-  presidentRoster
+  presidentRoster, createCoach, resolveClubPresident
 } from './index.js';
-import {newCareer} from '../career/career.js';
-import {deserialize} from '../career/save.js';
+import {newCareer,fixturesForWeek,registerResult,advanceWeek,finishSeason,applyBoardDecision} from '../career/career.js';
+import {serialize,deserialize} from '../career/save.js';
 import {readFileSync} from 'node:fs';
 
 const catalog=JSON.parse(readFileSync(new URL('../../content/presidents.json',import.meta.url),'utf8'));
@@ -140,3 +140,51 @@ for(const version of [1,2]) {
     assert.equal(weeklyPayroll(current),weeklyPayroll(state.clubs[i]));
   });
 }
+
+
+test('R04 full cross-module gate: 104 clubs, two seasons, 76 periods, save/load and dismissal',()=>{
+  let state=newCareer({},42);
+  assert.equal(state.clubs.length,104);
+  state.clubs=state.clubs.map(c=>createClub(c,{presidentCatalog:catalog}));
+  state.coach=createCoach(state.coach);
+  state.coach.contract.until=1989;
+  const ids=state.clubs.map(c=>c.presidentId);
+  const payrolls=state.clubs.map(weeklyPayroll);
+  const absoluteWeeks=[];
+  for(let year=0;year<2;year++){
+    while(state.phase==='inSeason'){
+      const period={week:state.week,absoluteWeek:state.absoluteWeek,seasonYear:state.seasonYear};
+      for(let i=0;i<state.clubs.length;i++){
+        const club=state.clubs[i],profile=resolveClubPresident(club,catalog);
+        assert.ok(payrolls[i]>0);
+        assert.ok(payrolls[i]<=club.wageBudget);
+        const meeting=conveneBoard(club,profile,{...period,seed:42});
+        assert.equal(meeting.accepted,true,'meeting '+club.id+' at '+period.absoluteWeek);
+        const paid=settleWeek(meeting.club,period);
+        assert.equal(paid.accepted,true,'pay '+club.id+' at '+period.absoluteWeek);
+        assert.equal(settleWeek(paid.club,period).reason,'week_already_settled');
+        assert.equal(conveneBoard(paid.club,profile,period).reason,'already_met_this_week');
+        assert.ok(paid.club.finance.cash>=0);
+        assert.ok(paid.club.finance.arrears>=0);
+        state.clubs[i]=paid.club;
+      }
+      absoluteWeeks.push(period.absoluteWeek);
+      for(const f of fixturesForWeek(state))
+        registerResult(state,{fixtureId:f.id,score:{home:0,away:0},events:[]});
+      advanceWeek(state);
+      const financialSnapshot=JSON.stringify(state.clubs.map(c=>c.finance));
+      state=deserialize(serialize(state));
+      assert.equal(JSON.stringify(state.clubs.map(c=>c.finance)),financialSnapshot);
+    }
+    finishSeason(state);
+    state=deserialize(serialize(state));
+    assert.deepEqual(state.clubs.map(c=>c.presidentId),ids);
+  }
+  assert.equal(state.history.length,2);
+  assert.equal(absoluteWeeks.length,76);
+  assert.equal(new Set(absoluteWeeks).size,76);
+  applyBoardDecision(state,{type:'dismiss',clubId:state.coach.clubId});
+  state=deserialize(serialize(state));
+  assert.equal(state.coach.clubId,null);
+  assert.equal(state.coach.employmentHistory.at(-1).reason,'dismissed');
+});
