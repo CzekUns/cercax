@@ -21,7 +21,7 @@ Il primo rilascio è autorizzato dall'utente con **100 comuni e 500 cognomi veri
 ## Ordine eseguibile
 **M0 — Contratto e bugfix:** v0.2 su Drive/GitHub; NEXT 01–09; test R02 su due stagioni e adattatori di confine. Stop se presidente/obiettivo/salario/anno/coach non tornano.
 
-**M1 — Primo loop percorribile:** piccolo sottoinsieme del dataset ma schema definitivo; avatar→ingaggio→presidente→5 domande→hub→giornata→partita→conferenza post→variazioni morale→save/load. Campo full operativo, 1×15 min. Questo è il primo rilascio utile da testare, prima di aggiungere tutte le squadre.
+**M1 — Primo loop percorribile:** 100 comuni e 500 cognomi verificati disponibili per import (senza bloccare la prototipazione con fixture), schema definitivo; avatar→ingaggio→presidente→5 domande→hub→giornata→partita→conferenza post→variazioni morale→save/load. Campo full operativo, 1×15 min. Questo è il primo rilascio utile da testare, prima di aggiungere tutte le squadre.
 
 **M2 — Profondità gestione:** report singoli giocatori, tifosi/stadio, papponeria/prezzi, mercato nei periodi consentiti, relazione giornalisti, coach e singoli. Camera TV, comandi individuali, asset artistici, cutscene dopo gate.
 
