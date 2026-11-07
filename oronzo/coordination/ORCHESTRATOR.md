@@ -96,3 +96,11 @@ I NEXT sono stati aggiornati: 1 e 3 `READY` per iterazioni di QA/layout; 4,7,8,9
 - I NEXT di 05 e 06 sono READY per QA/bilanciamento, NEXT 07 e 09 READY per fix R02; Coerentizzatore COMPLETED_R02, non avviare audit nuovo.
 - Azione successiva: ricevere bug dal test telefono, eseguire QA browser dei 22 sprite e correggere; integrare cutscene soltanto dopo gate QA; poi collegare Partita rapida a carriera corretta.
 
+
+
+## Revisione tattica visibile — feedback prova smartphone, 7 novembre 2026
+L'utente conferma che la velocità **1× = 15 minuti** è corretta e desidera accelerazioni opzionali. Segnala invece che durante la gara non si capisce se i cambi modulo e gli ordini siano eseguiti.
+- **Esame del motore**: `executeCommand(tacticChange)` accetta l'ordine e aggiorna `team.tactics`; `movement.desired()` legge modulo, mentalità e pressing ad ogni step. Prova deterministica in V8 dopo l'ordine 4-4-2→3-5-2 / pressing 80 / mentalità 80: **10 su 11** dei giocatori di casa hanno coordinate diverse rispetto al controllo identico dopo 30 secondi simulati. Problema primario di **leggibilità/feedback tattico**, non di ricezione del comando.
+- Integrata [PR #23](https://github.com/CzekUns/cercax/pull/23), merge `d7e38401d59c3c5b6220a7e6a027b4d9a76e9f1c`: il pannello mostra modulo/pressing/mentalità **accettati dal motore**; un overlay SVG rappresenta undici posizioni di riferimento del nuovo modulo usando la funzione `formationAnchors()` effettiva e specchia lo schema all'intervallo; indicazione riposizionamento, toggle SCHEMA. Gli atleti non vengono teletrasportati.
+- Test di regressione aggiunto nel smoke Node; prova V8 eseguita sui sorgenti reali e sintassi UI PASS. QA visuale su Android **ancora da raccogliere**. I 15 minuti a 1× **non sono stati modificati**.
+- Dopo deploy Pages, far riprovare al telefono 4-4-2→3-5-2 a 1× e verificare che il modulo comparso sia accettato e che gli undici si riallineino progressivamente; controllare anche pressing/mentalità e cambio campo. Non riaprire audit Work per questo difetto circoscritto.
