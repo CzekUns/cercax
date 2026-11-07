@@ -103,3 +103,11 @@ Il rapporto è stato creato nella [PR #19](https://github.com/CzekUns/cercax/pul
 - **Nuovo perimetro di prodotto:** `GAME-VISION-v02.md` e issue #25/#26 stabiliscono inizio **1979**, 1× circa **15 minuti**, avatar/morale/ingaggi e ciclo carriera completo; i contratti v1 con 1985/86 e 90 secondi sono archivio subordinato. Non segnare come implementato ciò che è soltanto assegnato.
 - **PR aperte al controllo:** [#12](https://github.com/CzekUns/cercax/pull/12) cutscene **draft**, [#27](https://github.com/CzekUns/cercax/pull/27) rapporto R03 preliminare, che dichiara integrazione v0.2 non ancora pronta. Non è stato avviato alcun audit Work in questa esecuzione. I cinque P1 R02 su carriera/società restano da dimostrare risolti con test incrociati; NEXT 07/09 già li assegna, nessun doppione.
 - Nessun nuovo difetto tecnico confermato in R10; nessun test runtime, merge o modifica al codice. Prossimo gate: consegna fix 07/09, suite incrociata due stagioni e QA Android della Partita rapida.
+
+## Stato gate R02 dopo riattivazione degli agenti (7 novembre 2026)
+**R02-1..5 rimangono APERTI:** nessuna PR R02 di 07 o 09 e nessun cross-test multi-stagione consegnato. Il 07 non ha ancora commit propri sul branch -r02; il 09 ha 6 commit con bozze concrete in objective/period/finance/coach/president, ma senza REPORT R02 e senza PR. Valutazione **in corso, NON APPROVATO**. Non aprire un nuovo audit Coerentizzatore per lo stesso problema prima della consegna.
+
+**Altre PR:** #12 OPEN/DRAFT, 25 file in scope, verifica Chrome/Android da completare e gate artistico ancora aperto; #27 OPEN, rapporto R03 preliminare, nessun test di integrazione e nessun verdetto finale. No merge in questo controllo.
+
+**Integrazione futura:** developer 07 realizzerà `oronzo/app/flow/` SOLO dopo merge R02 07+09; developer 03 realizzerà runtime HTML/JS/CSS SOLO dopo merge arte UI corrente e R02, con NEXT e PR dedicati. Il 10 aggiorna regole, controlla review e non implementa.
+
