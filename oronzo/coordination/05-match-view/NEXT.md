@@ -1,5 +1,5 @@
 # NEXT — AGENTE 05 · MATCH VIEW E CAMERA TV · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
 **PR precedente:** #15 MERGIATA, correzione `facing` in radianti e gestione snapshot.
 **Fonte:** [vision v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-movements-r02` dall'ultimo main.
@@ -21,3 +21,8 @@ Non è ancora verificabile il branch `agent/oronzo-movements-r02` nel confronto 
 **PR:** [#28](https://github.com/CzekUns/cercax/pull/28). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** QA camera full/broadcast su stessi snapshot; unit test Node e compatibilità motore, browser richiesto se disponibile.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #28, esito R04: HOLD per gate browser.** La suite camera 34/34 Node sullo snapshot combinato è risultata verde; la visuale TV è un renderer che non altera gli snapshot. **Mancano prova visiva reale in browser con asset**, 22 giocatori, inquadratura palla e transition kickoff/intervallo/ripartenza; Work 00 non aveva Chromium eseguibile.
+**Azione ammessa sulla stessa PR #28:** browser QA riproducibile con 640×360/800×360/844×390, campo full/TV, presenza palla e giocatori, pan senza viewport vuoti, pausa, cambio campo, nessun repaint errato né modifica score; screenshot e limitazioni nel REPORT. Collaborare con 03/01 senza modificare HTML runtime degli altri. No merge prima del gate visivo.
