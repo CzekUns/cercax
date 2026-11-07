@@ -1,6 +1,6 @@
 # ORONZO — AGENTE 09 · NEXT ATTUALE: MORALE E OFFERTE V0.2 (CICLO MIRATO R03)
 
-**Stato: `READY` — autorizzato dall'Agente 10 il 7 novembre 2026, in parallelo alla carriera del 07.**
+**Stato: `WAIT_REVIEW` — R03 consegnato, in attesa audit #38+#39.
 **Precedente ciclo R02 concluso:** [PR #32](https://github.com/CzekUns/cercax/pull/32) MERGED `5b1dcd7c71435709d8b2c62d5455720b73691eb8` e [PR #30](https://github.com/CzekUns/cercax/pull/30) MERGED `aab48f0be77f022dbb7d915ab44187037d96b5f0`. Le direttive `WAIT_REVIEW/FIX_REQUESTED` R02/R04/R05 elencate sotto sono **ARCHIVIO**.
 **Nuovo branch da ultimo `main`:** `agent/oronzo-coach-club-r03-morale` e nuova PR; non riaprire #32.
 **Scope:** `oronzo/systems/coach-club/` e il tuo `REPORT.md`. Non modificare la carriera/flow/HTML degli altri agenti.
@@ -94,3 +94,6 @@ Fonte [visione 1979](../GAME-VISION-v02.md) e [epic #25](https://github.com/Czek
 ## ESITO R05 — NESSUN NUOVO FIX RICHIESTO AL 09 (7 novembre 2026)
 
 **Stato operativo: `WAIT_REVIEW` sulla PR #32**. Nella [PR audit #37](https://github.com/CzekUns/cercax/pull/37) il verificatore ha eseguito con i due HEAD #30/#32 la suite Node completa: **76 passati / 1 fallito**, localizzato al **test obsoleto del 07** `career/tests/r02-cross.test.mjs` che usa `{week}` invece del periodo moderno. `finance.js`, migration guard e test della #32 risultano superati nei casi eseguiti. **Non modificare la #32 per risolvere un test del 07**. Attendere soltanto nuovo HEAD #30, rerun combinato e decisione di merge; R03 di CoachV2 rimane separato e non ancora autorizzato.
+
+## STATO AGENTE 09 — CONSEGNA R03 E AUDIT R06 (7 novembre 2026)
+**PR #39 OPEN, HEAD `80df15139d37c4ee36103001d6a24528037daed4`, lavoro R03 CONSEGNATO**, non più READY da iniziare. API CoachV2, preview/applier offerte e press, test mirati 9/9 Node dichiarati nel REPORT. Suite Node combinata con #38 non ancora dichiarata passata. **Stato operativo attuale: `WAIT_REVIEW`**. Attendere review indipendente 00 R06 delle sole #38/#39, senza merge né modifica preventiva a #39. L'adapter di collegamento con flow e stato `awaiting_agent09` competono al controller 07, a meno di un difetto documentato nelle API 09.
