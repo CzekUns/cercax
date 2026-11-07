@@ -2,11 +2,20 @@ import {clamp,copy} from './core.js';
 
 export function createCoach(data) {
   if(!data?.id || !data?.name) throw new Error('coach needs id and name');
+  const saved=copy(data); // Keep career-owned fields and any future schema additions.
+  if(saved.employmentHistory !== undefined && !Array.isArray(saved.employmentHistory))
+    throw new TypeError('employmentHistory must be an array');
+  if(saved.hiredSeason !== undefined && saved.hiredSeason !== null &&
+     !Number.isSafeInteger(saved.hiredSeason)) throw new RangeError('invalid hiredSeason');
   return {
+    ...saved,
     id:data.id,name:data.name,clubId:data.clubId ?? null,
+    hiredSeason:data.hiredSeason ?? null,
+    employmentHistory:copy(data.employmentHistory ?? []),
     reputation:Math.round(clamp(data.reputation ?? 15)),
     appearance:copy(data.appearance ?? {portraitId:'default',jacket:'navy'}),
-    contract:copy(data.contract ?? {weeklyWage:0,expiresSeason:'1985-86'}),
+    // Preserve contract.until from Career 07. No phantom expiresSeason field.
+    contract:copy(data.contract ?? null),
     tactics:copy(data.tactics ?? {formation:'4-4-2',mentality:50,pressing:50,tempo:50,width:50,marking:'zonal'}),
     relationships:copy(data.relationships ?? {}),
     trainingPlan:copy(data.trainingPlan ?? null)
