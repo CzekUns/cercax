@@ -82,8 +82,11 @@ export function assignWorldToClubs(clubs,seed,catalog=null) {
     };
   });
   return {
-    world:{mode:'reviewed_data',datasetStatus:'approved_import',
-      disclaimer:'Present administrative geography does not establish 1979 municipal borders or clubs',
+    world:{mode:catalog.qaFixture === true ? 'qa_fixture' : 'reviewed_data',
+      datasetStatus:catalog.qaFixture === true ? 'synthetic_test_only' : 'approved_import',
+      disclaimer:catalog.qaFixture === true ?
+        'SYNTHETIC QA RECORDS — NOT REAL ISTAT MUNICIPALITIES' :
+        'Present administrative geography does not establish 1979 municipal borders or clubs',
       datasetId:data.datasetId,datasetVersion:data.version,
       historicalScope:data.historicalScope,
       data,assignedMunicipalityIds:result.map(c=>c.municipalityId)},
