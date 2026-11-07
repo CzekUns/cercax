@@ -1,0 +1,10 @@
+{
+  "name": "@oronzo/match-engine",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "demo": "node cli-demo.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

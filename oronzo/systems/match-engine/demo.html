@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ORONZO · Match Engine diagnostic</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#101d2d;color:#f4ead2;font:16px system-ui,sans-serif}
+body{display:grid;place-items:center}.panel{width:min(100vw,1280px);min-height:min(56.25vw,720px);border:3px solid #5e7290;padding:clamp(12px,3vw,28px);background:#182d44}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{color:#e9b86d;letter-spacing:.1em;font-size:13px}
+h1{margin:8px 0;font-size:clamp(20px,3.3vw,38px)}.summary{font-size:clamp(20px,5vw,55px);text-align:center;padding:12px 0;letter-spacing:.03em}
+.tag{font-size:12px;color:#abc2d6}.controls{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
+button{background:#304e70;color:#fff5df;border:1px solid #9cafc4;padding:10px 14px;border-radius:3px;font-weight:650;cursor:pointer}
+button:focus-visible{outline:3px solid #e7bc69}.columns{display:grid;grid-template-columns:1fr 1fr;gap:16px}.box{border:1px solid #566e84;background:#152539;padding:12px}
+h2{font-size:15px;margin:0 0 12px;color:#e9b86d}.small{font-size:13px;line-height:1.7}
+.log{height:230px;overflow:auto;white-space:pre-wrap;font:12px/1.55 ui-monospace,monospace;color:#dce9e9}
+footer{font-size:11px;color:#98b4c7;margin-top:12px}
+@media(max-width:630px){.panel{min-height:100dvh}.columns{grid-template-columns:1fr}.log{height:170px}button{padding:9px}}
+</style>
+</head>
+<body>
+<main class="panel">
+<header><div class="brand">ORONZO / SIMULAZIONE INDIPENDENTE</div><span class="tag">DIAGNOSTICA · NON UI FINALE</span></header>
+<h1>Match Engine · 1985/86</h1>
+<div id="score" class="summary" aria-live="polite">Montevento 0 : 0 Porto Selva</div>
+<div id="clock" class="tag" style="text-align:center">00:00 / 90:00 · 1×</div>
+<div class="controls">
+<button id="play">▶ Avvia / Riprendi</button><button id="pause">Ⅱ Pausa</button>
+<button id="speed">Velocità 1×</button><button id="tactics">3-5-2 + pressing</button>
+<button id="sub">Cambio #10 → #11</button><button id="new">Nuovo seed</button>
+</div>
+<div class="columns">
+<section class="box"><h2>FATTI DI GIOCO</h2><div id="stats" class="small"></div><div id="positions" class="small"></div></section>
+<section class="box"><h2>CRONOLOGIA EVENTI</h2><div id="log" class="log" aria-live="polite"></div></section>
+</div>
+<footer>I dati arrivano da MatchSnapshotV1 e getEventsSince(). Nessun evento, posizione o gol è inventato dalla UI. Per la grafica finale interviene l'Agente 5.</footer>
+</main>
+<script type="module">
+import {createMatch} from './match-engine.js';
+import {makeFixture} from './fixtures.js';
+const $=id=>document.getElementById(id);
+let seed=1,match=createMatch(makeFixture(seed)),playing=false,prev=performance.now(),lastEventId=0,lines=[];
+function readEvents(){
+  const events=match.getEventsSince(lastEventId);
+  for(const e of events){
+    lastEventId=e.id;
+    if(['shot','pass','goal','save','foul','card','offside','substitution','kickoff','halftime','fulltime','injury','tacticChange'].includes(e.type))
+      lines.unshift(String(Math.floor(e.t/60)).padStart(2,'0')+"'  "+e.type.toUpperCase()+' · '+(e.playerId||e.teamId||'')+
+        (e.type==='goal'?' ⚽':''));
+  }
+  lines=lines.slice(0,35);
+}
+function render(){
+  const s=match.snapshot(),clock=Math.floor(s.t/60),sec=Math.floor(s.t%60);
+  $('score').textContent='Montevento  '+s.score.home+' : '+s.score.away+'  Porto Selva';
+  $('clock').textContent=String(clock).padStart(2,'0')+':'+String(sec).padStart(2,'0')+
+    ' / 90:00 · '+matchSpeed+'× · '+s.phase;
+  $('stats').textContent='Tiri: '+s.stats.home.shots+' — '+s.stats.away.shots+
+    ' · In porta: '+s.stats.home.shotsOnTarget+' — '+s.stats.away.shotsOnTarget+
+    ' · Possesso: '+s.stats.home.possession+'% — '+s.stats.away.possession+
+    '% · Falli: '+s.stats.home.fouls+' — '+s.stats.away.fouls;
+  const owner=s.players.find(p=>p.hasBall);
+  $('positions').textContent='In campo: '+s.players.length+
+    ' · Palla: ('+s.ball.x.toFixed(3)+', '+s.ball.y.toFixed(3)+')'+
+    ' · Portatore: '+(owner?.id||'in volo')+
+    ' · Stato: '+(owner?.action||'passaggio/tiro');
+  $('log').textContent=lines.join('\n');
+  $('play').textContent=playing?'▶ In corso':'▶ Avvia / Riprendi';
+}
+let matchSpeed=1;
+$('play').onclick=()=>{if(match.isFinished())return;playing=true;match.setPaused(false);prev=performance.now();render();};
+$('pause').onclick=()=>{playing=false;match.setPaused(true);render();};
+$('speed').onclick=()=>{matchSpeed={1:2,2:4,4:8,8:1}[matchSpeed];match.setSpeed(matchSpeed);$('speed').textContent='Velocità '+matchSpeed+'×';render();};
+$('tactics').onclick=()=>{const r=match.command({type:'tacticChange',teamId:'montevento',payload:{formation:'3-5-2',mentality:83,pressing:88,tempo:76}});lines.unshift(r.accepted?'TATTICA: confermata':'RIFIUTATA: '+r.reason);readEvents();render();};
+$('sub').onclick=()=>{const r=match.command({type:'substitution',teamId:'montevento',payload:{outId:'montevento-10',inId:'montevento-11'}});lines.unshift(r.accepted?'CAMBIO: confermato':'RIFIUTATO: '+r.reason);readEvents();render();};
+$('new').onclick=()=>{seed++;match=createMatch(makeFixture(seed));match.setSpeed(matchSpeed);lastEventId=0;lines=[];playing=false;readEvents();render();};
+document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;match.setPaused(true);}});
+setInterval(()=>{
+  const now=performance.now(),delta=Math.min(.2,Math.max(0,(now-prev)/1000));prev=now;
+  if(playing&&!match.isFinished())match.advanceRealSeconds(delta);
+  if(match.isFinished())playing=false;
+  readEvents();render();
+},100);
+readEvents();render();
+</script>
+</body></html>
