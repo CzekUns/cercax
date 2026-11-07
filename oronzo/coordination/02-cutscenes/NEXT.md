@@ -1,5 +1,5 @@
 # NEXT — AGENTE 02 · CUTSCENES · GATE ARTISTICO
-**Stato:** `WAIT_REVIEW`.
+**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
 **PR corrente:** [#12](https://github.com/CzekUns/cercax/pull/12) OPEN DRAFT, da esaminare artisticamente; nessun merge.
 **Fonte nuova:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md) e [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Scope:** `oronzo/assets/cutscenes/` e proprio REPORT.
@@ -17,3 +17,7 @@ La [PR #12](https://github.com/CzekUns/cercax/pull/12) è ancora **OPEN/DRAFT**.
 
 ## R04 — CONTROLLO WORK 00 (7 novembre 2026)
 **PR #12** ancora `OPEN/DRAFT`: NON mergiare automaticamente. Sono necessari gate di qualità artistica rispetto alla reference laterale, controllo delle pose (cartellini con soli 5 fotogrammi unici su 6) e QA browser. Report PR del ciclo 01 aggiornato, ma non è nuova consegna R02. Work 00 deve classificare `HOLD` o `FIX_REQUESTED`, salvo che prove vere consentano una nuova approvazione artistica; non fingere che lo stato DRAFT sia stato risolto. Nessun R03 mentre WAIT_REVIEW.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #12 resta OPEN/DRAFT e HOLD.** Il rapporto R04 non ha fatto merge: approvazione artistica della vista laterale, pose non duplicate (cartellini 5 uniche su 6), trasparenze/maschere, sincronismo e Chromium effettivo ancora mancanti. Restare su #12, non aprire una nuova PR né integrare la scena nel runtime. Un'eventuale correzione puntuale va documentata sul REPORT del branch, seguita dal gate artistico. Non confondere con R02 degli altri agenti.
