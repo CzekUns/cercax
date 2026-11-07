@@ -28,7 +28,9 @@ Tutti gli otto presidenti hanno un archetipo differente, biografia, obiettivo, c
 6. Per ciascuno degli 8 presidenti, costruito uno stato di prova con `club.presidentId` e contesto narrativo, verificato che **almeno due eventi risultino eleggibili**, che nessun evento di altri presidenti sia presente e che un dialogo collegato sia selezionabile.
 7. Il codice JS del `<script type="module">` della demo passa la compilazione sintattica come AsyncFunction, con rimozione della sola istruzione `import`.
 
-**Non eseguiti e non dichiarati:** `node oronzo/content/validate.mjs` in una vera checkout locale, test visuale/touch su telefono, E2E browser, import diretto dalla PR #17 dell'Agente 9. Il codice Node è stato testato per la sua logica in V8 con input equivalenti, non come processo Node con filesystem reale. Comando che l'orchestratore può riprodurre su una checkout:
+8. **Test di compatibilità reale con il modulo Agente 9 su PR #17:** recuperati `oronzo/systems/coach-club/core.js` e `presidents.js` dal branch `agent/oronzo-coach-club`, valutate in V8 le funzioni originali con le stesse dipendenze locali (`clamp`, `integer`, `rngFromSeed`, `copy`). Tutti gli **8/8** profili hanno superato **la funzione effettiva `validatePresident` dell'Agente 9**; `loadPresidents(async()=>presidentsJson)` ha restituito `source:"copy"` e otto profili; `presidentBehavior(profile,state,seed)` produce output deterministico a seme uguale per tutti gli 8 profili e probabilità differenti per tutti gli archetipi. **PASS**. Test del solo modulo presidenti, non degli eventi finanziari o della simulazione integrata.
+
+**Non eseguiti e non dichiarati:** `node oronzo/content/validate.mjs` in una vera checkout locale, test visuale/touch su telefono, E2E browser, test E2E della PR #17 dell'Agente 9. Il codice Node è stato testato per la sua logica in V8 con input equivalenti, non come processo Node con filesystem reale. Comando che l'orchestratore può riprodurre su una checkout:
 
     node oronzo/content/validate.mjs
 
