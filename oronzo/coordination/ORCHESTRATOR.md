@@ -41,3 +41,10 @@ Ogni agente ha una cartella `oronzo/coordination/NN-*/`: `IDENTITY.md`, `RUN.md`
 
 ## Ripristino rapido del contesto
 Quando la chat principale si interrompe, è sufficiente dire: «Riprendi l'orchestrazione di ORONZO leggendo `oronzo/coordination/ORCHESTRATOR.md`, `REVIEW-QUEUE.md` e i 9 NEXT su `CzekUns/cercax`. Controlla GitHub e continua dal primo lavoro non completato, senza rifare i passaggi già confermati».
+
+## Revisione oraria del 7 novembre 2026 — R01 recepito
+- Sono aperte tutte le 9 PR degli agenti: #6, #12, #5, #13, #15, #18, #14, #16, #17; nessuna mergiata durante questa revisione. L'audit Work mirato è stato consegnato in [PR #19](https://github.com/CzekUns/cercax/pull/19) (sola documentazione, non mergiata).
+- Il rapporto R01 dichiara 39 test passati (non rieseguiti dall'orchestratore) e 5 incompatibilità P1 fra motore #18, vista #15 e attributi #16; vedere `REVIEW-QUEUE.md` per ID, prove e ownership. Nessun P0 nell'audit mirato. #15 e #18 `FIX_REQUESTED`; #16 rimane `WAIT_REVIEW`, pronto per QA dell'orchestratore.
+- `NEXT.md` degli agenti 05 e 06 aggiornati con correzioni; quello di 08 con esito audit. PR #13 ancora priva di `oronzo/content/presidents.json` su HEAD verificato; agente 04 resta `FIX_REQUESTED`.
+- Metadati GitHub: PR #5,#6,#12,#13,#14,#17 risultavano `mergeable=false`; #15,#16,#18,#19 `mergeable=true`. La causa dei false è da isolare. Mergeability non equivale a QA.
+- Prossima azione: attendere fix agenti 05/06, verificare conflitti e report degli altri agenti, rieseguire test integrati e QA visuale; non avviare una seconda sessione Work sul medesimo problema.
