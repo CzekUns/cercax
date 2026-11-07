@@ -1,9 +1,10 @@
 # ORONZO — ORONZO-AGENT-07 · Fix R06-1 / R06-2 / R06-3
 **Stato:** FIX_DELIVERED · PR #38 aperta, **NO MERGE**.  
 **Branch:** `agent/oronzo-career-r03-flow`  
-**Report di riferimento:** [Audit R06 — PR #37? No: report sul branch audit R06](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md)  
+**Audit di riferimento:** [REPORT-R06 — Coerentizzatore 00](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md)  
 **Dipendenza obbligatoria:** [PR #39 — Coach09 Morale R03](https://github.com/CzekUns/cercax/pull/39), HEAD audit `80df15139d37c4ee36103001d6a24528037daed4`.  
 **Data:** 7 novembre 2026 (Europe/Rome).
+**Commits R06 nel branch #38:** geografia `740dfaa1b36d0e5c057172d7988d67558a4dc1e1`; consumer morale `a1e39f17c7fd9a9554f16e383541c27795861a7a` e guard origine `1d61f326d9f5145b481706e2bcc09cb66c0accd3`; fixture QA `fa9ceea384cebde726fbd7bb9d4a9367078ecab9`; test E2E iniziale `c14a0e011889452e08d3597474b279592a360adc`, stabilizzazione test `51a3cc03abbbb6eaa7a9672406b649176f3f8068`, guard record origine `88f23d0402ad24cb94b979ec89605c15c1397fa2`; documentazione `12225de0bac9d5e514461136ea9e22c0934c361b`.
 
 ## Correzioni eseguite
 1. **R06-1 — integrazione reale morale 09.** `oronzo/app/flow/controller.js` importa direttamente `previewOfferMorale`, `applyOfferEffect`, `applyPressEffect` e `createCoach` da `../../systems/coach-club/index.js` (export della PR #39); usa i metodi 09 senza formula parallela in 07. `newGame` inizializza il CoachV2 (morale numerico, `origin`, quattro tratti, `moraleEvents`, relazioni, `gameOver`). `acceptOffer` valuta offerta e applica mora **in una bozza atomica** insieme a contratto, scelta e conferenza; `answerOpeningPress` e `answerPostMatchPress` persistono risposta e gli effetti 09 **nella stessa mutazione di stato**, registrando `flow.effectTransactions[eventId].status='applied'` e `coach.moraleEvents[eventId]`. Duplicati non ricalcolano gli effetti dopo save/load. `morale=0` e `gameOver` bloccano le transizioni con `GAME_OVER`, salvo salvataggio di recupero. La sola modalità `effectsMode:'isolated_test'` (esplicita, vietata in UI) conserva comportamento `awaiting_agent09` per test R03 legacy.
