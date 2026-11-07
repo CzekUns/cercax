@@ -1,0 +1,92 @@
+{
+  "agent": "ORONZO-AGENT-01",
+  "cycle": "R02",
+  "date": "2026-11-07",
+  "branch": "agent/oronzo-players-r02",
+  "baseAtCreation": "c9f52a1c2f60733a6ae1e0b63180fa4b5d0f9697",
+  "assetsCommit": "989439d89e6f83ba0a65b413939ba912f490ed79",
+  "verified": {
+    "V8 isolated generated atlas and palette assertions": {
+      "passed": 55841,
+      "failed": 0,
+      "runner": "JavaScript V8 isolate, not Node or Chromium"
+    },
+    "GitHub remote fetch_file base64 exact byte comparison": {
+      "passed": 10,
+      "failed": 0,
+      "files": [
+        "idle.png",
+        "idle-mask.png",
+        "run.png",
+        "run-mask.png",
+        "kick.png",
+        "kick-mask.png",
+        "tackle.png",
+        "tackle-mask.png",
+        "keeper.png",
+        "keeper-mask.png"
+      ]
+    },
+    "readback raster preview PNG headers": {
+      "passed": 2,
+      "failed": 0,
+      "sizes": [
+        [
+          640,
+          360
+        ],
+        [
+          844,
+          390
+        ]
+      ]
+    },
+    "indexed": true,
+    "maskMaterialAndShadow": true,
+    "allDirections": 8,
+    "distinctFramesPerAction": 4,
+    "actions": 5,
+    "unitScale": 1,
+    "pivot": [
+      16,
+      29
+    ],
+    "realTeamsInDemo": [
+      11,
+      11
+    ],
+    "separateKeepers": 2,
+    "minRGBDistanceHomeVsAwayShirts": 156,
+    "recolorCountPixels": {
+      "solid": {
+        "A": 1642,
+        "B": 0
+      },
+      "vertical": {
+        "A": 929,
+        "B": 713
+      },
+      "horizontal": {
+        "A": 805,
+        "B": 837
+      },
+      "halves": {
+        "A": 960,
+        "B": 682
+      }
+    }
+  },
+  "notExecuted": [
+    "node --test oronzo/assets/players/qa-atlas.test.mjs (provided, not executed in Node)",
+    "Chromium/Android screenshot of match-22-demo.html at 640x360",
+    "Chromium/Android screenshot of match-22-demo.html at 844x390",
+    "full game engine and Agent 05 renderer integration"
+  ],
+  "scope": [
+    "oronzo/assets/players/",
+    "oronzo/coordination/01-players/REPORT.md"
+  ],
+  "risk": "Artistic readability/skin contrast and match-view/TV scale must be approved by visual QA. Preview PNG are offline raster reconstructions from real atlas indices, not browser captures.",
+  "oldActionSchemaPreserved": true,
+  "gate": "PR_OPEN — do not merge without orchestrator review"
+}
