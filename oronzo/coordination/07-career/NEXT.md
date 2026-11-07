@@ -1,3 +1,30 @@
+# ORONZO — AGENTE 07 · CORREZIONE PUNTUALE R06 — SOLO PR #38
+
+**Stato attuale: `FIX_REQUESTED`.** Audit indipendente [R06](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md) su PR [#38](https://github.com/CzekUns/cercax/pull/38) (HEAD osservato `94538ae97b3f7423a7d1e691a2e493524556142f`) e [#39](https://github.com/CzekUns/cercax/pull/39) (HEAD `80df15139d37c4ee36103001d6a24528037daed4`) con [GitHub Actions 42381672625](https://github.com/CzekUns/cercax/actions/runs/42381672625): **91/91 test di suite PASS**, ma **un test d'integrazione con vere API Coach09 FAIL** (`club_region_required`). Nessun merge. Il presente incarico prevale su tutti i precedenti READY, WAIT_REVIEW e divieti storici elencati sotto.
+
+**Scope consentito:** modifica **solo** `oronzo/app/flow/`, `oronzo/systems/career/` quando strettamente indispensabile, e `oronzo/coordination/07-career/REPORT.md`. Resta sulla **PR #38** e branch esistente `agent/oronzo-career-r03-flow`; NON aprire altra PR, NON toccare `oronzo/systems/coach-club/` del 09 o codice altri agenti, NON fare merge.
+
+## Fix R06-1 / P0 — Morale funzionante nel flusso normale
+- Integra effettivamente **Coach09 R03 reale** nel consumer/adapter del flow, assicurando nell'avvio della carriera `createCoach` V2 con `morale` numerico, `origin`, `traits`, `relationships`, `gameOver` persistenti. Usa `previewOfferMorale` e `applyOfferEffect` durante **accettazione delle 20 offerte**, `applyPressEffect` per **tutte le 5 risposte iniziali e le 2 postpartita**. I callback opzionali che lasciano `awaiting_agent09` possono restare SOLO per isolamento di test con modalità esplicita: il percorso di gioco effettivo deve usare le API 09 oppure dare **errore chiaro** se il modulo non è disponibile; non fingere gli effetti come applicati.
+- Contratto esatto: `oronzo/systems/coach-club/MORALE-R03.md` nella #39; non reinventare la formula. Se serve un import ESM diretto che dipenda dagli export non ancora mergiati del 09, documenta **ordine di merge #39 prima di #38**, verifica **checkout combinato** e non sostituire export inesistenti con stub. Non cambiare API del 09 se non dimostri un suo bug e lo segnali al 10.
+- Verifica `effectStatus:'applied'`, eventi `moraleEvents`, `coach.morale` modificato e rispettivo ledger `flow.effectTransactions` persistito nello **stesso** commit/save; retry, doppio clic e reload non applicano due volte. `morale=0` → `gameOver` persistito e flusso bloccato con comportamento verificabile.
+
+## Fix R06-2 / P0 — Regione del club assente in demo senza catalogo
+- **Riproduzione R06:** `newGame({avatar:{id:'r06',traits:{luck:40,leadership:80,selfEsteem:50,patience:80},origin:{regionId:'campania',macroRegion:'sud'}}})` senza catalogo comuni, poi `acceptOffer(...,{previewOfferMorale,applyOfferEffect})` → `club_region_required` in `morale.js:30` via `controller.js:186`.
+- Risolvi **nel flow 07**, con validazione anticipata della geografia e gestione controllata del caso `club.regionId`/macroregione assenti **prima** di registrare un contratto o addebitare morale. Se l'utente non ha ancora i **100 comuni verificati** M1, non inventare dati di produzione né una regione casuale e **non** chiedere al 09 di rimuovere la validazione.
+- Comportamento prescritto per la modalità normale: rispondere/sollevare una condizione esplicita `geography_required` (testo localizzabile) e **nessuna mutazione** di stato/club/offerta/coaching/effect ledger, invece di lasciare propagare un oscuro `club_region_required`; segnalare dipendenza dai dati. Per **solo QA** puoi utilizzare fixture con dati geografici tracciati/controllabili e distintamente etichettate come test, senza spacciare una fixture sintetica per un catalogo ISTAT approvato. Qualsiasi compromesso per giocare senza geografia va sottoposto al 10, non assunto come regola definitiva.
+- Testa preflight senza catalogo, presenza catalogo con regione nota, errori atomici ed eventuali legacy import; non sovrascrivere i 20 ingaggi già generati su un save.
+
+## Fix R06-3 / P1 — Un solo percorso E2E reale (nessuno stub)
+- Test integrato GitHub Actions/Node usando **codice completo #38 + #39**, moduli reali Copy04, Match06, Career07 e Coach09: 1979 → avatar CoachV2 → 20 offerte → firma singola e morale → 5 risposte stampa e relativi effetti → partita reale fino `fulltime` ed eventi goal coerenti → due risposte postpartita → effetti/relazioni → liquidazioni/board → save/load → retry idempotenti → prossimo turno. Includi game over a morale 0, almeno una verifica rollover/due stagioni e salvataggi 1985 retrocompatibili; distingui test che richiedono geografia fixture da prova su dataset M1 reale.
+- Rilancia `node --test oronzo/app/flow/tests/*.mjs`, `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js` e `node oronzo/app/flow/demo-r03.mjs` su checkout combinato se possibile; se impossibile non dichiarare suite PASS, documenta gate mancante. **91 PASS isolati non bastano** se il nuovo caso E2E fallisce.
+- Aggiorna REPORT e **stessa #38** con commit, file modificati, evidence test realmente svolti e dipendenze residue. Poi richiedi al **00 una review R06B** di #38 aggiornato e #39 invariato. 09 rimane `WAIT_REVIEW`, salvo bug proprio dimostrato.
+
+**Priorità:** chiudere il singolo blocco che separa il controller dal playtest dell'utente; niente nuovi moduli societari, cutscene, grafica o round generale.
+
+---
+
+## ARCHIVIO PRE-R06 — REQUISITI/CICLI GIA' CONSEGNATI
 # ORONZO — AGENTE 07 · NEXT ATTUALE: PRIMA CARRIERA GIOCABILE, 1979 (ciclo mirato R03)
 
 **Stato: `WAIT_REVIEW` — R03 consegnato, in attesa audit #38+#39.
