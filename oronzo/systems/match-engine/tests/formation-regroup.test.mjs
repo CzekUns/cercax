@@ -19,7 +19,11 @@ test('prematch formation command moves REAL sprites before kickoff, without movi
   const next=players(m);
   const settled=next.filter((p,i)=>!p.hasBall && targetDistance(p,anchored[i])<.001);
   assert.equal(settled.length,10,'all off-ball players must be in their new positions');
-  assert.ok(next.some(p=>targetDistance(p,before.get(p.id))>10)===false || next.length===11);
+  const moved=next.filter(p=>{
+    const prior=before.get(p.id);
+    return Math.hypot((p.x-prior.x)*105,(p.y-prior.y)*68)>10;
+  });
+  assert.ok(moved.length>=2,'the prematch 3-5-2 must visibly move multiple players');
   assert.equal(m.snapshot().ball.x,.5);
   assert.equal(m.snapshot().ball.y,.5);
   assert.ok(next.find(p=>p.hasBall),'the kick-off carrier remains on the ball');
