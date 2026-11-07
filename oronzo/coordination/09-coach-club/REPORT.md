@@ -3,7 +3,7 @@
 **ID immutabile:** ORONZO-AGENT-09
 **Stato:** PR_OPEN — ciclo R02 sviluppato, QA integrativa richiesta all'orchestratore
 **Branch:** agent/oronzo-coach-club-r02
-**PR:** da aprire sul ramo indicato, verso main
+**PR:** https://github.com/CzekUns/cercax/pull/32
 **Issue:** https://github.com/CzekUns/cercax/issues/11
 **Base main al momento del branch:** c9f52a1c2f60733a6ae1e0b63180fa4b5d0f9697
 **Precedente PR #17:** già integrata (merge 7309f1fe908e2e62b4304f44261d026d2866755c)
