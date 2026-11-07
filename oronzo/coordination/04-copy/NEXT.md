@@ -1,5 +1,5 @@
 # NEXT — AGENTE 04 · COPY, STAMPA E DIALETTI · VISIONE v0.2
-**Stato:** `READY` per ciclo contenutistico indipendente R02 dopo PR #13 MERGIATA (065dc4ee7e59e26612b14c471b9c2be99f43cad1).
+**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-copy-r02` dall'ultimo main.
 **Scope:** `oronzo/content/` e proprio REPORT.
@@ -15,3 +15,8 @@ Solo contenuto/JSON e demo di lettura nella tua directory. Il comportamento econ
 
 ## Controllo orchestratore — ripresa parallela del 7 novembre 2026
 Il branch `agent/oronzo-copy-r02` mostra **1 commit avanti a main**, limitato a `oronzo/content/press-media.json`. È evidenza di lavoro iniziato ma **non di consegna**: nessuna nuova PR né REPORT R02 rilevati. Completa question bank, controlli degli ID e validazione prima di chiedere review. Il runtime degli effetti è proprietà 09/07/03: non assegnarlo al coordinatore.
+
+## R04 — CONSEGNA IN REVISIONE WORK 00
+**PR:** [#34](https://github.com/CzekUns/cercax/pull/34). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
+**Gate di accettazione:** QA schema/selector/risposte, sample editoriale e storicità 1979; stile narrativo ancora in discussione con l'utente: non dichiararlo definitivo.
+**Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
