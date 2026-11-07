@@ -5,7 +5,8 @@
 **Branch:** `agent/oronzo-career-r03-flow`
 **Issue:** https://github.com/CzekUns/cercax/issues/9
 **Base main originale verificata:** `dcec6acc931c440597c3c28a6bd9f7d24d9bb94e`
-**Commit codice:** `644948bc21eb8617528bea4efa7bee5161935c4a`
+**Commit codice iniziale:** `644948bc21eb8617528bea4efa7bee5161935c4a`  
+**Fix idempotenza/UI:** `abd35f578dee9ab3ff0101c6a1bb75996290d999` (controller), `305bbe4d9eab2a131faa56c1c76db36be2d83b1c` (test), `a6cb502d6199942bce59fdeb70133ee19e809078` (demo), `6387d49c15e5e94a6b856e7b5127edcb24b1e35c` (README)
 **Data:** 7 novembre 2026 (Europe/Rome)
 
 ## Implementazione autorizzata — 1979, solo dati/controller
@@ -24,8 +25,9 @@
 1. **JavaScript V8, codici originali di Career07 letti da blob GitHub** più controller/world/offers/simulator da blob di lavoro e *stub dichiarati* per Coach09, Copy04 e MatchEngine06: sequenza **PASS** (inizio 1979, 20 offerte uniche e deterministiche, una sola accettazione, 5 risposte, match 1–0 di fixture, 2 risposte post, 1 periodo pagato, advanceWeek a 2, save/import integro). Questa è una prova del controller, **NON** esecuzione autentica end-to-end di 04/06/09.
 2. **Actual Match Engine06**: codice `rng.js`, `movement.js`, `commands.js`, `actions.js`, `match-engine.js` letto dall'ultimo main e caricato in ambiente V8. Con formazione di prova a **un GK** per squadra, `createMatch` seguito da `step(5400)`: **PASS**, `fulltime` a t=5400, risultato **1–1**, 2 eventi goal nel feed autorevole, 1.556 eventi totali. La prova utilizza club fixture, non l'adapter R03/Coach09 completo.
 3. **World importer reale**: `world.js` + `league.js` da SHA GitHub, **PASS** con 100 record **sintetici di test**, 104 club e 100 ID località unici, assegnazione identica a seed fissato; catalogo da 99 record respinto con `WORLD_M1_GATE`. Questa verifica **non** prova che comuni o licenze del dataset reale siano verificati.
-4. **Codice di test nativo Node consegnato ma NON eseguito**: `oronzo/app/flow/tests/flow-r03.test.mjs` contiene test su 1979 vs vecchio 1985, 20 offerte, import M1, visual/kit, due stagioni, mercato/press/engine, rollback e test game-over. `oronzo/app/flow/demo-r03.mjs` è runnable da una checkout completa. **Non si dichiara Node PASS**.
-5. **Blocco ambiente Node:** `git ls-remote https://github.com/CzekUns/cercax.git HEAD` da container restituisce `Could not resolve host: github.com`; il checkout integrale su cui eseguire `node --test oronzo/app/flow/tests/*.mjs oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js` non è stato disponibile. I 77 test preesistenti furono attestati dal revisore R05B sui merge, non rieseguiti qui. QA browser/smartphone non eseguita.
+4. **Regressione mirata V8 post-commit** su `controller.js` esatto blob `c02b7b2c60e01bdb5252d40fa2d13f336a4e837c`: caricamento/parsing di **21 export PASS**; chiamata `advanceMatchday` con token vecchio → `stale_week_action`, senza token nello stato disoccupato → `expected_week_required_when_unemployed`, con stato `hub` non pronto → `postmatch_press_not_completed`. Il controllo `expectedAbsoluteWeek` serve alla UI 03 per prevenire doppio avanzamento anche quando il mister è senza club.
+5. **Codice di test nativo Node consegnato ma NON eseguito**: `oronzo/app/flow/tests/flow-r03.test.mjs` contiene test su 1979 vs vecchio 1985, 20 offerte, import M1, visual/kit, due stagioni, mercato/press/engine, rollback e test game-over. `oronzo/app/flow/demo-r03.mjs` è runnable da una checkout completa. **Non si dichiara Node PASS**.
+6. **Blocco ambiente Node:** `git ls-remote https://github.com/CzekUns/cercax.git HEAD` da container restituisce `Could not resolve host: github.com`; il checkout integrale su cui eseguire `node --test oronzo/app/flow/tests/*.mjs oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js` non è stato disponibile. I 77 test preesistenti furono attestati dal revisore R05B sui merge, non rieseguiti qui. QA browser/smartphone non eseguita.
 
 ## Confini API e dipendenze
 - **03 UI:** usa `getStateForUI` e proiezioni `getRosterPlayer/getTrainingPlayer`, chiama `tickMatch` e non il timer 60×; rende le 20 offerte, 5/2 domande, roster, partita e history. 07 non crea HTML/CSS né sostituisce `game.js`.
