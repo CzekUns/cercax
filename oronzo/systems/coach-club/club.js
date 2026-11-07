@@ -7,12 +7,13 @@ export function createClub(data, finances={}) {
   if(!data?.id || !data?.name || !data?.presidentId) throw new Error('club requires id, name and presidentId');
   // Validate source contracts before copying: JSON cloning hides NaN/Infinity.
   const sourcePayroll=weeklyPayroll(data);
-  const objective=normalizeSeasonObjective(data.seasonObjective ?? 'safety');
+  // Validate the objective but retain Career 07's spelling in persistent state.
+  normalizeSeasonObjective(data.seasonObjective ?? 'safety');
   if(finances.presidentCatalog) resolveClubPresident(data,finances.presidentCatalog);
   const club={
     id:data.id,name:data.name,divisionId:data.divisionId ?? 'promotion',
     budget:integer(data.budget ?? 0,'budget'),wageBudget:integer(data.wageBudget ?? 0,'wageBudget'),
-    boardTrust:Math.round(clamp(data.boardTrust ?? 65)),seasonObjective:objective,
+    boardTrust:Math.round(clamp(data.boardTrust ?? 65)),seasonObjective:data.seasonObjective ?? 'safety',
     presidentId:data.presidentId,players:copy(data.players ?? []),
     staff:copy(data.staff ?? {sportingDirector:{competence:55,loyalty:55}}),
     reputation:Math.round(clamp(data.reputation ?? 30)),
@@ -25,7 +26,8 @@ export function createClub(data, finances={}) {
 }
 export function cloneClub(club) { return copy(club); }
 export function setObjective(club, objective) {
-  const c=copy(club);c.seasonObjective=normalizeSeasonObjective(objective);return c;
+  normalizeSeasonObjective(objective);
+  const c=copy(club);c.seasonObjective=objective;return c;
 }
 export function applyTrust(club, change, reason, week=0) {
   const c=copy(club);
