@@ -1,21 +1,13 @@
-# NEXT — AGENTE 2 — Cutscene gol, parate ed eventi
+# NEXT — AGENTE 02 · CUTSCENES · GATE ARTISTICO
+**Stato:** `WAIT_REVIEW`.
+**PR corrente:** [#12](https://github.com/CzekUns/cercax/pull/12) OPEN DRAFT, da esaminare artisticamente; nessun merge.
+**Fonte nuova:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md) e [epic #25](https://github.com/CzekUns/cercax/issues/25).
+**Scope:** `oronzo/assets/cutscenes/` e proprio REPORT.
 
-**Stato:** `WAIT_REVIEW`
-**A cura di:** orchestratore ORONZO
-**Ultima revisione del lavoro:** NON ANCORA COMPLETATA
-**Ultimo merge approvato da questa procedura:** NESSUNO
-**Issue:** https://github.com/CzekUns/cercax/issues/2
-**PR in corso:** https://github.com/CzekUns/cercax/pull/12
+## Azione ora consentita
+1. Mantieni la PR #12; non iniziare un ciclo parallelo, non aprire PR alternativa, non modificare integrazione.
+2. Documenta differenze fra reference laterale e 5 sequenze (gol, parata, giallo, rosso, infortunio), pose ripetute, fedeltà pixel/art, ricolorazione e prova effettiva in browser **solo se svolta**. Correggi la PR corrente soltanto su richiesta precisa del revisore.
+3. In un **futuro** ciclo dopo il gate, possibile sequenza breve di presentazione del presidente, senza copiarne figure cinematografiche, e aggancio agli eventi partita; l'orchestratore autorizzerà separatamente.
 
-## Situazione
-È presente la PR https://github.com/CzekUns/cercax/pull/12. L'orchestratore deve esaminarne file, test, compatibilità e qualità prima di approvare/mergiare. Non interpretare questa PR come già accettata. Se necessario integrare o risolvere conflitti, farlo nella PR corrente. Il lavoro di una nuova iterazione partirà solo dopo l'aggiornamento di questo NEXT da parte dell'orchestratore.
-
-## Prossimo blocco autorizzato
-Attendere l'esito della supervisione; raccogliere report verificabile, correggere la PR esistente solo quando vengono richieste modifiche.
-
-## Criteri di accettazione
-5 sequenze animate laterali 16:9 con frame allineati, ricolorazione, manifest e demo.
-Rispetto contratti, prove/test reali, perimetro esclusivo, report scritto e PR verificabile.
-
-## Dopo il merge
-**Solo l'orchestratore** aggiornerà qui SHA integrato, nuove priorità, eventuali bug residui e criteri per il ciclo successivo. L'agente rilegge questo file su `main` prima di ogni ripartenza.
+## Accettazione
+5 sequenze animate laterali 16:9, frame/pivot coerenti, maschere e manifest, demo, QA artistica e browser quando possibile. Se l'ambiente blocca browser, riportalo. Niente merge autonomo.
