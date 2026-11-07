@@ -1,7 +1,7 @@
 /* ORONZO · Narrative engine v1. Standalone: no DOM, storage or game.js dependency.
    Integrator imports this file; all futureEffects remain inert until explicit implementation. */
 const NUMERIC_STATS = new Set(["morale", "fatigue", "confidence", "health", "luck"]);
-const TRIGGER_KEYS = new Set(["weekMin", "weekMax", "trainingDone", "lastResult", "teamMoraleBelow", "teamMoraleAbove", "teamFatigueAbove", "teamFatigueBelow", "teamConfidenceBelow", "teamConfidenceAbove", "teamHealthBelow", "teamLuckBelow", "teamCharacterAbove", "standingsPositionAbove", "standingsPositionBelow"]);
+const TRIGGER_KEYS = new Set(["weekMin", "weekMax", "trainingDone", "lastResult", "teamMoraleBelow", "teamMoraleAbove", "teamFatigueAbove", "teamFatigueBelow", "teamConfidenceBelow", "teamConfidenceAbove", "teamHealthBelow", "teamLuckBelow", "teamCharacterAbove", "standingsPositionAbove", "standingsPositionBelow", "lossStreakMin", "clubCashBelow", "boardTrustBelow", "marketRequest", "derbyWeek", "cupWeek"]);
 
 export function makeMemory() {
   return {eventsSeen: {}, seasonOnce: {}, lastEvents: [], eventVariantIndex: {},
@@ -17,6 +17,8 @@ function avg(players, key) {
 }
 export function deriveMetrics(state) {
   const players = Array.isArray(state && state.players) ? state.players : [];
+  const context = (state && state.narrativeContext) || {};
+  const club = (state && (state.club || state.currentClub)) || {};
   const starters = players.filter(p => p.starter);
   const base = starters.length ? starters : players;
   let standingsPosition = null;
@@ -35,7 +37,13 @@ export function deriveMetrics(state) {
     teamHealth: avg(base,"health"),
     teamLuck: avg(base,"luck"),
     teamCharacter: avg(base,"character"),
-    standingsPosition
+    standingsPosition,
+    lossStreak: finite(context.lossStreak) ? context.lossStreak : null,
+    boardTrust: finite(context.boardTrust) ? context.boardTrust : (finite(club.boardTrust) ? club.boardTrust : null),
+    clubCash: finite(context.clubCash) ? context.clubCash : (finite(club.finance?.cash) ? club.finance.cash : null),
+    marketRequest: typeof context.marketRequest === "boolean" ? context.marketRequest : null,
+    derbyWeek: typeof context.derbyWeek === "boolean" ? context.derbyWeek : null,
+    cupWeek: typeof context.cupWeek === "boolean" ? context.cupWeek : null
   };
 }
 export function matchConditions(conditions, stateOrMetrics) {
@@ -56,6 +64,10 @@ export function matchConditions(conditions, stateOrMetrics) {
     }
     if (key === "standingsPositionAbove" && !(finite(m.standingsPosition) && m.standingsPosition > threshold)) return false;
     if (key === "standingsPositionBelow" && !(finite(m.standingsPosition) && m.standingsPosition < threshold)) return false;
+    if (key === "lossStreakMin" && !(finite(m.lossStreak) && m.lossStreak >= threshold)) return false;
+    if (key === "clubCashBelow" && !(finite(m.clubCash) && m.clubCash < threshold)) return false;
+    if (key === "boardTrustBelow" && !(finite(m.boardTrust) && m.boardTrust < threshold)) return false;
+    if ((key === "marketRequest" || key === "derbyWeek" || key === "cupWeek") && m[key] !== threshold) return false;
   }
   return true;
 }
@@ -69,6 +81,12 @@ function weightedPick(items, rng, effectiveWeight) {
   for (let i=0; i<items.length; i++) { n -= weights[i]; if (n < 0) return items[i]; }
   return items[items.length-1];
 }
+export function activePresidentId(state) {
+  return state?.club?.presidentId || state?.currentClub?.presidentId || state?.presidentId || null;
+}
+function presidentMatches(entry, state) {
+  return !entry.presidentId || entry.presidentId === activePresidentId(state);
+}
 function cooled(id, week, cooldown, seen) {
   return !hasOwn(seen,id) || (week-seen[id] >= cooldown);
 }
@@ -79,7 +97,7 @@ function appendRecent(memory, key, id, max) {
 export function eligibleEvents(data, state, memory) {
   const m = deriveMetrics(state);
   return (Array.isArray(data) ? data : data.events || []).filter(event =>
-    matchConditions(event.triggers, m) &&
+    presidentMatches(event, state) && matchConditions(event.triggers, m) &&
     !(event.oncePerSeason && memory.seasonOnce[event.id]) &&
     cooled(event.id,m.week,event.cooldownWeeks,memory.eventsSeen)
   );
@@ -131,7 +149,7 @@ export function selectMicrocopy(data, category, state, memory, rng=Math.random) 
 export function selectDialogue(data, scene, state, memory, rng=Math.random) {
   const items=Array.isArray(data) ? data : data.dialogues || [];
   const m=deriveMetrics(state);
-  const eligible=items.filter(x => x.scene===scene &&
+  const eligible=items.filter(x => x.scene===scene && presidentMatches(x,state) &&
     cooled(x.id,m.week,x.cooldownWeeks || 0,memory.dialoguesSeen) &&
     !(memory.recentDialogues || []).includes(x.id) &&
     (x.variants || []).some(v=>matchConditions(v.when,m)));
