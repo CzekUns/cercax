@@ -1,5 +1,5 @@
 # NEXT — AGENTE 03 · ART DIREZIONE UI · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
 **Lavoro precedente:** PR #5 MERGIATA (ad84dd134b98d5fde8017af3da5e6e7b1b21e63e).
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-ui-r02`.
@@ -24,3 +24,9 @@ Il branch `agent/oronzo-ui-r02` è **identico a main** (0 commit nuovi) e il REP
 **PR:** [#33](https://github.com/CzekUns/cercax/pull/33). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** Gate kit: demo Chromium 640×360/800×360/844×390, hotspot e asset; non autorizzare runtime HTML finché R02 07/09 e questo kit non sono mergiati.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #33, esito R04: HOLD per gate browser.** QA statica/sintassi/asset sullo snapshot combinato è passata; **Work 00 non disponeva di eseguibile Chromium** e il tentativo d'installazione è fallito. I test browser dichiarati dall'agente con `page.set_content` sono utili ma non provano il deploy/hosting o il touch Android.
+**Azione ammessa sulla PR #33 corrente:** fornire test browser ripetibile in ambiente Chromium realmente disponibile, con screenshot/autovalidazione delle schermate e interazioni 640×360/800×360/844×390, 8 avatar e 4 tratti dinamici, 20 offerte, 5 Q, hub, scroll e pulsanti almeno 44 px, nessun errore console, URL/asset HTTP veri ove possibile; documentare eventuale blocco e non millantare PASS. Controllare l'arte e leggibilità.
+**NON autorizzare ancora** `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html`: il futuro runtime UI avrà NEXT separato **solo dopo** #33 approvata/mergiata, R02 07/09 superato e adapter 07 contrattualizzato. I 100 comuni e 500 cognomi sono contenuti dinamici da ricevere, non numeri incisi nelle bitmap; non confondere la demo con gioco già integrato.
