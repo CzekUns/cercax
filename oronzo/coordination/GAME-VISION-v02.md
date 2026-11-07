@@ -2,6 +2,13 @@
 
 _Specifica di prodotto e criteri di accettazione · 7 novembre 2026 · Agente 10_
 
+## Direttiva utente aggiuntiva — primo rilascio M1: 100 comuni / 500 cognomi (7 novembre 2026)
+**Requisito vincolante per il primo rilascio giocabile:** bastano **100 comuni italiani verificati** e **500 cognomi italiani distinti e verificati**. I precedenti obiettivi **500 comuni / 5.000 cognomi** restano desiderati per l'espansione successiva e **non bloccano il primo rilascio**. Non presentare il catalogo iniziale come «100 meno popolati» o «500 cognomi più rari» senza una classifica con fonti verificabili. Preferire piccoli comuni e cognomi poco comuni dove la fonte lo consente; i dati certi sono obbligatori, i ranking non dimostrati non si inventano.
+
+**Raccolta incaricata all'automazione oraria ORONZO già attiva:** lavorazione incrementale su branch dedicato `data/oronzo-world-research` e directory `oronzo/data/research/`, PR unica non mergiata automaticamente, con `municipalities.json`, `surnames.json`, `sources.json` e `STATUS.md` (o struttura equivalente già presente). Ogni record ha fonte/licenza/ID e geografia/anno verificabili, deduplica e tracciabilità; non include dati personali. Gli agenti **07** (comuni/mondo) e **08** (cognomi) validano e importano i dati **dopo review** della PR di ricerca, senza ricercarli nei rispettivi branch o creare archivi concorrenti. Una fonte attuale non certifica automaticamente geografia/popoli del 1979. I dati non sono da considerare presenti fino a conteggio, review, commit e import reali.
+
+**Conseguenza sui gate:** gli agenti 07/08 possono completare il flusso con il catalogo M1 verificato; ulteriori 400 comuni e 4.500 cognomi sono fase di crescita e non devono ritardare l'end-to-end. Il requisito storico della sezione 03 descrive l'orizzonte finale.
+
 ## Premessa e ordine di precedenza
 
 Specifiche fornite direttamente dall'utente il 7 novembre 2026. Questa visione v0.2 prevale sulle scelte incompatibili contenute nel concept v0.1: anno di avvio 1979 anziché 1985/86; avatar dotati di statistiche operative anziché puramente estetici; velocità di partita 1× pari a circa 15 minuti reali anziché 90 secondi; percorso narrativo e relazionale della carriera. Restano valide le istruzioni tecniche non confliggenti: smartphone esclusivamente landscape 16:9, estetica pixel art calcistica 1990–1995, controllo della gara da parte dell'allenatore e separazione tra simulazione e visualizzazione.
