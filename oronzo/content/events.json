@@ -90,7 +90,8 @@
             "presidentTrust": 1
           }
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "ev_conti",
@@ -176,7 +177,8 @@
             "boardPressure": 2
           }
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "ev_moduli",
@@ -1602,7 +1604,8 @@
             "presidentTrust": 1
           }
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "ev_filotto",
@@ -2012,7 +2015,8 @@
             "presidentTrust": -1
           }
         }
-      ]
+      ],
+      "presidentId": "gaetano_venturi"
     },
     {
       "id": "ev_pagelle",
