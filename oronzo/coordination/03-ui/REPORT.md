@@ -135,7 +135,7 @@ Il successivo ciclo di runtime UI su `index.html`, `game.js`, `ui.css`, `partita
 | R07-1 clipping effettivo | **PASS 6/6**: `CARICA PARTITA` misura 44px nominali e **44px visibili** dopo intersezione con gli antenati con overflow; nota `entry-hint` dentro pannello; centro `document.elementFromPoint` identifica `sample-load`; tap/mouse fisico su coordinate centrali attiva `#ui-toast` senza auto-scroll |
 | R07-2 post-conferenza | **PASS 6/6**: percorso da Nuova → Avatar → 20 offerte → Presidente → 5 risposte stampa → hub; dopo quinta domanda, toast ancora visibile; hit-test al centro della CTA dorata restituisce `goto/prematch`; tocco immediato porta a `prematch` senza aspettare 2400ms |
 | Stato, menu e indicatori | **PASS 6/6**: intersezioni geometriche tra lo slot toast visibile e TUTTI i pulsanti, KPI, note, titoli del pannello, quick nav, brand e top-info = **zero**; stesso controllo dopo le risposte 1–4 e su menu `PRESIDENTE` con toast di funzione non collegata |
-| Caricamento JS/CSS/PNG | **PASS Chromium** per `demo-v02.js`, `demo-v02.css` e 9 PNG effettivamente richiesti per questi percorsi, senza eccezioni JS/console. Le richieste sono servite con `Playwright route.fulfill` dai byte locali (NON HTTP reale) |
+| Caricamento JS/CSS/PNG | **PASS Chromium** per `demo-v02.js`, `demo-v02.css` e tutti i 10 PNG originali decodificati esplicitamente in ognuno dei sei percorsi, senza eccezioni JS/console. Le richieste sono servite con `Playwright route.fulfill` dai byte locali (NON HTTP reale) |
 | SHA Git del file JS testato | **PASS**: hash blob di `demo-v02.js` usato nel browser = `99dff55566f7b0fd1053a190c32e352c7d281098`, esattamente il blob Git pubblicato; CSS/HTML/QA hanno anch'essi SHA uguali ai blob creati |
 
 **Evidenze e script:** https://github.com/CzekUns/cercax/tree/agent/oronzo-ui-r02/oronzo/assets/ui/qa/
@@ -150,3 +150,6 @@ Le 12 immagini sono screenshot di Chromium, non screenshot di ImageGen/PIL né p
 - Nessun dato geografico raccolto o modificato: la raccolta approvata dei **100 comuni/500 cognomi** appartiene al flusso separato.
 
 **Proposta:** revisione mirata **R07B** del Coerentizzatore 00 sul nuovo HEAD della **PR #33** per i due soli fix; l'orchestratore decide il gate/merge. Nessuna richiesta di inizio R03.
+
+
+**Consolidamento QA R07:** commit `95094ff499b89d6d96ea483b6ae82f06540c2973`. Aggiornati solo `qa/run_browser_r07.py` e `qa/R07B-RESULTS.json` per decodificare **tutti i 10 PNG originali in ciascuno dei 6 percorsi Chromium**. Risultato nuovo: **6/6 PASS**, asset richiesti **12** (CSS, JS e 10 PNG), senza errori console. Sono confermati clipping 44/44px, hit test, tap immediato e zero sovrapposizioni toast; lo script non prova hosting HTTP reale.
