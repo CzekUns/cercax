@@ -63,3 +63,48 @@ Il successivo ciclo di runtime UI su `index.html`, `game.js`, `ui.css`, `partita
 3. QA Android e hosting statico, contrasto/font touch e casi edge game over, traduzioni e salvataggi.
 
 **Gate richiesto:** revisione orchestratore della PR #33, nessun merge autonomo.
+
+---
+
+## Addendum R04 — correzione gate browser
+
+**Data:** 7 novembre 2026. **Stato:** PR #33 OPEN / HOLD per review finale. **NEXT su main:** `WAIT_REVIEW`, gate R04 specifico. Nessun merge; nessun R03 autorizzato.
+
+### Correzioni pubblicate nella PR corrente
+
+- `oronzo/assets/ui/demo-v02.js`: corretta esclusivamente la permanenza del toast quando si cambia schermata (il precedente messaggio stampa copriva temporaneamente i comandi del match in navigazione rapida). `changeScreen()` cancella il timer del toast e nasconde il messaggio prima di ridisegnare la nuova vista. **Commit** `353d4eddb426c73d94bb23f48dbc5bf344738d5b`; blob JS nuovo `3bdb10678ff2810296385dc6937d851f48ddbcc8`.
+- `oronzo/assets/ui/qa/run_browser_r04.py`: nuovo QA **riproducibile con Chromium vero**, emulazione touch, tre viewport e URL CSS/JS/PNG separati attraverso richieste browser intercettate da `page.route(...).fulfill(...)`.
+- `oronzo/assets/ui/qa/R04-BROWSER-RESULTS.json`: dati di verifica con versione browser, regioni, controlli e risorse decodificate.
+- Screenshot Chromium reali pubblicati nella PR (non mockup di PIL):
+  `qa/r04-entry-640x360.png`, `qa/r04-avatar-640x360.png`, `qa/r04-avatar-dynamic-640x360.png`, `qa/r04-press-1-640x360.png`, `qa/r04-offers-800x360.png`, `qa/r04-hub-800x360.png`, `qa/r04-match-tv-844x390.png`, `qa/r04-match-full-844x390.png`.
+- Commit che pubblica QA e screenshot: **`f49a79ab55a09ec06b7390a41ab8e10c51fac226`**.
+- File modificati esclusivamente dentro `oronzo/assets/ui/` più questo `REPORT.md`. Niente modifiche al runtime, engine, contratti dei colleghi, `NEXT`, dati o NEXT R03.
+
+### Test realmente eseguiti
+
+| Comando | Esito osservato |
+|---|---|
+| `node --check oronzo/assets/ui/demo-v02.js` | **PASS** (sintassi JS dopo fix; Node 22.16.0 nel sandbox) |
+| `python oronzo/assets/ui/qa/check_assets.py` | **PASS** sui file R02 originali recuperati, 10 PNG, dimensioni, 3 atlanti RGBA, 8 viste e manifest. |
+| `python oronzo/assets/ui/qa/run_browser_qa.py` | **PASS**, vecchia suite Chromium con `set_content` e immagini in data URI, tre risoluzioni. |
+| `python oronzo/assets/ui/qa/run_browser_r04.py` | **PASS**, Chromium 144.0.7559.96 reale, `/usr/bin/chromium`, Playwright Python, emulazione `is_mobile=True/has_touch=True`; 640×360, 800×360, 844×390. |
+
+**Verifiche R04 browser puntuali**: layout centrato e 16:9 (letterbox a 800×360 e 844×390); click/tap reali, 8 avatar con 4 tratti originali e cambio mostrato nel DOM; `setData` cambia effettivamente nome, luogo e valori (fixture `MISTER DINAMICO`), senza alterare il portrait bitmap; 20 offerte vere nel DOM con selezione dell'ultima e **scroll** positivo; anteprima morale solo `0/-1/-3` **mock**; 4 presidenti disponibili nel kit e scena presentazione; **5 domande** di conferenza con 3 risposte ciascuna e fan mood demo finale 53; quattro menu hub premibili; prepartita; 22 marcatori dimostrativi invariati tra FULL/TV; screenshot full e TV; pulsanti visibili con **larghezza e altezza >=43,5 CSS px** (tolleranza geometrica 0,5 px sul target 44), nessun controllo principale tagliato; navigazione cancella toast passato; **zero `pageerror`, errori console e richieste fallite nel browser intercettato**; 10 PNG decorativi decodificati da Chromium con dimensioni reali.
+
+**Evidence**: lo script ha prodotto **45 screenshot locali = 15 viste × 3 viewport** e la PR ne include **8 rappresentativi**; `qa/R04-BROWSER-RESULTS.json` ne conserva i dati. I file `demo-v02.js`, `demo-v02.html`, `demo-v02.css`, atlanti e altri PNG usati nel test corrispondono ai file pubblicati, non a una reimplementazione mock. Sorgente JS verificato via SHA Git blob prima del fix e dopo il fix.
+
+### Limiti documentati senza PASS improprio
+
+- **HTTP/deploy reale NON verificato.** In questo sandbox la navigazione top-level verso `http://127.0.0.1` e `https://oronzo-qa.invalid` fallisce con `net::ERR_BLOCKED_BY_ADMINISTRATOR`, anche con un server HTTP locale e route Playwright. Il browser ha tuttavia richiesto i veri URL relativi CSS/JS/PNG dal documento HTML; Playwright ne ha restituito esattamente i byte locali via `route.fulfill` con status 200 e content-type corretto. Questo prova il caricamento delle risorse lato Chromium, **non** la reale raggiungibilità HTTP di GitHub Pages, server o CDN.
+- **Android fisico NON testato.** Sono test Chromium mobile-touch emulati; non misura densità, leggibilità, prestazioni e navigazione su dispositivo reale. Le didascalie retro di 8–9px visibili negli screenshot richiedono approvazione artistica su telefono prima del gate finale.
+- Demo standalone, **NON runtime della carriera**. Avatar, offerte, morale, presidente, tifosi, giornalisti, 22 posizioni e punteggio sono fixture dimostrative. Camera TV è zoom CSS locale, non implementazione ball-follow dell'agente 05. Save/load e game-over non implementati qui.
+- La fase M1 è limitata a **100 comuni / 500 cognomi verificati**, la raccolta appartiene già all'automazione; nessun duplicato e nessun testo/dato demografico inciso nelle immagini.
+- I moduli 07/09 R02, il futuro adapter 07, gli shout 06/08 e la camera 05 restano prerequisiti contrattuali. Nessun `index.html`, `game.js`, `ui.css`, `partita-rapida.html` alterato; il successivo ciclo runtime richiede autorizzazione esplicita in NEXT.
+
+### Raccomandazioni all'orchestratore (non autorizzazione R03)
+
+1. Rieseguire `python oronzo/assets/ui/qa/run_browser_r04.py` nel checkout della PR #33 con Chromium disponibile, esaminare i PNG caricati e verificare personalmente la leggibilità/touch.
+2. Validare il **deploy statico HTTP/GitHub Pages e almeno un Android fisico** nell'ambiente appropriato; la prova in sandbox via route non li sostituisce.
+3. Solo dopo gate #33 e fix/merge 07+09, assegnare eventuale ciclo **runtime UI** separato con adapter 07 e contratti #31/#35 coerenti.
+
+**Conclusione:** gate Chromium DOM e touch emulato superato sul codice del kit; gate deploy reale/Android resta da certificare. PR #33 aperta per review.
