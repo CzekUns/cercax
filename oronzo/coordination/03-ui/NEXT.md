@@ -1,3 +1,24 @@
+# ORONZO — AGENTE 03 · NEXT ATTUALE R07: REVISONE FINALE KIT UI #33
+
+**Stato attuale: `WAIT_REVIEW_R07` — PR #33 ancora OPEN.** Le PR **#39 e #38** sono MERGED e il gate R06B 97/97 PASS su main; il controller carriera 1979 è pronto per essere collegato alla UI. **Non** ripartire da R02 e non riscrivere logica 07/09.
+
+**Prima azione:** lasciare al Coerentizzatore 00 la review mirata R07 sulla **stessa PR #33** (HEAD noto `c38be80c392939d042dd998e6d1bf655c259804d`) secondo `coerentizzatore/REQUEST.md`. Se il 00 chiede correzioni di leggibilità, browser/touch, manifest o asset, aggiorna **solo #33** e `oronzo/assets/ui/` + REPORT03; **nessun merge autonomo**. Non aprire in contemporanea una PR runtime che dipende da un kit non approvato.
+
+## R03 — INCARICO PRONTO PER PLAYTEST, SI ATTIVA SOLO DOPO MERGE #33
+
+Una volta che **#33 è realmente MERGED**, l'Agente 10 autorizzerà un **nuovo NEXT** e un **nuovo branch da main** `agent/oronzo-ui-r03-runtime`. *Non è ancora un incarico di implementazione attivo in questo NEXT R07.* Il suo output richiesto sarà una **partita realmente giocabile via browser mobile**, non l'ennesima demo con dati hardcoded:
+
+- Integrazione runtime `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css` e, se necessario, `oronzo/partita-rapida.html`, consumando il kit #33 e `oronzo/app/flow/controller.js` **reale** su main. Il 03 presenta dati e invia intent, senza modificare regole di 07/09/06. UI 16:9 landscape e touch.
+- Flusso prima partita: Nuova/Carica → avatar/4 tratti → **20 offerte vere dal controller** → selezione e anteprima morale da 09 → 5 domande iniziali Copy04 → hub 1979, Rosa/Allenamento con stesso `playerId` e kit persistente (mostrare stato “asset non disponibile” se mancano `player.visual`, non inventare) → formazione da 11 con portiere → match realmente simulato Engine06 via `prepareMatch/tickMatch/consumeMatchResult` a **1× = ~15 minuti** → 2 risposte postpartita → club/finanze/risultato/classifica → save/load e prossima giornata. Esclusi shout 06/08 avanzati finché non verificati.
+- **Non attribuire dati demo/placeholder alla produzione.** Per playtest personale è ammissibile esporre solo in versione test una modalità ben distinta **“Demo tecnica — località sintetiche”** usando le fixture `oronzo/app/flow/tests/qa-geography.mjs` già etichettate `synthetic_test_only`, senza usare quelle località come dati ISTAT. Nella modalità normale, se manca catalogo regionale approvato, mostrare `geography_required` con messaggio leggibile e nessun ingaggio non valido. Non cambiare contratti 07/09 per aggirarlo. La produzione M1 aspetta i 100 comuni/500 cognomi verificati, ma questo **non deve impedire un playtest tecnico dichiaratamente demo**.
+- Solo rendering, interazioni e orchestrazione UI. Per il match usare soltanto il motore autorevole 06 e la vista esistente disponibile su main, senza creare gol casuali o promettere le due camere / sprite PR #28/#29 prima dei rispettivi merge. Mostrare chiaramente la disponibilità reale di camera FULL/TV. Cutscene #12 non gate.
+- Test Node esistenti sempre verdi, QA browser Chromium a 640×360, 800×360, 844×390 e touch; static server HTTP reale o dichiarare blocco; scenario automatizzato **sul runtime HTML vero**, non soltanto demo Kit: dall'avatar al match fulltime, effetti morale e salvataggio. Fornire URL verificato di preview giocabile e istruzioni Android; se hosting non disponibile segnalarlo senza inventare URL. Non dichiarare test Android fisico prima che l'utente lo esegua.
+
+**Obiettivo di orchestrazione:** superato R07, autorizzare senza nuovi round generali il R03 runtime del 03. Tutte le altre PR (28/29/12/31/35) seguono propri gate e non devono ritardare **il test funzionale**.
+
+---
+
+## ARCHIVIO — R02 e direttive pre-R07
 # NEXT — AGENTE 03 · ART DIREZIONE UI · VISIONE v0.2
 **Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Lavoro precedente:** PR #5 MERGIATA (ad84dd134b98d5fde8017af3da5e6e7b1b21e63e).
