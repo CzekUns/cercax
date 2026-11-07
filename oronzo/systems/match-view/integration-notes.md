@@ -29,9 +29,56 @@ mv.setSpeed(speed);
 mv.destroy();
 ```
 
+### Handoff evento continuo consigliato (FIX ORZ-P1-004)
+
+Usare **questo** bridge invece di alimentare direttamente `render(match.step(...))` con i soli
+`tickEvents`: l'API `command(substitution)` dell'Agente 6 emette un evento che lo `step()`
+successivo cancella dal campo `events` temporaneo. Il log con `getEventsSince(lastId)` resta valido.
+
+```js
+import {createMatchView,createEngineViewBridge} from './systems/match-view/match-view.js';
+const mv=createMatchView(matchCanvas,{config:{
+  homeTeamId:matchInput.homeClub.id, awayTeamId:matchInput.awayClub.id,
+  keeperIds:[homeGoalkeeperId,awayGoalkeeperId]
+}});
+const bridge=createEngineViewBridge(match,mv,{
+  keeperIds:[homeGoalkeeperId,awayGoalkeeperId],initialEventId:0
+});
+bridge.sync(); // evento kickoff iniziale
+function onEngineAdvanced(deltaRealSeconds) {
+  match.advanceRealSeconds(deltaRealSeconds);  // SOLO runner: autorita' della simulazione
+  bridge.sync();                               // 1x getEventsSince(cursor), render snapshot
+}
+// Gli ordini del mister restano responsabilita' del runner:
+const result=match.command({type:'substitution',teamId:matchInput.homeClub.id,
+  payload:{outId:homeGoalkeeperId,inId:replacementGoalkeeperId}});
+if(result.accepted) bridge.sync(); // evento e XI aggiornati, prima dello step successivo
+// Sincronizzare pausa e velocita' su entrambi i moduli.
+match.setPaused(true);mv.setPaused(true);
+match.setSpeed(2);mv.setSpeed(2);
+// Al termine: mv.destroy();
+```
+
+Il bridge richiede ID eventi **interi numerici e monotoni** come nella PR #18.
+La `substitution` deve avere `detail.outId` e `detail.inId`; `setKeepers()` aggiorna
+il giocatore con atlas `keeper`. Un `render()` diretto sincronizza comunque i GK
+se riceve l'evento nel suo snapshot, ma non puo' recuperare eventi perduti.
+Se il runner gestisce gia' il cursore, puo' fare il medesimo lavoro senza creare il bridge;
+non chiamare entrambi i canali in parallelo.
+
+### Convenzioni allineate con #18 (FIX ORZ-P1-001, 002, P2-001)
+
+- `facing: 1` significa **E** e `facing: -1` **W**, anche per i giocatori fermi;
+  altre direzioni con stringhe N/NE/E/SE/S/SW/W/NW o `{x,y}`. Per radianti usare `{radians:number}`.
+- `kickoff` e `halftime` sono **tagli istantanei di scena**, come il cambio di `phase`;
+  niente blend attraverso il campo; normale movimento fra tick continua interpolato.
+- `energy` in `MatchSnapshotV1` motore e' un valore **0..100**: `normalizeEnergy`
+  lo converte a **0..1** nella copia visiva. Non inviare energia gia' normalizzata
+  senza adattarla alla scala del contratto.
+
 `render(snapshot)` non imposta un altro timer di simulazione. Soltanto il runner chiama `engine.step(dt)`. Il renderer usa `t` per calcolare il tempo di transizione; presuppone che 1× faccia trascorrere 60 secondi di gioco per secondo reale (5400s / 90s), valore configurabile `simSecondsPerRealSecond`. Il backend può emettere snapshot a cadenza diversa, ma deve sempre includere `t` monotono. `setSpeed` e `setPaused` devono essere chiamati **insieme ai comandi del runner**.
 
-`facing` opzionale: cardinale, radianti o vettore. Azioni consigliate: `idle`, `run`, `sprint`, `chase`, `unmark`, `dribble`, `pass`, `shot`, `tackle`, `save`. La vista usa l'immagine `kick` per pass/shot, `keeper` per save, `tackle` per intercettazioni, `run` per corse e smarcamento; senza un'action la velocità determina il passo e il resto è `idle`.
+`facing` opzionale: cardinale, segno E/W ±1, vettore o oggetto radianti. Azioni consigliate: `idle`, `run`, `sprint`, `chase`, `unmark`, `dribble`, `pass`, `shot`, `tackle`, `save`. La vista usa l'immagine `kick` per pass/shot, `keeper` per save, `tackle` per intercettazioni, `run` per corse e smarcamento; senza un'action la velocità determina il passo e il resto è `idle`.
 
 ### Eventi cutscene
 
@@ -43,7 +90,7 @@ Eventi `MatchSnapshotV1.events[]` con `id` stabile, `type` (`goal`, `save`, `car
 - Controllare console senza errori PNG e vedere sparire `FALLBACK ASSET`; testare 640×360, 800×360, 844×390 e smartphone landscape. I pixel della canvas logica non cambiano al resize.
 - Verificare colori kit, 8 orientazioni, idle/run/kick/tackle/keeper, pallone, overlay gol/parata/cartellino/infortunio e riciclo overlay senza duplicati.
 - Collegare l'Agente 6; verificare che il risultato e il possesso visibili siano solo quelli del motore, che durante pausa non avanzino e che 1×/2×/4×/8× non producano teleport.
-- `node --test oronzo/systems/match-view/*.test.mjs`; il test copre logic/interpolation/asset failures. Eseguire anche test visivi da browser con i PNG mergeati.
+- `node --test oronzo/systems/match-view/*.test.mjs`; 22 test locali superati, inclusa la regressione `compatibility.test.mjs` per orientamento, intervallo, sostituzioni ed energia. Eseguire anche test visivi da browser con i PNG mergeati.
 
 ## Follow-up degli altri agenti
 
