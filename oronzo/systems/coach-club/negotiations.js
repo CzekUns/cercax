@@ -1,6 +1,6 @@
 import {copy,integer,clamp,rngFromSeed} from './core.js';
 import {book,weeklyPayroll} from './finance.js';
-import {presidentBehavior,validatePresident} from './presidents.js';
+import {presidentBehavior,presidentMatchesClub} from './presidents.js';
 
 function findRequest(club,id) {
   return club.market.requests.find(r=>r.id===id);
@@ -16,7 +16,7 @@ export function requestTransfer(club, coach, {id,player,askingFee,weeklyWage,rea
   return {accepted:true,club:c,requestId:id};
 }
 export function reviewTransfer(club, profile, requestId, seed=1) {
-  validatePresident(profile);
+  if(!presidentMatchesClub(club,profile))return {accepted:false,reason:'president_mismatch',club};
   const request=findRequest(club,requestId);
   if(!request || request.kind!=='buy' || request.status!=='proposed') return {accepted:false,reason:'not_a_pending_request',club};
   let reason=''; const director=club.staff?.sportingDirector;
@@ -74,7 +74,7 @@ export function requestSale(club,coach,{id,playerId,minimumFee,week=0}) {
   return {accepted:true,club:c};
 }
 export function decideSale(club,profile,requestId,seed=1) {
-  validatePresident(profile);
+  if(!presidentMatchesClub(club,profile))return {accepted:false,reason:'president_mismatch',club};
   const r=findRequest(club,requestId);
   if(!r ||r.kind!=='sell'||r.status!=='proposed')return {accepted:false,reason:'not_pending',club};
   const t=profile.traits;const rng=rngFromSeed(seed);

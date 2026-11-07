@@ -1,4 +1,5 @@
 import {integer,copy} from './core.js';
+import {periodOf,ledgerEntry,periodLedgerError} from './period.js';
 
 // Whole nominal lire (ITL), never signed amounts. Safe-integer checks include totals.
 const money = (amount, label='amount') => integer(amount, label);
@@ -6,8 +7,11 @@ const addMoney = (a, b, label) => money(money(a,label) + money(b,label),label);
 const defaultIfMissing = (value, fallback=0) => value === undefined ? fallback : value;
 
 export function weeklyPayroll(club) {
-  return (club.players || []).reduce(
-    (sum, player) => addMoney(sum, defaultIfMissing(player.contract?.weeklyWage), 'weeklyPayroll'), 0);
+  return (club.players || []).reduce((sum,player) => {
+    if(!player?.contract || !Object.prototype.hasOwnProperty.call(player.contract,'weeklyWage'))
+      throw new RangeError('missing contract.weeklyWage for player '+String(player?.id));
+    return addMoney(sum,player.contract.weeklyWage,'weeklyPayroll');
+  },0);
 }
 
 export function initializeFinances(club, options={}) {
@@ -15,15 +19,17 @@ export function initializeFinances(club, options={}) {
   const budget=money(defaultIfMissing(club?.budget),'budget');
   const wageBudget=money(defaultIfMissing(club?.wageBudget),'wageBudget');
   const f=club?.finance || {};
+  const cash=money(defaultIfMissing(f.cash,budget),'cash');
   const arrears=money(defaultIfMissing(f.arrears),'arrears');
   const sponsorPerWeek=money(defaultIfMissing(options.sponsorPerWeek,defaultIfMissing(f.sponsorPerWeek)),'sponsorPerWeek');
   const travelCost=money(defaultIfMissing(options.travelCost,defaultIfMissing(f.travelCost)),'travelCost');
   weeklyPayroll(club);
   const c=copy(club);
-  c.budget=budget;
+  // An existing finance.cash is the authoritative paid balance on reload.
+  c.budget=cash;
   c.wageBudget=wageBudget;
   c.finance={
-    cash:c.budget,
+    cash,
     arrears,
     sponsorPerWeek,
     travelCost,
@@ -33,15 +39,18 @@ export function initializeFinances(club, options={}) {
   return c;
 }
 
-export function book(club, {amount,type,week=0,mandatory=false,note=''}) {
+export function book(club, {amount,type,week=0,absoluteWeek,seasonYear,mandatory=false,note=''}) {
   money(amount,'amount');
-  integer(week,'week');
+  const period=periodOf({week,absoluteWeek,seasonYear});
   if (!['income','expense'].includes(type)) throw new Error('transaction type must be income or expense');
   if(!club?.finance) throw new Error('finances not initialized');
   const cash=money(club.finance.cash,'cash');
   const arrears=money(club.finance.arrears,'arrears');
+  // A declined transaction makes no movement and needs no calendar key.
   if (type==='expense' && !mandatory && amount>cash)
     return {accepted:false,reason:'insufficient_cash',club};
+  const domainError=periodLedgerError(club,period);
+  if(domainError)throw new Error(domainError);
   const paid=type==='income' ? amount : Math.min(amount,cash);
   const unpaid=type==='expense' ? amount-paid : 0;
   // Validate both computed totals before any new state or transaction is returned.
@@ -50,32 +59,35 @@ export function book(club, {amount,type,week=0,mandatory=false,note=''}) {
   const c=copy(club);
   c.finance.cash=balance;
   c.finance.arrears=due;
-  c.finance.transactions.push({type,amount,paid,unpaid,week,note});
+  c.finance.transactions.push({type,amount,paid,unpaid,...ledgerEntry(period),note});
   c.budget=balance;
   return {accepted:true,club:c,paid,unpaid};
 }
 
-export function settleWeek(club, {week,away=false,bonus=0,otherIncome=0}={}) {
-  integer(week,'week'); money(bonus,'bonus'); money(otherIncome,'otherIncome');
+export function settleWeek(club, {week,absoluteWeek,seasonYear,away=false,bonus=0,otherIncome=0}={}) {
+  const period=periodOf({week,absoluteWeek,seasonYear});
+  money(bonus,'bonus'); money(otherIncome,'otherIncome');
   if (!club?.finance) throw new Error('finances not initialized');
   money(club.finance.cash,'cash');
   money(club.finance.arrears,'arrears');
   money(club.finance.sponsorPerWeek,'sponsorPerWeek');
   money(club.finance.travelCost,'travelCost');
   weeklyPayroll(club); // Verify all wages and their sum before settling.
-  if (club.finance.settledWeeks.includes(week))
+  const domainError=periodLedgerError(club,period);
+  if(domainError)return {accepted:false,reason:domainError,club};
+  if (club.finance.settledWeeks.includes(period.key))
     return {accepted:false,reason:'week_already_settled',club};
   let c=copy(club);
   for(const [amount,note] of [[c.finance.sponsorPerWeek,'sponsor'],[otherIncome,'other_income']])
-    c=book(c,{type:'income',amount,week,note}).club;
+    c=book(c,{type:'income',amount,...ledgerEntry(period),note}).club;
   const recovered=Math.min(c.finance.cash,c.finance.arrears);
   c.finance.cash=money(c.finance.cash-recovered,'cash');
   c.finance.arrears=money(c.finance.arrears-recovered,'arrears');
   c.budget=c.finance.cash;
-  if(recovered) c.finance.transactions.push({type:'arrears_payment',amount:recovered,paid:recovered,unpaid:0,week,note:'old debt'});
+  if(recovered) c.finance.transactions.push({type:'arrears_payment',amount:recovered,paid:recovered,unpaid:0,...ledgerEntry(period),note:'old debt'});
   const bills=[['wages',weeklyPayroll(c)],['travel',away ? c.finance.travelCost : 0],['bonus',bonus]];
-  for(const [note,amount] of bills) c=book(c,{type:'expense',amount,week,mandatory:true,note}).club;
-  c.finance.settledWeeks.push(week);
+  for(const [note,amount] of bills) c=book(c,{type:'expense',amount,...ledgerEntry(period),mandatory:true,note}).club;
+  c.finance.settledWeeks.push(period.key);
   return {accepted:true,club:c,unpaid:c.finance.arrears,paidWages:weeklyPayroll(c)};
 }
 

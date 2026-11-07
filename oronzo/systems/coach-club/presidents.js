@@ -53,3 +53,17 @@ export function presidentBehavior(profile, state={}, seed=1) {
   return {presidentId:profile.id,seed,pressure:Math.round(pressure),chances,decisions,request:'win_next_match',
     suggestedPromise:integer(Math.max(0,Math.round(state.requestedFee ?? 0)),'requestedFee')};
 }
+
+
+// Fail closed: the profile used for board decisions and narration must have
+// the exact canonical ID persisted on this club (not just the same archetype).
+export function presidentMatchesClub(club,profile) {
+  validatePresident(profile);
+  return Boolean(club?.presidentId && club.presidentId===profile.id);
+}
+export function resolveClubPresident(club,catalog) {
+  const profiles=presidentRoster(catalog);
+  const profile=profiles.find(p=>p.id===club?.presidentId);
+  if(!profile) throw new Error('unknown canonical presidentId for club '+String(club?.id));
+  return profile;
+}
