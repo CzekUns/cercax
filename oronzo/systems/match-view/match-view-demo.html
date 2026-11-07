@@ -12,8 +12,8 @@
 @media(orientation:portrait){.wrap::after{content:'Ruota il dispositivo in orizzontale per usare la demo.';position:fixed;inset:0;display:grid;place-items:center;padding:40px;text-align:center;color:#ffe9ba;background:#091324;z-index:20}}
 </style></head><body><main class="wrap"><section class="shell" aria-label="Demo renderer partita Oronzo">
 <div class="field"><canvas id="pitch" width="640" height="360" aria-label="Campo di calcio con ventidue calciatori animati"></canvas></div>
-<aside class="side"><div><div class="label">ORONZO · 1985/86</div><div class="score" id="score">0–0</div><div class="clock" id="clock">00:00</div><div class="small">SIMULAZIONE VISIVA<br>11 contro 11</div></div>
-<div><button id="pause">Ⅱ PAUSA</button><button id="speed">1× VELOCITÀ</button><button id="restart">↺ RICOMINCIA</button></div>
+<aside class="side"><div><div class="label">ORONZO · 1979 / DEMO</div><div class="score" id="score">0–0</div><div class="clock" id="clock">00:00</div><div class="small">SIMULAZIONE VISIVA<br>11 contro 11</div></div>
+<div><button id="pause">Ⅱ PAUSA</button><button id="speed">1× VELOCITÀ</button><button id="camera">CAMERA: FULL</button><button id="restart">↺ RICOMINCIA</button></div>
 <div><div class="state" id="status">Caricamento asset…</div><div class="fine">Gli snapshot sono fixture di rappresentazione, NON il motore tattico. Il risultato è precalcolato nella fixture.</div></div>
 </aside></section></main>
 <script type="module">
@@ -26,11 +26,12 @@ let paused=false,speed=1,t=0,lastT=-1,lastNow=null,lastFeed=0;
 view.render(makeFixtureSnapshot(0));
 function refresh(){const s=makeFixtureSnapshot(t,lastT);$('score').textContent=`${s.score.home}–${s.score.away}`;$('clock').textContent=`${String(Math.floor(s.t/60)).padStart(2,'0')}:${String(Math.floor(s.t%60)).padStart(2,'0')}`;view.render(s);lastT=t;}
 function animate(now){if(lastNow===null)lastNow=now;const dt=Math.max(0,Math.min(0.10,(now-lastNow)/1000));lastNow=now;
- if(!paused&&t<5400){t=Math.min(5400,t+dt*60*speed);if(now-lastFeed>80){refresh();lastFeed=now;}}
+ if(!paused&&t<5400){t=Math.min(5400,t+dt*6*speed);if(now-lastFeed>80){refresh();lastFeed=now;}}
  requestAnimationFrame(animate);
 }
 $('pause').onclick=()=>{paused=!paused;view.setPaused(paused);$('pause').textContent=paused?'▶ RIPRENDI':'Ⅱ PAUSA';};
 $('speed').onclick=()=>{const vals=[1,2,4,8];speed=vals[(vals.indexOf(speed)+1)%4];view.setSpeed(speed);$('speed').textContent=speed+'× VELOCITÀ';};
+$('camera').onclick=()=>{const next=view.cameraMode==='full'?'broadcast':'full';view.setCameraMode(next);$('camera').textContent=next==='full'?'CAMERA: FULL':'CAMERA: TV';};
 $('restart').onclick=()=>{t=0;lastT=-1;paused=false;view.setPaused(false);view.overlay.clear();view.interpolation.reset();refresh();$('pause').textContent='Ⅱ PAUSA';};
 requestAnimationFrame(animate);
 </script></body></html>
