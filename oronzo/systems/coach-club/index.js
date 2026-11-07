@@ -8,3 +8,4 @@ export * from './negotiations.js';
 export * from './board.js';
 export * from './objectives.js';
 export * from './period.js';
+export * from './morale.js';
