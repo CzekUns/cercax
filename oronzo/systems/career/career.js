@@ -71,15 +71,19 @@ function buildLeagues(state) {
 
 export function newCareer(config = {}, seed = 1985) {
   if (!Number.isSafeInteger(seed)) throw new Error('Seed must be a safe integer');
+  // R03: explicit 1979 for newGame(), while legacy newCareer() callers retain 1985.
+  const firstYear = config.startYear ?? 1985;
+  if (!Number.isSafeInteger(firstYear) || firstYear < 1900 || firstYear > 2100)
+    throw new Error('Invalid career starting year');
   const clubs = createClubs(config, seed);
   const startClub = config.startClubId ?? 'PROM-01';
   if (!clubs.find(c => c.id === startClub && c.divisionId === 'PROM')) throw new Error('Starting club must be in Promozione');
   const coach = { id: 'coach:player', name: config.coachName || 'Il Mister', clubId: startClub,
-    hiredSeason: 1985, reputation: 18, contract: { until: 1986 },
+    hiredSeason: firstYear, reputation: 18, contract: { until: firstYear + 1 },
     tactics: { formation: '4-4-2', mentality: 50, pressing: 50, tempo: 50, width: 50, marking: 'zonal' },
     relationships: {}, employmentHistory: [] };
   const state = { schemaVersion: 2, periodLedgerSchemaVersion: PERIOD_LEDGER_SCHEMA,
-    seed, seasonYear: 1985, seasonIndex: 0,
+    seed, seasonYear: firstYear, seasonIndex: 0,
     week: 1, absoluteWeek: 1, phase: 'inSeason', clubs, coach,
     presidentCatalogIds: canonicalPresidentIds(config.presidentIds ?? PRESIDENT_PROFILE_IDS),
     leagues: {}, rulesByDivision: config.rulesByDivision || {},
