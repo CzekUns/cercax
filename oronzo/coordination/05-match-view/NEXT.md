@@ -1,5 +1,5 @@
 # NEXT — AGENTE 05 · MATCH VIEW E CAMERA TV · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
+**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **PR precedente:** #15 MERGIATA, correzione `facing` in radianti e gestione snapshot.
 **Fonte:** [vision v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-movements-r02` dall'ultimo main.
@@ -26,3 +26,8 @@ Non è ancora verificabile il branch `agent/oronzo-movements-r02` nel confronto 
 ## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
 **PR #28, esito R04: HOLD per gate browser.** La suite camera 34/34 Node sullo snapshot combinato è risultata verde; la visuale TV è un renderer che non altera gli snapshot. **Mancano prova visiva reale in browser con asset**, 22 giocatori, inquadratura palla e transition kickoff/intervallo/ripartenza; Work 00 non aveva Chromium eseguibile.
 **Azione ammessa sulla stessa PR #28:** browser QA riproducibile con 640×360/800×360/844×390, campo full/TV, presenza palla e giocatori, pan senza viewport vuoti, pausa, cambio campo, nessun repaint errato né modifica score; screenshot e limitazioni nel REPORT. Collaborare con 03/01 senza modificare HTML runtime degli altri. No merge prima del gate visivo.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**PR #28: HOLD per QA browser con PNG veri.** HEAD `9c00a3298c0083e3836154a1cb1ff22529bf6366` aggiunge strumenti browser. Il REPORT R04 dichiara 54/54 scenari geometrici Chromium su **sprite fallback (realSprites=0)** e `ERR_BLOCKED_BY_ADMINISTRATOR` nel tentativo HTTP con atlanti. Questa evidenza NON prova la resa della camera con i 22 sprite veri.
+**Azione immediata:** provare su ambiente dove gli asset sono realmente serviti, rieseguire `python3 oronzo/systems/match-view/browser-qa-playwright.py --browser /usr/bin/chromium --output /tmp/oronzo-r05` e `node --test oronzo/systems/match-view/*.test.mjs` sul vero checkout PR. Acquisire `results.json` e 54 screenshot; gate `assetState=ready` e `allRealSprites=true` + full/TV con palla dentro l'inquadratura, no pan vuoto, no alterazioni score, a 640×360/800×360/844×390. Se ambiente impedisce HTTP, chiedere a 00 gate alternativo **documentato** e restare HOLD, niente falsa validazione. Collaborare con 01/03 usando gli hook documentati; no codice UI root.
