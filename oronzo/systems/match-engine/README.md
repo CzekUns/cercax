@@ -52,16 +52,30 @@ match.isFinished();                            // true a t=5400
 `{t,minute,phase,score,players,ball,stats,events,possessingTeamId}`:
 
 - `t` in [0,5400], `minute=t/60`; fase `firstHalf`, `secondHalf`, `fulltime`.
-- `players`: 22 inizialmente (poi 22 dopo cambi, meno se espulsioni), con `id,teamId,x,y,vx,vy,facing,action,energy,hasBall`. Coordinate sempre normalizzate in [0,1]. Velocità in coordinate normate **per secondo simulato**. `facing` ±1. Azioni: `idle,run,control,pass,shot,dribble,tackle,save,injury`.
+- `players`: 22 inizialmente (poi 22 dopo cambi, meno se espulsioni), con `id,teamId,x,y,vx,vy,facing,action,energy,hasBall`. Coordinate sempre normalizzate in [0,1]. Velocità in coordinate normate **per secondo simulato**. `facing` è un **angolo in radianti** (E=0, S=π/2, W=π, N=−π/2). A riposo conserva l'ultimo orientamento; l'Agente 5 lo interpreta con `resolveFacing()`. `energy` resta 0–100. Azioni: `idle,run,control,pass,shot,dribble,tackle,save,injury`.
 - `ball`: `x,y,height,vx,vy,ownerId`, `ownerId=null` durante un lancio; `height` è un indicatore visuale astratto, non metri fisici.
 - `score` cambia **solo** all'emissione di `goal` dopo la risoluzione di un `shot`.
 - `stats`: per casa e trasferta `shots,shotsOnTarget,possession,fouls,corners`; possesso è percentuale sui secondi con palla controllata.
-- `events`: **solo** eventi avvenuti nella chiamata `step()`/ultimo comando; `getEventsSince(lastId)` fornisce tutta la sequenza incrementale immutabile.
-- Tipi: `kickoff,pass,dribble,tackle,interception,offside,shot,save,goal,foul,card,injury,corner,throwin,substitution,tacticChange,shout,halftime,fulltime`. Ogni evento ha `id,t,type` e identificativi/dettagli quando applicabili.
+- `events`: fatti dell'ultimo step e comandi esterni in attesa, visibili **una volta nello step successivo**. Il feed **autorevole** per il runner è `getEventsSince(lastId)` (ID stabili monotoni, indipendenti dagli step); aggiornare il cursore soltanto dopo il consumo.
+- Tipi: `kickoff,pass,dribble,tackle,interception,offside,shot,save,goal,foul,card,injury,corner,throwin,substitution,tacticChange,shout,halftime,fulltime`. `substitution.detail` contiene `outId`, `inId`, `goalkeeper`, `used`, `limit`. `goal.detail.assistId` è **opzionale** per l'ultimo passaggio realmente ricevuto dal marcatore nella medesima azione, entro 20 secondi, senza passaggi successivi, cambio possesso o palla inattiva. Ogni evento ha `id,t,type` e identificativi/dettagli quando applicabili.
 
 ## Implementato
 
-22 agenti in formazione e in transizione, inseguimento palla, pressione parametrica e marcatura, offside, possesso e passaggi con traiettorie, ricezioni/intercetti, contrasti e falli, ammonizioni/doppia ammonizione-espulsioni, dribbling, tiro contestuale con xG semplificato e parate, angoli e riprese, lievi infortuni, affaticamento, cambi, istruzioni in corsa, due periodi di gioco e seed riproducibile. Le abilità tecniche, la mobilità, le condizioni e diversi tratti mentali variano decisioni o probabilità **prima** di generare i fatti calcistici. Gol, classifiche e titoli del film non vengono estratti a caso.
+22 agenti in formazione e in transizione, inseguimento palla, pressione parametrica e marcatura, offside, possesso e passaggi con traiettorie, ricezioni/intercetti, contrasti e falli, ammonizioni/doppia ammonizione-espulsioni, dribbling, tiro contestuale con xG semplificato e parate, angoli e riprese, lievi infortuni, affaticamento, cambi, istruzioni in corsa, due periodi di gioco e seed riproducibile. Le abilità tecniche (incl. `technical.decisions`), la mobilità, `status.fitness`, `status.health`, fatica e tratti mentali alterano velocità, decisioni e probabilità. `conditionFactor()` applica gradualmente forma/salute **una sola volta** alle abilità grezze; non aggiungere anche `effectiveAbility()` già condizionata senza una convenzione d'iniezione per evitare il doppio conteggio. Gol, classifiche e titoli del film non vengono estratti a caso.
+
+## Feed di eventi per il runner
+
+```js
+let lastEventId = 0;
+function renderTick(match, matchView, elapsedSeconds, now) {
+  const snapshot = match.advanceRealSeconds(elapsedSeconds);
+  const events = match.getEventsSince(lastEventId);
+  if (events.length) lastEventId = events.at(-1).id;
+  matchView.render({...snapshot, events}, now);
+}
+```
+
+Il `kickoff` iniziale è già disponibile allo snapshot t=0. Dopo una sostituzione portiere, il runner segnala il nuovo ID alla vista (`setKeepers`). Ogni `kickoff` successivo richiede il reset d'interpolazione, da gestire nella PR #15.
 
 ## Limiti dichiarati / da evolvere
 
