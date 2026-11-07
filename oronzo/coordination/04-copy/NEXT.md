@@ -12,3 +12,6 @@
 
 ## Gate
 Solo contenuto/JSON e demo di lettura nella tua directory. Il comportamento economico, tifosi, morale e engine è proprietà degli agenti 09/06 e dell'integratore 10. Non modificare root runtime. REPORT con file/test, PR senza merge.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+Il branch `agent/oronzo-copy-r02` mostra **1 commit avanti a main**, limitato a `oronzo/content/press-media.json`. È evidenza di lavoro iniziato ma **non di consegna**: nessuna nuova PR né REPORT R02 rilevati. Completa question bank, controlli degli ID e validazione prima di chiedere review. Il runtime degli effetti è proprietà 09/07/03: non assegnarlo al coordinatore.
