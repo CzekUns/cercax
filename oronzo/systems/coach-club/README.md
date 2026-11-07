@@ -4,7 +4,7 @@ Sistema ESM autonomo per una carriera calcistica ambientata nel 1985–86. L'ute
 
 ## Esecuzione
 
-Nella directory di questo modulo, lanciare: **node --test** (40 test), oppure **npm test**. Per la demo HTML servire la root del repository con **python3 -m http.server 8000**, poi aprire http://localhost:8000/oronzo/systems/coach-club/coach-club-demo.html in landscape 16:9. La demo è diagnostica, non grafica finale.
+Nella directory di questo modulo, lanciare: **node --test** (41 test), oppure **npm test**. Per la demo HTML servire la root del repository con **python3 -m http.server 8000**, poi aprire http://localhost:8000/oronzo/systems/coach-club/coach-club-demo.html in landscape 16:9. La demo è diagnostica, non grafica finale.
 
 ## API pubbliche
 
@@ -42,7 +42,7 @@ reviewMatch accetta soltanto snapshot del match engine con phase=fulltime, t>=54
 
 ## Funzionalità e limiti
 
-**Implementate:** cassa e arretrati, sponsor/trasferte/stipendi, personale societario elementare, mister e comandi, mercato mediato con rifiuti e contro-verifiche, presidenti a otto archetipi, fiducia e possibile esonero, riunioni e risposte, promesse, eventi con whitelist/cooldown, demo locale e 40 test (14 base, 9 finanziari, 9 R02 e 8 regressioni R04).
+**Implementate:** cassa e arretrati, sponsor/trasferte/stipendi, personale societario elementare, mister e comandi, mercato mediato con rifiuti e contro-verifiche, presidenti a otto archetipi, fiducia e possibile esonero, riunioni e risposte, promesse, eventi con whitelist/cooldown, demo locale e 41 test (14 base, 9 finanziari, 9 R02 e 9 regressioni R04).
 
 **Da integrare nel gioco globale:** match engine, carriera, contenuti originali dell'agente 4, allenamento dell'agente 8 e interfaccia pixel-art dell'agente 3. Da ampliare in futuro: durate/rinnovi dei contratti, cessioni con aste multi-club, staff completo, dati economici d'epoca verificati.
 
@@ -72,6 +72,6 @@ Se il save contiene `settledWeeks:[1]` e il nuovo chiamante usa `absoluteWeek:1`
 
 L'Agente 07, proprietario di save/calendario, deve migrare **atomically e una sola volta** tutti i periodi legacy tracciabili nello stesso dominio. Quando la stagione originaria non è attestabile, l'Agente 9 non inventa una chiave né azzera gli storici. Per nuovi salvataggi usare `{week,absoluteWeek,seasonYear}` in ogni API e conservare il risultato `result.club`.
 
-`initializeFinances` preserva ora `finance.cash` del save esistente e riallinea `budget` al saldo effettivo: non ricostituisce denaro dal budget iniziale dopo reload. I nuovi test `period-r04.test.js` coprono replay V1/V2, migrazione esplicita di prova, Board/Eventi, cassa e arretrati. Il test `compat-r02.test.js` prende `weeklyPayroll` dai contratti reali di Career 07.
+`initializeFinances` preserva ora `finance.cash` del save esistente e riallinea `budget` al saldo effettivo: non ricostituisce denaro dal budget iniziale dopo reload. I nuovi test `period-r04.test.js` coprono replay V1/V2, migrazione esplicita di prova, Board/Eventi, cassa e arretrati, più 104 club per due stagioni con salvataggio/ricarica. Il test `compat-r02.test.js` prende `weeklyPayroll` dai contratti reali di Career 07.
 
 Il modulo e la demo non equivalgono ancora a un runtime di carriera integrato. CoachV2, morale e papponeria R03 non sono implementati in questa PR.
