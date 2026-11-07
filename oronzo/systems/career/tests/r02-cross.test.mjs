@@ -20,15 +20,15 @@ test('R02 career + real Agent09 finance: two seasons, salary, saved absolute wee
   const allKeys = [];
   for (let season = 0; season < 2; season++) {
     while (s.phase === 'inSeason') {
-      const period = s.absoluteWeek;
-      allKeys.push(period);
+      const period = { week: s.week, absoluteWeek: s.absoluteWeek, seasonYear: s.seasonYear };
+      allKeys.push(period.absoluteWeek);
       for (const [i, club] of s.clubs.entries()) {
         assert.ok(weeklyPayroll(club) > 0);
-        const settled = settleWeek(club, { week: period });
+        const settled = settleWeek(club, period);
         assert.equal(settled.accepted, true);
         assert.equal(settled.paidWages, weeklyPayroll(club));
-        assert.equal(settleWeek(settled.club, {week: period}).reason, 'week_already_settled');
-        assert.equal(settled.club.finance.settledWeeks.at(-1), period);
+        assert.equal(settleWeek(settled.club, period).reason, 'week_already_settled');
+        assert.equal(settled.club.finance.settledWeeks.at(-1), `a:${period.absoluteWeek}`);
         s.clubs[i] = settled.club;
       }
       scorelessRound(s);
@@ -39,9 +39,18 @@ test('R02 career + real Agent09 finance: two seasons, salary, saved absolute wee
     assert.ok(s.absoluteWeek > ending);
     s = deserialize(serialize(s));
     if (season === 0) {
-      // Passing the legacy season week 1 in the new year would be WRONG.
-      assert.equal(settleWeek(s.clubs[0], {week:s.week}).reason, 'week_already_settled');
-      assert.equal(settleWeek(s.clubs[0], {week:s.absoluteWeek}).accepted, true);
+      // The first period of season 2 is genuinely new, despite season-week 1 repeating.
+      // Test it on the returned immutable copy; the normal loop below settles the
+      // original club exactly once during season 2.
+      const nextPeriod = { week: s.week, absoluteWeek: s.absoluteWeek, seasonYear: s.seasonYear };
+      const club = s.clubs[0];
+      assert.equal(settleWeek(club, { week: s.week }).reason, 'period_migration_required');
+      const next = settleWeek(club, nextPeriod);
+      assert.equal(next.accepted, true);
+      assert.equal(next.paidWages, weeklyPayroll(club));
+      assert.equal(next.club.finance.settledWeeks.at(-1), `a:${nextPeriod.absoluteWeek}`);
+      assert.equal(settleWeek(next.club, nextPeriod).reason, 'week_already_settled');
+      assert.equal(club.finance.settledWeeks.includes(`a:${nextPeriod.absoluteWeek}`), false);
     }
   }
   assert.equal(new Set(allKeys).size, allKeys.length);
