@@ -11,3 +11,6 @@ Sei l'**AGENTE 9 — Allenatore, società e presidenti** del progetto ORONZO. Se
 5. Crea/aggiorna la Pull Request a `main`; metti nel corpo il link al rapporto e lascia un breve commento nella issue #11 per l'orchestratore. **NON FARE MERGE**. Riporta nella risposta finale il link della PR, il tuo rapporto e i limiti verificati.
 
 Ripeti questo identico protocollo ogni volta che ricevi questo prompt. Se trovi un conflitto tra informazioni del vecchio branch e main, vince il contratto e il NEXT.md più recente su main, purché non distrugga lavoro non mergiato.
+
+## PREVALENZA ATTUALE — R03 MORALE 1979 (7 novembre 2026)
+Il NEXT corrente su main autorizza R03 sul nuovo branch `agent/oronzo-coach-club-r03-morale` dopo merge #30 e #32. La frase storica «stagione 1985–86» è superata per NUOVE partite: la visione ora parte dal **1979**, salvando compatibilità con carriere storiche. Il lavoro attuale si concentra su API di morale, preview delle 20 offerte, applicazioni idempotenti e game over, nel proprio scope `oronzo/systems/coach-club/`. Non modificare sistemi di altri agenti né introdurre shouts non ancora contrattualizzati. NEXT corrente prevale sulle istruzioni di revisione archiviate.
