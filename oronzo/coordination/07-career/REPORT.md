@@ -1,3 +1,40 @@
+# ORONZO — ORONZO-AGENT-07 · Fix R06-1 / R06-2 / R06-3
+**Stato:** FIX_DELIVERED · PR #38 aperta, **NO MERGE**.  
+**Branch:** `agent/oronzo-career-r03-flow`  
+**Report di riferimento:** [Audit R06 — PR #37? No: report sul branch audit R06](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md)  
+**Dipendenza obbligatoria:** [PR #39 — Coach09 Morale R03](https://github.com/CzekUns/cercax/pull/39), HEAD audit `80df15139d37c4ee36103001d6a24528037daed4`.  
+**Data:** 7 novembre 2026 (Europe/Rome).
+
+## Correzioni eseguite
+1. **R06-1 — integrazione reale morale 09.** `oronzo/app/flow/controller.js` importa direttamente `previewOfferMorale`, `applyOfferEffect`, `applyPressEffect` e `createCoach` da `../../systems/coach-club/index.js` (export della PR #39); usa i metodi 09 senza formula parallela in 07. `newGame` inizializza il CoachV2 (morale numerico, `origin`, quattro tratti, `moraleEvents`, relazioni, `gameOver`). `acceptOffer` valuta offerta e applica mora **in una bozza atomica** insieme a contratto, scelta e conferenza; `answerOpeningPress` e `answerPostMatchPress` persistono risposta e gli effetti 09 **nella stessa mutazione di stato**, registrando `flow.effectTransactions[eventId].status='applied'` e `coach.moraleEvents[eventId]`. Duplicati non ricalcolano gli effetti dopo save/load. `morale=0` e `gameOver` bloccano le transizioni con `GAME_OVER`, salvo salvataggio di recupero. La sola modalità `effectsMode:'isolated_test'` (esplicita, vietata in UI) conserva comportamento `awaiting_agent09` per test R03 legacy.
+2. **R06-2 — geografia non inventata.** Se `club.regionId`, `club.macroRegion`, `coach.origin.regionId` o `coach.origin.macroRegion` mancano/non sono conformi, `acceptOffer` risponde `{accepted:false,reason:'geography_required',messageKey:'oronzo.geography_required',missing:[...]}` **prima di qualunque mutazione**. Nessun comune/club reale inventato; scelta 20 offerte rimane stabile anche se bloccata. Alias dichiarati `nord/centro/sud` diventano `north/centre/south`; se `municipalityId` è presente in un catalogo importato, regione/macroregione devono concordare col record. `world.js` marca esplicitamente `qaFixture:true` con `world.mode='qa_fixture'` e `datasetStatus='synthetic_test_only'`, senza chiamare verificati 100 record fittizi.
+3. **R06-3 — test integrato reale aggiunto.** `oronzo/app/flow/tests/morale-r06.e2e.test.mjs` (5 test nativi Node da eseguire su checkout #38+#39) importa direttamente gli **API 09 reali**, i 4 JSON/SDK 04 reali, Match06 e sistemi Career07. Casi: preflight assenza geografia e immutabilità, fixture QA 100 record e conflitto origine, ingaggio/pagamento morale + cinque conferenze opening + partita engine fulltime + due conferenze post + board/finanza + save/load/retry, game-over persistito, due stagioni con rollover e import 1985 legacy. `tests/qa-geography.mjs` è un generatore **sintetico dichiarato**, non dataset ISTAT. La CLI `demo-r03.mjs` ora usa il medesimo input sintetico e gli effetti veri di 09, senza stampa di `pending` spacciata per risultato.
+
+## File modificati, solo scope Agente 07
+- `oronzo/app/flow/controller.js` — wiring 09, transazioni atomiche, guard geografia/città.
+- `oronzo/app/flow/tests/morale-r06.e2e.test.mjs` — **nuovo**, test senza stub di produzione.
+- `oronzo/app/flow/tests/qa-geography.mjs` — **nuovo**, esclusivamente QA.
+- `oronzo/app/flow/tests/flow-r03.test.mjs` — isolamento R03 esplicito.
+- `oronzo/app/flow/demo-r03.mjs` — demo morale reale + fixture sintetica.
+- `oronzo/app/flow/README.md` — API, gate 09, sequenza merge e dati.
+- `oronzo/systems/career/world.js` — status dataset sintetico.
+- Questo `oronzo/coordination/07-career/REPORT.md`.
+**Nessun file nel perimetro 09**, nessun Next/Identity/asset/HTML root modificato. **Nessuna nuova PR.**
+
+## Verifiche eseguite DAVVERO
+- **Sorgenti GitHub su JavaScript V8, R06 morale reale / 04 reale:** scaricati 17 moduli effettivi #38/#39/main. Flusso 1979 seed 91 con 20 offerte, QA 100 comuni fittizi, primo ingaggio fuori macro con `previewOfferMorale` reale: **`effectStatus:'applied'`, delta −3**, `moraleEvents` 1. Cinque risposte reali Copy04 e due postpartita: **8 transazioni di morale `applied`**, `moraleEvents` 8, morale salvato **54**, risultato e log registrati e recuperati da serialize/deserialize. Retry della firma: `already_accepted`, stato identico. Assenza dataset: `geography_required` senza mutare lo stato/ledger. **LIMITAZIONE CRITICA:** in **questa** verifica V8, i moduli 09 di *morale e coach* e i moduli 04 press sono REALI; invece il **Match Engine 06 e il 09 board/finance sono fixture stub espliciti** per isolamento, quindi NON equivale a test E2E nativo con 04+06+07+09 completi.
+- **Parsing sintattico V8** su `controller.js`, `demo-r03.mjs`, `flow-r03.test.mjs`, `qa-geography.mjs`, `morale-r06.e2e.test.mjs`: **5/5 PASS** dopo rimozione superficiale di import/export ESM per il controllo sintattico, **non** `node --check`/test eseguito con Node.
+- **Gate R06 antecedente dell'Agente 00, non eseguito in questa sessione:** run GitHub Actions `42381672625`, **91/91 PASS** sui due HEAD PRECEDENTI, più un E2E reale FAIL (`club_region_required`). Il codice attuale corregge il caso ma **non** si riutilizza quel 91/91 come prova dei nuovi commit.
+- **Suite native Node post-fix NON eseguite:** GitHub dal container continua a fallire `Could not resolve host: github.com`; i test nuovi pubblicati su GitHub non sono stati eseguiti in questa sessione su checkout completo #38+#39. Il gate R06B resta OBBLIGATORIO: `node --test oronzo/app/flow/tests/*.mjs`, `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`, `node oronzo/app/flow/demo-r03.mjs`, con **tutti i file reali**. Nessuna QA Android/browser.
+- L'assenza del dataset italiano M1 verificato impedisce ancora un ingaggio normale nel mondo di default: il blocco `geography_required` è VOLUTO dall'incarico e richiede decisione prodotto/dati dell'orchestratore, non va eliminato dal 07.
+
+## Contratto, merge order e richiesta al Revisore 00
+- **PR #39 prima di #38** (solo se autorizzato dall'orchestratore): il nuovo import ESM diretto richiede gli export di `oronzo/systems/coach-club/index.js` presenti nella PR #39, non ancora in `main`. Eseguire QA su checkout combinato, evitando CI isolata di #38 contro vecchio main.
+- Il gioco usa solo le formule `previewOfferMorale/applyOfferEffect/applyPressEffect` del 09; `effectTransactionId` è persistito insieme a `coach.moraleEvents`, e il game-over 0 è terminale. Il 03 deve presentare `geography_required` con testo locale e non esporre `isolated_test`.
+- **Richiesta:** audit **R06B** sull'HEAD aggiornato della stessa PR #38 e sull'HEAD invariato #39. Eseguire i nuovi 5 test e i 91 baseline, demo, ispezionare eventuali nuovi P0; **nessun merge da parte del 07**.
+
+---
+
 # RAPPORTO ORONZO-AGENT-07 — R03 · primo flow dati 1979
 
 **Stato:** PR_OPEN / DELIVERED FOR QA, NO MERGE
