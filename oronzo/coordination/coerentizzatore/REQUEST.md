@@ -1,3 +1,17 @@
+# ORONZO — INTEGRAZIONE MIRATA SUCCESSIVA A R05-1 · SOLO PR #30 E #32
+
+**Incarico attuale pronto per la chat 00, NON avviato automaticamente.** Leggere `coerentizzatore/RUN.md`, `PROTOCOL.md`, `10-orchestrator/CONTRACT-v02.md`, `10-orchestrator/DISPATCH-R05.md` e il report R05 nella [PR #37](https://github.com/CzekUns/cercax/pull/37). Il nuovo requisito di identità visiva è **solo documentale** e non fa parte di questa verifica.
+
+1. **Ripartire dal difetto unico R05-1:** PR #30 HEAD osservato `1fb92d5c249270dced1e18414ef70c022bf68722` (nuovo `r02-cross.test.mjs`, report 2/2 V8, Node completo non eseguito). PR #32 HEAD osservato `89bb4944e6c6fc78ad9164c8e0d899355ec9d67f` (invariato). **Rileggere entrambi gli HEAD live**.
+2. Preparare checkout reale/sandbox verificata con file di main + entrambe le PR e catalogo presidenti. **Eseguire realmente** `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`; verificare che il precedente 76 PASS/1 FAIL sia ora interamente verde. Confermare schema `{week,absoluteWeek,seasonYear}`, chiavi `a:N`, V1/V2, idempotenza contabile, rollover e 104 club/due stagioni con i casi della suite.
+3. Controllare diff, HEAD, assenza regressioni/conflitti, nessun scope estraneo. Se fallisce, **nessun merge** e riferire esattamente caso/owner; non chiedere nuovo round generale.
+4. Se **tutto è verde** e l'utente **autorizza esplicitamente merge nella chat 00 corrente**, mergiare **soltanto** #30 e #32 **una alla volta**, usando `expected_head_sha`, verificando main e rieseguendo i test pertinenti dopo i merge. Nessuna deroga indefinita: l'autorizzazione precedente R05 è conclusa.
+5. Documentare esiti e SHA nel rapporto mirato `REPORT-R05B.md` su branch documentale separato; non mergiare il proprio report. **Non controllare altre PR, non avviare R03, non scrivere codice.**
+
+---
+
+## Archivio incarico R05 originale (concluso)
+
 # ORONZO — RICHIESTA ATTUALE COERENTIZZATORE 00 · AUDIT R05
 
 **Stato:** `READY` — incarico preparato il 7 novembre 2026 dall'Agente 10, **non equivale ad avvio della chat Work 00**.
