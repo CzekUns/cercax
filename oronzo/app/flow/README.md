@@ -36,7 +36,7 @@ No municipality or surname catalog is generated here. The research automation ow
 
 Calendar starts at configurable `1979-08-01` **as a gameplay assumption**, not an attested historical Promozione fixture date. `week` remains the season round; `absoluteWeek` is monotonic for finance/board; `gameDate` persists and advances seven days per round. Existing 1985 saves remain unchanged. Stipends are fictional balancing ITL values.
 
-## Backend dependencies not supplied by 07
+## Cross-agent dependencies and merge gate
 
 **09 / HARD DEPENDENCY:** The flow imports `createCoach`, `previewOfferMorale`, `applyOfferEffect` and `applyPressEffect` directly from `../../systems/coach-club/index.js` as delivered by **PR #39** (`agent/oronzo-coach-club-r03-morale`). The #38 branch deliberately does not modify Agent09 source. **Merge order if approved: #39 before #38.** Until the files from #39 are present in one checkout, `controller.js` cannot be imported standalone against main and Node/CI must use a combined checkout. `newGame()` uses real CoachV2 with numeric morale, relationships, events and gameOver. `acceptOffer()` and every press answer apply the actual 09 transaction immediately, preserving its event ID and coach ledger. No secondary formulas are implemented in 07. `morale=0` persists `gameOver` and all subsequent gameplay transitions fail with `GAME_OVER`. No user-facing gameplay should use the isolated-test mode.
 
