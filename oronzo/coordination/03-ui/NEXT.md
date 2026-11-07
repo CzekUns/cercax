@@ -8,8 +8,11 @@
 ## Task
 1. Progetta/realizza come **asset HTML componibili** (non mockup statici incollati) i pannelli landscape 16:9 e i ritratti/caricature originali degli avatar allenatore, con luogo natale e 4 statistiche resi come testo dinamico, non bitmap. Interfaccia 640×360, 800×360, 844×390.
 2. Priorità alle schermate del flusso: Nuova/Carica partita; scelta avatar; 20 ingaggi con indicatori morale/costo; presentazione presidente; conferenza iniziale 5 domande; hub con data 1979 e menu Campionato/Rosa/Tifoseria/Ufficio presidente; prepartita; vista match con switch full campo/TV.
-3. Esporta texture/pannelli/tasti/ritratti con manifest degli hotspot touch e aree dinamiche separate; demo HTML in tua directory e istruzioni all'agente 10 per montarle nel runtime.
+3. Esporta texture/pannelli/tasti/ritratti con manifest degli hotspot touch e aree dinamiche separate; demo HTML in tua directory e istruzioni da usare nel successivo ciclo d'integrazione runtime a carico dello stesso agente 03.
 4. Evita nomi reali di squadre/loghi/marchi; leggibilità prima di decoro.
+
+## Proprietà del futuro runtime (PRENOTATA, NON ANCORA AUTORIZZATA IN QUESTO CICLO)
+Dopo merge della PR UI corrente e dopo risoluzione/merge R02 di 07+09, il 03 riceverà una nuova iterazione **separata** per implementare e collegare il runtime di interfaccia: `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html`. Consumer dei moduli degli altri agenti e del controller di carriera fornito dal 07 sotto `oronzo/app/flow/`. Nessun altro agente, incluso il 10, modifica questi file. Aggiornare IDENTIY/RUN/NEXT e autorizzare esplicitamente questo scope prima della PR. Nel ciclo R02 attuale rimani **solo in `oronzo/assets/ui/`**.
 
 ## Gate
 Non modificare `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css` o sistemi di gameplay. Lo scopo è artwork e kit di UI, non logica. Testa dimensioni e demo, REPORT concreto, PR verso main senza merge.
