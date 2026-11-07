@@ -1,3 +1,29 @@
+# ORONZO — AGENTE 09 · NEXT ATTUALE: MORALE E OFFERTE V0.2 (CICLO MIRATO R03)
+
+**Stato: `READY` — autorizzato dall'Agente 10 il 7 novembre 2026, in parallelo alla carriera del 07.**
+**Precedente ciclo R02 concluso:** [PR #32](https://github.com/CzekUns/cercax/pull/32) MERGED `5b1dcd7c71435709d8b2c62d5455720b73691eb8` e [PR #30](https://github.com/CzekUns/cercax/pull/30) MERGED `aab48f0be77f022dbb7d915ab44187037d96b5f0`. Le direttive `WAIT_REVIEW/FIX_REQUESTED` R02/R04/R05 elencate sotto sono **ARCHIVIO**.
+**Nuovo branch da ultimo `main`:** `agent/oronzo-coach-club-r03-morale` e nuova PR; non riaprire #32.
+**Scope:** `oronzo/systems/coach-club/` e il tuo `REPORT.md`. Non modificare la carriera/flow/HTML degli altri agenti.
+
+## Incarico singolo necessario alla carriera 1979
+Realizzare il **contratto di morale del mister e la valutazione degli ingaggi** che il 07 consumerà da `oronzo/app/flow/`. Resta su questa funzionalità; **papponeria estesa, market e shouts persistenti avanzati saranno attività distinte quando i loro gate lo richiederanno**.
+
+1. Estendere `createCoach`/lo stato persistente con città, regione/macroregione e quattro tratti **fortuna, leadership, autostima, pazienza** per gli avatar. I numeri hanno effetti espliciti, parametrizzabili/testabili e non sono etichette vuote. Preservare `employmentHistory`, `hiredSeason`, `contract.until`, presidente e vecchi save 1985.
+2. Introdurre `morale` del mister come risorsa persistente con min/max e delta tracciabili; **morale=0 → game over** (stato terminale che il flow 07 e la UI 03 possono rilevare). Il valore iniziale ed i moltiplicatori sono impostazioni di bilanciamento **da documentare come proposta**, non presentare come formula definitiva richiesta dall'utente. Evitare che una promessa di recupero o un reload aggiri il game over in un singolo evento già contabilizzato.
+3. Esportare una **funzione pura e documentata** `previewOfferMorale(coach,offer,club)` → `{baseDistanceCost,selfEsteemMultiplier,finalMoraleDelta,reasons}` per le **20 offerte seed-stabili dell'Agente 07**, e un'applicazione mutante/immutabile idempotente per offerta accettata con chiave univoca `eventId` persistita. Il 07 sceglie il club e salva; **solo 09** calcola/applica costi/bonus morale, senza duplicate charge.
+4. Preparare API minime di variazione morale/rapporti per conferenze stampa iniziale (5 domande) e postmatch, con effetti dichiarativi dei testi originali 04 e clamp unico; stesso `eventId` applicato una volta anche dopo save/load. Relazioni presidente/tifosi/media/spogliatoio da rappresentare senza inventare narrazione. Nessuna simulazione di partite o cambio classifiche dal 09.
+5. Comunicare nel REPORT entro la nuova PR una **interfaccia compatibile per l'Agente 07**, con import/export e shape esatti; verificare che gli errori, quando manca una località o un contratto, siano espliciti e non inventino dati. **Non attendere l'integrazione UI del 03 per testare queste API.**
+6. Preservare i gate anti-doppia paga R04 e tutto il precedente ledger `{week,absoluteWeek,seasonYear}`: i nuovi eventi di morale non devono violare l'idempotenza delle finanze. Il sistema di shout 06/08 (`matchId:eventId`) resta fuori dal ciclo finché #31/#35 non sono compatibili.
+
+## QA e consegna
+Test Node realmente eseguiti: preview pura; stessa offerta/seed → medesimo delta; due avatar con tratti o regioni diverse → differenze coerenti; pagamento morale una volta anche dopo reload; morale a zero → stato game-over; eventi press ripetuti ignorati, ledger salari/board e due stagioni non regressivi. Nessuna modifica a `index.html`/UI. Aggiornare REPORT e aprire una PR nuova su main, senza merge. Se il primo batch è incompleto, privilegiare preview/apply morale e game over verificabili e indicare con precisione gli altri blocchi.
+
+## Coordinamento essenziale
+Leggi [`CONTRACT-v02.md`](../10-orchestrator/CONTRACT-v02.md) e [`GAME-VISION-v02.md`](../GAME-VISION-v02.md). **07** genera offerte/stato e integra API nel flow, non deve ricalcolare morale; **04** fornisce il bank dei testi senza applicare effetti; **03** presenterà anteprime e differenze, senza regole economiche; **06/08** shouts in altro incarico. Il 1979 è l'anno iniziale per NUOVI giochi, non una modifica retroattiva a vecchi salvataggi.
+
+---
+
+## ARCHIVIO — ISTRUZIONI PRIMA DEI MERGE #30/#32
 # NEXT — ORONZO AGENTE 9 · CORREZIONI DA AUDIT R02
 
 **Stato:** `WAIT_REVIEW` — decisione corrente R05-1, prevale su note R04 storiche.
