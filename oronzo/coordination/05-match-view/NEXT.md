@@ -1,19 +1,12 @@
-# NEXT — AGENTE 5 · ORONZO
+# NEXT — ORONZO AGENTE 5 · MOVIMENTI E RENDERING
 
-**Stato:** `FIX_REQUESTED` · PR #15 aperta, NON integrata.
-**PR:** https://github.com/CzekUns/cercax/pull/15
-**Branch:** `agent/oronzo-movements`
-**Orchestratore:** revisione incrociata 7 novembre 2026.
+**Stato:** `READY` per ciclo R02, dopo completamento PR precedente.
+**PR precedente:** [#15](https://github.com/CzekUns/cercax/pull/15), MERGIATA su main commit `9dc68d21c6700d856104a1d3820b4dab1a00f83f`.
+**Fix concluso:** ORZ-P1-009, `resolveFacing` accetta ogni numero come radianti, come il motore; verificati in V8 E/W/N/S, ±1 come diagonali e hard cut all'intervallo. Bug originale R01/P1 lato renderer risolto come correzione puntuale dell'orchestratore, ora su main.
 
-## Un errore di compatibilità verificato dopo i fix R01 — PRIORITÀ P1
-Il nuovo motore PR #18 emette `facing` come **angolo numerico in radianti**, E=0, S=π/2, W=π, N=−π/2. Questo è documentato in `oronzo/systems/match-engine/movement.js`; il test `integration-p1.test.mjs` verifica `atan2(...)`.
-
-Il renderer nella PR #15, `oronzo/systems/match-view/interpolation.js` funzione `resolveFacing`, applica però **`if(facing===1) return 'E'; if(facing===-1) return 'W'`**. Questa assunzione era valida per il motore PR #18 prima del fix; adesso **l'angolo radiante 1 (≈57°, SE) viene erroneamente interpretato come E**, e -1 come W anziché NE. `compatibility.test.mjs` prova proprio il vecchio contratto ±1 e quindi avalla il bug.
-
-## Fix richiesto nello stesso branch e PR #15
-1. Trattare ogni `number` finito `facing` come **radianti**; le direzioni semantiche E/W possono arrivare come stringhe, oggetto vettore o come `{radians:...}`. Non inferire automaticamente ±1 come segno. Documenta la convenzione in README/integration-notes.
-2. Aggiornare `compatibility.test.mjs`: `resolveFacing(0)==='E'`, `resolveFacing(Math.PI)==='W'`, `resolveFacing(1)==='SE'`, `resolveFacing(-1)==='NE'`; testare snapshot **reali del motore PR #18** se accessibili, non soltanto fixture che ancora emette ±1.
-3. Verificare hard cut tra intervalli, evento cursore, sostituzione GK, energy 0..100 senza regressioni. Eseguire `node --test *.test.mjs` nel modulo e riportare risultati reali.
-4. Aggiornare `oronzo/coordination/05-match-view/REPORT.md` **nel branch della PR** e commentare nella issue #7/PR #15 con nuovo SHA e test. **Non aprire altra PR e non fare merge.**
-
-**Stato gate:** aspetta che l'orchestratore convalidi i fix e decida il merge. Il Coerentizzatore Work verrà utilizzato solo su un incarico preciso, non automaticamente.
+## Prossimo ciclo autorizzato
+Riparti dall'ultimo `main` in branch `agent/oronzo-movements-r02`. Non riscrivere la PR precedente:
+1. Esamina il runtime già integrato in `oronzo/partita-rapida.html` (sola lettura). Verifica nella tua directory la qualità dei movimenti dei 22 calciatori, allineamento tra sprite e palla, 8 orientazioni, cambio campo, animazioni e caricamento asset reali.
+2. Aggiungi nei soli `oronzo/systems/match-view/` correzioni e test, se effettivamente necessarie, per movimenti troppo bruschi, sovrapposizioni, animazioni di giocatori che scattano e casi limite pause/velocità.
+3. Prepara QA browser Android/Chromium su landscape 640×360, 800×360, 844×390, se disponibile; non spacciarla per completata se non eseguita. Documenta regressioni e risultati nel tuo `REPORT.md`, poi PR verso main. Non modificare il motore o l'HTML integratore.
+**Nessun merge autonomo** e niente nuova sessione Coerentizzatore su R01.
