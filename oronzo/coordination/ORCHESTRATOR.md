@@ -86,3 +86,13 @@ La presente sezione **sostituisce i vecchi snapshot storici precedenti su PR anc
 I NEXT sono stati aggiornati: 1 e 3 `READY` per iterazioni di QA/layout; 4,7,8,9 `BLOCKED` in attesa di integrazione/audit; 5 `FIX_REQUESTED`; 2 e 6 restano in revisione. Non aprire nuovi cicli di codice fuori da questi gate.
 
 **Avvertenza fondamentale:** i merge qui sopra **aggiungono moduli e asset al repository, ma non li cablano automaticamente** nel vecchio runtime `oronzo/game.js`. Il prossimo lavoro principale dell'orchestratore sarà uno slice verticale di integrazione, una volta superate PR #15 e #18, con QA browser landscape. I test nativi Node completi non sono stati ripetuti tutti in questa chat, perché il container non risolve github.com per scaricare il repo. Non dichiarare demo finale integrata o browser QA completata.
+
+## Nuovo ciclo: audit R02 e prima Partita rapida pubblicata — 7 novembre 2026
+- **Audit R02:** [PR #20](https://github.com/CzekUns/cercax/pull/20) rapporto Coerentizzatore mergiato (`7212806be`). Cinque P1 verificati su presidenti/obiettivi/salari/rollover/allenatore. Agenti 7 e 9 hanno NEXT `READY` per i fix, nessun audit Work ripetuto.
+- **Match engine/renderer:** PR #15 MERGIATA (`9dc68d21`), PR #18 MERGIATA (`d98a2226`); contratto `facing` numerico in radianti verificato in V8; eventi e risultato restano proprietà del motore.
+- **Partita rapida:** [PR #21](https://github.com/CzekUns/cercax/pull/21) MERGIATA (`a0c2f9a8`) con pagina `oronzo/partita-rapida.html`, accessibile via percorso GitHub Pages `https://czekuns.github.io/cercax/oronzo/partita-rapida.html`. Deploy Pages completato con successo (Actions). Sul browser/Android resta **QA manuale da eseguire**, perciò niente dichiarazioni di release stabile.
+- Test V8 realmente eseguito dall'orchestratore su sorgenti match engine: partita 22 calciatori, sostituzioni e comandi accettati, pausa e 2×, clock 5400, punteggio 0–2 con due eventi gol, PASS. Sei test Node smoke consegnati ma non eseguiti nativamente.
+- **Cutscene #12** ancora draft; fallback eventi resta presente. La pagina è indipendente dalla carriera e non aggiorna salvataggi/serie.
+- I NEXT di 05 e 06 sono READY per QA/bilanciamento, NEXT 07 e 09 READY per fix R02; Coerentizzatore COMPLETED_R02, non avviare audit nuovo.
+- Azione successiva: ricevere bug dal test telefono, eseguire QA browser dei 22 sprite e correggere; integrare cutscene soltanto dopo gate QA; poi collegare Partita rapida a carriera corretta.
+
