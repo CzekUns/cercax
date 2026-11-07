@@ -11,3 +11,6 @@
 
 ## Accettazione
 5 sequenze animate laterali 16:9, frame/pivot coerenti, maschere e manifest, demo, QA artistica e browser quando possibile. Se l'ambiente blocca browser, riportalo. Niente merge autonomo.
+
+## Controllo orchestratore — ripresa parallela del 7 novembre 2026
+La [PR #12](https://github.com/CzekUns/cercax/pull/12) è ancora **OPEN/DRAFT**. Il REPORT del branch conferma i limiti artistici e l'assenza di una prova Chromium conclusiva. **Stato WAIT_REVIEW invariato**: non avviare nuovo ramo; integrare nella PR corrente soltanto le correzioni artistiche richieste, con QA reale e consegna finale. Il gate di merge resta aperto.
