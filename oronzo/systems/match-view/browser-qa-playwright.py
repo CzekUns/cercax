@@ -70,6 +70,7 @@ def main():
                                 page.screenshot(path=str(png), animations="disabled")
                                 checks = {
                                     "buffer_640x360": data["canvas"] == {"width":640,"height":360},
+                                    "canvas_contained": data["canvasInViewport"] is True,
                                     "drawn_22": data["drawn"] >= 22 and data["players"] == 22,
                                     "ball_visible": data["ballVisible"],
                                     "score_unchanged": data["snapshotScoreUnchanged"],
