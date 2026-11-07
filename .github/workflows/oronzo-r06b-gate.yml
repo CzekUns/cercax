@@ -11,11 +11,11 @@ jobs:
         with: {fetch-depth: 0}
       - uses: actions/setup-node@v4
         with: {node-version: '22'}
-      - name: Assemble merged PR39 main plus exact PR38
+      - name: Checkout merged main
         run: |
-          git fetch origin main fdb73078b0c83fe917424c94265c09ddec8b3adf
+          git fetch origin main
           git checkout origin/main -- oronzo
-          git checkout fdb73078b0c83fe917424c94265c09ddec8b3adf -- oronzo/app/flow oronzo/systems/career oronzo/coordination/07-career/REPORT.md
+          git rev-parse origin/main
           git status --short
       - name: Native flow and E2E
         run: node --test oronzo/app/flow/tests/*.mjs
