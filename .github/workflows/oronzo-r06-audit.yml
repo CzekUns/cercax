@@ -1,0 +1,45 @@
+name: ORONZO R06 38+39 audit
+on:
+  push:
+    branches: [audit/oronzo-r06-38-39]
+jobs:
+  r06:
+    runs-on: ubuntu-latest
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Combine exact PR heads
+        run: |
+          git fetch origin main 94538ae97b3f7423a7d1e691a2e493524556142f 80df15139d37c4ee36103001d6a24528037daed4
+          git checkout origin/main -- oronzo
+          git checkout 94538ae97b3f7423a7d1e691a2e493524556142f -- oronzo/app/flow oronzo/systems/career oronzo/coordination/07-career/REPORT.md
+          git checkout 80df15139d37c4ee36103001d6a24528037daed4 -- oronzo/systems/coach-club oronzo/coordination/09-coach-club/REPORT.md
+          git status --short
+      - name: Node flow
+        run: node --test oronzo/app/flow/tests/*.mjs
+      - name: Node career and coach club
+        run: node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js
+      - name: Real demo
+        run: node oronzo/app/flow/demo-r03.mjs
+      - name: Static real-wiring gate
+        run: |
+          node --input-type=module <<'EOF'
+          import {newGame,acceptOffer,answerOpeningPress,answerPostMatchPress} from './oronzo/app/flow/controller.js';
+          import {previewOfferMorale,applyOfferEffect,applyPressEffect} from './oronzo/systems/coach-club/index.js';
+          import assert from 'node:assert/strict';
+          const avatar={id:'r06',traits:{luck:40,leadership:80,selfEsteem:50,patience:80},origin:{regionId:'campania',macroRegion:'sud'}};
+          const s=newGame({avatar});
+          assert.equal(s.flow.initialOffers.length,20);
+          assert.equal(typeof s.coach.morale,'number');
+          const offer=s.flow.initialOffers[0];
+          const before=s.coach.morale;
+          const result=acceptOffer(s,offer.id,{previewOfferMorale,applyOfferEffect});
+          assert.equal(result.accepted,true);
+          assert.equal(result.effectStatus,'applied');
+          assert.notEqual(s.coach.morale,undefined);
+          assert.equal(acceptOffer(s,offer.id,{previewOfferMorale,applyOfferEffect}).accepted,false);
+          console.log('R06 REAL WIRING OFFER PASS',before,s.coach.morale);
+          EOF
