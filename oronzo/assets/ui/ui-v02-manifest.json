@@ -1,0 +1,45 @@
+{
+  "schema": "oronzo-ui-kit-v0.2",
+  "version": "0.2.0",
+  "scope": "oronzo/assets/ui/",
+  "status": "standalone-visual-demo",
+  "runtimeIntegrated": false,
+  "viewportsCssPixels": [[640,360],[800,360],[844,390]],
+  "stage": {"orientation":"landscape","aspectRatio":"16:9","logicalBase":[640,360],"fit":"contain","letterbox":true,"headerHeightCssPx":45,"bottomNavHeightCssPx":50,"minButtonTargetCssPx":44,"targetExcludesIllustrativeMarkers":true},
+  "colors": {"navy":"#061144","blue":"#073CD3","gold":"#FFDA36","lime":"#9BFA45","cream":"#FFF4D0","rim":"#B4DCFF"},
+  "art": {
+    "texture":{"background":"navy-noise.png","panel":"panel-noise.png"},
+    "buttons":{"normal":"btn-blue-v02.png","active":"btn-gold-v02.png","disabled":"btn-disabled-v02.png","nativeSize":[164,44],"textBaked":false},
+    "scene":{"office":"office-desk-v02.png","pitch":"pitch-textless.png","pitchContainsPlayers":false,"pitchContainsScore":false},
+    "portraits":{
+      "coach":{"path":"coaches-atlas.png","count":8,"cols":4,"rows":2,"cell":[104,128],"alpha":true,"containsText":false},
+      "president":{"path":"presidents-atlas.png","count":4,"cols":2,"rows":2,"cell":[104,128],"alpha":true,"containsText":false},
+      "journalist":{"path":"journalists-atlas.png","count":6,"cols":3,"rows":2,"cell":[104,128],"alpha":true,"containsText":false}
+    }
+  },
+  "layout": {
+    "primaryRoot":"#oronzo-ui",
+    "dynamicRoot":"#ui-screen",
+    "toast":"#ui-toast",
+    "responsiveStrategy":"flex/grid proportions within centered 16:9 stage; long offers list scrolls independently",
+    "touchHotspotPolicy":"buttons and options >=44 CSS px; demo player dots are purely illustrative, not interactive hotspots"
+  },
+  "screens":[
+    {"id":"entry","heading":"Nuova/Carica","regions":[".news",".main-art"],"hotspots":[{"action":"goto","value":"avatar","label":"Nuova partita"},{"action":"sample-load","label":"Carica partita (disabled runtime)"}]},
+    {"id":"avatar","heading":"Scelta allenatore","regions":[".avatar-grid",".avatar-profile-data .bio",".avatar-profile-data .stat-line"],"dynamicKeys":["name","city","region","macro","fortune","leadership","confidence","patience"],"hotspots":[{"action":"coach","count":8,"role":"button","label":"Avatar"},{"action":"goto","value":"offers","label":"Continua"}]},
+    {"id":"offers","heading":"20 offerte","regions":[".scroll[role=listbox]",".detail-column",".kpi-strip"],"dynamicKeys":["club","region","macro","salary","moralePreview"],"hotspots":[{"action":"offer","count":20,"role":"option","label":"Seleziona offerta"},{"action":"accept-offer","label":"Accetta"}]},
+    {"id":"president","heading":"Presentazione","regions":[".president-art",".speech",".stat-line"],"dynamicKeys":["presidentName","spend","clubAffinity","papponeria"],"hotspots":[{"action":"change-president","label":"Varia ritratto dimostrativo"},{"action":"goto","value":"press","label":"Vai alla stampa"}]},
+    {"id":"press","heading":"Conferenza iniziale","regions":[".media-visual",".press-question",".answer-grid"],"dynamicKeys":["question","answers","journalist","broadcaster","fanMood"],"hotspots":[{"action":"answer","count":3,"label":"Risposta"}]},
+    {"id":"hub","heading":"Hub e data","regions":[".kpi-strip",".menu-cards",".hub-subs"],"dynamicKeys":["date","coachMorale","presidentTrust","dressingRoomTrust","fans","press","nextMatch"],"hotspots":[{"action":"hub","count":4,"label":"Menu principali"},{"action":"goto","value":"prematch","label":"Prossima giornata"}]},
+    {"id":"prematch","heading":"Prepartita","regions":[".pitch-field",".pitch-side"],"dynamicKeys":["homeTeam","awayTeam","formations","bench","camera"],"hotspots":[{"action":"camera","values":["full","tv"],"label":"Camera"},{"action":"goto","value":"match","label":"Vai alla vista partita"}]},
+    {"id":"match","heading":"Partita","regions":[".scoreline",".pitch-field",".pitch-side"],"dynamicKeys":["score","clock","playerPositions","ball","camera","commands"],"hotspots":[{"action":"camera","values":["full","tv"],"label":"Camera"},{"action":"not-ready","values":["cambio","incoraggiamento"],"label":"Comando da collegare al motore"}]}
+  ],
+  "integration": {
+    "globalApi":"window.OronzoUIKitV02.createApp(root, { data, onIntent })",
+    "methods":["navigate(screen)","render()","getScreen()","getState()","getPreview()","setData(partialData)","destroy()"],
+    "intents":"onIntent({type,value,screen,selectedCoach,selectedOffer,camera}) — return false to override internal demo handling",
+    "contracts":{"avatarAndMorale":"09 (coach/club)","clubsAndOffers":"07 (career)","pressQuestionData":"04 copy, 09 effects, 07 flow","matchView":"05 camera, 06 simulation"},
+    "unsupported":["save/load","coach morale game-over","real board economy","real match clock","live engine snapshots","persistent press effects"]
+  },
+  "references":{"gameVision":"oronzo/coordination/GAME-VISION-v02.md","next":"oronzo/coordination/03-ui/NEXT.md"}
+}
