@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-06",
+  "branch": "agent/oronzo-players",
+  "scope": "oronzo/assets/players/",
+  "checks": {
+    "readback from GitHub": "PASS 11/11 PNG",
+    "PNG 8-byte signature": "PASS",
+    "palette color type 3/indexed 8bpp": "PASS",
+    "dimensions and alpha": "PASS",
+    "mask/base indexed pixels aligned": "PASS 5/5 (IDAT equality)",
+    "unique frames per direction": "PASS 8/8 x 5/5 (generator raster hash check)",
+    "visual review 5 atlases": "PASS (inspected direct previews)",
+    "live browser 640x360": "NOT VERIFIED",
+    "live browser 800x360": "NOT VERIFIED",
+    "live browser 844x390": "NOT VERIFIED"
+  },
+  "files": [
+    {
+      "name": "idle.png",
+      "sha": "2bf806dbb1d17d0c91687d4cd3b05950e1c1fc62",
+      "bytes": 33136
+    },
+    {
+      "name": "idle-mask.png",
+      "sha": "2427baed1e4ee09a0e20e31655835baccc72f798",
+      "bytes": 33136
+    },
+    {
+      "name": "run.png",
+      "sha": "6c45819987f3253457cc90999ecd28738eb28e20",
+      "bytes": 33136
+    },
+    {
+      "name": "run-mask.png",
+      "sha": "041e845d7918764bb1435150ee0b47a9c9179590",
+      "bytes": 33136
+    },
+    {
+      "name": "kick.png",
+      "sha": "8f8d1fc54814cda916db36b6514d2665b078360d",
+      "bytes": 33136
+    },
+    {
+      "name": "kick-mask.png",
+      "sha": "c8c3c50c94b92b804d08fe064c6e75e150706bce",
+      "bytes": 33136
+    },
+    {
+      "name": "tackle.png",
+      "sha": "b4d69bbda82c4485a7a940d63db99f01581f82c9",
+      "bytes": 33136
+    },
+    {
+      "name": "tackle-mask.png",
+      "sha": "86bd9e091e83346b0f503b1392e5ad7d5fd10e66",
+      "bytes": 33136
+    },
+    {
+      "name": "keeper.png",
+      "sha": "b6dca1993ae2eed01440f1ae715d7032b93303ae",
+      "bytes": 33136
+    },
+    {
+      "name": "keeper-mask.png",
+      "sha": "e98d7c50b54b91706d2eb0cece0ff8fb27c670aa",
+      "bytes": 33136
+    },
+    {
+      "name": "ball.png",
+      "sha": "451dfdfa30521884fb2f4ba5468149b64aa425a9",
+      "bytes": 512
+    }
+  ],
+  "limitations": [
+    "Landscape browser screenshots still pending.",
+    "Gameplay integration managed by orchestrator; game.js unchanged."
+  ]
+}

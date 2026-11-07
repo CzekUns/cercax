@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101b35">
+<title>ORONZO '85 • Player Palette Lab</title>
+<style>
+:root{color-scheme:dark; font-family:ui-monospace,Consolas,monospace;background:#081126;color:#f5ebc9}
+*{box-sizing:border-box}html,body{padding:0;margin:0;width:100%;height:100%;overflow:hidden;background:#081126}
+body{display:grid;place-items:center}
+#stage{position:relative;width:min(100vw,177.7778dvh);height:min(56.25vw,100dvh);box-shadow:0 0 0 2px #475675;overflow:hidden;aspect-ratio:16/9}
+canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+#bar{position:absolute;bottom:0;left:0;right:0;height:10.56%;display:flex;align-items:center;justify-content:center;gap:1.6%;padding:0 2%;background:#101b35;border-top:2px solid #95a6c8}
+#bar select,#bar button{font-size:clamp(9px,1.55vw,17px);font-weight:800;letter-spacing:.02em;border:2px solid #657b9a;background:#203455;color:#fce89e;outline:none;min-height:75%;border-radius:0;box-shadow:inset 1px 1px #7b8caa;cursor:pointer}
+#bar select{width:28%}#bar select:nth-of-type(2){width:30%}#bar button{width:20%}
+#bar button:active{background:#456289}
+#status{position:absolute;top:0;right:1.4%;font:700 clamp(9px,1.35vw,14px) ui-monospace,monospace;color:#aee49a;pointer-events:none}
+@media(orientation:portrait){body:before{content:"RUOTA IL TELEFONO IN ORIZZONTALE";position:absolute;top:1rem;left:1rem;font:700 12px monospace;color:#ffc66a}#stage{max-height:75dvh}}
+</style></head>
+<body><div id="stage">
+<canvas id="game" width="640" height="360" role="img" aria-label="Demo pixel art giocatori ORONZO in quattro divise e quattro pattern"></canvas>
+<div id="status" aria-live="polite">CARICAMENTO...</div>
+<div id="bar">
+ <select id="action" aria-label="Animazione">
+  <option value="idle">FERMO</option><option value="run" selected>CORSA</option>
+  <option value="kick">TIRO</option><option value="tackle">CONTRASTO</option>
+  <option value="keeper">PORTIERE</option>
+ </select>
+ <select id="direction" aria-label="Direzione">
+  <option value="N">N - NORD</option><option value="NE">NE - NORD EST</option>
+  <option value="E">E - EST</option><option value="SE" selected>SE - SUD EST</option>
+  <option value="S">S - SUD</option><option value="SW">SW - SUD OVEST</option>
+  <option value="W">W - OVEST</option><option value="NW">NW - NORD OVEST</option>
+ </select>
+ <button id="pause" aria-label="Pausa o riproduci">PAUSA</button>
+</div></div>
+<script src="palette.js"></script>
+<script>
+(async function() {
+"use strict";
+const canvas=document.getElementById("game"),g=canvas.getContext("2d",{alpha:false});
+g.imageSmoothingEnabled=false;
+const presets=[
+ {name:"ROSSO 1985",pattern:"TINTA UNITA",opts:{skin:"#CE915C",hair:"#2D201C",shirt:"#B72B43",shirtB:"#F7E8CD",shorts:"#EFE5D2",socks:"#EAE2D5",boots:"#20243F",pattern:"solid"}},
+ {name:"AZZURRO",pattern:"STRISCE VERTICALI",opts:{skin:"#E4AF79",hair:"#7A422B",shirt:"#1D7DBC",shirtB:"#F5F0D9",shorts:"#F4EFE6",socks:"#D8EDFA",boots:"#202028",pattern:"vertical"}},
+ {name:"ORO & BLU",pattern:"STRISCE ORIZZONT.",opts:{skin:"#9A5D39",hair:"#191720",shirt:"#EABB2D",shirtB:"#173C72",shorts:"#233856",socks:"#F0BE38",boots:"#24252F",pattern:"horizontal"}},
+ {name:"BIANCONERI",pattern:"META / META",opts:{skin:"#F1BC8B",hair:"#30241E",shirt:"#F0EDE2",shirtB:"#262B39",shorts:"#252A38",socks:"#F3E9DF",boots:"#191720",pattern:"halves"}}
+];
+const fps={idle:3,run:9,kick:8,tackle:7,keeper:7};
+let action="run",direction="SE",playing=true,frame=0,assets=[],last=0,elapsed=0,loaded=false;
+const button=document.getElementById("pause");
+document.getElementById("action").onchange=async e=>{action=e.target.value;await refresh()};
+document.getElementById("direction").onchange=e=>{direction=e.target.value};
+button.onclick=()=>{playing=!playing;button.textContent=playing?"PAUSA":"AVVIA"};
+function rect(x,y,w,h,color){g.fillStyle=color;g.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}
+function text(s,x,y,color="#f7eecf",size=10){g.fillStyle=color;g.font="bold "+size+"px monospace";g.fillText(s,x,y)}
+function edge(x,y,w,h){rect(x,y,w,h,"#8b9dc2");rect(x+2,y+2,w-4,h-4,"#1d3253");rect(x+4,y+4,w-8,h-8,"#10263b")}
+function draw(t){
+ rect(0,0,640,360,"#0a152b");rect(0,0,640,40,"#1c3053");rect(0,0,640,3,"#91a6c0");rect(0,37,640,3,"#050e20");
+ text("O R O N Z O   ' 8 5",15,24,"#ffd66d",19);text("S P R I T E   L A B",340,24,"#bfdcf5",13);
+ rect(0,40,640,5,"#15233c");
+ for(let i=0;i<4;i++){
+  const x=13+i*155,main=assets[i],stageY=56;
+  edge(x,stageY,150,261);rect(x+5,stageY+5,140,38,"#263757");
+  text("0"+(i+1)+"  "+presets[i].name,x+10,stageY+19,"#ffe390",11);
+  text(presets[i].pattern,x+10,stageY+35,"#c1d9ee",8);
+  for(let j=0;j<11;j++)rect(x+5,stageY+43+j*17,140,17,j%2?"#276b42":"#2c7946");
+  rect(x+10,stageY+66,130,1,"#a1cda6");rect(x+10,stageY+201,130,1,"#a1cda6");
+  g.strokeStyle="#b1c5a9";g.lineWidth=1;g.strokeRect(x+12,stageY+72,126,125);
+  if(main){
+    const y=stageY+217,px=x+75;
+    // cast shadow beneath the boots in pitch coordinates
+    OronzoPalette.draw(g,main,direction,frame,px,y,4);
+    OronzoPalette.draw(g,main,direction,(frame+2)%4,x+38,stageY+226,1.2);
+    OronzoPalette.draw(g,main,direction,(frame+1)%4,x+110,stageY+226,1.2);
+  }
+  rect(x+5,stageY+239,140,17,"#182946");
+  text("32 PX  /  8 DIR  /  4 FR",x+10,stageY+251,"#c2d2e8",9);
+ }
+ text("CALCIATORI RICOLORABILI  ·  SHADE 0-3  ·  PIXEL PERFECT",19,333,"#e9d1a0",11);
+}
+async function refresh(){
+ document.getElementById("status").textContent="CARICAMENTO";
+ try{
+   const ready=await OronzoPalette.load(action,"");
+   assets=presets.map(p=>OronzoPalette.recolorAtlas(ready,action,p.opts));
+   document.getElementById("status").textContent="READY";
+   loaded=true;
+ }catch(e){document.getElementById("status").textContent="ERRORE ASSET";console.error(e)}
+}
+await refresh();
+function loop(now){let delta=(now-last)/1000;last=now;if(playing&&loaded){elapsed+=Math.min(delta,.1);frame=Math.floor(elapsed*fps[action])%4}draw(now);requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+})();
+</script></body></html>
