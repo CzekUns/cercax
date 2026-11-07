@@ -43,8 +43,11 @@ function start(seed=31,visuals={}) {
 }
 function playMatchday(state) {
   if(state.flow.stage==='unemployed') {
-    const result=advanceMatchday(state,{presidentCatalog:presidents});
+    const expectedAbsoluteWeek=state.absoluteWeek;
+    const result=advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek});
     assert.equal(result.accepted,true);
+    assert.equal(advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek}).reason,
+      'stale_week_action');
     return;
   }
   assert.equal(state.flow.stage,'hub');
@@ -69,10 +72,11 @@ function playMatchday(state) {
     .find(f=>f.id===fixture.fixture.id);
   assert.deepEqual(registered.result.score,submitted.score);
   const beforeWeek=state.absoluteWeek;
-  const after=advanceMatchday(state,{presidentCatalog:presidents});
+  const after=advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek:beforeWeek});
   assert.equal(after.accepted,true);
   assert.equal(state.absoluteWeek,beforeWeek+1);
-  assert.equal(advanceMatchday(state,{presidentCatalog:presidents}).accepted,false);
+  assert.equal(advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek:beforeWeek}).reason,
+    'stale_week_action');
 }
 
 test('R03 1979, 20 deterministic available jobs, one signed contract, persistent save',()=>{
