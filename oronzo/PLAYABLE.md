@@ -32,3 +32,14 @@ node --test oronzo/systems/match-view/*.test.mjs
 6. Riavviare e provare una nuova partita, con seed distinto.
 
 **Proprietà:** `partita-rapida.html` e gli innesti al runtime sono mantenuti dall'orchestratore. Gli agenti restano proprietari di `systems/match-engine/`, `systems/match-view/`, grafica e contenuti, con NEXT/REPORT come registro.
+
+
+## Visibilità degli ordini tattici (revisione del 7 novembre 2026)
+Il motore già accettava `tacticChange`, ma sul campo non era immediato distinguere i nuovi schieramenti dalle corse verso il pallone. La partita rapida ora mostra:
+- **Modulo effettivamente accettato**, con valori di pressing e mentalità attivi (ricavati da `result.effects.tactics`, non semplicemente dalla select).
+- **Schema di riferimento** direttamente sopra il campo tramite SVG con undici cerchi e posizioni base del modulo ricavate da `systems/match-engine/movement.js#formationAnchors`. Si specchia al cambio di tempo.
+- I riferimenti appaiono per 45 secondi simulati dopo un cambio di modulo (circa 7,5 s reali a 1×). Il pulsante **SCHEMA ◯/●** permette di lasciarli visibili o nasconderli.
+- Messaggio quando l'ordine viene ricevuto dal motore. I giocatori si riposizionano con la fisica e con la palla in movimento; non avviene un teletrasporto forzato ai cerchi, che rappresentano l'assetto **di riferimento** e non le coordinate istantanee.
+- Premendo Attacca, Equilibrio o Difendi oppure modificando pressing/mentalità i valori attivi cambiano solo se il motore accetta il comando.
+
+**Verifica orchestratore:** confronto deterministico di due match uguali a t=100, con e senza `tacticChange({formation:'3-5-2',pressing:80,mentality:80})`. Dopo 30 s simulati **10 dei 11 calciatori** della squadra hanno posizioni differenti per più di 0,025 in coordinate normalizzate; il comando ed evento tattico sono accettati e registrati. Prova eseguita in V8 con sorgenti reali; la resa SVG su Android richiede ancora il controllo manuale.
