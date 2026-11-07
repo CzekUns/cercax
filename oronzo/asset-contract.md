@@ -14,6 +14,16 @@ Esportare **sprite colore neutro** + **maschera dei materiali**, oppure file ind
 ### Maglie a fantasie ricolorabili
 Per maglie tinta unita, strisce verticali/orizzontali e metà-metà, aggiungere un secondo colore `shirtB` selezionato dal pattern nel sistema di coordinate del torace, non da pixel già dipinti. In una versione evoluta: maschera `shirt` con `shirtPatternUV` o regioni A/B. Pantaloncini e calzettoni indipendenti.
 
+## Aspetto condiviso: campo, scheda, cutscene, futura figurina (direttiva 7 novembre 2026)
+
+Unica identità visiva per `playerId`. Dati stabili per **pelle**, **capelli (colore e taglio)**, **baffi/barba (tipo e colore)** e, in futuro, **ritratto/figurina pixel art da reference fotografica fornita**. La scheda giocatore è raggiungibile sia da ROSA sia da ALLENAMENTO. Non sostituire queste proprietà con palette casuali al draw; devono provenire da un record persistente e sopravvivere ai trasferimenti.
+
+Le divise sono **indipendenti dall'identità fisica**: il renderer combina `player.visual` + `club.visualKits[kitId]` + `role`, e applica colori e fantasie reali della squadra in tutte le viste (campo, cutscene, scheda e futura figurina). Supportare almeno **tinta unita, strisce verticali, strisce orizzontali, banda e metà-metà** senza perdere i quattro livelli d'ombra. Il portiere è differente. Dove la fantasia diventa illeggibile nei `32×32`, usare una semplificazione fedele ai colori, preservando il pattern esatto nelle rappresentazioni grandi.
+
+Maschere/materiali separati per `facialHair` e varianti dei capelli dove utili; il baffo/barba non va appiattito nel colore della pelle. Fino alla figurina definitiva, usare la variante generica/ritratto procedurale coerente con `player.visual`, non un volto casuale. I nuovi ritratti pixel art creati da foto future devono rispettare i tratti e la maglia/texture attuali, preferibilmente con livello ricolorabile.
+
+**Convalida inter-vista futura:** controllare due club con kit di pattern differente, più giocatori con carnagioni, acconciature e peli facciali diversi; stesso `playerId` visibile e riconoscibile su ROSA, ALLENAMENTO, 11v11, cutscene e figurina quando disponibile. Conservare screenshot dimostrativi e test save/load; non considerare questo test già passato. I lavori si attivano per dipendenza concreta, non tramite round generali.
+
 ## A — Giocatori nella partita
 - Celle fisse: `32×32` pixel reali, sfondo trasparente, pivot in basso al centro `(16,29)`.
 - Direzioni: 8 (N, NE, E, SE, S, SW, W, NW), ordine esplicito in manifest; ogni animazione 4 frame per direzione (8 colonne ×4 righe oppure trasposto con manifest).
