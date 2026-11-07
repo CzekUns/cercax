@@ -1,7 +1,7 @@
 # NEXT — ORONZO AGENTE 10 · ORCHESTRAZIONE v0.2
 **Stato:** `WORKING` — il coordinamento e la visione sono stati formalizzati; l'integrazione completa non è ancora stata sviluppata.
 **Fonte prodotto:** [Google Doc v0.2](https://docs.google.com/document/d/1k52clWWRcD3CMvD_HsX1ke7zdiVAY_AHp2MT9KfDEG0/edit) · [GitHub v0.2](../GAME-VISION-v02.md).
-**Epic:** [#25](https://github.com/CzekUns/cercax/issues/25).
+**Epic:** [#25](https://github.com/CzekUns/cercax/issues/25). **Issue integrazione:** [#26](https://github.com/CzekUns/cercax/issues/26). **Schema V2 proposto:** [CONTRACT-v02.md](CONTRACT-v02.md).
 
 ## Cosa esiste e resta valido
 - `partita-rapida.html` con motore 11v11, renderer/sprite, comandi tattici, velocità 1× ~15 min. PR #24 di riposizionamento sprite mergiata; QA manuale smartphone ancora da verificare dopo correzione.
