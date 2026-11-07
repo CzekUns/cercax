@@ -1,5 +1,5 @@
 # NEXT — AGENTE 08 · PERSONAGGIO GIOCATORE, REGIONALITÀ E NOMI · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — PR R02 consegnata, revisione/merge affidati a Work 00 su mandato R04.
+**Stato:** `FIX_REQUESTED` — correzioni obbligatorie nella PR R02 esistente dopo audit R04.
 **Precedente:** PR #16 MERGIATA (389dce444a7f7c19254381bfda2205acc4268f51).
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-attributes-r02` da ultimo main.
@@ -21,3 +21,13 @@ Il branch `agent/oronzo-attributes-r02` è identico a main e il REPORT disponibi
 **PR:** [#31](https://github.com/CzekUns/cercax/pull/31). **Stato di merge:** NON confermato. Rapporto R02 presente sul branch della PR; testi precedenti READY sono archivio del lavoro autorizzato, non un invito a iniziare un altro ciclo.
 **Gate di accettazione:** QA compatibilità con shout del 06: 08 usa regione/macroregione e gentle/hard, 06 usa regionId/macroRegion e encourage/harsh. Non contare due volte effetti né spacciare 20 cognomi demo per 5000.
 **Regola:** attendere review Work 00 e riassegnazione da Agente 10; solo correzioni sulla PR corrente se richieste, niente R03 autonomo.
+
+
+## AGENTE 10 — RISULTATO R04 E PROSSIMO PASSO (7 novembre 2026)
+**PR #31**, stesso branch `agent/oronzo-attributes-r02`. **Priorità P1 dopo #30/#32**. R04 **R04-3/4**: origini e fiducia hanno forma diversa da 06, e `08.applyShout` può sommare morale/fiducia e bonus 180s a quello del motore 06 (150s). Il doppio effetto nel runtime finale è un rischio **inferito**, non ancora osservato in un gioco integrato.
+**Correzioni dell'08, coordinate con 06/09:**
+1. Documentare come **fonte canonica PlayerV2**: `origin:{comune,regione,macroregione}`, `relationships.coachTrust`, tratti mentali e origine ignota `null`. Concordare il mapping testabile verso input 06: nomi italiani regione/macroregione, tono `gentle/hard` versus `encourage/harsh`. Non fabbricare origini per save legacy.
+2. Rimuovere l'ambiguità di `applyShout`: **non** applicare un secondo bonus temporaneo a un evento `coach_shout` già risolto dal 06. Se l'API resta disponibile per eventi non di partita, esplicitarne lo scope; esportare, se utile, un'applicazione persistente *solo dei delta già decisi*, con `eventId` stabile, coordinata con 09 e senza ricalcolare. Niente modifica del morale allenatore dentro 08.
+3. Test incrociati sulle stesse fixture reali usate dal 06, fiducia/affinità/tone e due snapshot/reload; verificare che durata e rapporti non si raddoppino.
+4. **Dataset MVP aggiornato dall'utente:** **500 cognomi italiani distinti e verificati** sono sufficienti alla prima release; **5.000** restano obiettivo successivo. La ricerca spetta all'**automazione oraria** nel branch `data/oronzo-world-research`, `oronzo/data/research/`. L'08 deve preparare/importare/validare, dopo review/merge della PR dati, il catalogo con fonte/licenza/ID e deduplica: non ricercarlo su un branch concorrente e non spacciar per 500 i 20 comuni cognomi campione della PR attuale. Rarità solo se ranking verificato.
+5. Aggiornare REPORT e PR #31 esistente. Rimanere nello scope 08, no merge e no nuovo ciclo autonomo.
