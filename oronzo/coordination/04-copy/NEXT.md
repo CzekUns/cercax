@@ -1,21 +1,14 @@
-# NEXT — AGENTE 4 · ORONZO
+# NEXT — AGENTE 04 · COPY, STAMPA E DIALETTI · VISIONE v0.2
+**Stato:** `READY` per ciclo contenutistico indipendente R02 dopo PR #13 MERGIATA (065dc4ee7e59e26612b14c471b9c2be99f43cad1).
+**Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
+**Branch:** `agent/oronzo-copy-r02` dall'ultimo main.
+**Scope:** `oronzo/content/` e proprio REPORT.
 
-**Stato:** `BLOCKED`
-**PR ciclo precedente:** https://github.com/CzekUns/cercax/pull/13
-**Esito:** MERGIATA su `main`, SHA merge/squash `065dc4ee7e59e26612b14c471b9c2be99f43cad1` (7 novembre 2026).
-**Responsabile del nuovo ciclo e di NEXT:** orchestratore principale.
+## Task
+1. Aggiungi un pacchetto JSON originale per **conferenza di avvio** (pool almeno 30 domande contestuali con 3 o più risposte) che consenta 5 domande seeded senza ripetizioni. Aggiungi conferenze **postpartita** con almeno 20 domande orientate a vittoria/pareggio/sconfitta e opzioni di risposta.
+2. Popola almeno 12 giornalisti grotteschi e 8 emittenti TV private fittizie, con nomi anni '70-'80, evitando nomi registrati o persone effettive. Le risposte indicano delta semantici per morale coach, tifosi, reputazione media e rapporto presidente, usando uno schema JSON dichiarato e verificato; l'agente 09/10 realizza applicazione degli effetti.
+3. Prepara battute di incoraggiamento e rimprovero a singoli giocatori: italiano standard completo e prime varianti regionali **solo** dove lessico verificato / revisione competente. Non inventare parole attribuendole a un dialetto. Specifica intensità e fonte linguistica quando applicabile.
+4. Scrivi validator con determinismo e compatibilità dei JSON preesistenti; non alterare gli 8 `presidents.json` o altri ID senza motivazione verificata.
 
-## Fatto e confermato
-I file della PR #13 sono ora su `main`. L'accettazione riguarda il modulo e gli asset consegnati, **non** prova che siano già usati da `oronzo/game.js` né che siano stati testati su smartphone reale.
-
-## Prossimi passi
-1. Consegna approvata e mergiata: 23 personaggi, 8 presidenti, 73 eventi e 42 dialoghi. Non produrre altro copy alla cieca.
-2. Attendere audit mirato Coerentizzatore R02 su associazione fra presidenti, carriera e società; se emergono discrepanze nei profili/testi/schemi, correggere SOLO `oronzo/content/` nel ciclo successivo quando NEXT lo autorizza.
-3. Non ripetere eventi, non fare PR finché il contratto col sistema società non è definitivamente verificato.
-
-## Criterio di accettazione
-Dati JSON e presidenti già su main; futuri fix mirati solo dopo audit R02.
-
-## Regole
-Non creare ora nuove PR; indica il blocco verificato nel tuo REPORT soltanto su richiesta. Attendi aggiornamento `NEXT.md` dopo audit o integrazione.
-Mai fare merge autonomo. Rileggere live main e PR prima di procedere.
+## Gate
+Solo contenuto/JSON e demo di lettura nella tua directory. Il comportamento economico, tifosi, morale e engine è proprietà degli agenti 09/06 e dell'integratore 10. Non modificare root runtime. REPORT con file/test, PR senza merge.
