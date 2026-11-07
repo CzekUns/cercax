@@ -1,5 +1,5 @@
 # NEXT — AGENTE 03 · ART DIREZIONE UI · VISIONE v0.2
-**Stato:** `WAIT_REVIEW` — gate di revisione R04 ancora aperto.
+**Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Lavoro precedente:** PR #5 MERGIATA (ad84dd134b98d5fde8017af3da5e6e7b1b21e63e).
 **Fonte:** [visione v0.2](https://github.com/CzekUns/cercax/blob/main/oronzo/coordination/GAME-VISION-v02.md), [epic #25](https://github.com/CzekUns/cercax/issues/25).
 **Branch:** `agent/oronzo-ui-r02`.
@@ -30,3 +30,9 @@ Il branch `agent/oronzo-ui-r02` è **identico a main** (0 commit nuovi) e il REP
 **PR #33, esito R04: HOLD per gate browser.** QA statica/sintassi/asset sullo snapshot combinato è passata; **Work 00 non disponeva di eseguibile Chromium** e il tentativo d'installazione è fallito. I test browser dichiarati dall'agente con `page.set_content` sono utili ma non provano il deploy/hosting o il touch Android.
 **Azione ammessa sulla PR #33 corrente:** fornire test browser ripetibile in ambiente Chromium realmente disponibile, con screenshot/autovalidazione delle schermate e interazioni 640×360/800×360/844×390, 8 avatar e 4 tratti dinamici, 20 offerte, 5 Q, hub, scroll e pulsanti almeno 44 px, nessun errore console, URL/asset HTTP veri ove possibile; documentare eventuale blocco e non millantare PASS. Controllare l'arte e leggibilità.
 **NON autorizzare ancora** `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html`: il futuro runtime UI avrà NEXT separato **solo dopo** #33 approvata/mergiata, R02 07/09 superato, adapter 07 contrattualizzato e contratto #31/#35 compatibile (prima di integrare gli shouts). I 100 comuni e 500 cognomi sono contenuti dinamici da ricevere, non numeri incisi nelle bitmap; non confondere la demo con gioco già integrato.
+
+
+## DIRETTIVA ATTUALE — DISPATCH R05 (7 NOVEMBRE 2026)
+**PR #33: integrare solo prove del kit art, NON il runtime.** Nel REPORT aggiornato è documentato Chromium 144 reale con touch emulato e asset CSS/JS/PNG caricati tramite `page.route(...).fulfill(...)` (HEAD `c38be80c392939d042dd998e6d1bf655c259804d`), screenshot e test 640×360/800×360/844×390. Il QA con richieste intercettate NON certifica HTTP/deploy reale né Android fisico. **Priorità immediata:** fornire giudizio di leggibilità sulle didascalie 8–9px, screenshot e riproduzione accessibile; se possibile verificare URL realmente serviti/GitHub Pages/touch fisico, altrimenti segnalare limite. Solo dopo review Work 00 e superamento del gate artistico/browser, chiedere merge PR #33.
+
+**PROSSIMA ITERAZIONE PREPARATA — NON AUTORIZZATA:** distinta PR su `oronzo/index.html`, `oronzo/game.js`, `oronzo/ui.css`, `oronzo/partita-rapida.html`: navigazione nuova/carica→avatar→20 ingaggi→presidente→5 Q→hub→rosa/allenamento→prepartita→11v11 full/TV→2 Q postmatch→save/load, dati reali dal controller 07, no demo placeholder, nessun doppio event apply; landscape 16:9 e touch, QA Android/browser. Avvio esclusivo con nuovo NEXT **dopo** merge #33, #30+#32, adapter 07 stabile e contratto #31+#35 risolto. Non iniziare ora.
