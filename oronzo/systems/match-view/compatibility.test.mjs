@@ -7,8 +7,8 @@ import {makeFixtureSnapshot} from './fixture.js';
 function snapshot(t,{phase=t>=2700?'secondHalf':'firstHalf',events=[],homeX=.05,awayX=.95,ballX=.5,score={home:0,away:0}}={}) {
   const base=makeFixtureSnapshot(t,t-1);
   base.t=t;base.phase=phase;base.events=events;base.score=score;
-  base.players[0].x=homeX;base.players[0].facing=1;base.players[0].vx=0;base.players[0].vy=0;
-  base.players[11].x=awayX;base.players[11].facing=-1;base.players[11].vx=0;base.players[11].vy=0;
+  base.players[0].x=homeX;base.players[0].facing=0;base.players[0].vx=0;base.players[0].vy=0;
+  base.players[11].x=awayX;base.players[11].facing=Math.PI;base.players[11].vx=0;base.players[11].vy=0;
   base.ball.x=ballX;
   return base;
 }
@@ -17,10 +17,13 @@ const mockView=()=>({
   render(s,now){this.calls.push(['render',s,now]);}
 });
 
-test('ORZ-P1-001: Agent 6 numeric +/-1 are East/West, not angles',()=>{
-  assert.equal(resolveFacing(1,0,0),'E');
-  assert.equal(resolveFacing(-1,0,0),'W');
-  assert.equal(resolveFacing(-1,0,0,'N'),'W');
+test('ORZ-P1-009: Agent 6 numeric facing values are radians, including +/-1',()=>{
+  assert.equal(resolveFacing(0,0,0),'E');
+  assert.equal(resolveFacing(Math.PI,0,0),'W');
+  assert.equal(resolveFacing(Math.PI/2,0,0),'S');
+  assert.equal(resolveFacing(-Math.PI/2,0,0),'N');
+  assert.equal(resolveFacing(1,0,0),'SE');
+  assert.equal(resolveFacing(-1,0,0),'NE');
   assert.equal(resolveFacing(null,0,0,'NW'),'NW');
   assert.equal(resolveFacing({radians:1},0,0),'SE');
 });
