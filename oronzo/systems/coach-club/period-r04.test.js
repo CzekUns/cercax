@@ -44,8 +44,9 @@ test('R04-1: legacy meeting and event cannot be replayed with absoluteWeek',()=>
   assert.equal(conveneBoard(club,president,absolute).reason,'period_migration_required');
   assert.equal(club.board.notices.filter(x=>x.kind==='meeting').length,meetingCount);
   const event={id:'legacy-event',clubId:'club',options:[{id:'yes',effects:{boardTrust:2}}]};
-  assert.equal(applyClubEvent(club,event,'yes',{week:1}).accepted,true);
-  const saved=JSON.parse(JSON.stringify(club));
+  const first=applyClubEvent(club,event,'yes',{week:1});
+  assert.equal(first.accepted,true);
+  const saved=JSON.parse(JSON.stringify(first.club));
   const applied=applyClubEvent(saved,event,'yes',absolute);
   assert.equal(applied.reason,'period_migration_required');
 });
