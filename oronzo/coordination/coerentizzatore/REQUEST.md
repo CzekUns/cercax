@@ -1,44 +1,30 @@
-> **AGGIORNAMENTO COORDINAMENTO (7 NOVEMBRE 2026):** l'R04 in questo file è storico e COMPLETATO. Rapporto [PR #36](https://github.com/CzekUns/cercax/pull/36), unico merge produttivo #34. Correzioni assegnate nei NEXT 07/09/06/08, browser gate 01/03/05. Nessuna autorizzazione permanente di merge per 00; attendere PR aggiornate e nuovo mandato. Prima release **100 comuni + 500 cognomi**, raccolta tramite automazione oraria (fuori dall'R04).
+# ORONZO — RICHIESTA ATTUALE COERENTIZZATORE 00 · AUDIT R05
 
-# COERENTIZZATORE / CHAT WORK 00 — AUDIT R04 E MERGE CONDIZIONATI
-**Stato:** `COMPLETED_R04` · audit eseguito in [PR #36](https://github.com/CzekUns/cercax/pull/36) il 7 novembre 2026; **NON RIATTIVARE R04 automaticamente**. Delega straordinaria ai merge scaduta. Nuovo audit soltanto su REQUEST successivo con HEAD nuove PR.
-**Autorità di merge:** **delegata eccezionalmente dall'utente alla chat Work 00**, **SOLO** per PR specifiche che abbiano superato QA e gate. Non è un permesso di merge in blocco. Per questo audit R04 tale autorizzazione puntuale prevale sul divieto generale di merge del vecchio RUN/PROTOCOL; chiudi il permesso alla conclusione della sessione.
-**Repository:** `CzekUns/cercax`. Main è fonte del prodotto. **Visone:** `oronzo/coordination/GAME-VISION-v02.md` (1979), `10-orchestrator/CONTRACT-v02.md`, `PROTOCOL.md`, `registry.json`, issue #25 e #26.
-**Scope Work 00:** revisionare/testare e, se superano tutti i gate, fare merge tecnico mirato. **NON** implementare codice del gioco, NON cambiare file NEXT di agenti, NON modificare file fuori `oronzo/coordination/coerentizzatore/` (salvo operazione GitHub di merge di PR già validate), NON creare nuove feature. I bug richiedono `FIX_REQUESTED` e ritorno all'orchestratore 10.
+**Stato:** `READY` — incarico preparato il 7 novembre 2026 dall'Agente 10, **non equivale ad avvio della chat Work 00**.
+**Ambito:** verifica P0 **PR #30 e #32** dopo le correzioni R04; solo se gate verde valutare l'integrazione in main con eventuale autorizzazione utente specifica R05. **Non usare il vecchio mandato di merge R04**, esaurito.
+**Riferimenti:** `coerentizzatore/RUN.md`, `10-orchestrator/DISPATCH-R05.md`, `PROTOCOL.md`, `GAME-VISION-v02.md`, `10-orchestrator/CONTRACT-v02.md`, `registry.json`, audit [PR #36](https://github.com/CzekUns/cercax/pull/36) `REPORT-R04.md`.
 
-## Baseline: 10 PR aperte al controllo dell'Agente 10
-| Priorità | PR | Agente | HEAD osservato | Gate |
-| --- | --- | --- | --- | --- |
-| P0 | #30 | 07 Career | `19d9600aeb3dc45d38db2760fd865de1b2da6a20` | cinque fix R02 e test incrociati |
-| P0 | #32 | 09 Coach-club | `d604243eb300ca65b2f5c56beba8fde3f799a174` | cinque fix R02 e test incrociati |
-| P1 | #33 | 03 UI kit | `a472423738a586dc7a6484706a2ac34f24502ec7` | Chromium + art/hotspot QA |
-| P1 | #28 | 05 Camera | `c326e33e8cb51825f2f18557f0903b011d70332b` | 2 camere, stessa simulazione |
-| P1 | #35 | 06 Engine | `11e9901285f16ce3119c945fd22890a9c3e70fff` | regressione 100 seed, shout |
-| P1 | #31 | 08 Attributi | `979cde10412d0b67aab616653616205e444de8fa` | modello, geografia, bridge effetti |
-| P1 | #34 | 04 Dialoghi | `b74c376f1045e8b95c3cb4c5c21258a7df33087d` | test selector, testi/lunghezze, semantica |
-| P1 | #29 | 01 Sprite | `01c5deca71d6f7e304217c48525732cf914c4fbc` | arte, atlas, leggibilità |
-| HOLD | #12 | 02 Cutscene | `7ec2e1f8625b828c819f41301577567a1e39d828` | DRAFT, art/browser QA non superati |
-| NO MERGE | #27 | Coerentizzatore | `90f4f73f1a8cc9c1b31c6d5d85631a4d2142906b` | audit R03 preliminare superato dai fatti, non codice; non mergiare |
+## Verifica primaria obbligatoria (P0)
+- PR **#30** Agente 07, HEAD osservato **`f098b5474801171f55e451889eca8c65653000f3`**.
+- PR **#32** Agente 09, HEAD osservato **`89bb4944e6c6fc78ad9164c8e0d899355ec9d67f`**.
+Gli HEAD sono snapshot: **rileggerli live** prima di ogni test e merge. I branch sono distinti: costruire una **checkout/sandbox che combini esattamente le due PR** con main e nessun mock dei file Career/Coach-Club. Non confondere il report dell'agente con test indipendenti.
 
-*La tabella è uno snapshot, non sostituisce la verifica live degli HEAD al momento del merge.*
+1. Eseguire Node **davvero**: `node --test oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`. Controllare la precedente asserzione fissa 1600 (R04-2) contro stipendi reali, test del modulo `period-r04.test.js` e catalogo veri presidenti.
+2. Riprodurre il bug R04-1 con save legacy `settledWeeks:[1]`, conversione una tantum a `a:1`, eventi/ledger/meeting/promesse in stagioni differenti. Verificare **nessun doppio pagamento** e **nessuna perdita storica**, incluso envelope V1/V2 con checksum; quando la stagione è ambigua il sistema rifiuta in sicurezza.
+3. Eseguire smoke 104 club × **due stagioni** con `{week:seasonWeek,absoluteWeek,seasonYear}`, save/load frequenti, 76 periodi o numero effettivo, idempotenza payroll e board, finanze/arretrati, presidente canonico, obiettivi, esonero e contract.history. Distinguere risultati 0–0 sintetici da gare Match Engine reali.
+4. Controllare che ogni PR modifichi solo il proprio scope e REPORT, che le API abbiano contratti compatibili e che il merge su main non reintroduca test rotti; rieseguire almeno suite interessate dopo ogni eventuale merge. No modifiche al codice di gioco da 00.
+5. Se la suite è VERDE e non emergono P0/P1, classificare **READY_FOR_MERGE**. Se un difetto resta, **FIX_REQUESTED** con caso riproducibile e proprietario 07/09; bloccare adapter 07.
 
-## Procedura obbligatoria in ordine
-1. **RILEGGI LO STATO LIVE**: PR/diff/REPORT/HEAD/mergeable/CI del repository, perimetri e i NEXT su main. Se un HEAD cambia durante la review, riesamina i file interessati. Non fidarti dei vecchi report su main che descrivono il ciclo 01.
-2. **GATE P0 #30 + #32 INSIEME**: esegui **DAVVERO** i test nativi Node sui due HEAD in una checkout / sandbox integrata, col catalogo reale `oronzo/content/presidents.json`. Non fidarti soltanto dei test separati dichiarati (07 dichiara 19/19 Node, 09 dichiara 32/32 V8 e 4/4 Node parziali). Verifica tutte e cinque le incompatibilità:
-   - `presidentId` canonico e stabile per club su due stagioni e salvataggi, profilazione giusta per board/testi e nessun presidente arbitrariamente riassegnato;
-   - `seasonObjective` preservato nella forma Career e interpretato correttamente da Board, incluse alias e unknown;
-   - contratti e `weeklyWage` > 0 per club generati, `wageBudget` e `settleWeek`, arretrati non negativi, rifiuto importi negativi e safe integer, nessun reset denaro durante roundtrip;
-   - `absoluteWeek` usata realmente nelle chiamate finanziarie/board; settimana 1 della stagione 2 contabilizzata, retry della stessa settimana respinto; migrazione da salvataggi V1, inclusi ledger legacy `week`;
-   - `createCoach`/factory + esonero/rinnovo e salvataggi: `employmentHistory`, `hiredSeason`, `contract.until` preservati senza TypeError.
-   - Testa due stagioni complete, serializzazione e reload, 104 club, pagamenti e caso presidente mismatch. **ATTENZIONE:** `07/tests/r02-cross.test.mjs` fa uso di `settleWeek({week:period})` in qualche caso: per dimostrare l'API nuova di 09 serve almeno un test con `{week:seasonWeek, absoluteWeek, seasonYear}`, non bastano due numeri assoluti passati nel campo `week`.
-   - Se e solo se **tutto passa**, mergia **#30 poi #32**, aggiornando baselines e rilanciando test dopo il primo merge e dopo il secondo. Non autorizzare ancora il 07 a fare `oronzo/app/flow/`: tale NEXT è gestito da 10.
-3. **GATE ALTRE PR**: testa nativamente sul codice realmente combinato e valùta scope/file changed. Le PR #28 camera, #35 engine, #31 player, #34 stampa, #33 UI e #29 sprite hanno scope distinti ma potrebbero avere incompatibilità di API, rendering e semantica. Verifica riproducibilità, non limitarti a patch+report. Per #33, screenshot e test Chromium sulla demo reale; i 22 marker e le schermate sono *solo demo* e non dimostrano un gioco integrato. Per #29 usa atlas e preview e applica gate artistico; non dichiarare approvazione visuale definitiva da test su PNG.
-4. **POTENZIALE P1 PRECISO FRA #31 E #35**: l'Agente 08 normalizza `origin:{comune,regione,macroregione}` con valori italiani e usa toni `gentle/hard` (`gentile/duro`); l'Agente 06 legge `regionId,macroRegion` (e minuscoli `north/centre/south` in contratto) e accetta `encourage/harsh`. Senza **adapter esplicito e test** l'affinità regionale può diventare `unknown`. In più `08.applyShout()` modifica morale/coachTrust calciatore e assegna bonus temporaneo 180s, mentre `06` aggiunge `personalShout` 150s e `persistentSuggestion` con `collectCoachEffects()`. **Non applicare entrambi i bonus/delta al medesimo evento**. Definisci un solo flusso di eventi e doppia applicazione respinta dopo reload. Se la difformità è bloccante per merge combinato, lascia #31/#35 in FIX_REQUESTED e specifica owner e adattatore richiesto, senza scriverlo tu.
-5. **DATI/PERSISTENZA E STILE**: #31 contiene solo un esempio di **20 cognomi comuni**, non i 5.000 rari e verificati: pipeline può essere mergeabile, ma dichiarare dataset finale **NON CONSEGNATO**. #34 ha 37 domande iniziali/32 postmatch e 80 battute italiane, ma il committente sta ancora discutendo lo **stile narrativo**: fare QA tecnica/editoriale di esempi e non considerare il tono artistico definitivamente approvato. Niente dialetti inventati e niente dettagli post-1979 anacronistici. #12 è ancora DRAFT: **NON MERGIARE** senza gate artistico richiesto e browser QA.
-6. **UN MERGE ALLA VOLTA**: ogni PR mergeata richiede righe di test/CI e confronto HEAD attuale, nessun file fuori scope, nessun conflitto, niente breaking silenziosi, prova del gate. Dopo ogni merge rilegge main e revisiona la prossima PR. Se fallisce: lascia aperta e assegna `FIX_REQUESTED` nel rapporto con bug riproducibile. Nessun merge in blocco per urgenza.
-7. **NON autorizzare autonomamente i nuovi cicli 07/03** e non scrivere i loro NEXT: SOLO Agente 10 deve trasformare gli esiti di merge nei nuovi incarichi. Agente 07 adapter game-flow in `oronzo/app/flow/` solo dopo #30+#32; agente 03 runtime HTML solo dopo #33 e gate 07/09. Le PR R02 non comprendono il runtime finale e non rendono la carriera già giocabile.
+## Controllo secondario di fattibilità, senza diluire il P0
+- **#33 UI 03**, HEAD osservato `c38be80c392939d042dd998e6d1bf655c259804d`: ora porta QA Chromium 144 con `page.route`, emulazione touch, otto screenshot reali; questo prova DOM/caricamento asset intercettati ma NON il sito GitHub Pages né il telefono fisico. Valutare art/readability 8–9px e rimanenti gate. Non attribuire a 00 prove non eseguite.
+- **#28 camera 05**, HEAD `9c00a3298c0083e3836154a1cb1ff22529bf6366`: test browser con PNG reali bloccato dal sandbox, fallback realSprites=0; HOLD finché non dimostrato. **#29 sprite 01** resta gate artistico/Chrome. **#12 cutscene** OPEN/DRAFT HOLD.
+- **#31 Attributes 08** e **#35 Engine 06**: finché i rispettivi HEAD restano quelli dell'audit R04 (rispettivamente `979cde1` e `11e9901`), **FIX_REQUESTED**, non fare merge; richiesti mapping `regione/macroregione/coachTrust`/toni e un unico effetto temporaneo con ledger persistente.
+- **#34 Copy 04** già MERGED `b8976cb2b0129de9ee6537e1d624abce9ff1402f`, nessuna nuova review necessaria.
 
-## Esito richiesto alla chat Work 00
-- Scrivi `oronzo/coordination/coerentizzatore/REPORT-R04.md` con HEAD/SHA verificati, comandi e risultati effettivi, difetti P0/P1 con file/riga, elenco **MERGED / FIX_REQUESTED / HOLD** delle dieci PR, SHA merge e ciò che rimane incompleto.
-- Se non puoi testare/mergiare per limitazioni strumenti, dichiara precisamente quali; **non simulare** il merge. Non scavalcare i gate. Consegna link del report ed eventuale PR documentale separata, senza auto-mergiare il rapporto.
-- Alla fine la delega eccezionale ai merge Work 00 **si estingue**; il resto torna al protocollo ordinario e all'Agente 10.
+## Merge (ATTENZIONE: autorizzazione distinta)
+L'utente ha autorizzato i merge di Work 00 **solo nel precedente audit R04**, che è concluso. Questo REQUEST R05 **non conferisce da solo un permesso di merge**. Se l'utente, quando attiva Work 00, autorizza esplicitamente nuovi merge, 00 può effettuarli **solo** per PR verificate con test reali, un merge alla volta, con `expected_head_sha`, dopo verifica CI/diff/arte, e controlli successivi su main. Altrimenti 00 presenta i risultati e SHA raccomandati **senza fare merge**.
+
+## Consegna
+Creare `oronzo/coordination/coerentizzatore/REPORT-R05.md` nel proprio branch audit, PR **solo report**, senza auto-merge. Includere elenco HEAD esaminati, comandi realmente eseguiti, PASS/FAIL, diff/integrazione, link e SHA di eventuali merge autorizzati, blocchi, e una decisione se 10 può **autorizzare** il nuovo ciclo di 07. Non editare NEXT/registry/contratti/gioco. Non aprire R03. Lo stile dialoghi rimane in discussione, 100 comuni/500 cognomi M1 sono raccolti dall'automazione oraria e non certificati finché non disponibili.
+
+**Priorità pratica: terminare il gate #30/#32 prima di ogni audit esteso sulle altre PR.**
