@@ -1,7 +1,7 @@
-# COERENTIZZATORE — INCARICO R02 PRONTO, NON AVVIATO
+# COERENTIZZATORE — AUDIT R02 COMPLETATO
 
-**Stato:** `READY_FOR_ONE_WORK_AUDIT`
-**Autorizzazione:** l'utente ha chiesto se ci siano nuovi incarichi per il revisore; l'orchestratore prepara qui una singola revisione mirata e l'utente potrà avviarla in Work quando desidera.
+**Stato:** `COMPLETED_R02` — rapporto completato e mergiato in [PR #20](https://github.com/CzekUns/cercax/pull/20). Nessun audit aggiuntivo autorizzato.
+**Conclusione:** cinque difetti P1 confermati e assegnati ad agenti 7 e 9 nei rispettivi NEXT. Il Coerentizzatore si ferma; non ripete l'audit.
 **Priorità:** integrazione carriera + società + presidenti, moduli già su main, non revisionare tutta ORONZO.
 
 ## Ambito preciso: tre moduli su main
