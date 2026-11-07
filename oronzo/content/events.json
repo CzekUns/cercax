@@ -2344,6 +2344,699 @@
           "futureEffects": {}
         }
       ]
+    },
+    {
+      "id": "ev_pres_venturi_sconfitte",
+      "presidentId": "gaetano_venturi",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "La fiducia in piazza",
+      "body": "Dopo due sconfitte Venturi vuole parlare alla squadra prima della seduta. Ha portato un discorso.",
+      "variants": [],
+      "triggers": {
+        "lossStreakMin": 2
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "risultati"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Lascia parlare Venturi",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Parla tu al gruppo",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_venturi_cassa",
+      "presidentId": "gaetano_venturi",
+      "speakerId": "gaetano_venturi",
+      "channel": "dialogue",
+      "title": "La spesa di domenica",
+      "body": "La cassa è corta. Venturi propone una festa per chiamare i tifosi e raccogliere contributi.",
+      "variants": [],
+      "triggers": {
+        "clubCashBelow": 150000
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "bilancio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi un piano al direttivo",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Offri il tuo intervento",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_berti_modulo",
+      "presidentId": "leandro_berti",
+      "speakerId": "leandro_berti",
+      "channel": "dialogue",
+      "title": "Richiesta protocollata",
+      "body": "Berti riceve la richiesta di un rinforzo. Vuole prima un modulo con il ruolo scritto per esteso.",
+      "variants": [],
+      "triggers": {
+        "marketRequest": true
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "mercato"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Compila la relazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi una risposta rapida",
+          "target": "all",
+          "effects": {
+            "morale": -1
+          },
+          "futureEffects": {
+            "presidentTrust": -2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_berti_coppa",
+      "presidentId": "leandro_berti",
+      "speakerId": "leandro_berti",
+      "channel": "dialogue",
+      "title": "La coppa e il registro",
+      "body": "La gara di coppa richiede un viaggio extra. Berti vuole che tutti firmino il registro di partenza.",
+      "variants": [],
+      "triggers": {
+        "cupWeek": true
+      },
+      "weight": 5,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "coppa"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Organizza le firme",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "administration": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Delega alla segreteria",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_sella_favore",
+      "presidentId": "vittorio_sella",
+      "speakerId": "vittorio_sella",
+      "channel": "dialogue",
+      "title": "Una conoscenza utile",
+      "body": "Sella conosce un procuratore che può segnalare un terzino. Il direttore chiede di valutare i dati.",
+      "variants": [],
+      "triggers": {
+        "marketRequest": true
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "mercato"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Chiedi una scheda tecnica",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ringrazia senza promettere",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "agentRelation": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_sella_trasferta",
+      "presidentId": "vittorio_sella",
+      "speakerId": "vittorio_sella",
+      "channel": "dialogue",
+      "title": "Pullman di cortesia",
+      "body": "Per il derby Sella offre un pullman di un conoscente. L'autista vuole prima vedere i documenti.",
+      "variants": [],
+      "triggers": {
+        "derbyWeek": true
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "trasferta"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Controlla con Ferri",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Lascia valutare alla società",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_milani_sponsor",
+      "presidentId": "arturo_milani",
+      "speakerId": "arturo_milani",
+      "channel": "dialogue",
+      "title": "Il libretto dei conti",
+      "body": "Le entrate sono scese. Milani chiede di ridurre le attività non indispensabili del ritiro.",
+      "variants": [],
+      "triggers": {
+        "clubCashBelow": 100000
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "bilancio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Concedi un giorno di riposo",
+          "target": "all",
+          "effects": {
+            "fatigue": -2
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Difendi la preparazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "fatigue": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_milani_premi",
+      "presidentId": "arturo_milani",
+      "speakerId": "arturo_milani",
+      "channel": "dialogue",
+      "title": "Premi sospesi",
+      "body": "La fiducia del direttivo cala. Milani chiede di rimandare ogni premio non ancora formalizzato.",
+      "variants": [],
+      "triggers": {
+        "boardTrustBelow": 45
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "fiducia"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Spiega la situazione",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi chiarezza scritta",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_pavesi_derby",
+      "presidentId": "rinaldo_pavesi",
+      "speakerId": "rinaldo_pavesi",
+      "channel": "dialogue",
+      "title": "Un derby da manifesto",
+      "body": "Pavesi ha commissionato un grande manifesto per il derby. Sul foglio la partita è già una festa.",
+      "variants": [],
+      "triggers": {
+        "derbyWeek": true
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "derby"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Proteggi la concentrazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ringrazia senza fare pronostici",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_pavesi_ultimatum",
+      "presidentId": "rinaldo_pavesi",
+      "speakerId": "rinaldo_pavesi",
+      "channel": "dialogue",
+      "title": "Il progetto accelera",
+      "body": "Due sconfitte non erano previste nei manifesti di Pavesi. Vuole un cambio di modulo immediato.",
+      "variants": [],
+      "triggers": {
+        "lossStreakMin": 2
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "tattica"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Difendi le tue scelte",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": -2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Prometti di valutare",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1,
+            "boardPressure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_righi_vivaio",
+      "presidentId": "silvano_righi",
+      "speakerId": "silvano_righi",
+      "channel": "dialogue",
+      "title": "Il vivaio al centro",
+      "body": "Righi propone di far allenare un ragazzo delle giovanili con i grandi. Tina chiede una prova senza pressioni.",
+      "variants": [],
+      "triggers": {
+        "weekMin": 6
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "giovanili"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Concorda una prova",
+          "target": "reserves",
+          "effects": {
+            "confidence": 1,
+            "morale": 1
+          },
+          "futureEffects": {
+            "youthTrust": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Prima osserva dal campo",
+          "target": "reserves",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "youthTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_righi_sconfitta",
+      "presidentId": "silvano_righi",
+      "speakerId": "silvano_righi",
+      "channel": "dialogue",
+      "title": "L'ultima fotografia",
+      "body": "Dopo due sconfitte Righi racconta di quando ripartì da una salvezza. Il gruppo ascolta in silenzio.",
+      "variants": [],
+      "triggers": {
+        "lossStreakMin": 2
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "spogliatoio"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Fagli parlare al gruppo",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Rendi concreto il ricordo",
+          "target": "starters",
+          "effects": {
+            "confidence": 2
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_valcavi_assemblea",
+      "presidentId": "ernesto_valcavi",
+      "speakerId": "ernesto_valcavi",
+      "channel": "dialogue",
+      "title": "Il direttivo discute",
+      "body": "La fiducia cala. Valcavi convoca un'assemblea e chiede al mister una proposta realistica.",
+      "variants": [],
+      "triggers": {
+        "boardTrustBelow": 55
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "assemblea"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Presenta un piano sobrio",
+          "target": "all",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi una settimana",
+          "target": "starters",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "boardPressure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_valcavi_rivalita",
+      "presidentId": "ernesto_valcavi",
+      "speakerId": "ernesto_valcavi",
+      "channel": "dialogue",
+      "title": "La stretta di mano",
+      "body": "Valcavi propone un incontro con la società rivale prima del derby. La curva non è entusiasta.",
+      "variants": [],
+      "triggers": {
+        "derbyWeek": true
+      },
+      "weight": 6,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "derby"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Accetta l'incontro",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "supportersTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Resta al campo",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_orlandi_piano",
+      "presidentId": "beatrice_orlandi",
+      "speakerId": "beatrice_orlandi",
+      "channel": "dialogue",
+      "title": "Un acquisto motivato",
+      "body": "Orlandi chiede tre ragioni tecniche per la richiesta di mercato e una stima dell'impatto sul vivaio.",
+      "variants": [],
+      "triggers": {
+        "marketRequest": true
+      },
+      "weight": 8,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "mercato"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Porta la relazione",
+          "target": "starters",
+          "effects": {
+            "confidence": 1
+          },
+          "futureEffects": {
+            "scoutingPriority": 2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Chiedi tempo per i dati",
+          "target": "all",
+          "effects": {
+            "morale": 1
+          },
+          "futureEffects": {
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ev_pres_orlandi_coppa",
+      "presidentId": "beatrice_orlandi",
+      "speakerId": "beatrice_orlandi",
+      "channel": "dialogue",
+      "title": "La coppa si prepara",
+      "body": "Orlandi propone un obiettivo di coppa misurabile: giocare bene e rientrare senza infortuni evitabili.",
+      "variants": [],
+      "triggers": {
+        "cupWeek": true
+      },
+      "weight": 7,
+      "cooldownWeeks": 7,
+      "oncePerSeason": false,
+      "tags": [
+        "presidente",
+        "coppa"
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "label": "Dai priorità al recupero",
+          "target": "starters",
+          "effects": {
+            "fatigue": -2,
+            "health": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Prova la formazione titolare",
+          "target": "starters",
+          "effects": {
+            "confidence": 2,
+            "fatigue": 1
+          },
+          "futureEffects": {
+            "presidentTrust": 1
+          }
+        }
+      ]
     }
   ]
 }
