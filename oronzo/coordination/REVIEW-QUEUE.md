@@ -1,19 +1,29 @@
 # ORONZO — CODA DI REVISIONE DELL'ORCHESTRATORE
 
-**Verifica GitHub:** 7 novembre 2026, seconda revisione oraria. Controllati gli endpoint REST diretti `GET /pulls/{n}` per PR #5,#6,#12,#13,#14,#15,#16,#17,#18,#19: **tutte `mergeable=true`, `mergeable_state=clean`**. L'endpoint sintetico `get_pr_info` restituisce `mergeable=false` per le stesse PR: il campo sintetico è incoerente e non va usato per diagnosticare conflitti. Nessun merge o test di codice eseguito in questa revisione.
+**STATO CORRENTE — 7 novembre 2026, revisione manuale su GitHub (prevale sui resoconti storici sottostanti).**
+La modifica dello stato di una PR è verificata dagli esiti della chiamata `merge_pull_request` con `expected_head_sha`. Sono stati esaminati scope e report degli agenti; per UI/sprite/cutscene sono stati aperti anche PNG reali. Le suite Node riportate dagli agenti non sono state tutte rieseguite dalla chat orchestratore a causa dell'accesso limitato al clone remoto. **Moduli mergiati in main ≠ funzionalità già cablate in `oronzo/game.js`.**
 
-| PR | Agente | Stato QA | Merge |
+| PR | Agente | Stato corrente e gate QA | Merge |
 |---|---|---|---|
-| [#6](https://github.com/CzekUns/cercax/pull/6) | 01 · Sprite | WAIT_REVIEW; QA grafica/palette/manifest non eseguita; REST mergeable=clean | NO |
-| [#12](https://github.com/CzekUns/cercax/pull/12) | 02 · Cutscene | WAIT_REVIEW; QA frame, maschere, trigger non eseguita; REST mergeable=clean | NO |
-| [#5](https://github.com/CzekUns/cercax/pull/5) | 03 · UI | WAIT_REVIEW; QA 16:9, touch, componenti non eseguita; REST mergeable=clean | NO |
-| [#13](https://github.com/CzekUns/cercax/pull/13) | 04 · Copy | FIX_REQUESTED; manca presidents.json nel branch; REST mergeable=clean | NO |
-| [#15](https://github.com/CzekUns/cercax/pull/15) | 05 · Match View | FIX_REQUESTED dopo audit R01; REST mergeable=clean ma incompatibilità P1 | NO |
-| [#18](https://github.com/CzekUns/cercax/pull/18) | 06 · Match Engine | FIX_REQUESTED dopo audit R01; REST mergeable=clean ma incompatibilità P1 | NO |
-| [#14](https://github.com/CzekUns/cercax/pull/14) | 07 · Career | WAIT_REVIEW; QA salvataggi/calendario non eseguita; REST mergeable=clean | NO |
-| [#16](https://github.com/CzekUns/cercax/pull/16) | 08 · Attributes | WAIT_REVIEW; audit R01: ready for orchestrator QA, non ancora approvata; REST mergeable=clean | NO |
-| [#17](https://github.com/CzekUns/cercax/pull/17) | 09 · Coach/Club | FIX_REQUESTED; ORZ-P1-008 (validazione importi negativi), test regressione richiesti; QA completa non eseguita | NO |
-| [#19](https://github.com/CzekUns/cercax/pull/19) | Coerentizzatore | Rapporto R01 di sola documentazione; REST mergeable=clean; rapporto letto, non ancora mergiato | NO |
+| [#6](https://github.com/CzekUns/cercax/pull/6) | 01 · Sprite | Merge 3585b395; manifest/palette, QA agente, preview grafica esaminata; prossimo ciclo READY | SÌ |
+| [#12](https://github.com/CzekUns/cercax/pull/12) | 02 · Cutscene | **OPEN DRAFT**, 5 strip, maschere, QA strutturale, preview visiva; richiedere review finale/chiusura draft, prova browser quando possibile | NO |
+| [#5](https://github.com/CzekUns/cercax/pull/5) | 03 · UI | Merge ad84dd13; 8 schermate PNG reali, tre viste controllate; serve separazione layer dinamici nel ciclo successivo | SÌ |
+| [#13](https://github.com/CzekUns/cercax/pull/13) | 04 · Copy | Merge 065dc4ee; 23 personaggi, 8 presidenti, 73 eventi, 42 dialoghi, JSON controllati; audit integrazione Work R02 in attesa | SÌ |
+| [#15](https://github.com/CzekUns/cercax/pull/15) | 05 · Match View | **OPEN FIX_REQUESTED**: bug nuovo `resolveFacing(±1)` vs `facing` in radianti da PR #18; commento pubblicato su PR #15 e NEXT aggiornato | NO |
+| [#18](https://github.com/CzekUns/cercax/pull/18) | 06 · Match Engine | **OPEN WAIT_REVIEW**: fix P1 descritti dall'agente e 17 test V8 dichiarati passati; serve un test reale combinato con PR #15 dopo correzione | NO |
+| [#14](https://github.com/CzekUns/cercax/pull/14) | 07 · Career | Merge bb9e3847; agente riporta 11 test Node PASS e salvataggio robusto; R02 Work verificherà integrazione con ClubV1 | SÌ |
+| [#16](https://github.com/CzekUns/cercax/pull/16) | 08 · Attributes | Merge 389dce44; audit R01 pronto per QA e 15 test agente passati, storico non ancora collegato a partita | SÌ |
+| [#17](https://github.com/CzekUns/cercax/pull/17) | 09 · Coach/Club | Merge 7309f1fe; fix importi/NaN con 9 nuovi test Node PASS riportati, rapporto 14 test V8 PASS; integrazione con carriera da verificare | SÌ |
+| [#19](https://github.com/CzekUns/cercax/pull/19) | Coerentizzatore | Merge e3e1b85c; R01 archiviato su main, R02 preparato ma NON eseguito | SÌ |
+
+## Bloccanti/priorità ancora aperti
+
+- **ORZ-P1-009 — VISTA #15 / MOTORE #18, verificato staticamente:** engine `movement.js` emette `facing` in radianti (0,π,atan2) e il renderer `interpolation.js` tratta 1/-1 ancora come segni E/W. Test del renderer `compatibility.test.mjs` rispecchia convenzione obsoleta. Dovrà interpretare ogni `number` finito come radianti, verificare i vettori cardinali e cross-testare output reali. [NEXT agente 5](05-match-view/NEXT.md). Non mergiare #15 prima del fix.
+- **ORZ-INT-001 — integrazione runtime NON COMPLETATA:** asset, dati e sistemi ora su main non sono automaticamente richiamati dal vecchio `oronzo/game.js`; pianificare un vertical slice con engine #18 + match-view #15, UI dinamica e contenuti, in commit esclusivi dell'orchestratore dopo QA.
+- **ORZ-INT-002 — integrazione carriera/club/copy NON VERIFICATA:** possibili scarti `presidentId`, `seasonObjective`, modello mutabile e retribuzioni. L'incarico [Work R02](coerentizzatore/REQUEST.md) è stato preparato ed è in attesa di attivazione esplicita.
+- **Cutscene #12:** PR ancora draft; non fare merge fino al gate di review finale. QA PNG/cutscene strutturale dichiarata; test Chromium su smartphone non completato.
+
+## Archivio dei controlli precedenti (stato storico: prevale la tabella corrente)
 
 ## Difetti registrati (ID stabili)
 
@@ -55,3 +65,4 @@ Il rapporto è stato creato nella [PR #19](https://github.com/CzekUns/cercax/pul
 - Riletti i 9 NEXT su `main` e verificata l'assenza dei 9 REPORT.md sui branch degli agenti. Le PR #5,#6,#12,#13,#14,#15,#16,#17,#18,#19 risultano ancora aperte, con HEAD identici alla R03/R04; #12 è draft. Le 9 issue di sviluppo sono accessibili. Nessun nuovo fix consegnato.
 - **Correzione documentale:** la riga PR #17 nella tabella di questa coda riportava ancora `WAIT_REVIEW` nonostante il NEXT dell'agente 09 fosse già `FIX_REQUESTED` per ORZ-P1-008 dalla R03. Ora allineata senza creare un nuovo difetto.
 - Ispezione statica aggiuntiva di `career.js`, `league.js`, `progression.js`, `save.js` della PR #14 e `finance.js` della PR #17: nessun nuovo difetto con prova sufficiente da assegnare in questo ciclo; il bug finanziario già registrato resta aperto. Non sono stati eseguiti test runtime né controlli visivi, e non sono stati fatti merge o modifiche al gioco.
+
