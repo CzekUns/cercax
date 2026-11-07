@@ -15,10 +15,9 @@ export function resolveFacing(facing, vx=0, vy=0, fallback='S') {
     const names={NORTH:'N',NORTHEAST:'NE',EAST:'E',SOUTHEAST:'SE',SOUTH:'S',SOUTHWEST:'SW',WEST:'W',NORTHWEST:'NW'};
     if (names[dir]) return names[dir];
   }
-  // Agent 6 emits +1 / -1 as the horizontal sign, not radians.
-  // Angles are still supported, but must use {radians} or {angle} for +/-1.
-  if (facing === 1) return 'E';
-  if (facing === -1) return 'W';
+  // Contract with Agent 6: ALL finite numeric facing values are radians.
+  // East = 0, south = PI/2, west = PI, north = -PI/2.
+  // Never treat +/-1 as a compass sign: those are valid diagonal angles.
   if (Number.isFinite(facing)) return directionFromVector(Math.cos(facing),Math.sin(facing),fallback);
   if (facing && typeof facing === 'object') {
     if (Number.isFinite(facing.radians ?? facing.angle)) {
