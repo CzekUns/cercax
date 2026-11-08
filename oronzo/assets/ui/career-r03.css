@@ -81,4 +81,6 @@
 @media(orientation:landscape){
  .site{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
  #oronzo-r03{width:100%;height:100%}
+ /* R09-M01-1: reclaim decorative top padding before clipping the 44px finish CTA. */
+ #oronzo-r03 .runtime-match-panel{padding-top:1px}
 }
