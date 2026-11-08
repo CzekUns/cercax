@@ -1,3 +1,11 @@
+# ORONZO — AGENTE 01 · SUPPORTO P0 CAMERA E SPRITE REALI SU #29
+
+**STATO: `P1_ART_GATE_SUPPORT_CAMERA` — 8 novembre 2026.** [Roadmap R10](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md). PR #29 OPEN: solo correzioni artistiche sul proprio ramo, niente nuova PR. Verifica in browser campo reale22 PNG/atlas, palette, portieri, azioni e scale 640×360/844×390 (niente fallback spacciato per finale). Fornisci al 05 dettaglio asset e risultati per testare [#28](https://github.com/CzekUns/cercax/pull/28) FULL/TV con sprite reali. Se gate ancora bloccato, segnala problema preciso; nessun merge autonomo. Non ritardare il test della camera su asset attualmente in main per aspettare #29.
+
+---
+
+## ARCHIVIO — NEXT PRECEDENTI
+
 # NEXT — AGENTE 01 · SPRITE CALCIATORI · VISIONE v0.2
 **Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Lavoro precedente:** PR #6 MERGIATA (3585b39596e6aa879c69e2136f8f22e2ca1ea102).
