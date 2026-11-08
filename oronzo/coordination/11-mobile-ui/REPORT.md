@@ -1,6 +1,6 @@
 # RAPPORTO ORONZO-AGENT-11 — M01 · Recupero spazio landscape
 
-> **Aggiornamento corrente: R09-M01-1 corretto sulla stessa PR #48.** Commit codice/QA `efd42f14ef7c6c9949d2bfe936a64e04d4b6a47e`. TERMINA GARA: **44px visibili in 16/16 casi**, con/senza safe area, mouse/touch. Suite Node **97+22 PASS**. QA dell'autore, non gate indipendente. Vedi addendum in fondo per misure e un problema della stampa preesistente, lasciato invariato fuori dall'unica correzione autorizzata. Nessun merge.
+> **Aggiornamento corrente: R09B-M01-2 consegnato nella stessa PR #48.** Difetto confermato nel gioco HTTP autentico: 39,15625px visibili su44 a640×360 con inset. Pannello conferenza ora esplicitamente scrollabile; **16/16 percorsi, 336/336 risposte ≥44px**, TERMINA GARA44/44 prima e dopo in16 configurazioni, Node97+22 PASS. Commit codice/QA `055f99d0b7ecff51162b8eaa29a3c3f8aea94bb4`. QA autore11, non audit00. Nessun merge. Vedi addendum finale; i blocchi precedenti sono storico.
 
 **Stato: PR_OPEN / richiesta audit 00. Nessun merge.**
 PR: [#48](https://github.com/CzekUns/cercax/pull/48).
@@ -161,3 +161,75 @@ Un confronto HTTP aggiuntivo con il **CSS precedente dell'HEAD6e724866** conferm
 - **32 PNG selezionati:** Partita in tutte16 le combinazioni, Avatar e Ufficio negli8 casi con inset. Le altre viste sono state misurate e possono essere rigenerate col comando nel README.
 
 Commit codice/QA **`efd42f14ef7c6c9949d2bfe936a64e04d4b6a47e`**; questo aggiornamento REPORT segue in commit documentale. Ripresentata soltanto la PR48. Atteso **R09B-M01 in chat separata**; nessun auto-merge, nessuna telecamera, comando allenatore o Layout Studio avviato.
+
+
+---
+
+## Addendum — Recupero sessione e R09B-M01-2 · 8 novembre 2026
+
+**Stato: FIX_DELIVERED / PR_OPEN / NO MERGE.** Stessa [PR #48](https://github.com/CzekUns/cercax/pull/48), branch `agent/oronzo-11-mobile-m01`.
+**Commit codice/QA verificato:** `055f99d0b7ecff51162b8eaa29a3c3f8aea94bb4`. Questo REPORT segue in commit documentale.
+**HEAD pubblicato da cui si è ripartiti:** `58c7c65506f74f012b17b099583e96ee380f8db5`.
+
+### Recupero e origine del difetto
+
+Riletti da main i documenti11 e il NEXT `FIX_REQUESTED` R09B-M01-2, con coordinamento/handoff03 e rapporti R07B/R08B; main recuperato `7ff82d52c9d00a8cc224f55c743037bdc0d98319`. Riletti REPORT11 dal branch della PR e REPORT-R09B-M01 dal branch `audit/oronzo-coerentizzatore-r09b-m01-20261108`. PR48 riconfermata OPEN/NOT MERGED e HEAD invariato prima della pubblicazione. Nessuna PR UI produttiva concorrente rilevata.
+
+Il checkout parte dal repository, non dal presunto completamento della vecchia chat. Individuate anche bozze QA/CSS non pubblicate nella vecchia area temporanea: riutilizzate come materiale da riesaminare, **senza attribuire loro alcun test completato**. Tutte le prove qui dichiarate sono state rieseguite sul nuovo checkout dal HEAD GitHub noto.
+
+**Chromium153.0.8010.0, HTTP locale, DOM/ESM/JSON/PNG e localStorage autentici**, DPR1, locale it-IT, Node24.22.1. Nessuna fixture del layout, `route.fulfill`, `set_content` o storage shim. Browser estratto dal pacchetto Chromium già disponibile dopo fallimento del download standard; nessun blocco HTTP nella prova effettiva.
+
+Confronto a640×360, avatar1, ventesima offerta, domanda iniziale3, terza risposta («Capisco il problema, ma la politica dei prezzi non dipende dal mister.»), safe area `{top:0,left:24,right:12,bottom:16}`; stessi risultati mouse/touch:
+
+| CSS effettivamente servito via HTTP | Stage | Altezza nominale | Altezza visibile |
+|---|---|---:|---:|
+| Prima di M01, base55df243 | 640×360, x0/y0 | 44,625 | 44,625 |
+| HEAD58c7c65 prima del fix conferenza | 604×344, x24/y0 | 44 | **39,15625** |
+| Fix conferenza, risposta raggiunta con wheel/swipe | 604×344, x24/y0 | 44 | **44** |
+
+**Rettifica della formulazione storica “preesistente”:** il difetto era precedente al solo fix TERMINA GARA, ma **non è riprodotto prima di M01** in questo scenario. La riserva safe area M01 riduce lo spazio disponibile e fa emergere il clipping della `.panel.runtime-answers` con `overflow:hidden`. Il confronto con base55df243 preserva tutto il gioco e sostituisce soltanto il CSS con il blob originale `866a60e83b4cce4ca047615ab677dfd99a28c644`; non è una ricostruzione della UI. `origin-results.json` contiene per entrambe le revisioni tutta la catena degli antenati e le geometrie, oltre al confronto dopo fix.
+
+### Modifica minima nello scope autorizzato
+
+**Unico file runtime cambiato: `oronzo/assets/ui/career-r03.css`, sette righe aggiunte.** Quattro regole limitate a `#oronzo-r03 .runtime-answers`:
+
+- pannello scorrevole verticalmente, gesture pan-y, scrollbar oro e spazio scrollbar stabile;
+- figli non comprimibili e risposte con minimo44px, altezza libera per il testo completo;
+- interruzione delle parole lunghe senza ridurre caratteri o contenuti;
+- indicazione iniziale «↕ Scorri per leggere tutte le risposte».
+
+Quando necessario si scorre **il solo pannello conferenza**, poi ogni risposta è interamente visibile e attivabile. La navigazione resta fuori dal suo scroll. Font e testi originali sono invariati; nessun cambiamento HTML/JS di gioco, flow, renderer, engine, salvataggi o dati. Safe area, larghezza piena e correzione TERMINA GARA conservate. Il manifest `source-integrity.json` confronta177 file runtime preesistenti: **176 identici e solo il CSS previsto diverso**.
+
+### Risultati freschi, non ereditati dalla sessione bloccata
+
+| Verifica | Risultato osservato |
+|---|---|
+| Chromium HTTP completo,4 viewport ×2 inset ×2 input | **16/16 PASS** |
+| Tutte3 le opzioni ×5 domande iniziali ×16 casi | **240/240 PASS** |
+| Tutte3 le opzioni ×2 domande postpartita ×16 casi | **96/96 PASS** |
+| Minimo delle336 risposte al momento dell'interazione | **44px visibili**, larghezza minima453px; intero rettangolo visibile e hit centrale positivo |
+| TERMINA GARA prima/dopo fix conferenza | **44→44px in16/16 coppie**; tap/clic porta realmente a postmatch_press |
+| Font domanda/risposte e geometria stage/canvas prima/dopo | **Identici in16/16 coppie**; font con/senza inset identici anche nel percorso completo |
+| Node flow/carriera/coach | **97/97 PASS**,0 fail,18,26s |
+| Node renderer05 | **22/22 PASS**,0 fail |
+| Sintassi dei3 nuovi harness e git diff --check | **PASS** |
+
+Viewport640×360,800×360,844×390,960×400; inset assenti oppure top0/left24/right12/bottom16, mouse e touch emulato. La geometria viene intersecata con viewport e area interna di **tutti** gli antenati overflow. Le opzioni si attivano con mouse.click/touchscreen.tap sul centro misurato, senza auto-scroll dei locator. Scorrimento della conferenza tramite wheel/gesture CDP reale. Per provare ciascuna alternativa si ripristina il precedente salvataggio nel vero localStorage e si usa CARICA del gioco: JSON completo identico prima del nuovo tentativo. Nessuna modifica dello stato tramite un falso handler di risposta.
+
+Tutti16 i percorsi includono8 avatar,20 offerte e ultima raggiunta con gesto, ingaggio/presidente,5 domande, Ufficio, Rosa16 con scheda del sedicesimo e API07, Allenamento in lettura senza mutazione, classifica16 confrontata con API e scroll finale,11 titolari/1GK,22 attori Engine06/fulltime reale tramite comando QA,2 domande finali, avanzamento a settimana2, save/reload/load identico, morale0 con API09/gameover, nuova carriera con vecchio save protetto e sovrascrittura rifiutata, geography_required senza mutazione, portrait/landscape.
+
+Zero pageerror nei16 percorsi. Rimane il **404 opzionale del manifest cutscene assente**, nessun altro HTTP>=400 rilevato. Lo scroll può lasciare inizialmente una risposta fuori vista: l'indicazione esplicita e il gesto la rendono completamente raggiungibile; non si dichiara che tutte le risposte siano sempre visibili contemporaneamente.
+
+### Evidenze, replica e prossimo gate
+
+Dentro `oronzo/assets/ui/qa/`: `m01-press-origin.cjs`, `m01-press-compare.cjs`, `m01-press-runtime.cjs`; sottocartella `m01-press-r09b/` con README/comandi, snapshot CSS Git, risultati origine/confronto/matrice, riepilogo, manifest integrità, log Node/browser e **50 screenshot Chromium nativi** selezionati. Misurati tutti i casi, anche quando la relativa schermata non è tra i PNG selezionati; gli harness possono rigenerarli tutti.
+
+Esempio640×360 touch con inset:
+
+| Inizio domanda3, indicazione di scorrimento | Dopo gesto, terza risposta completa |
+|---|---|
+| ![Conferenza iniziale](../../assets/ui/qa/m01-press-r09b/safe-640x360-touch-press3.png) | ![Risposta raggiunta](../../assets/ui/qa/m01-press-r09b/safe-640x360-touch-opening-3-all-reached.png) |
+
+**Limiti:** QA dell'autore11, non nuova verifica indipendente00. Android fisico, preview pubblica,900 secondi continuativi a1× e intera carriera nel browser non verificati. Nessuna camera nuova, comando allenatore o Layout Studio. Il sito pubblico non è stato modificato.
+
+Checkout reale usato in questa sessione: `/workspace/scratch/c9a778bd01f3/repo`; il revisore deve verificare l'accesso al preciso nuovo HEAD e rieseguire Chromium HTTP sul gioco autentico. Il README è riproducibile anche su altro checkout; la fixture del precedente audit non può sostituire questo gate. **PR48 resta aperta: nessun merge e nessun incarico assegnato ad altri agenti.**
