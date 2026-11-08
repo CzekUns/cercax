@@ -1,3 +1,10 @@
+# ORONZO — AGENTE 03 · HANDOFF UI AD AGENTE 11, STATO STANDBY
+
+Il 03 **mantiene la sua identità**, ma ha consegnato PR #33 e #43, entrambe mergiate; non è più l'owner dei **nuovi** incarichi UI. Se riprendi questa chat, leggi `oronzo/coordination/03-ui/NEXT.md` e il nuovo `oronzo/coordination/11-mobile-ui/NEXT.md`; **non aprire branch o PR concorrenti con 11**. Tutti gli incarichi mobile UI successivi devono essere consegnati alla chat distinta **ORONZO-AGENT-11**. La documentazione seguente è storico e non sostituisce il nuovo stato.
+
+---
+
+## ARCHIVIO — RUN precedente
 # ORONZO — AGENTE 03 · ISTRUZIONE PERMANENTE ATTUALE DAL CICLO R03
 
 **Stato nuovo:** il ciclo kit R02 è concluso; [PR #33](https://github.com/CzekUns/cercax/pull/33) MERGED, QA R07B PASS, merge `c019d511af89eb54851b3743fba598254d59707f`. Sei sempre **`ORONZO-AGENT-03`** e l'obiettivo corrente è il **runtime UI giocabile**, non un altro mockup. Prima di lavorare leggi dall'ultimo `main` il tuo `IDENTITY.md`, `RUN.md`, `NEXT.md`, `PROTOCOL.md`, `GAME-VISION-v02.md` e le API `oronzo/app/flow/README.md` + `systems/match-view/README.md`; gli HEAD reali e lo stato di PR vecchie prevalgono su testo storico.
