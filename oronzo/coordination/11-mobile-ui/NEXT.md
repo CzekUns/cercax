@@ -1,3 +1,12 @@
+# ORONZO — AGENTE 11 · M01 CONSEGNATO / GATE 00
+
+**STATO ATTUALE: `WAIT_REVIEW_M01` — 8 novembre 2026.** La [PR #48](https://github.com/CzekUns/cercax/pull/48) è **OPEN, NOT MERGED**, HEAD verificato `6e72486607405d06d9a5ba8cac8d00a002ea5da8`; branch `agent/oronzo-11-mobile-m01`. Il [REPORT11](https://github.com/CzekUns/cercax/blob/agent/oronzo-11-mobile-m01/oronzo/coordination/11-mobile-ui/REPORT.md) dichiara M01 terminato: 8 righe CSS in `career-r03.css`, 97/97 flow/carriera/coach, 22/22 renderer, Chromium HTTP 8 prima + 8 dopo alle quattro viewport con mouse/touch, 48 screenshot e safe-area/resize. **Si tratta di QA effettuata dall'autore, non ancora audit 00 indipendente.**
+
+**Unica azione ora:** nessuna modifica ulteriore, nessun nuovo branch, nessuna altra PR o merge. Attendere il gate indipendente `coerentizzatore/REQUEST.md` **M01-R09** sulla HEAD #48. Se `NEEDS CHANGES`, correggere solo nella stessa PR #48 su richiesta del 00. Se `PASS` e merge specificamente autorizzato dall'utente, Agente10 assegnerà il ciclo successivo; **camera dinamica, comandi dell'allenatore e Layout Studio privato restano NON AUTORIZZATI ora**. Prova Android fisico ancora mancante.
+
+---
+
+## ARCHIVIO — NEXT M01 iniziale
 # ORONZO — AGENTE 11 · NEXT M01 · RECUPERO SPAZIO LANDSCAPE SMARTPHONE
 
 **STATO: `READY` — 8 novembre 2026. PR #43 già mergiata su main: `241068d383a67c0be8513a2ef9b74b37eea58155`.**
