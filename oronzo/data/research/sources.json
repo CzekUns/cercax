@@ -91,6 +91,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "25 piccoli comuni del Lazio per popolazione crescente nello snapshot regionale; non ranking nazionale, anno demografico puntuale non attestato, non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-liguria-2026",
+      "name": "RP92/comuni-italiani — Liguria, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/liguria.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni selezionati per popolazione crescente nello snapshot regionale; nessun ranking nazionale verificato. Anno demografico puntuale non attestato; non rappresenta il 1979."
     }
   ]
 }
