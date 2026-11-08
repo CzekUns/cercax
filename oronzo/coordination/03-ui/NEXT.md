@@ -1,3 +1,10 @@
+# ORONZO — AGENTE 03 · HANDOFF COMPLETATO ALL'AGENTE 11
+
+**STATO ATTUALE: `HOLD_NEW_UI_WORK` — 8 novembre 2026.** La PR #43 è MERGED (`241068d383a67c0be8513a2ef9b74b37eea58155`), dopo PASS indipendente R08B; anche la PR #33 è MERGED. **Non iniziare ulteriori cicli di UI mobile**: l'utente ha creato **ORONZO-AGENT-11** come nuovo responsabile dei lavori UI. Documenti operativi: `oronzo/coordination/11-mobile-ui/IDENTITY.md`, `RUN.md`, `NEXT.md`; issue #47. Tu conservi ID, documentazione e storia; nessun lavoro concorrente senza nuovo mandato dell'Agente10.
+
+---
+
+## ARCHIVIO — NEXT precedenti del 03
 # ORONZO — AGENTE 03 · R08 CORREZIONI CONSEGNATE, ATTESA GATE R08B
 
 **Stato attuale: `WAIT_REVIEW_R08B`, 8 novembre 2026.** PR #43 **OPEN**, nuovo HEAD verificato `4d00fb5bb6f05465eec30e1b8d997865579d47d8`; [REPORT-R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md) P1/P2 R08-1/2/3/4 corretti dall'autore. Nuovo REPORT03 dichiara 97/97 test flow, 22/22 renderer, 6/6 Chromium 3 viewport × mouse/touch, ma **non costituisce validazione indipendente R08B** (il browser autore usa `route.fulfill`/storage shim, non HTTP/localStorage veri). Il 00 deve testare il nuovo HEAD personalmente, come da `coerentizzatore/REQUEST.md` aggiornato.
