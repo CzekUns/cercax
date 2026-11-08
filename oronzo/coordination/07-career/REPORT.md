@@ -1,3 +1,57 @@
+# ORONZO — ORONZO-AGENT-07 · R10 M1 adapter / accelerazione
+**Data:** 9 novembre 2026 (Europe/Rome)  
+**Stato:** DELIVERED_FOR_REVIEW; PR nuova da main, nessun merge.  
+**Branch:** `agent/oronzo-career-m1-r10`; **base main:** `89a128066525333558899aa25c0e96ce3e123d0c`.  
+**Issue:** https://github.com/CzekUns/cercax/issues/9  
+**Primo commit:** `273306034fec5f4bea3baca88203bb7e252a670e`.  
+**Aggiornamento tests/port:** `da383385264a3be22371705f5ad7f875e3726759`.  
+**README:** `2ecb942e9198b3b9fbdb45cf7ffba56850526728`.  
+
+## Stato delle PR esterne verificato (8–9 novembre 2026)
+- **#28** camera FULL/TV: **OPEN** SHA `34aa26dce251c3c4f26e9705bca1fbefc20137f8`, NON main. Nessun collegamento camera dichiarato pronto.
+- **#31** PlayerV2 + 600 cognomi Bergamo2021 CC0: **OPEN** SHA `b6235d6a1115e6323fddfc6acce9a86d954e79e2`, NON main.
+- **#35** individual shouts: **OPEN** SHA `923b198c92f8d02983dfdedf659e8823e6d6c26f`, NON main. Main supporta già tacticals/substitutions, non il singolo shout di #35.
+- **#52** fullscreen: **OPEN** SHA `d266ad1740ab330946ab7cccccb6928c30c55a29`, solo UI11/12.
+- **#53** 500 comuni contemporanei con fonti: **OPEN** SHA `9ec2baa6dc0c06b3d6fff432218f19be17ee77c0`, NON main. `provinceCode:null` e `populationReferenceYear:null` sono informazioni sconosciute, non fatti inventabili; nessun audit di località 1979 attribuito.
+- **#38 e #39** flow 1979/morale 09 sono **MERGED** e preservati; non rifatti né duplicati.
+La base è **il main autentico**, non una miscela di branch interni. Nessun file degli altri agenti importato/copiato nel branch.
+
+## Implementazione R10 realmente pubblicata
+1. `oronzo/app/flow/m1-contract.js` (**nuovo**): ledger `flow.m1` v1 persistente in Career state per origine dei dati giocatore, sessioni training, richieste motore, minutaggio match, eventi shout, sviluppo stagionale.
+2. `oronzo/app/flow/controller.js` (**esteso**, R03 e 09 invariati):
+   - `newGame({surnameCatalog?,playerOrigins?})` ed `enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins})` usano `generatePlayer` e `normalizePlayer` **del modulo Attributes08**, rifiutando cataloghi senza almeno 500 ID e fonte. Conservano `player.id`, `contract.weeklyWage`, `visual`, origini/null e `relationships`; `sourcePlayerId`, `surnameId`, `surnameSourceId` sono dati 08 importati, non generati dal 07. L'import è consentito solo prima della firma, con snapshot di provenienza nel save; non si ricalcola dopo reload.
+   - `selectM1Training` invoca la factory `chooseTrainingPlan` **09**, e `advanceMatchday` su draft esegue `applyTrainingWeek` **08** una sola volta per `absoluteWeek`: modifica fisicamente `status.fatigue/fitness`, skills e talvolta health/injury secondo la formula originale 08, senza creare varianti 07.
+   - `commandM1Match` invoca `engine.command` **06**, logga soltanto i risultati **accepted**, aggiorna `coach.tactics` quando il motore accetta la modifica e conserva requestId deduplicato per fixture. Supporta tattica, sostituzione, `individualShout` (alias gentle/hard ↔ encourage/harsh; disponibile solo su #35), senza creare un falso comando.
+   - `consumeMatchResult` su Engine06 fulltime registra carico effettivo minuti dalla formazione/substitutions tramite `applyMatchLoad` dell'08, deduplica fixture, e conserva `coach_shout` con `persistentSuggestion` per 09. Bonus individuale **temporaneo** resta esclusiva del 06. **Nessun delta permanente di fiducia applicato senza API 09**: registro `pending_agent09_player_trust`.
+   - `rolloverSeason` sviluppa squadre con `advanceSeason` dell'08 una sola volta per anno, **senza doppio incremento età** (Career07 `finishSeason` incrementa già). ID, stipendi, visivi e cognomi non cambiano. `saveGame/loadGame` e `getStateForUI(state).m1` restano JSON serializzabili.
+3. `oronzo/app/flow/tests/m1-contract.test.mjs` (**nuovo**): 7 test Node **reali** su invarianti, persistenza, decisioni e replay con porte 06/08/09 controllate (fixture di test esplicite).
+4. `oronzo/app/flow/tests/m1-live.test.mjs` (**nuovo**): quattro prove Node su moduli reali; test E2E disponibili già su main e test condizionali per #31, #35 e #53 con **SKIP espliciti** quando assenti, non falsi PASS. Test scritto ma non eseguito qui su checkout intero.
+5. `oronzo/app/flow/M1-AGENT12-CONTRACT.md` (**nuovo**) e `README.md` aggiornato: API, pulsanti UI, errori, ownership, deduplica e gate chiari. **Nessuna modifica HTML/CSS/JS runtime o UI Agente12.**
+
+## QA eseguito in questa sessione — non confondere suite reali e mock
+- **NODE NATIVO 22.16.0 (file esatti diff nel branch):** `cd oronzo/app/flow && node --test tests/m1-contract.test.mjs` **7 PASS / 0 FAIL**. Git blob verificati identici: `m1-contract.js` `085d5fb6a8588051955bf974dd23035203523eea`; `m1-contract.test.mjs` `561d5be9374ff0bf1b09928733d20d9b9f5ca54c`. Test su stub delle porte per le formule esterne, non un vero ciclo browser.
+- **V8 con i sorgenti autentici Attributes08 `main`**, incluso `training.js` SHA `1b0f03ac2ef09c709ceba62042397bb9c2b3afde`: `technical` + intensity60 su un player prova (week8) `fatigue: 36→38,64`, `fitness:82→83,91`, `passing:50→50,24`, stipendio `12000` invariato, retry dopo round-trip bloccato. Formula esterna reale, non un test Node.
+- **V8 con codice autentico PR #35**, 6 moduli del motore (inclusi `match-engine.js` blob `3a752f0f62e760efbc8dda1ca987b3829fdd0ea5` e `orders.js` blob `37e637ccc24b41e72e4dc97e71a76b9818ff2b9d`): tattica **accettata**, sostituzione **accettata**, shout individuale accettato, cooldown respinto, duplicate request respinta; bonus `modifier:+0,074467` visibile a t0 e **scaduto a t151**; partita **fulltime**, score 2–0, 1599 eventi, 1 `coach_shout` registrato una volta come `pending_agent09_player_trust`, nessuna fiducia fittizia.
+- **V8 con sorgenti autentici PR #31** (surnames/generator/player-model, catalogo 600 Bergamo 2021, CC0 1.0; blob metadata `data/bergamo-2021-m1.js` `d6527d77508f1db72725e934cbc9766dd8762a26`): 600 record, 16 PlayerV2 importati con ID canonico `PROM-01:P01`, alias `PROM-01-001`, cognome `Colosio`, `surnameId:it-surname-colosio`, `origin:null`, salario/visual invariati; seconda importazione respinta. Verifica su modulo reale ma non full Node E2E.
+- **Node suite completa M1/Career/Coach, demo e browser/Android NON ESEGUITI**: `git ls-remote https://github.com/CzekUns/cercax.git HEAD` dal container fallisce (`Could not resolve host: github.com`), nessun checkout GitHub combinato locale. Il nuovo `m1-live.test.mjs` richiede verifiche indipendenti su checkout autentico. Non attribuire PASS a R10 E2E, #53, #31, #35 o UI12 per il solo esito V8.
+
+## Limiti / punti bloccati e azione richiesta
+1. **#31 e #53 non mergiate:** player V2 con ID e sorgenti 600 cognomi + catalogo moderno 500 comuni sono compatibili al livello API, ma **NON DISPONIBILI nel gioco pubblico**; input `newGame` resta esplicito, nessun fallback nascosto su comuni o cognomi inventati. I 500 cognomi richiesti M1 sono verificabili solo dopo l'import 08 sul main e audit fonti. La PR #53 include metadati null; 1979 non ricostruito storicamente.
+2. **#35 non mergiata:** tattiche/sostituzioni Main già funzionano a livello engine, individuale resta gate. 06 possiede effetto 150s. **Coach09 non ha ancora un API pubblico validato per applicare il `playerTrustDelta` persistente di `coach_shout`**; il 07 registra `persistentEvents` e non falsifica il delta. Serve port `persistShout({key,coach,club,event}) → {accepted:true,coach,club}`, che sia deduplicato anche sul lato 09. `reconcileM1Shouts` è predisposto ma non chiamato senza port/approvazione.
+3. **#28 e #52 UI/camera non mergiate:** nessun renderer/Fullscreen/UI integrati da 07. L'Agente12 deve usare il contratto API e reali target touch, senza fake controls.
+4. **Full E2E:** test M1 reali condizionali sulla PR da rieseguire dopo checkout combinato con HEAD #31/#35/#53 e modulo 09, incluse due stagioni; l'Orchestratore10/00 dovrà autorizzare i merge uno alla volta. Non dichiarare M1 finito.
+
+## Proposte prossimo giro
+- CI su checkout reale: `node --test oronzo/app/flow/tests/*.mjs oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`, demo e test combinati con #31/#35/#53.
+- Agente09 fornisca il consumer idempotente di trust e 00 verifichi i replay post-save.
+- Agente12 colleghi training/tattiche/cambi e, dopo gate 06/08, shout; camera/fullscreen da rispettive PR. Niente merging autonomo.
+
+**Nessuna modifica a NEXT, agli altri agenti o a HTML/CSS.**
+---
+
+
+## Rapporto storico R06 e antecedenti (archivio)
+
 # ORONZO — ORONZO-AGENT-07 · Fix R06-1 / R06-2 / R06-3
 **Stato:** FIX_DELIVERED · PR #38 aperta, **NO MERGE**.  
 **Branch:** `agent/oronzo-career-r03-flow`  
