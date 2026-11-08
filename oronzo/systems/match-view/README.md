@@ -1,5 +1,29 @@
 # ORONZO — Match View / Agente 5
 
+## R10 — QA PNG autentici e camera TV (8 novembre 2026)
+
+La PR #28 conserva la API `view.setCameraMode('full'|'broadcast')`. R10 corregge anche una regressione individuata **nelle immagini Chromium**: quando `config.appearances` è omesso, `kitFor()` passava `{}` e `asset-adapter.drawPlayer()` ignorava i kit di default, mostrando due squadre con la stessa maglia. Ora `resolvePlayerAppearance({team,isKeeper,appearance})` unisce i default casa/trasferta/portiere con gli override individuali senza perderli. Tre nuovi test Node coprono colori distinti, GK e override parziali.
+
+**PNG autentici verificati:** i 5 atlas, le 5 maschere e la palla sono stati rigenerati con `oronzo/assets/players/sprite-factory.js` *già su main*; i rispettivi **11 SHA Git blob coincidono esattamente** con `oronzo/assets/players/qa-report.json`. La prova Chromium ha renderizzato realmente questi PNG (mai fallback) per 22 giocatori in entrambe le camere.
+
+**Evidenze R10:** [QA-R10-REAL-PNG.json](QA-R10-REAL-PNG.json) registra le 54 prove, gli hash di sei screenshot campione, gli SHA Git di tutti gli asset e l'esito di Node. Tre viewport (640×360, 800×360, 844×390), due modalità e nove scenari (opening, corners, running, restart, halftime, paused, replay, late): **54/54 PASS** per caricamento PNG, `assetState=ready`, `allRealSprites=true`, palla visibile, snapshot e score invariati, aspect ratio/contain, pausa e replay. La pausa genera due passaggi di rendering (44 draw call) di 22 attori, non 44 giocatori distinti.
+
+**Distinzione obbligatoria HTTP/browser:** il server locale risponde HTTP 200 con i PNG originali, ma il Chromium amministrato di questo ambiente rifiuta ogni navigazione URL con `net::ERR_BLOCKED_BY_ADMINISTRATOR` perché la policy `URLBlocklist:["*"]` è gestita. Non è stata modificata né elusa la policy. Il controllo grafico alternativo **usa davvero Chromium e le immagini PNG originali**, tramite `page.set_content` e `data:image/png`, non la navigazione HTTP. Per riprodurlo su checkout PR:
+
+```bash
+python3 oronzo/systems/match-view/browser-qa-offline.py --browser /usr/bin/chromium --output /tmp/oronzo-r10-offline
+node --test oronzo/systems/match-view/*.test.mjs
+```
+
+Per il gate **HTTP vero** in un host senza blocco, usare lo script preesistente:
+
+```bash
+python3 oronzo/systems/match-view/browser-qa-playwright.py --browser /usr/bin/chromium --output /tmp/oronzo-r10-http
+```
+
+Non dichiarare superato il gate HTTP se lo script restituisce `ERR_BLOCKED_BY_ADMINISTRATOR`. Le screenshot offline sono prove reali della resa Canvas/PNG e sono separate dal gate di navigazione HTTP. Il selettore nel runtime principale resta di competenza dell'Agente 12; questa PR aggiorna solo il renderer e la QA.
+
+
 Canvas 2D a **640 × 360**, proporzioni 16:9, JavaScript ESM senza librerie esterne e con sprite in pixel art. Riceve i fatti dal `MatchSnapshotV1` dell'Agente 6, non calcola le azioni calcistiche. Un renderer indipendente dai tick mostra 22 giocatori, palla, azioni e intermezzi.
 
 ## Ciclo R02 — doppia camera v0.2
