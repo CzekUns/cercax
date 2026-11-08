@@ -157,12 +157,35 @@
       "next": "oronzo/coordination/11-mobile-ui/NEXT.md",
       "report": "oronzo/coordination/11-mobile-ui/REPORT.md",
       "run": "oronzo/coordination/11-mobile-ui/RUN.md",
-      "lifecycle": "active_new_ui_owner",
+      "lifecycle": "m01_complete_f01_direct_pr52_pending_agent12_ui_tuning_owner",
       "handoffFrom": 3,
       "firstCycle": "M01 CSS-only mobile landscape expansion",
       "futureScopeRequiresNEXT": true,
-      "privateLayoutEditor": "future_dev_only_not_public",
-      "mergeAllowed": false
+      "privateLayoutEditor": "cancelled_by_user; replaced with per-screen notes and code fixes by agent12",
+      "mergeAllowed": false,
+      "handoffTo": 12,
+      "handoffNote": "Agent12 owns user-directed screen-by-screen layout fixes; Agent11 history/PR52 fullscreen unchanged. No parallel edits on UI files."
+    },
+    {
+      "id": 12,
+      "slug": "12-ui-tuning",
+      "name": "UI Playtest Fixer · modifiche schermata per schermata",
+      "issue": 54,
+      "originalBranch": "agent/oronzo-12-ui-playtest-s01",
+      "spec": "oronzo/agents/12-ui-tuning.md",
+      "codeScope": "oronzo/assets/ui/career-r03.css; career-r03.html and career-r03.js presentation only on specific UI request",
+      "coordinationDir": "oronzo/coordination/12-ui-tuning/",
+      "identity": "oronzo/coordination/12-ui-tuning/IDENTITY.md",
+      "run": "oronzo/coordination/12-ui-tuning/RUN.md",
+      "next": "oronzo/coordination/12-ui-tuning/NEXT.md",
+      "handoff": "oronzo/coordination/12-ui-tuning/HANDOFF.md",
+      "screenNotes": "oronzo/coordination/12-ui-tuning/SCREEN-NOTES.md",
+      "report": "oronzo/coordination/12-ui-tuning/REPORT.md",
+      "lifecycle": "ready_wait_user_feedback",
+      "origin": "new_agent_for_mobile_user_playtest_corrections",
+      "editorPolicy": "no-layout-editor; accumulate notes and implement localized UI changes",
+      "mergesAllowed": false,
+      "coordination": "Agente12 handles user requests. Agente11 historical and F01 PR52; avoid concurrent UI edits. Agent10 gates merges; 00 audits."
     }
   ],
   "orchestrator": {
@@ -190,5 +213,5 @@
       "surnames": 5000
     }
   },
-  "registryUpdate": "2026-11-08: Agent11 inherits NEW UI tasks from Agent03, not historical identity/PRs. Agent10 orchestrates, Agent00 reviews."
+  "registryUpdate": "2026-11-08: Agent12 owns user-guided screenshot/UI tweaks with Markdown screen register; Layout Studio cancelled. Agent11 M01 legacy, PR52 fullscreen pending."
 }
