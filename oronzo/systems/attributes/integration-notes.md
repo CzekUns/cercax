@@ -1,3 +1,16 @@
+# Contratto M1 effettivo — Agente 08 / Agente 06 PR #35 / Agente 09
+
+**Il testo del ciclo R02 sotto è storico; in caso di conflitto prevalgono queste regole M1.**
+
+1. **PLAYER V2 canonico** (`oronzo/systems/attributes/player-model.js`): `origin:{comune,regione,macroregione}|null`, `relationships.coachTrust` 0–100, `mental.{pazzia,spericolatezza,coraggio,suscettibilita,impulsivita}`, `surnameId`, `surname`, `surnameSourceId`. `relationshipWithCoach` è solo alias di compatibilità derivato da coachTrust, non seconda fonte dati. `0` è distinto da campo ignoto. `origin:null` per legacy non localizzabile. Nessun fallback geografico inventato dopo load.
+2. **06**: `match-engine/orders.js` in PR #35 ora ha `normalizeMatchOrigin`, `normalizePlayerMatchContext`, `normalizeIndividualTone`, `createIndividualShoutCommand` e `calculateIndividualShout`. Aggiunta qui `player-engine-bridge.js` con `toMatchEnginePlayer`, `toIndividualShoutCommand`, `normalizeShoutTone` e `toMatchEngineOrigin`; questi mappano canonico -> regionId/macroRegion inglese e trust, senza cambiare i dati persistiti. Sono interfacce alternative ma compatibili: **non chiamarle entrambe per generare due comandi**. 06 ha verificato che i campi canonici italiani possono essere letti direttamente; il bridge resta utile al runner 07 per i vecchi consumer. `gentle`/ `encourage` => `encourage`, `hard`/ `harsh` => `harsh`.
+3. **Effetto temporaneo**: unico autore 06, `coach_shout.detail.temporaryEffect={modifier,startedAt,expiresAt}` con scadenza a **t+150 s**. All'inizio ogni match il motore cancella `personalShout` pregresso, quindi nessun carryover dal save. 08 non deve sommare una seconda finestra 180s: `effectiveAbility` ignora `temporaryEffects.kind='coach-shout'`, `toMatchEnginePlayer` li filtra, `applyShout` rifiuta uso senza `scope:'standalone-demo'` e non ne crea. 06 è l'unica fonte del risultato sportivo.
+4. **Effetto persistente**: solo 09, attraverso `collectCoachEffects(events,appliedEventIds,{matchId})` del 06, chiave `matchId:event.id` salvata **atomicamente** insieme a fiducia e morale coach. `coachTrust` del PlayerV2 va sincronizzato dalla proiezione di 09 dopo l'applicazione; 08 non chiama la factory di mercato/presidente e non applica un secondo delta. Eventi doppi, due snapshot e ricaricamenti non devono modificare nuovamente la fiducia.
+5. **Catalogo**: `surnames.js` espone `BUILTIN_SURNAME_CATALOG` con 600 nomi/ID da uno snapshot dichiarato CC0 di Bergamo 2021; `generatePlayer/Squad/Players/League` lo usa automaticamente per nuove identità. `surnameId` viene persistito; 07 NON chiama il generatore sui giocatori già nel save. Rarità solo entro le frequenze locali attestate, mai ranking nazionale o anno 1979.
+6. **Verifiche**: 43 test standalone passati, 6 prove incrociate con codice reale PR #35 in V8. Test Node riproducibile nel lavoro congiunto `node --test oronzo/systems/attributes/tests/pr35-integration.test.mjs`: il file è `SKIP` esplicito se #35 non è presente. Prova runtime HTTP/Chromium, salvataggi carriera 07 e ledger 09 rimangono da integrare e verificare nel progetto.
+
+---
+
 # Note di integrazione — Agente 8
 
 **Ambito:** `oronzo/systems/attributes/`. Nessun file del runtime è stato modificato e nessuna integrazione diretta è stata dichiarata.
