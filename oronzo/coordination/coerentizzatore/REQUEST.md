@@ -1,3 +1,16 @@
+# ORONZO — COERENTIZZATORE 00 · R09C-M01 READY, AUDIT FINALE #48
+
+**STATO: `READY_R09C_M01` — 8 novembre 2026.** L'11 ha completato sulla **stessa PR #48**, OPEN/NOT MERGED, il rilievo **R09B-M01-2** (risposte conferenza stampa tagliate): **HEAD da verificare `8c82cd0aa1cd856c8afc2964acae4ff57f5da93d`**. Ultimo [REPORT11](https://github.com/CzekUns/cercax/blob/agent/oronzo-11-mobile-m01/oronzo/coordination/11-mobile-ui/REPORT.md) dichiara pannello risposte scrollabile (solo CSS), 240/240 attivazioni opzioni opening, 96/96 postmatch, CTA TERMINA GARA 44px in 16/16 configurazioni, 119/119 Node e16/16 percorsi browser HTTP. **Prove dell'autore, non audit indipendente.**
+
+**Prerequisito non negoziabile:** nuova chat Work revisore00 realmente separata da autore11, con accesso al **checkout autentico e server HTTP localhost Chromium**. Il precedente [REPORT-R09B](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09b-m01-20261108/oronzo/coordination/coerentizzatore/REPORT-R09B-M01.md) usava una fixture e **non ha certificato il gioco**. Se non possibile eseguire il gioco reale, dichiarare esplicitamente NON CERTIFICATO/NO MERGE, non riusare fixture come prova.
+
+**Obiettivi R09C:** leggere REQUEST/NEXT11/REPORT11 e diff HEAD48; test prima/dopo e safe-area `{top:0,left:24,right:12,bottom:16}` alle 4 viewport 640×360,800×360,844×390,960×400, desktop/touch; controllare effettivi44px e tap per **TERMINA GARA** e **tutte le risposte** opening e postmatch dopo gesto di scroll esplicito, hit-test e clipping ancestrale, indicazione scroll comprensibile, font invariati, shell full width, canvas16:9, nessuna sovrapposizione con header/nav. Eseguire indipendentemente suite Node flow/career/coach+renderer (attesi97+22) e percorso Chromium HTTP autentico avatar/20 offerte/stampa5/rosa16/classifica16/formation11+GK/match22/2Q post/save-load/reload/gameover/geography_required, legacy e demo. Documentare Android fisico e 900s1× non verificati se è il caso.
+
+**Consegna:** branch documentale `REPORT-R09C-M01.md`, SHA e prove **proprie**, PASS/NEEDS CHANGES/NO CERTIFICATION motivato. **Non fare merge nemmeno con PASS** senza nuova autorizzazione dell'utente. Non modificare gioco/NEXT/altri sistemi e non attivare M02/M03/Layout Studio.
+
+---
+
+## ARCHIVIO — REQUEST precedenti
 # ORONZO — COERENTIZZATORE 00 · POST R09B-M01 · ATTESA FIX CONFERENZA E AUDIT REAL-RUNTIME
 
 **STATO: `WAIT_FOR_11_R09B_M01_2` — 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) OPEN, HEAD al momento di assegnazione `58c7c65506f74f012b17b099583e96ee380f8db5`. [REPORT-R09B-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09b-m01-20261108/oronzo/coordination/coerentizzatore/REPORT-R09B-M01.md) in branch documentale conclude **NON CERTIFICATO / NO MERGE**: solo confronto blob CSS e **96 prove su fixture**, non test del gioco via HTTP né suite Node reali. Diff R09-M01-1 conforme ma 44px sul runtime non indipendentemente verificato.
