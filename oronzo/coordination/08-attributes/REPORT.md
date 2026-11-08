@@ -1,70 +1,55 @@
-# RAPPORTO AGENTE 08 — Attributi, regionalità e cognomi — ciclo R02 / visione v0.2
+# RAPPORTO ORONZO-AGENT-08 — Chiusura PlayerV2 / Cognomi M1 (R10)
 
-**ID immutabile:** `ORONZO-AGENT-08`  
-**Stato:** `PR_OPEN` / `DELIVERED` per R02; QA e merge spettano all'orchestratore  
-**Branch:** `agent/oronzo-attributes-r02`  
-**PR:** https://github.com/CzekUns/cercax/pull/31  
-**Ciclo precedente:** PR #16 integrata nel commit `389dce444a7f7c19254381bfda2205acc4268f51`  
-**Codice R02 verificato:** `9247e84bbc45949cee35c07b6b168e4ccc591e0e`  
-**Base di riallineamento:** `7e65a1370d7a3afe6704bbc2d40dfdca2aa4479c` (ultimo `main` osservato prima della PR)  
-**Data rapporto:** 7 novembre 2026 (Europe/Rome)  
-**Fonte decisionale:** `oronzo/coordination/08-attributes/NEXT.md` `READY` per R02, `GAME-VISION-v02.md`, `10-orchestrator/PLAN.md`.
+**Stato:** PR_OPEN · DELIVERED per il perimetro 08; **NO MERGE**.  
+**Branch:** `agent/oronzo-attributes-r02` · **PR:** https://github.com/CzekUns/cercax/pull/31  
+**Issue storica:** https://github.com/CzekUns/cercax/issues/10 · **Data:** 8 novembre 2026  
+**Istruzioni:** `NEXT.md` su ultimo main + `ROADMAP-R10-ACCELERAZIONE.md`.  
+**Dipendenze non mergiate alla verifica:** Agente 06 PR #35 (HEAD verificato `8b6cf071cf40ff9fb42ab00f1739d9af0c72c5f3`); raccolta PR #40 (HEAD congelato `0b9eedd4070c10beb164e929d4740354663bf86d`). 
 
-## Realizzato
+## A. Compatibilità completata con comandi individuali Agente 06
 
-### Estensioni compatibili con PlayerV1
+- **PlayerV2 canonico:** `origin:{comune,regione,macroregione}|null`; `relationships.coachTrust` 0–100 (zero conservato); `mental.pazzia,spericolatezza,coraggio,suscettibilita,impulsivita`; `surnameId`, `surname`, `surnameSourceId`. `relationshipWithCoach` è alias di compatibilità, scritto in modo consistente ma non autorevole. Vecchi save senza origine restano `null`.
+- **`oronzo/systems/attributes/player-engine-bridge.js`**: `toMatchEngineOrigin(origin,{allowRegionalOnly})`, `toMatchEnginePlayer(player)`, `normalizeShoutTone(tone)`, `toIndividualShoutCommand({teamId,player,coachOrigin,coachLeadership,tone,utteranceId,t})`, `playerTrustForCoach`. Adatta origine italiana a `regionId/macroRegion` e toni `gentle→encourage`, `hard→harsh` preservando i nomi originali; region-only CoachV2 consentito senza inventare il comune, PlayerV2 non localizzabile rimane ignoto. `toMatchEnginePlayer` non muta il giocatore originale.
+- **Contratto condiviso #35:** il motore di 06 legge ora direttamente `origin.regione/macroregione` e `relationships.coachTrust` tramite `normalizePlayerMatchContext`, e offre `createIndividualShoutCommand`. L'adapter 08 è una proiezione compatibile, non una seconda fonte dati. Usare **un solo** costruttore comando per evento; 06 decide prestazione/ordine ed emette `coach_shout`. La PR #35 calcola un bonus temporaneo esclusivo di **150 secondi simulati** e applica cooldown. 
+- **Evitato doppio effetto:** `personality.effectiveAbility` non considera più il precedente `temporaryEffects.kind='coach-shout'` da 180s. `toMatchEnginePlayer` filtra effetti legacy di quel tipo, e 06 azzera `personalShout` al nuovo match. `applyShout` nel modulo 08 è ora ammesso **solo** con `scope:'standalone-demo'`; agisce esclusivamente sulla demo locale e non aggiunge effetto temporaneo. Chi lo chiama per evento di partita riceve errore, impedendo riapplicazioni implicite.
+- **Persistenza:** 09 è unico owner del `persistentSuggestion` tramite `collectCoachEffects(events,appliedIds,{matchId})` di 06 con chiave persistita atomicamente `matchId:event.id`; non sommare delta dai metodi 08. Il valore aggiornato della fiducia deve essere sincronizzato nello stato PlayerV2 che 07 salva. 08 non modifica il morale dell'allenatore né crea eventi sportivi.
 
-- `oronzo/systems/attributes/player-model.js`: 5 tratti nuovi 0–100 (`mental.pazzia`, `spericolatezza`, `coraggio`, `suscettibilita`, `impulsivita`), `origin:{comune,regione,macroregione}|null`, `surname`, `surnameSourceId`, `relationships.coachTrust`, `temporaryEffects` e `coachInteractionIds`. I campi core esistenti restano invariati. Origini dei vecchi save **null** invece che generate silenziosamente.
-- `geography.js`: `REGION_MACRO` (20 regioni, Nord/Centro/Sud), `normalizeOrigin`, `regionAffinity`, `DEMO_ORIGINS` (17 capoluoghi autentici come fixture di demo). Sicilia/Sardegna, Abruzzo/Molise mappati a Sud per scelta progettuale; l'identità del comune deve essere provata dai dati Agente 07.
+## B. Snapshot cognomi M1 integrato e usato realmente
 
-### Pipeline cognomi
+- **Esattamente 600 cognomi** presi dallo snapshot della **PR di ricerca #40**, 600 ID univoci e 600 nomi distinti dopo normalizzazione NFC/casefold con spazi preservati. Frequenze pubblicate nel campione **11–16** (Bergamo città, residenti con cittadinanza italiana **2021**). Nessun `nationalRank` valorizzato; **NON** ranking nazionale né etimologia o frequenza dell'Italia 1979.
+- **Sorgente:** Comune di Bergamo, [dataset 4pqu-7zkd](https://www.dati.lombardia.it/d/4pqu-7zkd), open data Lombardia. Licenza specifica del dataset **CC0 1.0**, riportata in `oronzo/data/research/sources.json` del #40 e verificata sulla scheda pubblica del dataset. Lo snapshot locale M1 è pubblicato come **`oronzo/systems/attributes/data/bergamo-2021-m1.js`**, con metadati/attribution/versione/sha dell'origine. **SHA del blob JSON sorgente:** `de098d57f1ce47be4cd07ecfb64ba213a6835663`.
+- **`surnames.js`:** `loadVerifiedSurnameSnapshot(records,metadata)` valida il catalogo versionato (sorgente CC0, anno, SHA, record, unicità di nome e ID, frequenza >10) e costruisce `BUILTIN_SURNAME_CATALOG` da 600 nomi. Mantiene ID canonici anche con apostrofi e spazi (es. `it-surname-d'avanzo`, `it-surname-de feudis`). `chooseSurname` restituisce anche `id`; il vecchio import CSV resta disponibile.
+- **`generator.js`:** per default `generatePlayer`, `generateSquad`, `generatePlayers`, `generateLeague` utilizzano `BUILTIN_SURNAME_CATALOG` **offline**; non più solo i 20 comuni cognomi della fixture. I singoli player persistono `surnameId`, `surnameSourceId`, `surname`, `name`, `id`; salvataggio/caricamento non deve generare di nuovo il roster. Il record di prova dei 20 cognomi Wikipedia rimane una fixture documentata e distinta.
+- **`demo.js`:** usa ora il catalogo interno di 600 senza fetch esterne. `data/SOURCES.md` documenta licenza, origine, scope e i limiti.
+- Il branch #40 **non è stato modificato**; nessuna frequenza inventata, nessuna datazione 1979 dedotta, nessun tentativo di sostituire la raccolta oraria.
 
-- `surnames.js`: `loadSurnameCSV(csv,{source,limit,country})`, `chooseSurname(catalog,rng)`. Validazione di fonte/anno/licenza, parser CSV quote-aware, filtro country IT, deduplica, varianti `variant_of`, gestione collisone canonico/alias, ranking comparabile dentro **una sola sorgente** per quota/frequenza/rank, 5.000 massimi.
-- `data/surname-sample.csv`: **20 cognomi COMUNI** italiani con stime per famiglie dalla tabella Italia di Wikipedia ("List of most common surnames in European countries"). NON 5.000, NON rari, NON conteggi ISTAT, NON 1979. `data/surname-sample.source.json` e `data/SOURCES.md`: attribuzione **CC BY-SA 4.0**, fonte secondaria originale ("Mappa dei Cognomi"), limite della certificazione storica, fonte integrale futura candidata Onomaverse v2026.10 **CC BY 4.0** (41.162 righe globali, numero italiano non verificato). Non sono state inventate frequenze o distribuzioni regionali.
-- `generator.js`: input opzionali `surnameCatalog`, `origins`; inserisce origine, cognome, fonte, nuovi tratti su giocatori con ID stabile basato su team/index. Fallback legacy dei nomi marcato `legacy-fallback-unverified`. Stesso seed/input = stessa rosa e serializzazione JSON senza perdita.
+## Test eseguiti e risultati osservati
 
-### Gameplay del carattere
+**Ambiente realmente usato:** runtime JavaScript V8 con contenuti JS scaricati direttamente dai branch GitHub, import/export ESM convertiti **solo in memoria** in binding locali e adattatore alle asserzioni Node. È esecuzione reale delle funzioni e dei test, **non** `node --test` nativo e **non** browser Chromium. Il container ha Node v22.16.0 ma la connessione Git remota fallisce con `Could not resolve host: github.com`. Non attribuire a questa verifica una CI non avviata.
 
-- `player-traits.js`: `analyzeDisposition`, `previewShout`, `applyShout`. Tratti influenzano propensione rischiosa, disponibilità a seguire ordini e reazioni a incoraggiamento/rimprovero.
-- `applyShout` applica morale, fiducia nel mister e confidence individuale; usa `eventId` per evitare duplicazione dopo save/load; differenziale regionale stessa regione > stessa macro > altre; `temporaryEffects` limitati a 180 secondi di partita simulata. Questa è **una API**, non ancora un comando effettivo della partita integrata.
-- `personality.js`: rischio contestuale e consumazione opzionale bonus temporanei con `effectiveAbility(player,{skill,t,riskyAction,...})`. Nessuna promozione artificiale dell'attributo tecnico base tramite etichetta.
-- `training.js`: spericolatezza incide modestamente sul carico, e pazzia/spericolatezza sul rischio **probabilistico** di incidente da allenamento; disciplina sulla crescita, con limiti e normalizzazione. Nessun incidente è determinato al 100% dai tratti.
+1. **43/43 test 08 PASS**: 15 regressione R01 + 17 R02 + 11 nuovi M1. Inizialmente un controllo rifiutava ID corretti con spazi/apostrofi e due verifiche fallivano per alias fiducia non allineato: **difetti corretti**, suite ripetuta completamente fino a **43 PASS / 0 FAIL**. Regole su origine ignota, 0 di fiducia, 20 regioni, 600 ID/cognomi, importazione snapshot, collisioni, generazione seed, ruoli, due/15 squadre, JSON reload, trattamento dei 180s legacy e distinzione dei toni.
+2. **6/6 prove incrociate PASS con codice effettivo PR #35**: caricati in V8 i veri moduli 06 `rng.js, orders.js, movement.js, commands.js, actions.js, match-engine.js, fixtures.js, coach-effects.js` e i moduli 08. Testata gara 11v11 con rose 08 (22 per squadra); risposta `encourage` 150s, stessa regione > stessa macroregione > altra, fiducia `0` e `100`, harsh/gentle, evento `coach_shout`, score non cambiato dall'ordine, scadenza 150s, ledger 09 con retry/reload deduplicato; nessuna propagazione del vecchio bonus 180s.
+3. **Test Node incrociato riproducibile**: nuovo `oronzo/systems/attributes/tests/pr35-integration.test.mjs`, che esegue 3 scenari con i moduli reali del 06 **quando le due PR sono nello stesso checkout**; in assenza degli export #35 dichiara `SKIP`, anziché un falso successo.
+4. Comandi di prova su checkout con entrambe le PR: `node --test oronzo/systems/attributes/tests/*.test.js` e `node --test oronzo/systems/attributes/tests/pr35-integration.test.mjs`. **Non verificati nativamente qui**. Non eseguito Chromium HTTP/schermate: QA finale al runner/UI 03/07 e revisore 00.
 
-### Demo e documentazione
+## File e API consegnate
 
-- `demo.html`, `demo.js`: anno di demo 1979, nuovi tratti/regione e fiducia mister, controlli tono/luogo del mister, simulazione dei richiami, import facoltativo via HTTP del CSV campione. La schermata rimane **landscape 16:9**, indipendente da `oronzo/game.js`.
-- `README.md`, `integration-notes.md`, `data/SOURCES.md`: API R02, fonte/licenza, vincoli e contratti per gli altri agenti.
-- `tests/attributes-r02.test.js`: 17 nuove prove; i 15 test originali restano nel branch senza modifica funzionale.
+- Nuovi: `data/bergamo-2021-m1.js` (600 righe JSON serializzate in JS ESM), `player-engine-bridge.js`, `tests/attributes-m1.test.js`, `tests/pr35-integration.test.mjs`.
+- Modificati nella stessa PR: `player-model.js`, `generator.js`, `surnames.js`, `personality.js`, `player-traits.js`, `demo.js`, `tests/attributes-r02.test.js`, `README.md`, `data/SOURCES.md`, `integration-notes.md`. Gli altri file già consegnati in R02 restano parte della PR.
+- Nessun file di `oronzo/data/research/`, `oronzo/systems/match-engine/`, `oronzo/app/flow/` o `NEXT.md` è stato toccato. Eccezione di scope: soltanto il presente `oronzo/coordination/08-attributes/REPORT.md`.
 
-## Verifiche realmente effettuate
+## Dipendenze / limiti residui
 
-1. Riletti su GitHub `PROTOCOL.md`, `GAME-VISION-v02.md`, `PLAN.md`, `IDENTITY.md`, `RUN.md`, `NEXT.md`, report R01 e issue #10. REST GitHub: PR #16 **merged=true**, issue #10 closed/completed. Branch R02 creato da `main` e poi riallineato in sicurezza su base più recente `7e65a137...`. `NEXT.md` resta `READY` per il ciclo R02.
-2. Suite **realmente eseguita** in isolate JavaScript **V8**, ottenendo i sorgenti GitHub e sostituendo **solo in memoria** le righe `import/export` ESM con binding locali; adattatore `assert` Node e `readFileSync` del CSV tramite contenuto recuperato. La logica originale dei moduli e le funzioni dei test sono state eseguite. Primo run: 30/32, due **fixture di test** non ammessi dal validatore; corretti i fixture senza indebolire la validazione. Run finale: **32 test passati su 32, 0 falliti** (15 R01 + 17 R02).
-3. Casi nuovi: clamp dei tratti, legacy con origine ignota, 20 regioni, isole, affinità, CSV documentato e ordinamento per rarità, deduplica/varianti e rigetti, prova sintetica 5.100 righe→5.000 selezionate (numeri artificiali **solo nel test**, non dataset), seed/ID/JSON, scelta rischiosa, carichi/infortuni probabilistici, richiami gentile/duro, effetto regionale, idempotenza su JSON save/load e scadenza 180s.
-4. `demo.js` compilato sintatticamente in V8 senza gli import ESM; `demo.html` contiene **24/24 ID** usati, collegamento `type=module`, regola portrait→ruota e anno 1979. Controllo sorgenti/markup, **NON** QA browser Android, screenshot né test touch.
-5. **Non eseguito `node --test` nativo in questa ripresa**: il container non risolve `github.com` (`Temporary failure in name resolution`) e non può clonare il repository. I test V8 sono effettivamente eseguiti, non vanno descritti come test Node. Comando riproducibile con checkout reale: `node --test oronzo/systems/attributes/tests/*.test.js`.
-6. Dati di cognomi: fonte/licenza esaminate su pagine pubbliche; il campione di 20 non equivale a verifica di 5.000 cognomi rari. Il file completo Onomaverse non è stato scaricato (limite del container/connessione). Nessuna affermazione di download o di copertura 5.000.
+- **06/#35:** API adeguate sui rispettivi branch, ma entrambe le PR devono essere revisionate e integrate dall'orchestratore. Le 6 prove incrociate V8 non dimostrano che il runtime principale usa i nuovi adapter.
+- **07:** salva/ricarica i PlayerV2 reali una volta sola, fornisce comuni verificati e origini corrette (gli attuali `DEMO_ORIGINS` sono esempi). Caricamento legacy non fabbrica il comune.
+- **09:** aggiorna rapporti e morale mister atomicamente una sola volta tramite ledger del 06; deve sincronizzare la fiducia aggiornata sul PlayerV2 persistente e non richiamare `applyShout` di 08 nel flusso reale.
+- **03/00:** verifiche UI, 44px, Android/Chromium e percorso end-to-end non svolte in questo incarico. I 600 cognomi sono realmente disponibili nel generatore ma il runtime M1 potrà usarli soltanto dopo integrazione 07/03.
+- Il dataset 2021 non garantisce origine etimologica italiana né la distribuzione nazionale: per ora appartiene al catalogo di residenti con cittadinanza italiana di Bergamo. Obiettivo 5.000 rinviato.
 
-## Integrazione e responsabilità esterne
+## Prossimi passi raccomandati all'orchestratore
 
-- **Agente 06 — match engine:** consumare `analyzeDisposition` per propensione azioni, `effectiveAbility` per resa contestuale e `temporaryEffects` mediante `t` in secondi simulati. Da `CoachCommandV1` convertire azioni individuali di tono in `applyShout` **una volta per ID**; l'evento score resta esclusivamente del motore. **Non sommare due volte** i modificatori di forma/salute/fortuna. Gli ordini effettivi e UI match non sono qui integrati.
-- **Agente 07 — career/data:** iniettare `origins` da comuni autorizzati, verificando associazione comune→regione; salvare `origin`, `surname`, `surnameSourceId`, `coachInteractionIds` e `temporaryEffects` del PlayerV1 esistente; non rigenerare identità dopo load. I 17 capoluoghi della demo non sono i 500 comuni meno popolati.
-- **Agente 09 — coach/club:** fornire `coachLeadership`, `coachOrigin`, `tone` e consumare `relationships.coachTrust` del **singolo giocatore**. `previewShout` restituisce effetti previsionali; `applyShout` aggiorna il calciatore. Morale coach come risorsa, GAME OVER, ingaggi, papponeria e finanze restano proprietà Agente 09.
-- **Agente 04 — copy:** tono e dialetti mediante dialoghi verificati, nessun dialetto inventato in questo sistema.
-- **Agente 03 — UI/runtime:** eventuale scheda dinamica con tratti e regione solo dopo NEXT autorizzato; questa PR non altera file UI del runtime.
+1. Verificare `node --test` nativo su checkout di PR #31 + #35 e controllare gli eventi/shout e persistente 09 con matchId univoco; solo dopo decidere merge.
+2. Collegare un solo costruttore di ordine individuale nel flow 07 e verificare che `playerTrustById` e `relationships.coachTrust` siano sincronizzati dopo save/load.
+3. Eseguire smoke browser Chromium HTTP per generazione e schede con 600 cognomi, senza ridisegnare o rigenerare un giocatore salvato.
 
-## Mancante / problemi e limiti
-
-- **Target di 5.000 cognomi rari NON raggiunto**: loader pronto a massimo 5.000; campione incluso = **20 cognomi comuni** con stime secondarie, senza rango certificato su 1979. Necessaria importazione autorizzata e auditing IT di un dataset integrale, controllo licenza, copertura e versione.
-- `regionAffinity` non dimostra la correttezza geografica del comune: il catalogo dei comuni dell'Agente 07 dovrà verificarla; città demo sono capoluoghi d'esempio.
-- Nessun comando nel runtime principale è stato collegato. `applyShout` non modifica morale del mister né crea gol/eventi di partita.
-- Il demo HTML non è stato provato su browser reale; QA touch/landscape ancora dovuta.
-- Nuovo roster con cognomi documentati richiede la fonte `surnameCatalog` esplicitamente passata; fallback legacy non verificato resta a supporto salvataggi esistenti.
-
-## Proposta prossimo ciclo (solo se NEXT lo autorizzerà)
-
-1. Importare e congelare un dataset integrale di cognomi Italia con licenza/dati di rarità riusabili; verificare il numero effettivo di righe nazionali e raggiungere 5.000 solo se supportati.
-2. Con Agente 06: test su seed identico degli effetti di carattere e richiami nei veri eventi del match, minimizzando doppio conteggio.
-3. Con Agenti 07/09: test di migrazione e persistenza multi-stagione di origine, relazione individuale, eventi idempotenti e bonus temporanei; QA browser Android landscape.
-
-**Nessun merge, nessuna modifica a `NEXT.md`, né a file degli altri agenti.**
+**Consegna: PR #31 aperta, nessun merge autonomo, nessun nuovo branch e nessuna modifica a PR #40.**
