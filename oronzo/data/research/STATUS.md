@@ -1,6 +1,6 @@
 # ORONZO — Research dataset
 
-Verifica 2026-11-08: **375 comuni documentati nei batch**, **500 cognomi documentati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
+Verifica 2026-11-08: **400 comuni documentati nei batch**, **500 cognomi documentati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
 
 Batch 1: 20 Valle d'Aosta; batch 2: 30 Molise; batch 3: 25 Abruzzo; batch 4: **25 Basilicata**, selezionati per popolazione crescente nel file regionale. Non sono classifiche nazionali e non descrivono il 1979.
 
@@ -31,3 +31,6 @@ Batch 14 (2026-11-08): aggiunti 25 piccoli comuni del Friuli-Venezia Giulia dal 
 Batch 15 (2026-11-08): aggiunti 25 piccoli comuni dell'Emilia-Romagna dallo snapshot regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **350 comuni / 500 cognomi**; 350 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 66–1047; anno demografico puntuale non attestato, non rappresenta il 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0, attribuzione necessaria. Dataset ancora di ricerca, non integrato nel runtime.
 
 Batch 16 (2026-11-08): aggiunti 25 piccoli comuni della Toscana dallo snapshot regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **375 comuni / 500 cognomi**; 375 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 347–1095; anno demografico puntuale non attestato, non rappresenta il 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0, attribuzione necessaria. Dataset di ricerca non integrato nel runtime.
+
+
+Batch 17 (2026-11-08): aggiunti 25 piccoli comuni della Campania dallo snapshot regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **400 comuni / 500 cognomi**; 400 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 217–531; anno demografico puntuale non attestato, non rappresenta il 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0, attribuzione necessaria. Dataset di ricerca non integrato nel runtime.
