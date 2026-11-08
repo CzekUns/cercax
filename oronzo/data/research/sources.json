@@ -201,6 +201,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "25 comuni selezionati per popolazione crescente nel file regionale; nessun ranking nazionale. Anno demografico puntuale non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-sicilia-2026",
+      "name": "RP92/comuni-italiani — Sicilia, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/sicilia.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente nel file regionale; non ranking nazionale. Anno demografico puntuale non attestato; non rappresenta il 1979."
     }
   ]
 }
