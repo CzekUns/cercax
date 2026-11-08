@@ -9,9 +9,10 @@ import {collectCoachEffects} from '../coach-effects.js';
 // Standalone PR #35 has PlayerV1 only on main: do not hide that prerequisite.
 async function get08(t) {
   try {
-    const [model,generator] = await Promise.all([
+    const [model,generator,traits] = await Promise.all([
       import('../../attributes/player-model.js'),
-      import('../../attributes/generator.js')
+      import('../../attributes/generator.js'),
+      import('../../attributes/player-traits.js')
     ]);
     if(!model.normalizePlayer({id:'probe',teamId:'probe',name:'Prova',
       positions:['DF']}).relationships?.coachTrust && // value 50 is truthy
@@ -20,7 +21,7 @@ async function get08(t) {
       t.skip('Requires PlayerV2 branch PR #31; not integrated on this checkout');
       return null;
     }
-    return {model,generator};
+    return {model,generator,traits};
   } catch(error) {
     if(error?.code==='ERR_MODULE_NOT_FOUND') {
       t.skip('Requires combined checkout with PR #31 geography/PlayerV2');
@@ -46,13 +47,14 @@ test('R10 cross-module: actual 08 normalizePlayer uses origin and coachTrust 0/1
   const {normalizePlayer}=mod.model;
   const camp={comune:'Napoli',regione:'Campania',macroregione:'Sud'};
   const coach={origin:{comune:'Salerno',regione:'Campania'},traits:{leadership:70}};
-  const response=trust=>{
+  const response=(trust,origin=camp,tone='gentle')=>{
     const base=makeFixture('cross08');
-    const target=normalizePlayer({...base.homeClub.players[9],origin:camp,
+    const target=normalizePlayer({...base.homeClub.players[9],origin,
       relationships:{coachTrust:trust}});
     base.homeClub.players[9]=target;
     const match=createMatch(base);match.step(300);
-    const command=createIndividualShoutCommand({teamId:base.homeClub.id,player:target,coach,tone:'gentle'});
+    const command=createIndividualShoutCommand({teamId:base.homeClub.id,player:target,coach,tone});
+    assert.ok(Number.isFinite(mod.traits.previewShout(target,{tone:command.payload.tone==='encourage'?'gentle':'hard',coachOrigin:coach.origin}).moraleDelta));
     const result=match.command(command);
     assert.equal(result.accepted,true);
     return result.effects;
@@ -60,6 +62,12 @@ test('R10 cross-module: actual 08 normalizePlayer uses origin and coachTrust 0/1
   const a=response(0),b=response(100);
   assert.ok(b.temporaryEffect.modifier>a.temporaryEffect.modifier);
   assert.equal(a.coachTrustAtCommand,0);assert.equal(b.coachTrustAtCommand,100);
+  const macro=response(50,{comune:'Bari',regione:'Puglia',macroregione:'Sud'});
+  const other=response(50,{comune:'Roma',regione:'Lazio',macroregione:'Centro'});
+  const local=response(50,camp);
+  assert.ok(local.temporaryEffect.modifier>macro.temporaryEffect.modifier);
+  assert.ok(macro.temporaryEffect.modifier>other.temporaryEffect.modifier);
+  assert.ok(response(100,camp,'hard').temporaryEffect.modifier>response(0,camp,'harsh').temporaryEffect.modifier);
 });
 
 test('R10 cross-module: generated 08 players across 100 deterministic matches',async t=>{
