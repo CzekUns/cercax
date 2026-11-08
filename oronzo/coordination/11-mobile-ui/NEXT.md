@@ -1,3 +1,13 @@
+# ORONZO — AGENTE 11 · HANDOFF UI PLAYTEST A 12 / STANDBY
+
+**STATO: `STANDBY_UI12_OWNER` — 8 novembre 2026.** Il proprietario ha sostituito il progetto di **Layout Editor** con annotazioni e correzioni UI **schermata per schermata**. L'Agente12 ([issue #54](https://github.com/CzekUns/cercax/issues/54), [HANDOFF](../12-ui-tuning/HANDOFF.md), [SCREEN-NOTES](../12-ui-tuning/SCREEN-NOTES.md)) è l'owner esclusivo del feedback UI del playtest. **Non avviare M04, non creare un Layout Studio o aprire PR in parallelo su career-r03.css/html/js.**
+
+La PR #48 M01 è già MERGED e il relativo audit R09C PASS. La PR #52 fullscreen è lavoro **diretto** ancora OPEN/NO MERGE, non motivo per ricominciare F01. La PR #53 comuni è ancora OPEN/NO MERGE. Prima di ogni nuovo lavoro verificare stato GitHub e attendere nuovo NEXT dell'orchestratore. Conservare report e storia di11.
+
+---
+
+## ARCHIVIO — NEXT STORICI
+
 # ORONZO — AGENTE 11 · F01 REALIZZATO DIRETTAMENTE / ATTESA QA
 
 **STATO: `DIRECT_IMPL_WAIT_QA_F01` — 8 novembre 2026.** La richiesta dell'utente «potevi farlo tu» ha prodotto un intervento diretto di questa chat di orchestrazione, **non un lavoro dell'Agente11**. [PR #52](https://github.com/CzekUns/cercax/pull/52), branch `feature/oronzo-fullscreen-f01-direct`, implementa fullscreen nativo nella quick-nav (non gamebar: header alto43–45px non garantisce un target44 senza regressioni), anche durante partita. Fallback API non supportata/negata, aria-pressed e fullscreenchange. Test isolati del modulo con V8 eseguiti e QA Node scritto; **no Chromium HTTP sul gioco, no Node119, no Android fisico**, nessun merge.
