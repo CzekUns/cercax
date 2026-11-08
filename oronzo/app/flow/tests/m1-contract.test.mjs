@@ -102,6 +102,18 @@ test('shout permanent suggestion is pending until 09 port confirms; no temporary
  assert.equal(result.applied,1);assert.equal(s.clubs[0].players[2].relationships.coachTrust,52);
  assert.equal(reconcileM1Shouts(s,{persistShout:()=>{throw Error('repeat')}}).applied,0);
 });
+test('reconciling multiple 09 shout suggestions commits only if ALL responses succeed',()=>{
+ const s=build();
+ const event=id=>({id,t:200+id,type:'coach_shout',teamId:'PROM-01',playerId:'PROM-01:P3',
+   detail:{temporaryOwner:'match-engine-06',persistentSuggestion:{playerTrustDelta:1,coachMoraleDelta:0}}});
+ assert.equal(journalM1Shouts(s,{fixtureId:'f7',events:[event(4),event(5)]}).recorded,2);
+ const original=copy(s);let calls=0;
+ assert.throws(()=>reconcileM1Shouts(s,{persistShout:({coach,club})=>{
+   calls++;return calls===1?{accepted:true,coach,club}:{accepted:false,reason:'not_authorized'};
+ }}),/COACH09_INVALID_SHOUT_RESULT/);
+ assert.equal(calls,2);
+ assert.deepEqual(s,original); // No partial ledger or relationship mutation.
+});
 test('two-season development uses actual port once per year, IDs and salaries fixed through reload',()=>{
  const s=build();let count=0;
  const wrapped=(players,opts)=>{count++;return advanceSeason(players,opts)};

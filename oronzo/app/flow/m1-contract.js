@@ -217,19 +217,24 @@ export function journalM1Shouts(state,{fixtureId,events,persistShout}={}) {
  */
 export function reconcileM1Shouts(state,{persistShout}={}) {
   if(typeof persistShout!=='function')return{accepted:false,reason:'coach09_player_trust_port_required'};
-  const ledger=ensureM1Ledger(state),pending=Object.values(ledger.persistentEvents)
+  // Complete the entire batch on a detached draft; a later invalid 09 response
+  // must not leave half of the pending suggestions marked as applied.
+  const draft=copy(state);
+  const ledger=ensureM1Ledger(draft),pending=Object.values(ledger.persistentEvents)
     .filter(x=>x.status==='pending_agent09_player_trust');
   let applied=0;
   for(const entry of pending){
-    const club=state.clubs.find(c=>c.id===entry.event.teamId);
+    const club=draft.clubs.find(c=>c.id===entry.event.teamId);
     if(!club)throw new Error('SHOUT_TEAM_MISSING');
-    const result=persistShout({key:entry.key,coach:copy(state.coach),club:copy(club),event:copy(entry.event)});
+    const result=persistShout({key:entry.key,coach:copy(draft.coach),club:copy(club),event:copy(entry.event)});
     if(!result?.accepted || !result.coach || result.club?.id!==club.id)
       throw new Error('COACH09_INVALID_SHOUT_RESULT');
-    state.coach=result.coach;
-    state.clubs[state.clubs.findIndex(c=>c.id===club.id)]=result.club;
+    draft.coach=result.coach;
+    draft.clubs[draft.clubs.findIndex(c=>c.id===club.id)]=result.club;
     entry.status='applied';applied++;
   }
+  for(const key of Object.keys(state))delete state[key];
+  Object.assign(state,draft);
   return{accepted:true,applied,remaining:pending.length-applied};
 }
 export function settleM1Season(state,{advanceSeason,seasonYear,alreadyAged=false}={}) {
