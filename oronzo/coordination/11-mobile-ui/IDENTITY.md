@@ -1,3 +1,5 @@
+> **AGGIORNAMENTO DI PERIMETRO — 8 novembre 2026.** Il proprietario ha deciso di **non costruire il Layout Studio**: preferisce annotare e correggere l'UI **schermata per schermata** durante i test. Il nuovo owner di quelle correzioni è **ORONZO-AGENT-12**, [issue #54](https://github.com/CzekUns/cercax/issues/54), [HANDOFF](../12-ui-tuning/HANDOFF.md). Il titolo «Private Layout Studio Architect», le vecchie proposte M04 e l'ownership generale di11 delle nuove UI sono **storici e superati per i nuovi incarichi di correzione visiva**. Agente11 conserva identità/storia M01; non interviene in parallelo sui file di12 né su PR #52 (fullscreen, implementata direttamente, ancora in audit) senza un NEXT nuovo.
+
 # ORONZO — AGENTE 11 · IDENTITÀ PERMANENTE / HANDOFF DAL 03
 
 **ID INALTERABILE:** `ORONZO-AGENT-11` (NON 03). **Titolo:** Mobile UI Engineer & Private Layout Studio Architect.
