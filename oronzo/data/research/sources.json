@@ -69,6 +69,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "25 piccoli comuni selezionati per popolazione crescente dal file regionale Umbria; nessun ranking nazionale verificato; anno puntuale popolazione non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-marche-2026",
+      "name": "RP92/comuni-italiani — Marche, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/marche.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "Selezione regionale per popolazione crescente nello snapshot; nessun ranking nazionale. Anno demografico puntuale non attestato. Non rappresenta il 1979."
     }
   ]
 }
