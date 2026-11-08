@@ -25,7 +25,8 @@ const baseCoaches=[
 ];
 const names=['FORTUNA','LEADERSHIP','AUTOSTIMA','PAZIENZA'];
 const QA=qaMunicipalityCatalog();
-let state=null, press=null, presidents=null, mode='qa', screen='entry', avatar=0, origin='000001',
+let REAL=null; // Contemporary catalog is separate from synthetic QA fixtures.
+let state=null, press=null, presidents=null, mode='normal', screen='entry', avatar=0, origin='',
  offerIndex=0, selectedHub='campionato', lineup=new Set(), bench=new Set(), captain=null,
  engine=null,matchInput=null,view=null,bridge=null,paused=true,speed=1,last=0,locking=false,
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
@@ -37,7 +38,7 @@ function message(text){status.textContent=text;status.hidden=false;clearTimeout(
 function failure(reason){message(String(reason??'Azione non disponibile'));}
 function guard(action){if(locking)return;locking=true;try{action()}catch(e){errors.push(String(e));failure(e?.message??e)}finally{locking=false}}
 function api(result,success){if(result?.accepted===false){failure(result.reason==='geography_required'?'geography_required: località verificate non disponibili; usa DEMO TECNICA per provare':result.reason);return false}success?.();return true}
-function restoreMode(){label.textContent=state?.world?.mode==='qa_fixture'||mode==='qa'?'DEMO TECNICA — LOCALITÀ SINTETICHE':'DATI GEOGRAFICI NON VERIFICATI';date.textContent=state?.gameDate||'1979-08-01'}
+function restoreMode(){const qa=state?.world?.mode==='qa_fixture'||mode==='qa';label.textContent=qa?'DEMO TECNICA — LOCALITÀ SINTETICHE':REAL?'COMUNI REALI · DATI ATTUALI (NON 1979)':'CATALOGO COMUNI NON DISPONIBILE';date.textContent=state?.gameDate||'1979-08-01'}
 function display(next){screen=next;render()}
 function save({silent=false}={}){
  if(!state)return false;
