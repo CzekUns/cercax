@@ -79,3 +79,9 @@ L'utente ha scelto di creare **ORONZO-AGENT-11** al posto di 03 per il lavoro UI
 **M01 attivo e circoscritto:** eliminare letterbox laterale della carriera 1979 in landscape, CSS minimo in `oronzo/assets/ui/career-r03.css`, preservare proporzioni canvas, font e 44px touch, QA viewport 640×360, 800×360, 844×390 e ultrawide, confronto screenshot prima/dopo e regressioni. Nuovo branch `agent/oronzo-11-mobile-m01`, nuova PR, non merge. No incarichi paralleli a 03.
 
 **Futuro fuori M01:** validare/inserire camera che segue pallone (owner 05 PR #28) come default, collegare comandi mister esistenti di 06 su UI (in NEXT distinto), poi Layout Studio privato di sviluppo, mai esposto ai giocatori. Agente10 coordina, Agente00 revisione.
+
+## STATO CORRENTE — AGENTE 11 M01 PR #48 IN AUDIT (8 novembre 2026)
+
+Consegna M01 completata da ORONZO-AGENT-11: [PR #48](https://github.com/CzekUns/cercax/pull/48), HEAD osservato `6e72486607405d06d9a5ba8cac8d00a002ea5da8`, OPEN/NOT MERGED. Diff runtime **solo otto righe CSS** in `oronzo/assets/ui/career-r03.css` per larghezza landscape e safe-area. REPORT dell'autore: 97/97 flow/career/coach, 22/22 renderer, Chromium HTTP 8 prima+8 dopo in quattro viewport mouse/touch e 48 screenshot; verifica indipendente NON ancora conclusa. Dimensioni stage dichiarate 640→640 (640×360), 640→800 (800×360), 693→844 (844×390), 711→960 (960×400); campo 16:9 NON ingrandito/stirato.
+
+Il coordinatore ha impostato `coerentizzatore/REQUEST.md` a **READY R09-M01** per audit esclusivo PR #48, e `11-mobile-ui/NEXT.md` a **WAIT_REVIEW_M01**, postato commento di handoff sulla PR. **Azione seguente:** inoltrare il prompt audit a 00, esaminare suo REPORT-R09-M01; nessun merge senza autorizzazione esplicita dell'utente e non avviare nuovi cicli. Android fisico ancora da provare. Camera, comandi mister e Layout Studio privato NON attivati.
