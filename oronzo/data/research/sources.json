@@ -113,6 +113,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "25 comuni del Piemonte per popolazione crescente nello snapshot regionale; nessun ranking nazionale verificato; anno demografico puntuale non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-trentino-2026",
+      "name": "RP92/comuni-italiani — Trentino-Alto Adige/Südtirol, dati derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/trentino-alto-adige.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni ordinati per popolazione crescente nel file regionale, senza ranking nazionale. Anno demografico puntuale non attestato; dati non rappresentativi del 1979."
     }
   ]
 }
