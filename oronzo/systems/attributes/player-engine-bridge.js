@@ -16,14 +16,20 @@ export function normalizeShoutTone(tone){
  if(tone==='hard'||tone==='harsh')return 'harsh';
  throw new RangeError('Individual tone must be gentle|hard or encourage|harsh');
 }
-export function toMatchEngineOrigin(origin){
+export function toMatchEngineOrigin(origin,{allowRegionalOnly=false}={}){
  if(origin==null)return null;
  let canonical;
  if(typeof origin==='object' && (origin.regionId||origin.municipalityName)){
   const regione=ENGINE_TO_REGION[String(origin.regionId??'').trim().toLowerCase()]||
     REGION_ALIASES[origin.regione]||origin.regione;
   const comune=origin.comune??origin.municipalityName;
-  if(!comune||!regione)return null;
+  if(!regione)return null;
+  if(!comune){
+   if(!allowRegionalOnly)return null; // Player without verified birthplace remains unknown.
+   const valid=REGION_TO_ENGINE[regione], expected=MACRO_TO_ENGINE[REGION_MACRO[regione]];
+   if(!valid||!expected||origin.macroRegion!=null&&origin.macroRegion!==expected)throw new RangeError('Invalid regional identity');
+   return {regionId:valid,macroRegion:expected}; // Coach origin only: no invented municipality.
+  }
   canonical=normalizeOrigin({comune,regione,macroregione:origin.macroregione??ENGINE_TO_MACRO[origin.macroRegion]});
  }else canonical=normalizeOrigin(origin);
  if(!canonical)return null;
@@ -41,7 +47,7 @@ export function toIndividualShoutCommand({teamId,player,coachOrigin=null,coachLe
  const p=normalizePlayer(player);
  if(p.teamId!==teamId)throw new Error('Target player belongs to another team');
  const payload={targetPlayerId:p.id,tone:normalizeShoutTone(tone),
-  coachOrigin:toMatchEngineOrigin(coachOrigin),playerOrigin:toMatchEngineOrigin(p.origin),
+  coachOrigin:toMatchEngineOrigin(coachOrigin,{allowRegionalOnly:true}),playerOrigin:toMatchEngineOrigin(p.origin),
   playerTrust:p.relationships.coachTrust,coachTraits:{leadership:clamp(coachLeadership)}};
  if(utteranceId!=null)payload.utteranceId=String(utteranceId);
  return {type:'shout',teamId,...(t==null?{}:{t}),payload};
