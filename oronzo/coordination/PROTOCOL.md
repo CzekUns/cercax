@@ -60,3 +60,11 @@ Agente 10 **non è integratore del runtime né sviluppatore**. Riceve regole dal
 
 ## Coordinamento R05 — modifica successiva alla deroga R04 (7 novembre 2026)
 La delega eccezionale di merge del Coerentizzatore 00 era **limitata al ciclo R04** ed è conclusa. R05 è preparato in `coerentizzatore/REQUEST.md`, con priorità all'analisi delle PR #30 e #32 già aggiornate. Il Coerentizzatore può eseguire merge nel nuovo R05 soltanto con **nuova autorizzazione espressa dell'utente nella relativa chat** e con verifica indipendente di HEAD/diff/Node combinato; no permesso di merge continuo, no sviluppo, no modifiche a NEXT. R05 richiede documento `REPORT-R05.md` distinto dal rapporto R04 storico. Per le assegnazioni 01–09 è autorevole `10-orchestrator/DISPATCH-R05.md` con i singoli NEXT; i permessi di codice per i futuri cicli 07/03 restano sospesi finché tutti i prerequisiti non sono verificati.
+
+## Aggiornamento 8 novembre 2026 — Agente 11 UI mobile dopo handoff del 03
+
+- Il nuovo agente di produzione **`ORONZO-AGENT-11`** è registrato in `registry.json` e ha issue [#47](https://github.com/CzekUns/cercax/issues/47). La numerazione **10 rimane l'orchestratore**, 00 il revisore. 11 prende in carico **solo i futuri cicli UI**, non diventa 03 e non perde lo storico delle PR #33/#43.
+- **Obbligo di lettura:** tutta la documentazione 03 `IDENTITY/RUN/NEXT/REPORT`, la sua specifica, l'integrazione kit, runtime, test e rapporti R07B/R08B; poi seguire i propri `11-mobile-ui/IDENTITY/RUN/NEXT` come istruzioni correnti.
+- **No collisioni:** 03 in `HOLD_NEW_UI_WORK` senza PR UI nuove mentre 11 lavora. M01 autorizza **solo** adeguamento CSS della carriera landscape, nessun editing del gameplay o renderer, nuova PR e report 11; nessun merge automatico.
+- Fasi distinte successive ancora **non attive**: camera pallone owner 05 (PR #28), comandi coach (contratti 06/07 e UI 11), editor di layout **privato sviluppo** per il proprietario, rigorosamente escluso dall'app pubblica. Il Layout Studio non è una funzione per giocatori.
+- Regole di QA, gate e review di questo PROTOCOL si applicano anche a 11. La frase storica "nove agenti 01–09" resta valida per la composizione originale e non impedisce la nuova estensione 11.
