@@ -53,7 +53,10 @@
         "oronzo/ui.css",
         "oronzo/partita-rapida.html"
       ],
-      "futureScopeGate": "Solo dopo PR UI #33 mergiata con QA browser/arte, gate R02 #30+#32 chiuso e adapter 07 stabile; #31/#35 compatibili prima degli ordini individuali nel runtime"
+      "futureScopeGate": "Solo dopo PR UI #33 mergiata con QA browser/arte, gate R02 #30+#32 chiuso e adapter 07 stabile; #31/#35 compatibili prima degli ordini individuali nel runtime",
+      "lifecycle": "historic_complete_no_new_ui_cycles",
+      "handoffTo": "ORONZO-AGENT-11",
+      "handoffNote": "PR #33 and #43 merged; legacy docs and original scopes retained as historical reference only. New UI changes owned by 11, no parallel work."
     },
     {
       "id": 4,
@@ -140,6 +143,26 @@
       "report": "oronzo/coordination/09-coach-club/REPORT.md",
       "run": "oronzo/coordination/09-coach-club/RUN.md",
       "initialPr": null
+    },
+    {
+      "id": 11,
+      "slug": "11-mobile-ui",
+      "name": "Mobile UI Engineer e Layout Studio privato (successore futuro dell'agente 03)",
+      "issue": 47,
+      "originalBranch": "agent/oronzo-11-mobile-m01",
+      "spec": "oronzo/agents/11-mobile-ui.md",
+      "codeScope": "oronzo/assets/ui/career-r03.css",
+      "coordinationDir": "oronzo/coordination/11-mobile-ui/",
+      "identity": "oronzo/coordination/11-mobile-ui/IDENTITY.md",
+      "next": "oronzo/coordination/11-mobile-ui/NEXT.md",
+      "report": "oronzo/coordination/11-mobile-ui/REPORT.md",
+      "run": "oronzo/coordination/11-mobile-ui/RUN.md",
+      "lifecycle": "active_new_ui_owner",
+      "handoffFrom": 3,
+      "firstCycle": "M01 CSS-only mobile landscape expansion",
+      "futureScopeRequiresNEXT": true,
+      "privateLayoutEditor": "future_dev_only_not_public",
+      "mergeAllowed": false
     }
   ],
   "orchestrator": {
@@ -166,5 +189,6 @@
       "municipalities": 500,
       "surnames": 5000
     }
-  }
+  },
+  "registryUpdate": "2026-11-08: Agent11 inherits NEW UI tasks from Agent03, not historical identity/PRs. Agent10 orchestrates, Agent00 reviews."
 }
