@@ -1,3 +1,13 @@
+# ORONZO — AGENTE 08 · PRIORITÀ M1: SHOUTS COMPATIBILI + 500 COGNOMI
+
+**STATO: `P0_SHOUT_AND_SURNAME_M1` — 8 novembre 2026.** [Roadmap R10](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md). La **PR #31 è OPEN** e non passa ancora il contratto incrociato con #35 (PlayerV2 origine `{comune,regione,macroregione}`, `relationships.coachTrust`, toni `gentle|hard` vs engine `encourage|harsh`). Correggere **solo sulla #31**, insieme ai test incrociati su PlayerV2 reali e prevenzione doppio effetto shout; 06 possiede l'effetto temporaneo, 09 il delta persistente. Test di retry, seed, serializzazione e relazione; REPORT con API precise.
+
+**Sblocco dati M1 (non aspettare 5000):** nel branch ricerca [#40](https://github.com/CzekUns/cercax/pull/40), `oronzo/data/research/surnames.json` ora contiene **600** cognomi distinti documentati da fonte Bergamo2021 (CC0, frequenza locale), non integrati. Verifica SHA snapshot più recente e fonti/diritti, poi integra nel generatore almeno **500** record reali e ID stabili, conservando i save precedenti e documentando che non sono una classifica nazionale né certificazione di etimologia italiana. Per evitare conflitti con automazione #40, importare uno snapshot versionato nell'ambito di08 **senza scrivere su #40**; coordinare il gate con 10, preferibilmente dopo chiusura fix sulla #31 o in un commit ben isolato nella stessa PR se testabile. Niente nuovo ramo concorrente #31, niente 5000 come P0, nessun merge autonomo.
+
+---
+
+## ARCHIVIO — NEXT PRECEDENTI
+
 # NEXT — AGENTE 08 · PERSONAGGIO GIOCATORE, REGIONALITÀ E NOMI · VISIONE v0.2
 **Stato:** `FIX_REQUESTED` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **Precedente:** PR #16 MERGIATA (389dce444a7f7c19254381bfda2205acc4268f51).
