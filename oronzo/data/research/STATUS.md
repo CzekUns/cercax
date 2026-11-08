@@ -37,3 +37,5 @@ Batch 17 (2026-11-08): aggiunti 25 piccoli comuni della Campania dallo snapshot 
 
 
 Batch 18 (2026-11-08): aggiunti 25 piccoli comuni della Puglia dallo snapshot regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **425 comuni / 500 cognomi**; 425 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 143–1568; anno demografico puntuale non attestato, non rappresenta il 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0, attribuzione necessaria. Dataset di ricerca non integrato nel runtime.
+
+Batch 19 (2026-11-08): aggiunti 25 piccoli comuni della Calabria dal file regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **450 comuni / 500 cognomi**; 450 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 161–481; anno demografico puntuale non attestato, dati non rappresentativi del 1979. Fonte CC BY 4.0 con attribuzione necessaria. Dataset non integrato nel runtime.
