@@ -71,3 +71,11 @@ Partita rapida separata disponibile, PR #24 integrata; PR #12 cutscene in draft;
 Coerentizzatore 00 ha consegnato [REPORT-R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md) sulla [PR #43](https://github.com/CzekUns/cercax/pull/43), HEAD `8977305d78d1ddf161ac72b38b41973fe4311db4`. Esito **NEEDS CHANGES / NO MERGE**: 97/97 suite flow/career/coach + 22/22 renderer + 6/6 Chromium veri percorso partita/salvataggio PASS, con difetti di prodotto **R08-1 rosa completa/schede/Allenamento**, **R08-2 classifica completa 16/16**, **R08-3 touch realmente 44px senza clipping**, **R08-4 nuova carriera dopo gameOver senza refresh**.
 
 **Prossima azione unica:** AGENTE 03 deve lavorare sulla stessa PR #43 come da `03-ui/NEXT.md` aggiornato, senza toccare engine o altri agenti, poi Coerentizzatore 00 gate R08B mirato (REQUEST già predisposto `WAIT_FOR_03`). Solo dopo gate PASS e autorizzazione esplicita utente potrà essere mergiata la PR #43. Non dichiarare ancora un URL pubblico o Android fisico verificato. L'automazione dati 100 comuni/500 cognomi è separata e non blocca la demo tecnica con banner sintetico.
+
+## NUOVO CICLO ORONZO — AGENTE 11 SUCCEDE AL 03 PER UI MOBILE (8 novembre 2026)
+
+L'utente ha scelto di creare **ORONZO-AGENT-11** al posto di 03 per il lavoro UI nuovo. **Issue [#47](https://github.com/CzekUns/cercax/issues/47)**. 03 resta ID storico con PR #33/#43 MERGED, in HOLD per nuovi cicli; 11 ha `IDENTITY/RUN/NEXT` propri in `oronzo/coordination/11-mobile-ui/`, registrato in `registry.json`. Deve leggere **integralmente** tutti i documenti/rapporti dell'03 prima di intervenire.
+
+**M01 attivo e circoscritto:** eliminare letterbox laterale della carriera 1979 in landscape, CSS minimo in `oronzo/assets/ui/career-r03.css`, preservare proporzioni canvas, font e 44px touch, QA viewport 640×360, 800×360, 844×390 e ultrawide, confronto screenshot prima/dopo e regressioni. Nuovo branch `agent/oronzo-11-mobile-m01`, nuova PR, non merge. No incarichi paralleli a 03.
+
+**Futuro fuori M01:** validare/inserire camera che segue pallone (owner 05 PR #28) come default, collegare comandi mister esistenti di 06 su UI (in NEXT distinto), poi Layout Studio privato di sviluppo, mai esposto ai giocatori. Agente10 coordina, Agente00 revisione.
