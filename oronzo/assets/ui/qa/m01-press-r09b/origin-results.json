@@ -1,0 +1,1517 @@
+{
+  "browser": "153.0.8010.0",
+  "rows": [
+    {
+      "version": "preM01",
+      "touch": false,
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 640,
+        "height": 360
+      },
+      "initialThirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 126,
+          "y": 238.3125,
+          "w": 499,
+          "h": 44.625
+        },
+        "visible": {
+          "w": 499,
+          "h": 44.625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 118,
+              "y": 78,
+              "w": 515,
+              "h": 228
+            },
+            "clientTop": 3,
+            "clientHeight": 222
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 7,
+              "y": 78,
+              "w": 626,
+              "h": 228
+            },
+            "clientTop": 0,
+            "clientHeight": 228
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 0,
+              "y": 43,
+              "w": 640,
+              "h": 267
+            },
+            "clientTop": 0,
+            "clientHeight": 267
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      },
+      "thirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 126,
+          "y": 238.3125,
+          "w": 499,
+          "h": 44.625
+        },
+        "visible": {
+          "w": 499,
+          "h": 44.625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 118,
+              "y": 78,
+              "w": 515,
+              "h": 228
+            },
+            "clientTop": 3,
+            "clientHeight": 222
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 7,
+              "y": 78,
+              "w": 626,
+              "h": 228
+            },
+            "clientTop": 0,
+            "clientHeight": 228
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 0,
+              "y": 43,
+              "w": 640,
+              "h": 267
+            },
+            "clientTop": 0,
+            "clientHeight": 267
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      }
+    },
+    {
+      "version": "preM01",
+      "touch": true,
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 640,
+        "height": 360
+      },
+      "initialThirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 126,
+          "y": 238.3125,
+          "w": 499,
+          "h": 44.625
+        },
+        "visible": {
+          "w": 499,
+          "h": 44.625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 118,
+              "y": 78,
+              "w": 515,
+              "h": 228
+            },
+            "clientTop": 3,
+            "clientHeight": 222
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 7,
+              "y": 78,
+              "w": 626,
+              "h": 228
+            },
+            "clientTop": 0,
+            "clientHeight": 228
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 0,
+              "y": 43,
+              "w": 640,
+              "h": 267
+            },
+            "clientTop": 0,
+            "clientHeight": 267
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      },
+      "thirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 126,
+          "y": 238.3125,
+          "w": 499,
+          "h": 44.625
+        },
+        "visible": {
+          "w": 499,
+          "h": 44.625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 118,
+              "y": 78,
+              "w": 515,
+              "h": 228
+            },
+            "clientTop": 3,
+            "clientHeight": 222
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 7,
+              "y": 78,
+              "w": 626,
+              "h": 228
+            },
+            "clientTop": 0,
+            "clientHeight": 228
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 0,
+              "y": 43,
+              "w": 640,
+              "h": 267
+            },
+            "clientTop": 0,
+            "clientHeight": 267
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      }
+    },
+    {
+      "version": "prePressFix",
+      "touch": false,
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 604,
+        "height": 344
+      },
+      "initialThirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 247.84375,
+          "w": 463,
+          "h": 44
+        },
+        "visible": {
+          "w": 463,
+          "h": 39.15625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      },
+      "thirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 247.84375,
+          "w": 463,
+          "h": 44
+        },
+        "visible": {
+          "w": 463,
+          "h": 39.15625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      }
+    },
+    {
+      "version": "prePressFix",
+      "touch": true,
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 604,
+        "height": 344
+      },
+      "initialThirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 247.84375,
+          "w": 463,
+          "h": 44
+        },
+        "visible": {
+          "w": 463,
+          "h": 39.15625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      },
+      "thirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 247.84375,
+          "w": 463,
+          "h": 44
+        },
+        "visible": {
+          "w": 463,
+          "h": 39.15625
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      }
+    },
+    {
+      "version": "current",
+      "touch": false,
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 604,
+        "height": 344
+      },
+      "initialThirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 262.90625,
+          "w": 453,
+          "h": 44
+        },
+        "visible": {
+          "w": 453,
+          "h": 24.09375
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "auto",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      },
+      "thirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 222.90625,
+          "w": 453,
+          "h": 44
+        },
+        "visible": {
+          "w": 453,
+          "h": 44
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "auto",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      }
+    },
+    {
+      "version": "current",
+      "touch": true,
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 604,
+        "height": 344
+      },
+      "initialThirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 262.90625,
+          "w": 463,
+          "h": 44
+        },
+        "visible": {
+          "w": 463,
+          "h": 24.09375
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "auto",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      },
+      "thirdAnswer": {
+        "text": "3. Capisco il problema, ma la politica dei prezzi non dipende dal mister.",
+        "rect": {
+          "x": 150,
+          "y": 222.90625,
+          "w": 463,
+          "h": 44
+        },
+        "visible": {
+          "w": 463,
+          "h": 44
+        },
+        "centerHit": true,
+        "chain": [
+          {
+            "tag": "DIV",
+            "classes": "panel runtime-answers",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "auto",
+            "rect": {
+              "x": 142,
+              "y": 78,
+              "w": 479,
+              "h": 212
+            },
+            "clientTop": 3,
+            "clientHeight": 206
+          },
+          {
+            "tag": "DIV",
+            "classes": "runtime-press-wrap",
+            "id": "",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 31,
+              "y": 78,
+              "w": 590,
+              "h": 212
+            },
+            "clientTop": 0,
+            "clientHeight": 212
+          },
+          {
+            "tag": "MAIN",
+            "classes": "ui-screen",
+            "id": "ui-screen",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "rect": {
+              "x": 24,
+              "y": 43,
+              "w": 604,
+              "h": 251
+            },
+            "clientTop": 0,
+            "clientHeight": 251
+          },
+          {
+            "tag": "DIV",
+            "classes": "stage",
+            "id": "oronzo-r03",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 24,
+              "y": 0,
+              "w": 604,
+              "h": 344
+            },
+            "clientTop": 0,
+            "clientHeight": 344
+          },
+          {
+            "tag": "DIV",
+            "classes": "site",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "BODY",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          },
+          {
+            "tag": "HTML",
+            "classes": "",
+            "id": "",
+            "overflowX": "hidden",
+            "overflowY": "hidden",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "w": 640,
+              "h": 360
+            },
+            "clientTop": 0,
+            "clientHeight": 360
+          }
+        ]
+      }
+    }
+  ]
+}

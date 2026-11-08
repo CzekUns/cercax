@@ -1,0 +1,16 @@
+PASS 640 360 false false
+PASS 640 360 false true
+PASS 640 360 true false
+PASS 640 360 true true
+PASS 800 360 false false
+PASS 800 360 false true
+PASS 800 360 true false
+PASS 800 360 true true
+PASS 844 390 false false
+PASS 844 390 false true
+PASS 844 390 true false
+PASS 844 390 true true
+PASS 960 400 false false
+PASS 960 400 false true
+PASS 960 400 true false
+PASS 960 400 true true

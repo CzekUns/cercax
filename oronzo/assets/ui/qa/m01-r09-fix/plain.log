@@ -1,0 +1,16 @@
+RUN plain 640 360 false
+PASS plain-640x360-mouse
+RUN plain 640 360 true
+PASS plain-640x360-touch
+RUN plain 800 360 false
+PASS plain-800x360-mouse
+RUN plain 800 360 true
+PASS plain-800x360-touch
+RUN plain 844 390 false
+PASS plain-844x390-mouse
+RUN plain 844 390 true
+PASS plain-844x390-touch
+RUN plain 960 400 false
+PASS plain-960x400-mouse
+RUN plain 960 400 true
+PASS plain-960x400-touch

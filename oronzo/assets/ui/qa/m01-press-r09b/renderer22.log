@@ -1,0 +1,30 @@
+✔ asset adapter reads manifest frame positions for 8 directions (not guessed crop) (2.9442ms)
+✔ broken manifests are isolated failures, never a fatal renderer exception (0.20304ms)
+✔ ORZ-P1-009: Agent 6 numeric facing values are radians, including +/-1 (1.178821ms)
+✔ ORZ-P1-001: Agent 1 compass directions match every vector quadrant (0.271261ms)
+✔ ORZ-P1-002: kickoff at halftime snaps both goalkeepers and ball (2.484951ms)
+✔ ORZ-P1-002: goal restart kickoff also snaps ball (same half) (2.278667ms)
+✔ ORZ-P1-002: phase changes without kickoff still cause a hard cut (0.400461ms)
+✔ ORZ-P1-002: regular movement is still interpolated (0.467531ms)
+✔ ORZ-P2-001: percent energy 0..100 converts to normalized 0..1 (0.52137ms)
+✔ ORZ-P1-004: bridge reads persistent cursor once, recovers missed command substitution (1.02861ms)
+✔ ORZ-P1-004: duplicate tick events never leak back into authoritative event feed (0.461201ms)
+✔ ORZ-P1-004: direct render updates goalkeeper set from substitution events (10.339385ms)
+✔ fixture produces 22 stable IDs, exactly two teams, 11 each, ball in bounds (4.068371ms)
+✔ normalization clamps out-of-pitch actors without changing input (0.613336ms)
+✔ direction indexes match Agent 1 manifest compass order (0.65717ms)
+✔ interpolation uses IDs instead of array order; preserves events and score (0.437496ms)
+✔ wall-clock blend clamp, pause, resume and 8x do not invent match ticks (0.677951ms)
+✔ event mapping, duplicate suppression and cooldown (0.21047ms)
+✔ resize and missing assets do not crash; destroy cancels frame loop (14.914575ms)
+✔ field projection remains in 640x360 with controlled bounds (0.148159ms)
+✔ same fixture snapshot and time are reproducible with no random motion (0.370558ms)
+✔ a goal overlay does not rewrite score, clock, possession or source data (0.427461ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 125.627407

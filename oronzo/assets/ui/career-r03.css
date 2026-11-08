@@ -74,3 +74,20 @@
 /* Slight oversize removes subpixel clipping of bottom scroll rows at 1× DPR. */
 .runtime-player-link{min-height:45px;flex-basis:45px}
 .runtime-roster .runtime-player{min-height:45px}
+
+/* Agent11 M01: expand only the career shell; the match canvas stays 16:9.
+   .site already follows 100dvh, so browser chrome/orientation resize naturally.
+   Padding reserves display cutouts without scaling fonts or touch targets. */
+@media(orientation:landscape){
+ .site{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+ #oronzo-r03{width:100%;height:100%}
+ /* R09-M01-1: reclaim decorative top padding before clipping the 44px finish CTA. */
+ #oronzo-r03 .runtime-match-panel{padding-top:1px}
+}
+
+/* R09B-M01-2: long press questions must not clip any 44px answer.
+   Keep the existing type sizes; scroll the complete conference panel instead. */
+#oronzo-r03 .runtime-answers{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin;scrollbar-gutter:stable;scrollbar-color:var(--gold) var(--navy)}
+#oronzo-r03 .runtime-answers>*{flex-shrink:0}
+#oronzo-r03 .runtime-answers>.ui-btn{flex:1 0 auto;max-height:none;overflow-wrap:anywhere}
+#oronzo-r03 .runtime-answers::before{content:'↕ Scorri per leggere tutte le risposte';display:block;flex:0 0 auto;color:var(--gold);font-size:9px;line-height:1.23}

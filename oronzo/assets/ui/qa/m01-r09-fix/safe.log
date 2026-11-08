@@ -1,0 +1,16 @@
+RUN safe 640 360 false
+PASS safe-640x360-mouse
+RUN safe 640 360 true
+PASS safe-640x360-touch
+RUN safe 800 360 false
+PASS safe-800x360-mouse
+RUN safe 800 360 true
+PASS safe-800x360-touch
+RUN safe 844 390 false
+PASS safe-844x390-mouse
+RUN safe 844 390 true
+PASS safe-844x390-touch
+RUN safe 960 400 false
+PASS safe-960x400-mouse
+RUN safe 960 400 true
+PASS safe-960x400-touch

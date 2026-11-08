@@ -1,0 +1,972 @@
+{
+  "head": "6e72486607405d06d9a5ba8cac8d00a002ea5da8",
+  "source": "R09 pre-fix measurements",
+  "cases": [
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "touch": false,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 604,
+        "height": 344
+      },
+      "canvas": {
+        "x": 66.578125,
+        "y": 118,
+        "width": 300.4375,
+        "height": 168.984375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 415.609375,
+            "y": 151,
+            "width": 97.6875,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.6875,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 516.296875,
+            "y": 151,
+            "width": 97.703125,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.703125,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 415.609375,
+            "y": 198,
+            "width": 97.6875,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.6875,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 516.296875,
+            "y": 198,
+            "width": 97.703125,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.703125,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 415.609375,
+            "y": 245,
+            "width": 198.390625,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 198.390625,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 508,
+            "y": 298,
+            "width": 116,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 116,
+          "hit": true
+        }
+      ],
+      "failures": [
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 415.609375,
+            "y": 245,
+            "width": 198.390625,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 198.390625,
+          "hit": true
+        }
+      ],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 640,
+          "height": 390
+        },
+        {
+          "width": 640,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "touch": true,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 604,
+        "height": 344
+      },
+      "canvas": {
+        "x": 66.578125,
+        "y": 118,
+        "width": 300.4375,
+        "height": 168.984375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 415.609375,
+            "y": 151,
+            "width": 97.6875,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.6875,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 516.296875,
+            "y": 151,
+            "width": 97.703125,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.703125,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 415.609375,
+            "y": 198,
+            "width": 97.6875,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.6875,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 516.296875,
+            "y": 198,
+            "width": 97.703125,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 97.703125,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 415.609375,
+            "y": 245,
+            "width": 198.390625,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 198.390625,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 508,
+            "y": 298,
+            "width": 116,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 116,
+          "hit": true
+        }
+      ],
+      "failures": [
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 415.609375,
+            "y": 245,
+            "width": 198.390625,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 198.390625,
+          "hit": true
+        }
+      ],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 640,
+          "height": 390
+        },
+        {
+          "width": 640,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "viewport": [
+        800,
+        360
+      ],
+      "touch": false,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 764,
+        "height": 344
+      },
+      "canvas": {
+        "x": 125.28125,
+        "y": 118,
+        "width": 300.4375,
+        "height": 168.984375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 533,
+            "y": 151,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 655,
+            "y": 151,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 533,
+            "y": 198,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 655,
+            "y": 198,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 533,
+            "y": 245,
+            "width": 241,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 241,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 636,
+            "y": 298,
+            "width": 148,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 148,
+          "hit": true
+        }
+      ],
+      "failures": [
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 533,
+            "y": 245,
+            "width": 241,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 241,
+          "hit": true
+        }
+      ],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 800,
+          "height": 390
+        },
+        {
+          "width": 800,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "viewport": [
+        800,
+        360
+      ],
+      "touch": true,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 764,
+        "height": 344
+      },
+      "canvas": {
+        "x": 125.28125,
+        "y": 118,
+        "width": 300.4375,
+        "height": 168.984375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 533,
+            "y": 151,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 655,
+            "y": 151,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 533,
+            "y": 198,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 655,
+            "y": 198,
+            "width": 119,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 119,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 533,
+            "y": 245,
+            "width": 241,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 241,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 636,
+            "y": 298,
+            "width": 148,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 148,
+          "hit": true
+        }
+      ],
+      "failures": [
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 533,
+            "y": 245,
+            "width": 241,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 241,
+          "hit": true
+        }
+      ],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 800,
+          "height": 390
+        },
+        {
+          "width": 800,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "touch": false,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 808,
+        "height": 374
+      },
+      "canvas": {
+        "x": 135.921875,
+        "y": 127.890625,
+        "width": 332.625,
+        "height": 187.09375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 585.484375,
+            "y": 160.890625,
+            "width": 114.25,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.25,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 702.734375,
+            "y": 160.890625,
+            "width": 114.265625,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.265625,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 585.484375,
+            "y": 207.890625,
+            "width": 114.25,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.25,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 702.734375,
+            "y": 207.890625,
+            "width": 114.265625,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.265625,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 585.484375,
+            "y": 268,
+            "width": 231.515625,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 231.515625,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 671.203125,
+            "y": 328,
+            "width": 156.796875,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 156.796875,
+          "hit": true
+        }
+      ],
+      "failures": [],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 844,
+          "height": 420
+        },
+        {
+          "width": 844,
+          "height": 390
+        }
+      ]
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "touch": true,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 808,
+        "height": 374
+      },
+      "canvas": {
+        "x": 135.921875,
+        "y": 127.890625,
+        "width": 332.625,
+        "height": 187.09375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 585.484375,
+            "y": 160.890625,
+            "width": 114.25,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.25,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 702.734375,
+            "y": 160.890625,
+            "width": 114.265625,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.265625,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 585.484375,
+            "y": 207.890625,
+            "width": 114.25,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.25,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 702.734375,
+            "y": 207.890625,
+            "width": 114.265625,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 114.265625,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 585.484375,
+            "y": 268,
+            "width": 231.515625,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 231.515625,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 671.203125,
+            "y": 328,
+            "width": 156.796875,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 156.796875,
+          "hit": true
+        }
+      ],
+      "failures": [],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 844,
+          "height": 420
+        },
+        {
+          "width": 844,
+          "height": 390
+        }
+      ]
+    },
+    {
+      "viewport": [
+        960,
+        400
+      ],
+      "touch": false,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 924,
+        "height": 384
+      },
+      "canvas": {
+        "x": 167.0625,
+        "y": 127.890625,
+        "width": 350.40625,
+        "height": 197.09375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 668.53125,
+            "y": 180.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 801.265625,
+            "y": 180.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 668.53125,
+            "y": 228.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 801.265625,
+            "y": 228.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 668.53125,
+            "y": 282.890625,
+            "width": 261.46875,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 261.46875,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 764,
+            "y": 338,
+            "width": 180,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 180,
+          "hit": true
+        }
+      ],
+      "failures": [
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 668.53125,
+            "y": 282.890625,
+            "width": 261.46875,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 261.46875,
+          "hit": true
+        }
+      ],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 960,
+          "height": 430
+        },
+        {
+          "width": 960,
+          "height": 400
+        }
+      ]
+    },
+    {
+      "viewport": [
+        960,
+        400
+      ],
+      "touch": true,
+      "insets": {
+        "left": 24,
+        "right": 12,
+        "bottom": 16,
+        "top": 0
+      },
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 924,
+        "height": 384
+      },
+      "canvas": {
+        "x": 167.0625,
+        "y": 127.890625,
+        "width": 350.40625,
+        "height": 197.09375
+      },
+      "targets": [
+        {
+          "action": "pause",
+          "rect": {
+            "x": 668.53125,
+            "y": 180.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "speed",
+          "rect": {
+            "x": 801.265625,
+            "y": 180.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "camera-full",
+          "rect": {
+            "x": 668.53125,
+            "y": 228.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "camera-tv",
+          "rect": {
+            "x": 801.265625,
+            "y": 228.890625,
+            "width": 128.734375,
+            "height": 44
+          },
+          "visibleH": 44,
+          "visibleW": 128.734375,
+          "hit": true
+        },
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 668.53125,
+            "y": 282.890625,
+            "width": 261.46875,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 261.46875,
+          "hit": true
+        },
+        {
+          "action": "legacy-link",
+          "rect": {
+            "x": 764,
+            "y": 338,
+            "width": 180,
+            "height": 45
+          },
+          "visibleH": 45,
+          "visibleW": 180,
+          "hit": true
+        }
+      ],
+      "failures": [
+        {
+          "action": "finish-qa",
+          "rect": {
+            "x": 668.53125,
+            "y": 282.890625,
+            "width": 261.46875,
+            "height": 44
+          },
+          "visibleH": 42,
+          "visibleW": 261.46875,
+          "hit": true
+        }
+      ],
+      "finalStage": "postmatch_press",
+      "resized": [
+        {
+          "width": 960,
+          "height": 430
+        },
+        {
+          "width": 960,
+          "height": 400
+        }
+      ]
+    }
+  ]
+}

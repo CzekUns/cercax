@@ -1,0 +1,16 @@
+RUN after 640 360 false
+PASS 640 360 false
+RUN after 640 360 true
+PASS 640 360 true
+RUN after 800 360 false
+PASS 800 360 false
+RUN after 800 360 true
+PASS 800 360 true
+RUN after 844 390 false
+PASS 844 390 false
+RUN after 844 390 true
+PASS 844 390 true
+RUN after 960 400 false
+PASS 960 400 false
+RUN after 960 400 true
+PASS 960 400 true
