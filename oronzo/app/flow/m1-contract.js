@@ -20,10 +20,11 @@ export function attachSourcedPlayers(state,{squadsByClub,dataset,normalizePlayer
   if (!dataset?.sourceId || !dataset?.version || !dataset?.license ||
       !Array.isArray(dataset.surnames) || dataset.surnames.length < 500)
     return {accepted:false,reason:'verified_surname_catalog_required'};
-  const unique = new Map();
+  const unique = new Map(), names=new Set();
   for (const row of dataset.surnames) {
-    if (!row?.id || !row?.name || unique.has(row.id)) return {accepted:false,reason:'invalid_surname_catalog'};
-    unique.set(row.id,row.name);
+    const nameKey=String(row?.name??'').normalize('NFC').trim().toLocaleLowerCase('it-IT');
+    if (!row?.id || !nameKey || unique.has(row.id) || names.has(nameKey)) return {accepted:false,reason:'invalid_surname_catalog'};
+    unique.set(row.id,row.name);names.add(nameKey);
   }
   if (!squadsByClub || typeof squadsByClub !== 'object')
     return {accepted:false,reason:'club_squads_required'};
@@ -115,12 +116,13 @@ export function issueM1Command(state,engine,{requestId,type,payload={},tone,targ
     return {accepted:false,reason:'match_not_prepared'};
   if (!engine || typeof engine.command!=='function' || typeof engine.getEventsSince!=='function')
     return {accepted:false,reason:'engine06_command_port_required'};
-  if (typeof requestId!=='string' || !requestId.trim())
+  if (typeof requestId!=='string' || !requestId.trim() || requestId.length>128)
     return {accepted:false,reason:'request_id_required'};
   const ledger=ensureM1Ledger(state);
-  if (ledger.matchCommands[requestId]) return {accepted:false,reason:'already_sent',
-    recorded:copy(ledger.matchCommands[requestId])};
   const fixture=state.flow.pendingMatch;
+  const commandKey=fixture.fixtureId+':'+requestId;
+  if (ledger.matchCommands[commandKey]) return {accepted:false,reason:'already_sent',
+    recorded:copy(ledger.matchCommands[commandKey])};
   const teamId=state.coach?.clubId;
   if (teamId!==fixture.homeId && teamId!==fixture.awayId)
     return {accepted:false,reason:'not_coach_team'};
@@ -145,7 +147,7 @@ export function issueM1Command(state,engine,{requestId,type,payload={},tone,targ
   const outcome=engine.command(command);
   if (!outcome?.accepted)return {accepted:false,reason:outcome?.reason??'engine06_rejected'};
   const newEvents=engine.getEventsSince(previous);
-  ledger.matchCommands[requestId]={fixtureId:fixture.fixtureId,teamId,
+  ledger.matchCommands[commandKey]={fixtureId:fixture.fixtureId,teamId,
     type,eventIds:newEvents.map(e=>e.id),command:copy(command)};
   return {accepted:true,requestId,command:copy(command),engineResult:copy(outcome),
     events:copy(newEvents)};
@@ -192,7 +194,7 @@ export function journalM1Shouts(state,{fixtureId,events,persistShout}={}) {
     if(e.detail?.temporaryOwner!=='match-engine-06'||!suggestion)
       throw new Error('UNTRUSTED_SHOUT_EVENT');
     // No player-trust mutation in Agent07. Port from 09 must return the updated objects.
-    const record={key,eventId:e.id,fixtureId,playerId:e.playerId,
+    const record={key,eventId:e.id,fixtureId,playerId:e.playerId,event:copy(e),
       suggestion:copy(suggestion),status:'pending_agent09_player_trust'};
     if(typeof persistShout==='function'){
       const result=persistShout({key,coach:copy(state.coach),
@@ -209,6 +211,26 @@ export function journalM1Shouts(state,{fixtureId,events,persistShout}={}) {
     recorded++;
   }
   return {recorded,applied,pending:recorded-applied};
+}
+/** Replay only unconsumed shout suggestions after 09 supplies an authorized handler.
+ * Never apply 06's transient performance multiplier a second time.
+ */
+export function reconcileM1Shouts(state,{persistShout}={}) {
+  if(typeof persistShout!=='function')return{accepted:false,reason:'coach09_player_trust_port_required'};
+  const ledger=ensureM1Ledger(state),pending=Object.values(ledger.persistentEvents)
+    .filter(x=>x.status==='pending_agent09_player_trust');
+  let applied=0;
+  for(const entry of pending){
+    const club=state.clubs.find(c=>c.id===entry.event.teamId);
+    if(!club)throw new Error('SHOUT_TEAM_MISSING');
+    const result=persistShout({key:entry.key,coach:copy(state.coach),club:copy(club),event:copy(entry.event)});
+    if(!result?.accepted || !result.coach || result.club?.id!==club.id)
+      throw new Error('COACH09_INVALID_SHOUT_RESULT');
+    state.coach=result.coach;
+    state.clubs[state.clubs.findIndex(c=>c.id===club.id)]=result.club;
+    entry.status='applied';applied++;
+  }
+  return{accepted:true,applied,remaining:pending.length-applied};
 }
 export function settleM1Season(state,{advanceSeason,seasonYear,alreadyAged=false}={}) {
   const ledger=ensureM1Ledger(state);

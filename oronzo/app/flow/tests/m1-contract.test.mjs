@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {attachSourcedPlayers,chooseM1Training,settleM1Training,issueM1Command,
   minutesByEngineEvents,settleM1MatchLoad,journalM1Shouts,settleM1Season,
-  ensureM1Ledger} from '../m1-contract.js';
+  ensureM1Ledger,reconcileM1Shouts} from '../m1-contract.js';
 const copy=x=>JSON.parse(JSON.stringify(x));
 const build=()=>({seed:87,seasonYear:1979,absoluteWeek:1,
   coach:{id:'coach',clubId:'PROM-01',morale:50,gameOver:null,origin:{regionId:'campania',macroRegion:'south'},
@@ -95,6 +95,12 @@ test('shout permanent suggestion is pending until 09 port confirms; no temporary
  assert.equal(s.clubs[0].players[2].relationships.coachTrust,50);
  assert.equal(journalM1Shouts(s,{fixtureId:'f1',events:[e]}).recorded,0);
  assert.equal(Object.keys(s.flow.m1.persistentEvents).length,1);
+ const result=reconcileM1Shouts(s,{persistShout:({coach,club,event})=>({accepted:true,
+   coach:{...coach,moraleEvents:[{eventId:'f1:4'}]},
+   club:{...club,players:club.players.map(p=>p.id===event.playerId?
+     {...p,relationships:{coachTrust:52}}:p)}})});
+ assert.equal(result.applied,1);assert.equal(s.clubs[0].players[2].relationships.coachTrust,52);
+ assert.equal(reconcileM1Shouts(s,{persistShout:()=>{throw Error('repeat')}}).applied,0);
 });
 test('two-season development uses actual port once per year, IDs and salaries fixed through reload',()=>{
  const s=build();let count=0;
