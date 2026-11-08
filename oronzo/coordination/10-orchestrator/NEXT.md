@@ -93,3 +93,11 @@ Il coordinatore ha impostato `coerentizzatore/REQUEST.md` a **READY R09-M01** pe
 **Owner 11**: NEXT11 ora `FIX_REQUESTED`, correzione puntuale solo `career-r03.css` sulla **stessa PR #48** e QA safe area su quattro viewport, senza merge. Commento dettagliato pubblicato sulla PR.
 
 **Audit dopo fix**: `coerentizzatore/REQUEST.md` predisposto a `WAIT_FOR_11_FIX` per **R09B-M01**, da eseguire **in chat Work realmente distinta da quella che ha realizzato M01**, perché l'autore del rapporto R09 ha dichiarato di aver precedentemente sviluppato M01. Review indipendente sul nuovo HEAD e nuove prove; merge solo dopo PASS e nuova autorizzazione dell'utente. Android fisico ancora non verificato. Nessun avvio M02/M03/M04.
+
+## R09B-M01 NO MERGE / R09B-M01-2 CONFERENZA AGENTE11 (8 novembre 2026)
+
+[Report revisore R09B-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09b-m01-20261108/oronzo/coordination/coerentizzatore/REPORT-R09B-M01.md) su PR #48 HEAD `58c7c65506f74f012b17b099583e96ee380f8db5`: **NON CERTIFICATO, NO MERGE**. Analisi dei blob/patch valida, ma solo fixture CSS in Chromium: niente checkout, HTTP del gioco o Node 97+22 indipendenti. 44px TERMINA GARA sul gioco non certificato; l'11 dichiara 16/16 pass.
+
+Il nuovo **R09B-M01-2** del NEXT11 (`FIX_REQUESTED`) chiede verifica nella UI reale della terza risposta della terza conferenza iniziale: autore ha misurato 39,15625px/44 a 640×360 con left24/right12/bottom16. **Se riprodotto**, fix CSS esclusivamente sulla **stessa PR #48**, mantenendo TERMINA GARA ≥44px, piena larghezza, safe area e ogni regressione. Non è provato che il difetto sia preesistente sul main; è preesistente solo rispetto all'ultimo fix R09 sul branch.
+
+La REQUEST del Coerentizzatore 00 è `WAIT_FOR_11_R09B_M01_2` per audit R09C **su vero checkout e vero Chromium HTTP** in chat Work distinta da implementatore11. Non ripetere una fixture dichiarandola evidenza del runtime. Nessun merge e nessun avvio M02, camera, comandi mister o Layout Studio.
