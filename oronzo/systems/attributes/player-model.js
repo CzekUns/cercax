@@ -39,6 +39,7 @@ export function normalizePlayer(input, options = {}) {
     origin: normalizeOrigin(input.origin ?? null),
     surname: typeof input.surname === 'string' && input.surname.trim() ? input.surname.trim() : null,
     surnameSourceId: typeof input.surnameSourceId === 'string' ? input.surnameSourceId : null,
+    surnameId: typeof input.surnameId === 'string' && input.surnameId.trim() ? input.surnameId.trim() : null,
     coachInteractionIds: Array.isArray(input.coachInteractionIds) ? [...new Set(input.coachInteractionIds.map(String))] : [],
     temporaryEffects: Array.isArray(input.temporaryEffects) ? input.temporaryEffects.filter(e=>e && typeof e==='object').map(e=>({...e})) : [],
     relationships: { ...(input.relationships && typeof input.relationships === 'object' && !Array.isArray(input.relationships) ? input.relationships : {}) },
@@ -51,7 +52,9 @@ export function normalizePlayer(input, options = {}) {
   }
   out.development = { potential: 65, ...(input.development || {}) };
   out.development.potential = clamp(out.development.potential);
-  out.relationships.coachTrust = Math.round(clamp(out.relationships.coachTrust ?? 50) * 100) / 100;
+  out.relationships.coachTrust = Math.round(clamp(input.relationships?.coachTrust ?? input.relationshipWithCoach ?? 50) * 100) / 100;
+  // Compatibility mirror for engine #35: canonical saved field remains relationships.coachTrust.
+  out.relationshipWithCoach = out.relationships.coachTrust;
   return out;
 }
 export const createPlayer = normalizePlayer;
@@ -65,6 +68,7 @@ export function validatePlayer(player) {
   if (!Array.isArray(player.positions) || !player.positions.length || player.positions.some(p => !POSITIONS.includes(p))) errors.push('positions');
   try { if (player.origin != null) normalizeOrigin(player.origin); } catch { errors.push('origin'); }
   if (player.surname != null && (typeof player.surname !== 'string' || !player.surname.trim())) errors.push('surname');
+  if (player.surnameId != null && (typeof player.surnameId !== 'string' || !player.surnameId.trim())) errors.push('surnameId');
   if (!Number.isFinite(player.relationships?.coachTrust) || player.relationships.coachTrust < 0 || player.relationships.coachTrust > 100) errors.push('relationships.coachTrust');
   for (const [group, keys] of Object.entries(ATTRIBUTE_KEYS)) for (const key of keys)
     if (!Number.isFinite(player[group]?.[key]) || player[group][key] < 0 || player[group][key] > (key === 'injuryDays' ? 365 : key === 'suspensionMatches' ? 30 : 100)) errors.push(`${group}.${key}`);

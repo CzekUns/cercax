@@ -34,7 +34,7 @@ export function effectiveAbility(player, context = {}) {
     relationship: relationship * (context.teamAction ? .035 : 0),
     injury: injuryPenalty,
     riskyExecution: context.riskyAction ? (n('mental','coraggio')-50)*.025 - (n('mental','spericolatezza')-50)*.065 - (n('mental','impulsivita')-50)*.032 : 0,
-    temporary: Number.isFinite(context.t) ? clamp((player.temporaryEffects || []).filter(e => e.expiresAt > context.t && e.kind === 'coach-shout').reduce((sum,e)=>sum+(Number(e.bonus)||0),0), -8,8) : 0,
+    temporary: 0, // Engine 06 alone owns 150s personalShout. Ignore stale 08 180s saves.
   };
   const adherence = clamp(45 + discipline * .3 + teamwork * .15 + character * .1 - tactical * .18 - pressure * 12 - (n('mental','impulsivita')-50)*.075 - (n('mental','pazzia')-50)*.045, 5, 98) / 100;
   modifiers.instructions = context.requiresInstruction ? -(1 - adherence) * 12 : 0;

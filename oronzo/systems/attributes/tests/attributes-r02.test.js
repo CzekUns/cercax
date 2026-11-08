@@ -122,23 +122,25 @@ test('harsh correction has a meaningful downside for susceptible impulsive chara
  steady.mental.suscettibilita=5;steady.mental.impulsivita=5;steady.mental.discipline=95;
  assert.ok(previewShout(p,{tone:'hard'}).moraleDelta<previewShout(steady,{tone:'hard'}).moraleDelta);
 });
-test('shout is idempotent by eventId and persists trust/morale and temporary effects through JSON',()=>{
+test('standalone-demo shout is idempotent and never creates a second match temporary bonus',()=>{
  const p=player();
- const options={eventId:'match-x-14',tone:'gentle',t:1200,coachOrigin:{comune:'Napoli',regione:'Campania'}};
+ const options={eventId:'match-x-14',scope:'standalone-demo',tone:'gentle',t:1200,coachOrigin:{comune:'Napoli',regione:'Campania'}};
  const first=applyShout(p,options);assert.equal(first.applied,true);
  const revived=JSON.parse(JSON.stringify(first.player));
  const duplicate=applyShout(revived,options);
  assert.equal(duplicate.applied,false);assert.deepEqual(duplicate.player,revived);
  assert.notEqual(first.player.relationships.coachTrust,p.relationships.coachTrust);
- assert.equal(first.player.temporaryEffects.length,1);
- assert.equal(first.player.temporaryEffects[0].expiresAt,1380);
+ assert.equal(first.player.temporaryEffects.length,0);
+ assert.equal(first.effects.temporaryPerformanceBonus,0);
  assert.throws(()=>applyShout(p,{...options,eventId:''}),/eventId/);
 });
-test('temporary boost modifies ability only during its declared 180s validity window',()=>{
- const p=player(),next=applyShout(p,{eventId:'m1',t:300,tone:'gentle'});
+test('engine-owned 150s temporary bonus is never double-counted by Attributes',()=>{
+ const p=player(),next=applyShout(p,{eventId:'m1',scope:'standalone-demo',t:300,tone:'gentle'});
+ next.player.temporaryEffects=[{id:'m1',kind:'coach-shout',bonus:4,expiresAt:480}];
  const early=effectiveAbility(next.player,{skill:'shooting',t:330}).effective;
  const late=effectiveAbility(next.player,{skill:'shooting',t:481}).effective;
- assert.ok(early>late);assert.ok(next.effects.temporaryPerformanceBonus>0);
+ assert.equal(early,late);assert.equal(next.effects.temporaryPerformanceBonus,0);
+ assert.throws(()=>applyShout(p,{eventId:'engine-event-1',t:300,tone:'gentle'}),/scope required/);
 });
 test('a real source is required and a later load never silently overwrites player origin',()=>{
  const p=player(),legacy=normalizePlayer(p);

@@ -35,10 +35,11 @@ export function previewShout(player,{tone='gentle',coachOrigin=null,coachLeaders
  return {tone:t,affinity,coachTrustDelta:round(clamp(gain*.58,-5,5)),
   moraleDelta:gain,confidenceDelta:round(gain*.48),
   // This applies ONLY if engine passes a timestamp to effectiveAbility.
-  temporaryPerformanceBonus:round(clamp(gain*.42,-3.5,3.5)),
-  durationSeconds:180};
+  temporaryPerformanceBonus:0,
+  durationSeconds:0};
 }
 export function applyShout(player,options={}){
+ if(options.scope!=='standalone-demo')throw new Error('Match coach_shout is owned by Agent 06/09: use engine event/ledger; standalone-demo scope required');
  const id=String(options.eventId??'').trim();
  if(!id)throw new Error('eventId required for idempotent coaching');
  const p=normalizePlayer(player), ids=Array.isArray(p.coachInteractionIds)?p.coachInteractionIds:[];
@@ -50,9 +51,8 @@ export function applyShout(player,options={}){
  p.mental.confidence=round(clamp(p.mental.confidence+effects.confidenceDelta));
  p.relationships.coachTrust=round(clamp((p.relationships.coachTrust??50)+effects.coachTrustDelta));
  p.coachInteractionIds=[...ids,id];
- const previous=Array.isArray(p.temporaryEffects)?p.temporaryEffects:[];
- p.temporaryEffects=[...previous.filter(e=>Number.isFinite(e.expiresAt)&&e.expiresAt>t),
-  {id,kind:'coach-shout',bonus:effects.temporaryPerformanceBonus,expiresAt:Math.min(5400,t+effects.durationSeconds)}];
+ // Purely standalone demo effects: never create a second 180s match modifier.
+ p.temporaryEffects=(p.temporaryEffects||[]).filter(e=>e?.kind!=='coach-shout');
  return {player:p,applied:true,effects};
 }
 

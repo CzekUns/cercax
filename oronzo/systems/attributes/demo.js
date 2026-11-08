@@ -71,9 +71,9 @@ $('match').onclick=()=>{
 };
 $('shout').onclick=()=>{
   const [comune,regione]=$('coachOrigin').value.split('|');
-  const result=applyShout(players[selected],{eventId:`demo-${year}-${week}-${++shoutSequence}`,t:1200,tone:$('shoutTone').value,coachLeadership:65,pressure:Number($('pressure').value),coachOrigin:{comune,regione}});
+  const result=applyShout(players[selected],{scope:'standalone-demo',eventId:`demo-${year}-${week}-${++shoutSequence}`,t:1200,tone:$('shoutTone').value,coachLeadership:65,pressure:Number($('pressure').value),coachOrigin:{comune,regione}});
   players[selected]=result.player;
-  $('feedback').textContent=`Richiamo ${result.effects.tone}: affinità ${result.effects.affinity.level}; morale ${result.effects.moraleDelta>=0?'+':''}${result.effects.moraleDelta}, fiducia ${result.effects.coachTrustDelta>=0?'+':''}${result.effects.coachTrustDelta}. Bonus temporaneo ${result.effects.temporaryPerformanceBonus} per 180s simulati: disponibile al motore, non applicato a un match reale in questa demo.`;
+  $('feedback').textContent=`Richiamo ${result.effects.tone}: affinità ${result.effects.affinity.level}; morale ${result.effects.moraleDelta>=0?'+':''}${result.effects.moraleDelta}, fiducia ${result.effects.coachTrustDelta>=0?'+':''}${result.effects.coachTrustDelta}. Nessun bonus temporaneo creato: quello reale (150s) è proprietà esclusiva del motore Agente 06.`;
   draw();
 };
 $('season').onclick=()=>{
