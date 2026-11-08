@@ -214,3 +214,9 @@ Lo 00 ha verificato [REPORT-R07B](https://github.com/CzekUns/cercax/blob/audit/o
 - I NEXT di 07 e 09 su main conservano snapshot `OPEN/WAIT_REVIEW` precedenti ai merge; quello di 03 conserva istruzioni anteriori alla consegna #43. Trattarli come documentazione da riconciliare con i proprietari e i gate, non come autorizzazione a ripetere il ciclo. Nessun nuovo lavoro assegnato automaticamente.
 - PR dati #40 è ancora **open**, non merged. Su branch `data/oronzo-world-research` verificato parsing di `municipalities.json` (250 record) e `surnames.json` (500 record); soglia iniziale utente 100/500 raggiunta nei file di ricerca, non equivale a integrazione nel gioco. Obiettivi di espansione 500/5000. Ranking nazionali verificati 0; anno demografico puntuale comunale ignoto; frequenze cognomi locali Bergamo 2021. Nessun record aggiunto in questo controllo.
 - Non eseguiti test runtime/browser, né QA integrale di tutte le PR; nessun merge o modifica runtime eseguiti da questa revisione. Coerentizzatore non avviato.
+
+## Handoff operativo 03 → 11 (8 novembre 2026)
+
+Nuovo agente **ORONZO-AGENT-11** — Mobile UI Engineer & Private Layout Studio Architect; issue [#47](https://github.com/CzekUns/cercax/issues/47), `oronzo/coordination/11-mobile-ui/{IDENTITY,RUN,NEXT}.md` e specifica `oronzo/agents/11-mobile-ui.md`. Nel registro 03 è storico/HOLD per nuovi lavori UI; 11 è proprietario dei nuovi incarichi UI. **03 mantiene ID e report; PR #33 e #43 sono MERGED**, #43 merge `241068d383a67c0be8513a2ef9b74b37eea58155`.
+
+**Unico M01 autorizzato a 11:** recupero spazio laterale sui telefoni landscape, CSS minimo runtime carriera 1979, misurazioni/screenshot, QA touch, regressioni. Branch previsto `agent/oronzo-11-mobile-m01`, PR nuova senza merge. Obbligo leggere integralmente tutti i documenti e lavoro 03. Non assegnare lavori contemporanei a 03. Camera pallone owner05, comandi coach owner06 per motore, layout editor privato futuro; non svilupparli in M01.
