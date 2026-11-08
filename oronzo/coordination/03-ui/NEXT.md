@@ -1,3 +1,37 @@
+# ORONZO — AGENTE 03 · CORREZIONI R08-1 / R08-2 / R08-3 / R08-4 · SOLO PR #43
+
+**STATO CORRENTE: `FIX_REQUESTED`, 8 novembre 2026.** Il Coerentizzatore 00 ha consegnato [REPORT-R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md) nella [PR #44](https://github.com/CzekUns/cercax/pull/44): gate **NEEDS CHANGES / NO MERGE** per [PR #43](https://github.com/CzekUns/cercax/pull/43), HEAD osservato `8977305d78d1ddf161ac72b38b41973fe4311db4`. **Conservare il vertical slice che funziona**: 97/97 flow+career+coach, 22/22 match-view, 6/6 percorsi browser Chromium via HTTP con save/reload reali. Questi PASS riguardano l'HEAD auditato, non future modifiche.
+
+**Owner unico 03.** Intervenire soltanto nello **stesso branch/PR #43** `agent/oronzo-ui-r03-runtime`, senza aprire altra PR, senza fare merge, senza modificare moduli dei colleghi 07/09/06/05/08. File ammessi: `oronzo/assets/ui/career-r03.js`, `career-r03.css`, HTML/asset/test UI strettamente necessari nello stesso scope + `oronzo/coordination/03-ui/REPORT.md`. Non creare un nuovo sistema di allenamento né inventare valori.
+
+## R08-1 P1 — Rosa completa, scheda reale e navigazione Allenamento
+- `renderHub()` attualmente fa `club.players.slice(0,12)` sui **16** giocatori. Visualizzare TUTTI i giocatori in lista/paginazione scorrevole, senza tagliarli; prova selezione del **16°** e coerenza tra ID, nome e club.
+- Rendere le righe pulsanti/tap accessibili. Scheda giocatore con dati reali tramite `getRosterPlayer(state,id)` e `getTrainingPlayer(state,id)` importati dal flow07, usando valori effettivamente disponibili (attributi, condizioni e fiducia SOLO se esposti), fallback dichiarato `dato non disponibile` anziché sintetico.
+- Aggiungere sezione **Allenamento** navigabile dall'hub e ritorno alla Rosa. Finché non esiste un contratto per modificare allenamenti, la schermata è **consultazione dei dati**, con azioni che richiedono motore disattivate ed etichettate come non disponibili; non creare nel client effetti su forma/attributi/morale. Se il NEXT originario richiede allenamento attivo, segnalare dipendenza e non millantare completamento delle azioni.
+
+## R08-2 P2 — Classifica 16/16
+- Eliminare `rows.slice(0,12)` nel ramo Campionato di `renderHub()`; mostrare **tutte** le posizioni restituite dall'API `getStandings` della carriera, con scroll/tabelle leggibili e squadra allenata sempre trovabile anche in posizione 13–16.
+- Test DOM: numero righe DOM = numero record sorgente; ultima riga e posizione 13–16 raggiungibili con swipe touch senza cambiare ordinamento/risultati.
+
+## R08-3 P2 — Touch realmente 44px, no clipping a 360px
+- Correggere `career-r03.css` e layout `renderAvatar/renderMatch`: CTA INDIETRO/20 OFFERTE e TERMINA GARA (QA) nominalmente 44px ma soltanto **33–34px visibili** a 640×360 e 800×360.
+- Riservare spazio alle CTA, rendere scrollabile **solo** il corpo informativo o comprimere decorazioni; select oggi **34px** e righe rosa **29/34px** devono avere target effettivo **almeno 44px** nelle tre risoluzioni **640×360, 800×360, 844×390**.
+- Aggiornare script QA: **intersezione del rettangolo con tutti gli antenati overflow**, non sola altezza del bounding box né tolleranza attuale 39px. Controllare `elementFromPoint` al centro e `touchscreen.tap` senza scroll automatico Playwright, nessun overlay che ostruisca azioni, screenshot.
+
+## R08-4 P2 — Nuova carriera dopo GAME OVER
+- `renderGameover/render` e `interact/home`: aggiungere pulsante **NUOVA CARRIERA** o equivalente con vera azione reset del runtime 03, distruggendo/disassociando vista MatchView/engine in memoria e lo stato coach terminato, riportando alla selezione partita/allenatore **senza refresh**.
+- **Non** guarire o riutilizzare il coach a morale 0; la nuova carriera deve partire tramite normale `newGame`. Il **salvataggio precedente resta intatto** fino a scelta esplicita dell'utente; non cancellare chiavi o sovrascriverle silenziosamente. Test con evento reale Agent09 `morale=0`, pulsante nuova carriera e caricamento del precedente salvataggio.
+
+## QA e consegna
+1. Test su **runtime R03 reale, via Chromium/HTTP statico** dove possibile, 3 viewport × desktop/touch. Dalle 20 offerte alla prima gara e al save/reload, più 4 regressioni; non sostituire risultati engine con stub, non usare soltanto demo UI.
+2. Ripetere `node --test oronzo/app/flow/tests/*.mjs oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`, `node --test oronzo/systems/match-view/*.test.mjs`, test UI, screenshot e prove hit-test; riportare PASS solo se rieseguiti sul nuovo HEAD. Non nascondere il 404 opzionale `assets/cutscenes/manifest.json` se rimane, né dichiarare Android fisico o hosting pubblico verificati.
+3. Mantenere accessibili 1985 legacy e partita rapida, banner permanente **DEMO TECNICA — LOCALITÀ SINTETICHE** nella modalità QA, errori `geography_required` e save idempotente.
+4. Aggiornare REPORT03 con diff/commit, risultati verificati e limiti; pubblicare **solo sulla PR #43**, senza merge. Poi richiedere al 00 audit **R08B**, esclusivamente i quattro fix e regressioni.
+**Nessun nuovo round generale, nessuna dipendenza da completamento PR grafica/cutscene per questo gate.**
+
+---
+
+## ARCHIVIO — NEXT precedenti superseded da R08
 # ORONZO — AGENTE 03 · NEXT ATTUALE R03 — PRIMA PARTITA GIOCABILE SU TELEFONO
 
 **STATO: `READY` — nuovo incarico AUTORIZZATO dall'Agente 10, 7 novembre 2026.**
