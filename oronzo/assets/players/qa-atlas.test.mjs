@@ -113,3 +113,18 @@ test('all 9 masks map to valid shade levels and material IDs',()=>{
     }
   }
 });
+
+test('R10 crop gate: all 160 opaque silhouettes keep a transparent 1px frame border',()=>{
+  for(const action of ACTIONS){
+    const p=parsePNG(readFileSync(join(here,action+'.png'))).pixels;
+    for(let d=0;d<8;d++)for(let f=0;f<4;f++)
+      for(let y=0;y<32;y++)for(let x=0;x<32;x++){
+        const index=p[(f*32+y)*256+d*32+x];
+        if(index>0&&index<=32){
+          assert.ok(x>=1&&x<=30&&y>=1&&y<=30,
+            action+' direction '+DIRS[d]+' frame '+f+
+            ' silhouette touches atlas cell edge '+x+','+y);
+        }
+      }
+  }
+});

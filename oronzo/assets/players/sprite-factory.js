@@ -17,7 +17,7 @@ function buildOronzoPlayers(){
  function limb(c,a,b,w,m,s=1){seg(c,a,b,w+1.5,6,2);seg(c,a,b,w,m,s);if(w>2.8)seg(c,[a[0]-.4,a[1]-.4],[b[0]-.4,b[1]-.4],1,m,0)}
  function torso(c,x,y,prof,back,gk){let l=x-4.9*prof,r=x+4.9*prof;poly(c,[[l-1,y],[r+1,y],[r+.2,y+9],[l+.2,y+9]],6,2);poly(c,[[l,y+.6],[r,y+.6],[r-.8,y+8],[l+.8,y+8]],2,2);poly(c,[[l+.2,y+1],[l+2.1,y+.6],[l+1.5,y+7.5],[l+.7,y+7]],2,0);poly(c,[[r-2.1,y+1],[r-.3,y+1],[r-1,y+7],[r-2.5,y+8]],2,3);seg(c,[l+1,y+8],[r-1,y+8],1,2,3);seg(c,[x-1.7,y+.8],[x+1.7,y+.8],1,2,0);pix(c,l+1,y+2,2,3);pix(c,r-1,y+2,2,0); /* shirt seams, collar and folds remain in shirt material */ seg(c,[x-1.2,y+1.5],[x+.4,y+3.3],.75,2,0);pix(c,l+2,y+6.5,2,1);pix(c,r-2,y+6.5,2,3);pix(c,x-1,y+7,2,1);if(gk){seg(c,[l+1,y+4],[r-1,y+4],1,2,1);pix(c,r-2,y+7,2,0)}if(back)seg(c,[x-2.2,y+3],[x+2.2,y+3],1,2,1)}
  function head(c,x,y,dx,back){oval(c,x,y,4,4.7,6,2);oval(c,x,y+.1,3.2,3.8,0,2);oval(c,x-1,y-1.2,2.5,2.6,0,0);oval(c,x+2,y+.4,1.25,2.6,0,3);oval(c,x-.2,y-2.25,3.7,2.6,1,2);seg(c,[x-3,y-2.1],[x+2.7,y-2.4],1,1,0);if(back){oval(c,x,y-.6,3.1,3,1,2);seg(c,[x-2,y+1],[x+2,y+1],1,1,3)}else{if(Math.abs(dx)<.5){pix(c,x-1,y+.8,6,2);pix(c,x+1.6,y+.8,6,2);pix(c,x,y+2.4,0,3)}else{pix(c,x+dx*2.2,y+.4,6,2);pix(c,x+dx*3,y+1.3,0,0);pix(c,x+dx,y+2.4,0,3)}}pix(c,x-2,y-3,1,0);/* highlight in hairline */pix(c,x+1,y-3.6,1,0);/* ears and nose silhouette */if(Math.abs(dx)>.5&&!back)pix(c,x+dx*3.2,y+1,0,1)}
- function foot(c,x,y,dx,dy){x=Math.max(2,Math.min(29,x+dx*.9));y=Math.max(2,Math.min(28.1,y));seg(c,[x-1.4,y],[x+1.4+dx,y+dy*.55],2.9,6,2);seg(c,[x-1.2,y-.3],[x+1+dx,y-.5+dy*.55],2,5,1);pix(c,x-1.1,y-.9,5,0);pix(c,x+dx,y-.4,5,0)}
+ function foot(c,x,y,dx,dy){x=Math.max(4,Math.min(26.4,x+dx*.9));y=Math.max(2,Math.min(28.1,y));seg(c,[x-1.4,y],[x+1.4+dx,y+dy*.55],2.9,6,2);seg(c,[x-1.2,y-.3],[x+1+dx,y-.5+dy*.55],2,5,1);pix(c,x-1.1,y-.9,5,0);pix(c,x+dx,y-.4,5,0)}
  function draw(anim,di,fi){
   const c=new Uint8Array(1024),[dx,dy]=dirs[di],back=di<=1||di>=7,prof=1-.32*Math.abs(dx),wave=[0,1,0,-1][fi],run=anim==='run',kick=anim==='kick',tackle=anim==='tackle',gk=anim==='keeper';
   const bob=run?[0,-.7,0,-1.1][fi]:gk?[0,-1,-2,-1][fi]:[0,0,-.25,.25][fi];
@@ -40,7 +40,7 @@ function buildOronzoPlayers(){
   if(tackle&&fi>0){arms[0][2]=[bx-7+lean*.7,sy+3];arms[1][2]=[bx+7+lean*.7,sy+4]}
   if(gk){let gy=[7,-1,-5,0][fi];arms[0][2]=[bx-8+lean*.35,sy+gy];arms[1][2]=[bx+8+lean*.35,sy+gy];for(let k=0;k<2;k++)arms[k][1][1]=sy+gy*.55}
   function arm(k){const [a,b,d]=arms[k];limb(c,a,b,3.6,2,k===0?1:2);limb(c,b,d,2.7,0,k===0?1:2);if(gk){oval(c,d[0],d[1],2.7,2.4,6,2);oval(c,d[0],d[1],2.1,1.8,7,1);pix(c,d[0]-1,d[1]-1,7,0)}else{oval(c,d[0],d[1],1.65,1.75,0,1);pix(c,d[0]-.8,d[1]-1,0,0)}}
-  arm(0);torso(c,tx,sy,prof,back,gk);arm(1);seg(c,[hx,sy+.6],[hx,sy-2],2.7,0,1);head(c,hx,sy-5.7,dx,back);return c;
+  arm(0);torso(c,tx,sy,prof,back,gk);arm(1);seg(c,[hx,sy+.6],[hx,sy-2],2.7,0,1);head(c,hx,sy-5.7+((run&&fi===3)||(gk&&fi===1)?1:0),dx,back);return c;
  }
  function crc(a){let n=-1;for(const b of a){n^=b;for(let i=0;i<8;i++)n=(n>>>1)^((n&1)?0xedb88320:0)}return(n^(-1))>>>0}
  const be=n=>[(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255],join=(...a)=>a.flat();
