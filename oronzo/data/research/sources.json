@@ -168,6 +168,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "25 piccoli comuni selezionati per popolazione crescente nello snapshot regionale; nessun ranking nazionale verificato. Anno demografico puntuale non attestato; dati non rappresentativi del 1979."
+    },
+    {
+      "id": "rp92-campania-2026",
+      "name": "RP92/comuni-italiani — Campania, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/campania.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente nel file regionale Campania; nessun ranking nazionale verificato. Anno demografico puntuale non attestato; non rappresentano il 1979."
     }
   ]
 }
