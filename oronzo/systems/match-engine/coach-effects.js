@@ -1,4 +1,7 @@
 // Pure, idempotency-ready boundary to Agent 09's persistent career ledger.
+// The attributes08.applyShout() function MUST NOT be called for this event;
+// doing so adds another temporary modifier and re-calculates persistent deltas.
+import { toAttributesTone } from './orders.js';
 // Caller MUST persist appliedEventIds in the same transaction as relation deltas.
 export function collectCoachEffects(events, appliedEventIds=[], {matchId}={}) {
   if(!Array.isArray(events)||!Array.isArray(appliedEventIds))
@@ -20,6 +23,8 @@ export function collectCoachEffects(events, appliedEventIds=[], {matchId}={}) {
     effects.push({
       eventId:id,sourceEventId:event.id,t:event.t,teamId:event.teamId,
       playerId:event.playerId,tone:event.detail.tone,
+      attributesTone:event.detail.attributesTone ?? toAttributesTone(event.detail.tone),
+      temporaryOwner:'match-engine-06',persistentOwner:'coach-club-09',
       utteranceId:event.detail.utteranceId??null,
       playerTrustDelta:suggestion.playerTrustDelta,
       coachMoraleDelta:suggestion.coachMoraleDelta,

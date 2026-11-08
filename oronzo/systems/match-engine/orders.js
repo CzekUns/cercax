@@ -37,6 +37,13 @@ export function normalizeMatchOrigin(value) {
     macroRegion:macro(value.macroregione ?? value.macroRegion ?? value.macroregion)
   };
 }
+export function normalizePlayerMatchContext(player) {
+  const rawTrust=player?.relationships?.coachTrust ?? player?.relationshipWithCoach;
+  return {
+    origin:player?.origin ? normalizeMatchOrigin(player.origin) : null,
+    coachTrust:rawTrust==null?null:safeNumber(rawTrust),
+  };
+}
 export function regionalAffinity(coachOrigin,playerOrigin) {
   const coach=normalizeMatchOrigin(coachOrigin), player=normalizeMatchOrigin(playerOrigin);
   if(coach.regionId && player.regionId && coach.regionId===player.regionId)
@@ -77,10 +84,10 @@ export function calculateIndividualShout(player,payload,rng,t) {
   if(!tone)throw new RangeError('invalid individual shout tone');
   // The roster's authoritative origin takes priority over a conflicting payload.
   // An explicit payload origin is only a fallback for historical PlayerV1.
-  const origin=player?.origin ?? payload.playerOrigin ?? null;
+  const origin=player?.matchContext?.origin ?? player?.origin ?? payload.playerOrigin ?? null;
   const affinity=regionalAffinity(payload.coachOrigin,origin);
-  const trust=safeNumber(player?.relationships?.coachTrust ??
-    player?.relationshipWithCoach ?? payload.playerTrust);
+  const trust=safeNumber(player?.matchContext?.coachTrust ??
+    player?.relationships?.coachTrust ?? player?.relationshipWithCoach ?? payload.playerTrust);
   const leadership=safeNumber(payload.coachTraits?.leadership ??
     payload.coachLeadership);
   const character=stat(player,'mental','character');
