@@ -34,3 +34,6 @@ Batch 16 (2026-11-08): aggiunti 25 piccoli comuni della Toscana dallo snapshot r
 
 
 Batch 17 (2026-11-08): aggiunti 25 piccoli comuni della Campania dallo snapshot regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **400 comuni / 500 cognomi**; 400 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 217–531; anno demografico puntuale non attestato, non rappresenta il 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0, attribuzione necessaria. Dataset di ricerca non integrato nel runtime.
+
+
+Batch 18 (2026-11-08): aggiunti 25 piccoli comuni della Puglia dallo snapshot regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **425 comuni / 500 cognomi**; 425 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 143–1568; anno demografico puntuale non attestato, non rappresenta il 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0, attribuzione necessaria. Dataset di ricerca non integrato nel runtime.
