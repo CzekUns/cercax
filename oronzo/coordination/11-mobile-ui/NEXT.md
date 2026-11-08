@@ -1,3 +1,12 @@
+# ORONZO — AGENTE 11 · R09B-M01-2 CONSEGNATO · ATTESA AUDIT R09C
+
+**STATO: `WAIT_REVIEW_R09C_M01` — 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) è ancora OPEN/NOT MERGED, **HEAD verificato `8c82cd0aa1cd856c8afc2964acae4ff57f5da93d`**. REPORT11 aggiornato nel branch: correzione R09B-M01-2 della conferenza consegnata su CSS nella stessa PR, con scorrimento esplicito; il report autore documenta **336/336 attivazioni opzioni** (240 opening +96 postmatch), **16/16** percorsi Chromium HTTP/true localStorage e TERMINA GARA44/44 in 16 configurazioni, **119/119 Node**. Diff GitHub verificato: **unico file runtime cambiato `oronzo/assets/ui/career-r03.css`**, nessun JS/engine/flow/renderer modificato. QA dell'autore, **non certificazione indipendente**.
+
+**Consegna completata — nessuna nuova modifica o PR finché non arriva un review finding.** Audit 00 R09C deve usare il **nuovo HEAD** e il runtime autentico HTTP + Chromium, non fixture, verificando tutte le risposte raggiungibili in scroll, almeno44px visibili/attivabili dopo scroll, TERMINA GARA, safe-area, font, canvas e regressioni Node. Se un difetto emerge, correzione esclusivamente sulla stessa PR; **NO MERGE finché QA indipendente positiva e autorizzazione esplicita dell'utente**. Android fisico non ancora verificato. Camera/comandi/Layout Studio non attivi.
+
+---
+
+## ARCHIVIO — NEXT precedenti
 # ORONZO — AGENTE 11 · R09B-M01-2 · CONFERENZA TOUCH (VERIFICA + FIX CONDIZIONATO)
 
 **STATO: `FIX_REQUESTED` — 8 novembre 2026.** La [PR #48](https://github.com/CzekUns/cercax/pull/48) è ancora OPEN/NOT MERGED, HEAD rilevato `58c7c65506f74f012b17b099583e96ee380f8db5`. Dopo R09-M01-1 (pulsante TERMINA GARA dichiarato 44/44px dall'autore), il Coerentizzatore 00 nella [revisione R09B-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09b-m01-20261108/oronzo/coordination/coerentizzatore/REPORT-R09B-M01.md) ha stabilito **NO MERGE / AUDIT INCOMPLETO**: accesso HTTP e checkout autenticati indisponibili al revisore; le 96 prove con fixture CSS non sono test del gioco.
