@@ -50,6 +50,7 @@ export function applyShout(player,options={}){
  p.mental.morale=round(clamp(p.mental.morale+effects.moraleDelta));
  p.mental.confidence=round(clamp(p.mental.confidence+effects.confidenceDelta));
  p.relationships.coachTrust=round(clamp((p.relationships.coachTrust??50)+effects.coachTrustDelta));
+ p.relationshipWithCoach=p.relationships.coachTrust;
  p.coachInteractionIds=[...ids,id];
  // Purely standalone demo effects: never create a second 180s match modifier.
  p.temporaryEffects=(p.temporaryEffects||[]).filter(e=>e?.kind!=='coach-shout');
