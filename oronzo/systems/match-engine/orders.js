@@ -47,7 +47,7 @@ export function normalizeMatchOrigin(value) {
   // valid Italian region is supplied without macro. Known mapping prevails
   // over contradictory payload macro, but unknown regions stay unknown.
   return {regionId:regionId||null,
-    macroRegion:ITALIAN_MACROS[regionId] ?? suppliedMacro || null};
+    macroRegion:(ITALIAN_MACROS[regionId] ?? suppliedMacro) || null};
 }
 export function normalizePlayerMatchContext(player) {
   const rawTrust=player?.relationships?.coachTrust ?? player?.relationshipWithCoach;
