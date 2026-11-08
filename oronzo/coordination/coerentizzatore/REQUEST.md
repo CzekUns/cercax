@@ -1,3 +1,19 @@
+# ORONZO — COERENTIZZATORE 00 · PROSSIMO GATE R08B PR #43, DOPO FIX03
+
+**Stato: `WAIT_FOR_03` — non eseguire ancora.** La verifica indipendente [R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md) ha dato **NEEDS CHANGES / NO MERGE** sulla PR #43 (HEAD auditato `8977305d78d1ddf161ac72b38b41973fe4311db4`). R08 ha verificato 97/97 test carriera, 22/22 renderer, 6/6 Chromium HTTP vero con percorso dalla prima gara al salvataggio/reload, ma quattro problemi UI: rosa 12/16 senza schede/Allenamento, classifica 12/16, pulsanti realmente visibili 33–34px e controlli 29–34px a 360h, game over senza nuova carriera. **Nessun merge autorizzato o realizzato.**
+
+**Dopo che l'Agente 03 aggiorna LA STESSA PR #43:** confrontare HEAD reale, REPORT03 e NEXT03 aggiornato; ripetere in Chromium HTTP reale **640×360, 800×360, 844×390** desktop+touch le verifiche mirate e controllo regressioni:
+1. Rosa e schede giocatori tramite API reali `getRosterPlayer/getTrainingPlayer`, accessibilità sedicesimo giocatore e sezione Allenamento consultabile (non assegnare PASS ad allenamento attivo se manca suo contratto).
+2. Classifica con tutte le 16 righe del sistema, scroll touch per posizioni 13–16; nessuna squadra mancante.
+3. Target controlli ≥44px **effettivamente visibili** dopo clipping antenati, hit-test al centro e gesture reali senza scroll automatico; niente CTA nascoste a 360px.
+4. Da Coach09 morale 0 → `gameOver`, nuova carriera senza refresh, vecchi salvataggi non cancellati e vecchio coach non riattivato.
+5. End-to-end reale UI (1979 avatar → 20 offerte → stampa 5Q → engine06 → stampa 2Q → classifica/morale → save/reload), dati geografici QA dichiaratamente sintetici, ramo produzione senza catalogo rifiuta firma atomicamente. Almeno le suite Node flow/career/coach e renderer22. Documentare limitazioni (Android fisico/hosting non testati; eventuale 404 opzionale).
+
+**Rapporto R08B** in branch documentale dedicato, con SHA, asset HTTP, screenshot, test PASS/FAIL. Se qualsiasi punto critico fallisce, **NO MERGE** e fix owner 03 puntuali. Se tutto passa, **merge #43 soltanto dietro esplicita autorizzazione dell'utente nella chat 00**, e verifica main dopo merge. Nessuna review altre PR, nessuna modifica al codice del 03.
+
+---
+
+## ARCHIVIO — REQUEST precedenti
 # ORONZO — REQUEST ATTUALE 00 · ESEGUIRE AUDIT R07B PR #33
 
 **Stato: `READY` (7 novembre 2026).** Il 03 ha aggiornato la **stessa PR #33**, nuovo HEAD verificato `1e41c8716798612863aa0fc2327c6ee09deeb82d` (prima `c38be80c392939d042dd998e6d1bf655c259804d`). Il suo REPORT sul branch dichiara due fix R07-1/R07-2 con 6/6 test Chromium e screenshot, ma non ha potuto verificare HTTP reale; il precedente [REPORT-R07](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r07/oronzo/coordination/coerentizzatore/REPORT-R07.md) riproduceva due difetti in Chromium 149 via HTTP statico. **Incarico: verificare autonomamente R07B ora.**
