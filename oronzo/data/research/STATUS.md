@@ -1,6 +1,6 @@
 # ORONZO — Research dataset
 
-Verifica 2026-11-08: **500 comuni documentati nei batch**, **500 cognomi documentati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
+Verifica 2026-11-08: **500 comuni documentati nei batch**, **600 cognomi documentati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
 
 Batch 1: 20 Valle d'Aosta; batch 2: 30 Molise; batch 3: 25 Abruzzo; batch 4: **25 Basilicata**, selezionati per popolazione crescente nel file regionale. Non sono classifiche nazionali e non descrivono il 1979.
 
@@ -43,3 +43,5 @@ Batch 19 (2026-11-08): aggiunti 25 piccoli comuni della Calabria dal file region
 Batch 20 (2026-11-08): aggiunti 25 piccoli comuni della Sicilia dal file regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **475 comuni / 500 cognomi**; 475 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 154–762; anno demografico puntuale non attestato, dati non rappresentativi del 1979. Fonte CC BY 4.0 con attribuzione necessaria. Dataset non integrato nel runtime.
 
 Batch 21 (2026-11-08): aggiunti 25 piccoli comuni della Sardegna dal file regionale RP92, esclusi codici ISTAT già presenti e ordinati per popolazione crescente. Totale **500 comuni / 500 cognomi**; 500 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 80–289; anno demografico puntuale non attestato, non rappresenta il 1979. Fonte CC BY 4.0 con attribuzione necessaria. Obiettivo geografico espansivo 500 raggiunto nella PR di ricerca, senza merge o integrazione runtime.
+
+Batch 22 (2026-11-08): aggiunti **100 cognomi** distinti dal medesimo snapshot Bergamo 2021, categoria cittadinanza `Italiani`, frequenza comunale pubblicata >10. Totale **500 comuni / 600 cognomi**; 600 ID e nomi normalizzati unici, duplicati introdotti 0. Fonte CC0 1.0 già censita in `sources.json`, ranking nazionali verificati **0**; frequenze esclusivamente locali, non prova di rarità nazionale né origine etimologica italiana. Resta dataset di ricerca non integrato nel runtime; obiettivi M1 100/500 e geografico 500 raggiunti, espansione cognomi 600/5000.
