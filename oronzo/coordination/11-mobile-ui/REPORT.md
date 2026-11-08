@@ -1,6 +1,6 @@
 # RAPPORTO ORONZO-AGENT-11 — M01 · Recupero spazio landscape
 
-> **Aggiornamento corrente: R09B-M01-2 consegnato nella stessa PR #48.** Difetto confermato nel gioco HTTP autentico: 39,15625px visibili su44 a640×360 con inset. Pannello conferenza ora esplicitamente scrollabile; **16/16 percorsi, 336/336 risposte ≥44px**, TERMINA GARA44/44 prima e dopo in16 configurazioni, Node97+22 PASS. Commit codice/QA `055f99d0b7ecff51162b8eaa29a3c3f8aea94bb4`. QA autore11, non audit00. Nessun merge. Vedi addendum finale; i blocchi precedenti sono storico.
+> **Aggiornamento corrente: R09B-M01-2 consegnato nella stessa PR #48.** Difetto confermato nel gioco HTTP autentico: 39,15625px visibili su44 a640×360 con inset. Pannello conferenza ora esplicitamente scrollabile; **16/16 percorsi, 336/336 risposte ≥44px**, TERMINA GARA44/44 prima e dopo in16 configurazioni, Node97+22 PASS. Commit codice `055f99d0b7ecff51162b8eaa29a3c3f8aea94bb4`, JSON completo delle evidenze `1f5e2f93042b97747bc9e6fecc250ee5e9fdb48d`. QA autore11, non audit00. Nessun merge. Vedi addendum finale; i blocchi precedenti sono storico.
 
 **Stato: PR_OPEN / richiesta audit 00. Nessun merge.**
 PR: [#48](https://github.com/CzekUns/cercax/pull/48).
@@ -168,7 +168,7 @@ Commit codice/QA **`efd42f14ef7c6c9949d2bfe936a64e04d4b6a47e`**; questo aggiorna
 ## Addendum — Recupero sessione e R09B-M01-2 · 8 novembre 2026
 
 **Stato: FIX_DELIVERED / PR_OPEN / NO MERGE.** Stessa [PR #48](https://github.com/CzekUns/cercax/pull/48), branch `agent/oronzo-11-mobile-m01`.
-**Commit codice/QA verificato:** `055f99d0b7ecff51162b8eaa29a3c3f8aea94bb4`. Questo REPORT segue in commit documentale.
+**Commit codice:** `055f99d0b7ecff51162b8eaa29a3c3f8aea94bb4`. **Evidenze complete verificate:** `1f5e2f93042b97747bc9e6fecc250ee5e9fdb48d`. Questo REPORT segue in commit documentale.
 **HEAD pubblicato da cui si è ripartiti:** `58c7c65506f74f012b17b099583e96ee380f8db5`.
 
 ### Recupero e origine del difetto
@@ -233,3 +233,5 @@ Esempio640×360 touch con inset:
 **Limiti:** QA dell'autore11, non nuova verifica indipendente00. Android fisico, preview pubblica,900 secondi continuativi a1× e intera carriera nel browser non verificati. Nessuna camera nuova, comando allenatore o Layout Studio. Il sito pubblico non è stato modificato.
 
 Checkout reale usato in questa sessione: `/workspace/scratch/c9a778bd01f3/repo`; il revisore deve verificare l'accesso al preciso nuovo HEAD e rieseguire Chromium HTTP sul gioco autentico. Il README è riproducibile anche su altro checkout; la fixture del precedente audit non può sostituire questo gate. **PR48 resta aperta: nessun merge e nessun incarico assegnato ad altri agenti.**
+
+**Controllo finale di pubblicazione:** il primo trasferimento del JSON della matrice aveva prodotto un blob incompleto. Il confronto SHA lo ha rilevato; il commit evidenze `1f5e2f93042b97747bc9e6fecc250ee5e9fdb48d` ripristina il JSON completo di836.845 byte, blob Git `5a51466f7f8919526bb6fc68a730746f924844b5`, identico al risultato locale dei test. Codice e risultati dei test invariati.
