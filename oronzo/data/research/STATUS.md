@@ -1,6 +1,6 @@
 # ORONZO — Research dataset
 
-Verifica 2026-11-08: **250 comuni documentati nei batch**, **500 cognomi documentati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
+Verifica 2026-11-08: **275 comuni documentati nei batch**, **500 cognomi documentati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
 
 Batch 1: 20 Valle d'Aosta; batch 2: 30 Molise; batch 3: 25 Abruzzo; batch 4: **25 Basilicata**, selezionati per popolazione crescente nel file regionale. Non sono classifiche nazionali e non descrivono il 1979.
 
@@ -21,3 +21,5 @@ Batch 9 (2026-11-08): aggiunti 25 comuni del Lazio dal dataset regionale RP92, e
 Batch 10 (2026-11-08): aggiunti 25 piccoli comuni della Liguria dal file regionale RP92, selezionati per popolazione crescente ed esclusi codici ISTAT già presenti. Totale **225 comuni / 500 cognomi**; 225 codici ISTAT univoci, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 57–279; anno demografico puntuale non attestato, dati non rappresentativi del 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0; attribuzione necessaria. Dataset ancora di ricerca, non integrato nel runtime.
 
 Batch 11 (2026-11-08): aggiunti 25 piccoli comuni del Piemonte dal file regionale RP92, selezionati per popolazione crescente dopo esclusione dei codici ISTAT già presenti. Totale **250 comuni / 500 cognomi**; 250 codici ISTAT univoci, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 41–78; anno demografico puntuale non attestato, dati non rappresentativi del 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0; attribuzione necessaria. Dataset di ricerca non integrato.
+
+Batch 12 (2026-11-08): aggiunti 25 comuni del Trentino-Alto Adige/Südtirol dal file regionale RP92, esclusi i codici ISTAT già presenti e ordinati per popolazione crescente. Totale **275 comuni / 500 cognomi**; 275 codici ISTAT distinti, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 134–477; anno demografico puntuale non attestato, dati non rappresentativi del 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0; attribuzione necessaria. Dataset di ricerca non integrato nel runtime.
