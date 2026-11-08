@@ -1,3 +1,12 @@
+# ORONZO — AGENTE 11 · M01 PASS R09C · ATTESA AUTORIZZAZIONE MERGE
+
+**STATO: `PASS_WAIT_MERGE_AUTHORIZATION` — 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) ancora OPEN, HEAD approvato **`8c82cd0aa1cd856c8afc2964acae4ff57f5da93d`**, GitHub mergeable=true al controllo dell'Agente10. [REPORT-R09C-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09c-m01/oronzo/coordination/coerentizzatore/REPORT-R09C-M01.md) nella [PR di audit #51](https://github.com/CzekUns/cercax/pull/51): **PASS indipendente** con checkout Git autentico, browser Chromium HTTP, 97/97 Node flow/career/coach +22/22 renderer, 16/16 percorsi, 240/240 domande iniziali, 96/96 postpartita, 42/42 ulteriori prove con testi lunghi, TERMINA GARA visibile e attivabile ≥44px; geometria/safe-area, font, canvas 16:9, save/load, game-over e percorso reale senza regressioni nello scope.
+
+**M01 completato. Non apportare altri commit su #48, non avviare nuovi cicli, non fare merge.** Attendere autorizzazione espressa dell'utente per il merge della **sola #48** e successiva verifica main. Android fisico, browser Chrome Android con barre/cutout reali e 900s a 1× non sono ancora stati verificati. Dopo merge/Android, l'Agente10 deciderà M02 camera (owner 05), M03 comandi mister e M04 Layout Studio privato; **non sono attivi**.
+
+---
+
+## ARCHIVIO — NEXT precedenti
 # ORONZO — AGENTE 11 · R09B-M01-2 CONSEGNATO · ATTESA AUDIT R09C
 
 **STATO: `WAIT_REVIEW_R09C_M01` — 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) è ancora OPEN/NOT MERGED, **HEAD verificato `8c82cd0aa1cd856c8afc2964acae4ff57f5da93d`**. REPORT11 aggiornato nel branch: correzione R09B-M01-2 della conferenza consegnata su CSS nella stessa PR, con scorrimento esplicito; il report autore documenta **336/336 attivazioni opzioni** (240 opening +96 postmatch), **16/16** percorsi Chromium HTTP/true localStorage e TERMINA GARA44/44 in 16 configurazioni, **119/119 Node**. Diff GitHub verificato: **unico file runtime cambiato `oronzo/assets/ui/career-r03.css`**, nessun JS/engine/flow/renderer modificato. QA dell'autore, **non certificazione indipendente**.
