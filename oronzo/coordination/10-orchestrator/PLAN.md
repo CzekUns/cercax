@@ -1,3 +1,7 @@
+> **ROADMAP CORRENTE · 8 novembre 2026:** questo PLAN del 7/11 fotografa uno stato precedente. Consultare prima **[ROADMAP-R10-ACCELERAZIONE.md](ROADMAP-R10-ACCELERAZIONE.md)**: audit dello stato vero dopo merge #38/#39/#43/#48, rimanenti gap M1, PR#52/#53 fullscreen/comuni, PR#28 TV, PR#31/#35 comandi, catalogo600 cognomi da importare, allenamento/tifoseria/mercato. **Non** ricostruire funzionalità integrate e non considerare un'API scollegata come gameplay. Percorso critico Sprint A→B→C, M2 gestionali dopo. Niente Layout Editor: Agente12 raccoglie/modifica schermata per schermata.
+
+---
+
 # ORONZO v0.2 — GAP ANALYSIS E ROADMAP
 **Aggiornamento:** 7 novembre 2026. **Issue:** #25. **Fonte:** `../GAME-VISION-v02.md`.
 
