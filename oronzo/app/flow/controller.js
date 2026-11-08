@@ -14,6 +14,13 @@ import { createClub, createCoach, prepareMatchday, conveneBoard,
   previewOfferMorale, applyOfferEffect, applyPressEffect } from '../../systems/coach-club/index.js';
 import { createMatch } from '../../systems/match-engine/match-engine.js';
 import { createPressConference, answerPressConference } from '../../content/press-kit.js';
+import { generatePlayer as generateAttributesPlayer } from '../../systems/attributes/generator.js';
+import { normalizePlayer as normalizeAttributesPlayer } from '../../systems/attributes/player-model.js';
+import { applyTrainingWeek, applyMatchLoad, advanceSeason } from '../../systems/attributes/training.js';
+import { chooseTrainingPlan } from '../../systems/coach-club/index.js';
+import { ensureM1Ledger, attachSourcedPlayers, chooseM1Training, settleM1Training,
+  issueM1Command, settleM1MatchLoad, journalM1Shouts, settleM1Season
+} from './m1-contract.js';
 
 export const FLOW_VERSION=1;
 export const START_YEAR=1979;
@@ -159,7 +166,7 @@ function answerPress(state,phase,questionId,answerId,{press}={}) {
 
 export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il Mister',
   leagueSizes,playerVisualById={},clubVisualKitsById={},startDate='1979-08-01',
-  effectsMode='integrated'}={}) {
+  effectsMode='integrated',surnameCatalog=null,playerOrigins=[]}={}) {
   if(!Number.isSafeInteger(seed))throw new Error('seed must be an integer');
   if(!['integrated','isolated_test'].includes(effectsMode))
     throw new Error('Unknown morale integration mode');
@@ -221,7 +228,55 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
     effectTransactions:{},history:[],effectsMode,
     pressDependency:effectsMode==='isolated_test'?'isolated_test_only':'agent09_integrated'};
   createInitialOffers(state);
+  ensureM1Ledger(state);
+  if(surnameCatalog) {
+    const result=enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins});
+    if(!result.accepted)throw new Error('M1_SURNAMES_UNAVAILABLE: '+result.reason);
+  }
   return state;
+}
+
+/** Consume actual 08 generator PlayerV2 and its sourced surname records once.
+ * PR #31 adds the verified surnameId; main fallback names are explicitly rejected.
+ * We never invent a player birth municipality when 08 has none.
+ */
+export function enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins=[]}={}) {
+  if(state.flow?.stage!=='offers'||state.flow.acceptedOfferId)
+    return {accepted:false,reason:'initial_world_only'};
+  if(!surnameCatalog?.source?.id || !surnameCatalog?.source?.license ||
+     !Array.isArray(surnameCatalog.surnames)||surnameCatalog.surnames.length<500)
+    return {accepted:false,reason:'verified_surname_catalog_required'};
+  if(!Array.isArray(playerOrigins))throw new TypeError('playerOrigins must be an array');
+  if(state.flow.m1?.playerDataset)return {accepted:false,reason:'already_attached'};
+  const squadsByClub=Object.fromEntries(state.clubs.map(club=>[
+    club.id,club.players.map((old,index)=>
+      generateAttributesPlayer({seed:state.seed,teamId:club.id,index,
+        role:old.positions[0],teamLevel:club.reputation,
+        surnameCatalog,origins:playerOrigins}))
+  ]));
+  try {
+    return attachSourcedPlayers(state,{
+      squadsByClub,dataset:{sourceId:surnameCatalog.source.id,
+        version:String(surnameCatalog.source.datasetSnapshotId ??
+          surnameCatalog.source.year ?? surnameCatalog.schemaVersion),
+        license:surnameCatalog.source.license,surnames:surnameCatalog.surnames},
+      normalizePlayer:normalizeAttributesPlayer
+    });
+  } catch(e) {
+    if(String(e).includes('SOURCED_PLAYER_MISMATCH'))
+      return {accepted:false,reason:'attributes08_verified_surname_output_required'};
+    throw e;
+  }
+}
+export function selectM1Training(state,options) {
+  return chooseM1Training(state,{...options,chooseTrainingPlan});
+}
+/** The UI12 caller keeps the exact engine handle returned by prepareMatch. */
+export function commandM1Match(state,engine,request) {
+  const outcome=issueM1Command(state,engine,request);
+  if(outcome.accepted && request.type==='tacticChange')
+    state.coach.tactics={...state.coach.tactics,...outcome.engineResult.effects.tactics};
+  return outcome;
 }
 
 export function listInitialOffers(state) { return offersView(state); }
@@ -276,6 +331,13 @@ export function getStateForUI(state) {
     pendingEffectTransactions:Object.values(state.flow?.effectTransactions??{})
       .filter(e=>e.status!=='applied'),
     worldStatus:state.world?.datasetStatus??'legacy',worldMode:state.world?.mode??'legacy',
+    m1:state.flow?.m1?{version:state.flow.m1.version,
+      playerDataset:state.flow.m1.playerDataset,
+      training:state.flow.m1.training,
+      matchCommands:state.flow.m1.matchCommands,
+      persistentEvents:state.flow.m1.persistentEvents,
+      matchLoads:state.flow.m1.matchLoads,
+      seasonDevelopments:state.flow.m1.seasonDevelopments}:null,
     gameOver:state.coach.gameOver??(state.coach.morale===0?{reason:'morale_zero'}:null)
   });
 }
@@ -334,6 +396,16 @@ export function consumeMatchResult(state,engine,{press}={}) {
   const normalizedEvents=events.map(e=>({...e,id:String(e.id)}));
   registerResult(state,{fixtureId:fixture.id,homeId:fixture.homeId,awayId:fixture.awayId,
     score,events:normalizedEvents});
+  // 08 is the sole owner of fatigue/fitness formulas. The engine's
+  // substitution event times determine played minutes once per fixture.
+  const matchLoad=settleM1MatchLoad(state,{
+    fixtureId:fixture.id,teamId:state.coach.clubId,
+    startingXI:meta.lineup.xi,events:normalizedEvents,applyMatchLoad
+  });
+  if(!matchLoad.accepted)throw new Error('M1_MATCH_LOAD_REJECTED: '+matchLoad.reason);
+  // 06 already applied temporary shout modifiers. 09 has not yet exported a
+  // player-trust consumer; journal suggestions, never invent a permanent delta.
+  journalM1Shouts(state,{fixtureId:fixture.id,events:normalizedEvents});
   const coachHome=fixture.homeId===state.coach.clubId;
   const ours=coachHome?score.home:score.away,opponent=coachHome?score.away:score.home;
   const result=ours>opponent?'win':ours<opponent?'loss':'draw';
@@ -396,6 +468,10 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
     if(!settled.accepted)throw new Error('Payroll denied: '+settled.reason);
     draft.clubs[i]=settled.club;
   }
+  // Training plans are explicit and week-bound; do not silently invent a plan.
+  const training=settleM1Training(draft,{applyTrainingWeek});
+  if(!training.accepted && !['no_training_selected','already_applied'].includes(training.reason))
+    throw new Error('M1_TRAINING_REJECTED: '+training.reason);
   const matchday=period.absoluteWeek;
   advanceWeek(draft);
   if(dismissed && playerClub)applyBoardDecision(draft,{type:'dismiss',clubId:playerClub});
@@ -416,10 +492,17 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
 export function rolloverSeason(state) {
   ensureLive(state);
   if(state.flow.stage!=='season_complete')return {accepted:false,reason:'season_not_complete'};
-  finishSeason(state);
-  state.gameDate=dateAt(state.seasonYear,1,state.calendarPolicy.seasonStartMonth,
-    state.calendarPolicy.seasonStartDay);
-  state.flow.stage=state.coach.clubId?'hub':'unemployed';
+  const draft=clone(state),endingYear=draft.seasonYear;
+  finishSeason(draft);
+  if(draft.flow.m1) {
+    const result=settleM1Season(draft,{advanceSeason,seasonYear:endingYear,alreadyAged:true});
+    if(!result.accepted && result.reason!=='already_applied')
+      throw new Error('M1_SEASON_REJECTED: '+result.reason);
+  }
+  draft.gameDate=dateAt(draft.seasonYear,1,draft.calendarPolicy.seasonStartMonth,
+    draft.calendarPolicy.seasonStartDay);
+  draft.flow.stage=draft.coach.clubId?'hub':'unemployed';
+  commitDraft(state,draft);
   return {accepted:true,seasonYear:state.seasonYear,gameDate:state.gameDate};
 }
 export function takeCareerOffer(state,offerId) {
