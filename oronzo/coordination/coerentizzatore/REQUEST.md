@@ -1,3 +1,12 @@
+# ORONZO — COERENTIZZATORE 00 · AUDIT FUTURI PR #52 FULLSCREEN E #53 COMUNI
+
+**STATO: `READY_QA_F01_D01_DIRECT` — 8 novembre 2026.** L'utente ha chiesto implementazione diretta anziché delega Work. Sono state pubblicate **[PR #52](https://github.com/CzekUns/cercax/pull/52)** fullscreen (JS autonomo, nav always-on) e **[PR #53](https://github.com/CzekUns/cercax/pull/53)** comuni contemporanei (500 IDs, 19 fonti, scelta nel gioco, schemi null) senza merge. Non dichiarare alcun esito indipendente prima di prova. Gli sviluppi non sono opera degli agenti 07/11, bensì interventi diretti autorizzati dall'utente.
+
+**Gate A #52:** leggere diff/stato HEAD della PR, QA README; verificare reale Chromium HTTP + Fullscreen API da gesto e uscita (incluso match e browser non supportato), attivazione 44px di tutte6 voci nav a640×360/800×360/844×390/960×400 con e senza safe-area, mouse/touch, layout/stampa/TERMINA GARA e regressioni119 Node. Se browser proibisce fullscreen test, indicare non certificato senza fake CSS fullscreen.
+
+**Gate B #53:** verificare snapshot e source blob PR ricerca #40, struttura JSON di500 reali ID ISTAT distinti, 19 fonti, license/attribution CC BY, nessuna provincia o anno demografico inventati, no claim sul1979, schemaV1 non indebolito, v2/null, club fittizi, origine/20 offerte, morale/contratti, saving/reloading vecchi+nuovi, `geography_required` quando catalogo assente, mode QA sintetico esplicito; UI 500 scelte e label, 119 regressioni Node e browser HTTP percorso completo. Verificare esecuzione del nuovo `real-world-m1.test.mjs`. Non presentare il parse V8 o la sola validazione500 come test E2E. Valutare esattamente se `reviewStatus:approved` sia supportato dall'evidenza e fonte licenza; segnalare eventuale qualifica errata come NEEDS CHANGES.
+
+**Consegna report distinti con SHA**, possibili FIX richiesti nella stessa PR. **NO MERGE** senza nuova autorizzazione espressa utente. Non assegnare lavoro concorrente agli agenti07/11, non attivare camera/editor/comandi.
 # ORONZO — COERENTIZZATORE 00 · IN ATTESA AUDIT D01 E F01
 
 **STATO: `WAIT_NEW_PR_D01_F01` — 8 novembre 2026.** L'utente ha richiesto **località italiane registrate nel catalogo di ricerca** e pulsante **schermo intero**. Agente10 ha assegnato: **07/D01** validazione + importazione reale catalogo comuni su branch/PR propria, **11/F01** Fullscreen API mobile su branch/PR propria. I loro `NEXT.md` aggiornati su main contengono l'intero mandato. Questa REQUEST NON autorizza audit anticipati su branch inesistenti e NON autorizza merge.
