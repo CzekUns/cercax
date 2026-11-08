@@ -111,3 +111,13 @@ La REQUEST del Coerentizzatore 00 è `WAIT_FOR_11_R09B_M01_2` per audit R09C **s
 **Post-merge statico verificato da Agente10:** GitHub PR merged true; `oronzo/assets/ui/career-r03.css` su main blob `0f3569d37c07f2153a4bf8ca28149ded60f2956e`, identico allo stesso file su HEAD auditato; `career-r03.js` e `career-r03.html` invariati. **Non rieseguite regressioni Node/browser post-merge** nel container dell'Agente10 perché `git ls-remote` non raggiunge GitHub (DNS `Could not resolve host: github.com`). Non spacciare queste verifiche statiche per run E2E. Stato NEXT11 `MERGED_WAIT_ANDROID`, REQUEST00 `STANDBY_POST_MERGE`.
 
 **Prossimo:** test fisico Android landscape con barre browser e cutout, CTA/campo/conferenza e save/load. Dopo valutare separatamente la PR #28 camera 05, UI comandi coach e Layout Studio privato di sviluppo. Nessuna nuova fase assegnata fino a decisione utente.
+
+## D01 COMUNI REALI + F01 SCHERMO INTERO — NUOVA RICHIESTA UTENTE (8 novembre 2026)
+
+**Richiesta espressa:** «Aggiungi le località registrate e metti un tasto per schermo intero». L'Agente10 è soltanto orchestratore (`implementationAllowed:false` nel registro) e ha aggiornato i NEXT degli owner, senza dichiarare implementazione completata.
+
+**DATI:** [PR #40](https://github.com/CzekUns/cercax/pull/40) ancora OPEN, branch `data/oronzo-world-research` HEAD `0cc7eead7c5e971cff0e2d08e4bb2febc1df884b`. Validato conteggio JSON: **500 record e500 ID ISTAT unici**, 19 regioni nel campione,500/500 senza `provinceCode`, 500/500 con `populationReferenceYear:null`, storico 1979 non certificato. Fonte RP92/ISTAT CC BY 4.0 e attribuzione. Il validator `oronzo/systems/career/world.js` non accetta ora catalogo perché richiede province e anno di popolazione reali. Assegnato `07/D01` **import/versioning/metadata/flow senza inventare valori** su nuova PR, nessun merge PR40; 500 target, 100 minimo M1 solo dopo validazione. **UI località F02** assegnabile a11 dopo che il contratto07 sia rivisto/mergiato: non confondere database di ricerca con località già giocabili.
+
+**FULLSCREEN:** assegnato `11/F01` su nuova PR indipendente a partire dal nuovo main, solo `career-r03.html/.css/.js` + QA/REPORT. Pulsante nativo Fullscreen API, cambio stato e fallback, test vero gioco Chromium; niente "finto fullscreen" CSS, no Layout Studio. Incari paralleli ma senza file runtime sovrapposti; M01 PR48 già MERGED.
+
+**Revisione:** 00 WAIT_NEW_PR_D01_F01 con gate distinti, no merge senza successiva autorizzazione utente. Attenzione all'automazione oraria che continua ad aggiornare #40; registrare snapshot SHA prima di importare. 
