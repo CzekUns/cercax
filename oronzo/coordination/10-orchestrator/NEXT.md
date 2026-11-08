@@ -1,3 +1,17 @@
+# ORONZO — AGENTE 10 · ACCELERAZIONE M1 DOPO GAP ANALYSIS R10
+
+**STATO: `ORCHESTRATE_M1_CRITICAL_PATH` — 8 novembre 2026.** Priorità corrente del proprietario: capire ciò che manca rispetto a [GAME-VISION-v02](../GAME-VISION-v02.md) e **accelerare verso M1 realmente giocabile**. Audit e piano eseguibile in **[ROADMAP-R10-ACCELERAZIONE.md](ROADMAP-R10-ACCELERAZIONE.md)** (questa è la fonte operativa aggiornata rispetto ai vecchi elenchi R02/PLAN).
+
+**Subito:** (1) revisionare su runtime HTTP le PR #52 fullscreen e #53 comuni, non mergiare senza PASS e consenso utente; (2) sbloccare #28 camera TV con asset PNG veri, aiutando 05/01 con il gate browser; (3) chiudere collisione #31+#35 per shouts/player origin/trust con 06/08; (4) importare dal branch #40 **almeno500 dei 600 cognomi distinti** documentati, con fonte e stabilità salvataggi. Poi collegare realmente via07/12 TV, comandi durante gara e allenamento. **Stadio/prezzi/papponeria/mercato** sono tranche successiva P1, cutscene P2, espansione cognomi5000 P3.
+
+**Disciplina:** lavori già in PR sulla **stessa PR**, ciascuna con proprio owner e tests; non duplicare branch. 12 corregge UI da screenshot; non costruire Layout Editor. 11 standby, 03 storico. Gate finale M1 originale: comune+cognome fonte, offerte→presidente→stampa→hub→partita FULL/TV + ordini reali→post→save/reload→2 stagioni, telefono Android. Non dichiarare pronto se camera/ordini esistono solo su branch/API.
+
+**Nessuna autorizzazione automatica ai merge conferita da questa pianificazione.** L'utente deve approvare ogni integrazione. Agente10 resta owner roadmap/merge, non codice prodotto.
+
+---
+
+## ARCHIVIO STORICO — NEXT PRECEDENTI
+
 # NEXT — ORONZO AGENTE 10 · SOLO ORCHESTRAZIONE
 **Stato:** `WORKING` (coordinamento attivo; non sviluppo del gioco).
 **Specifica utente:** [GAME-VISION-v02.md](../GAME-VISION-v02.md) · [Google Drive](https://docs.google.com/document/d/1k52clWWRcD3CMvD_HsX1ke7zdiVAY_AHp2MT9KfDEG0/edit).
