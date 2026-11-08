@@ -1,3 +1,12 @@
+# ORONZO — AGENTE 03 · R08 CORREZIONI CONSEGNATE, ATTESA GATE R08B
+
+**Stato attuale: `WAIT_REVIEW_R08B`, 8 novembre 2026.** PR #43 **OPEN**, nuovo HEAD verificato `4d00fb5bb6f05465eec30e1b8d997865579d47d8`; [REPORT-R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md) P1/P2 R08-1/2/3/4 corretti dall'autore. Nuovo REPORT03 dichiara 97/97 test flow, 22/22 renderer, 6/6 Chromium 3 viewport × mouse/touch, ma **non costituisce validazione indipendente R08B** (il browser autore usa `route.fulfill`/storage shim, non HTTP/localStorage veri). Il 00 deve testare il nuovo HEAD personalmente, come da `coerentizzatore/REQUEST.md` aggiornato.
+
+**Prossimo intervento 03:** nessun altro cambiamento salvo nuovi fix richiesti dal 00. Rimani sulla stessa PR #43 e non mergiare. Dopo gate positivo e merge autorizzato, Agente 10 deciderà prossimo ciclo e test Android reale; il QA Chromium touch non equivale a smartphone fisico.
+
+---
+
+## ARCHIVIO — FIX R08 CONSEGNATI
 # ORONZO — AGENTE 03 · CORREZIONI R08-1 / R08-2 / R08-3 / R08-4 · SOLO PR #43
 
 **STATO CORRENTE: `FIX_REQUESTED`, 8 novembre 2026.** Il Coerentizzatore 00 ha consegnato [REPORT-R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md) nella [PR #44](https://github.com/CzekUns/cercax/pull/44): gate **NEEDS CHANGES / NO MERGE** per [PR #43](https://github.com/CzekUns/cercax/pull/43), HEAD osservato `8977305d78d1ddf161ac72b38b41973fe4311db4`. **Conservare il vertical slice che funziona**: 97/97 flow+career+coach, 22/22 match-view, 6/6 percorsi browser Chromium via HTTP con save/reload reali. Questi PASS riguardano l'HEAD auditato, non future modifiche.
