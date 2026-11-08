@@ -4,7 +4,7 @@ Verifica 2026-11-08: **200 comuni validati**, **500 cognomi validati**; **0 rank
 
 Batch 1: 20 Valle d'Aosta; batch 2: 30 Molise; batch 3: 25 Abruzzo; batch 4: **25 Basilicata**, selezionati per popolazione crescente nel file regionale. Non sono classifiche nazionali e non descrivono il 1979.
 
-ID ISTAT univoci: 150; duplicati scartati nel batch 4: 106 record non selezionati (non necessariamente duplicati); duplicati effettivi nei primi 100 record salvati: 0. Nuovi record batch 4: 25. Popolazioni contemporanee senza anno puntuale attestato; 2026 indica lo snapshot, non l'anno demografico. Fonte derivata da ISTAT con attribuzione RP92, licenza dichiarata CC BY 4.0; obblighi di attribuzione prima del rilascio. Vedi sources.json. Nessun dato personale.
+Nel batch 4 (primi 100 comuni), codici ISTAT univoci: 100; 106 record non selezionati (non necessariamente duplicati); duplicati effettivi nei primi 100 record salvati: 0. Il totale corrente è indicato nell'intestazione e nell'ultimo batch. Nuovi record batch 4: 25. Popolazioni contemporanee senza anno puntuale attestato; 2026 indica lo snapshot, non l'anno demografico. Fonte derivata da ISTAT con attribuzione RP92, licenza dichiarata CC BY 4.0; obblighi di attribuzione prima del rilascio. Vedi sources.json. Nessun dato personale.
 
 Il catalogo cognomi è ora disponibile come dataset di ricerca; l'agente 08 gestirà validazione e importazione/persistenza dopo QA. Nessuna modifica a runtime, generatori, NEXT o salvataggi.
 
