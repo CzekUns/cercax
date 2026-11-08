@@ -74,7 +74,7 @@ async function loadCopy(){
 function restartAfterGameOver(){
  // End the previous in-memory career only. Save slots are purposefully untouched.
  clearMatch();state=null;selectedPlayerId=null;profileSource='rosa';selectedHub='campionato';
- lineup=new Set();bench=new Set();captain=null;offerIndex=0;avatar=0;origin='000001';mode='qa';
+ lineup=new Set();bench=new Set();captain=null;offerIndex=0;avatar=0;mode='normal';origin=REAL?.municipalities[0]?.municipalityId||'';
  protectPreviousSave=true;
  display('avatar');
  message('Nuova carriera: il salvataggio precedente resta protetto finché non decidi di sostituirlo.');
@@ -91,9 +91,7 @@ function newCareer(){
  },origin:originData},municipalityCatalog:catalog});
  offerIndex=0;selectLineup();display('offers');
 }
- const originData=mode==='qa'?{municipalityId:r.municipalityId,regionId:r.regionId,macroRegion:r.macroRegion}:null;
- state=newGame({seed:1979,coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{luck:c[1][0],leadership:c[1][1],selfEsteem:c[1][2],patience:c[1][3]},origin:originData},...(mode==='qa'?{municipalityCatalog:QA}:{})});
- offerIndex=0;selectLineup();display('offers');}
+
 function selectLineup(){lineup=new Set();bench=new Set();captain=null;const club=getUI()?.club;if(!club)return;const eligible=club.players.filter(p=>{const full=state.clubs.find(c=>c.id===club.id).players.find(x=>x.id===p.playerId);return !(full.status?.injuryDays||full.status?.suspensionMatches||full.status?.health===0)});
  const gk=eligible.find(p=>p.positions.includes('GK'));if(gk)lineup.add(gk.playerId);for(const p of eligible.filter(x=>!x.positions.includes('GK')).slice(0,10))lineup.add(p.playerId);
  for(const p of eligible.filter(x=>!lineup.has(x.playerId)).slice(0,5))bench.add(p.playerId);captain=[...lineup].find(x=>x!==gk?.playerId)??null;}
