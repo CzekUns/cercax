@@ -1,5 +1,7 @@
 # RAPPORTO ORONZO-AGENT-11 — M01 · Recupero spazio landscape
 
+> **Aggiornamento corrente: R09-M01-1 corretto sulla stessa PR #48.** Commit codice/QA `efd42f14ef7c6c9949d2bfe936a64e04d4b6a47e`. TERMINA GARA: **44px visibili in 16/16 casi**, con/senza safe area, mouse/touch. Suite Node **97+22 PASS**. QA dell'autore, non gate indipendente. Vedi addendum in fondo per misure e un problema della stampa preesistente, lasciato invariato fuori dall'unica correzione autorizzata. Nessun merge.
+
 **Stato: PR_OPEN / richiesta audit 00. Nessun merge.**
 PR: [#48](https://github.com/CzekUns/cercax/pull/48).
 Data: 8 novembre 2026, Europe/Rome.
@@ -95,3 +97,67 @@ Per provare prima del merge: checkout del branch, `python3 -m http.server 8000 -
 M01 consegnato per **audit mobile CSS dell'Agente00** e coordinamento dell'Agente10. Nessun merge e nessun incarico assegnato ad altri agenti. API/contratti invariati; non serve integrare moduli nuovi.
 
 M02 camera segue pallone, M03 comandi mister e M04 **Layout Studio privato dello sviluppatore** restano futuri NEXT separati. Nessun editor, link o codice Layout Studio nell'app per giocatori. Prossimo passo consigliato: audit00 e prova Android reale; nessuna estensione autonoma del mandato.
+
+---
+
+## Addendum — Correzione R09-M01-1 · 8 novembre 2026
+
+**Stato: FIX_DELIVERED / PR_OPEN, richiesta gate R09B in chat separata.** Stessa PR [#48](https://github.com/CzekUns/cercax/pull/48), stesso branch `agent/oronzo-11-mobile-m01`; nessuna nuova PR e nessun merge. Letto il NEXT11 `FIX_REQUESTED` dall'ultimo main `7476ea1e50f19335643b6ae3cf58cb93cb1ebc8d` e il [REPORT-R09-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09-m01/oronzo/coordination/coerentizzatore/REPORT-R09-M01.md). HEAD iniziale #48 `6e72486607405d06d9a5ba8cac8d00a002ea5da8`.
+
+### Modifica minima realizzata
+
+In `career-r03.css`, dentro la media query landscape già esistente, aggiunta una sola dichiarazione:
+
+```css
+#oronzo-r03 .runtime-match-panel{padding-top:1px}
+```
+
+Si recuperano **2px dal padding decorativo superiore** del pannello compatto (3→1px), e spazio sufficiente anche nella configurazione a viewport400px. Il bottone mantiene la propria altezza44px; non viene scalato. Nessuna riduzione di font, nessuna rimozione degli inset, nessun cambiamento alle dimensioni dello stage o del canvas. CSS prima blob `7feecdc8a9e16d01237627c895bf84e8a4586ad5`; dopo **`e9a9a1194bee8051755220650481538f6ef19e15`**.
+
+**Unico file runtime modificato rispetto all'HEAD iniziale: career-r03.css, due righe aggiunte (commento + regola).** Altri file: QA locale autorizzata e questo REPORT. Nessun HTML/JS di gameplay, flow, renderer, engine, copia, dati o salvataggi modificato. Verificati **307 file locali preesistenti identici ai blob dell'HEAD iniziale**, esclusi soltanto il CSS modificato e i nuovi file QA. Non modificati i NEXT.
+
+### Matrice del pulsante TERMINA GARA
+
+Intersezione del rettangolo con viewport e **aree interne di tutti gli antenati overflow**, hit-test `elementFromPoint`, mouse.click/touchscreen.tap alle coordinate centrali senza autoscroll della CTA. Insets via CDP `{top:0,left:24,right:12,bottom:16}`.
+
+| Viewport | Senza inset, prima → dopo | Con inset, prima → dopo | Mouse/touch sul fix |
+|---|---|---|---|
+| 640×360 | 44 → **44px** | 42 → **44px** | PASS / PASS |
+| 800×360 | 44 → **44px** | 42 → **44px** | PASS / PASS |
+| 844×390 | 44 → **44px** | 44 → **44px** | PASS / PASS |
+| 960×400 | 44 → **44px** | 42 → **44px** | PASS / PASS |
+
+**16/16 misure positive**, nominale44/visibile44, centro corretto e completamento reale Engine06 fino a `postmatch_press`. Controllo supplementare del solo pannello: 8/8 con inset, tutti i quattro comandi e TERMINA GARA conservano44px visibili.
+
+Con inset lo stage misura **604×344**, **764×344**, **808×374**, **924×384**, x24/y0. Senza inset occupa esattamente i quattro viewport. Canvas con inset rispettivamente **300,4375×168,9844**, **300,4375×168,9844**, **332,625×187,0938**, **350,4063×197,0938**; rapporto sempre16:9 entro arrotondamento subpixel. Nessun aumento di zoom o deformazione. Senza inset i canvas sono identici alle misure M01 precedenti.
+
+### Test realmente rieseguiti sul fix
+
+| Verifica | Risultato |
+|---|---|
+| Node flow/carriera/coach | **97/97 PASS**, 0 fail, circa19,4s |
+| Node renderer | **22/22 PASS**, 0 fail |
+| Nuovo harness Chromium HTTP/storage autentici | **16 percorsi funzionali completati**, 4 viewport × 2 inset × 2 modalità input |
+| Obiettivo R09-M01-1 | **16/16 PASS**, 44px effettivi e tap centrale funzionante |
+| Confronto font calcolati nelle viste | Identici con/senza inset; CSS del fix non modifica font o target |
+| Orientamento e ritorno landscape | Verificati nei16 percorsi |
+| Save/reload, game over e geography_required | Verificati nei16 percorsi |
+
+Ambiente: **Chromium153.0.8010.0**, DPR1, locale it-IT, HTTP locale vero, ESM/JSON/PNG originali, localStorage autentico; nessun route.fulfill/set_content/shim. Ogni percorso comprende gli8 avatar, 20 offerte con ultima raggiunta via gesture/wheel, ingaggio/presidente, 5 risposte iniziali, Ufficio, Rosa16 e scheda del sedicesimo confrontata con API07, allenamento consultivo senza mutazioni, classifica16 confrontata con API e scroll finale, 11 titolari/1GK/capitano, 22 attori Engine06/fulltime, 2 risposte finali, avanzamento a settimana2, reload e JSON identico dopo caricamento. Verificati morale0 tramite API09, nuova carriera con salvataggio precedente preservato e dialogo di sovrascrittura rifiutato; `geography_required` senza mutazione.
+
+Zero eccezioni JS nei percorsi; rimane il **404 opzionale cutscene/manifest.json** già presente. Android fisico, preview pubblica e900s continuativi non verificati. Questi sono test dell'autore11, **non audit indipendente00**.
+
+### Altra osservazione preesistente, non corretta in questo incarico
+
+**Non dichiaro PASS generale di tutte le geometrie con inset.** Nel test più esteso, a640×360 con safe area, avatar1 e ultima offerta, la terza risposta della domanda iniziale3 («Capisco il problema, ma la politica dei prezzi non dipende dal mister.») misura **39,15625px visibili su44px nominali**, y247,84375. Rilevata sia mouse sia touch; nessun altro rilievo raccolto nella matrice. Il percorso funzionale prosegue usando una risposta pienamente raggiungibile.
+
+Un confronto HTTP aggiuntivo con il **CSS precedente dell'HEAD6e724866** conferma **stessi testo, y, altezza e clipping prima e dopo questo fix**. È una condizione della conferenza preesistente, non causata dalla modifica al padding del pannello partita. Nessuna regola della stampa è stata modificata: il mandato autorizza esclusivamente R09-M01-1. Il QA conserva il rilievo in `otherFindings` e stato `R09_FIX_PASS_WITH_OTHER_FINDINGS` nei2 casi interessati, invece di nasconderlo. L'orchestratore/revisore dovrà considerarlo per l'eventuale incarico successivo.
+
+### Evidenze e consegna
+
+- `oronzo/assets/ui/qa/m01-fix-r09.cjs`: matrice completa riproducibile da root, HTTP, gesture e geometria effettiva;
+- `oronzo/assets/ui/qa/m01-r09-fix/results.json`: tutte16 le esecuzioni e le osservazioni separate; il controllo finish-qa rimane bloccante;
+- `target-probe.json`, `before-safe-results.json`, `existing-press-before-after.json`, log Node e browser, README;
+- **32 PNG selezionati:** Partita in tutte16 le combinazioni, Avatar e Ufficio negli8 casi con inset. Le altre viste sono state misurate e possono essere rigenerate col comando nel README.
+
+Commit codice/QA **`efd42f14ef7c6c9949d2bfe936a64e04d4b6a47e`**; questo aggiornamento REPORT segue in commit documentale. Ripresentata soltanto la PR48. Atteso **R09B-M01 in chat separata**; nessun auto-merge, nessuna telecamera, comando allenatore o Layout Studio avviato.
