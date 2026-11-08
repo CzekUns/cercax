@@ -1,3 +1,57 @@
+# ADDENDUM R10 — COMPLETAMENTO CAMERA TV, QA CON PNG AUTENTICI
+
+**Agente:** `ORONZO-AGENT-05` · **PR unica:** [#28](https://github.com/CzekUns/cercax/pull/28) · **Branch:** `agent/oronzo-movements-r02`  
+**Data:** 8 novembre 2026 · **Stato:** `PR_OPEN / READY_FOR_INDEPENDENT_AUDIT` per renderer e QA alternativa; **gate HTTP Chromium non superato nell'ambiente amministrato**. Non è stato fatto merge o avviato R03.  
+**Codice pubblicato:** `8d1a7d7ffb4d65ef8d3cefb9b755a98f66dcf58e` (palette), `26d32704c20f3805ab836b42d9dc3d6a55a1e2d3` (test), `8421c252a326565c74555417ba3a77c189def96c` (script QA alternativo), `fbe3bbfa5fa4900fb6c08fe0d4cc9c77da713a03` (evidenze), `05ad626b96a7c0a55579abf855d0746f704df7a3` (README), `3eda498441a9a61d38f3654fadaba6e50217fdc5` (integrazione). **SHA del presente commit REPORT da controllare dopo il salvataggio.**
+
+## 1. Difetto corretto in R10
+
+**Colori squadra realmente sbagliati nel renderer senza `config.appearances`.** Screenshot iniziali Chromium su 22 PNG veri mostravano tutte le maglie chiare. Causa: `kitFor()` fornisce `{}`, un oggetto truthy; `asset-adapter.drawPlayer()` usava `appearance || PALETTES[team]` e annullava i default home/away/keeper. 
+
+- Modificato **solo** `oronzo/systems/match-view/asset-adapter.js`: nuova funzione pura `resolvePlayerAppearance({appearance,team,isKeeper})` = palette club/portiere default con override individuali. `drawPlayer` la usa prima della ricolorazione con le maschere PNG reali.
+- Nuovo `palette-defaults.test.mjs`: tre prove che distinguono home/away, keeper e preservano shorts/socks/pattern se viene sovrascritto un colore singolo. Screenshot successivi mostrano chiaramente maglia blu/bianca, maglia rossa e portieri gialli.
+- Nessun cambiamento a `match-view.js` o `camera.js` R10: la logica FULL/TV già in PR #28 non aveva difetti riprodotti dalla prova. Nessuna modifica agli snapshot o al motore.
+
+## 2. Prova reale degli asset
+
+GitHub non era raggiungibile tramite DNS dalla shell locale, ma i file di GitHub erano leggibili con il connettore. Per ottenere PNG originali **non simulati**, ho letto `oronzo/assets/players/sprite-factory.js` su main e l'ho eseguito in Node locale. Ho confrontato con `git hash-object` gli **11 file prodotti** (5 atlas, 5 mask, ball) con gli SHA della repository/qa-report del team sprite: **11/11 identici byte per byte**, per esempio `idle.png=2bf806dbb1d17d0c91687d4cd3b05950e1c1fc62`, `run.png=6c45819987f3253457cc90999ecd28738eb28e20`, `keeper.png=b6dca1993ae2eed01440f1ae715d7032b93303ae`, `ball.png=451dfdfa30521884fb2f4ba5468149b64aa425a9`. L'elenco completo è in `QA-R10-REAL-PNG.json`.
+
+**Limite sulla sorgente:** lo script sorgente renderer e il manifest sono stati ricostruiti in una copia locale compatibile dai sorgenti GitHub, mentre la camera `camera.js` e i PNG sono SHA-identici; **non dichiaro un checkout Git completo/identico**, perché la shell rifiuta DNS per github.com. La procedura `browser-qa-offline.py`, pubblicata sulla PR, usa invece direttamente i veri file da checkout per un audit indipendente riproducibile.
+
+## 3. QA Node e Chromium — risultati effettivi
+
+- **Node locale v22.16.0:** `node --test *.test.mjs` nella copia compatibile di `match-view/` → **15 PASS / 0 FAIL**, compresi i tre nuovi test palette e 12 regressioni precedenti presenti localmente. È una verifica reale ma **non** la suite completa sul nuovo HEAD GitHub. L'audit Work R04 aveva già riportato **34/34 PASS** sul branch precedente alla correzione R10.
+- **Chromium headless v144.0.7559.96**, Playwright Python: **54/54 PASS** in 3 viewport **640×360, 800×360, 844×390**, 2 camere (FULL e BROADCAST) e 9 scenari (opening, left/right, running, restart, halftime, paused, replay, late). Ognuno: `assetState=ready`, `allRealSprites=true`, 22 attori reali nel frame (44 chiamate di disegno quando la pausa richiede due ridisegni), pallone disegnato e nel crop, score/snapshot sorgente invariati, zoom 1/2, clip e containment, pausa congelata, overlay replay eliminato. **54 screenshot realmente catturati**, visualizzati a campione; 6 hash SHA-256 dei frame di gioco e ZIP di tutte le schermate in `QA-R10-REAL-PNG.json`.
+- **HTTP Python autentico:** `GET /oronzo/assets/players/idle.png` da server `127.0.0.1` → **200**, **33136 bytes**, SHA-256 `6cea6c26ac7b6136d29aa5f89541d4b9dafe7ab8b1126525bcf4250079e02927`.
+- **HTTP Chromium:** `page.goto(http://127.0.0.1:...)` → **`net::ERR_BLOCKED_BY_ADMINISTRATOR`**, anche su singolo PNG. Diagnosi verificata: policy gestita `/etc/chromium/policies/managed/000_policy_merge.json` contiene `URLBlocklist:["*"]`. Non ho alterato politiche amministrative per aggirare il divieto.
+- **Alternativa visuale autentica:** `page.set_content()` crea la pagina, inietta i moduli della vista e carica gli **stessi bytes PNG Git-identici** tramite URL `data:image/png;base64`. Quindi le 54 foto sono **rendering Canvas reale Chromium con sprite reali**, **NON navigazione HTTP**. Fallback tecnica 0 in ogni scenario dopo caricamento. Nessuna falsa equivalenza fra questo test e il gate HTTP originario.
+
+**File riproducibili sulla PR:** `browser-qa-playwright.py` (gate HTTP in ambiente non bloccato), **nuovo** `browser-qa-offline.py` (gate alternativo Chromium/PNG con URL in memoria) e **nuovo** `QA-R10-REAL-PNG.json` (esiti, 54/54, SHA, caveat). Eseguire:
+
+```bash
+node --test oronzo/systems/match-view/*.test.mjs
+python3 oronzo/systems/match-view/browser-qa-offline.py --browser /usr/bin/chromium --output /tmp/oronzo-r10-offline
+python3 oronzo/systems/match-view/browser-qa-playwright.py --browser /usr/bin/chromium --output /tmp/oronzo-r10-http
+```
+
+L'ultimo comando è atteso PASS **solo** in host senza URLBlocklist; qui resta BLOCKED. I file PNG screenshot e ZIP del test offline sono consegnati come artefatti in questa conversazione e non sono stati spacciati per file binari già presenti su GitHub.
+
+## 4. API e dipendenze
+
+- **Stabile:** `createMatchView(canvas,{config:{cameraMode:'full'|'broadcast',cameraZoom:2,simSecondsPerRealSecond:6,homeTeamId,awayTeamId,keeperIds,appearances?}})`; `view.setCameraMode('broadcast'|'full')`, `view.cameraMode`, `view.getCameraState()`. Stessa fonte di snapshot, nessun cambio coordinate/risultato; zoom TV e smoothing seguono la palla; taglio immediato al kickoff/intervallo/rewind. `render()` e `createEngineViewBridge` preesistenti invariati.
+- **Agente 12** (roadmap R10): collegare il pulsante FULL/TV nel runtime carriera, 44px, safe areas, senza ricreare motore né canvas; snippet aggiornato in `integration-notes.md`. L'Agente 01 verifica la resa artistica finale, l'Agente 00 il gate indipendente.
+- La PR #28 **non** modifica runtime HTML, dati comuni/cognomi, engine, altri agenti, `NEXT.md` o `main`. Le cutscene #12 mantengono gate separato, non dichiarate approvate.
+
+## 5. Mancante e richiesta audit
+
+1. L'**audit00** deve rieseguire `node --test` su checkout reale della PR #28 corrente, verificare screenshot con `browser-qa-offline.py` e, se l'ambiente lo consente, superare il **gate Chromium HTTP** con `browser-qa-playwright.py`. Nessun merge autonomo.
+2. Le prove con fixture mostrano inquadratura e integrità dello snapshot; **non sostituiscono una partita completa nella UI pubblica Android** con cambio camera da pulsante, che spetta all'Agente 12 e a un ciclo successivo autorizzato.
+3. Gli screenshot di questa sessione non equivalgono alla prova su telefono Android fisico.
+
+**Conclusione:** codice camera FULL/TV completo nella PR #28, bug divise default corretto; QA alternativa con **PNG veri** superata 54/54. **Gate HTTP amministrato non superato**, documentato senza etichettarlo PASS. PR affidata all'orchestratore per audit e decisione.
+
+---
+
 # RAPPORTO AGENTE 05 — Match View, due camere — ciclo R02 (v0.2)
 
 **Identità:** ORONZO-AGENT-05  
