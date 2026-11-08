@@ -1,3 +1,15 @@
+# ORONZO M1 — 600 cognomi realmente integrati · PlayerV2 / Agente 06
+
+**Contratto vigente (8 novembre 2026):** la PR #31 utilizza per impostazione predefinita **600 cognomi italiani attestati nei dati dei residenti con cittadinanza italiana del Comune di Bergamo, anno 2021**. Dataset M1 in `data/bergamo-2021-m1.js`, con **600 ID originali persistenti** provenienti da [PR dati #40](https://github.com/CzekUns/cercax/pull/40), HEAD congelato `0b9eedd4070c10beb164e929d4740354663bf86d`, Git blob `de098d57f1ce47be4cd07ecfb64ba213a6835663`. Licenza dataset **CC0 1.0** dichiarata dal portale open data, fonte Comune di Bergamo / Regione Lombardia ([dataset 4pqu-7zkd](https://www.dati.lombardia.it/d/4pqu-7zkd)). **Frequenze solo locali (11–16) e oltre la soglia >10; non sono frequenze nazionali, etimologie certificate o dati del 1979**. La precedente lista di 20 cognomi comuni in `surname-sample.csv` resta **fixture documentale**, non catalogo predefinito. Gli obiettivi 5.000 e 500 comuni non fanno parte dell'implementazione 08 M1.
+
+L'import avviene **offline**, senza richieste web al caricamento del gioco: `generator.js` usa `BUILTIN_SURNAME_CATALOG` da `surnames.js`. `surnameId`, `surname`, `surnameSourceId` e `player.id` sono congelati nel PlayerV2 salvato; un save caricato non viene rigenerato. Importazione 600/600 validata per ID, unicità case-folded, caratteri di origine (anche spazi/apostrofi), frequenza, licenza, anno e hash del sorgente. `loadVerifiedSurnameSnapshot` rifiuta collisioni o provenienza incompleta. `toMatchEnginePlayer` + `toIndividualShoutCommand` in `player-engine-bridge.js` presentano i dati al vero motore #35.
+
+**Ownership vincolante:** PlayerV2 canonico `origin:{comune,regione,macroregione}|null` e `relationships.coachTrust`; tono UI `gentle|hard` ↔ comando 06 `encourage|harsh`. Origine ignota resta `null` e fiducia **0 rimane 0**, mai sostituita con default 50. Il motore 06 accetta ormai anche i nomi italiani tramite `normalizePlayerMatchContext`. L'effetto **temporaneo per 150 s simulati** appartiene solo a 06 (evento `coach_shout`); 09 applica i suggerimenti **persistenti** una sola volta con `matchId:event.id`. `effectiveAbility` ignora i vecchi `temporaryEffects.kind='coach-shout'` da 180 s. `applyShout` è consentito **solo** con `scope:'standalone-demo'` e non crea effetti temporanei: NON usarlo in partita. La demo autonoma non integra il runtime.
+
+Per test Node su checkout con il codice 08: `node --test oronzo/systems/attributes/tests/*.test.js`. Quando la PR #35 è disponibile nello **stesso checkout**, aggiungere `node --test oronzo/systems/attributes/tests/pr35-integration.test.mjs` (altrimenti gli scenari cross-PR vengono esplicitamente **saltati**). Le suite eseguite qui in V8: **43/43 test 08**, **6/6 prove reali 08↔06 #35** con import ESM adattati in memoria (non spacciate per esecuzioni native Node). Per QA browser richiesta la verifica HTTP/Chromium e save/load in game-flow 07.
+
+---
+
 # ORONZO — Attributi, personalità e allenamento (Agente 8)
 
 **Stato:** implementato e testato indipendentemente. **NON ancora integrato** nel prototipo `oronzo/game.js`.
@@ -95,7 +107,7 @@ Il codice originale `PlayerV1` rimane compatibile (stesse proprietà obbligatori
 
 - `player-traits.js` esporta `analyzeDisposition(player,context)`, `previewShout(player,{tone,coachOrigin,coachLeadership,pressure})`, `applyShout(player,{eventId,t,tone,coachOrigin,coachLeadership,pressure})`. Calcola `riskPreference`, `orderCompliance`, `errorOnRiskyAction`, `emotionalSensitivity` senza mutare la tecnica di base.
 - `effectiveAbility(player,{skill,pressure,riskyAction,t,...})` penalizza azioni rischiose condizionate da spericolatezza/impulsività, e legge gli effetti `temporaryEffects` solo se `t` (secondi di partita) è fornito e `t < expiresAt`. Gli effetti sono limitati a 8 punti complessivi. Il motore resta responsabile di *quali* azioni tentare: non generiamo tiri, gol o comandi.
-- `applyShout` richiede ID evento stabile, non duplica modifiche dopo retry/reload, applica delta misurabili a morale/fiducia e memorizza un bonus temporaneo di **180 secondi simulati**. Risposta media stessa regione > stessa macroregione > macroregione diversa, ponderata da leadership e carattere; gli shouts ripetuti devono essere gestiti e limitati dall'Agente 06/09. La morale di **allenatore**, game over e costi ingaggi sono esclusivamente dell'Agente 09.
+- `applyShout` richiede ID evento stabile, non duplica modifiche dopo retry/reload, è limitato alla modalità esplicita `scope:'standalone-demo'` e applica solo delta locali di demo, **senza bonus temporaneo**. Risposta media stessa regione > stessa macroregione > macroregione diversa, ponderata da leadership e carattere; gli shouts ripetuti devono essere gestiti e limitati dall'Agente 06/09. La morale di **allenatore**, game over e costi ingaggi sono esclusivamente dell'Agente 09.
 - Rischio infortunio da seduta: pazzia e spericolatezza influenzano le **probabilità** di sovraccarico senza creare esiti certi; piani/allenamenti rimangono deterministici a seed. L'origine è immutabile durante progressione stagionale e serializzabile.
 
 ### Esempio R02
@@ -110,4 +122,4 @@ const {player,applied,effects}=applyShout(players[0],{eventId:'match-100-shout-1
  coachOrigin:{comune:'Napoli',regione:'Campania'},coachLeadership:75});
 ```
 
-`demo.html` usa un import dinamico del campione locale per la scheda, mostra tratti e regione e permette di simulare richiami; non è collegata alla partita reale. Avviarla via HTTP per permettere il caricamento del CSV locale.
+`demo.html` usa il catalogo M1 interno da 600 cognomi per la scheda, mostra tratti e regione e permette di simulare richiami; non è collegata alla partita reale. Avviarla via HTTP per permettere il caricamento del CSV locale.
