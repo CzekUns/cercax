@@ -109,6 +109,8 @@ test('M1 gentle/hard and encourage/harsh map to exactly one contract',()=>{
  assert.equal(cmd.payload.coachOrigin.regionId,'campania');
  assert.equal(cmd.payload.playerTrust,p.relationships.coachTrust);
  assert.equal(cmd.t,120);
+ const regionalOnly=toIndividualShoutCommand({teamId:p.teamId,player:p,coachOrigin:{regionId:'campania',macroRegion:'south'},tone:'gentle'});
+ assert.deepEqual(regionalOnly.payload.coachOrigin,{regionId:'campania',macroRegion:'south'});
  assert.throws(()=>toIndividualShoutCommand({teamId:'wrong',player:p}),/another team/);
 });
 test('M1 old 180s bonus is ignored by effectiveAbility and stripped from engine projection',()=>{
