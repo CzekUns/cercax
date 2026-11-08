@@ -74,3 +74,11 @@
 /* Slight oversize removes subpixel clipping of bottom scroll rows at 1× DPR. */
 .runtime-player-link{min-height:45px;flex-basis:45px}
 .runtime-roster .runtime-player{min-height:45px}
+
+/* Agent11 M01: expand only the career shell; the match canvas stays 16:9.
+   .site already follows 100dvh, so browser chrome/orientation resize naturally.
+   Padding reserves display cutouts without scaling fonts or touch targets. */
+@media(orientation:landscape){
+ .site{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+ #oronzo-r03{width:100%;height:100%}
+}

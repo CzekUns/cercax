@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "name": "CDP synthetic cutout: left24/right12/bottom16",
+      "stage": {
+        "x": 24,
+        "y": 0,
+        "width": 808,
+        "height": 374
+      }
+    },
+    {
+      "name": "safe-area match and fixed CTA clipping",
+      "canvas": {
+        "x": 135.921875,
+        "y": 127.890625,
+        "width": 332.625,
+        "height": 187.09375
+      }
+    },
+    {
+      "name": "toolbar/viewport resize",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 360
+      }
+    },
+    {
+      "name": "toolbar/viewport resize",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 390
+      }
+    },
+    {
+      "name": "toolbar/viewport resize",
+      "stage": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 400
+      }
+    },
+    {
+      "name": "R02 retains centered 16:9",
+      "stage": {
+        "x": 124.4375,
+        "y": 0,
+        "width": 711.109375,
+        "height": 400
+      }
+    },
+    {
+      "name": "legacy links and quick-match HTTP200",
+      "hrefs": [
+        "./assets/ui/career-r03.html",
+        "./partita-rapida.html"
+      ]
+    }
+  ],
+  "status": "PASS"
+}

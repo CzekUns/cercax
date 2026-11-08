@@ -1,0 +1,986 @@
+[
+  {
+    "path": "engine.js",
+    "blob": "93ecf7b322b07f22dbb764396e9eda41751c3cb3"
+  },
+  {
+    "path": "mobile.css",
+    "blob": "c68111ed364cfa5a16ea513c965ce7ba65d47260"
+  },
+  {
+    "path": "app.js",
+    "blob": "2e3f2b929f183f50693e57dd0de2ab32867fe719"
+  },
+  {
+    "path": "mobile.js",
+    "blob": "ff332529c5841044c48f8cb17dae58caa8b300c2"
+  },
+  {
+    "path": "index.html",
+    "blob": "f61562d5255cceeb33d17c8f8101d008ce0703ac"
+  },
+  {
+    "path": "oronzo/narrative-contract.md",
+    "blob": "245f1f1ebe3cbe0271dd5c9671e69b53cc8cf513"
+  },
+  {
+    "path": "oronzo/asset-contract.md",
+    "blob": "23ade8cbc4c950193f423287af3a0025d69d5b76"
+  },
+  {
+    "path": "oronzo/README.md",
+    "blob": "f0be6ba934ebef787ee2d20ae94a7712a3dd8384"
+  },
+  {
+    "path": "oronzo/partita-rapida-smoke.test.mjs",
+    "blob": "9c6203658766d1e0cbbbb3481adc77bc75b9dca3"
+  },
+  {
+    "path": "oronzo/ui.css",
+    "blob": "0ed66e2cc2c20c847ef3db54952278212513a2d9"
+  },
+  {
+    "path": "oronzo/PLAYABLE.md",
+    "blob": "b0f73b740d744aee98cc71d9f57a509ee6a09454"
+  },
+  {
+    "path": "oronzo/AGENTS.md",
+    "blob": "ce6a7516a4325f4ecf985b0369b74a3c1e5bc624"
+  },
+  {
+    "path": "oronzo/quick-match-clock.js",
+    "blob": "ed8f8d37740ca0af0d50a496481305de989576bd"
+  },
+  {
+    "path": "oronzo/engine-contract.md",
+    "blob": "9651c6d9590b03563bc7ca6060b73c4fe5011f2e"
+  },
+  {
+    "path": "oronzo/partita-rapida.html",
+    "blob": "918332736ba448c8b0608cbfa31e107bafa6d32d"
+  },
+  {
+    "path": "oronzo/index.html",
+    "blob": "ee07142f1fc72edbeee567d0167cabfeed9a95fc"
+  },
+  {
+    "path": "oronzo/game.js",
+    "blob": "5c1c8fdda219c61ab0502c880b6ac3751607bd46"
+  },
+  {
+    "path": "oronzo/agents/03-ui.md",
+    "blob": "1f5dcf6d5fa851d9e89d977be726906d83ecaf9a"
+  },
+  {
+    "path": "oronzo/agents/04-copy.md",
+    "blob": "364f3910ccadf2b9c261d414be24cf48fcbbeec2"
+  },
+  {
+    "path": "oronzo/agents/02-cutscenes.md",
+    "blob": "8a40cc29e5a6a4f6bf3e7b76c010eb7f78fa3f5b"
+  },
+  {
+    "path": "oronzo/agents/07-career.md",
+    "blob": "616648286fd1b4ee40cea3a5f4e78f5bd7e012e6"
+  },
+  {
+    "path": "oronzo/agents/06-simulation.md",
+    "blob": "ddefe628cbe781c7bcaad0f5633d7212de8b269a"
+  },
+  {
+    "path": "oronzo/agents/08-attributes.md",
+    "blob": "775f351ebbffbf9b8f08f3d23ac2a9fcf1770a82"
+  },
+  {
+    "path": "oronzo/agents/09-coach-club.md",
+    "blob": "cb058adb497b09514a91c04d29288f2fc12a607e"
+  },
+  {
+    "path": "oronzo/agents/05-movements.md",
+    "blob": "a04b2e4dc1f02ba048b03e7d10f7b91d5e42fd02"
+  },
+  {
+    "path": "oronzo/agents/01-players.md",
+    "blob": "ea053acb33911d4712997a50a0a831cab515b2fd"
+  },
+  {
+    "path": "oronzo/agents/11-mobile-ui.md",
+    "blob": "6fe614e0718377d571eb03018226dc3401c764b0"
+  },
+  {
+    "path": "oronzo/content/qa.md",
+    "blob": "b62f544481ac88c4f375425f873865efd74e74b9"
+  },
+  {
+    "path": "oronzo/content/characters.json",
+    "blob": "8c4283147e380b0e3331980bdf03120f505ac24d"
+  },
+  {
+    "path": "oronzo/content/events.json",
+    "blob": "56a42150b1b23ca5293e0b6cb7ac4d366cce3437"
+  },
+  {
+    "path": "oronzo/content/PRESS-R02-QA.md",
+    "blob": "0558a3df87117fb1ff3aa2b5bc872d2d75474867"
+  },
+  {
+    "path": "oronzo/content/README.md",
+    "blob": "c28a89b5f92f4adf1474645b846c3269db255422"
+  },
+  {
+    "path": "oronzo/content/press-postmatch.json",
+    "blob": "343e0f01782a6a149f07e565c58cae47f5099714"
+  },
+  {
+    "path": "oronzo/content/presidents.json",
+    "blob": "fe299292f6c52386ab27a0063a6a8a0941fa73ec"
+  },
+  {
+    "path": "oronzo/content/microcopy.json",
+    "blob": "9f4ab869482e7755e9fbfad84e3cb0b2bb788827"
+  },
+  {
+    "path": "oronzo/content/press-demo.html",
+    "blob": "25a2dc58ae9e10f30d27b59f9dac99dbe8d872ad"
+  },
+  {
+    "path": "oronzo/content/individual-shouts.json",
+    "blob": "bb01a986e5af077196a790106a0e133a138bde0c"
+  },
+  {
+    "path": "oronzo/content/demo.html",
+    "blob": "c5a9bdb33d6893875f3e533fa43c4d8495259945"
+  },
+  {
+    "path": "oronzo/content/press-kit.js",
+    "blob": "ab89840e9323ff2f6ebcf39958205d0f91f12a8b"
+  },
+  {
+    "path": "oronzo/content/validate-press.mjs",
+    "blob": "b4bb1eef2d93c5562a6496548fce5240fe1df6ca"
+  },
+  {
+    "path": "oronzo/content/press-opening.json",
+    "blob": "3629cf9bf13c6c5f443df9a8ab621b9dd0d89913"
+  },
+  {
+    "path": "oronzo/content/dialogues.json",
+    "blob": "4943b5adb0edf9f8cefb9fdcafc4c2a45dc587ba"
+  },
+  {
+    "path": "oronzo/content/press-media.json",
+    "blob": "ff1a71a2dc2a01eebf6d12eba23cf6878ef95c18"
+  },
+  {
+    "path": "oronzo/content/PRESS-R02.md",
+    "blob": "f4ee2d25a1047c1ed8a07027101b483bd6b9c648"
+  },
+  {
+    "path": "oronzo/content/narrative-engine.js",
+    "blob": "1d5c82c79af70f78e339eda6abc7fc58e6cf7c53"
+  },
+  {
+    "path": "oronzo/content/validate.mjs",
+    "blob": "25050d3a692585b541f1232fab05958e446c59c6"
+  },
+  {
+    "path": "oronzo/coordination/GAME-VISION-v02.md",
+    "blob": "f7c917c9938aa081115ed0e126486edbc48a74d7"
+  },
+  {
+    "path": "oronzo/coordination/registry.json",
+    "blob": "c0d2354578e013178944645538125a5ee1f61589"
+  },
+  {
+    "path": "oronzo/coordination/RESUME-ALL.md",
+    "blob": "1b37847a8494db5a9666620623fcd01cb68c3ab3"
+  },
+  {
+    "path": "oronzo/coordination/README.md",
+    "blob": "e62e8da8104094c98b9bfecc8d115b7479758996"
+  },
+  {
+    "path": "oronzo/coordination/REVIEW-QUEUE.md",
+    "blob": "091fbe37d9b35fa7dd1aa97b640cbe84c84de8ed"
+  },
+  {
+    "path": "oronzo/coordination/ORCHESTRATOR.md",
+    "blob": "3c00fd17a4fa3b00b57b5c7e827f1a7e3f6f283d"
+  },
+  {
+    "path": "oronzo/coordination/PROTOCOL.md",
+    "blob": "209a38f2ec6095fb6c5f1d310ec770ea346c1200"
+  },
+  {
+    "path": "oronzo/assets/ui/squad-roster.png",
+    "blob": "c9e670e7940fe6350bf35e3d06c10f339796044e"
+  },
+  {
+    "path": "oronzo/assets/ui/office-home.png",
+    "blob": "373e69657622d119b737ccad6876625dff7e7b55"
+  },
+  {
+    "path": "oronzo/assets/ui/button-normal.png",
+    "blob": "2a6b6028e61a05cb9115f8821a4fb8b77ec468db"
+  },
+  {
+    "path": "oronzo/assets/ui/journalists-atlas.png",
+    "blob": "a8f3590c5fc22f4a899c2766412da1d2a6300744"
+  },
+  {
+    "path": "oronzo/assets/ui/career-r03.js",
+    "blob": "729ab290406d7ab6b33747e6ab09280f04b65af4"
+  },
+  {
+    "path": "oronzo/assets/ui/btn-disabled-v02.png",
+    "blob": "c33db67ea233eda2e07b3a4466e566068ccd0dc3"
+  },
+  {
+    "path": "oronzo/assets/ui/coaches-atlas.png",
+    "blob": "a72c6b3bb6bbf23a2d347554307b26c19537d263"
+  },
+  {
+    "path": "oronzo/assets/ui/training.png",
+    "blob": "b2dce0eee680369c9960eeae7011e899ead5d0ff"
+  },
+  {
+    "path": "oronzo/assets/ui/panel-noise.png",
+    "blob": "fa2d2d431f65e2538e210d7dc08f65d376b78609"
+  },
+  {
+    "path": "oronzo/assets/ui/btn-blue-v02.png",
+    "blob": "a9788198c91e0fbc363e533b1a0c1b077fdf9e8b"
+  },
+  {
+    "path": "oronzo/assets/ui/integration-notes.md",
+    "blob": "b161ba450a70f2ce4b0ca0cf03e0821d618e5c64"
+  },
+  {
+    "path": "oronzo/assets/ui/gallery.html",
+    "blob": "1b5e7d42cd4371edbfa1ed32da9fb1e7e3635769"
+  },
+  {
+    "path": "oronzo/assets/ui/pitch-textless.png",
+    "blob": "45e7997f312e0a69f12ba160da5725f1e7acbfa2"
+  },
+  {
+    "path": "oronzo/assets/ui/INTEGRATION-R02.md",
+    "blob": "0c9d921290a017b148829684bf9c08875cfd8f50"
+  },
+  {
+    "path": "oronzo/assets/ui/button-selected.png",
+    "blob": "c8a84bbf4654b57936096b8b502bbaf5f5786118"
+  },
+  {
+    "path": "oronzo/assets/ui/demo-v02.css",
+    "blob": "621ec2507863f337cbc41abc9712229f6a76f259"
+  },
+  {
+    "path": "oronzo/assets/ui/btn-gold-v02.png",
+    "blob": "8b5acf6396154af924444230d77e1663fc69444a"
+  },
+  {
+    "path": "oronzo/assets/ui/office-desk-v02.png",
+    "blob": "98480d515c887a4caf1155b0236b9f10e1e6ab47"
+  },
+  {
+    "path": "oronzo/assets/ui/demo-v02.html",
+    "blob": "83b3c435911061fa1a38c0f5eefe4f22526deec9"
+  },
+  {
+    "path": "oronzo/assets/ui/result.png",
+    "blob": "27a46b4fb1c70cfe257976e7fa46fcd537f2a163"
+  },
+  {
+    "path": "oronzo/assets/ui/match-hud.png",
+    "blob": "d0f9c91e48ad3501e7e34ea23b53e1950fddcbad"
+  },
+  {
+    "path": "oronzo/assets/ui/ui-v02-manifest.json",
+    "blob": "dde10ad3e9910d20bae0a0b6a0c446420c96c0a1"
+  },
+  {
+    "path": "oronzo/assets/ui/presidents-atlas.png",
+    "blob": "5e432473b7a01bd8ca4634a6b84f131a654ca7a6"
+  },
+  {
+    "path": "oronzo/assets/ui/tactics.png",
+    "blob": "f50496c985290ab51fabbc6c44fe3598c634b44c"
+  },
+  {
+    "path": "oronzo/assets/ui/button-disabled.png",
+    "blob": "fdc8e29925f5841cbd3f9425a87900fdb51da69a"
+  },
+  {
+    "path": "oronzo/assets/ui/press.png",
+    "blob": "97dd60a970c8c31f440956197741a33aa8760bc5"
+  },
+  {
+    "path": "oronzo/assets/ui/manifest.json",
+    "blob": "9744b2d8aa2a09e79c1480038924240961002c76"
+  },
+  {
+    "path": "oronzo/assets/ui/components.png",
+    "blob": "0d4979b34f2fa7eb364cc197785a9ea715c73120"
+  },
+  {
+    "path": "oronzo/assets/ui/navy-noise.png",
+    "blob": "98bf2c481c7858e2908aa665a770989bdb55d7b6"
+  },
+  {
+    "path": "oronzo/assets/ui/coach-select.png",
+    "blob": "ef5a2743fb9951d4bb82aa73006438d13852df5c"
+  },
+  {
+    "path": "oronzo/assets/ui/career-r03.html",
+    "blob": "94b5774f81fefa776108d722af97365e89e78485"
+  },
+  {
+    "path": "oronzo/assets/ui/demo-v02.js",
+    "blob": "99dff55566f7b0fd1053a190c32e352c7d281098"
+  },
+  {
+    "path": "oronzo/assets/ui/design-tokens.json",
+    "blob": "da2583cddfd0e3498bb9b5a0786202451a1ab4c9"
+  },
+  {
+    "path": "oronzo/assets/players/qa-report.json",
+    "blob": "0e00f48a19b4372cc7534aaffbd566e89d90e9d2"
+  },
+  {
+    "path": "oronzo/assets/players/run-mask.png",
+    "blob": "041e845d7918764bb1435150ee0b47a9c9179590"
+  },
+  {
+    "path": "oronzo/assets/players/ball.png",
+    "blob": "451dfdfa30521884fb2f4ba5468149b64aa425a9"
+  },
+  {
+    "path": "oronzo/assets/players/sprite-factory.js",
+    "blob": "5964b64ef58c6aaf2a6e0e403360a185fec1675e"
+  },
+  {
+    "path": "oronzo/assets/players/integration-notes.md",
+    "blob": "48bdaa2c67c85426eb2554d1b140fb8449a728c2"
+  },
+  {
+    "path": "oronzo/assets/players/kick-mask.png",
+    "blob": "c8c3c50c94b92b804d08fe064c6e75e150706bce"
+  },
+  {
+    "path": "oronzo/assets/players/idle-mask.png",
+    "blob": "2427baed1e4ee09a0e20e31655835baccc72f798"
+  },
+  {
+    "path": "oronzo/assets/players/run.png",
+    "blob": "6c45819987f3253457cc90999ecd28738eb28e20"
+  },
+  {
+    "path": "oronzo/assets/players/palette-preview.png",
+    "blob": "91a8676dc6cae7e0e565e8564898fdd7fc5dc434"
+  },
+  {
+    "path": "oronzo/assets/players/palette-demo.html",
+    "blob": "982b2ff8866b9fd9bb7c9b6d15ff5484344ca167"
+  },
+  {
+    "path": "oronzo/assets/players/tackle-mask.png",
+    "blob": "86bd9e091e83346b0f503b1392e5ad7d5fd10e66"
+  },
+  {
+    "path": "oronzo/assets/players/tackle.png",
+    "blob": "b4d69bbda82c4485a7a940d63db99f01581f82c9"
+  },
+  {
+    "path": "oronzo/assets/players/manifest.json",
+    "blob": "4257476bde594b40cb0492f82b3dbb96839ac1ed"
+  },
+  {
+    "path": "oronzo/assets/players/kick.png",
+    "blob": "8f8d1fc54814cda916db36b6514d2665b078360d"
+  },
+  {
+    "path": "oronzo/assets/players/keeper.png",
+    "blob": "b6dca1993ae2eed01440f1ae715d7032b93303ae"
+  },
+  {
+    "path": "oronzo/assets/players/keeper-mask.png",
+    "blob": "e98d7c50b54b91706d2eb0cece0ff8fb27c670aa"
+  },
+  {
+    "path": "oronzo/assets/players/palette.js",
+    "blob": "673418b9242d0d8cd4e0cffeacbaf5ec734a1cbc"
+  },
+  {
+    "path": "oronzo/assets/players/idle.png",
+    "blob": "2bf806dbb1d17d0c91687d4cd3b05950e1c1fc62"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/r03-chromium.py",
+    "blob": "34c0747f816cbf33c097573d9d2871212ec70609"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/R08B-RESULTS.json",
+    "blob": "5c124ae9737b1e3239f5c5041729816ebe796fbd"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/r08-chromium.py",
+    "blob": "356e343e8d90a0597e0ad112c0731dc07e3076d4"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/check_assets.py",
+    "blob": "fd0172c82dedc0b3889f984b738fba24113bc681"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/R04-BROWSER-RESULTS.json",
+    "blob": "21c3207929f1b8f986fa7dfcf0dd038f83bde2fe"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/R07B-RESULTS.json",
+    "blob": "6f796781f147c0b1b62a9856a8404b078fc318c7"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/run_browser_qa.py",
+    "blob": "00841de6ea64b092438d40e47fd955610ac90b3c"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/run_browser_r04.py",
+    "blob": "a5e7d4e877f606e98e67d23af2fc7f7d812806d3"
+  },
+  {
+    "path": "oronzo/assets/ui/qa/run_browser_r07.py",
+    "blob": "68768dd85b0e447492f1ece93b98bbe6e536ca6b"
+  },
+  {
+    "path": "oronzo/systems/match-engine/match-engine.js",
+    "blob": "d92c566e22c77a48df403ba6d4c681c8c158d2e9"
+  },
+  {
+    "path": "oronzo/systems/match-engine/rng.js",
+    "blob": "cc286aeda4fc97194f69c16851440e95de049938"
+  },
+  {
+    "path": "oronzo/systems/match-engine/commands.js",
+    "blob": "30a82d1e02f04cfdb016c5ef3d0917a60874ae5a"
+  },
+  {
+    "path": "oronzo/systems/match-engine/README.md",
+    "blob": "cf0346c7a9141b678fee536c8f62885490ae4dad"
+  },
+  {
+    "path": "oronzo/systems/match-engine/integration-notes.md",
+    "blob": "39fc32d1261d58b2021c6eeb75f268daaf3e3fec"
+  },
+  {
+    "path": "oronzo/systems/match-engine/actions.js",
+    "blob": "878e7e43ddc13fa52d5beae672e2a4cc5916a5f4"
+  },
+  {
+    "path": "oronzo/systems/match-engine/movement.js",
+    "blob": "a0d848b0805a90f6078a2c43a4d1ebd92ede10a7"
+  },
+  {
+    "path": "oronzo/systems/match-engine/package.json",
+    "blob": "690275becf7bf89c130accfa901fe1fa24f7f7f3"
+  },
+  {
+    "path": "oronzo/systems/match-engine/demo.html",
+    "blob": "2905953cc00aedd72bd317409d8e73896527d1bc"
+  },
+  {
+    "path": "oronzo/systems/match-engine/cli-demo.mjs",
+    "blob": "31ddb9d346006f0a798ac626a06a9d4ef7d101c0"
+  },
+  {
+    "path": "oronzo/systems/match-engine/fixtures.js",
+    "blob": "9abd4cbb63799d6cecb7f0bde54b0afbd602b9e4"
+  },
+  {
+    "path": "oronzo/systems/career/uncontrolled-fixtures.js",
+    "blob": "39262ef7063df4d01ef9942b0aaf66b2c8540e7c"
+  },
+  {
+    "path": "oronzo/systems/career/demo-adapter.js",
+    "blob": "aa4868b01372d3c608cdc08a261fc797baec330f"
+  },
+  {
+    "path": "oronzo/systems/career/career-demo.html",
+    "blob": "ad16fa26e5a0976a5b1f0056fb2459043b19704c"
+  },
+  {
+    "path": "oronzo/systems/career/README.md",
+    "blob": "a5b91a2d09f558c5d0127c39d4c7dea2cb722176"
+  },
+  {
+    "path": "oronzo/systems/career/integration-notes.md",
+    "blob": "e6a9ce0c7014b22a83bca447987a2bc1596ffabd"
+  },
+  {
+    "path": "oronzo/systems/career/package.json",
+    "blob": "aa252607beb658b70750bbf47d4888c5cb925338"
+  },
+  {
+    "path": "oronzo/systems/career/period-migration.js",
+    "blob": "2a3f05a718ab7a697f3710896333eaa89def33cf"
+  },
+  {
+    "path": "oronzo/systems/career/offers-r03.js",
+    "blob": "77fc1bddd591a28999112cadea26d423c30b26af"
+  },
+  {
+    "path": "oronzo/systems/career/compat.js",
+    "blob": "afdaac2a59719284985108cb0f84602b1fd0fa05"
+  },
+  {
+    "path": "oronzo/systems/career/world.js",
+    "blob": "46ec9eb17a6120a7894f59fe73de3bc4d8bcb6b6"
+  },
+  {
+    "path": "oronzo/systems/career/progression.js",
+    "blob": "bd9de84452923057ca5544b9e3d7019c7105392d"
+  },
+  {
+    "path": "oronzo/systems/career/career.js",
+    "blob": "43ce7c02679099095b9591aa467a3a30724e7eac"
+  },
+  {
+    "path": "oronzo/systems/career/save.js",
+    "blob": "82a90a6e704d81183b8d5d00135c4ea81c342462"
+  },
+  {
+    "path": "oronzo/systems/career/league.js",
+    "blob": "cd3b73205ce8067a1b070f947607e4222bdad5eb"
+  },
+  {
+    "path": "oronzo/systems/attributes/rng.js",
+    "blob": "1d258115f3a7cfdaa1d4e0303da33b37c083c0d6"
+  },
+  {
+    "path": "oronzo/systems/attributes/generator.js",
+    "blob": "df657079dba0b65c3bdf6c1f39d1866d02b76971"
+  },
+  {
+    "path": "oronzo/systems/attributes/README.md",
+    "blob": "dc6ceb60cec74fb2e80e1c9423e3d246c22fb364"
+  },
+  {
+    "path": "oronzo/systems/attributes/integration-notes.md",
+    "blob": "da5ff0e7cbdd5e66fa289561932415921487437e"
+  },
+  {
+    "path": "oronzo/systems/attributes/player-model.js",
+    "blob": "edfc930f282d225dfdb413fee250fed49a9c7118"
+  },
+  {
+    "path": "oronzo/systems/attributes/personality.js",
+    "blob": "e013d33e2678553e543444144ef3fe73cbd29194"
+  },
+  {
+    "path": "oronzo/systems/attributes/career-stats.js",
+    "blob": "383fd3eaa9729c64f51bdf514910c43a38a967cf"
+  },
+  {
+    "path": "oronzo/systems/attributes/demo.html",
+    "blob": "f8627fc9d5db1f9d58ba78b3d85c30c8a17b4ddc"
+  },
+  {
+    "path": "oronzo/systems/attributes/demo.js",
+    "blob": "57f60f4c5e04d359c06a2d0cbbca5f88ae31b650"
+  },
+  {
+    "path": "oronzo/systems/attributes/training.js",
+    "blob": "1b0f03ac2ef09c709ceba62042397bb9c2b3afde"
+  },
+  {
+    "path": "oronzo/systems/match-view/match-view-demo.html",
+    "blob": "dcd38e9ebcce4d6a5b8372aaefe2c50a3b745196"
+  },
+  {
+    "path": "oronzo/systems/match-view/asset-adapter.js",
+    "blob": "9251826df36f010fe5f2d5da2280ba68c8c04c0c"
+  },
+  {
+    "path": "oronzo/systems/match-view/README.md",
+    "blob": "0e8b5be471364069cab7854e7eb15f9d44f16d2d"
+  },
+  {
+    "path": "oronzo/systems/match-view/interpolation.js",
+    "blob": "990ea58f4eeb5864b219f22a518ea723b7fabb4d"
+  },
+  {
+    "path": "oronzo/systems/match-view/integration-notes.md",
+    "blob": "85807e1b79b0930136d4be2cfdf39094dd234825"
+  },
+  {
+    "path": "oronzo/systems/match-view/asset-adapter.test.mjs",
+    "blob": "f03b8880242c5681d00ac68d22fac1265039bacf"
+  },
+  {
+    "path": "oronzo/systems/match-view/match-view.test.mjs",
+    "blob": "1cdb1ed271d870159f5f4a53c9443190cfcad212"
+  },
+  {
+    "path": "oronzo/systems/match-view/compatibility.test.mjs",
+    "blob": "09a6dcddad4055dfd2ef116e68d860f8145009a9"
+  },
+  {
+    "path": "oronzo/systems/match-view/fixture.js",
+    "blob": "06ccf75eda689baee9ab14d583368a891ec42a3f"
+  },
+  {
+    "path": "oronzo/systems/match-view/match-view.js",
+    "blob": "c53a4bd1f22fe28dbb9d4d14d7718829bb1df0cc"
+  },
+  {
+    "path": "oronzo/systems/coach-club/objectives.js",
+    "blob": "48fdc923ccd625421cac3c6c6be79b67ae8bc36d"
+  },
+  {
+    "path": "oronzo/systems/coach-club/morale.js",
+    "blob": "1b18ab09a0733fe4b818c80eb30d85226e24f4e7"
+  },
+  {
+    "path": "oronzo/systems/coach-club/board.js",
+    "blob": "b2900423daca1e545547838e86e28771f5d63c9e"
+  },
+  {
+    "path": "oronzo/systems/coach-club/period-r04.test.js",
+    "blob": "c0afdfc9b0c69d8258ea1d693ed47fc98651af0b"
+  },
+  {
+    "path": "oronzo/systems/coach-club/compat-r02.test.js",
+    "blob": "e47624372b37516915eebc315e78b73496d8be69"
+  },
+  {
+    "path": "oronzo/systems/coach-club/coach-model.js",
+    "blob": "d90dc49815a30decb22aafcdaf4f262d75709d56"
+  },
+  {
+    "path": "oronzo/systems/coach-club/MORALE-R03.md",
+    "blob": "fee777dae033c11e249e5ad06d03539d43610b47"
+  },
+  {
+    "path": "oronzo/systems/coach-club/morale-r03.test.js",
+    "blob": "3df80d7a29b252848cc6814fcaffe4e11d8fc837"
+  },
+  {
+    "path": "oronzo/systems/coach-club/README.md",
+    "blob": "77f60f6dd7d8cbf595f48b1cb863364ce37bd811"
+  },
+  {
+    "path": "oronzo/systems/coach-club/core.js",
+    "blob": "fb4b00debfc66ab870b41880a67d1264939a725e"
+  },
+  {
+    "path": "oronzo/systems/coach-club/period.js",
+    "blob": "48b8cfa889d2650e71e5d63d5c78ddb1b2c9ff20"
+  },
+  {
+    "path": "oronzo/systems/coach-club/integration-notes.md",
+    "blob": "e463976f046de2d91e7e02d53b673010bfd54a9e"
+  },
+  {
+    "path": "oronzo/systems/coach-club/coach-actions.js",
+    "blob": "ee04037a4232dacc7c126744572006daa9597e42"
+  },
+  {
+    "path": "oronzo/systems/coach-club/finance-validation.test.js",
+    "blob": "0e3cb0c84975ab314025af1f2cbc2597f63c59a9"
+  },
+  {
+    "path": "oronzo/systems/coach-club/coach-club-demo.html",
+    "blob": "692f4fc86fede5fe8f3da9b84db9d58a4eae3c79"
+  },
+  {
+    "path": "oronzo/systems/coach-club/index.js",
+    "blob": "e163d3c88574962e455e9ecb1f4de2f6d09b8f20"
+  },
+  {
+    "path": "oronzo/systems/coach-club/package.json",
+    "blob": "cedd6cd63e762074d3732459864bfb33ecb3bcbe"
+  },
+  {
+    "path": "oronzo/systems/coach-club/coach-club.test.js",
+    "blob": "4813ccbe0d913e579cba972ea39ad3416972876d"
+  },
+  {
+    "path": "oronzo/systems/coach-club/presidents.js",
+    "blob": "52276a775872c1fcc4d610c2c1b61a23538af730"
+  },
+  {
+    "path": "oronzo/systems/coach-club/club.js",
+    "blob": "987147b80ee9c6f79f31d86e5437add0b1d93ea7"
+  },
+  {
+    "path": "oronzo/systems/coach-club/negotiations.js",
+    "blob": "6d4b52a79b36aa195ec6d14d248bda042e501f18"
+  },
+  {
+    "path": "oronzo/systems/coach-club/finance.js",
+    "blob": "88c0469e685d013df33503036b5bc66f051d6b18"
+  },
+  {
+    "path": "oronzo/systems/match-engine/tests/formation-regroup.test.mjs",
+    "blob": "4b8b442275db6801533b21b60cdf2aeff4ce9708"
+  },
+  {
+    "path": "oronzo/systems/match-engine/tests/match-engine.test.mjs",
+    "blob": "fe2c4d9cf20a992b34074b3bdacb5e9729882f40"
+  },
+  {
+    "path": "oronzo/systems/match-engine/tests/integration-p1.test.mjs",
+    "blob": "ef3f5451efb192308551d3ccaaf6d93d0e4ceb2a"
+  },
+  {
+    "path": "oronzo/systems/career/tests/r02.test.mjs",
+    "blob": "61db6ca825ad0fd6e8287e056fb7c737ac8a985e"
+  },
+  {
+    "path": "oronzo/systems/career/tests/r04-save.test.mjs",
+    "blob": "7ef2f51947c8a0acae5b0befb3d095943b5ff2f4"
+  },
+  {
+    "path": "oronzo/systems/career/tests/r04-board-cross.test.mjs",
+    "blob": "3c726345fec0b3ecb2d9abc485bafa2a1771ca47"
+  },
+  {
+    "path": "oronzo/systems/career/tests/career.test.mjs",
+    "blob": "4ebd51a9d25fd58310f1e026116413055f9b092e"
+  },
+  {
+    "path": "oronzo/systems/career/tests/r02-cross.test.mjs",
+    "blob": "586e6856910196965172e9488ff3bee8b839ee74"
+  },
+  {
+    "path": "oronzo/systems/career/tests/period-migration-r04.test.mjs",
+    "blob": "35a102cdcd21f26803b4329aaecf943414900fb0"
+  },
+  {
+    "path": "oronzo/systems/attributes/tests/attributes.test.js",
+    "blob": "d2ea4a46e6b5aab98de0c7ec0185521acc6d895a"
+  },
+  {
+    "path": "oronzo/app/flow/README.md",
+    "blob": "6d5ffb7cc89aaa409f5aae7c300a20c6f8cbf2f5"
+  },
+  {
+    "path": "oronzo/app/flow/demo-r03.mjs",
+    "blob": "a9f34a1ed8e9953832f73055ace3293a7116699b"
+  },
+  {
+    "path": "oronzo/app/flow/package.json",
+    "blob": "75efb37884c08647fe35d3f3cb446d50992c5bfd"
+  },
+  {
+    "path": "oronzo/app/flow/controller.js",
+    "blob": "e354a4dfd3a3b71032b4f50d68742c11ac17dc74"
+  },
+  {
+    "path": "oronzo/app/flow/tests/morale-r06.e2e.test.mjs",
+    "blob": "1701a342dc82487406b0177717a4f3507bbf4c1a"
+  },
+  {
+    "path": "oronzo/app/flow/tests/qa-geography.mjs",
+    "blob": "7951598b52cbc4fa7776248c1abd619171f1d2ae"
+  },
+  {
+    "path": "oronzo/app/flow/tests/flow-r03.test.mjs",
+    "blob": "a5d3bd710ac2744c8a5cab39f3822b29f9e63a71"
+  },
+  {
+    "path": "oronzo/coordination/10-orchestrator/PLAN.md",
+    "blob": "38af7330d78ed15871f9201053f6d6a261aa1710"
+  },
+  {
+    "path": "oronzo/coordination/10-orchestrator/NEXT.md",
+    "blob": "a417e1332c064d04fa0eb56319cb226daf808315"
+  },
+  {
+    "path": "oronzo/coordination/10-orchestrator/RUN.md",
+    "blob": "2bb365907c3bc1ebf37c57eed6928ec156a2c774"
+  },
+  {
+    "path": "oronzo/coordination/10-orchestrator/IDENTITY.md",
+    "blob": "b153a0c68028bba6ecb53f8b9b7c3023a2fd0ea4"
+  },
+  {
+    "path": "oronzo/coordination/10-orchestrator/CONTRACT-v02.md",
+    "blob": "81d0d1dfeed86859ba965bee70b858dc409d13fb"
+  },
+  {
+    "path": "oronzo/coordination/10-orchestrator/DISPATCH-R05.md",
+    "blob": "2858f2b52d90cd9dd0fc03c1f862ea89d9021dd7"
+  },
+  {
+    "path": "oronzo/coordination/06-match-engine/NEXT.md",
+    "blob": "02cbfde308bb8548b31aae73abe3e7c945862f24"
+  },
+  {
+    "path": "oronzo/coordination/06-match-engine/RUN.md",
+    "blob": "857d732f411565549422a9b23c7e5c89015a91f2"
+  },
+  {
+    "path": "oronzo/coordination/06-match-engine/IDENTITY.md",
+    "blob": "fb5e63852e60d56ae33f5aaf85511fb1d66bbab7"
+  },
+  {
+    "path": "oronzo/coordination/06-match-engine/REPORT.md",
+    "blob": "f0dc38e15b114c5d4a0d1383d2886b0307eff3bf"
+  },
+  {
+    "path": "oronzo/coordination/08-attributes/NEXT.md",
+    "blob": "6015623a8e6067c6bb92fb96228e8fc3c0691115"
+  },
+  {
+    "path": "oronzo/coordination/08-attributes/RUN.md",
+    "blob": "9440522aa29a11c965a133b0454223bc34e787a8"
+  },
+  {
+    "path": "oronzo/coordination/08-attributes/IDENTITY.md",
+    "blob": "a8a015174303211ec06e149b4455c54b923fd2c2"
+  },
+  {
+    "path": "oronzo/coordination/08-attributes/REPORT.md",
+    "blob": "72f1c81fbe79a00d949b848784819ce41f6eef90"
+  },
+  {
+    "path": "oronzo/coordination/01-players/NEXT.md",
+    "blob": "d8e259a52916db0f00d6f44807fa70aa5da7b13b"
+  },
+  {
+    "path": "oronzo/coordination/01-players/RUN.md",
+    "blob": "f017c358312c5a9dfc72d3849f1591c2c4df8d9a"
+  },
+  {
+    "path": "oronzo/coordination/01-players/IDENTITY.md",
+    "blob": "4d8868971ca37ac93112969fad4df73e8fb524e0"
+  },
+  {
+    "path": "oronzo/coordination/01-players/REPORT.md",
+    "blob": "cf19c6ea8f727f44b626bab324df21007f9831f6"
+  },
+  {
+    "path": "oronzo/coordination/03-ui/NEXT.md",
+    "blob": "656d2dab10ba1b3ce93bc57fd232081eba9e16d4"
+  },
+  {
+    "path": "oronzo/coordination/03-ui/RUN.md",
+    "blob": "5d4f235149f389bb653f51d6719d161262f05bf5"
+  },
+  {
+    "path": "oronzo/coordination/03-ui/IDENTITY.md",
+    "blob": "9021d33a87b7bb3b829c7f786f589d0ab0ddb680"
+  },
+  {
+    "path": "oronzo/coordination/03-ui/REPORT.md",
+    "blob": "4639dc1e893e8d11a61426450dc17808772296c4"
+  },
+  {
+    "path": "oronzo/coordination/09-coach-club/NEXT.md",
+    "blob": "6134f9c72c224a9c68c2992950e2292955f696a9"
+  },
+  {
+    "path": "oronzo/coordination/09-coach-club/RUN.md",
+    "blob": "abeb36ee71ea118600d197d8c983d524e8bca89a"
+  },
+  {
+    "path": "oronzo/coordination/09-coach-club/IDENTITY.md",
+    "blob": "cffb0894dc3af3ca6c0f1b0c42d08288e0a780ce"
+  },
+  {
+    "path": "oronzo/coordination/09-coach-club/REPORT.md",
+    "blob": "2be27ecb9aae6253b7330c67b92fc2ccb64ee5c8"
+  },
+  {
+    "path": "oronzo/coordination/04-copy/NEXT.md",
+    "blob": "42f17df145ad0cda74dd6c153039a9b4c5d850a1"
+  },
+  {
+    "path": "oronzo/coordination/04-copy/RUN.md",
+    "blob": "4e7ae32057316368e6ef897ef5c195014bef6b93"
+  },
+  {
+    "path": "oronzo/coordination/04-copy/IDENTITY.md",
+    "blob": "ee341e8d1809546847887b4ab71f568c74091380"
+  },
+  {
+    "path": "oronzo/coordination/04-copy/REPORT.md",
+    "blob": "6f27e931bb6ad2d4e9b45ae6fd70036c2c97f722"
+  },
+  {
+    "path": "oronzo/coordination/02-cutscenes/NEXT.md",
+    "blob": "77069e926e10d90bf1178d76045d67fd42e83186"
+  },
+  {
+    "path": "oronzo/coordination/02-cutscenes/RUN.md",
+    "blob": "8a2802cfd09310e460dd552dba7b6df5fbee412d"
+  },
+  {
+    "path": "oronzo/coordination/02-cutscenes/IDENTITY.md",
+    "blob": "d1ac401e1dc7d040e23b6e123681603ca44c0dc8"
+  },
+  {
+    "path": "oronzo/coordination/11-mobile-ui/NEXT.md",
+    "blob": "689a418ee69a05c8f2d58f6b00057676562eecf9"
+  },
+  {
+    "path": "oronzo/coordination/11-mobile-ui/RUN.md",
+    "blob": "f397aca6632f0bdde8da9067ec6a4f4e5425fa38"
+  },
+  {
+    "path": "oronzo/coordination/11-mobile-ui/IDENTITY.md",
+    "blob": "e6f90e680b5c77c0db7640ac8d31c3004d5996e8"
+  },
+  {
+    "path": "oronzo/coordination/coerentizzatore/REQUEST.md",
+    "blob": "18f924cd115df5804378d4adc3d5b954bdd4bc20"
+  },
+  {
+    "path": "oronzo/coordination/coerentizzatore/RUN.md",
+    "blob": "5f710e75a92176321e14607affe367a16c2213d3"
+  },
+  {
+    "path": "oronzo/coordination/coerentizzatore/README.md",
+    "blob": "d4a99b556cc9583a5549906f550d00b3b88413b3"
+  },
+  {
+    "path": "oronzo/coordination/coerentizzatore/REPORT-R02.md",
+    "blob": "d8e969c13f9eaac3d031df190889c73006c8eff0"
+  },
+  {
+    "path": "oronzo/coordination/coerentizzatore/REPORT.md",
+    "blob": "87301e991d08db3408c2551154f6b0ef687b0054"
+  },
+  {
+    "path": "oronzo/coordination/05-match-view/NEXT.md",
+    "blob": "f860efb3ccfa107679f8a9df581698bbb27c7833"
+  },
+  {
+    "path": "oronzo/coordination/05-match-view/RUN.md",
+    "blob": "d785e09a8b1edf0512cbe1a478ec670e7790b448"
+  },
+  {
+    "path": "oronzo/coordination/05-match-view/IDENTITY.md",
+    "blob": "49effdb95e40d4b2ec90f4949361d3abcdda9a37"
+  },
+  {
+    "path": "oronzo/coordination/05-match-view/REPORT.md",
+    "blob": "4026090f24b1757ea842c733266f75bef497c778"
+  },
+  {
+    "path": "oronzo/coordination/07-career/NEXT.md",
+    "blob": "733c3ab282d57a282253a16375269388a8063a9d"
+  },
+  {
+    "path": "oronzo/coordination/07-career/RUN.md",
+    "blob": "0de91bd2db9656b76510bc222bfb696c9029fceb"
+  },
+  {
+    "path": "oronzo/coordination/07-career/IDENTITY.md",
+    "blob": "51b0519811295a351d3a45f9b9a9fa3719a07803"
+  },
+  {
+    "path": "oronzo/coordination/07-career/REPORT.md",
+    "blob": "2f02a1f9920b836cf9ce41e74c5f45df3357b3b4"
+  }
+]
