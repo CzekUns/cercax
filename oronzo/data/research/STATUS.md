@@ -1,6 +1,6 @@
 # ORONZO — Research dataset
 
-Verifica 2026-11-07: **150 comuni validati**, **500 cognomi validati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
+Verifica 2026-11-08: **200 comuni validati**, **500 cognomi validati**; **0 ranking nazionali verificati**. Target M1: 100 comuni / 500 cognomi; espansione 500 / 5000.
 
 Batch 1: 20 Valle d'Aosta; batch 2: 30 Molise; batch 3: 25 Abruzzo; batch 4: **25 Basilicata**, selezionati per popolazione crescente nel file regionale. Non sono classifiche nazionali e non descrivono il 1979.
 
@@ -15,3 +15,5 @@ Batch 6 (2026-11-07): aggiunti 25 comuni del Molise non presenti nei 100 precede
 Batch 7 (2026-11-08): aggiunti 25 piccoli comuni dell'Umbria dal file regionale RP92, selezionati per popolazione crescente ed esclusi codici ISTAT già presenti. Totale **150 comuni / 500 cognomi**; 150 codici ISTAT univoci, 0 duplicati introdotti, 0 ranking nazionali verificati. Range popolazioni nel batch: 81–1534. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0, anno demografico puntuale non attestato, nessuna equivalenza con il 1979.
 
 Batch 8 (2026-11-08): aggiunti 25 comuni delle Marche non presenti nei 150 precedenti, selezionati per popolazione crescente dal file regionale RP92. Totale **175 comuni / 500 cognomi**; 175 codici ISTAT univoci, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 100–582; licenza dichiarata CC BY 4.0, anno demografico non attestato, non rappresenta il 1979. Dataset di ricerca non ancora integrato nel gioco.
+
+Batch 9 (2026-11-08): aggiunti 25 comuni del Lazio dal dataset regionale RP92, esclusi codici ISTAT già presenti, ordinati per popolazione crescente nella fonte regionale. Totale **200 comuni / 500 cognomi**; 200 codici ISTAT univoci, 0 duplicati introdotti, 0 ranking nazionali verificati. Popolazione batch 53–303; anno demografico puntuale non attestato, dati non rappresentativi del 1979. Fonte RP92/ISTAT, licenza dichiarata CC BY 4.0; obbligo attribuzione.
