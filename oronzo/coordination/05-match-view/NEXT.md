@@ -1,3 +1,11 @@
+# ORONZO — AGENTE 05 · PRIORITÀ M1: CAMERA FULL/TV, PR #28
+
+**STATO: `P0_CAMERA_VISUAL_GATE` — 8 novembre 2026.** [Roadmap aggiornata R10](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md). Sviluppo renderer camera TV è **già presente nella PR #28 OPEN**; non ricreare la funzione né aprire branch nuovo. Primo compito: eseguire **browser Chromium HTTP vero** sul checkout della #28 con **22 PNG reali** (`assetState=ready`, `allRealSprites=true`) e verificare FULL/BROADCAST sullo stesso snapshot: palla dentro la vista, pan/zoom, kickoff/intervallo, resize 640×360/800×360/844×390, canvas16:9, nessuna alterazione score/coordinate. Consegna screenshot + REPORT/commit nella stessa PR e chiedi audit00. Se la QA mostra un difetto, correggilo **solo nel proprio scope match-view**. Coordinati con Agente01/#29 per arte ma **non attendere il merge #29 per testare gli atlas reali di main**. Nessun merge e nessuna modifica UI R03.
+
+---
+
+## ARCHIVIO — NEXT PRECEDENTI
+
 # NEXT — AGENTE 05 · MATCH VIEW E CAMERA TV · VISIONE v0.2
 **Stato:** `WAIT_REVIEW` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **PR precedente:** #15 MERGIATA, correzione `facing` in radianti e gestione snapshot.
