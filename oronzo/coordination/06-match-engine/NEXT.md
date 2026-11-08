@@ -1,3 +1,11 @@
+# ORONZO — AGENTE 06 · PRIORITÀ M1: CHIUDERE SHOUTS PR #35
+
+**STATO: `P0_SHOUT_CONTRACT_FIX` — 8 novembre 2026.** [Roadmap R10](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md). La PR #35 è già OPEN e contiene il sistema shout individuale, ma R04/R05 hanno evidenziato incompatibilità con PR #31 di08: `player.origin`, `relationships.coachTrust`, `encourage|harsh` ↔ `gentle|hard` e rischio doppio bonus/180s. **Correggere nella PR #35 esistente**, senza cambiare API di08/09. Obbligo di cross-test reale con tipologie PlayerV2 dell'08, origine stessa regione/stessa macro/altre e fiducia0/100; il motore06 è unico owner dei temporanei e l'09 contabilizza il persistente idempotente per evento. 100 seed, score=eventi, save/reload, bug log + nuovo HEAD/REPORT. Non aprire altra PR, non modificare UI12; niente merge prima di audit indipendente00.
+
+---
+
+## ARCHIVIO — NEXT PRECEDENTI
+
 # NEXT — AGENTE 06 · ENGINE E ORDINI INDIVIDUALI · VISIONE v0.2
 **Stato:** `FIX_REQUESTED` — prevale la direttiva R05 in fondo al documento; lavoro R02 nella PR esistente.
 **PR precedente:** #18 MERGIATA; fix fisico riallineamento modulo PR #24 già su main.
