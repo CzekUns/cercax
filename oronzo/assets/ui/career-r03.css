@@ -20,3 +20,57 @@
 @media(orientation:portrait){.rotate-r03{position:fixed;z-index:20;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#071749;color:#ffe57b;font:900 23px Verdana;text-align:center}.rotate-r03 small{font-size:13px;color:#fff4e2}.site{visibility:hidden}}
 /* R03 mobile gate: compress decorative portrait before shrinking 44px actions. */
 @media(max-height:395px){.runtime-portrait{width:68px;height:76px;flex:0 0 68px}.runtime-portrait .portrait{transform:scale(.58);transform-origin:top left}.runtime-top-row{min-height:76px;max-height:76px}.runtime-label select{height:34px}.runtime-label{font-size:8px}.runtime-col .panel-title{flex-shrink:0}.runtime-controls{flex-shrink:0;margin-top:auto}.runtime-col{overflow:hidden}.runtime-top-row .runtime-info{font-size:9px;line-height:1.25}}
+
+/* R08: guarantee physically visible 44px targets. Scrolling belongs to data only. */
+.runtime-label select{height:44px;min-height:44px}
+.runtime-roster .runtime-player{min-height:44px}
+.runtime-player{min-height:44px}
+.runtime-roster-list,.runtime-table{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+.runtime-player-link{min-height:44px;flex:0 0 44px;width:100%;background:#103176;border:2px solid #648bdd;display:flex;align-items:center;gap:6px;padding:4px 8px;color:#fff7db;text-align:left;font-weight:bold;font-size:10px}
+.runtime-player-link span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.runtime-player-link small{color:#bcd4fc;font-size:9px}.runtime-player-link b{color:#ffda55;font-size:16px}
+.runtime-player-link:active,.runtime-player-link:focus-visible{background:#1c4aa4}
+.runtime-table-row{min-height:32px;display:flex;align-items:center;gap:6px;padding:4px 5px;border-bottom:1px solid #416bb1;font-size:10px}
+.runtime-table-row b{width:25px;flex:0 0 25px;color:#f9d44b}
+.runtime-table-row span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.runtime-table-row strong{min-width:36px;text-align:right;color:#ffe483}.runtime-table-row small{min-width:23px;text-align:right;color:#cddff8}
+.runtime-table-row.mine{background:#34538d;border:1px solid #ffda57}
+.runtime-unavailable{flex:0 0 44px;min-height:44px;font-size:9px;white-space:normal}
+.runtime-detail-scroll{overscroll-behavior:contain}
+.runtime-attribute-group{border:1px solid #4364a0;margin:5px 0;padding:5px;background:#071c55}
+.runtime-attribute-group h2{font-size:11px;color:#ffd954;margin:0 0 4px}
+.runtime-player-name{color:#ffe783;font-size:15px;margin:0 0 6px}
+.runtime-attribute{display:flex;justify-content:space-between;gap:5px;padding:2px 0;border-bottom:1px solid #233a77;font-size:10px}
+.runtime-attribute strong{color:#ffdd63}.runtime-missing{font-size:10px;color:#d4def4}
+.menu-cards{grid-template-rows:repeat(3,minmax(44px,1fr));gap:3px}
+.menu-card{min-height:44px;font-size:9px;gap:1px}.menu-card .emoji{font-size:15px}
+/* The profile decoration is expendable; the two avatar CTA rows are not. */
+@media(max-height:395px){
+ .runtime-top-row{min-height:55px;max-height:55px}
+ .runtime-portrait{width:48px;height:54px;flex-basis:48px}
+ .runtime-portrait .portrait{transform:scale(.4);transform-origin:top left}
+ .runtime-label select{height:44px;min-height:44px}
+ .runtime-col{gap:3px}
+ .runtime-col .panel-title{margin-bottom:2px;padding-bottom:2px}
+ .runtime-controls{margin-top:auto;min-height:44px;flex:0 0 44px}
+ .runtime-controls .ui-btn{height:44px;min-height:44px}
+ .runtime-roster .runtime-player{min-height:44px}
+ .runtime-player{min-height:44px}
+ .runtime-match-panel{justify-content:initial;gap:3px;padding:3px 4px;overflow:hidden}
+ .runtime-match-panel .runtime-grid:first-child{flex:0 0 27px;min-height:27px}
+ .runtime-match-panel .kpi{padding:0 2px;min-height:27px}
+ .runtime-match-panel .kpi b{font-size:11px}
+ .runtime-match-panel .runtime-grid:nth-child(2){flex:0 0 91px;grid-template-rows:44px 44px;gap:3px}
+ .runtime-match-panel .runtime-grid .ui-btn{height:44px;min-height:44px}
+ .runtime-match-note{display:none}
+ .runtime-match-panel>[data-action="finish-qa"]{margin-top:auto;flex:0 0 44px;height:44px;min-height:44px;font-size:9px}
+}
+
+.runtime-avatar-fields{display:flex;flex-direction:column;gap:3px;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+.runtime-avatar-fields .runtime-top-row{flex:0 0 76px;min-height:76px;max-height:none}
+.runtime-avatar-fields .runtime-label{display:block;flex:0 0 auto}
+.runtime-avatar-fields .runtime-label:has(#qa-mode){min-height:44px;display:flex;align-items:center;gap:5px;flex:0 0 44px}
+.runtime-avatar-fields #qa-mode{width:22px;height:22px;flex:0 0 22px}
+/* Slight oversize removes subpixel clipping of bottom scroll rows at 1× DPR. */
+.runtime-player-link{min-height:45px;flex-basis:45px}
+.runtime-roster .runtime-player{min-height:45px}
