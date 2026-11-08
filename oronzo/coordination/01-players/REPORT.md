@@ -55,3 +55,43 @@ Tutto il codice e le immagini sono in `oronzo/assets/players/`, ad eccezione di 
 3. Applicare soltanto ulteriori rifiniture **specificamente richieste dalla revisione artistica** e aggiornare le preview.
 
 **Nessun merge effettuato.**
+
+---
+
+## R10 — Verifica conclusiva richiesta l'8 novembre 2026 — HEAD asset 0b4cab48
+
+**Stato gate: HOLD_BROWSER / PR_OPEN.** Non ho aperto una nuova PR, non ho modificato 05 né effettuato merge. Il controllo PNG è PASS, il gate Chromium/Android non è PASS a causa di un blocco del browser in questo ambiente. Le evidenze offline seguenti NON sono screenshot browser.
+
+### Correzione concreta effettuata nella PR #29
+
+- Commit di correzione asset: `0b4cab48eb57a463d6fcc158d9e0525ecfbfc77a`, parent `01c5deca71d6f7e304217c48525732cf914c4fbc`.
+- Controllo indipendente del vecchio atlas: **17 frame** avevano pixel di silhouette al bordo esterno della cella 32×32 (8 `run` frame 3 in tutte le direzioni, 8 `keeper` frame 1, 1 `kick` direzione E frame 2). Ciò implica margine trasparente assente e rischio di clipping.
+- Modificato esclusivamente `oronzo/assets/players/sprite-factory.js`: head offset +1 pixel solo negli estremi di corsa/portiere, clamp orizzontale della scarpa nei tiri. Rigenerati `run.png`, `run-mask.png`, `kick.png`, `kick-mask.png`, `keeper.png`, `keeper-mask.png` senza cambiare payload del manifest, indici materiali o pivot.
+- **Dopo fix: 0/160 frame con pixel opachi di silhouette sul bordo; 160/160 frame distinti per direzione+azione, 8 direzioni × 4 per azione, 5 azioni.** La maschera ha esattamente gli stessi indici raster della PNG principale (palette RGB differente).
+- Aggiunto test regressione bordi in `qa-atlas.test.mjs`: `R10 crop gate: all 160 opaque silhouettes keep a transparent 1px frame border`. Aggiornato `integration-notes.md`.
+- Rigenerate due anteprime con i PNG nuovi: `match-22-preview-640.png` (640×360) e `match-22-preview-844x390.png` (844×390): 11+11 e 2 portieri con due kit, capelli e pelle diversi. **Raster offline** con i pixel effettivi, non screenshot del runtime.
+
+### Test effettivamente eseguiti ora
+
+1. **GitHub readback post-commit:** 10/10 atlas+mask PNG scaricati da branch #29 in base64, confrontati **byte per byte** all'output del `sprite-factory.js` recuperato dal medesimo branch: 10/10 PASS. `ball.png` resta l'asset originale 16×16 su main.
+2. **Ispezione raster indipendente in JavaScript V8:** parsing della firma PNG reale, indexed 8bpp, filtro e pixel; mask indices invariati e trasparenza palette index 0; 32 pose per ciascuna delle 5 azioni, 4 hash distinti in ogni direzione, >100 pixel visibili per cella: PASS. Test confine: prima 17 frame al bordo, dopo 0; alpha di bordo trasparente.
+3. **Compatibilità statica con PR #28 HEAD `9c00a3298c0083e3836154a1cb1ff22529bf6366`: 15/15 controlli PASS** sul contratto di `asset-adapter.js` / `match-view.js`: asset URL `../../assets/players/`, manifest frame, ID mask RGB red/24 green/64, pivot `(16,29)`, 5 action, 8 direction, passaggio `player.appearance` al renderer, presenza FULL/BROADCAST. È **solo verifica statica di API**, non prova grafica FULL/TV.
+4. **Preview visive reali file:** i due PNG offline sono stati rigenerati e osservati; 22 soggetti visibili, due divise distinguibili e portieri separati nella composizione. La review artistica su device fisico non è sostituita da tale preview.
+5. **Node su questo nuovo HEAD: NON ESEGUITO.** Nel precedente audit R04 indipendente, Node `node --test oronzo/assets/players/qa-atlas.test.mjs` passava 4/4 prima della nuova asserzione di margine; per R10 il nuovo test è stato verificato con la logica equivalente su dati PNG in V8, NON via Node CLI.
+
+### Blocco Chromium/HTTP effettivamente riprodotto
+
+- Ambiente locale: `git version 2.47.3`, Node `v22.16.0`, `python3` 3.13.5, `/usr/bin/chromium` presente, Python Playwright importabile.
+- `git ls-remote https://github.com/CzekUns/cercax.git HEAD`: `fatal: unable to access ... Could not resolve host: github.com`. Non è quindi stato possibile ottenere qui un checkout integrale da rete; i file PNG/sorgenti sono stati verificati tramite il connettore GitHub, per SHA e base64.
+- Server locale di controllo `python3 -m http.server 8764 --bind 127.0.0.1 --directory /mnt/data/oronzo-r02-review`; `curl -I http://127.0.0.1:8764/index.html` → **HTTP/1.0 200 OK**.
+- Chromium via `playwright.chromium.launch(executable_path='/usr/bin/chromium', headless=True, args=['--no-sandbox','--disable-dev-shm-usage'])` si avvia, ma `page.goto('http://127.0.0.1:8764/index.html')` fallisce **`net::ERR_BLOCKED_BY_ADMINISTRATOR`**. Identico errore tentando `http://localhost:8764/index.html` e `file:///mnt/data/oronzo-r02-review/index.html`.
+- Anche con flag `--no-proxy-server` la navigazione risulta bloccata. La versione Playwright bundled senza path esplicito indica `Executable doesn't exist` per `chromium_headless_shell-1200`.
+- Poiché **anche la pagina HTTP di controllo** è bloccata, il runtime autentico della demo #29 e l'harness FULL/TV #28 **non sono stati aperti in Chromium**. **Screenshot Chromium reali: 0**. `assetState=ready`, Network PNG caricati, animazioni e crop in browser: **NON VERIFICATI**. Nessun claim PASS del gate browser.
+
+### Integrazione consigliata ad Agente 05 e 10
+
+- La PR #28 include già `oronzo/systems/match-view/browser-qa-playwright.py` e `browser-qa.html`, predisposti per 3 viewport × FULL/TV × 9 scenari (54 prove). Il test richiede espressamente `assetState='ready'`, `allRealSprites=true` e `realSprites=22` senza fallback; lo script è del 05, qui solo letto.
+- Provare la camera subito con **PNG già su main** (non aspettare il merge #29), poi ripetere il gate su checkout combinato con #29 HEAD qui verificato, preservando motore e renderer. In `match-view.js`, `kitFor(player)` consente override `player.appearance`; per look persistenti il 05/08 devono fornire skin/hair/kit collegati all'ID reale (non index demo).
+- Prima del merge è necessaria una sessione con Chromium HTTP navigabile: screenshot veri a 640×360 e 844×390 su idle/run/kick/tackle/keeper, otto direzioni, due squadre, portieri e TV/FULL, Network 200 PNG e `assetState=ready`. Test da riprodurre: `node --test oronzo/assets/players/qa-atlas.test.mjs` e `python oronzo/systems/match-view/browser-qa-playwright.py --browser /usr/bin/chromium` dal checkout combinato.
+
+**Esito complessivo R10:** `ASSET_PASS / BROWSER_BLOCKED / ART_GATE_HOLD`. Correzione concreta committata, test PNG verificati; richiesto audit indipendente in ambiente con Chrome senza blocco. **Nessun merge eseguito.**
