@@ -106,7 +106,7 @@ export function loadVerifiedSurnameSnapshot(records,metadata) {
   if(records.length!==metadata.records||records.length<500)throw new Error('Snapshot count differs from pinned metadata or M1 threshold');
   const ids=new Set(),names=new Set();
   const surnames=records.map(row=>{
-    if(!row||typeof row.id!=='string'||!/^it-surname-[a-z0-9-]+$/.test(row.id)||
+    if(!row||typeof row.id!=='string'||!/^it-surname-[a-z0-9' -]+$/.test(row.id)||
       typeof row.name!=='string'||!NAME_REGEX.test(row.name)||
       !Number.isInteger(row.frequency)||row.frequency<=10)throw new Error('Invalid sourced surname record');
     const key=normalizeSurnameKey(row.name);
