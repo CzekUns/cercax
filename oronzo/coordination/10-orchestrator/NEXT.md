@@ -120,4 +120,11 @@ La REQUEST del Coerentizzatore 00 è `WAIT_FOR_11_R09B_M01_2` per audit R09C **s
 
 **FULLSCREEN:** assegnato `11/F01` su nuova PR indipendente a partire dal nuovo main, solo `career-r03.html/.css/.js` + QA/REPORT. Pulsante nativo Fullscreen API, cambio stato e fallback, test vero gioco Chromium; niente "finto fullscreen" CSS, no Layout Studio. Incari paralleli ma senza file runtime sovrapposti; M01 PR48 già MERGED.
 
-**Revisione:** 00 WAIT_NEW_PR_D01_F01 con gate distinti, no merge senza successiva autorizzazione utente. Attenzione all'automazione oraria che continua ad aggiornare #40; registrare snapshot SHA prima di importare. 
+**Revisione:** 00 WAIT_NEW_PR_D01_F01 con gate distinti, no merge senza successiva autorizzazione utente. Attenzione all'automazione oraria che continua ad aggiornare #40; registrare snapshot SHA prima di importare.
+
+## Implementazione diretta su richiesta utente — PR #52 e #53 (8 novembre 2026)
+
+L'utente ha contestato la semplice delega dei lavori e chiesto esecuzione diretta. Eccezione operativa puntuale alla regola di orchestrazione senza coding, limitata a **F01 fullscreen** e **D01 comuni reali**; nessuna estensione agli altri sistemi.
+- [PR #52](https://github.com/CzekUns/cercax/pull/52), branch `feature/oronzo-fullscreen-f01-direct`, implementa vero toggle Fullscreen API con fallback e target nav≥44, anche durante match; parse JS e prova isolata con evento click/denial/unsupported eseguiti. Non eseguito Chromium vero né Node119.
+- [PR #53](https://github.com/CzekUns/cercax/pull/53), branch `feature/oronzo-municipalities-d01-direct`, snapshot500 comuni da ricerca #40 commit `0cc7eead7c5e971cff0e2d08e4bb2febc1df884b`, 19 fonti, campo provincia/anno demografico null, non1979; world.js V2, UI500 selezioni, QA sintetica separata, 20 offerte con geografia vera del catalogo, attribuzione CC BY. Sintassi JS e originale `validatedMunicipalities` sul JSON 500 passati in V8; non Node/Chromium reali. reviewStatus approva uso del campione contemporaneo, non storicità né audit esterno.
+- **Entrambe le PR aperte, NESSUN MERGE.** REQUEST00 aggiornata per audit distinti; NEXT07/11 marcati DIRECT_IMPL_WAIT_QA per impedire PR doppie. Browser reale, Android fisico e suite119 ancora da verificare prima di merge. PR ricerca #40 resta open e preservata.
