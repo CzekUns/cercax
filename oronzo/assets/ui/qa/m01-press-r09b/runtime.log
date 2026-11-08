@@ -1,0 +1,32 @@
+RUN plain 640 360 false
+COMPLETE plain-640x360-mouse PASS
+RUN plain 640 360 true
+COMPLETE plain-640x360-touch PASS
+RUN plain 800 360 false
+COMPLETE plain-800x360-mouse PASS
+RUN plain 800 360 true
+COMPLETE plain-800x360-touch PASS
+RUN plain 844 390 false
+COMPLETE plain-844x390-mouse PASS
+RUN plain 844 390 true
+COMPLETE plain-844x390-touch PASS
+RUN plain 960 400 false
+COMPLETE plain-960x400-mouse PASS
+RUN plain 960 400 true
+COMPLETE plain-960x400-touch PASS
+RUN safe 640 360 false
+COMPLETE safe-640x360-mouse PASS
+RUN safe 640 360 true
+COMPLETE safe-640x360-touch PASS
+RUN safe 800 360 false
+COMPLETE safe-800x360-mouse PASS
+RUN safe 800 360 true
+COMPLETE safe-800x360-touch PASS
+RUN safe 844 390 false
+COMPLETE safe-844x390-mouse PASS
+RUN safe 844 390 true
+COMPLETE safe-844x390-touch PASS
+RUN safe 960 400 false
+COMPLETE safe-960x400-mouse PASS
+RUN safe 960 400 true
+COMPLETE safe-960x400-touch PASS

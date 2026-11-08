@@ -1,0 +1,78 @@
+// Agent11 R09B-M01-2: real HTTP matrix; every press answer is measured and physically activated.
+const {chromium}=require('playwright');
+const fs=require('fs'),path=require('path'),http=require('http'),assert=require('assert/strict');
+const src=path.resolve(__dirname,'../../../..'),out=path.join(__dirname,'m01-press-r09b');fs.mkdirSync(out,{recursive:true});
+const resumeSafe=false;const results=resumeSafe?JSON.parse(fs.readFileSync(path.join(out,'runtime-results.json'),'utf8')):{cases:[],supplement:[]};if(resumeSafe)results.cases=results.cases.filter(c=>!c.safe);
+const server=http.createServer((req,res)=>{const parts=decodeURIComponent(req.url.split('?')[0]).split('/'),version=parts[1];const relative=parts.slice(2).join('/'),file=path.resolve(src,relative);
+ if(!file.startsWith(src+'/')||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end('absent');}
+ res.setHeader('Content-Type',({'.html':'text/html','.css':'text/css','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.png':'image/png'})[path.extname(file)]||'application/octet-stream');res.setHeader('Cache-Control','no-store');
+ res.end(fs.readFileSync(file));
+});
+function visible(e){const r=e.getBoundingClientRect();let box={l:Math.max(0,r.left),r:Math.min(innerWidth,r.right),t:Math.max(0,r.top),b:Math.min(innerHeight,r.bottom)};
+ for(let p=e.parentElement;p;p=p.parentElement){const s=getComputedStyle(p),q=p.getBoundingClientRect();if(/auto|scroll|hidden|clip/.test(s.overflowX)){box.l=Math.max(box.l,q.left+p.clientLeft);box.r=Math.min(box.r,q.left+p.clientLeft+p.clientWidth);}if(/auto|scroll|hidden|clip/.test(s.overflowY)){box.t=Math.max(box.t,q.top+p.clientTop);box.b=Math.min(box.b,q.top+p.clientTop+p.clientHeight);}}
+ const x=r.left+r.width/2,y=r.top+r.height/2,z=document.elementFromPoint(x,y),s=getComputedStyle(e);
+ return {rect:{x:r.x,y:r.y,w:r.width,h:r.height},visible:{w:Math.max(0,box.r-box.l),h:Math.max(0,box.b-box.t)},x,y,hit:e===z||e.contains(z),font:s.fontSize,lineHeight:s.lineHeight};}
+async function scenario(browser,origin,safe,w,h,touch){const context=await browser.newContext({viewport:{width:w,height:h},isMobile:touch,hasTouch:touch,deviceScaleFactor:1,locale:'it-IT'}),page=await context.newPage(),cdp=await context.newCDPSession(page),errors=[],httpErrors=[],measurements=[],views=[],otherFindings=[],pressTrials=[];
+ const version='fixed',insets=safe?{top:0,left:24,right:12,bottom:16}:{top:0,left:0,right:0,bottom:0};await cdp.send('Emulation.setSafeAreaInsetsOverride',{insets});const url=`${origin}/${version}/oronzo/assets/ui/career-r03.html`,name=`${safe?'safe':'plain'}-${w}x${h}-${touch?'touch':'mouse'}`;
+ page.on('pageerror',e=>errors.push(String(e)));page.on('response',r=>{if(r.status()>=400)httpErrors.push({url:r.url(),status:r.status()});});
+ async function ready(){await page.waitForFunction(()=>!!window.OronzoR03);await page.waitForTimeout(90);}
+ async function inspect(selector,needs44=true){const item=page.locator(selector).first();assert.equal(await item.count(),1,selector);const g=await item.evaluate(visible);measurements.push({screen:await page.evaluate(()=>OronzoR03.getScreen()),selector,...g});if(needs44)assert(g.visible.w>=43.99&&g.visible.h>=43.99,`${name} ${selector} ${JSON.stringify(g)}`);assert(g.hit,`${name} ${selector} hit`);return g;}
+ async function hit(selector){const g=await inspect(selector);await(touch?page.touchscreen.tap(g.x,g.y):page.mouse.click(g.x,g.y));}
+ const action=a=>hit(`[data-action="${a}"]`),section=s=>hit(`[data-action="section"][data-value="${s}"]`);
+ async function bottom(container,rows,min=44){const el=page.locator(container),b=await el.boundingBox(),initial=await el.evaluate(e=>e.scrollTop);assert(b.height>44);
+  if(touch){for(let k=0;k<30;k++){if(await el.evaluate(e=>e.scrollTop>=e.scrollHeight-e.clientHeight-1))break;const x=b.x+b.width*.65,y=b.y+b.height*.85;
+   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});for(let j=1;j<=7;j++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-b.height*.72*j/7}]});await page.waitForTimeout(10);}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(80);}}
+  else{await page.mouse.move(b.x+b.width*.65,b.y+b.height*.6);await page.mouse.wheel(0,2000);}
+  await page.waitForTimeout(250);assert(await el.evaluate(e=>e.scrollTop)>initial);const last=page.locator(rows).last(),g=await last.evaluate(visible);assert(g.hit&&g.visible.h>=min-.01,`${name} scroll ${rows} ${JSON.stringify(g)}`);return last;}
+ async function view(label){
+  // Every fixed interactive control must be wholly visible; scroll rows tested separately.
+  const fixed=page.locator('button:enabled,select,nav a');for(let i=0;i<await fixed.count();i++){const e=fixed.nth(i);if(await e.evaluate(e=>!!e.closest('.runtime-scroll,.runtime-roster,.runtime-answers')))continue;const g=await e.evaluate(visible);if(!(g.visible.h>=43.99&&g.visible.w>=43.99&&g.hit)){const finding={case:name,screen:label,action:await e.getAttribute('data-action'),text:await e.innerText(),...g};assert.fail(JSON.stringify(finding));}}
+  const data=await page.evaluate(()=>{const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};const stage=rect(document.querySelector('.stage')),c=document.querySelector('canvas');const fonts=[...document.querySelectorAll('h1,.panel-title,.runtime-info,.runtime-foot,.runtime-stats,.ui-btn,.demo-label,nav')].map(e=>({text:e.textContent,font:getComputedStyle(e).fontSize}));const banner=document.querySelector('#qa-label'),toast=document.querySelector('#ui-toast');return {viewport:[innerWidth,innerHeight],stage,canvas:c?rect(c):null,fonts,banner:{text:banner.textContent,visible:banner.getBoundingClientRect().width>0},toast:{hidden:toast.hidden,rect:rect(toast)}};});
+  assert(data.banner.visible);if(data.canvas)assert(Math.abs(data.canvas.w/data.canvas.h-16/9)<.002,`${name} canvas distorted`);
+  assert.equal(data.stage.x,insets.left);assert.equal(data.stage.y,insets.top);assert.equal(data.stage.w,w-insets.left-insets.right);assert.equal(data.stage.h,h-insets.top-insets.bottom);
+  views.push({label,...data});await page.screenshot({path:path.join(out,`${name}-${label}.png`)});
+ }
+
+ async function allAnswers(kind,number){
+  const options=await page.locator('[data-action="answer"]').evaluateAll(es=>es.map(e=>({value:e.dataset.value,text:e.textContent})));
+  assert.equal(options.length,3);
+  const before=await page.evaluate(()=>JSON.stringify(OronzoR03.getState()));
+  const storage=await page.evaluate(()=>Object.fromEntries(Object.keys(localStorage).map(k=>[k,localStorage.getItem(k)])));
+  for(let j=0;j<3;j++){
+   const selector=`[data-action="answer"][data-value="${options[j].value}"]`;
+   let g=await page.locator(selector).evaluate(visible);
+   if(g.visible.h<g.rect.h-.01||!g.hit)await bottom('.runtime-answers','[data-action="answer"]');
+   g=await inspect(selector);assert(g.visible.h>=g.rect.h-.01,`${name} full answer text clipped`);
+   const text=await page.locator(selector).innerText();assert.equal(text,options[j].text);
+   const [qid,aid]=options[j].value.split('|');
+   if(j===2)await page.screenshot({path:path.join(out,`${name}-${kind}-${number}-all-reached.png`)});
+   await hit(selector);
+   const actual=await page.evaluate(({kind,qid})=>({stage:OronzoR03.getStage(),answered:Object.prototype.hasOwnProperty.call(OronzoR03.getState().flow.press[kind].answers,qid)}),{kind,qid});
+   assert(actual.answered,`${name} answer ${aid} not applied`);
+   pressTrials.push({kind,number,option:j+1,text,...g,applied:true});
+   // The existing HOME intent deliberately stays in the hub: reload HTTP to
+   // reach the actual load screen after the fifth opening reply.
+   if(await page.evaluate(()=>OronzoR03.getStage())==='hub'){await page.reload();await ready();}
+   else await action('home');
+   await page.evaluate(values=>{localStorage.clear();for(const [key,value] of Object.entries(values))localStorage.setItem(key,value);},storage);
+   await action('load');if(kind==='opening')await action('press');
+   assert.equal(await page.evaluate(()=>JSON.stringify(OronzoR03.getState())),before,`${name} branch restoration changed persisted state`);
+  }
+  // Choose the first reply for the canonical complete career; branch trials used real APIs above.
+  await action('answer');
+ }
+ await page.goto(url);await ready();await view('entry');await action('start');assert.equal(await page.locator('.avatar-tile').count(),8);for(let i=0;i<8;i++)await hit(`[data-action="avatar"][data-value="${i}"]`);await hit('[data-action="avatar"][data-value="1"]');if((await page.locator('#origin').evaluate(visible)).visible.h<43.99)await bottom('.runtime-avatar-fields','.runtime-avatar-fields label:has(#qa-mode)');await inspect('#origin');await view('avatar');await action('begin');assert.equal(await page.locator('.runtime-offer').count(),20);await view('offers');await bottom('.runtime-list','.runtime-offer');await hit('.runtime-offer:last-child');await action('accept');await action('press');
+ for(let i=0;i<5;i++){await view(`press${i+1}`);await allAnswers('opening',i+1);}assert.equal(await page.evaluate(()=>OronzoR03.getStage()),'hub');await action('save');await view('office');
+ await section('rosa');assert.equal(await page.locator('.runtime-player-link').count(),16);await view('roster');const last=await bottom('.runtime-roster-list','.runtime-player-link');const playerId=await last.getAttribute('data-player-id');await hit('.runtime-player-link:last-child');
+ const dto=await page.evaluate(async id=>{const mod=await import('../../app/flow/controller.js');const s=OronzoR03.getState();return [mod.getRosterPlayer(s,id),mod.getTrainingPlayer(s,id)];},playerId);assert.equal(dto[0].playerId,dto[1].playerId);assert.equal(await page.locator('.runtime-player-name').innerText(),dto[0].player.name);await view('player');await action('back-training');assert.equal(await page.locator('.runtime-player-link').count(),16);await bottom('.runtime-roster-list','.runtime-player-link');const trainingBefore=await page.evaluate(()=>JSON.stringify(OronzoR03.getState()));await hit('.runtime-player-link:last-child');assert.equal(await page.evaluate(()=>JSON.stringify(OronzoR03.getState())),trainingBefore);assert.match(await page.locator('#ui-screen').innerText(),/getTrainingPlayer/);await action('back-rosa');
+ await section('campionato');assert.equal(await page.locator('.runtime-table-row').count(),16);const actual=await page.locator('.runtime-table-row').evaluateAll(es=>es.map(e=>({id:e.dataset.clubId,rank:Number(e.dataset.rank)})));const expected=await page.evaluate(async()=>{const m=await import('../../systems/career/career.js'),s=OronzoR03.getState(),club=s.clubs.find(c=>c.id===s.coach.clubId);return m.getStandings(s,club.divisionId).map((x,i)=>({id:x.clubId??x.id,rank:x.position??i+1}));});assert.deepEqual(actual,expected);await bottom('.runtime-table','.runtime-table-row',32);await view('standings');
+ await action('formation');assert.equal(await page.locator('[data-player]:checked').count(),11);assert.match(await page.locator('#ui-screen').innerText(),/Portieri titolari: 1/);await inspect('#captain');await bottom('.runtime-roster','.runtime-player');await view('formation');await action('prepare');await page.waitForFunction(()=>OronzoR03.isViewReady());assert.equal(await page.evaluate(()=>OronzoR03.getSnapshot().players.length),22);await view('match');await action('camera-tv');await view('match-toast');await action('pause');await page.waitForTimeout(200);await action('pause');await action('speed');await action('finish-qa');assert.equal(await page.evaluate(()=>OronzoR03.getStage()),'postmatch_press');for(let i=0;i<2;i++){await view(`postpress${i+1}`);await allAnswers('postmatch',i+1);}await view('post');await action('advance');assert.equal(await page.evaluate(()=>OronzoR03.getState().absoluteWeek),2);const savedState=await page.evaluate(()=>OronzoR03.getState());await page.reload();await ready();await action('load');assert.deepEqual(await page.evaluate(()=>OronzoR03.getState()),savedState);
+ const saved=await page.evaluate(()=>JSON.stringify(localStorage));await page.evaluate(async()=>{const m=await import('../../systems/coach-club/morale.js'),s=OronzoR03.getState(),r=m.applyCoachMoraleEvent(s.coach,{eventId:'r09-independent-threshold',moraleDelta:-100});if(!r.accepted)throw Error(r.reason);s.coach=r.coach;});await action('home');await view('gameover');await action('reset-career');await action('begin');await action('accept');assert.equal(await page.evaluate(()=>JSON.stringify(localStorage)),saved);let asked=false;page.once('dialog',async d=>{asked=true;await d.dismiss();});await action('save');assert(asked);assert.equal(await page.evaluate(()=>JSON.stringify(localStorage)),saved);
+ await page.evaluate(()=>localStorage.clear());await page.reload();await ready();await action('start');await page.locator('#qa-mode').uncheck();await action('begin');const stateBefore=await page.evaluate(()=>JSON.stringify(OronzoR03.getState()));await action('accept');assert.equal(await page.evaluate(()=>JSON.stringify(OronzoR03.getState())),stateBefore);assert.match(await page.locator('#ui-toast').innerText(),/geography_required/);await view('geography');
+ await page.setViewportSize({width:h,height:w});assert(await page.locator('.rotate-r03').isVisible());await page.setViewportSize({width:w,height:h});assert(!(await page.locator('.rotate-r03').isVisible()));await view('rotated-back');
+ assert.deepEqual(errors,[]);assert.deepEqual(httpErrors.filter(x=>!x.url.endsWith('/assets/cutscenes/manifest.json')),[]);await context.close();return {name,safe,insets,w,h,touch,status:otherFindings.length?'R09_FIX_PASS_WITH_OTHER_FINDINGS':'PASS',functionalStatus:'PASS',otherFindings,pressTrials,views,measurements,errors,httpErrors,playerId,finalScore:savedState.flow.finalMatch?.score??null};}
+(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin=`http://127.0.0.1:${server.address().port}`,browser=await chromium.launch({executablePath:process.env.CHROMIUM,args:['--no-sandbox']});results.browser=browser.version();try{
+ for(const safe of (resumeSafe?[true]:[false,true]))for(const [w,h]of [[640,360],[800,360],[844,390],[960,400]])for(const touch of [false,true]){console.log('RUN',safe?'safe':'plain',w,h,touch);const r=await scenario(browser,origin,safe,w,h,touch);results.cases.push(r);console.log('COMPLETE',r.name,r.status);fs.writeFileSync(path.join(out,'runtime-results.json'),JSON.stringify(results));}
+ for(let i=0;i<8;i++){const b=results.cases[i],a=results.cases[i+8];for(let j=0;j<b.views.length;j++)assert.deepEqual(a.views[j].fonts,b.views[j].fonts,`Font changed ${a.name} ${a.views[j].label}`);}results.fontComparison='PASS: computed fonts match with/without safe area';
+ }finally{fs.writeFileSync(path.join(out,'runtime-results.json'),JSON.stringify(results));await browser.close();server.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;server.close();});

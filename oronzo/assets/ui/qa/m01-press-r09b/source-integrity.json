@@ -1,0 +1,1071 @@
+{
+  "parent": "58c7c65506f74f012b17b099583e96ee380f8db5",
+  "runtimeFiles": 177,
+  "changed": [
+    "oronzo/assets/ui/career-r03.css"
+  ],
+  "files": [
+    {
+      "path": "oronzo/AGENTS.md",
+      "publishedBlob": "ce6a7516a4325f4ecf985b0369b74a3c1e5bc624",
+      "testedBlob": "ce6a7516a4325f4ecf985b0369b74a3c1e5bc624",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/PLAYABLE.md",
+      "publishedBlob": "b0f73b740d744aee98cc71d9f57a509ee6a09454",
+      "testedBlob": "b0f73b740d744aee98cc71d9f57a509ee6a09454",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/README.md",
+      "publishedBlob": "f0be6ba934ebef787ee2d20ae94a7712a3dd8384",
+      "testedBlob": "f0be6ba934ebef787ee2d20ae94a7712a3dd8384",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/01-players.md",
+      "publishedBlob": "ea053acb33911d4712997a50a0a831cab515b2fd",
+      "testedBlob": "ea053acb33911d4712997a50a0a831cab515b2fd",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/02-cutscenes.md",
+      "publishedBlob": "8a40cc29e5a6a4f6bf3e7b76c010eb7f78fa3f5b",
+      "testedBlob": "8a40cc29e5a6a4f6bf3e7b76c010eb7f78fa3f5b",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/03-ui.md",
+      "publishedBlob": "1f5dcf6d5fa851d9e89d977be726906d83ecaf9a",
+      "testedBlob": "1f5dcf6d5fa851d9e89d977be726906d83ecaf9a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/04-copy.md",
+      "publishedBlob": "364f3910ccadf2b9c261d414be24cf48fcbbeec2",
+      "testedBlob": "364f3910ccadf2b9c261d414be24cf48fcbbeec2",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/05-movements.md",
+      "publishedBlob": "a04b2e4dc1f02ba048b03e7d10f7b91d5e42fd02",
+      "testedBlob": "a04b2e4dc1f02ba048b03e7d10f7b91d5e42fd02",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/06-simulation.md",
+      "publishedBlob": "ddefe628cbe781c7bcaad0f5633d7212de8b269a",
+      "testedBlob": "ddefe628cbe781c7bcaad0f5633d7212de8b269a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/07-career.md",
+      "publishedBlob": "616648286fd1b4ee40cea3a5f4e78f5bd7e012e6",
+      "testedBlob": "616648286fd1b4ee40cea3a5f4e78f5bd7e012e6",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/08-attributes.md",
+      "publishedBlob": "775f351ebbffbf9b8f08f3d23ac2a9fcf1770a82",
+      "testedBlob": "775f351ebbffbf9b8f08f3d23ac2a9fcf1770a82",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/09-coach-club.md",
+      "publishedBlob": "cb058adb497b09514a91c04d29288f2fc12a607e",
+      "testedBlob": "cb058adb497b09514a91c04d29288f2fc12a607e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/agents/11-mobile-ui.md",
+      "publishedBlob": "6fe614e0718377d571eb03018226dc3401c764b0",
+      "testedBlob": "6fe614e0718377d571eb03018226dc3401c764b0",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/app/flow/README.md",
+      "publishedBlob": "6d5ffb7cc89aaa409f5aae7c300a20c6f8cbf2f5",
+      "testedBlob": "6d5ffb7cc89aaa409f5aae7c300a20c6f8cbf2f5",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/app/flow/controller.js",
+      "publishedBlob": "e354a4dfd3a3b71032b4f50d68742c11ac17dc74",
+      "testedBlob": "e354a4dfd3a3b71032b4f50d68742c11ac17dc74",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/app/flow/demo-r03.mjs",
+      "publishedBlob": "a9f34a1ed8e9953832f73055ace3293a7116699b",
+      "testedBlob": "a9f34a1ed8e9953832f73055ace3293a7116699b",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/app/flow/package.json",
+      "publishedBlob": "75efb37884c08647fe35d3f3cb446d50992c5bfd",
+      "testedBlob": "75efb37884c08647fe35d3f3cb446d50992c5bfd",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/app/flow/tests/flow-r03.test.mjs",
+      "publishedBlob": "a5d3bd710ac2744c8a5cab39f3822b29f9e63a71",
+      "testedBlob": "a5d3bd710ac2744c8a5cab39f3822b29f9e63a71",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/app/flow/tests/morale-r06.e2e.test.mjs",
+      "publishedBlob": "1701a342dc82487406b0177717a4f3507bbf4c1a",
+      "testedBlob": "1701a342dc82487406b0177717a4f3507bbf4c1a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/app/flow/tests/qa-geography.mjs",
+      "publishedBlob": "7951598b52cbc4fa7776248c1abd619171f1d2ae",
+      "testedBlob": "7951598b52cbc4fa7776248c1abd619171f1d2ae",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/asset-contract.md",
+      "publishedBlob": "23ade8cbc4c950193f423287af3a0025d69d5b76",
+      "testedBlob": "23ade8cbc4c950193f423287af3a0025d69d5b76",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/ball.png",
+      "publishedBlob": "451dfdfa30521884fb2f4ba5468149b64aa425a9",
+      "testedBlob": "451dfdfa30521884fb2f4ba5468149b64aa425a9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/idle-mask.png",
+      "publishedBlob": "2427baed1e4ee09a0e20e31655835baccc72f798",
+      "testedBlob": "2427baed1e4ee09a0e20e31655835baccc72f798",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/idle.png",
+      "publishedBlob": "2bf806dbb1d17d0c91687d4cd3b05950e1c1fc62",
+      "testedBlob": "2bf806dbb1d17d0c91687d4cd3b05950e1c1fc62",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/integration-notes.md",
+      "publishedBlob": "48bdaa2c67c85426eb2554d1b140fb8449a728c2",
+      "testedBlob": "48bdaa2c67c85426eb2554d1b140fb8449a728c2",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/keeper-mask.png",
+      "publishedBlob": "e98d7c50b54b91706d2eb0cece0ff8fb27c670aa",
+      "testedBlob": "e98d7c50b54b91706d2eb0cece0ff8fb27c670aa",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/keeper.png",
+      "publishedBlob": "b6dca1993ae2eed01440f1ae715d7032b93303ae",
+      "testedBlob": "b6dca1993ae2eed01440f1ae715d7032b93303ae",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/kick-mask.png",
+      "publishedBlob": "c8c3c50c94b92b804d08fe064c6e75e150706bce",
+      "testedBlob": "c8c3c50c94b92b804d08fe064c6e75e150706bce",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/kick.png",
+      "publishedBlob": "8f8d1fc54814cda916db36b6514d2665b078360d",
+      "testedBlob": "8f8d1fc54814cda916db36b6514d2665b078360d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/manifest.json",
+      "publishedBlob": "4257476bde594b40cb0492f82b3dbb96839ac1ed",
+      "testedBlob": "4257476bde594b40cb0492f82b3dbb96839ac1ed",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/palette-demo.html",
+      "publishedBlob": "982b2ff8866b9fd9bb7c9b6d15ff5484344ca167",
+      "testedBlob": "982b2ff8866b9fd9bb7c9b6d15ff5484344ca167",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/palette-preview.png",
+      "publishedBlob": "91a8676dc6cae7e0e565e8564898fdd7fc5dc434",
+      "testedBlob": "91a8676dc6cae7e0e565e8564898fdd7fc5dc434",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/palette.js",
+      "publishedBlob": "673418b9242d0d8cd4e0cffeacbaf5ec734a1cbc",
+      "testedBlob": "673418b9242d0d8cd4e0cffeacbaf5ec734a1cbc",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/qa-report.json",
+      "publishedBlob": "0e00f48a19b4372cc7534aaffbd566e89d90e9d2",
+      "testedBlob": "0e00f48a19b4372cc7534aaffbd566e89d90e9d2",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/run-mask.png",
+      "publishedBlob": "041e845d7918764bb1435150ee0b47a9c9179590",
+      "testedBlob": "041e845d7918764bb1435150ee0b47a9c9179590",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/run.png",
+      "publishedBlob": "6c45819987f3253457cc90999ecd28738eb28e20",
+      "testedBlob": "6c45819987f3253457cc90999ecd28738eb28e20",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/sprite-factory.js",
+      "publishedBlob": "5964b64ef58c6aaf2a6e0e403360a185fec1675e",
+      "testedBlob": "5964b64ef58c6aaf2a6e0e403360a185fec1675e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/tackle-mask.png",
+      "publishedBlob": "86bd9e091e83346b0f503b1392e5ad7d5fd10e66",
+      "testedBlob": "86bd9e091e83346b0f503b1392e5ad7d5fd10e66",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/players/tackle.png",
+      "publishedBlob": "b4d69bbda82c4485a7a940d63db99f01581f82c9",
+      "testedBlob": "b4d69bbda82c4485a7a940d63db99f01581f82c9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/INTEGRATION-R02.md",
+      "publishedBlob": "0c9d921290a017b148829684bf9c08875cfd8f50",
+      "testedBlob": "0c9d921290a017b148829684bf9c08875cfd8f50",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/btn-blue-v02.png",
+      "publishedBlob": "a9788198c91e0fbc363e533b1a0c1b077fdf9e8b",
+      "testedBlob": "a9788198c91e0fbc363e533b1a0c1b077fdf9e8b",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/btn-disabled-v02.png",
+      "publishedBlob": "c33db67ea233eda2e07b3a4466e566068ccd0dc3",
+      "testedBlob": "c33db67ea233eda2e07b3a4466e566068ccd0dc3",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/btn-gold-v02.png",
+      "publishedBlob": "8b5acf6396154af924444230d77e1663fc69444a",
+      "testedBlob": "8b5acf6396154af924444230d77e1663fc69444a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/button-disabled.png",
+      "publishedBlob": "fdc8e29925f5841cbd3f9425a87900fdb51da69a",
+      "testedBlob": "fdc8e29925f5841cbd3f9425a87900fdb51da69a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/button-normal.png",
+      "publishedBlob": "2a6b6028e61a05cb9115f8821a4fb8b77ec468db",
+      "testedBlob": "2a6b6028e61a05cb9115f8821a4fb8b77ec468db",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/button-selected.png",
+      "publishedBlob": "c8a84bbf4654b57936096b8b502bbaf5f5786118",
+      "testedBlob": "c8a84bbf4654b57936096b8b502bbaf5f5786118",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/career-r03.css",
+      "publishedBlob": "e9a9a1194bee8051755220650481538f6ef19e15",
+      "testedBlob": "0f3569d37c07f2153a4bf8ca28149ded60f2956e",
+      "unchanged": false
+    },
+    {
+      "path": "oronzo/assets/ui/career-r03.html",
+      "publishedBlob": "94b5774f81fefa776108d722af97365e89e78485",
+      "testedBlob": "94b5774f81fefa776108d722af97365e89e78485",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/career-r03.js",
+      "publishedBlob": "729ab290406d7ab6b33747e6ab09280f04b65af4",
+      "testedBlob": "729ab290406d7ab6b33747e6ab09280f04b65af4",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/coach-select.png",
+      "publishedBlob": "ef5a2743fb9951d4bb82aa73006438d13852df5c",
+      "testedBlob": "ef5a2743fb9951d4bb82aa73006438d13852df5c",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/coaches-atlas.png",
+      "publishedBlob": "a72c6b3bb6bbf23a2d347554307b26c19537d263",
+      "testedBlob": "a72c6b3bb6bbf23a2d347554307b26c19537d263",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/components.png",
+      "publishedBlob": "0d4979b34f2fa7eb364cc197785a9ea715c73120",
+      "testedBlob": "0d4979b34f2fa7eb364cc197785a9ea715c73120",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/demo-v02.css",
+      "publishedBlob": "621ec2507863f337cbc41abc9712229f6a76f259",
+      "testedBlob": "621ec2507863f337cbc41abc9712229f6a76f259",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/demo-v02.html",
+      "publishedBlob": "83b3c435911061fa1a38c0f5eefe4f22526deec9",
+      "testedBlob": "83b3c435911061fa1a38c0f5eefe4f22526deec9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/demo-v02.js",
+      "publishedBlob": "99dff55566f7b0fd1053a190c32e352c7d281098",
+      "testedBlob": "99dff55566f7b0fd1053a190c32e352c7d281098",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/design-tokens.json",
+      "publishedBlob": "da2583cddfd0e3498bb9b5a0786202451a1ab4c9",
+      "testedBlob": "da2583cddfd0e3498bb9b5a0786202451a1ab4c9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/gallery.html",
+      "publishedBlob": "1b5e7d42cd4371edbfa1ed32da9fb1e7e3635769",
+      "testedBlob": "1b5e7d42cd4371edbfa1ed32da9fb1e7e3635769",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/integration-notes.md",
+      "publishedBlob": "b161ba450a70f2ce4b0ca0cf03e0821d618e5c64",
+      "testedBlob": "b161ba450a70f2ce4b0ca0cf03e0821d618e5c64",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/journalists-atlas.png",
+      "publishedBlob": "a8f3590c5fc22f4a899c2766412da1d2a6300744",
+      "testedBlob": "a8f3590c5fc22f4a899c2766412da1d2a6300744",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/manifest.json",
+      "publishedBlob": "9744b2d8aa2a09e79c1480038924240961002c76",
+      "testedBlob": "9744b2d8aa2a09e79c1480038924240961002c76",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/match-hud.png",
+      "publishedBlob": "d0f9c91e48ad3501e7e34ea23b53e1950fddcbad",
+      "testedBlob": "d0f9c91e48ad3501e7e34ea23b53e1950fddcbad",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/navy-noise.png",
+      "publishedBlob": "98bf2c481c7858e2908aa665a770989bdb55d7b6",
+      "testedBlob": "98bf2c481c7858e2908aa665a770989bdb55d7b6",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/office-desk-v02.png",
+      "publishedBlob": "98480d515c887a4caf1155b0236b9f10e1e6ab47",
+      "testedBlob": "98480d515c887a4caf1155b0236b9f10e1e6ab47",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/office-home.png",
+      "publishedBlob": "373e69657622d119b737ccad6876625dff7e7b55",
+      "testedBlob": "373e69657622d119b737ccad6876625dff7e7b55",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/panel-noise.png",
+      "publishedBlob": "fa2d2d431f65e2538e210d7dc08f65d376b78609",
+      "testedBlob": "fa2d2d431f65e2538e210d7dc08f65d376b78609",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/pitch-textless.png",
+      "publishedBlob": "45e7997f312e0a69f12ba160da5725f1e7acbfa2",
+      "testedBlob": "45e7997f312e0a69f12ba160da5725f1e7acbfa2",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/presidents-atlas.png",
+      "publishedBlob": "5e432473b7a01bd8ca4634a6b84f131a654ca7a6",
+      "testedBlob": "5e432473b7a01bd8ca4634a6b84f131a654ca7a6",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/press.png",
+      "publishedBlob": "97dd60a970c8c31f440956197741a33aa8760bc5",
+      "testedBlob": "97dd60a970c8c31f440956197741a33aa8760bc5",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/result.png",
+      "publishedBlob": "27a46b4fb1c70cfe257976e7fa46fcd537f2a163",
+      "testedBlob": "27a46b4fb1c70cfe257976e7fa46fcd537f2a163",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/squad-roster.png",
+      "publishedBlob": "c9e670e7940fe6350bf35e3d06c10f339796044e",
+      "testedBlob": "c9e670e7940fe6350bf35e3d06c10f339796044e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/tactics.png",
+      "publishedBlob": "f50496c985290ab51fabbc6c44fe3598c634b44c",
+      "testedBlob": "f50496c985290ab51fabbc6c44fe3598c634b44c",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/training.png",
+      "publishedBlob": "b2dce0eee680369c9960eeae7011e899ead5d0ff",
+      "testedBlob": "b2dce0eee680369c9960eeae7011e899ead5d0ff",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/assets/ui/ui-v02-manifest.json",
+      "publishedBlob": "dde10ad3e9910d20bae0a0b6a0c446420c96c0a1",
+      "testedBlob": "dde10ad3e9910d20bae0a0b6a0c446420c96c0a1",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/PRESS-R02-QA.md",
+      "publishedBlob": "0558a3df87117fb1ff3aa2b5bc872d2d75474867",
+      "testedBlob": "0558a3df87117fb1ff3aa2b5bc872d2d75474867",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/PRESS-R02.md",
+      "publishedBlob": "f4ee2d25a1047c1ed8a07027101b483bd6b9c648",
+      "testedBlob": "f4ee2d25a1047c1ed8a07027101b483bd6b9c648",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/README.md",
+      "publishedBlob": "c28a89b5f92f4adf1474645b846c3269db255422",
+      "testedBlob": "c28a89b5f92f4adf1474645b846c3269db255422",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/characters.json",
+      "publishedBlob": "8c4283147e380b0e3331980bdf03120f505ac24d",
+      "testedBlob": "8c4283147e380b0e3331980bdf03120f505ac24d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/demo.html",
+      "publishedBlob": "c5a9bdb33d6893875f3e533fa43c4d8495259945",
+      "testedBlob": "c5a9bdb33d6893875f3e533fa43c4d8495259945",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/dialogues.json",
+      "publishedBlob": "4943b5adb0edf9f8cefb9fdcafc4c2a45dc587ba",
+      "testedBlob": "4943b5adb0edf9f8cefb9fdcafc4c2a45dc587ba",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/events.json",
+      "publishedBlob": "56a42150b1b23ca5293e0b6cb7ac4d366cce3437",
+      "testedBlob": "56a42150b1b23ca5293e0b6cb7ac4d366cce3437",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/individual-shouts.json",
+      "publishedBlob": "bb01a986e5af077196a790106a0e133a138bde0c",
+      "testedBlob": "bb01a986e5af077196a790106a0e133a138bde0c",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/microcopy.json",
+      "publishedBlob": "9f4ab869482e7755e9fbfad84e3cb0b2bb788827",
+      "testedBlob": "9f4ab869482e7755e9fbfad84e3cb0b2bb788827",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/narrative-engine.js",
+      "publishedBlob": "1d5c82c79af70f78e339eda6abc7fc58e6cf7c53",
+      "testedBlob": "1d5c82c79af70f78e339eda6abc7fc58e6cf7c53",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/presidents.json",
+      "publishedBlob": "fe299292f6c52386ab27a0063a6a8a0941fa73ec",
+      "testedBlob": "fe299292f6c52386ab27a0063a6a8a0941fa73ec",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/press-demo.html",
+      "publishedBlob": "25a2dc58ae9e10f30d27b59f9dac99dbe8d872ad",
+      "testedBlob": "25a2dc58ae9e10f30d27b59f9dac99dbe8d872ad",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/press-kit.js",
+      "publishedBlob": "ab89840e9323ff2f6ebcf39958205d0f91f12a8b",
+      "testedBlob": "ab89840e9323ff2f6ebcf39958205d0f91f12a8b",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/press-media.json",
+      "publishedBlob": "ff1a71a2dc2a01eebf6d12eba23cf6878ef95c18",
+      "testedBlob": "ff1a71a2dc2a01eebf6d12eba23cf6878ef95c18",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/press-opening.json",
+      "publishedBlob": "3629cf9bf13c6c5f443df9a8ab621b9dd0d89913",
+      "testedBlob": "3629cf9bf13c6c5f443df9a8ab621b9dd0d89913",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/press-postmatch.json",
+      "publishedBlob": "343e0f01782a6a149f07e565c58cae47f5099714",
+      "testedBlob": "343e0f01782a6a149f07e565c58cae47f5099714",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/qa.md",
+      "publishedBlob": "b62f544481ac88c4f375425f873865efd74e74b9",
+      "testedBlob": "b62f544481ac88c4f375425f873865efd74e74b9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/validate-press.mjs",
+      "publishedBlob": "b4bb1eef2d93c5562a6496548fce5240fe1df6ca",
+      "testedBlob": "b4bb1eef2d93c5562a6496548fce5240fe1df6ca",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/content/validate.mjs",
+      "publishedBlob": "25050d3a692585b541f1232fab05958e446c59c6",
+      "testedBlob": "25050d3a692585b541f1232fab05958e446c59c6",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/engine-contract.md",
+      "publishedBlob": "9651c6d9590b03563bc7ca6060b73c4fe5011f2e",
+      "testedBlob": "9651c6d9590b03563bc7ca6060b73c4fe5011f2e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/game.js",
+      "publishedBlob": "5c1c8fdda219c61ab0502c880b6ac3751607bd46",
+      "testedBlob": "5c1c8fdda219c61ab0502c880b6ac3751607bd46",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/index.html",
+      "publishedBlob": "ee07142f1fc72edbeee567d0167cabfeed9a95fc",
+      "testedBlob": "ee07142f1fc72edbeee567d0167cabfeed9a95fc",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/narrative-contract.md",
+      "publishedBlob": "245f1f1ebe3cbe0271dd5c9671e69b53cc8cf513",
+      "testedBlob": "245f1f1ebe3cbe0271dd5c9671e69b53cc8cf513",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/partita-rapida-smoke.test.mjs",
+      "publishedBlob": "9c6203658766d1e0cbbbb3481adc77bc75b9dca3",
+      "testedBlob": "9c6203658766d1e0cbbbb3481adc77bc75b9dca3",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/partita-rapida.html",
+      "publishedBlob": "918332736ba448c8b0608cbfa31e107bafa6d32d",
+      "testedBlob": "918332736ba448c8b0608cbfa31e107bafa6d32d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/quick-match-clock.js",
+      "publishedBlob": "ed8f8d37740ca0af0d50a496481305de989576bd",
+      "testedBlob": "ed8f8d37740ca0af0d50a496481305de989576bd",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/README.md",
+      "publishedBlob": "dc6ceb60cec74fb2e80e1c9423e3d246c22fb364",
+      "testedBlob": "dc6ceb60cec74fb2e80e1c9423e3d246c22fb364",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/career-stats.js",
+      "publishedBlob": "383fd3eaa9729c64f51bdf514910c43a38a967cf",
+      "testedBlob": "383fd3eaa9729c64f51bdf514910c43a38a967cf",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/demo.html",
+      "publishedBlob": "f8627fc9d5db1f9d58ba78b3d85c30c8a17b4ddc",
+      "testedBlob": "f8627fc9d5db1f9d58ba78b3d85c30c8a17b4ddc",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/demo.js",
+      "publishedBlob": "57f60f4c5e04d359c06a2d0cbbca5f88ae31b650",
+      "testedBlob": "57f60f4c5e04d359c06a2d0cbbca5f88ae31b650",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/generator.js",
+      "publishedBlob": "df657079dba0b65c3bdf6c1f39d1866d02b76971",
+      "testedBlob": "df657079dba0b65c3bdf6c1f39d1866d02b76971",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/integration-notes.md",
+      "publishedBlob": "da5ff0e7cbdd5e66fa289561932415921487437e",
+      "testedBlob": "da5ff0e7cbdd5e66fa289561932415921487437e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/personality.js",
+      "publishedBlob": "e013d33e2678553e543444144ef3fe73cbd29194",
+      "testedBlob": "e013d33e2678553e543444144ef3fe73cbd29194",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/player-model.js",
+      "publishedBlob": "edfc930f282d225dfdb413fee250fed49a9c7118",
+      "testedBlob": "edfc930f282d225dfdb413fee250fed49a9c7118",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/rng.js",
+      "publishedBlob": "1d258115f3a7cfdaa1d4e0303da33b37c083c0d6",
+      "testedBlob": "1d258115f3a7cfdaa1d4e0303da33b37c083c0d6",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/tests/attributes.test.js",
+      "publishedBlob": "d2ea4a46e6b5aab98de0c7ec0185521acc6d895a",
+      "testedBlob": "d2ea4a46e6b5aab98de0c7ec0185521acc6d895a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/attributes/training.js",
+      "publishedBlob": "1b0f03ac2ef09c709ceba62042397bb9c2b3afde",
+      "testedBlob": "1b0f03ac2ef09c709ceba62042397bb9c2b3afde",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/README.md",
+      "publishedBlob": "a5b91a2d09f558c5d0127c39d4c7dea2cb722176",
+      "testedBlob": "a5b91a2d09f558c5d0127c39d4c7dea2cb722176",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/career-demo.html",
+      "publishedBlob": "ad16fa26e5a0976a5b1f0056fb2459043b19704c",
+      "testedBlob": "ad16fa26e5a0976a5b1f0056fb2459043b19704c",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/career.js",
+      "publishedBlob": "43ce7c02679099095b9591aa467a3a30724e7eac",
+      "testedBlob": "43ce7c02679099095b9591aa467a3a30724e7eac",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/compat.js",
+      "publishedBlob": "afdaac2a59719284985108cb0f84602b1fd0fa05",
+      "testedBlob": "afdaac2a59719284985108cb0f84602b1fd0fa05",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/demo-adapter.js",
+      "publishedBlob": "aa4868b01372d3c608cdc08a261fc797baec330f",
+      "testedBlob": "aa4868b01372d3c608cdc08a261fc797baec330f",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/integration-notes.md",
+      "publishedBlob": "e6a9ce0c7014b22a83bca447987a2bc1596ffabd",
+      "testedBlob": "e6a9ce0c7014b22a83bca447987a2bc1596ffabd",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/league.js",
+      "publishedBlob": "cd3b73205ce8067a1b070f947607e4222bdad5eb",
+      "testedBlob": "cd3b73205ce8067a1b070f947607e4222bdad5eb",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/offers-r03.js",
+      "publishedBlob": "77fc1bddd591a28999112cadea26d423c30b26af",
+      "testedBlob": "77fc1bddd591a28999112cadea26d423c30b26af",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/package.json",
+      "publishedBlob": "aa252607beb658b70750bbf47d4888c5cb925338",
+      "testedBlob": "aa252607beb658b70750bbf47d4888c5cb925338",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/period-migration.js",
+      "publishedBlob": "2a3f05a718ab7a697f3710896333eaa89def33cf",
+      "testedBlob": "2a3f05a718ab7a697f3710896333eaa89def33cf",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/progression.js",
+      "publishedBlob": "bd9de84452923057ca5544b9e3d7019c7105392d",
+      "testedBlob": "bd9de84452923057ca5544b9e3d7019c7105392d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/save.js",
+      "publishedBlob": "82a90a6e704d81183b8d5d00135c4ea81c342462",
+      "testedBlob": "82a90a6e704d81183b8d5d00135c4ea81c342462",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/tests/career.test.mjs",
+      "publishedBlob": "4ebd51a9d25fd58310f1e026116413055f9b092e",
+      "testedBlob": "4ebd51a9d25fd58310f1e026116413055f9b092e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/tests/period-migration-r04.test.mjs",
+      "publishedBlob": "35a102cdcd21f26803b4329aaecf943414900fb0",
+      "testedBlob": "35a102cdcd21f26803b4329aaecf943414900fb0",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/tests/r02-cross.test.mjs",
+      "publishedBlob": "586e6856910196965172e9488ff3bee8b839ee74",
+      "testedBlob": "586e6856910196965172e9488ff3bee8b839ee74",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/tests/r02.test.mjs",
+      "publishedBlob": "61db6ca825ad0fd6e8287e056fb7c737ac8a985e",
+      "testedBlob": "61db6ca825ad0fd6e8287e056fb7c737ac8a985e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/tests/r04-board-cross.test.mjs",
+      "publishedBlob": "3c726345fec0b3ecb2d9abc485bafa2a1771ca47",
+      "testedBlob": "3c726345fec0b3ecb2d9abc485bafa2a1771ca47",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/tests/r04-save.test.mjs",
+      "publishedBlob": "7ef2f51947c8a0acae5b0befb3d095943b5ff2f4",
+      "testedBlob": "7ef2f51947c8a0acae5b0befb3d095943b5ff2f4",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/uncontrolled-fixtures.js",
+      "publishedBlob": "39262ef7063df4d01ef9942b0aaf66b2c8540e7c",
+      "testedBlob": "39262ef7063df4d01ef9942b0aaf66b2c8540e7c",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/career/world.js",
+      "publishedBlob": "46ec9eb17a6120a7894f59fe73de3bc4d8bcb6b6",
+      "testedBlob": "46ec9eb17a6120a7894f59fe73de3bc4d8bcb6b6",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/MORALE-R03.md",
+      "publishedBlob": "fee777dae033c11e249e5ad06d03539d43610b47",
+      "testedBlob": "fee777dae033c11e249e5ad06d03539d43610b47",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/README.md",
+      "publishedBlob": "77f60f6dd7d8cbf595f48b1cb863364ce37bd811",
+      "testedBlob": "77f60f6dd7d8cbf595f48b1cb863364ce37bd811",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/board.js",
+      "publishedBlob": "b2900423daca1e545547838e86e28771f5d63c9e",
+      "testedBlob": "b2900423daca1e545547838e86e28771f5d63c9e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/club.js",
+      "publishedBlob": "987147b80ee9c6f79f31d86e5437add0b1d93ea7",
+      "testedBlob": "987147b80ee9c6f79f31d86e5437add0b1d93ea7",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/coach-actions.js",
+      "publishedBlob": "ee04037a4232dacc7c126744572006daa9597e42",
+      "testedBlob": "ee04037a4232dacc7c126744572006daa9597e42",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/coach-club-demo.html",
+      "publishedBlob": "692f4fc86fede5fe8f3da9b84db9d58a4eae3c79",
+      "testedBlob": "692f4fc86fede5fe8f3da9b84db9d58a4eae3c79",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/coach-club.test.js",
+      "publishedBlob": "4813ccbe0d913e579cba972ea39ad3416972876d",
+      "testedBlob": "4813ccbe0d913e579cba972ea39ad3416972876d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/coach-model.js",
+      "publishedBlob": "d90dc49815a30decb22aafcdaf4f262d75709d56",
+      "testedBlob": "d90dc49815a30decb22aafcdaf4f262d75709d56",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/compat-r02.test.js",
+      "publishedBlob": "e47624372b37516915eebc315e78b73496d8be69",
+      "testedBlob": "e47624372b37516915eebc315e78b73496d8be69",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/core.js",
+      "publishedBlob": "fb4b00debfc66ab870b41880a67d1264939a725e",
+      "testedBlob": "fb4b00debfc66ab870b41880a67d1264939a725e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/finance-validation.test.js",
+      "publishedBlob": "0e3cb0c84975ab314025af1f2cbc2597f63c59a9",
+      "testedBlob": "0e3cb0c84975ab314025af1f2cbc2597f63c59a9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/finance.js",
+      "publishedBlob": "88c0469e685d013df33503036b5bc66f051d6b18",
+      "testedBlob": "88c0469e685d013df33503036b5bc66f051d6b18",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/index.js",
+      "publishedBlob": "e163d3c88574962e455e9ecb1f4de2f6d09b8f20",
+      "testedBlob": "e163d3c88574962e455e9ecb1f4de2f6d09b8f20",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/integration-notes.md",
+      "publishedBlob": "e463976f046de2d91e7e02d53b673010bfd54a9e",
+      "testedBlob": "e463976f046de2d91e7e02d53b673010bfd54a9e",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/morale-r03.test.js",
+      "publishedBlob": "3df80d7a29b252848cc6814fcaffe4e11d8fc837",
+      "testedBlob": "3df80d7a29b252848cc6814fcaffe4e11d8fc837",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/morale.js",
+      "publishedBlob": "1b18ab09a0733fe4b818c80eb30d85226e24f4e7",
+      "testedBlob": "1b18ab09a0733fe4b818c80eb30d85226e24f4e7",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/negotiations.js",
+      "publishedBlob": "6d4b52a79b36aa195ec6d14d248bda042e501f18",
+      "testedBlob": "6d4b52a79b36aa195ec6d14d248bda042e501f18",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/objectives.js",
+      "publishedBlob": "48fdc923ccd625421cac3c6c6be79b67ae8bc36d",
+      "testedBlob": "48fdc923ccd625421cac3c6c6be79b67ae8bc36d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/package.json",
+      "publishedBlob": "cedd6cd63e762074d3732459864bfb33ecb3bcbe",
+      "testedBlob": "cedd6cd63e762074d3732459864bfb33ecb3bcbe",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/period-r04.test.js",
+      "publishedBlob": "c0afdfc9b0c69d8258ea1d693ed47fc98651af0b",
+      "testedBlob": "c0afdfc9b0c69d8258ea1d693ed47fc98651af0b",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/period.js",
+      "publishedBlob": "48b8cfa889d2650e71e5d63d5c78ddb1b2c9ff20",
+      "testedBlob": "48b8cfa889d2650e71e5d63d5c78ddb1b2c9ff20",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/coach-club/presidents.js",
+      "publishedBlob": "52276a775872c1fcc4d610c2c1b61a23538af730",
+      "testedBlob": "52276a775872c1fcc4d610c2c1b61a23538af730",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/README.md",
+      "publishedBlob": "cf0346c7a9141b678fee536c8f62885490ae4dad",
+      "testedBlob": "cf0346c7a9141b678fee536c8f62885490ae4dad",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/actions.js",
+      "publishedBlob": "878e7e43ddc13fa52d5beae672e2a4cc5916a5f4",
+      "testedBlob": "878e7e43ddc13fa52d5beae672e2a4cc5916a5f4",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/cli-demo.mjs",
+      "publishedBlob": "31ddb9d346006f0a798ac626a06a9d4ef7d101c0",
+      "testedBlob": "31ddb9d346006f0a798ac626a06a9d4ef7d101c0",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/commands.js",
+      "publishedBlob": "30a82d1e02f04cfdb016c5ef3d0917a60874ae5a",
+      "testedBlob": "30a82d1e02f04cfdb016c5ef3d0917a60874ae5a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/demo.html",
+      "publishedBlob": "2905953cc00aedd72bd317409d8e73896527d1bc",
+      "testedBlob": "2905953cc00aedd72bd317409d8e73896527d1bc",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/fixtures.js",
+      "publishedBlob": "9abd4cbb63799d6cecb7f0bde54b0afbd602b9e4",
+      "testedBlob": "9abd4cbb63799d6cecb7f0bde54b0afbd602b9e4",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/integration-notes.md",
+      "publishedBlob": "39fc32d1261d58b2021c6eeb75f268daaf3e3fec",
+      "testedBlob": "39fc32d1261d58b2021c6eeb75f268daaf3e3fec",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/match-engine.js",
+      "publishedBlob": "d92c566e22c77a48df403ba6d4c681c8c158d2e9",
+      "testedBlob": "d92c566e22c77a48df403ba6d4c681c8c158d2e9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/movement.js",
+      "publishedBlob": "a0d848b0805a90f6078a2c43a4d1ebd92ede10a7",
+      "testedBlob": "a0d848b0805a90f6078a2c43a4d1ebd92ede10a7",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/package.json",
+      "publishedBlob": "690275becf7bf89c130accfa901fe1fa24f7f7f3",
+      "testedBlob": "690275becf7bf89c130accfa901fe1fa24f7f7f3",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/rng.js",
+      "publishedBlob": "cc286aeda4fc97194f69c16851440e95de049938",
+      "testedBlob": "cc286aeda4fc97194f69c16851440e95de049938",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/tests/formation-regroup.test.mjs",
+      "publishedBlob": "4b8b442275db6801533b21b60cdf2aeff4ce9708",
+      "testedBlob": "4b8b442275db6801533b21b60cdf2aeff4ce9708",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/tests/integration-p1.test.mjs",
+      "publishedBlob": "ef3f5451efb192308551d3ccaaf6d93d0e4ceb2a",
+      "testedBlob": "ef3f5451efb192308551d3ccaaf6d93d0e4ceb2a",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-engine/tests/match-engine.test.mjs",
+      "publishedBlob": "fe2c4d9cf20a992b34074b3bdacb5e9729882f40",
+      "testedBlob": "fe2c4d9cf20a992b34074b3bdacb5e9729882f40",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/README.md",
+      "publishedBlob": "0e8b5be471364069cab7854e7eb15f9d44f16d2d",
+      "testedBlob": "0e8b5be471364069cab7854e7eb15f9d44f16d2d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/asset-adapter.js",
+      "publishedBlob": "9251826df36f010fe5f2d5da2280ba68c8c04c0c",
+      "testedBlob": "9251826df36f010fe5f2d5da2280ba68c8c04c0c",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/asset-adapter.test.mjs",
+      "publishedBlob": "f03b8880242c5681d00ac68d22fac1265039bacf",
+      "testedBlob": "f03b8880242c5681d00ac68d22fac1265039bacf",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/compatibility.test.mjs",
+      "publishedBlob": "09a6dcddad4055dfd2ef116e68d860f8145009a9",
+      "testedBlob": "09a6dcddad4055dfd2ef116e68d860f8145009a9",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/fixture.js",
+      "publishedBlob": "06ccf75eda689baee9ab14d583368a891ec42a3f",
+      "testedBlob": "06ccf75eda689baee9ab14d583368a891ec42a3f",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/integration-notes.md",
+      "publishedBlob": "85807e1b79b0930136d4be2cfdf39094dd234825",
+      "testedBlob": "85807e1b79b0930136d4be2cfdf39094dd234825",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/interpolation.js",
+      "publishedBlob": "990ea58f4eeb5864b219f22a518ea723b7fabb4d",
+      "testedBlob": "990ea58f4eeb5864b219f22a518ea723b7fabb4d",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/match-view-demo.html",
+      "publishedBlob": "dcd38e9ebcce4d6a5b8372aaefe2c50a3b745196",
+      "testedBlob": "dcd38e9ebcce4d6a5b8372aaefe2c50a3b745196",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/match-view.js",
+      "publishedBlob": "c53a4bd1f22fe28dbb9d4d14d7718829bb1df0cc",
+      "testedBlob": "c53a4bd1f22fe28dbb9d4d14d7718829bb1df0cc",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/systems/match-view/match-view.test.mjs",
+      "publishedBlob": "1cdb1ed271d870159f5f4a53c9443190cfcad212",
+      "testedBlob": "1cdb1ed271d870159f5f4a53c9443190cfcad212",
+      "unchanged": true
+    },
+    {
+      "path": "oronzo/ui.css",
+      "publishedBlob": "0ed66e2cc2c20c847ef3db54952278212513a2d9",
+      "testedBlob": "0ed66e2cc2c20c847ef3db54952278212513a2d9",
+      "unchanged": true
+    }
+  ]
+}
