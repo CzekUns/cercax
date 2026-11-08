@@ -1,3 +1,10 @@
+# ORONZO — AGENTE 03 · HANDOFF DELLE ATTIVITÀ FUTURE A 11
+
+**Identità immutata:** `ORONZO-AGENT-03`. **Stato:** consegne UI R02/R03 completate e mergiate, storico preservato. Dall'8 novembre 2026 i nuovi cicli UX/UI mobile sono assegnati a `ORONZO-AGENT-11`, secondo il registro e `11-mobile-ui/IDENTITY.md`. Non cambiare nome/ID a 03, non copiare automaticamente il vecchio scope a un nuovo branch 03. L'attuale owner dei file UI per nuovo lavoro è 11 nei limiti del suo NEXT. Tutto il testo sotto è documentazione storica per handoff.
+
+---
+
+## ARCHIVIO — IDENTITÀ 03 R03
 # ORONZO — AGENTE 03 · IDENTITÀ E PERIMETRO ATTUALE R03 RUNTIME
 
 **ID immutabile:** `ORONZO-AGENT-03` — UI Art Director e **ora UI Runtime Engineer**, autorizzazione dell'Agente 10 dopo merge #33. La PR #33 è stata **MERGED** `c019d511af89eb54851b3743fba598254d59707f`; audit indipendente R07B PASS. Il precedente divieto di modificare il runtime era limitato al ciclo R02 e **non si applica più al nuovo incarico READY R03**.
