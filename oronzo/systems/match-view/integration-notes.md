@@ -1,5 +1,22 @@
 # ORONZO — Integrazione match-view nel runtime
 
+## R10 — collegamento minimo al runtime (owner attuale: Agente 12)
+
+La roadmap R10 assegna il futuro pulsante FULL/TV del runtime all'**Agente 12** (il riferimento storico all'Agente 03 resta relativo al ciclo precedente). Nessun HTML/CSS runtime è modificato nella PR #28.
+
+```js
+// Dopo la creazione della vista / il sync del motore, su vera interazione utente:
+view.setCameraMode(view.cameraMode === 'full' ? 'broadcast' : 'full');
+// Lo stesso view, bridge, engine e snapshot restano in funzione.
+button.setAttribute('aria-pressed', String(view.cameraMode === 'broadcast'));
+button.textContent = view.cameraMode === 'broadcast' ? 'CAMERA TV' : 'CAMPO COMPLETO';
+```
+
+**Contratto invariato:** `createMatchView(canvas, {config:{cameraMode:'full',cameraZoom:2,simSecondsPerRealSecond:6,homeTeamId,awayTeamId,keeperIds,appearances?}})`. `appearances` è facoltativo; ora colori casa/trasferta/GK corretti anche se vuoto. `setCameraMode` non cambia coordinate, score o eventi; `view.getCameraState()` è solo diagnostica. Per pulsanti touch rispettare il minimo runtime **44px**, safe area e selezione visibile.
+
+**Gate grafico:** `browser-qa-playwright.py` resta il test HTTP obbligatorio in ambiente con URL permessi; `browser-qa-offline.py` è alternativa Chromium vera con PNG originali in data URI per ambienti amministrati. Il secondo **non** prova che il browser possa caricare i PNG via HTTP, che resta una verifica separata. Evidenze in `QA-R10-REAL-PNG.json` e `REPORT.md`.
+
+
 ## Hookup v0.2 per Agente 03 — controllo delle due camere
 
 **Questa PR non modifica** `oronzo/partita-rapida.html`, `oronzo/game.js`, la UI generale o il motore. Al successivo ciclo UI autorizzato, Agente 03 può aggiungere un controllo touch FULL/TV al pannello della partita e chiamare:
