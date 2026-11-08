@@ -1,18 +1,49 @@
-// ORONZO v0.2: per-player touchline instructions. This module never mutates
-// career morale, persistent trust or the player record supplied by Agent 08.
+// ORONZO 06 / PlayerV2 08 compatibility boundary.
+// Match engine alone owns the 150-second temporary performance modifier.
+// Never call attributes/applyShout() inside a match: that would add a second
+// 180-second temporary bonus and mutate persistent player morale/trust.
 import { clamp, stat } from './rng.js';
 
-const originOf = o => o && typeof o === 'object' ? o : {};
-const normalized = value => typeof value === 'string' ? value.trim().toLowerCase() : '';
-const safeNumber = (value,fallback=50) => Number.isFinite(value) ? clamp(value,0,100) : fallback;
+const clean = value => typeof value==='string'
+  ? value.normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[’\x60]/g,"'").trim().toLocaleLowerCase('it-IT').replace(/\s+/g,' ')
+  : '';
+const macro = value => {
+  const v=clean(value);
+  return ({nord:'north',north:'north',centro:'centre',centre:'centre',center:'centre',
+    sud:'south',south:'south'})[v] || v;
+};
+const safeNumber=(value,fallback=50)=>Number.isFinite(value)?clamp(value,0,100):fallback;
 
+export const INDIVIDUAL_TONES=Object.freeze({
+  encourage:'encourage',gentle:'encourage',harsh:'harsh',hard:'harsh'
+});
+export function normalizeIndividualTone(tone) {
+  return typeof tone==='string'?INDIVIDUAL_TONES[tone.trim().toLowerCase()]??null:null;
+}
+export function toAttributesTone(tone) {
+  const canonical=normalizeIndividualTone(tone);
+  return canonical==='encourage'?'gentle':canonical==='harsh'?'hard':null;
+}
+
+// Prefer the real PlayerV2 origin: {comune,regione,macroregione}.
+// Also accept the proposed CoachV2 {regionId,macroRegion} and legacy adapters.
+// An unknown origin stays unknown; never invent a region or municipality.
+export function normalizeMatchOrigin(value) {
+  if(!value || typeof value!=='object' || Array.isArray(value))
+    return {regionId:null,macroRegion:null};
+  return {
+    regionId:clean(value.regione ?? value.regionId ?? value.region),
+    macroRegion:macro(value.macroregione ?? value.macroRegion ?? value.macroregion)
+  };
+}
 export function regionalAffinity(coachOrigin,playerOrigin) {
-  const coach=originOf(coachOrigin), player=originOf(playerOrigin);
-  const a=normalized(coach.regionId),b=normalized(player.regionId);
-  if(a && b && a===b)return {kind:'region',score:2};
-  const x=normalized(coach.macroRegion),y=normalized(player.macroRegion);
-  if(x && y && x===y)return {kind:'macro',score:1};
-  return {kind:x&&y?'other':'unknown',score:0};
+  const coach=normalizeMatchOrigin(coachOrigin), player=normalizeMatchOrigin(playerOrigin);
+  if(coach.regionId && player.regionId && coach.regionId===player.regionId)
+    return {kind:'region',score:2};
+  if(coach.macroRegion && player.macroRegion && coach.macroRegion===player.macroRegion)
+    return {kind:'macro',score:1};
+  return {kind:coach.macroRegion&&player.macroRegion?'other':'unknown',score:0};
 }
 
 export function individualPerformanceFactor(player,t) {
@@ -21,29 +52,56 @@ export function individualPerformanceFactor(player,t) {
     t<current.expiresAt ? 1+current.modifier : 1;
 }
 
-// Receives only PlayerV2/CoachV2 fields supplied from upstream. Jitter is
-// seeded via the parent match PRNG and always bounded, never a guaranteed goal.
+// Pure adapter for career07: the player is already in ClubV1.players on createMatch.
+// CoachV2 has traits.leadership and origin; player PlayerV2 has origin/relationships.
+// No trust or regional data are fabricated by this helper.
+export function createIndividualShoutCommand({teamId,player,coach,tone,utteranceId}={}) {
+  if(typeof teamId!=='string'||!teamId || !player || typeof player.id!=='string' ||
+     !player.id || (player.teamId && player.teamId!==teamId))
+    throw new TypeError('valid teamId and same-team player required');
+  const canonical=normalizeIndividualTone(tone);
+  if(!canonical)throw new RangeError('individual tone must be encourage/harsh or gentle/hard');
+  const payload={targetPlayerId:player.id,tone:canonical};
+  if(coach?.origin)payload.coachOrigin=coach.origin;
+  if(coach?.traits && Number.isFinite(coach.traits.leadership))
+    payload.coachTraits={leadership:coach.traits.leadership};
+  if(player.origin)payload.playerOrigin=player.origin; // legacy backup only
+  if(utteranceId!==undefined)payload.utteranceId=utteranceId;
+  return {type:'shout',teamId,payload};
+}
+
+// Inputs are copied PlayerV2 objects in the engine's private roster.
+// RNG comes only from match-engine seeded state; one roll per accepted order.
 export function calculateIndividualShout(player,payload,rng,t) {
-  const affinity=regionalAffinity(payload.coachOrigin,player.origin ?? payload.playerOrigin);
-  const trust=safeNumber(player.relationshipWithCoach ?? payload.playerTrust);
-  const leadership=safeNumber(payload.coachTraits?.leadership);
+  const tone=normalizeIndividualTone(payload.tone);
+  if(!tone)throw new RangeError('invalid individual shout tone');
+  // The roster's authoritative origin takes priority over a conflicting payload.
+  // An explicit payload origin is only a fallback for historical PlayerV1.
+  const origin=player?.origin ?? payload.playerOrigin ?? null;
+  const affinity=regionalAffinity(payload.coachOrigin,origin);
+  const trust=safeNumber(player?.relationships?.coachTrust ??
+    player?.relationshipWithCoach ?? payload.playerTrust);
+  const leadership=safeNumber(payload.coachTraits?.leadership ??
+    payload.coachLeadership);
   const character=stat(player,'mental','character');
   const composure=stat(player,'mental','composure');
   const discipline=stat(player,'mental','discipline');
+  const susceptibility=stat(player,'mental','suscettibilita');
+  const impulsivity=stat(player,'mental','impulsivita');
   const affinityBoost=affinity.score===2?.020:affinity.score===1?.010:0;
   const jitter=(rng.next()-.5)*.010;
   const receptive=clamp((trust*.36+leadership*.24+character*.20+composure*.20)/100,0,1);
-  const tone=payload.tone;
   const modifier=tone==='encourage'
-    ?clamp(.014+.065*receptive+affinityBoost+jitter,.008,.115)
+    ?clamp(.014+.065*receptive+affinityBoost+jitter
+        -(susceptibility-50)*.00008,.008,.115)
     :clamp((character*.40+composure*.35+discipline*.25-55)*.0015+
-       (trust-50)*.00025+affinityBoost*.30+jitter-.020,-.115,.055);
-  const trustDelta=tone==='encourage'
-    ?(affinity.score===2?2:1)
-    :(modifier>=0?-1:-2);
+       (trust-50)*.00025+affinityBoost*.30+jitter-.020
+       -(susceptibility-50)*.00028-(impulsivity-50)*.00015,-.115,.055);
+  const trustDelta=tone==='encourage'?(affinity.score===2?2:1):(modifier>=0?-1:-2);
   return {
-    tone,modifier:Number(modifier.toFixed(6)),startedAt:t,expiresAt:t+150,
-    affinity:affinity.kind,
+    tone,attributesTone:toAttributesTone(tone),
+    modifier:Number(modifier.toFixed(6)),startedAt:t,expiresAt:t+150,
+    affinity:affinity.kind,coachTrustAtCommand:trust,
     persistentSuggestion:{playerTrustDelta:trustDelta,coachMoraleDelta:0},
   };
 }

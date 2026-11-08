@@ -1,6 +1,6 @@
 import { clamp, conditionFactor } from './rng.js';
 import { FORMATIONS, resetPositions } from './movement.js';
-import { calculateIndividualShout } from './orders.js';
+import { calculateIndividualShout, normalizeIndividualTone } from './orders.js';
 
 export const DEFAULT_TACTICS=Object.freeze({
   formation:'4-4-2',mentality:50,pressing:50,tempo:50,width:50,marking:'zonal',
@@ -59,7 +59,7 @@ export function executeCommand(state, command, emit) {
     if(typeof payload.targetPlayerId!=='string' || !payload.targetPlayerId)
       return reject('targetPlayerId must be a nonempty player id');
     if(!team.lineup.includes(payload.targetPlayerId))return reject('target player not on pitch for team');
-    if(!['encourage','harsh'].includes(payload.tone))return reject('unsupported individual shout tone');
+    if(!normalizeIndividualTone(payload.tone))return reject('unsupported individual shout tone');
     if(payload.utteranceId!==undefined && (typeof payload.utteranceId!=='string' || payload.utteranceId.length>128))
       return reject('invalid utteranceId');
     const target=state.byId.get(payload.targetPlayerId);
@@ -70,10 +70,12 @@ export function executeCommand(state, command, emit) {
     target.lastIndividualShoutAt=state.t;
     target.personalShout=effect;
     const detail={
-      tone:effect.tone,accepted:true,affinity:effect.affinity,
+      tone:effect.tone,attributesTone:effect.attributesTone,accepted:true,affinity:effect.affinity,
+      coachTrustAtCommand:effect.coachTrustAtCommand,
       temporaryEffect:{modifier:effect.modifier,startedAt:effect.startedAt,
         expiresAt:effect.expiresAt},
       persistentSuggestion:effect.persistentSuggestion,
+      temporaryOwner:'match-engine-06',persistentOwner:'coach-club-09',
       ...(payload.utteranceId!==undefined?{utteranceId:payload.utteranceId}:{}),
     };
     emit('coach_shout',team.id,target.id,detail);
