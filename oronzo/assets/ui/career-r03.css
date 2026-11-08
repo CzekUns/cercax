@@ -1,0 +1,76 @@
+/* ORONZO 03 runtime R03: preserves R07B header status slot, existing 10 PNG and 44px actions. */
+.rotate-r03{display:none}.demo-label{flex:0 0 163px;background:#f2cc40;color:#051440;border:2px ridge #fff3a2;font:bold 8px/1.1 Verdana,sans-serif;text-align:center;padding:5px 3px;min-height:28px;max-height:37px;overflow:hidden}
+#ui-screen{gap:4px}.quick-nav a{flex:1;display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;background:#173b99 url('btn-blue-v02.png') center/100% 100%;color:#fff4cf;text-decoration:none;font-size:10px;font-weight:900;text-align:center;padding:2px}
+.runtime-split{display:flex;gap:6px;flex:1;min-height:0}.runtime-col{display:flex;flex-direction:column;gap:5px;min-width:0;min-height:0}.runtime-grow{flex:1;min-width:0;min-height:0}.runtime-info{font-size:10px;line-height:1.35}.runtime-info b{color:#ffe46d}.runtime-top-row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.runtime-controls{display:flex;gap:4px;flex-shrink:0;margin-top:auto}.runtime-controls .ui-btn{flex:1;min-width:0;padding:3px;font-size:10px}
+.runtime-scroll{overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:#f3c841 #0e2057}.runtime-list{display:flex;flex-direction:column;gap:3px;min-height:0}.runtime-list button{font-size:10px}
+.runtime-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}.runtime-grid .ui-btn{min-width:0}.runtime-portrait{width:104px;height:128px;flex:0 0 104px;overflow:hidden}.runtime-image{height:100%;background:url('office-desk-v02.png') center/cover;flex:1}
+.runtime-offer[aria-selected="true"]{background:#e7bf37;color:#06143e;border-color:#fff}.runtime-offer{background:#173478;color:white;border:2px solid #558de0;width:100%;min-height:44px;padding:3px 7px;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:4px}.runtime-offer span{min-width:0}.runtime-offer b{display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.runtime-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;flex-shrink:0}.runtime-stats div{border:2px ridge #689ae5;background:#0a236c;text-align:center;padding:2px;font-size:8px;min-width:0}.runtime-stats strong{color:#ffdc47;display:block;font-size:14px}
+.runtime-player{display:flex;gap:5px;align-items:center;min-height:36px;border:1px solid #3c67ac;padding:2px 4px;background:#102d7a}.runtime-player input{width:18px;height:18px;accent-color:#ffda36}.runtime-player span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.runtime-player small{color:#c5d8f7}
+.runtime-roster{display:grid;grid-template-columns:1fr 1fr;gap:3px;overflow-y:auto;min-height:0}.runtime-roster .runtime-player{font-size:9px;min-height:34px}.runtime-roster input{width:16px;height:16px}.runtime-label{font-size:9px;color:#d2e2fa}.runtime-label select{width:100%;height:40px;background:#102b83;color:#fff5d7;border:2px solid #9fbaff;font:10px Verdana}
+.runtime-score{background:#10296d;border:2px ridge #7ca6eb;display:flex;align-items:center;justify-content:space-around;gap:5px;min-height:33px;text-align:center;font-size:10px;flex-shrink:0}.runtime-score b{font-size:20px;color:#ffe05c}.runtime-score span{flex:1;min-width:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+.runtime-pitch{border:3px ridge #9daeea;background:#04251b;flex:1;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}.runtime-pitch canvas{display:block;max-width:100%;max-height:100%;width:auto;height:auto;aspect-ratio:16/9;image-rendering:pixelated}
+.runtime-match-panel{width:31%;min-width:0;display:flex;flex-direction:column;gap:5px;justify-content:space-between}.runtime-match-panel .runtime-grid{grid-template-columns:1fr 1fr}.runtime-match-panel .ui-btn{min-height:44px;font-size:9px;padding:2px}.runtime-match-note{font:9px/1.25 Verdana;color:#bdd3f7;overflow:hidden;max-height:40px}
+.runtime-press-wrap{display:flex;gap:6px;flex:1;min-height:0}.runtime-reporter{width:125px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(#123f92,#06134b)}.runtime-reporter .portrait{transform:scale(.84)}.runtime-answers{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0;min-height:0}.runtime-question{font:bold 12px/1.2 Georgia,serif;color:#ffe477;background:#15338b;border:2px ridge #abc8ff;padding:7px;min-height:42px;flex-shrink:0}.runtime-answers .ui-btn{flex:1;min-height:44px;max-height:70px;justify-content:flex-start;text-align:left;font-size:10px;padding:3px 8px}
+.runtime-foot{font-size:9px;color:#c9def9;line-height:1.23}.runtime-title{font:bold 14px Impact,Arial;color:#ffe26a}.runtime-button-row{display:flex;gap:4px}.runtime-button-row>*{flex:1}.runtime-button-row .ui-btn{min-width:0;padding:3px}
+.gamebar .toast{min-height:29px;height:34px}.gamebar .brand{flex-basis:128px}.gamebar .brand strong{font-size:22px}.gamebar .brand small{font-size:7px}.gamebar .top-info{font-size:9px;min-width:72px}.entry-panel{display:flex;flex-direction:column}.entry-panel .entry-actions{margin-top:auto}.entry-panel .ui-btn{min-height:44px}.screen-heading{min-height:27px}.quick-nav{height:50px}
+@media(max-height:375px){.gamebar{height:43px}.runtime-stats strong{font-size:12px}.runtime-question{min-height:36px}.runtime-answers .ui-btn{min-height:44px}.runtime-reporter{width:105px}.runtime-match-panel{width:34%}.runtime-match-note{max-height:27px}.runtime-player{min-height:31px}.runtime-roster .runtime-player{min-height:29px}.screen-heading h1{font-size:15px}.runtime-info{font-size:9px}}
+@media(max-width:675px){.demo-label{flex-basis:146px;font-size:7px}.gamebar .top-info{display:none}.runtime-match-panel{width:36%}.runtime-reporter{width:105px}.runtime-controls .ui-btn{font-size:9px}}
+@media(orientation:portrait){.rotate-r03{position:fixed;z-index:20;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#071749;color:#ffe57b;font:900 23px Verdana;text-align:center}.rotate-r03 small{font-size:13px;color:#fff4e2}.site{visibility:hidden}}
+/* R03 mobile gate: compress decorative portrait before shrinking 44px actions. */
+@media(max-height:395px){.runtime-portrait{width:68px;height:76px;flex:0 0 68px}.runtime-portrait .portrait{transform:scale(.58);transform-origin:top left}.runtime-top-row{min-height:76px;max-height:76px}.runtime-label select{height:34px}.runtime-label{font-size:8px}.runtime-col .panel-title{flex-shrink:0}.runtime-controls{flex-shrink:0;margin-top:auto}.runtime-col{overflow:hidden}.runtime-top-row .runtime-info{font-size:9px;line-height:1.25}}
+
+/* R08: guarantee physically visible 44px targets. Scrolling belongs to data only. */
+.runtime-label select{height:44px;min-height:44px}
+.runtime-roster .runtime-player{min-height:44px}
+.runtime-player{min-height:44px}
+.runtime-roster-list,.runtime-table{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+.runtime-player-link{min-height:44px;flex:0 0 44px;width:100%;background:#103176;border:2px solid #648bdd;display:flex;align-items:center;gap:6px;padding:4px 8px;color:#fff7db;text-align:left;font-weight:bold;font-size:10px}
+.runtime-player-link span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.runtime-player-link small{color:#bcd4fc;font-size:9px}.runtime-player-link b{color:#ffda55;font-size:16px}
+.runtime-player-link:active,.runtime-player-link:focus-visible{background:#1c4aa4}
+.runtime-table-row{min-height:32px;display:flex;align-items:center;gap:6px;padding:4px 5px;border-bottom:1px solid #416bb1;font-size:10px}
+.runtime-table-row b{width:25px;flex:0 0 25px;color:#f9d44b}
+.runtime-table-row span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.runtime-table-row strong{min-width:36px;text-align:right;color:#ffe483}.runtime-table-row small{min-width:23px;text-align:right;color:#cddff8}
+.runtime-table-row.mine{background:#34538d;border:1px solid #ffda57}
+.runtime-unavailable{flex:0 0 44px;min-height:44px;font-size:9px;white-space:normal}
+.runtime-detail-scroll{overscroll-behavior:contain}
+.runtime-attribute-group{border:1px solid #4364a0;margin:5px 0;padding:5px;background:#071c55}
+.runtime-attribute-group h2{font-size:11px;color:#ffd954;margin:0 0 4px}
+.runtime-player-name{color:#ffe783;font-size:15px;margin:0 0 6px}
+.runtime-attribute{display:flex;justify-content:space-between;gap:5px;padding:2px 0;border-bottom:1px solid #233a77;font-size:10px}
+.runtime-attribute strong{color:#ffdd63}.runtime-missing{font-size:10px;color:#d4def4}
+.menu-cards{grid-template-rows:repeat(3,minmax(44px,1fr));gap:3px}
+.menu-card{min-height:44px;font-size:9px;gap:1px}.menu-card .emoji{font-size:15px}
+/* The profile decoration is expendable; the two avatar CTA rows are not. */
+@media(max-height:395px){
+ .runtime-top-row{min-height:55px;max-height:55px}
+ .runtime-portrait{width:48px;height:54px;flex-basis:48px}
+ .runtime-portrait .portrait{transform:scale(.4);transform-origin:top left}
+ .runtime-label select{height:44px;min-height:44px}
+ .runtime-col{gap:3px}
+ .runtime-col .panel-title{margin-bottom:2px;padding-bottom:2px}
+ .runtime-controls{margin-top:auto;min-height:44px;flex:0 0 44px}
+ .runtime-controls .ui-btn{height:44px;min-height:44px}
+ .runtime-roster .runtime-player{min-height:44px}
+ .runtime-player{min-height:44px}
+ .runtime-match-panel{justify-content:initial;gap:3px;padding:3px 4px;overflow:hidden}
+ .runtime-match-panel .runtime-grid:first-child{flex:0 0 27px;min-height:27px}
+ .runtime-match-panel .kpi{padding:0 2px;min-height:27px}
+ .runtime-match-panel .kpi b{font-size:11px}
+ .runtime-match-panel .runtime-grid:nth-child(2){flex:0 0 91px;grid-template-rows:44px 44px;gap:3px}
+ .runtime-match-panel .runtime-grid .ui-btn{height:44px;min-height:44px}
+ .runtime-match-note{display:none}
+ .runtime-match-panel>[data-action="finish-qa"]{margin-top:auto;flex:0 0 44px;height:44px;min-height:44px;font-size:9px}
+}
+
+.runtime-avatar-fields{display:flex;flex-direction:column;gap:3px;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+.runtime-avatar-fields .runtime-top-row{flex:0 0 76px;min-height:76px;max-height:none}
+.runtime-avatar-fields .runtime-label{display:block;flex:0 0 auto}
+.runtime-avatar-fields .runtime-label:has(#qa-mode){min-height:44px;display:flex;align-items:center;gap:5px;flex:0 0 44px}
+.runtime-avatar-fields #qa-mode{width:22px;height:22px;flex:0 0 22px}
+/* Slight oversize removes subpixel clipping of bottom scroll rows at 1× DPR. */
+.runtime-player-link{min-height:45px;flex-basis:45px}
+.runtime-roster .runtime-player{min-height:45px}

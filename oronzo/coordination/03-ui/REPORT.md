@@ -153,3 +153,110 @@ Le 12 immagini sono screenshot di Chromium, non screenshot di ImageGen/PIL né p
 
 
 **Consolidamento QA R07:** commit `95094ff499b89d6d96ea483b6ae82f06540c2973`. Aggiornati solo `qa/run_browser_r07.py` e `qa/R07B-RESULTS.json` per decodificare **tutti i 10 PNG originali in ciascuno dei 6 percorsi Chromium**. Risultato nuovo: **6/6 PASS**, asset richiesti **12** (CSS, JS e 10 PNG), senza errori console. Sono confermati clipping 44/44px, hit test, tap immediato e zero sovrapposizioni toast; lo script non prova hosting HTTP reale.
+
+
+---
+
+# ORONZO — AGENTE 03 · REPORT R03 Runtime — 8 novembre 2026
+
+**Identità:** ORONZO-AGENT-03 · **Stato:** PR OPEN, **NO MERGE**.
+**Branch:** \`agent/oronzo-ui-r03-runtime\`, base \`main\` \`8ba2a84a0fed49dc052e4c41b06db2c602f093ae\`.
+**PR:** https://github.com/CzekUns/cercax/pull/43
+
+## Consegna effettiva
+
+- \`oronzo/assets/ui/career-r03.html\` — nuovo entrypoint R03 1979 separato dal prototipo 1985.
+- \`oronzo/assets/ui/career-r03.css\` — riuso dei 10 PNG e del design system v0.2, stato in header, touch 44px, landscape 16:9.
+- \`oronzo/assets/ui/career-r03.js\` — UI collegata alle vere API dell'Agente 07, morale 09, Copy04, motore 06 e MatchView05 senza duplicazioni di score o fortuna.
+- \`oronzo/assets/ui/qa/r03-chromium.py\` — percorso automatizzato Chromium con touch/mouse e intercettazione al centro reale della CTA, sei varianti.
+- \`oronzo/index.html\` — solo link al nuovo entrypoint; vecchio \`game.js\`, \`ui.css\`, \`partita-rapida.html\` e salvataggi legacy 1985 intatti.
+
+**Percorso disponibile:** Nuova partita → otto avatar/quattro tratti/origine esplicita → venti offerte vere → preview morale 09 e contratto → presidente Copy04 → cinque risposte reali → hub 1979 con KPI/rosa/classifica/finanze → formazione selezionabile, 11 titolari, esattamente un GK, panchina e capitano → MatchEngine06 11v11 con \`tickMatch\` e camera full renderer 05 → finale risultato/eventi autorevoli → due risposte postpartita → \`advanceMatchday\` una sola volta e salvataggio/caricamento. 1× = 6 secondi di simulazione per secondo reale, circa 15 minuti a 5400 secondi; velocità 1/2/4/8×. Il pulsante QA per terminare rapidamente usa **sempre** Engine06, non inventa gol.
+
+**Gate geografico:** fixture importata senza modifiche da \`oronzo/app/flow/tests/qa-geography.mjs\`; etichetta persistente \`DEMO TECNICA — LOCALITÀ SINTETICHE\`. Se la modalità QA non è abilitata, \`acceptOffer\` rifiuta \`geography_required\` e lascia il JSON di carriera immutato; nessuna località dichiarata ISTAT. Questo **non** soddisfa la milestone dei comuni/cognomi reali.
+
+**Save:** API 07 con checksum e chiave nuova \`oronzo.career.flow.r03\`, non sovrascrive i salvataggi 1985; la UI rifiuta il salvataggio della gara preparata/in corso e salva nelle transizioni consentite. In assenza di dati verificati, il Playtest QA mantiene solo il mondo sintetico.
+
+## Test effettivamente eseguiti
+
+- \`node --test oronzo/app/flow/tests/*.mjs oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js\` su checkout locale integrato da \`main\` → **97/97 PASS, 0 FAIL** (rerun, circa 29 s).
+- \`node --test oronzo/systems/match-view/*.test.mjs\` → **22/22 PASS, 0 FAIL**.
+- \`node --check oronzo/assets/ui/career-r03.js\` → PASS.
+- Chromium \`/usr/bin/chromium\` headless, viewport 640×360 / 800×360 / 844×390, desktop + touch → **6/6 percorsi end-to-end PASS** (quattro scenari prima dell'ultimo test isolato e altri due 844×390 isolati). Verificati 20 offerte, cinque risposte, 11 titolari e un GK, 22 attori Engine06, fulltime motore, due risposte finali, passaggio a settimana 2, save/load con archivio di prova e rifiuto \`geography_required\` senza alterare lo stato, click al centro senza scroll automatico, assenza di pageerror. L'ultima coppia 844×390 ha prodotto score Engine06 **2–0**, non score simulato dalla UI.
+- Render reale degli sprite Agent01 presenti su main; osservato fallback HTTP 404 del manifest cutscene Agent02 assente: non affermiamo cutscene integrate. Screenshot locali generati nel banco di prova: \`r03-hub-{640x360,800x360,844x390}.png\`, \`r03-match-{640x360,800x360,844x390}.png\` (file QA locali, **non** caricati nella PR).
+- Il tentativo di aggiungere l'intera suite Engine06 separatamente è stato **interrotto dal timeout dell'ambiente**, quindi **nessun esito PASS assegnato a quella suite**; il match 06 è comunque esercitato nel percorso browser/97 test di flow.
+
+## Limiti e rischi aperti per audit indipendente R08
+
+1. **Non è stato verificato un URL pubblico né Android fisico.** Il server statico Python locale ha risposto HTTP 200, ma Chromium in questo ambiente blocca \`page.goto(http://127.0.0.1)\`. Per Chromium è stato usato \`route.fulfill\` dei **file reali** su un origin \`.invalid\`; non è una navigazione HTTP pubblica. Il test save/load usa storage shim e ricreazione contesto con gli stessi dati (prova di serializzazione, **non** persistenza reale di browser tra riavvii di processo). Gate reale Android/hosting ancora necessario.
+2. **Camera TV vera assente** nel renderer 05 su main: la UI la dichiara non disponibile anziché camuffarla con CSS zoom. Le cutscene Agent02 mancano; fallback tecnico esplicito.
+3. **Geografia/cognomi storici non verificati**. I club/luoghi della QA sono identificati come sintetici; la release pubblica non deve essere presentata come popolata da ISTAT. Le gare degli altri club vengono prodotte dal provider deterministico Agent07 e sono etichettate come tali.
+4. **R03 è un primo slice:** UI degli ordini individuali e integrazione editoriale completa dell'allenamento non coperte. Il percorso verticale richiesto è stato verificato nel test, non l'intera carriera pluristagionale su Android.
+5. **Regressione UI del prototipo 1985:** i file runtime legacy e partita rapida non sono stati modificati; è stata aggiunta una CTA nel vecchio \`index.html\`. Nessuna nuova suite di browser legacy completa è stata eseguita in questo ciclo.
+
+**Avvio locale dalla root clone:** \`python3 -m http.server 8000\` e \`http://localhost:8000/oronzo/assets/ui/career-r03.html\`; su telefono nella stessa rete usare l'indirizzo LAN del computer al posto di \`localhost\` (indirizzo non verificato in questa sessione). Selezionare la modalità QA esplicitamente marcata per completare l'ingaggio fino alla disponibilità del catalogo approvato.
+
+**Prossimo gate:** Coerentizzatore 00 deve controllare PR #43 (R08), scenari HTTP reali, Android/touch, regressione legacy, rischio dataset sintetico e merge solo se successivamente autorizzato. Nessuna modifica alle cartelle degli altri agenti; nessun merge eseguito.
+
+**File SHA-256 del contenuto proposto (non commit SHA):**
+- \`index.html\` \`1838e33e7d2cca64fd2c0333601d099e51904de2b3146e049591e8c25a467179\`
+- \`career-r03.html\` \`7a5aa7c442029d652e7987a704e8d79729e603a8a4fe4f835b0f846fd6516392\`
+- \`career-r03.css\` \`380c9a0282a4f361fa2a40d51f4f99a4b437b0926b118c7160edf1353bd5bcd1\`
+- \`career-r03.js\` \`2097de5e9dd9ec7fcbd06afbcc4ac5b820845b66d4a1eaf9b448c86d6724ad96\`
+- \`qa/r03-chromium.py\` \`4ba72d537b90b07aee442c22301cef1e897e7c1b886fef727a24a70c682ffca7\`
+
+**Proposte prossimo ciclo (dopo R08):** (1) implementare vera camera broadcast con Agent05; (2) integrare il dataset di comuni/cognomi verificato appena disponibile; (3) effettuare QA su Android reale tramite preview pubblicata, includendo salvataggio/riavvio autentico e orientamento.
+
+
+---
+
+# ORONZO AGENTE 03 — Correzioni mirate R08 / richiesta audit R08B
+
+**Data:** 8 novembre 2026. **PR:** https://github.com/CzekUns/cercax/pull/43 (**OPEN**, NO MERGE).
+**Audit esaminato:** REPORT-R08 del Coerentizzatore 00 nella PR #44. **NEXT da main:** FIX_REQUESTED, esclusivamente R08-1/2/3/4.
+**HEAD precedente:** 8977305d78d1ddf161ac72b38b41973fe4311db4.
+**Commit R08 con sorgenti, test e screenshot:** b2118db7029ab5cab4ed380c21a70a467214f8c8.
+
+## R08-1 — 16 giocatori, schede e Allenamento
+
+Eliminato il taglio a 12 giocatori in renderHub. Tutti i 16 elementi di club.players appaiono come pulsanti accessibili con playerId reale, lista scrollabile e ultimo giocatore raggiungibile. La scheda giocatore interroga entrambe le API reali **getRosterPlayer(state,id)** e **getTrainingPlayer(state,id)** del 07, verifica corrispondenza ID e club, mostra valori restituiti per anagrafica, stato fisico, contratto, tecnica, fisico e mente. I campi assenti vengono esplicitamente resi **dato non disponibile**: nessuna statistica ricostruita nel client.
+
+Hub ampliato con menu **ALLENAMENTO**, consultazione della rosa completa, scheda e ritorno a ROSA; azione **MODIFICA ALLENAMENTO · NON DISPONIBILE** realmente disabilitata. Nessuna nuova regola, valore, variazione della forma o del morale. Allenamento attivo resta dipendenza esterna futura.
+
+## R08-2 — Classifica integrale
+
+Eliminato il taglio a 12: ogni riga restituita dal vero getStandings è mantenuta nell’ordine della API, con rank/clubId/points/played reali. In questa lega **16/16 righe**, incluse posizioni 13–16, raggiungibili con scroll mouse o gesture touch. Squadra allenata sempre presente ed evidenziata. Nessun risultato modificato.
+
+## R08-3 — Target touch / clipping
+
+Il layout avatar separa in un corpo scrollabile il ritratto, le quattro statistiche, il select di origine e il toggle QA, conservando fuori dal suo scroll la barra pulsanti **INDIETRO / 20 OFFERTE**. Il match a 360px conserva 44px effettivi per **TERMINA GARA CON ENGINE06 (QA)** e per le azioni match: decorazioni comprimibili anziché pulsanti. Select origine/capitano min 44px, righe checkbox formazione e pulsanti rosa min 45px, tutti i cinque tasti hub min 44px.
+
+Lo script qa/r08-chromium.py misura la **intersezione del bounding rect con TUTTI gli antenati overflow e viewport**, esige altezza realmente visibile **almeno 43,99px** (tolleranza tecnica floating point 0,01px), identifica il target via document.elementFromPoint e invia click al centro senza locator auto-scroll. Le righe terminali vengono portate nel viewport da wheel o Input.dispatchTouchEvent, poi hit test e tap. Test effettuati in 640×360 / 800×360 / 844×390, mouse e touch.
+
+## R08-4 — Game over con salvataggio conservato
+
+Schermata game over ora contiene **NUOVA CARRIERA** e **CARICA SALVATAGGIO**. L'azione reset-career distrugge MatchView, disassocia engine e stato coach terminato, ripristina soltanto variabili UI e torna alla selezione avatar senza reload. La creazione successiva passa dalla **vera newGame del 07**; il vecchio coach non viene guarito né modificato. I salvataggi esistenti rimangono intatti: dopo reset i salvataggi automatici sono soppressi; un nuovo SALVA manuale chiede conferma esplicita prima della sostituzione. Load precedente ripristina esattamente lo stato originale.
+
+Test: evento reale **applyCoachMoraleEvent** del modulo 09 con delta -100 ed eventId QA (morale 0, gameOver), reset, nuovo coach morale positivo, autosave soppresso, confirm manuale rifiutato, vecchio save invariato e caricabile. L'evento negativo è un artificio QA per raggiungere la soglia, non una decisione fittizia inserita nel gameplay.
+
+## Risultati test R08 realmente rieseguiti dopo le correzioni
+
+- Node sintassi career-r03.js: **PASS**.
+- Python compile qa/r08-chromium.py: **PASS**.
+- Node flow + career + coach-club: **97/97 PASS**, zero fallimenti, circa 31,4 secondi.
+- Node match-view: **22/22 PASS**, zero fallimenti.
+- Chromium **144.0.7559.96**, **6/6 PASS**: 640×360, 800×360, 844×390, ciascuna in mouse e touch. I casi sono eseguiti **isolatamente** con R08_CASE per evitare timeout del runner globale; durate 7–21s. Evidenza in qa/R08B-RESULTS.json e script qa/r08-chromium.py.
+- In ciascun percorso: 8 avatar, 20 offerte vere, 5 risposte Copy04, 16/16 rosa, scheda 16esimo, consultazione allenamento senza cambi stato, 16/16 classifica con scroll fino a 16, 11 titolari, Engine06 con 22 calciatori e fulltime, 2 risposte postmatch, avanzamento a settimana 2, save/load JSON identici, game-over Agent09, reset e vecchio save protetto, geography_required senza mutazione. **Zero pageerror**.
+- Asset opzionale cutscene: **un 404 per percorso** per oronzo/assets/cutscenes/manifest.json assente da main; renderer usa fallback. Nessun altro 4xx nei casi.
+
+**15 screenshot Chromium reali** in oronzo/assets/ui/qa/: cinque schermate avatar/player/standings/match/gameover per ognuna delle tre risoluzioni. Non sono immagini sintetizzate a posteriori.
+
+**File R08 modificati:** oronzo/assets/ui/career-r03.js, career-r03.css, qa/r08-chromium.py, qa/R08B-RESULTS.json, 15 PNG qa/r08-*.png, e questo REPORT.md. Nessun file degli altri agenti, NEXT, Copy04 o runtime legacy alterato in R08. SHA Git dei byte pubblicati: JS 729ab290406d7ab6b33747e6ab09280f04b65af4; CSS 866a60e83b4cce4ca047615ab677dfd99a28c644; test 356e343e8d90a0597e0ad112c0731dc07e3076d4; JSON 5c124ae9737b1e3239f5c5041729816ebe796fbd.
+
+## Limiti e dipendenze
+
+In questo sandbox Chromium non può aprire http://127.0.0.1 (ERR_BLOCKED_BY_ADMINISTRATOR, verificato). Le prove hanno usato **Chromium reale** con ESM, JSON, PNG e CSS dei file originali serviti tramite route.fulfill, e un localStorage shim per il caricamento: ciò **non** costituisce una nuova prova di browser HTTP reale o Android fisico. L'audit 00 precedente aveva verificato HTTP statico e localStorage autentico sul vecchio HEAD; **richiesta di ripetere via HTTP al gate R08B**, non assumere automaticamente l'esito. Durata 15min a 1× non attesa per 900s nei test (completamento QA usa sempre Engine06, nessuno score stub).
+
+Cutscene e camera TV reali non disponibili; modo QA con banner permanente **DEMO TECNICA — LOCALITÀ SINTETICHE**, nessuna falsa provenienza ISTAT. Il modo normale continua a bloccare ingaggio con geography_required fino ai cataloghi verificati. La sezione Allenamento è **consultazione**, non training attivo; serve il futuro contratto degli altri agenti.
+
+**Handoff:** Coerentizzatore 00, eseguire audit indipendente **R08B solo su R08-1/2/3/4 e regressioni** della PR #43. Qualunque merge appartiene all’orchestratore. Nessun merge eseguito.

@@ -1,0 +1,108 @@
+{
+  "version": "R08B",
+  "chromium": "144.0.7559.96",
+  "modes": [
+    "mouse",
+    "touch-emulated"
+  ],
+  "resolutions": [
+    "640x360",
+    "800x360",
+    "844x390"
+  ],
+  "protocol": "route.fulfill local source modules and real engine; storage shim due localhost blocked",
+  "passed": 6,
+  "failed": 0,
+  "cases": [
+    {
+      "case": "640x360-mouse",
+      "status": "PASS",
+      "rosterRows": 16,
+      "standingsRows": 16,
+      "QAFulltime": true,
+      "gameoverResetPreservesSave": true,
+      "missingAssets": [
+        {
+          "status": 404,
+          "url": "https://oronzo-r08.invalid/oronzo/assets/cutscenes/manifest.json"
+        }
+      ],
+      "seconds": 7.4
+    },
+    {
+      "case": "640x360-touch",
+      "status": "PASS",
+      "rosterRows": 16,
+      "standingsRows": 16,
+      "QAFulltime": true,
+      "gameoverResetPreservesSave": true,
+      "missingAssets": [
+        {
+          "status": 404,
+          "url": "https://oronzo-r08.invalid/oronzo/assets/cutscenes/manifest.json"
+        }
+      ],
+      "seconds": 20.27
+    },
+    {
+      "case": "800x360-mouse",
+      "status": "PASS",
+      "rosterRows": 16,
+      "standingsRows": 16,
+      "QAFulltime": true,
+      "gameoverResetPreservesSave": true,
+      "missingAssets": [
+        {
+          "status": 404,
+          "url": "https://oronzo-r08.invalid/oronzo/assets/cutscenes/manifest.json"
+        }
+      ],
+      "seconds": 8.49
+    },
+    {
+      "case": "800x360-touch",
+      "status": "PASS",
+      "rosterRows": 16,
+      "standingsRows": 16,
+      "QAFulltime": true,
+      "gameoverResetPreservesSave": true,
+      "missingAssets": [
+        {
+          "status": 404,
+          "url": "https://oronzo-r08.invalid/oronzo/assets/cutscenes/manifest.json"
+        }
+      ],
+      "seconds": 20.14
+    },
+    {
+      "case": "844x390-mouse",
+      "status": "PASS",
+      "rosterRows": 16,
+      "standingsRows": 16,
+      "QAFulltime": true,
+      "gameoverResetPreservesSave": true,
+      "missingAssets": [
+        {
+          "status": 404,
+          "url": "https://oronzo-r08.invalid/oronzo/assets/cutscenes/manifest.json"
+        }
+      ],
+      "seconds": 7.65
+    },
+    {
+      "case": "844x390-touch",
+      "status": "PASS",
+      "rosterRows": 16,
+      "standingsRows": 16,
+      "QAFulltime": true,
+      "gameoverResetPreservesSave": true,
+      "missingAssets": [
+        {
+          "status": 404,
+          "url": "https://oronzo-r08.invalid/oronzo/assets/cutscenes/manifest.json"
+        }
+      ],
+      "seconds": 17.92
+    }
+  ]
+}
