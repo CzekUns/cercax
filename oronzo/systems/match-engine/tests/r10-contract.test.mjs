@@ -46,6 +46,10 @@ test('R10 PlayerV2 keys and CoachV2 aliases normalize; missing origins stay unkn
   assert.deepEqual(regionalAffinity(coach.origin,origins.macro),{kind:'macro',score:1});
   assert.deepEqual(regionalAffinity(coach.origin,origins.other),{kind:'other',score:0});
   assert.equal(regionalAffinity(coach.origin,null).kind,'unknown');
+  const coachOnlyRegion={comune:'Salerno',regione:'Campania'};
+  assert.equal(regionalAffinity(coachOnlyRegion,origins.macro).kind,'macro');
+  assert.equal(regionalAffinity(coachOnlyRegion,origins.other).kind,'other');
+  assert.equal(normalizeMatchOrigin(coachOnlyRegion).macroRegion,'south');
   assert.equal(normalizePlayerMatchContext({origin:null}).origin,null);
   assert.equal(normalizePlayerMatchContext({relationships:{coachTrust:0}}).coachTrust,0);
 });

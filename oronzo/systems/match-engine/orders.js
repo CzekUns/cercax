@@ -14,6 +14,15 @@ const macro = value => {
     sud:'south',south:'south'})[v] || v;
 };
 const safeNumber=(value,fallback=50)=>Number.isFinite(value)?clamp(value,0,100):fallback;
+// Same 20-region macro classification as Attributes08/geography.js.
+// This is a documented regional classification, never a fabricated birthplace.
+const ITALIAN_MACROS=Object.freeze(Object.fromEntries([
+  ...["Valle d'Aosta","Piemonte","Liguria","Lombardia","Trentino-Alto Adige",
+    "Veneto","Friuli-Venezia Giulia","Emilia-Romagna"].map(x=>[clean(x),'north']),
+  ...["Toscana","Umbria","Marche","Lazio"].map(x=>[clean(x),'centre']),
+  ...["Abruzzo","Molise","Campania","Puglia","Basilicata","Calabria",
+    "Sicilia","Sardegna"].map(x=>[clean(x),'south']),
+]));
 
 export const INDIVIDUAL_TONES=Object.freeze({
   encourage:'encourage',gentle:'encourage',harsh:'harsh',hard:'harsh'
@@ -32,10 +41,13 @@ export function toAttributesTone(tone) {
 export function normalizeMatchOrigin(value) {
   if(!value || typeof value!=='object' || Array.isArray(value))
     return {regionId:null,macroRegion:null};
-  return {
-    regionId:clean(value.regione ?? value.regionId ?? value.region),
-    macroRegion:macro(value.macroregione ?? value.macroRegion ?? value.macroregion)
-  };
+  const regionId=clean(value.regione ?? value.regionId ?? value.region);
+  const suppliedMacro=macro(value.macroregione ?? value.macroRegion ?? value.macroregion);
+  // Real 08 normalizeOrigin() derives macro from region. Do likewise when a
+  // valid Italian region is supplied without macro. Known mapping prevails
+  // over contradictory payload macro, but unknown regions stay unknown.
+  return {regionId:regionId||null,
+    macroRegion:ITALIAN_MACROS[regionId] ?? suppliedMacro || null};
 }
 export function normalizePlayerMatchContext(player) {
   const rawTrust=player?.relationships?.coachTrust ?? player?.relationshipWithCoach;
