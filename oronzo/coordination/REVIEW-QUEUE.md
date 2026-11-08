@@ -161,3 +161,10 @@ L'Agente 07 ha consegnato la correzione del test `r02-cross.test.mjs` nella [PR 
 - **Nuovo incarico correntemente READY** soltanto **Agente 03**: `oronzo/coordination/03-ui/NEXT.md` R03 runtime giocabile, branch nuovo `agent/oronzo-ui-r03-runtime`, PR nuova. Scope originariamente riservato ora AUTORIZZATO in `03-ui/IDENTITY.md` e `RUN.md`. Nessun implementatore altro agente.
 - **Gate successivo dopo la PR runtime 03:** Agente 00 R08 sul percorso gioco vero (controller07/Coach09/Copy04/Match06/UI/Save), Chromium HTTP/touch tre risoluzioni; merge successivo solo con permesso utente.
 - Prima prova personale ammessa **solo come demo tecnica chiaramente etichettata** con località sintetiche; dati geografici M1 ancora assenti. Non confondere kit UI mergiato con runtime funzionante.
+
+## Handoff a nuovo Agente 11 — fase M01 (8 novembre 2026)
+
+- **Identità:** ORONZO-AGENT-11, [issue #47](https://github.com/CzekUns/cercax/issues/47). 03 sospeso per nuove modifiche UI, storico preservato; #43 mergiata dopo PASS R08B.
+- **Attivo READY:** 11-mobile-ui/NEXT.md M01, solo recupero larghezza browser landscape del runtime 1979, CSS minimo, viewport 640×360/800×360/844×390 + ultrawide, target ≥44px, canvas 16:9 non deformato, confronto prima/dopo e QA Chromium. **Non esiste ancora PR M01** al momento dell'handoff, non confondere la creazione di documentazione con implementazione.
+- **Gate futuro:** audit 00 della PR dell'11 e solo successivo merge autorizzato dall'utente.
+- **Non attivi adesso:** camera dinamica PR #28 owner05, comandi coach, Layout Studio privato dev-only dell'11.
