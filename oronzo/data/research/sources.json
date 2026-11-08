@@ -212,6 +212,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "25 comuni selezionati per popolazione crescente nel file regionale; non ranking nazionale. Anno demografico puntuale non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-sardegna-2026",
+      "name": "RP92/comuni-italiani — Sardegna, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/sardegna.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "Anno puntuale di riferimento popolazione non attestato; 2026 indica snapshot, non anno demografico. Non rappresenta il 1979."
     }
   ]
 }
