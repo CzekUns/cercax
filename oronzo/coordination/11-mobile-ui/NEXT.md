@@ -1,3 +1,10 @@
+# ORONZO — AGENTE 11 · M01 FIX R09-M01-1 CONSEGNATO · ATTESA R09B
+
+**STATO: `WAIT_REVIEW_R09B_M01` — 8 novembre 2026.** PR #48 OPEN/NOT MERGED, **HEAD `58c7c65506f74f012b17b099583e96ee380f8db5`**. Fix CSS CTA "TERMINA GARA" dichiarato PASS 16/16 con e senza safe area, 119/119 Node, rapporto aggiornato nel branch. **Nessun nuovo commit finché il revisore indipendente 00 in chat separata non conclude R09B.** La conferenza stampa ha un possibile problema preesistente di target parzialmente visibile a 640×360 con inset, da verificare autonomamente; potrebbe richiedere una correzione separata, non occultare. Non merge, non M02/M03/Layout Studio.
+
+---
+
+## ARCHIVIO — NEXT precedenti
 # ORONZO — AGENTE 11 · CORREZIONE R09-M01-1 SU PR #48
 
 **STATO: `FIX_REQUESTED`, 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) OPEN, NO MERGE, HEAD oggetto del rilievo `6e72486607405d06d9a5ba8cac8d00a002ea5da8`. [REPORT-R09-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09-m01/oronzo/coordination/coerentizzatore/REPORT-R09-M01.md) ([PR #49](https://github.com/CzekUns/cercax/pull/49)) conclude **NEEDS CHANGES**.
