@@ -1,3 +1,14 @@
+# ORONZO — AGENTE 11 · M01 INTEGRATO SU MAIN · STANDBY
+
+**STATO: `MERGED_WAIT_ANDROID` — 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) **MERGED** con autorizzazione esplicita dell'utente, commit di merge **`1bb8815b967dc4171fc644713918ad97f1cd95fb`**, HEAD auditato **`8c82cd0aa1cd856c8afc2964acae4ff57f5da93d`**. [REPORT-R09C-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09c-m01/oronzo/coordination/coerentizzatore/REPORT-R09C-M01.md) ([PR #51](https://github.com/CzekUns/cercax/pull/51)) è **PASS** indipendente, checkout reale e Chromium HTTP: 97+22 Node, 16/16 percorsi, 336/336 attivazioni conferenza +42 testo lungo, TERMINA GARA ≥44px. La PR #51 documentale **non è stata mergiata**.
+
+**Verifica post-merge di Agente10:** GitHub conferma #48 merged e su `main` il blob `oronzo/assets/ui/career-r03.css` è `0f3569d37c07f2153a4bf8ca28149ded60f2956e`, **identico** al blob dell'HEAD auditato. Anche HTML/JS carriera invariati. Suite Node/browser **non rieseguite dall'Agente10 dopo merge** perché il container corrente non risolve github.com e non può ottenere un checkout (errore `Could not resolve host: github.com`); non dichiarare POST-MERGE runtime PASS su una prova non eseguita.
+
+**Nessun nuovo lavoro assegnato a 11.** Prossimo gate: prova manuale Android reale landscape con barre Chrome, inset e navigazione/scroll. Solo successivamente Agente10 potrà decidere M02 camera dinamica (owner05), M03 comandi allenatore, M04 Layout Studio **privato dello sviluppatore**. Non sviluppare senza successivo NEXT esplicito, non creare nuove PR.
+
+---
+
+## ARCHIVIO — NEXT precedenti
 # ORONZO — AGENTE 11 · M01 PASS R09C · ATTESA AUTORIZZAZIONE MERGE
 
 **STATO: `PASS_WAIT_MERGE_AUTHORIZATION` — 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) ancora OPEN, HEAD approvato **`8c82cd0aa1cd856c8afc2964acae4ff57f5da93d`**, GitHub mergeable=true al controllo dell'Agente10. [REPORT-R09C-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09c-m01/oronzo/coordination/coerentizzatore/REPORT-R09C-M01.md) nella [PR di audit #51](https://github.com/CzekUns/cercax/pull/51): **PASS indipendente** con checkout Git autentico, browser Chromium HTTP, 97/97 Node flow/career/coach +22/22 renderer, 16/16 percorsi, 240/240 domande iniziali, 96/96 postpartita, 42/42 ulteriori prove con testi lunghi, TERMINA GARA visibile e attivabile ≥44px; geometria/safe-area, font, canvas 16:9, save/load, game-over e percorso reale senza regressioni nello scope.
