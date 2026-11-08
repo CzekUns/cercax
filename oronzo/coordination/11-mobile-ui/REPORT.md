@@ -1,6 +1,7 @@
 # RAPPORTO ORONZO-AGENT-11 — M01 · Recupero spazio landscape
 
-**Stato: DELIVERED / richiesta audit 00. Nessun merge.**
+**Stato: PR_OPEN / richiesta audit 00. Nessun merge.**
+PR: [#48](https://github.com/CzekUns/cercax/pull/48).
 Data: 8 novembre 2026, Europe/Rome.
 Branch: `agent/oronzo-11-mobile-m01`, base ultimo main `55df243b6397d545baab967652f8556f71f878d3`, riconfermato invariato dopo i test.
 Commit codice/QA verificato: `c36411d34e880f2caff2a9407e77b41a05055c6d` (questo report segue in commit documentale).
