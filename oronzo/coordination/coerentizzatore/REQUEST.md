@@ -1,3 +1,21 @@
+# ORONZO — COERENTIZZATORE 00 · R09B-M01 DOPO FIX11, NUOVA CHAT INDIPENDENTE
+
+**STATO: `WAIT_FOR_11_FIX` — 8 novembre 2026.** Il [REPORT-R09-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09-m01/oronzo/coordination/coerentizzatore/REPORT-R09-M01.md) su [PR #48](https://github.com/CzekUns/cercax/pull/48) HEAD `6e72486607405d06d9a5ba8cac8d00a002ea5da8` ha dato **NEEDS CHANGES** per `R09-M01-1`: safe-area left24/right12/bottom16 rende `TERMINA GARA` effettivamente visibile **42px** anziché 44 a 640×360, 800×360 e 960×400 (mouse e touch). PR #49 documentale con prove; niente merge. L'autore dichiara 119/119 Node e Chromium 16/16 standard, ma il gate safe-area è fallito.
+
+**Nota sull'indipendenza:** la chat che ha prodotto R09-M01 dichiara di avere precedentemente realizzato M01. Il prossimo controllo DEVE essere eseguito in una **nuova chat Work dedicata a ORONZO-AGENT-00**, distinta dalla chat autrice dell'implementazione e da quella che ha prodotto R09; i risultati pregressi sono riferimenti, non prove da riciclare. Non avviare controllo del vecchio HEAD come se fosse nuovo.
+
+## Audit R09B-M01 da eseguire *solo dopo* che Agente11 aggiorna la STESSA PR #48
+1. Verificare live il nuovo HEAD #48, il nuovo REPORT11 e il diff CSS; confrontare con l'HEAD bocciato e il REPORT R09-M01. Nessuna modifica a motore, renderer, JS, regole, storia o font. M01 rimane intervento mirato layout.
+2. Ricostruire da zero su HTTP statico + Chromium indipendente. A 640×360, 800×360, 844×390, 960×400, desktop e touch, verificare CON/SENZA safe-area `{top:0,left:24,right:12,bottom:16}`: CTA finale `[data-action="finish-qa"]` **≥44px visibili e attivabili**, e tutti i pulsanti essenziali senza tagli. Misura intersezione con tutti gli antenati overflow, `elementFromPoint` al centro, click/tap coordinate senza auto-scroll; documentare misure screenshot propri. Controllare anche toast, barre, banner QA e gesture.
+3. Confronto prima/dopo: stage sfrutta tutta larghezza landscape disponibile esclusi i safe-area, campo canvas resta uniforme 16:9, nessun font ridotto; verificate portrait→landscape, resize e browser chrome/safe-area emulati. Non presentare emulazione come Android fisico.
+4. Regressione percorso vero: avatar, 20 offerte, 5 conferenze, ufficio, roster e classifica 16/16, formazione 11+1GK, Engine06 fulltime, due postmatch, advance singolo, save/load HTTP/localStorage autentico, geography_required, gameover/new career, link legacy/demo. Node flow/career/coach (97 storici) + renderer (22 storici). Segnalare il 404 cutscene noto se presente.
+5. Pubblicare `oronzo/coordination/coerentizzatore/REPORT-R09B-M01.md` in un **branch documentale distinto**, con HEAD e prove proprie, decisione **PASS** o **NEEDS CHANGES**. **Non effettuare merge anche se PASS**: attendere richiesta espressa dell'utente. Nessun lavoro su PR #28, Layout Studio, camera, coach controls o altri agenti.
+
+**Non cambiare REQUEST/NEXT e non modificare i sorgenti del gioco**; l'00 valuta soltanto #48.
+
+---
+
+## ARCHIVIO — REQUEST precedenti
 # ORONZO — AGENTE 00 · AUDIT INDIPENDENTE M01 / R09 — SOLO PR #48
 
 **STATO: `READY` — 8 novembre 2026.** La [PR #48](https://github.com/CzekUns/cercax/pull/48) di **ORONZO-AGENT-11** è OPEN, NOT MERGED. **HEAD preciso da validare:** `6e72486607405d06d9a5ba8cac8d00a002ea5da8`; branch `agent/oronzo-11-mobile-m01`. L'11 ha consegnato [REPORT](https://github.com/CzekUns/cercax/blob/agent/oronzo-11-mobile-m01/oronzo/coordination/11-mobile-ui/REPORT.md), evidenze `oronzo/assets/ui/qa/m01/` e strumenti Node QA; asserisce **8 righe CSS solo `career-r03.css`**, 97/97 flow/career/coach + 22/22 renderer e 8+8 percorsi Chromium HTTP (640×360, 800×360, 844×390, 960×400, desktop+touch). **Non assumere PASS dall'autore.**
