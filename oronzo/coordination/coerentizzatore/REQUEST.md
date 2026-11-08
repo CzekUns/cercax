@@ -1,3 +1,19 @@
+# ORONZO — AGENTE 00 · GATE R08B PR #43, ORA READY
+
+**Stato attuale: `READY_R08B` — 8 novembre 2026.** L'Agente 03 ha consegnato le quattro correzioni R08 **sulla stessa PR #43**; verificato live HEAD `4d00fb5bb6f05465eec30e1b8d997865579d47d8`, PR OPEN/NOT MERGED. Nel REPORT03/PR43 sono dichiarati 97/97 test flow-carriera-coach, 22/22 renderer, 6/6 Chromium144 con `route.fulfill`, 15 screenshot e tutte le quattro correzioni. **Questi sono risultati dell'Agente03, non ancora un PASS indipendente.**
+
+**Incarico R08B da eseguire subito dal Coerentizzatore 00, limitato alla PR #43**, senza altri moduli/PR salvo regressioni legate al runtime:
+1. Leggere [REPORT-R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md), nuovo REPORT03 nella PR #43, diff e HEAD attuale. Usare **Chromium reale su server HTTP statico**, se disponibile come durante R08; non fidarsi degli screenshot e test dell'autore via `route.fulfill`. Desktop + touch 640×360/800×360/844×390, asset reali, localStorage reale e reload.
+2. R08-1: verificare che **16/16 giocatori** siano presenti e selezionabili, incluso il 16°, che schede Rosa/Allenamento consumino **`getRosterPlayer/getTrainingPlayer` autentiche**, e che Allenamento sia raggiungibile, con modifiche disabilitate se non esiste API autorizzata. Non dichiarare che l'allenamento attivo sia implementato.
+3. R08-2: classifica **16/16 righe**, posizioni 13–16 raggiungibili con gesture touch, club controllato identificabile, ordine e punti dalle API reali.
+4. R08-3: bottone INDIETRO/20 OFFERTE in avatar, TERMINA GARA QA nel match, select, righe formazione/rosa e controlli hub **almeno 44px effettivamente visibili**: intersecare bounding box con TUTTI gli antenati overflow e viewport; hit-test/tap al centro senza Playwright auto-scroll. Misurare a tutte le viewport e provare screenshot.
+5. R08-4: forzare `gameOver` solo con evento Agent09 nel test, nuovo avvio senza refresh, nuovo `newGame` con coach distinto, salvataggio preesistente non cancellato/sovrascritto silenziosamente e ricaricabile.
+6. Regressione: sequenza 1979 con 20 offerte/5Q/ingaggio/formazione/MatchEngine06 fulltime/2Q/morale/classifica/advanceMatchday idempotente/save/load con browser autentico, rifiuto `geography_required` atomico senza catalogo, banner “DEMO TECNICA — LOCALITÀ SINTETICHE” quando fixture QA. Test Node flow/career/coach (storicamente 97) + MatchView (storicamente 22) sul **nuovo HEAD**. Annotare il 404 cutscene facoltativo. Preservare home e partita rapida legacy.
+7. Consegnare `REPORT-R08B.md` in branch audit separato con SHA, metriche, evidenze e limiti. **Se un gate fallisce: NO MERGE e fix esatti ad Agente03 sulla stessa PR #43. Se tutti i gate passano, sei autorizzato a MERGIARE la PR #43 e verificare main**, per esplicito mandato dell'utente che sarà inoltrato nella chat 00. Nessuna altra PR, nessun lavoro su codice del 03 o main al di fuori dell'eventuale merge.
+
+---
+
+## ARCHIVIO — REQUEST R08B in attesa di consegna e audit precedenti
 # ORONZO — COERENTIZZATORE 00 · PROSSIMO GATE R08B PR #43, DOPO FIX03
 
 **Stato: `WAIT_FOR_03` — non eseguire ancora.** La verifica indipendente [R08](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r08/oronzo/coordination/coerentizzatore/REPORT-R08.md) ha dato **NEEDS CHANGES / NO MERGE** sulla PR #43 (HEAD auditato `8977305d78d1ddf161ac72b38b41973fe4311db4`). R08 ha verificato 97/97 test carriera, 22/22 renderer, 6/6 Chromium HTTP vero con percorso dalla prima gara al salvataggio/reload, ma quattro problemi UI: rosa 12/16 senza schede/Allenamento, classifica 12/16, pulsanti realmente visibili 33–34px e controlli 29–34px a 360h, game over senza nuova carriera. **Nessun merge autorizzato o realizzato.**
