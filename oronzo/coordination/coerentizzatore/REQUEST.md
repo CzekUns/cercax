@@ -1,3 +1,15 @@
+# ORONZO — COERENTIZZATORE 00 · IN ATTESA AUDIT D01 E F01
+
+**STATO: `WAIT_NEW_PR_D01_F01` — 8 novembre 2026.** L'utente ha richiesto **località italiane registrate nel catalogo di ricerca** e pulsante **schermo intero**. Agente10 ha assegnato: **07/D01** validazione + importazione reale catalogo comuni su branch/PR propria, **11/F01** Fullscreen API mobile su branch/PR propria. I loro `NEXT.md` aggiornati su main contengono l'intero mandato. Questa REQUEST NON autorizza audit anticipati su branch inesistenti e NON autorizza merge.
+
+**Gate futuro DATA D01:** verificare sorgente [PR #40](https://github.com/CzekUns/cercax/pull/40) snapshot congelato, 500 codici ISTAT unici al controllo dell'Agente10, dedup, region/province/cognomi non mescolati, attribuzione CC BY 4.0, `populationReferenceYear:null`/provincia assente non falsificati, revisione indipendente dei metadati e versioni; non affermare accuratezza geografica/demografica nel 1979. Verificare API world e nuove carriere, idempotenza, real data vs QA, tests/HTML legacy/salvataggi. REPORT con SHA e limiti.
+**Gate futuro FULLSCREEN F01:** vero `requestFullscreen` via gesto, `exitFullscreen`, eventi e fallback, Chrome/Chromium su vero gioco HTTP, 4 viewport × safe area sì/no × mouse/touch, controlli44px, campo16:9, pannello stampa, TERMINA GARA, passaggio carriera, 119 Node. Non confondere simulazione CSS con Fullscreen API reale; Android fisico dichiarato separatamente.
+**Dopo D01:** non dare per implementato il selettore delle località fino a UI11 F02 su successiva PR. NO MERGE fino a revisione e autorizzazione esplicita dell'utente. Non aprire audit sulla vecchia #48 già MERGED.
+
+---
+
+## ARCHIVIO ISTRUZIONI PRECEDENTI
+
 # ORONZO — COERENTIZZATORE 00 · M01 R09C CONCLUSO / STANDBY
 
 **STATO: `STANDBY_POST_MERGE` — 8 novembre 2026.** Il [REPORT-R09C-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09c-m01/oronzo/coordination/coerentizzatore/REPORT-R09C-M01.md) ha dato **PASS indipendente** sull'HEAD `8c82cd0aa1cd856c8afc2964acae4ff57f5da93d` e raccomandato merge. L'utente ha autorizzato espressamente il merge della sola [PR #48](https://github.com/CzekUns/cercax/pull/48), ora **MERGED** nel commit `1bb8815b967dc4171fc644713918ad97f1cd95fb`. GitHub post-merge: blob CSS di `main` identico a quello auditato `0f3569d37c07f2153a4bf8ca28149ded60f2956e`; nessuna alterazione HTML/JS del runtime. [PR documentale #51](https://github.com/CzekUns/cercax/pull/51) rimane OPEN e **NON MERGED**.
