@@ -1,0 +1,9 @@
+# ORONZO F01 · Fullscreen API — implementazione diretta
+
+Nuova voce `⛶ SCHERMO INTERO` nella navigazione inferiore **sempre presente** (inclusa partita, dove i pulsanti di carriera sono intenzionalmente disabilitati). È un link `role=button` distinto dai `button[data-action]` che il controller blocca durante il match. La barra esistente è alta 50px, con superficie target CSS min-height 44px; non viene ridotta l'altezza del campo o della conferenza.
+
+Codice in modulo indipendente `oronzo/assets/ui/fullscreen-r03.js` (classico `defer`), senza accesso ai dati della carriera: `document.documentElement.requestFullscreen()`, `document.exitFullscreen()`, eventi `fullscreenchange` e `fullscreenerror`, sincronizzazione `aria-pressed`, fallback in caso di API assente/negata e toast. Nessuna richiesta automatica e nessun lock forzato dell'orientamento.
+
+**Verifiche svolte:** sintassi JS verificata dal parser V8 del tool; esecuzione isolata del modulo in ambiente mock con click utente, ingresso/uscita, fallback API negata e API disabilitata: gli stati aria passano false→true→false, sui fallimenti restano false con messaggio. Test Node riproducibili aggiunti: `node --test oronzo/assets/ui/qa/fullscreen-r03.test.cjs`. **Non sono stati eseguiti il gioco reale in Chromium HTTP, i 119 test Node completi, né una prova Android fisica** nella sessione corrente per impossibilità di checkout/HTTP locale. Non dichiarare pass del runtime.
+
+**Audit richiesto prima del merge:** 640×360, 800×360, 844×390, 960×400 × mouse/touch × con/senza safe-area, request/exit/fullscreenchange, denial/unsupported, CTA nav target ≥44px e assenza clipping, controllo TERMINA GARA, scroll stampa e canvas16:9. La posizione in nav è stata scelta invece del gamebar perché il gamebar resta alto 43–45px e già contiene brand, demo label, toast e data; inserire un nuovo 44px nel gamebar a640×360 avrebbe interferito con slot status esistenti.
