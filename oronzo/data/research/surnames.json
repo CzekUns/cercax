@@ -4498,5 +4498,905 @@
     "frequency": 15,
     "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
     "nationalRank": null
+  },
+  {
+    "id": "it-surname-cantu",
+    "name": "Cantu'",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-cavallini",
+    "name": "Cavallini",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-corbani",
+    "name": "Corbani",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-de-marco",
+    "name": "De Marco",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-denti",
+    "name": "Denti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-di-bella",
+    "name": "Di Bella",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-donzelli",
+    "name": "Donzelli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-errico",
+    "name": "Errico",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-facchetti",
+    "name": "Facchetti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-falchetti",
+    "name": "Falchetti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-franzoni",
+    "name": "Franzoni",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-gaffuri",
+    "name": "Gaffuri",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-garattini",
+    "name": "Garattini",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-giangregorio",
+    "name": "Giangregorio",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-giorgio",
+    "name": "Giorgio",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-gipponi",
+    "name": "Gipponi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-goggia",
+    "name": "Goggia",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-guida",
+    "name": "Guida",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-iorio",
+    "name": "Iorio",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-loda",
+    "name": "Loda",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-lucchetti",
+    "name": "Lucchetti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-luiselli",
+    "name": "Luiselli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-macconi",
+    "name": "Macconi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-maestri",
+    "name": "Maestri",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-mancuso",
+    "name": "Mancuso",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-marcandelli",
+    "name": "Marcandelli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-mastinu",
+    "name": "Mastinu",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-mauriello",
+    "name": "Mauriello",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-mazzucchetti",
+    "name": "Mazzucchetti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-meani",
+    "name": "Meani",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-medici",
+    "name": "Medici",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-mestieri",
+    "name": "Mestieri",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-mirabile",
+    "name": "Mirabile",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-mistri",
+    "name": "Mistri",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-nanni",
+    "name": "Nanni",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-niang",
+    "name": "Niang",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-nobile",
+    "name": "Nobile",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-osio",
+    "name": "Osio",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-palazzo",
+    "name": "Palazzo",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-parsani",
+    "name": "Parsani",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-pelandi",
+    "name": "Pelandi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-pizzigalli",
+    "name": "Pizzigalli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-puglisi",
+    "name": "Puglisi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-rodighiero",
+    "name": "Rodighiero",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-rodolfi",
+    "name": "Rodolfi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-romagialli",
+    "name": "Romagialli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-rota-sperti",
+    "name": "Rota Sperti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-rubis",
+    "name": "Rubis",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-sannino",
+    "name": "Sannino",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-santus",
+    "name": "Santus",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-scuri",
+    "name": "Scuri",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-seck",
+    "name": "Seck",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-simoncini",
+    "name": "Simoncini",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-sisana",
+    "name": "Sisana",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-sorrentino",
+    "name": "Sorrentino",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-taddei",
+    "name": "Taddei",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-teli",
+    "name": "Teli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-trevisan",
+    "name": "Trevisan",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-valerio",
+    "name": "Valerio",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-zoppetti",
+    "name": "Zoppetti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 15,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-abbate",
+    "name": "Abbate",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-aber",
+    "name": "Aber",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-agosti",
+    "name": "Agosti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-albrici",
+    "name": "Albrici",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-amaglio",
+    "name": "Amaglio",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-amboni",
+    "name": "Amboni",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-annoni",
+    "name": "Annoni",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-archetti",
+    "name": "Archetti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-arici",
+    "name": "Arici",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-bagini",
+    "name": "Bagini",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-bakoune",
+    "name": "Bakoune",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-bara",
+    "name": "Bara",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-belli",
+    "name": "Belli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-bernini",
+    "name": "Bernini",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-bertacchi",
+    "name": "Bertacchi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-bertolotti",
+    "name": "Bertolotti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-betti",
+    "name": "Betti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-bonassoli",
+    "name": "Bonassoli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-brighenti",
+    "name": "Brighenti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-cali",
+    "name": "Cali'",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-carboni",
+    "name": "Carboni",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-carissoni",
+    "name": "Carissoni",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-carta",
+    "name": "Carta",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-castoldi",
+    "name": "Castoldi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-cerri",
+    "name": "Cerri",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-chiappa",
+    "name": "Chiappa",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-cimmino",
+    "name": "Cimmino",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-cirillo",
+    "name": "Cirillo",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-cornaro",
+    "name": "Cornaro",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-cugini",
+    "name": "Cugini",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-d-alessio",
+    "name": "D'Alessio",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-defendi",
+    "name": "Defendi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-della-volta",
+    "name": "Della Volta",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-delprato",
+    "name": "Delprato",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-di-marco",
+    "name": "Di Marco",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-fenaroli",
+    "name": "Fenaroli",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-foppa",
+    "name": "Foppa",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-fossati",
+    "name": "Fossati",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-franchi",
+    "name": "Franchi",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
+  },
+  {
+    "id": "it-surname-freti",
+    "name": "Freti",
+    "sourceId": "bergamo-2021-italiani-cc0",
+    "sourceYear": 2021,
+    "frequency": 16,
+    "frequencyScope": "Comune di Bergamo, residenti con cittadinanza italiana; frequenze pubblicate solo se >10",
+    "nationalRank": null
   }
 ]
