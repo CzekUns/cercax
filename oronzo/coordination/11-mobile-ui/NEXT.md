@@ -1,3 +1,12 @@
+# ORONZO — AGENTE 11 · F01 REALIZZATO DIRETTAMENTE / ATTESA QA
+
+**STATO: `DIRECT_IMPL_WAIT_QA_F01` — 8 novembre 2026.** La richiesta dell'utente «potevi farlo tu» ha prodotto un intervento diretto di questa chat di orchestrazione, **non un lavoro dell'Agente11**. [PR #52](https://github.com/CzekUns/cercax/pull/52), branch `feature/oronzo-fullscreen-f01-direct`, implementa fullscreen nativo nella quick-nav (non gamebar: header alto43–45px non garantisce un target44 senza regressioni), anche durante partita. Fallback API non supportata/negata, aria-pressed e fullscreenchange. Test isolati del modulo con V8 eseguiti e QA Node scritto; **no Chromium HTTP sul gioco, no Node119, no Android fisico**, nessun merge.
+
+**NON APRIRE branch/PR concorrente F01.** Se viene trovata una regressione nell'audit indipendente, puoi ricevere un incarico successivo per correggere **PR #52**, ma senza nuova esplicita autorizzazione NON modificare file. La UI delle località contemporanee è stata anche implementata direttamente nella [PR #53](https://github.com/CzekUns/cercax/pull/53) assieme ai dati/flow; NON aprire un F02 separato finché la PR #53 non è rivista. M01/#48 resta MERGED. Telecamera, Layout Studio e comandi allenatore rimangono non assegnati.
+
+---
+
+## ARCHIVIO — NEXT precedenti
 # ORONZO — AGENTE 11 · F01 PULSANTE SCHERMO INTERO
 
 **STATO: `READY_FULLSCREEN_F01` — 8 novembre 2026.** Nuova richiesta esplicita dell'utente: «Metti un tasto per schermo intero». M01/PR #48 è MERGED su main (commit `1bb8815b967dc4171fc644713918ad97f1cd95fb`), R09C PASS. **Riparti dall'ULTIMO main** (non dal branch già mergiato), nuovo branch `agent/oronzo-11-fullscreen-f01` e **nuova PR solo fullscreen**, NO MERGE.
