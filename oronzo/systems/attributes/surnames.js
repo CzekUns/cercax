@@ -84,6 +84,47 @@ export function chooseSurname(catalog,rng){
  const roll=rng();
  if(!Number.isFinite(roll)||roll<0||roll>=1)throw new RangeError('rng must return [0,1)');
  const row=catalog.surnames[Math.floor(roll*catalog.surnames.length)];
- return {name:row.name,sourceId:catalog.source.id,rarityOrder:row.rarityOrder};
+ return {id:row.id ?? null,name:row.name,sourceId:catalog.source.id,rarityOrder:row.rarityOrder};
 }
 
+
+
+// M1: frozen CC0 municipal snapshot imported from the unmodified research PR #40.
+import {BERGAMO_2021_METADATA,BERGAMO_2021_RECORDS} from './data/bergamo-2021-m1.js';
+const normalizeSurnameKey=name=>String(name).normalize('NFC').trim().toLocaleLowerCase('it-IT').replace(/[’]/g,"'");
+/**
+ * Verify the locked 2021 municipal snapshot before using it in the generator.
+ * NO claim of Italian national surname frequency, rarity or etymology.
+ * A surname ID comes from the source and NEVER from the entry's array position.
+ */
+export function loadVerifiedSurnameSnapshot(records,metadata) {
+  if(!Array.isArray(records)||!metadata||typeof metadata!=='object')throw new TypeError('Snapshot records and metadata required');
+  if(metadata.license!=='CC0 1.0'||metadata.referenceYear!==2021||metadata.sourceId!=='bergamo-2021-italiani-cc0'||
+    typeof metadata.sourceCommitSha!=='string'||!/^[a-f0-9]{40}$/.test(metadata.sourceCommitSha)||
+    typeof metadata.sourceBlobSha!=='string'||!/^[a-f0-9]{40}$/.test(metadata.sourceBlobSha)||
+    !String(metadata.sourceURL||'').startsWith('https://'))throw new Error('Unverified municipal snapshot provenance');
+  if(records.length!==metadata.records||records.length<500)throw new Error('Snapshot count differs from pinned metadata or M1 threshold');
+  const ids=new Set(),names=new Set();
+  const surnames=records.map(row=>{
+    if(!row||typeof row.id!=='string'||!/^it-surname-[a-z0-9-]+$/.test(row.id)||
+      typeof row.name!=='string'||!NAME_REGEX.test(row.name)||
+      !Number.isInteger(row.frequency)||row.frequency<=10)throw new Error('Invalid sourced surname record');
+    const key=normalizeSurnameKey(row.name);
+    if(ids.has(row.id)||names.has(key))throw new Error('Duplicate surname name or ID');
+    ids.add(row.id);names.add(key);
+    return {id:row.id,name:row.name,frequency:row.frequency,share:null,rank:null,variants:[]};
+  });
+  surnames.sort((a,b)=>a.frequency-b.frequency||a.name.localeCompare(b.name,'it-IT'));
+  surnames.forEach((row,i)=>row.rarityOrder=i+1);
+  return {
+    schemaVersion:2,
+    source:{id:metadata.sourceId,url:metadata.sourceURL,year:String(metadata.referenceYear),license:metadata.license,
+      datasetSnapshotId:metadata.id,sourceCommitSha:metadata.sourceCommitSha,sourceBlobSha:metadata.sourceBlobSha,
+      frequencyScope:metadata.frequencyScope,rankScope:'bergamo-2021-only'},
+    country:'IT',metric:'municipal-frequency',sort:'least-frequent-first',
+    stats:{inputRows:records.length,validRows:surnames.length,duplicateRows:0,skippedCountries:0,
+      selected:surnames.length,cap:surnames.length},
+    surnames
+  };
+}
+export const BUILTIN_SURNAME_CATALOG=loadVerifiedSurnameSnapshot(BERGAMO_2021_RECORDS,BERGAMO_2021_METADATA);
