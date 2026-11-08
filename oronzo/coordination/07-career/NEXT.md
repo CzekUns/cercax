@@ -1,3 +1,14 @@
+# ORONZO — AGENTE 07 · D01 REALIZZATO DIRETTAMENTE / ATTESA QA
+
+**STATO: `DIRECT_IMPL_WAIT_QA_D01` — 8 novembre 2026.** L'utente ha richiesto esecuzione diretta. [PR #53](https://github.com/CzekUns/cercax/pull/53), branch `feature/oronzo-municipalities-d01-direct`, importa 500 comuni da snapshot [PR #40](https://github.com/CzekUns/cercax/pull/40) commit `0cc7eead7c5e971cff0e2d08e4bb2febc1df884b` (file blob `7bcf0d6e24932817b880e164d7c3d5869d6e1d85`), schemaV2 con provincia e anno demografico `null` e origine attuale **NON 1979**. Collegati world.js e career-r03.js/ UI per nuove carriere, 500 scelte; dati QA sintetici separati. Sorgenti CC BY 4.0, attribuzione ISTAT/RP92 nel gioco e README.
+
+**Risultati verificati da questa chat:** 500 codici ISTAT distinti / 19 fonti, `validatedMunicipalities` invocato sul catalogo reale: 500 PASS, parse V8 JS world e UI PASS. **Node test nuovo scritto ma non eseguito con checkout, nessun browser HTTP/Chrome/Android eseguito**, e nessun audit storico 1979. Non chiamare la PR #53 "passata" o "già integrata" prima del gate. Il valore `reviewStatus:approved` abilita il campione contemporaneo, **non afferma certificazione storica o approvazione indipendente della PR**.
+
+**NON aprire una seconda PR D01 né modificare in parallelo world/flow/JS UI della PR #53.** Attendiamo revisione00. Eventuali bug di dati/flow saranno assegnati sul branch esistente. R06/#38 già MERGED. PR ricerca #40 ancora OPEN e può proseguire senza essere mergiata automaticamente.
+
+---
+
+## ARCHIVIO — NEXT precedenti
 # ORONZO — AGENTE 07 · D01 IMPORTAZIONE COMUNI REALI M1 (NUOVO CICLO)
 
 **STATO: `READY_DATA_D01` — 8 novembre 2026. Nuovo mandato esplicito dell'utente: «Aggiungi le località registrate».** Precedente PR #38 già MERGED su main, quindi gli incarichi R06 archiviati nel seguito di questo documento non sono più attivi. **Nuovo branch dall'ultimo main**: `agent/oronzo-07-municipalities-d01`, **nuova PR unica dati/mondo**; NO MERGE.
