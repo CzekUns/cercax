@@ -1,3 +1,19 @@
+# ORONZO — AGENTE 11 · CORREZIONE R09-M01-1 SU PR #48
+
+**STATO: `FIX_REQUESTED`, 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) OPEN, NO MERGE, HEAD oggetto del rilievo `6e72486607405d06d9a5ba8cac8d00a002ea5da8`. [REPORT-R09-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09-m01/oronzo/coordination/coerentizzatore/REPORT-R09-M01.md) ([PR #49](https://github.com/CzekUns/cercax/pull/49)) conclude **NEEDS CHANGES**.
+
+**Unica correzione autorizzata:** `R09-M01-1`, in `oronzo/assets/ui/career-r03.css`, **sulla stessa PR #48**, senza crearne un'altra e senza merge:
+- Con `Emulation.setSafeAreaInsetsOverride` e safe area `{top:0,left:24,right:12,bottom:16}`, la CTA `[data-action="finish-qa"]` è nominalmente 44px ma solo **42px visibili** a 640×360, 800×360, 960×400, con mouse e touch; 844×390 passa. Lo spazio interno effettivo è ridotto dall'inset bottom. La regola landscape di M01 (`.site` padding safe-area e `#oronzo-r03` full width/height) interagisce con `.runtime-match-panel` e la media query compatta.
+- **Preservare** safe area sui quattro lati, larghezza realmente sfruttata, font esistenti, canvas partita 16:9 senza stretch e target ≥44px. Riservare 44px REALMENTE VISIBILI alla CTA, comprimendo **solo spazi decorativi, gap, padding o elementi non interattivi** del pannello partita; niente riduzione di testo/pulsanti e niente rimozione del padding safe-area.
+- Aggiornare il QA nello scope `oronzo/assets/ui/qa/` per **tutti e quattro** i viewport 640×360, 800×360, 844×390 e 960×400, con e senza inset left24/right12/bottom16, mouse e touch; intersezione con tutti gli antenati overflow e viewport, verifica `elementFromPoint` + tap senza autoscroll; salvare screenshot e misure geometriche.
+- Ripetere percorso reale Chromium via HTTP, smoke test di tutte le schermate e salvataggi, suite Node flow/career/coach 97 e renderer 22. Il test dell'autore deve essere documentato onestamente; non equivale ad audit indipendente.
+- Aggiornare `oronzo/coordination/11-mobile-ui/REPORT.md` **nel branch #48** con diff, commit/HEAD, prima/dopo 42→≥44px, regressioni, limiti e screenshot; nessun file gameplay/renderer/flow e nessuna nuova PR. **NON MERGE.**
+
+**Gate successivo:** incarico `R09B-M01` da svolgere in una **chat Work separata da quella autrice di M01** (00 Coerentizzatore), solo dopo aggiornamento HEAD #48. REPORT-R09B-M01 autonomo, PASS o NEEDS CHANGES. Merge solo dopo PASS e successiva autorizzazione esplicita dell'utente. Non iniziare camera pallone, comandi mister o Layout Studio privato in questo ciclo.
+
+---
+
+## ARCHIVIO — NEXT precedenti
 # ORONZO — AGENTE 11 · M01 CONSEGNATO / GATE 00
 
 **STATO ATTUALE: `WAIT_REVIEW_M01` — 8 novembre 2026.** La [PR #48](https://github.com/CzekUns/cercax/pull/48) è **OPEN, NOT MERGED**, HEAD verificato `6e72486607405d06d9a5ba8cac8d00a002ea5da8`; branch `agent/oronzo-11-mobile-m01`. Il [REPORT11](https://github.com/CzekUns/cercax/blob/agent/oronzo-11-mobile-m01/oronzo/coordination/11-mobile-ui/REPORT.md) dichiara M01 terminato: 8 righe CSS in `career-r03.css`, 97/97 flow/carriera/coach, 22/22 renderer, Chromium HTTP 8 prima + 8 dopo alle quattro viewport con mouse/touch, 48 screenshot e safe-area/resize. **Si tratta di QA effettuata dall'autore, non ancora audit 00 indipendente.**
