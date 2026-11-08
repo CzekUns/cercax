@@ -1,4 +1,4 @@
-# ORONZO · CENTRO DI COORDINAMENTO DEI 9 AGENTI
+# ORONZO · CENTRO DI COORDINAMENTO DEGLI AGENTI
 
 **Questa cartella su `main` è la fonte di verità per lo stato dei lavori e i prossimi incarichi.**
 L'orchestratore supervisiona, prova e integra le PR, aggiorna `NEXT.md`; ciascun agente esegue soltanto il proprio ambito e pubblica `REPORT.md` con prove e limiti.
@@ -15,6 +15,12 @@ L'orchestratore supervisiona, prova e integra le PR, aggiorna `NEXT.md`; ciascun
 | 7 | Modalità carriera e campionati | [#9](https://github.com/CzekUns/cercax/issues/9) | [07-career](07-career/) |
 | 8 | Attributi, carattere e allenamenti | [#10](https://github.com/CzekUns/cercax/issues/10) | [08-attributes](08-attributes/) |
 | 9 | Allenatore, società e presidenti | [#11](https://github.com/CzekUns/cercax/issues/11) | [09-coach-club](09-coach-club/) |
+| 10 | Orchestratore (governance, NEXT, review/merge) | [#25](https://github.com/CzekUns/cercax/issues/25) | [10-orchestrator](10-orchestrator/) |
+| 11 | UI mobile M01 (storico) / F01 fullscreen in revisione | [#47](https://github.com/CzekUns/cercax/issues/47) | [11-mobile-ui](11-mobile-ui/) |
+| 12 | Correzioni UI guidate dal playtest, schermata per schermata | [#54](https://github.com/CzekUns/cercax/issues/54) | [12-ui-tuning](12-ui-tuning/) |
+
+
+> **Nuovo flusso per le correzioni UI (8 novembre 2026):** [HANDOFF12](12-ui-tuning/HANDOFF.md) · [Registro per schermata](12-ui-tuning/SCREEN-NOTES.md) · [RUN12](12-ui-tuning/RUN.md). Il proprietario ha **scartato il Layout Studio** e annoterà modifiche visive tramite screenshot e istruzioni; Agente12 modifica il codice della singola schermata nel proprio branch, senza sviluppare un editor. Agente11 conserva soltanto la storia e gli incarichi espliciti; nessun lavoro concorrente negli stessi file.
 
 ## Regole
 1. Ogni agente usa *sempre lo stesso prompt di riavvio*, salvato nel proprio `RUN.md`. Non occorre riscriverlo a ogni ciclo.
