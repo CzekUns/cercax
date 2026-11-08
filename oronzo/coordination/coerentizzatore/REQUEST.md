@@ -1,3 +1,19 @@
+# ORONZO — COERENTIZZATORE 00 · POST R09B-M01 · ATTESA FIX CONFERENZA E AUDIT REAL-RUNTIME
+
+**STATO: `WAIT_FOR_11_R09B_M01_2` — 8 novembre 2026.** [PR #48](https://github.com/CzekUns/cercax/pull/48) OPEN, HEAD al momento di assegnazione `58c7c65506f74f012b17b099583e96ee380f8db5`. [REPORT-R09B-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09b-m01-20261108/oronzo/coordination/coerentizzatore/REPORT-R09B-M01.md) in branch documentale conclude **NON CERTIFICATO / NO MERGE**: solo confronto blob CSS e **96 prove su fixture**, non test del gioco via HTTP né suite Node reali. Diff R09-M01-1 conforme ma 44px sul runtime non indipendentemente verificato.
+
+**Altra criticità da risolvere/escludere:** il REPORT11 riporta a 640×360 con safe area left24/right12/bottom16 la 3ª risposta della 3ª conferenza iniziale parzialmente visibile **39,15625px/44**; la fixture 00 ne dimostra solo la plausibilità, **non** ne prova i pixel nel runtime e **non dimostra** che esistesse già nel main pre-M01. Agente11 deve fare verifica reale e, se riprodotto, fix CSS su **stessa #48** `R09B-M01-2`, senza alterare TERMINA GARA, safe-area, larghezza landscape, font, canvas o gameplay. Vedi `11-mobile-ui/NEXT.md`.
+
+**Prossimo audit soltanto su NUOVO HEAD #48 dopo la consegna11:**
+1. Revisore 00 in **chat Work separata dall'autore**; leggere REQUEST aggiornato, NEXT11/REPORT11, REPORT-R09-M01 e REPORT-R09B-M01, PR reale e file source.
+2. **Prerequisito di certificazione:** accesso a checkout reale dei sorgenti del gioco in ambiente utilizzabile e a Chromium con **server HTTP statico locale e localStorage nativo**. Se questo manca, segnalare il blocco senza promuovere la fixture a prova completa. Preferire Work con cloud computer/browser abilitati e accesso repository autenticato; se non possibile, usare una consegna QA/checkout riproducibile fornita dall'11 senza trattarne gli screenshot come prova.
+3. Verifica geometria effettiva (clipping antenati/hit-test/tap) di **TERMINA GARA e di TUTTE le risposte delle conferenze**, a 640×360,800×360,844×390,960×400 con/senza insets top0 left24 right12 bottom16 × mouse e touch; qualunque controllo attivo ≥44px quando raggiunto anche dopo scroll touch. Controllare layout pieno, proporzioni campo 16:9, font, banner, navbar e orientamento.
+4. Eseguire indipendentemente regressioni Node (97 flow/carriera/coach e 22 renderer, salvo cambi nella suite) e percorso completo E2E: avatar/offerte/presidente/stampa/ufficio/rosa16/classifica16/formazione11/Engine06/risultato/postpress/save+load/gameover/geography_required; test legati a main/HTML/JS reali, non harness synthetic. Distinguere Android fisico non testato.
+5. Consegnare rapporto distinto `REPORT-R09C-M01.md` su branch **solo documentale** con SHA del nuovo HEAD, screenshot propri, metriche e PASS/NEEDS CHANGES/non certificato. **NO MERGE** salvo nuova autorizzazione esplicita dell'utente. Nessun intervento su altre PR o sviluppo camera/comandi/layout editor.
+
+---
+
+## ARCHIVIO — REQUEST precedenti
 # ORONZO — COERENTIZZATORE 00 · AUDIT R09B-M01 ATTIVO · PR #48
 
 **STATO: `READY_R09B_M01` — 8 novembre 2026.** L'Agente 11 ha completato la correzione `R09-M01-1` sulla **stessa PR #48**, ora OPEN/NOT MERGED, HEAD verificato **`58c7c65506f74f012b17b099583e96ee380f8db5`**. Commit sorgente/QA fix `efd42f14ef7c6c9949d2bfe936a64e04d4b6a47e`. Il [REPORT11](https://github.com/CzekUns/cercax/blob/agent/oronzo-11-mobile-m01/oronzo/coordination/11-mobile-ui/REPORT.md) dichiara CSS `#oronzo-r03 .runtime-match-panel{padding-top:1px}`, 44px visibili per TERMINA GARA in **16/16** configurazioni (640×360/800×360/844×390/960×400 × con/senza safe-area × desktop/touch), Node **97+22 PASS**, Chromium HTTP/true localStorage e percorso completo. Sono affermazioni dell'autore, da verificare in proprio.
