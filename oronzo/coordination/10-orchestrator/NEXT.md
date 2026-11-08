@@ -101,3 +101,13 @@ Il coordinatore ha impostato `coerentizzatore/REQUEST.md` a **READY R09-M01** pe
 Il nuovo **R09B-M01-2** del NEXT11 (`FIX_REQUESTED`) chiede verifica nella UI reale della terza risposta della terza conferenza iniziale: autore ha misurato 39,15625px/44 a 640×360 con left24/right12/bottom16. **Se riprodotto**, fix CSS esclusivamente sulla **stessa PR #48**, mantenendo TERMINA GARA ≥44px, piena larghezza, safe area e ogni regressione. Non è provato che il difetto sia preesistente sul main; è preesistente solo rispetto all'ultimo fix R09 sul branch.
 
 La REQUEST del Coerentizzatore 00 è `WAIT_FOR_11_R09B_M01_2` per audit R09C **su vero checkout e vero Chromium HTTP** in chat Work distinta da implementatore11. Non ripetere una fixture dichiarandola evidenza del runtime. Nessun merge e nessun avvio M02, camera, comandi mister o Layout Studio.
+
+## M01 COMPLETATO E MERGIATO SU MAIN — AGENTE11 / PR #48 (8 novembre 2026)
+
+**Decisione autorizzata dall'utente:** merge esclusivamente [PR #48](https://github.com/CzekUns/cercax/pull/48), HEAD indipendentemente approvato R09C `8c82cd0aa1cd856c8afc2964acae4ff57f5da93d`. **MERGED** su `main` con commit `1bb8815b967dc4171fc644713918ad97f1cd95fb`. La [PR #51](https://github.com/CzekUns/cercax/pull/51) rimane documentale OPEN, non mergiata.
+
+**Audit**: [REPORT-R09C-M01](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r09c-m01/oronzo/coordination/coerentizzatore/REPORT-R09C-M01.md) PASS indipendente su checkout Git reale + Chromium HTTP, 119/119 Node, 16/16 percorsi, 336/336 risposte +42 test lunghi, CTA TERMINA GARA ≥44px, nessuna regressione nell'ambito del test.
+
+**Post-merge statico verificato da Agente10:** GitHub PR merged true; `oronzo/assets/ui/career-r03.css` su main blob `0f3569d37c07f2153a4bf8ca28149ded60f2956e`, identico allo stesso file su HEAD auditato; `career-r03.js` e `career-r03.html` invariati. **Non rieseguite regressioni Node/browser post-merge** nel container dell'Agente10 perché `git ls-remote` non raggiunge GitHub (DNS `Could not resolve host: github.com`). Non spacciare queste verifiche statiche per run E2E. Stato NEXT11 `MERGED_WAIT_ANDROID`, REQUEST00 `STANDBY_POST_MERGE`.
+
+**Prossimo:** test fisico Android landscape con barre browser e cutout, CTA/campo/conferenza e save/load. Dopo valutare separatamente la PR #28 camera 05, UI comandi coach e Layout Studio privato di sviluppo. Nessuna nuova fase assegnata fino a decisione utente.
