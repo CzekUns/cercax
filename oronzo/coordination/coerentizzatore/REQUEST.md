@@ -1,3 +1,13 @@
+# ORONZO — COERENTIZZATORE 00 · ACCELERAZIONE GATE M1
+
+**STATO: `AUDIT_REQUIRED_PR52_PR53` — 8 novembre 2026.** Piano aggiornato in [ROADMAP-R10-ACCELERAZIONE.md](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md). **Audit immediatamente prioritario sulle PR #52 (Fullscreen) e #53 (500 comuni)**, entrambe OPEN/NOT MERGED all'ultimo controllo; verificare HEAD reale. Report **separati** e una prova di compatibilità con entrambi i branch nello stesso checkout/merge-base prima di raccomandare il secondo merge, senza simulare repository via fixture. La #53 va verificata con cura per i metadati contemporanei `null` e uso di `reviewStatus:'approved'`: mai rivendicare geografia1979. 119 Node e Chromium HTTP end-to-end, touch e save/load realmente eseguiti. PASS/NEEDS_CHANGES/NON_CERTIFICATO con comandi e screenshot propri. NO MERGE.
+
+**Seconda ondata di audit dopo correzioni autori:** #28 camera TV con sprite reali (non fallback), #29 arte leggibilità, #31+#35 ordine individuale/toni/regione/trust/idempotenza. Non usare prove di #52/#53 per certificare #28/#31; niente nuovo lavoro se è ancora un blocker prima dell'audit precedente. Dopo PASS e **autorizzazione utente**, orchestratore integra una PR alla volta con SHA atteso e main smoke-test. Fino ad allora 12 può raccogliere note UI ma non sovrascrivere PR in revisione.
+
+---
+
+## ARCHIVIO — REQUEST PRECEDENTI
+
 # ORONZO — COERENTIZZATORE 00 · AUDIT FUTURI PR #52 FULLSCREEN E #53 COMUNI
 
 **STATO: `READY_QA_F01_D01_DIRECT` — 8 novembre 2026.** L'utente ha chiesto implementazione diretta anziché delega Work. Sono state pubblicate **[PR #52](https://github.com/CzekUns/cercax/pull/52)** fullscreen (JS autonomo, nav always-on) e **[PR #53](https://github.com/CzekUns/cercax/pull/53)** comuni contemporanei (500 IDs, 19 fonti, scelta nel gioco, schemi null) senza merge. Non dichiarare alcun esito indipendente prima di prova. Gli sviluppi non sono opera degli agenti 07/11, bensì interventi diretti autorizzati dall'utente.
