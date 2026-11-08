@@ -80,6 +80,17 @@
       "snapshotYear": 2026,
       "populationReferenceYear": null,
       "notes": "Selezione regionale per popolazione crescente nello snapshot; nessun ranking nazionale. Anno demografico puntuale non attestato. Non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-lazio-2026",
+      "name": "RP92/comuni-italiani — Lazio, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/lazio.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni del Lazio per popolazione crescente nello snapshot regionale; non ranking nazionale, anno demografico puntuale non attestato, non rappresenta il 1979."
     }
   ]
 }
