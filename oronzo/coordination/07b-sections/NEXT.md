@@ -1,3 +1,58 @@
+# ORONZO — AGENTE 07-BIS · SUCCESSORE CAREER07 + SEZIONI, ORDINI DI LAVORO
+
+**STATO: `R11_PR63_NEEDS_CHANGES_AND_CAREER07_HANDOFF_P0` — 9 novembre 2026.** Il proprietario ha messo in **standby l'Agente07 originale**, ora sostituito interamente da **ORONZO-AGENT-07B** (alias 07-bis; NON cambiare il tuo ID). Erediti **TUTTO lo sviluppo carriera / world / calendar / salvataggi / adapter / integrazione con09** e conservi **TUTTO lo sviluppo grafico e operativo delle sottosezioni** già affidate. La PR [#63](https://github.com/CzekUns/cercax/pull/63) è la TUA PR attuale, OPEN, HEAD auditato `6eb647894f79b38bc26915f016d245b7ee25bc85`. Audit [#64](https://github.com/CzekUns/cercax/pull/64), HEAD `9227e057103bff9e745dd25415e2e739af4863a9`: **NEEDS CHANGES** (64/64 Node + 10 scenari training + 8 percorsi Chromium; gli unici due difetti bloccanti sotto). Non mergiare nulla.
+
+## P0-A — CHIUDI IL TUO LAVORO ATTUALE NELLA STESSA PR #63 (IMMEDIATO)
+
+**R11-QA-01 (difetto introdotto in PR63):** training `RECUPERO,73%` selezionato e salvato resta corretto in ledger, ma dopo reload i pulsanti/slider mostrano `EQUILIBRATO,50%`. Correggi `oronzo/assets/ui/sections-r11/sections.js` e `career-r03.js` affinché *controlli*, bottone evidenziato, `<output>` e slider leggano `trainingStatus(ui).selected.plan/intensity` quando il piano è confermato nella settimana, e stato locale `trainingPlan/trainingIntensity` solo per bozza non ancora salvata. Preserva lo stato disabilitato a settimana bloccata, non riabilitare doppia registrazione. Test Node + Chromium su `RECUPERO 73`, salvataggio/reload, cambio settimana e rientro allenamento. Verifica cinque piani, 0/100, e nessuna applicazione anticipata.
+
+**R11-QA-02, PARTE UI (dipendenza preesistente07):** `save({silent:true})` in `oronzo/assets/ui/career-r03.js` può fallire per `QuotaExceededError`. NON sostituire indiscriminatamente con messaggio `salvataggio precedente protetto`; distinguere quota, mancanza permessi, corruzione, rifiuto esplicito di sovrascrivere. Ogni fallimento su `advance()`, piano training, chiusura partita o nuovo stadio deve mostrare **progresso solo in memoria / NON PERSISTITO**, senza toast "salvato". Se necessario prevedi ritentare/export manuale esplicito (no cancellazione automatica del backup). I dati esistenti sono priorità assoluta.
+
+**Consegna P0-A:** correggi nella stessa PR #63, aggiorna `oronzo/coordination/07b-sections/REPORT.md`, nuovi HEAD, test reali, commento PR/issue #62, richiedi audit00 mirato. *Non* mescolare il grande refactor del salvataggio nella PR UI #63: separa P0-B sotto; nessun merge autonomo.
+
+## P0-B — BACKEND SALVATAGGI EREDIATO DAL 07 ORIGINALE (SUBITO DOPO P0-A)
+
+**R11-QA-02, causa strutturale:** il rapporto indipendente [#64](https://github.com/CzekUns/cercax/pull/64) dimostra carriera Promozione standard seed1979 con **30 partite autentiche**, alla settimana31 save `~4.125.983` caratteri; un secondo slot `localStorage` porta a `QuotaExceededError`; UI continua 31→39 ma reload ritorna alla31. Fonte `oronzo/systems/career/save.js` (schema `SAVE_KIND=ORONZO_CAREER`, `SAVE_VERSION=2`, `createSaveManager` con slot A/B checksum/sequence/active), `oronzo/app/flow/controller.js` `saveGame/loadGame` e UI `career-r03.js`. **Il 07B ora è proprietario di tutti questi file e del fix**, non rimandarlo alla chat07 satura.
+
+**Criteri di design inderogabili**:
+1. Persistenza reale delle grandi carriere, **due slot recoverable** o equivalente transazionale con ultimo stato valido preservato; nuovo slot verificato prima di segnalarlo attivo; failure non cancella la copia buona. Sono ammessi IndexedDB, formato compatto/versionato o altra soluzione sostenibile con prove browser vere; motivare scelta e migrazione, non promettere che un semplice Map simula la quota browser.
+2. Retrocompatibilità con `oronzo.career.flow.r03:A/B/active`, `oronzo.career.v2`, `SAVE_VERSION=2`, `deserialize`, `exportGame/importGame`, checksum, `periodLedgerSchemaVersion`, save legacy e game-over. Migrare **solo dopo scrittura e lettura verificate** della nuova copia; mai cancellare automaticamente i vecchi slot o sovrascrivere la sola copia recuperabile.
+3. Gestire correttamente provider e asincronia, se necessari: click multipli, salvataggio concurrente, stage in partita non salvabile, error handling/toast affidabile, caricamento corretto e backup/esportazione esplicita.
+4. E2E con **dimensioni standard** PROM30/altre divisioni38: 2 stagioni1979→1981, settimane31–38, 30 fixture del mister per anno, 38 payroll/allenamenti per stagione, conferenze solo se il coach gioca, no fixture inventate; doppio slot scritto/letto su browser Chromium **nativo con quota** dopo ciascuna avanzata e dopo reload. Verifica almeno seed diversi, recovery su scrittura fallita, vecchi save, import/export, e integrazione con PR63/training.
+5. Nessun merge senza audit00; apri una **PR backend di follow-up distinta** da main (evita base stale o patch grafica concorrente); quando i due fix sono pronti l'orchestratore decide l'ordine di integrazione. Se il backend è essenziale per PASS integrato della #63, l'auditor può approvare condizionatamente la #63 e richiedere QA combinato pre-merge.
+
+## P1 — DOPO I DUE P0: COMPLETA L'ADAPTER CAREER07↔COACH09
+
+**1. STADIO / BIGLIETTI / INCASSI (R11-08):** leggere `oronzo/assets/ui/sections-r11/HANDOFF-07-09.md` del tuo ramo #63 e `oronzo/systems/coach-club/MANAGEMENT-R10.md`; inizializzare/persistere `club.stadium={capacity,condition,ticketPriceITL}` in modo dichiarato e controllabile. **Non inventare dati storici**: parametri di gameplay originali e documentati possono essere usati solo come regole sintetiche esplicite, mantenendo `null` dove non definito. Definire port Career07 `changeCareerTicketPrice(state,{clubId,priceITL,eventId,expectedAbsoluteWeek})` che autentichi calendario, club, presidente, stage e valore, costruisca `period={week,absoluteWeek,seasonYear}`, chiami `setTicketPrice`09 e faccia commit atomico di club/salvataggio. Dopo una **reale partita casalinga** e review board, chiamare `settleHomeAttendance`09 con fixture vera, period e risultati; incasso in `finance.cash` + gradimento tifosi/fiducia/morale/ledger una sola volta. Trasferte, gare fittizie e retry non generano cassa. Collegare input prezzo/affluenza/storico nella tua UI solo quando adapter è reale. Test due stagioni e recoverable save.
+
+**2. PRESIDENTE / RICHIESTE / MERCATO (R11-09):** fornire dal Career07 finestre di mercato temporali autentiche o *assunzioni di gioco* dichiarate; connettere `submitPresidentRequest/decidePresidentRequest`09, investimento impianto, training facilities, mandato acquisti, limiti cassa, papponeria, relazione mister/presidente, contratti e bilancio. Le funzioni di mercato09 con `InWindow` esigono `window.source='career-07'`, verifica periodo e `sellerRelease` attestata per il club cedente; **trasferimento atomico da entrambe le rose**, no duplicato, no stipendio o spese due volte. Implementare la UI sotto la tua responsabilità, test errori/rifiuti e retry/reload. Non riscrivere formule del 09.
+
+**3. SHOUT PERSISTENTE DOPO MATCH:** leggere il contratto `persistShout({key,coach,club,event})` del 09 e `reconcileM1Shouts` del 07; applicare il delta permanente del rapporto con player una volta sola dopo evento accettato dal motore06, con ledger fixture:eventId, senza riapplicare bonus temporaneo06. Conferenza/energia/stipendi non duplicati.
+
+## P1 — CARRIERA COMPLETA E DATI REALI
+
+**4. NUOVA CARRIERA 1979 / COGNOMI:** `newCareer()` nel runtime UI chiama `newGame()` con catalogo comuni ma **non passa ancora `surnameCatalog`**. Integra `BUILTIN_SURNAME_CATALOG` del 08 (600 cognomi Bergamo2021 documentati), chiamando `newGame({surnameCatalog})` o `enableM1SourcedPlayers` prima della firma dell'offerta. Mantenere `player.id`, `surnameId`, `sourcePlayerId`, `relationships`, aspetto e salario; non inventare origini ignote o conteggi 5.000. Verificare nella UI e dopo save/load.
+**5. CORE CAREER E WORLD:** assumere manutenzione di `oronzo/systems/career/**` e `oronzo/app/flow/**`: stagioni, calendario di tutte le divisioni, classifiche, turni non giocati, 20 offerte, ingaggio/salario/morale/trasloco, licenziamento, disoccupazione e nuove offerte, fine stagione, promozione/retrocessione ove previste dalle regole correnti, game over morale0, sviluppo del giocatore 08, persistenza RNG/dati. Preserva 1979 e migrazione dei vecchi salvataggi, campionati standard30/38, determinismo e idempotenza; **non rifare moduli già funzionanti**.
+**6. GIORNATA TIPO E AGENDA:** `getCoachWeekStatus` guida cosa è possibile fare, `match_pending` mai skip, `bye_week` avanza con `expectedAbsoluteWeek`, `season_complete` consente rollover. Visibilità effettiva in UI e salvataggio stabile anche dopo settimana31.
+
+## P2 — CONCLUDERE LE SEZIONI R11 CHE RIMANGONO
+
+**7. SCHEDE/ROSA/ALLENAMENTO:** preserva la tua PR63; evolvi grafica coerente player visual01/08, kit e foto solo se identità canonica, statistiche/forma/fatica/infortuni e contratto, filtri per ruolo e ordinamento; resoconto settimanale e progresso solo se ledger disponibile; ritorni rosa/allenamento e touch.
+**8. CAMPIONATO:** calendario completo di gironi/risultati/settimana, classifica, prossimo match, in casa/trasferta e bye, senza mostrare "Fine stagione" prima della fine di tutte le divisioni.
+**9. LAVAGNA FORMAZIONE:** posizionamento giocatori, titolari/panchina, ruolo, modulo, indisponibili e avversario, basato su coordinate/stati veri, non una grafica senza effetto.
+**10. MATCH LIVE:** in coordinamento col 12 (screenshot fixer), collegare camera FULL/TV effettiva a `view.setCameraMode('full'|'broadcast')` senza toccare motore05; tattiche/sostituzioni/ordini individuali tramite `commandM1Match`06 con ID unici e rifiuti reali; speed 1×~15m e 22 PNG. Non lavorare contemporaneamente agli stessi blocchi UI del12; coordinare task e PR.
+**11. TIFOSI/GIORNALI/STADIO/PRESIDENTE:** profondità grafica pixel-art, bacheche, quotidiani originali, richieste/eventi che esistono nei salvataggi, pagine dedicate anziché dati sintetici/finti.
+**12. «COSA FARE OGGI»:** checklist contestuale aggiornata al vero stato della carriera, aprire tutte le schermate operative, distinguere "da fare"/"fatto"/"non disponibile", calendario/salvataggi/mercato, niente button finti.
+**13. QA ANDROID/CHROMIUM:** 640×360,800×360,844×390,960×400, scroll e safe-area, bottone ≥44px, fullscreen, screenshot delle sezioni, salvataggio/ricaricamento, 2 stagioni complete, regressione S12 home PC e footer nascosto. Tutti i risultati in REPORT separando Node, V8 e Chromium effettivi.
+
+## REGOLA DI PRIORITÀ E CICLI
+
+**Esegui in ordine P0-A → P0-B → P1 stadium/market/shout/surnames → P2 UI e polish**, un commit/review/PR coordinato per componente; nessuna nuova funzione cosmetica prima di risolvere persistenza dati che perde settimane. Il nuovo mandato non autorizza modifiche a `systems/coach-club`, `systems/attributes`, `systems/match-engine` o `systems/match-view`: **il 07B li integra mediante contratti**, bug nelle loro formule richiedono owner proprio. Aggiorna il REPORT e commenta issue #62, richiedi revisione indipendente00 e non effettuare merge. Prove di impossibilità e blocchi precisi, non affermazioni senza test.
+
+---
+
+## ARCHIVIO NEXT07B PRECEDENTE
+
 # ORONZO — AGENTE 07-BIS · R11-01: SCHEDE/ALLENAMENTO/STADIO/AGENDA
 
 **STATO: `READY_R11_01` — 9 novembre 2026.** Nuovo agente, primo incarico. Issue [#62](https://github.com/CzekUns/cercax/issues/62); branch nuovo `agent/oronzo-07b-sections-r11-01` **dall'ultimo main**, una sola PR. Attenzione: 07 è un altro agente e non va copiato il suo codice.
