@@ -1,3 +1,15 @@
+# ORONZO — AGENTE 10 · R10-W2 AUDIT #58, ORA SOLO DUE FIX
+
+**STATO: `WAIT_FIX_PR57_AND_PR56` — 9 novembre 2026.** [Audit indipendente PR #58](https://github.com/CzekUns/cercax/pull/58) **PASS #28 camera, #29 sprite, #31 PlayerV2/600 cognomi, #35 ordini** con Node nativo, PNG veri e Chromium HTTP; **NEEDS CHANGES #57** (SyntaxError con token `\\n` in `presidents.js`/`negotiations.js` impedisce avvio gioco), **NEEDS CHANGES #56** (Promozione30 gare, settimana31 senza fixture, impossibile avanzamento a rollover). #57 è P0, #56 P1 bloccante rilascio. Correzioni puntuali già richieste dall'auditor nei commenti delle relative PR, senza nuovi progetti. Anche #52 fullscreen e #53 comuni hanno già **PASS** da audit #55, ma **nessuna delle PR è stata mergiata**.
+
+**Mandato orchestrazione:** NEXT07 e NEXT09 aggiornati per **concludere fix sulle stesse PR**. Alla pubblicazione nuovi HEAD invocare SOLO gate mirato dello00: avvio+Node57, week31→rollover standard e due stagioni56, test combinato #31+#35+#56+#57 con fiducia, stadio, mercato e salvataggi idempotenti. Nel rapporto #58, combinazione senza57 = **251/251 test PASS**, ma con57 si blocca all'import; non spacciare due stagioni in lega ridotta per due stagioni standard. #28/#29/#31/#35 rimangono PASS sugli HEAD auditati salvo modifiche sopravvenute. Ordinamento consigliato dopo autorizzazione utente: #29→#28, #31→#35, quindi #57→#56 dopo fix e audit; #52/#53 già gate indipendente superato ma merge separato e autorizzato.
+
+**Agente12:** ancora nulla da correggere senza screenshot; dopo le integrazioni serviranno consumer UI reali FULL/TV, ordini, allenamenti, presidente e stadio. Niente Layout Editor. Non rilanciare la ricerca cognomi5000, asset/cutscene o altre feature come blocchi M1. **Non fondere alcuna PR senza consenso esplicito**.
+
+---
+
+## ARCHIVIO NEXT 10 PRECEDENTI
+
 # ORONZO — AGENTE 10 · STATUS 9 NOVEMBRE 2026, CHECKPOINT R10
 
 **STATO: `WAIT_INDEPENDENT_WAVE2_AUDIT`.** Il primo gate è passato: PR #52 fullscreen e #53 comuni (audit documentale #55) **PASS**, tutte ancora OPEN e NON MERGED, merge richiede autorizzazione esplicita del proprietario. Il secondo ciclo produttivo ha già PR aperte **#56 Agente07** (adapter carriera/player/training/shouts) e **#57 Agente09** (papponeria/biglietti/stadio/mercato/shout ledger), oltre alle #28 camera, #29 sprite, #31 attributi/cognomi600, #35 comandi. Nessuna nuova PR audit della seconda ondata emersa al controllo. **Prossimo collo di bottiglia: revisore00 deve auditare #28/#29/#31/#35/#56/#57 con checkout combinato e schema effettivo di mercato/shouts; poi gate di merge uno alla volta.** L'Agente12 resta in attesa di screenshot, non va avviato per rifare layout arbitrariamente.
