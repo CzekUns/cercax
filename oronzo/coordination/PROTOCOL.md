@@ -1,3 +1,5 @@
+> **PASSAGGIO OPERATIVO 9 NOVEMBRE 2026:** l'orchestrazione precedentemente affidata all'Agente10 passa al successore **ORONZO-AGENT-10B**, issue #65; il vecchio10 è storico/standby. Leggere `oronzo/coordination/10b-orchestrator/{IDENTITY,RUN,NEXT,HANDOFF}.md` e `registry.json` prima delle istruzioni di seguito. Similmente Career07 passa a 07-bis per saturazione; 12 rimane screenshot fixer, 00 revisore indipendente. Divieto di doppio owner e di merge senza consenso dell'utente confermato.
+
 # Protocollo di lavoro ORONZO: revisione → merge → nuova iterazione
 
 ## Documenti per ogni agente
