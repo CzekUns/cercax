@@ -6,9 +6,9 @@
 
 | ID | Schermata | Modifica richiesta | Viewport / dispositivo | Stato | PR / commit |
 | --- | --- | --- | --- | --- | --- |
-| S12-001 | `entry` — apertura, revisione richiesta | Ripristinare immagine computer a sinistra, due CTA a destra; nessun testo introduttivo | Android landscape, risoluzione da verificare | `IN_LAVORAZIONE` | [#59](https://github.com/CzekUns/cercax/pull/59) integrata; S02 in corso |
+| S12-001 | `entry` — apertura, revisione richiesta | Immagine computer a sinistra, due CTA a destra, zero testo introduttivo | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [#59](https://github.com/CzekUns/cercax/pull/59) + S02 |
 | S12-002 | Tutte le viste — navigazione inferiore | Eliminare il menu inferiore onnipresente; mantenere la navigazione in-contesto e futuro fullscreen accessibile senza ripristinare il menu | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [PR #59](https://github.com/CzekUns/cercax/pull/59) |
-| S12-003 | `hub` → sottosezioni | Aprire Campionato, Rosa, Allenamento, Tifoseria e Presidente in viste dedicate, senza anteprima a destra | Android landscape, risoluzione da verificare | `IN_LAVORAZIONE` | Branch `agent/oronzo-12-ui-playtest-s02` |
+| S12-003 | `hub` → sottosezioni | Aprire Campionato, Rosa, Allenamento, Tifoseria e Presidente in viste dedicate, senza anteprima a destra | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | Branch `agent/oronzo-12-ui-playtest-s02` |
 
 **Stati:** `RICHIESTA` → `IMPLEMENTATA_DA_VERIFICARE` → `IMPLEMENTATA_DA_VERIFICARE` → `REVISIONE_00` → `CONFERMATA_UTENTE`; oppure `BLOCCATA` / `DIPENDENZA`. Non segnare una nota come corretta senza prova sufficiente.
 
@@ -53,18 +53,18 @@
 
 ### Revisione S12-001 — Immagine d'ufficio ripristinata
 
-- **Stato:** `IN_LAVORAZIONE`, a seguito del feedback successivo al merge [#59](https://github.com/CzekUns/cercax/pull/59).
+- **Stato:** `IMPLEMENTATA_DA_VERIFICARE`, a seguito del feedback successivo al merge [#59](https://github.com/CzekUns/cercax/pull/59).
 - **Messaggio utente:** «Ci sta anche se a me comunque piaceva quell'immagine con il computer messa all'avvio, con i due tasti a dx, quella la puoi ripristinare.»
 - **Nuova disposizione richiesta:** spazio iniziale largo; immagine dell'ufficio con computer sulla **sinistra** (asset già esistente `office-desk-v02.png`); **NUOVA PARTITA** e **CARICA PARTITA** in colonna sulla **destra**. Nessun testo introduttivo; barra superiore e fullscreen esistenti.
 - **Componente reale:** `renderEntry()`; markup `.runtime-entry`, `.runtime-entry-visual`, `.runtime-entry-actions`; CSS mirato a `data-screen=entry`.
 - **Viewport e screenshot:** Android in orizzontale, dimensioni non indicate; feedback testuale, screenshot non presente nel repository.
 - **Ambito:** solo `career-r03.js` e `career-r03.css`, non spostare elementi di altre viste.
-- **Verifiche:** non ancora eseguite al momento della registrazione.
-- **PR / commit / esito:** da aggiornare con la nuova PR S02, senza merge autonomo.
+- **Verifiche:** parser V8 su sorgente del branch PASS; 8/8 test QA isolati PASS. Chromium HTTP e Android fisico NON ESEGUITI.
+- **PR / commit / esito:** sorgente JS commit `ead07a9`, CSS `d7b0d9e`, QA `8ce916b` nel branch S02; PR da collegare, senza merge autonomo.
 
 ### S12-003 — Ufficio → schermate dedicate
 
-- **Stato:** `IN_LAVORAZIONE`.
+- **Stato:** `IMPLEMENTATA_DA_VERIFICARE`.
 - **Messaggio utente:** «Poi i vari menù rosa, allenamento, campionato, presidente etc mi aspettavo che portassero ad una sottosezione, non che utilizzassero la Sezione a destra per fare vedere velocemente la sezione».
 - **Schermata e percorso:** `hub` → `hub-section`, con cinque voci: CAMPIONATO, ROSA, ALLENAMENTO, TIFOSERIA e PRESIDENTE.
 - **Com'è ora:** `renderHub()` presenta a sinistra la scrivania e a destra i contenuti immediatamente aggiornati dal pulsante `data-action="section"`; il menu resta sempre visibile.
@@ -72,7 +72,7 @@
 - **Componenti reali:** `renderHub()`, `playerRow()`, `renderPlayer()`, `interact('section'/'hub'/'back-rosa'/'back-training')`, `#ui-screen`, `.menu-cards`, `.runtime-table`, `.runtime-roster-list`.
 - **Viewport e screenshot:** Android landscape, dimensioni non indicate; feedback testuale in chat, nessun file screenshot in QA.
 - **Vincoli:** mantenere safe area, UI retro, touch ≥44px, zero interventi al motore o alle API; rispettare schermo intero e assenza footer S12-002.
-- **Stato prove / PR:** non ancora eseguiti al momento della registrazione; da aggiornare nel ramo S02 e REPORT.
+- **Stato prove / PR:** 8/8 test QA V8 isolati PASS; DOM reale Chromium HTTP, touch e Android NON ESEGUITI; PR S02 da collegare; verifiche da ripetere post feedback utente.
 
 ## Scheda richiesta (duplica per ogni ID `S12-xxx`)
 
