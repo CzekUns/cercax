@@ -1,0 +1,109 @@
+/* ORONZO-AGENT-07B · R11-01. Scoped section art; S12 landing and navigation untouched. */
+#oronzo-r03 .r11-player-page,
+#oronzo-r03 .r11-training-page,
+#oronzo-r03 .r11-support-page,
+#oronzo-r03 .r11-agenda-view{width:100%;flex:1;min-width:0;min-height:0;display:flex;gap:6px}
+#oronzo-r03 .r11-player-page{display:grid;grid-template-columns:minmax(230px,40%) minmax(0,1fr)}
+#oronzo-r03 .r11-player-identity,
+#oronzo-r03 .r11-player-attributes,
+#oronzo-r03 .r11-training-scene,
+#oronzo-r03 .r11-training-controls,
+#oronzo-r03 .r11-support-panel{min-width:0;min-height:0;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+#oronzo-r03 .r11-column-scroll{overflow-y:auto;overflow-x:hidden;flex:1;min-height:0;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin;scrollbar-color:#f8cd48 #122b67}
+#oronzo-r03 .r11-bottom{display:flex;flex:0 0 44px;gap:4px;min-width:0;margin-top:auto}
+#oronzo-r03 .r11-bottom .ui-btn{flex:1;min-width:0;min-height:44px;max-height:44px;padding:4px;font-size:9px;white-space:normal}
+#oronzo-r03 .r11-hint{margin:3px 0;font-size:9px;line-height:1.33;color:#c5d7f5}
+#oronzo-r03 .r11-player-hero{display:flex;align-items:center;gap:8px;padding:4px;background:#0b2259;border:2px ridge #7b95c1}
+#oronzo-r03 .r11-player-picture{width:94px;height:100px;flex:0 0 94px;display:flex;justify-content:center;align-items:center;background:linear-gradient(#2b5291,#102a60 60%,#152c24 61%,#143a31);border:2px solid #ffe07e;overflow:hidden}
+#oronzo-r03 #r11-player-art{width:90px;height:90px;image-rendering:pixelated}
+#oronzo-r03 .r11-no-portrait{font:bold 8px/1.5 Verdana,sans-serif;text-align:center;color:#e6d39b}
+#oronzo-r03 .r11-no-portrait span{display:block;font-size:24px;color:#bcb5a1}
+#oronzo-r03 .r11-player-ident{display:flex;flex-direction:column;gap:4px;min-width:0;overflow-wrap:anywhere}
+#oronzo-r03 .r11-player-ident>strong{font:900 15px/1.1 Verdana,sans-serif;color:#ffe06a}
+#oronzo-r03 .r11-player-ident>span,#oronzo-r03 .r11-player-ident>small{font:9px/1.35 Verdana,sans-serif;color:#e9eefb}
+#oronzo-r03 .r11-chips{display:flex;gap:3px;flex-wrap:wrap}
+#oronzo-r03 .r11-chip{display:inline-flex;align-items:center;padding:2px 5px;min-height:20px;border:1px solid #7799c8;background:#213f85;color:#fff6dc;font-size:8px}
+#oronzo-r03 .r11-chip.warning{background:#7e3f2f;border-color:#e9a97d}
+#oronzo-r03 .r11-chip.okay{background:#1c5449;border-color:#78bba9}
+#oronzo-r03 .r11-status-bars,#oronzo-r03 .r11-bars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;margin:4px 0}
+#oronzo-r03 .r11-status-bars{padding:3px;border:1px solid #4b6ba4}
+#oronzo-r03 .r11-stat{padding:3px;background:#10265c;border:1px solid #284a8e;min-width:0}
+#oronzo-r03 .r11-stat-top{display:flex;justify-content:space-between;gap:3px;font-size:8px;line-height:1.1}
+#oronzo-r03 .r11-stat-top span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#oronzo-r03 .r11-stat-top strong{color:#ffdf6a}
+#oronzo-r03 .r11-stat-bar{height:6px;margin-top:3px;background:#071332;border:1px solid #5976a7;overflow:hidden}
+#oronzo-r03 .r11-stat-bar i{display:block;height:100%;background:repeating-linear-gradient(90deg,#e4ba54 0 6px,#f9e08c 6px 8px)}
+#oronzo-r03 .r11-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:4px 0}
+#oronzo-r03 .r11-metric{display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:33px;padding:3px;background:#0b2760;border:1px solid #3a5e9d;min-width:0}
+#oronzo-r03 .r11-metric span{font-size:8px;color:#b7d3f4}
+#oronzo-r03 .r11-metric b{font-size:10px;color:#ffdf78;overflow-wrap:anywhere}
+#oronzo-r03 .r11-attribute-group{padding:4px 5px;margin-bottom:4px;border:1px solid #4877b4;background:#071e57}
+#oronzo-r03 .r11-attribute-group h3{font:900 10px/1.3 Verdana;color:#ffde69;margin:0 0 4px;padding:0 0 3px;border-bottom:1px solid #3a5c96}
+#oronzo-r03 .r11-training-page{display:grid;grid-template-columns:minmax(190px,35%) minmax(0,1fr)}
+#oronzo-r03 .r11-original-art{width:100%;height:clamp(60px,17vh,132px);object-fit:cover;object-position:center;border:2px ridge #8299bf;image-rendering:auto}
+#oronzo-r03 .r11-training-report{margin-top:3px;border:1px dashed #a9b9cb;padding:4px;background:#122b5a;font-size:9px;line-height:1.3;display:flex;flex-direction:column;gap:4px;color:#cfe0f7}
+#oronzo-r03 .r11-training-report b{color:#f6df94}
+#oronzo-r03 .r11-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-bottom:6px}
+#oronzo-r03 .r11-plan{min-height:44px;border:2px ridge #527bb0;background:#113b83;color:#fff1cb;font:900 9px/1.2 Verdana;cursor:pointer;padding:4px;overflow-wrap:anywhere}
+#oronzo-r03 .r11-plan.is-selected{background:#ae8028;color:#0a1541;border-color:#fff1ad}
+#oronzo-r03 .r11-plan:disabled{opacity:.65;cursor:default}
+#oronzo-r03 .r11-intensity-label{display:flex;justify-content:space-between;align-items:center;color:#e5efff;font-size:10px;font-weight:bold;min-height:20px}
+#oronzo-r03 #r11-training-intensity{width:100%;height:44px;min-height:44px;accent-color:#f6d95d;touch-action:pan-x}
+#oronzo-r03 .r11-inactive{opacity:.7;cursor:default}
+#oronzo-r03 .r11-roster-scroll{width:100%}
+#oronzo-r03 .r11-roster-row{width:100%;display:flex;align-items:center;min-height:44px;gap:5px;text-align:left;border:1px solid #7296cf;background:#112e71;color:#f5eacb;padding:4px 8px}
+#oronzo-r03 .r11-roster-row>b{display:grid;place-items:center;min-width:31px;background:#d5b253;color:#07143d;padding:5px}
+#oronzo-r03 .r11-roster-row>span{flex:1;font-size:10px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#oronzo-r03 .r11-roster-row>small{font-size:9px;color:#ffe3a6}
+#oronzo-r03 .r11-support-panel{flex:1;width:100%}
+#oronzo-r03 .r11-tabs{display:flex;gap:4px;flex:0 0 44px}
+#oronzo-r03 .r11-tabs button{min-height:44px;flex:1;border:2px ridge #6488bc;background:#122e70;color:#e4edff;font:900 10px Verdana}
+#oronzo-r03 .r11-tabs button[aria-current="page"]{background:#b68b32;color:#06163d;border-color:#fff0b3}
+#oronzo-r03 .r11-stadium-view,#oronzo-r03 .r11-fans-view,#oronzo-r03 .r11-news-view{display:grid;grid-template-columns:minmax(135px,33%) minmax(0,1fr);gap:8px;flex:1;min-height:0}
+#oronzo-r03 .r11-stadium-drawing{position:relative;min-height:0;overflow:hidden;border:3px ridge #8997a2;
+ background:repeating-linear-gradient(0deg,#354466 0 11px,#43506c 11px 20px,#2b3957 20px 25px);box-shadow:inset 0 0 0 5px #596a79}
+#oronzo-r03 .r11-pitch-mini{position:absolute;inset:28% 10% 23%;border:4px solid #d3e2cb;background:repeating-linear-gradient(90deg,#165e38 0 19px,#207345 19px 38px);transform:perspective(120px) rotateX(24deg)}
+#oronzo-r03 .r11-pitch-mini:after{content:'';display:block;position:absolute;inset:5px 36%;border:2px solid #d3e2cb;border-radius:50%}
+#oronzo-r03 .r11-stadium-drawing>span,#oronzo-r03 .r11-terrace>span{position:absolute;bottom:6px;left:6px;right:6px;font:900 9px Verdana;color:#ffdd83;text-align:center;text-shadow:1px 1px #06102b}
+#oronzo-r03 .r11-empty{padding:8px;border:1px dashed #ddad6c;background:#241c38;line-height:1.25;color:#e5d5b9;font-size:10px}
+#oronzo-r03 .r11-empty b{color:#ffdc77}
+#oronzo-r03 .r11-empty p{margin:7px 0}
+#oronzo-r03 .r11-empty small{font-size:9px;color:#bdc8d8}
+#oronzo-r03 .r11-timeline{font-size:9px;line-height:1.35;background:#102756;padding:5px}
+#oronzo-r03 .r11-timeline>*{padding:4px;border-bottom:1px solid #415e8e;margin:0}
+#oronzo-r03 .r11-terrace{position:relative;min-height:0;border:3px ridge #9098a4;background:
+ radial-gradient(circle,#e5cfa2 1px,transparent 2px) 0 0/13px 15px,
+ repeating-linear-gradient(0deg,#334667 0 16px,#172953 17px 22px)}
+#oronzo-r03 .r11-newspaper{margin:4px;min-height:0;border:4px double #ab9575;background:#e8dcb8;color:#1c2442;box-shadow:3px 3px #182647;display:flex;flex-direction:column;gap:8px;justify-content:center;align-items:center;transform:rotate(-2deg)}
+#oronzo-r03 .r11-newspaper b{font:bold 17px Georgia,serif;border-bottom:3px solid #2e3546}
+#oronzo-r03 .r11-newspaper span{font:bold 9px Georgia,serif}
+#oronzo-r03 .r11-news-entries{display:grid;gap:4px}
+#oronzo-r03 .r11-press-item{padding:4px;background:#e4d5a8;color:#132347;border:2px outset #bcaf87;display:flex;flex-direction:column;gap:2px;font-size:9px}
+#oronzo-r03 .r11-press-item b{font-size:10px}
+#oronzo-r03 .r11-press-item small{font-size:8px;color:#314267}
+#oronzo-r03 .r11-agenda-view{flex-direction:column;gap:4px}
+#oronzo-r03 .r11-agenda-row{display:flex;gap:6px;align-items:center;min-height:48px;padding:3px 5px;background:#0c2864;border-bottom:1px solid #496fa9}
+#oronzo-r03 .r11-agenda-index{font:bold 17px monospace;color:#f5d073;min-width:28px}
+#oronzo-r03 .r11-agenda-copy{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+#oronzo-r03 .r11-agenda-copy b{font-size:10px;color:#fff0be}
+#oronzo-r03 .r11-agenda-copy small{font-size:9px;color:#c4d9ef}
+#oronzo-r03 .r11-agenda-row>.ui-btn{min-height:44px;width:96px;flex:0 0 96px;font-size:9px}
+#oronzo-r03 .r11-desk-brief{font:bold 9px Verdana,sans-serif;color:#ffe492;background:#0b2057;border:1px solid #6d80a4;min-height:25px;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px}
+@media(max-height:375px){
+ #oronzo-r03 .r11-player-hero{gap:4px}
+ #oronzo-r03 .r11-player-picture{height:80px;flex-basis:72px;width:72px}
+ #oronzo-r03 #r11-player-art{width:70px;height:70px}
+ #oronzo-r03 .r11-player-ident>strong{font-size:12px}
+ #oronzo-r03 .r11-original-art{height:62px}
+ #oronzo-r03 .r11-training-report{font-size:8px}
+ #oronzo-r03 .r11-stadium-view,#oronzo-r03 .r11-fans-view,#oronzo-r03 .r11-news-view{gap:4px}
+}
+@media(max-width:680px){
+ #oronzo-r03 .r11-player-page{grid-template-columns:minmax(0,45%) minmax(0,55%)}
+ #oronzo-r03 .r11-training-page{grid-template-columns:minmax(0,36%) minmax(0,64%)}
+ #oronzo-r03 .r11-plan{font-size:8px}
+ #oronzo-r03 .r11-support-panel{padding:4px}
+ #oronzo-r03 .r11-stadium-view,#oronzo-r03 .r11-fans-view,#oronzo-r03 .r11-news-view{grid-template-columns:minmax(105px,30%) minmax(0,1fr)}
+ #oronzo-r03 .r11-player-hero{flex-wrap:wrap}
+ #oronzo-r03 .r11-player-ident>small{font-size:8px}
+}
