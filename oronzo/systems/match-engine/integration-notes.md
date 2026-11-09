@@ -7,7 +7,7 @@ Non sono stati modificati `oronzo/game.js`, `oronzo/index.html`, `oronzo/ui.css`
 ## Collegamento minimale
 
 1. Caricare ESM `match-engine.js`; predisporre MatchInputV1 usando club e PlayerV1 degli agenti 7/8, XI, panchine e tattiche dell'Agente 9.
-2. All'avvio `const match=createMatch(input)`; nel loop reale chiamare `match.advanceRealSeconds(deltaRealSeconds)`. A 1× ogni 1 s reale avanza di 60 s simulati; pause con `match.setPaused(true)`; velocità `match.setSpeed(1|2|4|8)`.
+2. All'avvio `const match=createMatch(input)`; nel loop **v0.2** chiamare `match.step(deltaRealSeconds*6*speed)` (5400 s simulati in circa 900 s reali a 1×). Il vecchio `advanceRealSeconds` resta helper 60× solo per client v1; non moltiplicare due volte il clock.
 3. Renderizzare `snapshot().players` e `snapshot().ball` a ogni frame: coordinate `x*logicalWidth`, `y*logicalHeight`, con campo logico 640×360, viewport 16:9 **landscape**. L'engine è l'unica autorità per coordinate, proprietà palla e punteggio.
 4. Interpolare fra campioni (non inventare corse, tiri o risultati). `action` guida le sequenze sprite `idle/run/pass/dribble/tackle/shot/save`; `facing` è **in radianti**, compatibile con `resolveFacing()` di #15: est=0, sud=π/2, ovest=π, nord=−π/2. A riposo preserva l'ultimo angolo. Non trattare 0/π come 1/−1. La direzione del primo tempo è casa verso +x, ospiti verso −x; in secondo tempo è invertita.
 5. Usare **`getEventsSince(lastId)`** come feed autorevole per replay, commento, cutscene, sostituzioni e UI; avanzare il cursore dopo il consumo. `command()` registra subito il fatto e lo ripropone una sola volta nel prossimo `step()`; evitare deduplicazioni basate su timestamp. L'evento `shot` precede un eventuale `goal`; `goal.detail.assistId` è opzionale, escluso su mancata ricezione, nuova azione o cambio possesso. L'Agente 8 può leggerlo per lo storico senza creare eventi sintetici. Nessuna cutscene deve modificare il risultato. `events` nello snapshot riguarda solo l'ultimo avanzamento e può contenere molti fatti quando `dt` è grande.
@@ -25,3 +25,23 @@ I valori `phase` e `t` sono in tempo simulato. L'intervallo emette `halftime`, p
 Eseguire dalla directory `oronzo/systems/match-engine`: `node --test` e `node cli-demo.mjs 10`. Valutare su smartphone il pannello `demo.html` e il renderer dell'Agente 5 **soltanto dopo** l'integrazione. Verificare anche gli scenari con espulsione, infortunio, cambio del portiere, marcatura a uomo, tempi di gioco non multipli di uno e pausa sul background.
 
 L'attuale demo/fixture usa club inventati e non richiede risorse dell'Agente 1 o dell'Agente 2.
+
+## Ciclo v0.2 — istruzioni per i proprietari delle integrazioni
+
+- **Agente 03 (runtime UI), dopo il proprio gate:** `partita-rapida.html` ora usa 1× circa 15 minuti. Mantenere un solo clock nel runner: ogni secondo reale `match.step(elapsedRealSeconds*6*speed)`; **non** usare l'helper legacy `advanceRealSeconds` con moltiplicatore 60, né applicare nuovamente `setSpeed` al `step`. Il cambio modulo continua a riposizionare i calciatori fisicamente (fix PR #24). Gli ordini individuali possono arrivare con due nuovi toni `encourage/harsh`, mentre gli ordini di squadra conservano i quattro toni precedenti. Il controllo deve mostrare `accepted:false/reason` senza inventare effetti.
+- **Agente 08 (PlayerV2):** il codice effettivo PR #31 ha `origin:{comune,regione,macroregione}|null` e `relationships.coachTrust`. Il 06 li normalizza una volta in `matchContext` nella copia interna; il valore trust zero è valido. `player.origin` canonico precede un eventuale `payload.playerOrigin` legacy. Vietato invocare `08.applyShout()` in risposta a `coach_shout`: aggiungerebbe un secondo bonus temporaneo 180s.
+- **Agente 09 (CoachV2):** fornire l'origine del mister e leadership nel payload (o tramite adapter 07). Le prestazioni cambiano per 150 s simulati, ma variazioni permanenti di `coach.morale` e `playerTrustById` sono **solo responsabilità 09**. Consumare `coach_shout` via `getEventsSince(lastId)`, filtrare con `collectCoachEffects(events,appliedIds,{matchId})` e persistere ID e delta atomicamente. La chiave composita `matchId:event.id` evita doppi conteggi fra gare e snapshot. Il valore suggerito non viene applicato dal motore.
+- **Agente 04 (Copy):** `utteranceId` è un riferimento stringa all'imprecazione/battuta originale; l'engine non inventa dialetto e non conserva né esegue testo. Implementare verifiche lessicali secondo visione v0.2.
+- **Agente 07 (flow e salvataggio):** il bridge richiede un identificatore partita persistente, unico anche dopo un nuovo campionato; il feed non è lo stato del ledger. Il salvataggio delle chiavi applicate deve essere atomico rispetto alle modifiche dei rapporti.
+- **Agente 05 (match view):** `coach_shout` non modifica coordinate di camera. È un evento testuale/feedback; gli spostamenti e le azioni successive derivano dai nuovi snapshot. Le telecamere full/broadcast consumano lo stesso snapshot.
+
+
+## Handoff R10 al flow07/Coach09
+
+Il contratto preciso e i campi sono in [PLAYER-V2-SHOUT-CONTRACT.md](PLAYER-V2-SHOUT-CONTRACT.md). Flow07 passa veri PlayerV2 e CoachV2 a `createMatch` / `createIndividualShoutCommand({teamId,player,coach,tone,utteranceId})`, quindi chiama `match.command` e gestisce `accepted/reason` senza mutare i rapporti persistenti.
+
+La partita emette un solo `coach_shout` con `temporaryEffect` di 150 s, `attributesTone` e `persistentSuggestion`. Il motore non applica una seconda `08.applyShout()`: su PlayerV2 di input possono esistere `temporaryEffects` legacy, ma l'engine non li somma. L'effetto attivo letto da `snapshot.players[].individualInstruction` è esclusivamente per il renderer.
+
+L'Agente09 consuma eventi da `getEventsSince(lastId)` e `collectCoachEffects(events,career.appliedEventIds,{matchId:fixture.id})`, esegue clamp e persiste il ledger composito insieme al delta relazionale in una transazione. `matchId` deve essere stabile in tutte le ricariche e distinto fra partite.
+
+È testato JSON roundtrip di PlayerV2, evento e ledger; lo snapshot dell'engine NON è un salvataggio completo di partita a metà gara (non contiene RNG, flight e cooldown), e non va usato come tale. Il runner mobile/UI12 rimane fuori dal perimetro 06.

@@ -2,6 +2,7 @@ import { createRng, clamp, conditionFactor } from './rng.js';
 import { resetPositions, updateMovement } from './movement.js';
 import { validateTactics, executeCommand } from './commands.js';
 import { advancePlay, kickoff } from './actions.js';
+import { normalizePlayerMatchContext } from './orders.js';
 
 const copy=o=>JSON.parse(JSON.stringify(o));
 function roster(club,eleven,bench,teamId) {
@@ -23,6 +24,11 @@ function roster(club,eleven,bench,teamId) {
 function preparePlayer(source,teamId,active) {
   const p=copy(source), status=p.status || {};
   p.teamId=teamId;p.positions=p.positions||[];
+  // Normalize real 08 PlayerV2 once at match boundary; source stays intact.
+  p.matchContext=normalizePlayerMatchContext(p);
+  // Never reuse an Attributes08 temporaryEffects bonus or prior game's shout.
+  // The engine's personalShout is the sole temporary modifier during this match.
+  p.personalShout=null;p.lastIndividualShoutAt=undefined;
   p.active=active;p.hasBall=false;p.action='idle';p.x=.5;p.y=.5;
   p.fatigue=clamp(Number(status.fatigue)||0,0,100);
   p.vx=0;p.vy=0;p.facing=0;p.energy=clamp((100-p.fatigue)*conditionFactor(p),0,100);
@@ -84,6 +90,14 @@ export function createMatch(input) {
       players:ps.filter(Boolean).map(p=>({
         id:p.id,teamId:p.teamId,x:p.x,y:p.y,vx:p.vx,vy:p.vy,
         facing:p.facing,action:p.action,energy:p.energy,hasBall:p.hasBall,
+        ...(p.personalShout && state.t>=p.personalShout.startedAt &&
+          state.t<p.personalShout.expiresAt
+          ?{individualInstruction:{
+            tone:p.personalShout.tone,
+            modifier:p.personalShout.modifier,
+            startedAt:p.personalShout.startedAt,
+            expiresAt:p.personalShout.expiresAt,
+          }}:{}),
       })),
       ball:{x:state.ball.x,y:state.ball.y,height:state.ball.height,
         vx:state.ball.vx,vy:state.ball.vy,ownerId:state.ball.ownerId},

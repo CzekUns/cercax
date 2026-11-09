@@ -1,56 +1,49 @@
-# RAPPORTO AGENTE 06 — Motore calcistico e tattiche — correzioni R01 P1
+# RAPPORTO AGENTE 06 — Chiusura R10 comandi individuali / PR #35
 
-**Stato:** PR_OPEN · `FIX_REQUESTED` su `NEXT.md` di main, correzioni pubblicate e in attesa di QA dell'orchestratore.  
-**Identità:** `ORONZO-AGENT-06`  
-**Branch:** `agent/oronzo-match-engine`  
-**PR:** https://github.com/CzekUns/cercax/pull/18  
-**Issue:** https://github.com/CzekUns/cercax/issues/8  
-**Audit:** https://github.com/CzekUns/cercax/pull/19  
-**Commit codice verificato:** `28b88574efeb291ba5a85f97c6d1430533d567b4` (precedenti fix `b4712ed5`, `9b777741`).  
-**Data:** 7 novembre 2026 · revisione dell'Agente 6.
+**Identità:** ORONZO-AGENT-06 · **Stato:** DELIVERED / PR_OPEN, in attesa di audit indipendente 00. **Data:** 8 novembre 2026.
+**Branch autorizzato:** `agent/oronzo-match-engine-r02` · **PR:** https://github.com/CzekUns/cercax/pull/35 · **Issue:** https://github.com/CzekUns/cercax/issues/8
+**Commit codice e test finale verificato:** `d1485275de1aa20792fba478d183b10e4e8ddc1f` (ultimo HEAD prima del presente aggiornamento rapporto).
+**PlayerV2 dell'Agente 08 usato nei test:** PR #31, branch `agent/oronzo-attributes-r02`, HEAD `b6235d6a1115e6323fddfc6acce9a86d954e79e2`.
+**Protocollo:** `NEXT.md` su main stato `P0_SHOUT_CONTRACT_FIX`; scope esclusivo `oronzo/systems/match-engine/` più questo REPORT. Nessuna nuova PR e nessun merge.
 
 ## Realizzato
 
-Tutti gli interventi sono nel branch della PR #18, senza creare una PR concorrente né alterare il runtime.
+1. **Mapping effettivo PlayerV2 #31:** in `orders.js` esportati `normalizeMatchOrigin`, `normalizePlayerMatchContext`, `regionalAffinity`, `normalizeIndividualTone`, `toAttributesTone` e `createIndividualShoutCommand`. In `match-engine.js`, ogni PlayerV2 viene copiato/normalizzato all'inizio partita: il campo reale `origin:{comune,regione,macroregione}|null` alimenta `matchContext.origin` (supporta anche alias V2 inglesi), mentre `relationships.coachTrust` alimenta `matchContext.coachTrust` e preserva lo zero. L'origine/fiducia canonica prevale su eventuali payload legacy contraddittori. Origine `null` rimane sconosciuta; non si crea un comune o un cognome fittizio.
+2. **Derivazione macroregione coerente con 08:** caso cross-PR riprodotto e corretto: se `coach.origin` contiene solo `{comune:'Salerno',regione:'Campania'}`, il motore deriva `south` dal mapping delle 20 regioni italiane presente in `08/geography.js`. Prima stessa macroregione Puglia veniva equiparata a Lazio quando macro mancava. Ora regione > macroregione > altre macroregione anche sul payload reale italiano.
+3. **Toni e API unificati:** `commands.js` accetta `encourage|harsh` e gli alias di 08 `gentle|hard` per ordine individuale. Emissione `coach_shout.detail.tone` canonico e `detail.attributesTone` informativo. Conservati vecchi ordini `focus/calm/push/encourage` di squadra, tattiche, cambi e rifiuti ragionati. `createIndividualShoutCommand({teamId,player,coach,tone,utteranceId})` è un adapter puro per il flow07 che legge CoachV2 reali, senza dati di geografia sintetici.
+4. **Un solo temporaneo:** 06 è owner esclusivo del modificatore `personalShout` (150 secondi simulati; cooldown 120 secondi per giocatore; ordini sovrapposti sostituiscono, non sommano). Il motore azzera `personalShout`/cooldown pregressi all'ingresso partita e ignora `PlayerV2.temporaryEffects` di 08 nel calcolo in gara. Uno snapshot attivo espone opzionalmente `players[].individualInstruction:{tone,modifier,startedAt,expiresAt}` a sola lettura. Gli effetti alterano velocità/decisioni calcistiche, non inventano gol.
+5. **Un solo permanente proposto:** `coach-effects.js` emette esclusivamente un delta da `detail.persistentSuggestion`, con ID stabile `matchId:event.id`; output arricchito da `attributesTone`, `temporaryOwner:'match-engine-06'`, `persistentOwner:'coach-club-09'`. Il flow07/09 deve applicare delta e ledger **atomicamente**, senza chiamare `08.applyShout()` per lo stesso evento (esso produrrebbe altri 180 secondi e mutazioni relazionali). Il motore non modifica `coach.morale`, fiducia persistente o salvataggi.
+6. **Contratto e test:** aggiunto `systems/match-engine/PLAYER-V2-SHOUT-CONTRACT.md` con API definitiva 07/09; aggiornati `README.md`, `integration-notes.md`; aggiunti `tests/r10-contract.test.mjs` (8 casi) e `tests/r10-cross-08.test.mjs` (2 casi su sorgenti effettivi 08, test condizionale se PR31 non combinata). Tutti i cambi sono nella PR #35 esistente.
 
-1. **ORZ-P1-001 — facing.** In `systems/match-engine/movement.js` e `match-engine.js` la proprietà `facing` è ora un **angolo in radianti**, non un segno: E=0, S=π/2, W=π, N=−π/2. L'orientamento iniziale e il cambio campo sono espliciti; in corsa deriva da `atan2(vy*68,vx*105)`, a riposo si conserva l'angolo precedente. La vista #15 usa `resolveFacing()` che già accetta radianti. Test specifico di orientamento iniziale, movimento, inversione a t=2700 e pausa.
-2. **ORZ-P1-003 — PlayerV1.** `actions.js` usa ora `technical.decisions` per i passaggi. `rng.js` esporta `conditionFactor(player)` con modificatori graduati da `status.fitness` e `status.health`, usati nelle velocità, energia e decisioni di passaggio, contrasto e tiro/parata. Corretto il calcolo iniziale di `energy` affinché non sia NaN. Attributi letti dalla copia dell'input: nessuna mutazione della rosa di carriera. **Non è stato usato `effectiveAbility()`:** evita un doppio modificatore già condizionato; eventuale integrazione tramite DI da concordare con Agente 8.
-3. **ORZ-P1-004 — feed cambi.** `match-engine.js` conserva gli eventi prodotti da `command()` in `pendingCommandEvents`, consegnandoli una sola volta al successivo `step()`. Il feed **autorevole** resta `getEventsSince(lastId)`: ID univoci crescenti, nessuna perdita fra uno `command()` e lo step successivo. `commands.js` richiede corrispondenza di ruolo GK e aggiunge `substitution.detail.goalkeeper`, `outId`, `inId`, necessari alla vista per aggiornare il portiere.
-4. **ORZ-P1-005 — assist.** `actions.js` traccia l'ultimo passaggio effettivamente ricevuto dal futuro marcatore. Il gol può contenere `goal.detail.assistId` solo se ricezione valida, stesso team, entro 20 secondi, senza nuovo passaggio, cambio possesso o ripresa. Gol senza assist omettono il campo. `career-stats.js` della PR #16 interpreta questo payload senza modifiche.
-5. **Documentazione/test.** Aggiornati `systems/match-engine/README.md` e `integration-notes.md`; aggiunto `tests/integration-p1.test.mjs` con **5 test regressione**. Nessuna modifica agli agenti 5, 8 o ai file `oronzo/game.js`, `oronzo/index.html`, `oronzo/ui.css`.
+## Verifiche realmente effettuate
 
-## Verifiche riproducibili
+- **Regressione completa motore (V8 JS su file reali letti dal branch): 33/33 test passati** = 12 v1 + 5 P1 + 8 R02 + 8 R10. Include seed, velocità/tick, pause, goal da eventi, assist, formazione e sostituzioni, 22 giocatori e pressione tattica, toni individuali, cooldown, scadenza, sovrascrittura del singolo bonus e serializzazione JSON del ledger.
+- **Cross test effettivo 08↔06: 2/2 passati**, usando in memoria la suite `tests/r10-cross-08.test.mjs` con moduli reali dell'HEAD #31 (`player-model.js`, `generator.js`, `player-traits.js`, `geography.js`, catalogo sorgente Bergamo 2021), senza duplicare factory o editare i sorgenti dell'08. Il test è versionato come Node ESM e importa il vero 08 quando PR31 e PR35 sono entrambe presenti nel checkout.
+- **QA indipendente di fixture sintetiche del 06: 100/100 fulltime** a t=5400, 100/100 shouts e sostituzioni, 10/10 replay identici, 99/99 regroup osservabili ripristinati, nessun teleport al comando, score = numero dei goal, media 3,07 gol e 35,32 tiri. Statistiche già presenti nel runner QA della PR.
+- **QA incrociato con rose reali dell'08: 100/100 match completi** a t=5400 con due squadre generate da `generateSquad` del branch #31 (origine, fiducia e catalogo cognomi sorgente realmente caricati), 100 shouts, 100 sostituzioni, **10/10 replay** identici e **100/100 retry del ledger** senza effetti duplicati. Media osservata: **2,26 gol, 25,14 tiri, 875,82 passaggi, 7,94 falli, 7,36 fuorigioco** per gara. Dati di QA del modello, non statistiche storiche certificate.
+- **Differenze a seed fisso** con PlayerV2 normalizzato: regione Campania 0,077294 > macro Puglia 0,067294 > altra macro Lazio 0,057294 (trust 50, tono incoraggiante); con Campania e trust 0 → 0,065594 e trust 100 → 0,088994. I quattro input `gentle/encourage/hard/harsh` sono accettati e normalizzati correttamente. L'input `playerOrigin` falsato non sovrascrive origine del roster.
+- **Nessun doppio effetto:** un PlayerV2 con `temporaryEffects` 08 preesistenti non altera autonomamente la simulazione, il primo `coach_shout` crea un solo `individualInstruction`, un secondo ordine ammesso dopo cooldown lo sostituisce, allo scadere l'istruzione sparisce. `collectCoachEffects` su eventi ripetuti e ledger passato attraverso JSON produce 1 proposta la prima volta e 0 al retry; una nuova `matchId` rimane indipendente.
+- **Verifica PR GitHub REST:** PR #35 OPEN, non mergiata, ultimo codice `d1485275...`, `mergeable_state=clean` al controllo (stato volatile e NON audit). Compare verso main: 16 file modificati tutti e soli sotto `oronzo/systems/match-engine/**` o questo REPORT; branch dietro main di 214 commit, non riusare un mergeability check come QA.
 
-- **Esecuzione JavaScript in questa chat:** riuniti i file ESM del branch in un ambiente V8 con import/export adattati a un unico modulo e un runner `test/assert` compatibile: **17/17 test passati** (12 preesistenti + 5 P1 nuovi). Include seed, clock, pausa, partizionamento dt, punteggio = eventi goal, tattiche, cambi/GK, cursor ID, decisioni/fitness/salute, orientamento e assist.
-- **Campione aggiuntivo, 40 seed:** 182 gol con 164 assist validamente collegati a precedenti passaggi, **18 gol senza assist**; per ogni assist verificato un evento `pass` precedente dallo stesso giocatore verso il marcatore. Questo è **un smoke test**, non una taratura storica dei risultati.
-- **Decisioni:** variando solo `technical.decisions` 0→100 per la casa, su 8 seed 8/8 hanno prodotto feed eventi diversi entro t=1800. Fitness/salute 0/1→100 modificano l'energia iniziale e le posizioni dopo 120 s; energia iniziale finita per tutti i 22.
-- **Smoke incrociato con codice effettivo PR #15 e #16:** `resolveFacing(0,π,−π/2,π/2)` → E/W/N/S; `recordMatch` dell'Agente 8 accredita 1 assist dal payload `goal.detail.assistId` in una partita seed=0, con conteggio gol equivalente agli eventi goal. Codice esterno valutato separatamente nel runner con polyfill locale `structuredClone`.
-- **Limitazione ambiente test:** non è stato eseguito letteralmente `node --test` su un checkout Git locale in questa ripresa; l'ambiente Node locale non riesce a risolvere `github.com` per il clone. I test `node:test` sono salvati nella PR per esecuzione dell'orchestratore/CI. Non dichiarare QA Node/CI né QA smartphone completata.
-- **Verifica perimetro su confronto GitHub `main...agent/oronzo-match-engine`:** solo `oronzo/systems/match-engine/**` e questo `REPORT.md`; nessuna modifica ai file root o agli altri agenti. La branch è attualmente dietro `main` di 21 commit, ma le differenze rilevate erano circoscritte alla propria directory; non rebase/merge automatico.
+**Limite metodo di test, dichiarazione importante:** il container locale ha Node v22.16.0 ma non può clonare GitHub (`Could not resolve host: github.com`); i test qui sono stati eseguiti sul JavaScript V8 ricostruendo in memoria gli import/export da file GitHub, e il cross test Node è stato eseguito con adattatore in-memory per collegare le vere sorgenti #31 e #35. **NON** ho eseguito letteralmente `node --test` su un checkout completo, né un test Chromium/Android: l'audit indipendente 00 dovrà farlo. Nessun valore di test viene spacciato per prova browser.
 
-Da eseguire sul checkout completo:
-```bash
-cd oronzo/systems/match-engine
-node --test
-node cli-demo.mjs 10
-```
+## API definitive / dipendenze
 
-## Integrazione, dipendenze e divergenze
+- **Agente 08 / PR #31 (OPEN):** PlayerV2 di fonte canonica `origin:{comune,regione,macroregione}|null`, `relationships.coachTrust`, tratti caratteriali; i file reali #31 sono stati usati. 08 `previewShout` può essere letto come calcolo puro per confronto, ma `applyShout` **non va invocato** nel match con effetto già risolto dal 06.
+- **Agente 07, adapter e persistenza:** da ClubV1/PlayerV2/CoachV2 reali chiamare `createIndividualShoutCommand`, poi `match.command()`; gestire `accepted/reason`, avanzare il tempo con `match.step(dt)`, consumare `getEventsSince(lastEventId)` senza ridurre eventi duplicati al solo timestamp; passare `fixture.id` univoco come matchId e mantenere il ledger da carriera salvato. Vedi `PLAYER-V2-SHOUT-CONTRACT.md` per esempio completo.
+- **Agente 09, unico proprietario persistente:** applicare clamp del rapporto giocatore, eventuale morale e game over solo se stabiliti nel suo modello, usare `collectCoachEffects`, persistere deltas + `appliedEventIds` nella stessa transazione. Non sommare una seconda reazione da 08.
+- **Agenti 05/12:** eventuale futura UI mostra `individualInstruction` e feedback dell'evento, ma non calcola fisica né decide punteggi. L'attuale runtime di main non integra questi controlli; un modulo PR #35 OPEN non è giocabile dal browser pubblico. Questa PR non modifica HTML, CSS, renderer o camera.
 
-- **Agente 5 / PR #15:** ora `facing` numerico significa radianti. Usare `getEventsSince(lastId)` come feed per il renderer, non soltanto `snapshot.events`. Al cambio del portiere leggere `substitution.detail.goalkeeper` e aggiornare `setKeepers()`. Il reset dell'interpolazione a `kickoff`/intervallo (ORZ-P1-002) e normalizzazione `energy` 0–100 verso 0–1 (ORZ-P2-001) **spettano ancora all'Agente 5**, non alla PR #18.
-- **Agente 8 / PR #16:** le decisioni sono `technical.decisions`, non `mental.decisions`. Per gli assist leggere `goal.detail.assistId` se presente; i gol senza assist lo omettono. `effectiveAbility` deve essere concordata prima dell'uso per evitare fattori fitness/health applicati due volte.
-- **Orchestratore:** preparare MatchInputV1 e calendario, mantenere il cursore eventi per partita e integrare l'API `createMatch / step / snapshot / getEventsSince / command`. Non sono stati toccati gioco principale, classifica o asset.
+## Mancante e rischi
 
-## Mancante / problemi noti
+- PR #31 è ancora aperta; Node cross-test è progettato per checkout combinato: se PlayerV2 non c'è si marca SKIP, e quello **non vale come PASS** per il gate. Prima del merge lo 00 deve ricreare il checkout combinato e lanciare `node --test` e `npm run qa`; verificare eventuali cambi all'HEAD di PR #31.
+- Il JSON roundtrip copre PlayerV2, eventi e ledger. `snapshot()` **non** consente la ripresa completa di una partita a metà gara perché non contiene RNG, flight, pending commands e cooldown: persistenza partita live non è consegnata, né richiesta come feature aggiuntiva in questo ciclo.
+- Le soglie di efficacia, cooldown e durata sono formule di bilanciamento iniziali, non valori storici attestati. Rigori e fasi specialistiche restano semplificati secondo il motore originario. QA su smartphone e integrazione 07/09/12 rimangono esterni.
 
-- Le simulazioni usano tick di 1 s e modelli semplificati per offside, fisica, rigori, calci piazzati, falli e riprese; non sono ancora una riproduzione normativa completa del 1985/86.
-- Una sostituzione ha effetto immediato anziché attendere una sospensione di gioco (comportamento già documentato).
-- Il campione di 40 seed non sostituisce il confronto con vere distribuzioni calcistiche; eventuale frequenza gol da ribilanciare dopo l'audit complessivo.
-- Il renderer #15 e il modulo attributi #16 non sono stati modificati né uniti qui.
-- PR #18 **ancora in review**; nessun merge fatto.
+## Proposte alla regia (NON eseguire nuovo ciclo in questa chat)
 
-## Proposta per il ciclo successivo (solo se l'orchestratore autorizza tramite NEXT)
+1. Coerentizzatore 00: checkout combinato PR #31 + #35 sugli HEAD dichiarati, eseguire `node --test oronzo/systems/match-engine/tests/*.mjs`, `node --test oronzo/systems/attributes/tests/*.js`, `node oronzo/systems/match-engine/cli-qa.mjs`, smoke QA con PlayerV2 reale e verifica eventuali regressioni del runner.
+2. Dopo PASS e merge autorizzato, Agente 07: adapter dei comandi e ledger persistente con Coach09, con test end-to-end save/reload e una sola contabilizzazione degli eventi.
+3. Solo successivamente, Agente 12: UI individuale landscape con selettore tono/target, rifiuti espliciti e feedback degli effetti temporanei tramite evento senza chiamare direttamente 08.
 
-1. Eseguire `node --test` su una checkout comune delle PR #15/#16/#18 e uno smoke di interazione reale con GK sostituito, assist e halftime senza teletrasporti grafici.
-2. Concordare integrazione dei modificatori con `effectiveAbility` tramite dependency injection per evitare il doppio conteggio.
-3. Solo dopo merge e nuovo `NEXT=READY`, migliorare set piece, rigori e bilanciamento del numero di tiri/gol su campioni più ampi.
+**Consegna:** PR #35 pronta a revisione indipendente, non approvata/mergiata dall'autore.
