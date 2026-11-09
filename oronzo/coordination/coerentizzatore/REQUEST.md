@@ -1,3 +1,25 @@
+# ORONZO — AGENTE 00 · AUDIT ANTICIPATO INDIPENDENTE DELLA PORZIONE GIÀ PUBBLICATA R11
+
+**STATO: `READY_PARTIAL_AUDIT_R11_PINNED_HEADS` — mandato del proprietario del 9 novembre 2026.** Il 07-bis sta proseguendo l'unica esecuzione di integrazione U1–U9; il proprietario chiede **di avviare subito** la revisione indipendente **solo del codice già pubblicato** senza attendere che ogni collegamento restante sia finito. Questo mandato prevale sull'archivio REQUEST qui sotto. Non bloccare o interferire con il 07-bis; l'audit di oggi è **intermedio, non la certificazione finale di tutto U1–U9**.
+
+## Checkout congelato da verificare
+- `main` osservato all'incarico: `62c2e24b50c2189e952b628f1f0dbf1f38770e86`.
+- [PR #63 UI](https://github.com/CzekUns/cercax/pull/63) **HEAD da fissare** `8fd4df94cc477d909f165cffecaeeb07f8871f81` (OPEN).
+- [PR #66 Backend](https://github.com/CzekUns/cercax/pull/66) **HEAD da fissare** `575f8c56cf477833e0b8dbfced407a83e2265f2f` (OPEN).
+- [PR #67 QA combinato](https://github.com/CzekUns/cercax/pull/67) **HEAD da fissare** `b2209762cd600425b9311a610bb8c8f946ace9e4` (OPEN DRAFT): branch che combina #63+#66 per test senza merge; NON deve essere mergiata. Workflow [GitHub Actions #42711637028](https://github.com/CzekUns/cercax/actions/runs/42711637028) concluso **success** sull'HEAD #67; è QA eseguita dalla pipeline, non test indipendente dello 00.
+- Se gli HEAD delle PR cambiano durante l'audit, **continua a valutare gli SHA congelati** e annota che gli HEAD successivi richiedono delta-review; non attribuire PASS a commit non controllati.
+
+## Scope: certifica la parte completata, identifica il resto
+1. Leggi diff e codice autentico di #63, #66 e #67; recupera suite, artefatti CI, eventuali REPORT e log. Non fidarti di descrizioni PR obsolete: le #63 e #67 possono contenere nuovo codice non riflesso nel testo storico. Determina quale parte di U1–U9 è **collegata end-to-end nel gioco pubblico** e quale è ancora solo API, codice non accessibile o lavoro in corso. Crea matrice U1–U9 con colonne `API presente / adapter / UI raggiungibile / test indipendente / verdict`.
+2. **Node nativo su checkout autentico:** save manager IndexedDB A/B, checksum, migrazione legacy, failure/recovery, 2 stagioni standard PROM30 e divisioni38, settimane31–38, conferenze e stipendi senza duplicazioni; training RECUPERO73 e 5 piani, idempotenza e persistenza; stadio biglietti/affluenza/incassi su vera fixture casalinga, presidente/mercato e seller release, fiducia persistShout, 600 cognomi08 e identità in rosa. Non sostituire quota browser reale con una Map senza limiti.
+3. **Chromium HTTP reale, UI autentica**, alle viewport 640×360,800×360,844×390,960×400, safe-area e touch: percorso 1979 nuova partita→offerte→stampa→rosa/allenamento e RECUPERO73 dopo reload→stadio/prezzo→presidente/mercato→FULL/TV, comandi/cambi→calendario/bye→due stagioni e caricamento. Verifica controlli davvero cliccabili e reazioni reali, non segnali di stato simulati; PNG reali, 22 giocatori e touch ≥44 px. Distingui prove browser da Android fisico (non attestato).
+4. Gate differenziati: **PASS_PARZIALE** per una feature solo se API+adapter+UI+persistenza sono realmente provati; **NEEDS_CHANGES** per bug riproducibile, **NON_CERTIFICATO** se non testato, **NON_INTEGRATO** se manca wiring. Le funzioni non finite **non trasformano automaticamente in FAIL** quelle già controllate; un PASS_PARZIALE **non** autorizza merge e non dimostra che R11 sia completo.
+5. Pubblica REPORT indipendente su branch audit documentale e PR senza toccare codice, NEXT, asset o PR originali; riporta SHA precisi, comando test/log/screenshot e punti di correzione solo ove necessari. Presenta al 10-bis il perimetro già certificato e i delta ancora da controllare alla **consegna finale** del 07-bis. **Non effettuare merge di nessuna PR**, neppure se verde. Non chiudere l'audit finale U1–U9 in anticipo.
+
+---
+
+## ARCHIVIO REQUEST PRECEDENTE
+
 # ORONZO — COERENTIZZATORE 00 · AUDIT PRE-MERGE PR #63 / AGENTE 07-BIS
 
 **STATO: `READY_REVIEW_PR63_R11_01` — 9 novembre 2026.** Consegna 07-bis [PR #63](https://github.com/CzekUns/cercax/pull/63), HEAD iniziale `6eb647894f79b38bc26915f016d245b7ee25bc85`, branch `agent/oronzo-07b-sections-r11-01`, READY, non merged. L'utente ha comunicato «7bis fatto»: si deve verificare e poi richiedere consenso al merge. Controlla eventuale nuovo HEAD live.
