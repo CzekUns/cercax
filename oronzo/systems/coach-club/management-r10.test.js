@@ -189,7 +189,10 @@ test('market real request -> director/president -> agreement -> fee/debit -> con
   terms:{sellerAccepts:true,sellerFee:19000,agreedWage:8000}});
  assert.equal(negotiated.accepted,true);
  assert.equal(finalizeTransferInWindow(negotiated.club,{requestId:'bid',window:{...activeWindow,open:false},period:a.per}).reason,'market_window_closed');
- const purchased=finalizeTransferInWindow(negotiated.club,{requestId:'bid',window:activeWindow,period:a.per});
+ const missing=finalizeTransferInWindow(negotiated.club,{requestId:'bid',window:activeWindow,period:a.per});
+ assert.equal(missing.reason,'career07_seller_release_required');
+ const release={source:'career-07',confirmed:true,playerId:'new1',sellerClubId:'seller'};
+ const purchased=finalizeTransferInWindow(negotiated.club,{requestId:'bid',window:activeWindow,period:a.per,sellerRelease:release});
  assert.equal(purchased.accepted,true);
  assert.equal(purchased.club.finance.cash,a.club.finance.cash-19000);
  assert.equal(purchased.club.players.at(-1).contract.weeklyWage,8000);
