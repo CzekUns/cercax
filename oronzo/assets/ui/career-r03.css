@@ -91,3 +91,16 @@
 #oronzo-r03 .runtime-answers>*{flex-shrink:0}
 #oronzo-r03 .runtime-answers>.ui-btn{flex:1 0 auto;max-height:none;overflow-wrap:anywhere}
 #oronzo-r03 .runtime-answers::before{content:'↕ Scorri per leggere tutte le risposte';display:block;flex:0 0 auto;color:var(--gold);font-size:9px;line-height:1.23}
+
+/* F01: sixth navigation control remains active even while career buttons are disabled in match.
+   The existing 50px nav leaves a genuine 44px touch target at every supported landscape width. */
+#oronzo-r03 .quick-nav #fullscreen-toggle{
+  min-width:0;min-height:44px;flex:1;box-sizing:border-box;
+  padding:2px 3px;border:2px ridge #ffe6a0;
+  background:#82630c;color:#fff6cf;text-shadow:1px 1px #332300;
+  font:900 9px/1.15 Verdana,Tahoma,Arial,sans-serif;
+  white-space:normal;overflow-wrap:anywhere;letter-spacing:0;
+}
+#oronzo-r03 .quick-nav #fullscreen-toggle.is-fullscreen{
+  background:#194a9a;border-color:#a6d7ff;
+}
