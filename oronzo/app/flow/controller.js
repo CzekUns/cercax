@@ -20,7 +20,7 @@ import { applyTrainingWeek, applyMatchLoad, advanceSeason } from '../../systems/
 import { chooseTrainingPlan,settleHomeAttendance,persistShout } from '../../systems/coach-club/index.js';
 import {initializeCareerVenues} from './management-r11.js';
 export {changeCareerTicketPrice,requestCareerPresident,decideCareerPresident,
- listCareerMarketCandidates,careerMarketOperation,getCareerMarketWindow}
+ listCareerMarketCandidates,careerMarketOperation,careerSaleOperation,getCareerMarketWindow}
  from './management-r11.js';
 export {createDurableSaveManager} from './durable-save.js';
 import { ensureM1Ledger, attachSourcedPlayers, chooseM1Training, settleM1Training,
