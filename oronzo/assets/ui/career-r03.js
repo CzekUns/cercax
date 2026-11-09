@@ -343,7 +343,7 @@ function advance(){if(!state)return;const week=state.absoluteWeek;
   persistAction((result.weekType==='bye_week'?'Turno di riposo':'Giornata')+' '+week+' salvato · '+state.gameDate);
  });
 }
-async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career'].includes(action))return failure('GAME_OVER');
+async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career','export-save'].includes(action))return failure('GAME_OVER');
  switch(action){case 'reset-career':restartAfterGameOver();break;case 'home':if(state&&screen!=='entry'&&screen!=='match'&&activeStage()==='hub'){display('hub')}else display('entry');break;
  case 'start':display('avatar');break;case 'avatar':avatar=Number(value);render();break;case 'back-avatar':display('avatar');break;case 'begin':newCareer();break;
  case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press}),()=>{selectLineup();display('president');persistAction('Contratto di ingaggio salvato')});break;}
