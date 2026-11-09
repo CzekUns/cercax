@@ -278,6 +278,13 @@ test('U8: two standard seasons, 30 coach fixtures + bye weeks 31–38 and checks
   }
   assert.equal(matches,30);
   assert.equal(byes,8);
+  const managed=state.clubs.find(c=>c.id===originalClub);
+  const settlements=managed.management?.stadiumSettlements||[];
+  assert.equal(settlements.length,15*(season+1),
+    'exactly one authentic home attendance settlement per home fixture');
+  assert.equal(new Set(settlements.map(x=>x.fixtureId)).size,settlements.length);
+  assert.ok(settlements.every(x=>Number.isSafeInteger(x.attendance)&&
+    Number.isSafeInteger(x.revenue)&&x.revenue===x.attendance*x.priceITL));
   assert.equal(state.flow.history.filter(x=>x.seasonYear===1979+season&&x.weekType==='bye_week').length,8);
   // Both files are genuine final states after 30 played fixtures and bye 31–38;
   // Chromium uses them to test two native IndexedDB slots at browser quota.
