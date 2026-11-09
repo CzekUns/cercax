@@ -1,3 +1,13 @@
+# ORONZO — AGENTE 10 · R11-01 PR63 CONSEGNATA / GATE 00
+
+**STATO: `WAIT_00_PR63_AUDIT` — 9 novembre 2026.** Agente 07-bis ha consegnato [PR #63](https://github.com/CzekUns/cercax/pull/63) HEAD `6eb647894f79b38bc26915f016d245b7ee25bc85`, branch `agent/oronzo-07b-sections-r11-01`, **OPEN / NOT MERGED / mergeable** al controllo. Ambito: player card, training interattivo, tre tab Stadio/Tifosi/Giornali e agenda dinamica con bye-week. Test dichiarati solo **V8 isolato 14/14 R11 e 10/10 UI12**, senza Node nativo su checkout, Chromium HTTP o Android. Stadio **soltanto grafica/lettura**; manca `club.stadium` canonico e adapter transazionale Career07/Coach09 per prezzi/affluenza. `oronzo/assets/ui/sections-r11/HANDOFF-07-09.md` è handoff preciso. Non dichiarare completato lo stadio operativo.
+
+**Prossimo passo:** auditor00 deve concludere gate mirato di PR63 (richiesta già messa in `coerentizzatore/REQUEST.md`), con Node/Chromium reale e regression tests S12 + save/load + bye-week, e attestare cosa può essere mergiato come beta e quali dipendenze sono P1 future. Finché manca PASS non autorizzare merge cieco. Dopo decisione dell'utente su merge, 12 riceve screenshot delle nuove sezioni; 07 originale integra stadio con09 in una PR backend separata. Evitare rieseguire 07B sullo stesso codice finché il revisore non ha difetti riproducibili.
+
+---
+
+## ARCHIVIO NEXT PRECEDENTI
+
 # ORONZO — AGENTE 10 · ATTIVAZIONE 07-BIS PER SCHERMATE R11
 
 **STATO: `AGENT_07B_CREATED_R11_01_READY` — 9 novembre 2026.** Su richiesta utente creato **Agente 07-bis / `ORONZO-AGENT-07B`**, registry ID tecnico 13, [issue #62](https://github.com/CzekUns/cercax/issues/62), spec `oronzo/agents/07b-sections.md` e `oronzo/coordination/07b-sections/{IDENTITY,RUN,NEXT}.md`. Distinto da 07 originale (Career/flow) e 12 (correzioni grafiche da screenshot). L'incarico **R11-01** comprende scheda giocatore illustrata, allenamento vero 5 piani e intensità, viste Stadio/Tifosi/Giornali con backend reale o blocchi espliciti, agenda «Cosa fare oggi» con gestione bye-week. Nuovi moduli preferiti `oronzo/assets/ui/sections-r11/**`; innesti minimi `career-r03.js/css/html` con no conflict12. 07B crea PR e REPORT, non merge. 12 NEXT riallineato per concentrarsi su feedback da telefono senza avviare lo stesso lavoro. Backlog `TODO-R11-SEZIONI-UI.md` prevale sui vecchi owner assignment. **Le chat Work vanno avviate dall'utente con il prompt 07B**: un commit di coordinamento non avvia autonomamente un agente. Prima di nuovi merge, auditor00 controlla regressioni e browser reale.
