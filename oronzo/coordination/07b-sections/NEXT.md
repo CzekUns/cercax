@@ -1,0 +1,20 @@
+# ORONZO — AGENTE 07-BIS · R11-01: SCHEDE/ALLENAMENTO/STADIO/AGENDA
+
+**STATO: `READY_R11_01` — 9 novembre 2026.** Nuovo agente, primo incarico. Issue [#62](https://github.com/CzekUns/cercax/issues/62); branch nuovo `agent/oronzo-07b-sections-r11-01` **dall'ultimo main**, una sola PR. Attenzione: 07 è un altro agente e non va copiato il suo codice.
+
+## Priorità e deliverable da CONCLUDERE
+**A — Scheda giocatore (R11-06)**: trasformare `renderPlayer` da due elenchi tecnici in una scheda piena e leggibile, con nome, ruolo, età, piede, origine (solo se nota), condizione, forma, fatica, salute, infortuni, squalifiche, contratto, tratti speciali, fiducia nel mister e attributi tecnici/fisici/mentali tramite barre o indicatori leggibili. `getRosterPlayer` e `getTrainingPlayer` devono condividere lo stesso playerId e lo stesso aspetto. Se l'asset è disponibile, usare le maschere/atlas reali dell'01 e il kit per rappresentazione coerente; non generare un ritratto fantasioso con caratteristiche che non corrispondono al player.
+
+**B — Allenamento attivo (R11-03)**: in sottosezione dedicata scegliere realmente piani `technical/athletic/tactical/balanced/rest` e intensità `0..100`, chiamare `selectM1Training(state,{plan,intensity,expectedAbsoluteWeek:state.absoluteWeek})` e salvare lo stato. UI deve visualizzare il piano corrente, possibili errori, cambio dati **solo dopo** `advanceMatchday` e mai doppia applicazione su reload. Eliminare il bottone finto `MODIFICA ALLENAMENTO · NON DISPONIBILE`, sostituendolo con azione vera. Mostrare esiti e condizioni reali se esposti dal ledger.
+
+**C — Tifoseria/Stadio (R11-08/R11-10)**: costruire vera navigazione secondaria `STADIO`, `TIFOSI`, `GIORNALI`. Schermata Stadio con immagine originale/locale coerente, capienza, condizioni, prezzo biglietto, incassi, presenze solo se dati reali. API09 `setTicketPrice`, `settleHomeAttendance` non bastano senza `club.stadium` autentico/adapter transazionale Career07. **Se manca lo stato**, mostrare un messaggio comprensibile e concludere un contratto esatto per07/09, senza inventare capienza o incassi. Le altre sottoviste possono utilizzare indicatori ed eventi realmente persistiti.
+
+**D — Scrivania «COSA FARE OGGI» (R11-13)**: agenda contestuale, non lista statica: allenamento non pianificato, formazione/prepartita, conferenza, salvataggio, richieste presidenziali se veramente disponibili. Link funzionali alle sottosezioni. **Fix R11-01:** per `getCoachWeekStatus(state).kind==='bye_week'`, mostrare `AVANZA SETTIMANA` e invocare `advanceMatchday(state,{presidentCatalog,expectedAbsoluteWeek:state.absoluteWeek})`; per `match_pending` non permettere saltare una partita. Test settimane 31–38, save/load, payroll idempotente.
+
+**E — Catena prova minima**: caricamento HTML, entry→avatar→offerta→hub→allenamento→scheda giocatore→salva→ricarica→stadio→agenda→partita e bye-week; browser HTTP e Node su gioco autentico. Non toccare la landing S12-001/004 né reinserire footer. Non tentare di integrare TV/sostituzioni/shouts come espansione fuori da questi obiettivi in questo primo ciclo: restano R11-02/04 per mandato successivo.
+
+## Limiti di perimetro
+Preferire nuovi moduli `oronzo/assets/ui/sections-r11/`, con minimo import/dispatch in `career-r03.js` e CSS. Non riscrivere controller07, ATTR08, economia09; per API non ancora pronte documentare `BLOCKED_DEPENDENCY` con firma input/output precisa. Se 12 sviluppa contemporaneamente su blocchi analoghi, avvisare in issue #54 e coordinare, mai fare force push sugli aggiornamenti altrui. Il 12 rimane correttore da screenshot; non lavorare su una PR UI già aperta dal 12.
+
+## Done quando
+PR pubblicata, REPORT tecnico completo, ciascuna sezione implementata e provata o dichiarata bloccata da backend con motivazione documentata, test Node e browser REALI o limiti test dichiarati, 44px e landscape preservati, nessun merge. Il completamento globale di R11 richiederà ulteriori cicli per Campionato, Presidente/mercato, formazione con lavagna e TV (vedi [TODO R11](../10-orchestrator/TODO-R11-SEZIONI-UI.md)).
