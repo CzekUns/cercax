@@ -107,3 +107,43 @@
  #oronzo-r03 .r11-player-hero{flex-wrap:wrap}
  #oronzo-r03 .r11-player-ident>small{font-size:8px}
 }
+
+
+/* R11 full-integration: coach president / board / market in landscape. */
+#oronzo-r03 .r11-president-page{display:flex;flex:1;min-height:0;width:100%}
+#oronzo-r03 .r11-president-panel{display:flex;flex:1;flex-direction:column;min-width:0;min-height:0;gap:4px}
+#oronzo-r03 .r11-pres-tabs .ui-btn{min-height:44px;flex:1}
+#oronzo-r03 .r11-manager-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+#oronzo-r03 .r11-manager-stat{display:flex;flex-direction:column;padding:5px;background:#0b265e;border:1px ridge #6699d0;gap:2px}
+#oronzo-r03 .r11-manager-stat small{font-size:9px;color:#b6d0ed}
+#oronzo-r03 .r11-manager-stat b{font-size:11px;color:#ffdb61;overflow-wrap:anywhere}
+#oronzo-r03 .r11-management-form{display:flex;flex-wrap:wrap;gap:4px;padding:4px;background:#112a62;border:2px ridge #5678b4;margin:5px 0}
+#oronzo-r03 .r11-management-form label{display:flex;flex-direction:column;flex:1 1 130px;min-width:0;font-size:9px;gap:2px;color:#dce8ff}
+#oronzo-r03 .r11-management-form select,
+#oronzo-r03 .r11-management-form input{background:#0a2054;color:#fff0b3;border:2px ridge #739de1;height:44px;min-height:44px;width:100%;font:10px Verdana;padding:5px}
+#oronzo-r03 .r11-management-form .ui-btn{min-width:140px;min-height:44px;align-self:flex-end}
+#oronzo-r03 .r11-manager-history{display:flex;flex-direction:column;gap:4px;padding:4px;background:#0b2356;border:1px ridge #597fc1}
+#oronzo-r03 .r11-manager-history>strong{color:#ffdf75;font-size:10px}
+#oronzo-r03 .r11-manager-history>p{font-size:9px}
+#oronzo-r03 .r11-manager-row{display:flex;gap:6px;align-items:center;justify-content:space-between;border-top:1px solid #5477ab;padding:4px 0;min-height:44px}
+#oronzo-r03 .r11-manager-row>span{display:flex;flex-direction:column;min-width:0;overflow-wrap:anywhere}
+#oronzo-r03 .r11-manager-row b{font-size:10px;color:#eada9d}
+#oronzo-r03 .r11-manager-row small{font-size:9px;color:#c6dcf8}
+#oronzo-r03 .r11-manager-row .ui-btn{flex:0 0 93px;min-height:44px;font-size:9px}
+#oronzo-r03 .r11-status-chip{border:1px ridge #ad9356;background:#2d3555;color:#edd7a2;padding:6px;font-size:9px}
+#oronzo-r03 .r11-manager-window{display:flex;flex-direction:column;gap:4px;padding:7px;background:#112753;border:2px ridge #d4b962}
+#oronzo-r03 .r11-manager-window b{font-size:11px;color:#ffcf71}
+#oronzo-r03 .r11-manager-window small{font-size:9px}
+#oronzo-r03 .r11-market-split{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+#oronzo-r03 .r11-market-split .r11-management-form{align-content:start;min-width:0}
+#oronzo-r03 .r11-market-split .r11-management-form strong{flex:1 0 100%;font-size:11px;color:#ffe395}
+#oronzo-r03 .r11-stadium-price{display:flex;gap:4px;align-items:center;margin-top:8px;flex-wrap:wrap}
+#oronzo-r03 .r11-stadium-price input{flex:1;min-width:100px;height:44px;min-height:44px;padding:5px;background:#091e4d;border:2px ridge #8cb4e3;color:#fff2c7}
+#oronzo-r03 .r11-stadium-price button{min-height:44px;flex:0 0 134px;font-size:10px}
+#oronzo-r03 .r11-formation-board{background:repeating-linear-gradient(0deg,#1a704b 0 30px,#205b43 31px 60px);border:3px ridge #e4d3a0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,1fr);gap:3px;min-width:0;min-height:0;flex:1;padding:5px}
+#oronzo-r03 .r11-position-marker{border:2px solid #ffdf86;border-radius:14px;background:#182e64;color:#fff6db;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;overflow:hidden;min-height:26px}
+#oronzo-r03 .r11-position-marker b{font-size:9px}
+#oronzo-r03 .r11-match-orders{display:flex;flex-direction:column;gap:3px;min-width:0;overflow-y:auto}
+#oronzo-r03 .r11-match-orders select{min-width:0;min-height:44px;width:100%;color:#ffe0a0;background:#0b2461;border:2px ridge #5479b7;font-size:9px}
+#oronzo-r03 .r11-match-orders .ui-btn{min-height:44px;font-size:9px}
+@media(max-width:675px){#oronzo-r03 .r11-manager-summary{grid-template-columns:repeat(2,minmax(0,1fr))}#oronzo-r03 .r11-market-split{grid-template-columns:1fr}}
