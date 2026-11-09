@@ -1,3 +1,19 @@
+# ORONZO — AGENTE 09 · NUOVO CICLO R10 GESTIONALE, DA CONCLUDERE
+
+**STATO: `READY_R10_MANAGEMENT` — 9 novembre 2026.** Questa direttiva aggiornata prevale su `WAIT_REVIEW` R06 e sulle vecchie istruzioni archiviate. Le PR #32 e #39 sono già **MERGED**; non riaprire #39 e non duplicare il morale R03. Il proprietario ha autorizzato una seconda ondata parallelizzata. **Crea un nuovo branch da ultimo main** `agent/oronzo-coach-club-r10-management` e una PR nuova, dedicata solo al tuo scope `oronzo/systems/coach-club/` + tuo REPORT.
+
+**Obiettivo definitivo:** rendere realmente operative le scelte gestionali di ORONZO 1979. Completare su codice persistente/testabile (non soltanto progettazione): (1) `papponeria` presidente, compatibilità caratteriale e limiti di spesa; (2) stadio, prezzo biglietti, affluenza, ricavi e risposta tifosi; (3) richieste del mister a presidente, decisioni e motivazioni, conseguenze finanziarie/relazionali; (4) proposte/negoziazioni mercato da **abilitare esclusivamente** nelle finestre di carriera07 validate, senza inventare regole storiche; (5) ledgers idempotenti per data/stagione, coach morale, trust dei calciatori dopo eventi 06/07 `fixtureId:eventId`; (6) save/load, periodi e stagioni senza doppia contabilità.
+
+**Due verticali obbligatori:** biglietti→ricavo→umore tifosi→morale; richiesta→decisione→bilancio/relazioni. Per trasferimenti, fornire API e guard di finestra/contratto e segnalare la dipendenza career07; **non inventare una rosa valida** né modificare flow07 direttamente. Integra i `pending_agent09_player_trust` del port ledger PR #56, senza sommare temporanei già applicati dall'Engine06. Contract scritto e test con PlayerV2 PR #31 e shouts PR #35 su checkout combinato, se possibile.
+
+**Concludere la PR:** Node reali, simulazione 2 stagioni, idempotenza/reload, casi vincoli e budget, API/README, report, SHA e test esatti. Le PR #31/#35/#56 sono ancora OPEN: non rivendicare integrazione main finché non è avvenuta; separare test di unità da vero E2E. Nessuna modifica UI, motore, dataset o main; nessun merge autonomo. Se una dipendenza è tecnicamente bloccata, completa tutto il resto e identifica la firma mancante con precisione.
+
+**Riferimento:** [Roadmap R10](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md) e [visione v0.2](../GAME-VISION-v02.md). L'attuale ciclo NO Layout Studio non riguarda il tuo scope.
+
+---
+
+## ARCHIVIO ISTRUZIONI 09 PRECEDENTI
+
 # ORONZO — AGENTE 09 · STATO POST R06 — HOLD MIRATO PR #39
 
 **Stato attuale: `WAIT_REVIEW`.** Audit [R06](https://github.com/CzekUns/cercax/blob/audit/oronzo-r06-38-39/oronzo/coordination/coerentizzatore/REPORT-R06.md) ha eseguito con #38 + #39 **91/91 suite PASS**, ma la prova E2E reale fallisce perché l'attuale flow del **07** non dispone del `club.regionId` e non collega automaticamente gli applier del 09. È un incarico di integrazione a **07** e NON un difetto dimostrato in Coach09. **Nessun fix assegnato al 09 ora**, non riaprire #39, non fare merge né iniziare R04. Se 00/07 dimostrano poi un bug nelle firme o nei guard 09, 10 assegnerà un fix con evidenze esatte.
