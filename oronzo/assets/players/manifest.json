@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "project": "Oronzo 1985/86 — sprite atlas A",
   "type": "indexed-palette-player-atlas",
   "license": "original-art",
@@ -1685,5 +1685,20 @@
     "fileScope": "oronzo/assets/players/",
     "mustRender": "image-rendering: pixelated",
     "position": "pivot x16 y29 = feet ground position; frames clipped to cells"
+  },
+  "artRevision": "R02-1979-fullfield",
+  "visualQA": {
+    "reference": "reteee-2.png (inspiration only, original pixels)",
+    "view": "22 player full field at native 640x360, letterboxed at 844x390",
+    "previewFiles": [
+      "match-22-preview-640.png",
+      "match-22-preview-844x390.png"
+    ],
+    "demo": "match-22-demo.html",
+    "apparel": "team-looks.js: 2 high contrast outfield kits + 2 keeper kits and deterministic skin/hair previews",
+    "scope": "Match assets only; coach avatars and UI owned by Agent 03",
+    "sourceFactory": "sprite-factory.js",
+    "regression": "qa-atlas.test.mjs",
+    "compatibility": "Existing actions/directions/material ids/coordinates/pivots unchanged"
   }
 }
