@@ -1,3 +1,15 @@
+# ORONZO — AGENTE 10 · CONTROLLO 9 NOVEMBRE 2026, ONDATE R10
+
+**STATO: `WAVE1_DELIVERED_WAVE2_PARTIAL`.** Verifica GitHub: PR #28, #29, #31, #35, #52, #53, #55 e **#56 nuova da Agente07** tutte OPEN / non mergiate. L'audit indipendente00 [#55](https://github.com/CzekUns/cercax/pull/55) ha PASS #52/#53 e checkout combinato; si attende consenso utente per merge, NON procedere automaticamente. #28 camera 54 scenari con PNG reali in Chromium offline (HTTP browser bloccato); #29 sprite con PNG/atlas verificati ma senza prova browser HTTP; #31/#35 comandi PlayerV2/600 cognomi consegnati, non testati in Node combinato autenticato. #56 adapter carriera su branch, 8/8 Node mirati e V8 reale, E2E mancante.
+
+**Seconda ondata:** 07 ha **consegnato PR #56**. 09 non ha ancora pubblicato nuovo branch/PR gestionale al controllo; NEXT09 aggiornato per superare l'archiviato `WAIT_REVIEW` post #39 merged, mandato R10 P1 attivo. 12 non ha pubblicato branch/PR, coerente con `READY_FOR_USER_SCREEN_FEEDBACK`: attende primo screenshot. L'Agente00 deve ora auditare #28/#29/#31/#35/#56 con suite combinata e ordine di merge, dopo gate #52/#53 già concluso. 11 standby, 03 storico, nessun Layout Editor.
+
+**Prossimo passo autorizzativo necessario:** decidere merge **delle sole** #52 e #53 già PASS, una alla volta con controllo main/combined. Non inferire autorizzazione da richieste generiche di stato. Le altre PR attendono audit indipendente, non vanno mergiate per anzianità o mergeable GitHub.
+
+---
+
+## ARCHIVIO NEXT10 PRECEDENTE
+
 # ORONZO — AGENTE 10 · ACCELERAZIONE M1 DOPO GAP ANALYSIS R10
 
 **STATO: `ORCHESTRATE_M1_CRITICAL_PATH` — 8 novembre 2026.** Priorità corrente del proprietario: capire ciò che manca rispetto a [GAME-VISION-v02](../GAME-VISION-v02.md) e **accelerare verso M1 realmente giocabile**. Audit e piano eseguibile in **[ROADMAP-R10-ACCELERAZIONE.md](ROADMAP-R10-ACCELERAZIONE.md)** (questa è la fonte operativa aggiornata rispetto ai vecchi elenchi R02/PLAN).
