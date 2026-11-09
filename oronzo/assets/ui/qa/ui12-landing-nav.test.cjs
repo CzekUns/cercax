@@ -1,4 +1,4 @@
-// UI12 S12-001/002: isolated source-level regression tests; not a Chromium visual audit.
+// UI12 S12-001/002/003: isolated source-level regression tests; not a Chromium visual audit.
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -28,7 +28,7 @@ function renderOn(screen, withFullscreen = false) {
     },
   };
   const area = { innerHTML: '' }, mounted = { count: 0 };
-  const stubs = ['Entry','Avatar','Offers','President','Press','Hub','Player',
+  const stubs = ['Entry','Avatar','Offers','President','Press','Hub','HubSection','Player',
     'Formation','Match','Post','Season','Unemployed','Gameover']
     .map(name => `const render${name}=()=>'<article>${name}</article>';`).join('\n');
   const make = new Function('env', `
@@ -53,10 +53,13 @@ test('S12-001: opening contains only two functioning career actions', () => {
 });
 test('S12-001: landing styles own the viewport without changing shared panels', () => {
   assert.match(styles, /#oronzo-r03\[data-screen="entry"\] #ui-screen\{padding:0;gap:0\}/);
-  assert.match(styles, /runtime-entry-actions[\s\S]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+  assert.match(styles, /runtime-entry\{[\s\S]*grid-template-columns:minmax\(0,1\.55fr\) minmax\(185px,1fr\)/);
+  assert.match(styles, /office-desk-v02\.png/);
+  assert.match(styles, /runtime-entry-actions\{[\s\S]*flex-direction:column/);
+  assert.match(entryHtml(), /class="runtime-entry-visual"/);
 });
-test('S12-002: all 13 screens hide persistent navigation while preserving rendering', () => {
-  for (const screen of ['entry','avatar','offers','president','press','hub','player',
+test('S12-002: all 14 screens hide persistent navigation while preserving rendering', () => {
+  for (const screen of ['entry','avatar','offers','president','press','hub','hub-section','player',
     'formation','match','post','season','unemployed','gameover']) {
     const result=renderOn(screen);
     assert.equal(result.nav.hidden, true, screen);
@@ -76,4 +79,84 @@ test('S12-002: future F01 fullscreen link moves to header, retaining node identi
 test('S12: preserved former M01 touch fixes', () => {
   assert.match(styles, /runtime-answers::before/);
   assert.match(styles, /runtime-match-panel>\[data-action="finish-qa"\]/);
+});
+
+function sectionFixture() {
+  const code=between('const hubMenu=', 'function renderFieldGroup(');
+  const make=new Function('env', [
+    'let selectedHub="campionato", state=env.state;',
+    'const getUI=()=>env.ui;',
+    'const esc=s=>String(s??""),',
+    ' head=(name)=>"<h1>"+name+"</h1>",',
+    ' pane=(name,html,extra)=>"<section class=\\""+extra+"\\">"+html+"</section>",',
+    ' h=html=>"<div class=\\"runtime-controls\\">"+html+"</div>",',
+    ' btn=(name,action)=>"<button data-action=\\""+action+"\\">"+name+"</button>",',
+    ' kpis=()=>"<aside>INDICATORI</aside>",',
+    ' playerRow=(p)=>"<button data-action=\\"player\\">"+p.name+"</button>",',
+    ' tableRow=(r)=>"<div class=\\"runtime-table-row\\">"+r.clubName+"</div>",',
+    ' president=()=>({name:"Presidente QA",goal:"Promozione"}),',
+    ' getStandings=()=>[{clubName:"Club QA",points:3,played:1}];',
+    code,
+    'return {renderHub,renderHubSection,hubMenu,setSection(v){selectedHub=v}};'
+  ].join('\n'));
+  const ui={gameDate:'1979-08-01',seasonWeek:1,
+    club:{id:'club-1',name:'Club QA',divisionId:'PROM',
+      players:[{playerId:'player-1',name:'Giocatore QA',positions:['GK']}]},
+    upcomingFixture:null,coach:{relationships:{fans:50,media:50}}};
+  const state={clubs:[{id:'club-1',boardTrust:50,finance:{cash:100,arrears:0}}]};
+  return make({ui,state});
+}
+test('S12-003: office shows five navigable cards, never an inline right preview', () => {
+  const fixture=sectionFixture(),html=fixture.renderHub();
+  assert.equal((html.match(/data-action="section"/g)||[]).length,5);
+  assert.match(html,/runtime-hub-home/);
+  assert.ok(!html.includes('runtime-hub-detail'));
+  assert.ok(!html.includes('runtime-table-row'));
+  assert.match(html,/data-action="formation"/);
+  assert.match(html,/data-action="save"/);
+});
+test('S12-003: each office section is a full panel with actual data and a return action', () => {
+  const fixture=sectionFixture();
+  const expectations={
+    campionato:'runtime-table',rosa:'runtime-roster-list',
+    allenamento:'runtime-roster-list',tifoseria:'Morale tifosi',
+    presidente:'Fiducia'
+  };
+  for(const [section,marker] of Object.entries(expectations)){
+    fixture.setSection(section);
+    const html=fixture.renderHubSection();
+    assert.match(html,/runtime-hub-detail/,section);
+    assert.ok(html.includes(marker),section);
+    assert.match(html,/data-action="hub"/,section);
+    assert.ok(!html.includes('class="menu-cards'),section);
+    assert.equal((html.match(/data-action="section"/g)||[]).length,0,section);
+  }
+  fixture.setSection('allenamento');
+  assert.match(fixture.renderHubSection(),/MODIFICA ALLENAMENTO · NON DISPONIBILE/);
+});
+test('S12-003: menu selection and player back routes point to dedicated office section', () => {
+  const code=between('function interact(action,value)', 'function renderMatchControls()');
+  const factory=new Function('env', [
+    'let selectedHub="campionato", selectedPlayerId=null, screen="hub";',
+    'const state={coach:{morale:60,gameOver:false}},',
+    ' hubMenu=env.hubMenu;',
+    'const activeStage=()=>"hub", failure=s=>{throw Error(s)},',
+    ' display=s=>{screen=s}, getUI=()=>({club:{players:[{playerId:"p1"}]}});',
+    code,
+    'return {interact,get screen(){return screen},get selectedHub(){return selectedHub}};'
+  ].join('\n'));
+  const f=sectionFixture();
+  const page=factory({hubMenu:f.hubMenu});
+  for(const section of f.hubMenu.map(row=>row[0])){
+    page.interact('section',section);
+    assert.equal(page.screen,'hub-section');
+    assert.equal(page.selectedHub,section);
+    page.interact('hub');
+    assert.equal(page.screen,'hub');
+  }
+  page.interact('back-rosa');
+  assert.equal(page.screen,'hub-section');assert.equal(page.selectedHub,'rosa');
+  page.interact('back-training');
+  assert.equal(page.screen,'hub-section');assert.equal(page.selectedHub,'allenamento');
+  assert.throws(()=>page.interact('section','nonexistent'),/Sezione non disponibile/);
 });
