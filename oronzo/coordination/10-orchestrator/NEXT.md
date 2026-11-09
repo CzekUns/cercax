@@ -1,3 +1,15 @@
+# ORONZO — AGENTE 10 · BETA INTEGRATA SU MAIN, PLAYTEST UTENTE
+
+**STATO: `BETA_MERGED_NEEDS_POSTMERGE_QA` — 9 novembre 2026.** Su richiesta esplicita del proprietario sono state mergiate e confermate su GitHub, nell'ordine, **#52 fullscreen → #53 500 comuni → #29 sprite → #28 camera FULL/TV → #31 PlayerV2/600 cognomi → #35 comandi individuali → #57 società/papponeria/stadio/mercato → #56 carriera/training/settimane senza fixture → #59 UI iniziale larga e menu inferiore nascosto**. HEAD main ultimo merge #59 `d7a718e7634596e67d9a9be00b366217d82700e3`. Per la #59 è stato risolto il conflitto preservando su main tutti i cambi delle altre PR, con merge commit sulla sua branch `9ceb15d70230ef7bd51b229f239e145ad2bc5a25`. Le #52/#53 avevano audit PASS #55; #28/#29/#31/#35 PASS #58. **I nuovi HEAD #56/#57/#59 sono entrati per playtest beta prima di un nuovo gate indipendente completo**: non dichiararli certificati né il gioco finito.
+
+**Rilievo immediato dal codice autentico di main:** la UI `career-r03.js` mostra ancora `TV NON DISP.` e gestisce `camera-tv` soltanto con un toast, benché il renderer #28 sia disponibile; anche allenamento/shout/mercato sono API senza controlli effettivi. Inoltre il footer PROSSIMA è stato giustamente nascosto da #59 e `renderHub()` contiene soltanto FORMAZIONE/SALVA: durante settimane 31–38 in cui il club di Promozione non gioca, il controller #56 può avanzare, **ma non esiste ora un pulsante hub** che chiami `advanceMatchday` su `bye_week`. UI12 deve implementare azione contestuale e collegare camera TV, senza riaprire menu globale. Non dichiarare due stagioni giocabili via UI finché non corretto.
+
+**Prossime azioni:** 00 QA post-merge sul vero main (Node e Chromium HTTP, due stagioni standard con #56+#57, gestione idempotente, compatibilità fullscreen/geografia/PR59); 12 riceve feedback utente e completa, su PR nuova mirata, il pulsante **AVANZA SETTIMANA** condizionale su `getCoachWeekStatus(state).kind==='bye_week'` con expectedAbsoluteWeek, e controllo FULL/TV tramite `view.setCameraMode`, poi training/shouts e gestionale in fasi successive. Nuove PR correttive con revisione e merge su autorizzazione; no presunti PASS. L'URL Pages atteso per playtest carriera R03 è `https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html` ma deploy/browser live non verificati in questa sessione.
+
+---
+
+## ARCHIVIO NEXT10 PRECEDENTE
+
 # ORONZO — AGENTE 10 · R10-W2 AUDIT #58, ORA SOLO DUE FIX
 
 **STATO: `WAIT_FIX_PR57_AND_PR56` — 9 novembre 2026.** [Audit indipendente PR #58](https://github.com/CzekUns/cercax/pull/58) **PASS #28 camera, #29 sprite, #31 PlayerV2/600 cognomi, #35 ordini** con Node nativo, PNG veri e Chromium HTTP; **NEEDS CHANGES #57** (SyntaxError con token `\\n` in `presidents.js`/`negotiations.js` impedisce avvio gioco), **NEEDS CHANGES #56** (Promozione30 gare, settimana31 senza fixture, impossibile avanzamento a rollover). #57 è P0, #56 P1 bloccante rilascio. Correzioni puntuali già richieste dall'auditor nei commenti delle relative PR, senza nuovi progetti. Anche #52 fullscreen e #53 comuni hanno già **PASS** da audit #55, ma **nessuna delle PR è stata mergiata**.
