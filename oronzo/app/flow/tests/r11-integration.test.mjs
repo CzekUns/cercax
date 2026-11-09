@@ -196,7 +196,10 @@ test('U8: two standard seasons, 30 coach fixtures + bye weeks 31–38 and checks
    assert.equal(state.phase,'inSeason');
   }
  }
- assert.equal(state.seasonYear,1980);
+ const next=rolloverSeason(state);
+ assert.equal(next.accepted,true);
+ assert.equal(state.seasonYear,1981); // 1979→1980→1981 after two complete seasons.
+ assert.equal(state.phase,'inSeason');
  assert.ok(checks>=4);
  assert.ok(state.clubs.some(x=>x.id===originalClub));
 });
