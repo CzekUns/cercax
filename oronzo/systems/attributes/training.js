@@ -32,7 +32,7 @@ export function applyTrainingWeek(players, plan = 'balanced', options = {}) {
   const updated = players.map(raw => {
     const p = clone(raw);
     const injuredAtStart = p.status.injuryDays > 0;
-    const load = injuredAtStart ? 0 : definition.load * (.75 + intensity / 200);
+    const load = injuredAtStart ? 0 : definition.load * (.75 + intensity / 200) * (1 + (p.mental.spericolatezza - 50) * .0012);
     const recovery = 21 + p.physical.stamina * .09 + (definition.load === 0 ? 17 : 0);
     p.status.fatigue = Math.round(clamp(p.status.fatigue - recovery + load * (.48 + (100 - p.physical.stamina) / 750)) * 100) / 100;
     const overloaded = p.status.fatigue > 74;
@@ -41,7 +41,7 @@ export function applyTrainingWeek(players, plan = 'balanced', options = {}) {
       withRecovery(p);
     } else {
       const progressMultiplier = (p.age <= 23 ? 1.2 : p.age <= 29 ? 1 : p.age <= 33 ? .68 : .38) *
-        (.6 + coachQuality / 125) * (overloaded ? .43 : 1) * (p.status.health / 100) * (.75 + p.mental.ambition / 200);
+        (.6 + coachQuality / 125) * (overloaded ? .43 : 1) * (p.status.health / 100) * (.75 + p.mental.ambition / 200) * (.91 + p.mental.discipline * .0018);
       for (const skill of definition.skills) {
         if (!(skill in p.technical) && !(skill in p.physical) && !(skill in p.mental)) throw new RangeError(`Unknown training skill: ${skill}`);
         increase(p, skill, (.07 + rng() * .18) * progressMultiplier);
