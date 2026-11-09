@@ -104,3 +104,42 @@
 #oronzo-r03 .quick-nav #fullscreen-toggle.is-fullscreen{
   background:#194a9a;border-color:#a6d7ff;
 }
+/* UI12 S12-001: full-width opening with exactly two large career actions. */
+#oronzo-r03[data-screen="entry"] #ui-screen{padding:0;gap:0}
+#oronzo-r03[data-screen="entry"] .gamebar .demo-label,
+#oronzo-r03[data-screen="entry"] .gamebar .top-info{display:none}
+#oronzo-r03 .runtime-entry{
+ flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;
+ padding:clamp(12px,3.6vw,34px);
+ background:radial-gradient(ellipse at center,#183c9a 0%,#071a52 62%,#061144 100%);
+}
+#oronzo-r03 .runtime-entry-actions{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ align-items:stretch;gap:clamp(10px,3vw,30px);width:100%;
+}
+#oronzo-r03 .runtime-entry-actions .ui-btn{
+ width:100%;min-width:0;min-height:clamp(72px,24vh,128px);
+ padding:10px;font:900 clamp(14px,2.6vw,24px)/1.2 Verdana,Tahoma,Arial,sans-serif;
+ white-space:normal;overflow-wrap:break-word;letter-spacing:.35px;
+}
+
+/* UI12 S12-002: each career step already owns its navigation; no permanent footer.
+   Preserve the DOM for F01 PR #52 and hoist its fullscreen link via render() if present. */
+#oronzo-r03 #runtime-nav[hidden]{display:none!important}
+#oronzo-r03 .gamebar:has(#fullscreen-toggle){height:48px;min-height:48px}
+#oronzo-r03 .gamebar #fullscreen-toggle{
+ flex:0 0 44px;display:flex;align-items:center;justify-content:center;
+ width:44px;min-width:44px;height:44px;min-height:44px;
+ margin:0;padding:0;border:2px ridge #ffe6a0;background:#82630c;
+ color:#fff6cf;text-shadow:1px 1px #332300;text-decoration:none;
+ overflow:hidden;white-space:nowrap;font-size:0;
+}
+#oronzo-r03 .gamebar #fullscreen-toggle::after{
+ content:'⛶';font:900 24px/1 Verdana,Tahoma,Arial,sans-serif;
+}
+#oronzo-r03 .gamebar #fullscreen-toggle.is-fullscreen{
+ background:#194a9a;border-color:#a6d7ff;
+}
+#oronzo-r03 .gamebar #fullscreen-toggle.is-fullscreen::after{
+ content:'×';font-size:30px;
+}
