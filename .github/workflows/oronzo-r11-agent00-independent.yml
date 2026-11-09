@@ -1,0 +1,43 @@
+name: ORONZO Agent00 R11 Independent Final Audit
+on:
+  push:
+    branches:
+      - audit/oronzo-r11-final-00-20261109
+jobs:
+  independent-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install audit-only Node browser tools
+        run: |
+          npm install --no-save playwright fake-indexeddb
+          npx playwright install --with-deps chromium
+      - name: Validate real integration syntax
+        run: |
+          node --check oronzo/assets/ui/career-r03.js
+          node --check oronzo/assets/ui/sections-r11/management-ui.js
+          node --check oronzo/app/flow/controller.js
+          node --check oronzo/app/flow/management-r11.js
+          node --check oronzo/app/flow/durable-save.js
+          node --check oronzo/coordination/coerentizzatore/qa-r11-final-browser.mjs
+      - name: Re-run authentic Node integration regressions independently
+        run: |
+          node --test oronzo/assets/ui/sections-r11/sections-r11.test.mjs oronzo/assets/ui/qa/ui12-landing-nav.test.cjs oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs oronzo/app/flow/tests/m1-live.test.mjs oronzo/systems/coach-club/management-r10.test.js
+      - name: New Agent00 independent real HTTP and Chromium transaction test
+        run: |
+          python3 -m http.server 8123 --bind 127.0.0.1 > /tmp/oronzo-audit00-http.log 2>&1 &
+          sleep 3
+          node oronzo/coordination/coerentizzatore/qa-r11-final-browser.mjs
+      - name: Preserve independent screenshot, logs and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent00-r11-independent-evidence
+          path: |
+            audit00-r11-evidence/
+            /tmp/oronzo-audit00-http.log
+          if-no-files-found: ignore
