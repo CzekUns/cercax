@@ -27,18 +27,18 @@
 
 **B:** richiesta `stadium_repair` da 100.000 ITL → approvazione motivata di presidente canonico con spesa reale → diminuzione esatta di `finance.cash`, incremento stadio/tifosi/rapporto board/morale → JSON save/load → retry `already_decided`. Provati rifiuti per papponeria elevata, debiti e liquidità; nessun denaro creato da semplici promesse.
 
-**Mercato e shout:** mandato presidenziale prima di richiesta, guard finestra 07 aperta/chiusa/stagione sbagliata, dirigente/presidente negoziano un calciatore, bonifico via `book`, contratto/paga verificati, cessione con incasso solo se compratore accetta. Shout del 06 con trust +2 aggiornato una volta; i temporanei non vengono toccati.
+**Mercato e shout:** mandato presidenziale prima di richiesta, guard finestra 07 aperta/chiusa/stagione sbagliata, dirigente/presidente negoziano un calciatore, bonifico via `book`, contratto/paga verificati, cessione con incasso solo se compratore accetta. Verificato anche il rifiuto `career07_seller_release_required` prima della firma e l'accettazione dopo asserzione di rilascio dal 07. Shout del 06 con trust +2 aggiornato una volta; i temporanei non vengono toccati.
 
 ## Verifiche realmente eseguite
 
 - **Node v22.16.0**, dalla directory locale `/mnt/data/oronzo-r10-local`: `node --test management-r10.test.js` → **17 test PASS, 0 FAIL**, osservati il 9 novembre 2026. I test coprono i due verticali, compatibilità/papponeria, prezzo minimo, fallimenti dati non autorevoli, replay, salvataggio/ricaricamento, due stagioni assolute `a:1` / `a:40`, stipendi/arretrati, guard dei registri legacy, acquisto/vendita con finestre, eventi individuali del 06 e game over.
 - Verifica che il codice testato corrisponde a quanto pubblicato: `git hash-object` dei cinque file nuovi locali **uguale** ai blob SHA GitHub letti dal branch:
   `management-r10.js=55d9936c46fe80c07963ca66c78d78159e21cf20`;
-  `market-r10.js=99b1247a89ad95296d973d23a253bb14204454c1`;
+  `market-r10.js=b60da93b13481809af93c57fcd02550f6b9de974`;
   `shouts-r10.js=70fb78ee415ce4f69453762ff40e2a5627482300`;
-  `management-r10.test.js=be9b2d3de28941189b0c5b30aab4ccece56067c7`;
-  `MANAGEMENT-R10.md=9b5e4fd6eb4d9877b744e06482a9ca9789c4a219`.
-- **Limite dell'ambiente:** impossibile clonare la repository dal container (`git ls-remote https://github.com/CzekUns/cercax.git HEAD` → `Could not resolve host: github.com`). I 17 test sono Node **reale su nuovi file identici** e copie locali dei moduli esistenti: `finance/period/core/negotiations` ricopiano le API e logiche del main, mentre `coach-model/presidents/morale` sono un harness ridotto per gli import. Sono dunque **test di modulo con dipendenze locali**, non la suite autentica del checkout intero. I nuovi test sono committed e potranno essere rieseguiti dal revisore sul vero sorgente GitHub.
+  `management-r10.test.js=12bb129aa2fdfe1c7693869ccec46afd3a079470`;
+  `MANAGEMENT-R10.md=1a9809dc98a017d03b2fc7b9415c5a5106a97bb1`.
+- **Limite dell'ambiente:** impossibile clonare la repository dal container (`git ls-remote https://github.com/CzekUns/cercax.git HEAD` → `Could not resolve host: github.com`). I 17 test sono stati rieseguiti dopo la correzione sellerRelease (17 PASS/0 FAIL) e sono Node **reale su nuovi file identici** e copie locali dei moduli esistenti: `finance/period/core/negotiations` ricopiano le API e logiche del main, mentre `coach-model/presidents/morale` sono un harness ridotto per gli import. Sono dunque **test di modulo con dipendenze locali**, non la suite autentica del checkout intero. I nuovi test sono committed e potranno essere rieseguiti dal revisore sul vero sorgente GitHub.
 - **Non eseguiti**: `node --test oronzo/systems/coach-club/*.test.js` della checkout reale con R03+R10, unificazione #31/#35/#56 e Chromium HTTP. Nessuna affermazione di disponibilità immediata nella UI.
 
 ## Dipendenze precise di integrazione
