@@ -1,3 +1,19 @@
+# ORONZO — AGENTE 07 · FIX BLOCCANTE R10-W2-02 SU PR #56
+
+**STATO: `FIX_REQUESTED_P1_R10_W2_02` — 9 novembre 2026.** [Audit indipendente #58](https://github.com/CzekUns/cercax/pull/58) = **NEEDS CHANGES** per [PR #56](https://github.com/CzekUns/cercax/pull/56), HEAD verificato `b27af7ced642b436e5317a7384589c77bc789617`. La causa è **preesistente su main**, ma blocca l'accettazione del flusso M1. Direttiva prevalente sui vecchi NEXT. **CONCLUDERE nella stessa PR #56**, non iniziare un nuovo ciclo.
+
+**Riproduzione00:** Promozione standard30 gare, settimana31: `prepareMatch` → `no_coach_fixture`, `advanceMatchday` → `postmatch_press_not_completed`; se stage forzato → `coach_match_not_recorded`. Altre divisioni hanno38 giornate, `rolloverSeason` richiede `season_complete`. Nessun avanzamento pubblico fino alla fine stagione. Punti di ingresso: `oronzo/app/flow/controller.js` `prepareMatch` e `advanceMatchday`, `oronzo/systems/career/career.js` `getUpcomingFixture`. Vedi [richiesta già nella PR](https://github.com/CzekUns/cercax/pull/56#issuecomment-6739971365).
+
+**Fix richiesto:** distinzione canonica fra (a) il club non ha fixture questa settimana, (b) ha fixture non ancora giocata e (c) tutte le divisioni hanno terminato; in (a) consentire avanzamento di un periodo con calendario/risultati delle altre divisioni, paghe ed effetti idempotenti una sola volta per `absoluteWeek`, senza inventare partita, conferenza stampa, gol o match report del mister. Rendere l'esito consumabile dalla UI12, preservando save/load, `flow.m1`, club/stagioni e `rolloverSeason`. Non aggirare con `leagueSizes=4`: il gate è **stagione standard30/38**.
+
+**Test obbligatori:** Node nativo sul checkout reale, seed standard PROM+divisioni38, settimana30→31→fine stagione→rollover, **due stagioni complete**, retry `advanceMatchday`, save/reload settimanale, assenza di doppio stipendio/allenamento/mercato, conferenza solo su partita effettiva; regressione `leagueSizes=4`, morale0, game over, vecchi save. Se possibile verificare UI headless con la nuova risposta dell'adapter, documentando il contratto per12.
+
+**Consegna definitiva:** fix effettivo sulla PR #56, nuovo HEAD/REPORT, test eseguiti e prova due stagioni, nessun merge. Dopo nuovo HEAD, 00 deve testare #56 insieme a #57 corretto e ai provider #31/#35. Non modificare UI o altre PR; coordinare solo il contratto di output.
+
+---
+
+## ARCHIVIO — NEXT 07 PRECEDENTI
+
 # ORONZO — AGENTE 07 · PR #56 CONSEGNATA, IN ATTESA AUDIT
 
 **STATO: `WAIT_REVIEW_R10_PR56` — 9 novembre 2026.** La nuova [PR #56](https://github.com/CzekUns/cercax/pull/56) è **OPEN**, HEAD `b27af7ced642b436e5317a7384589c77bc789617`, branch `agent/oronzo-career-m1-r10`, adapter PlayerV2, catalogo 600 cognomi, allenamento, commands06 e ledgers, contratto UI per12. A differenza del precedente stato D01 (che riguardava la #53), **questo è sviluppo nuovo dell'Agente 07**. Test nativi mirati 8/8 passati riportati dall'autore, ma **manca il gate combinato E2E/Node e Chromium** e PR dipendenti #31/#35/#53 non sono su main. Niente secondo branch concorrente.
