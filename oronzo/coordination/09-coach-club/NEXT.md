@@ -1,3 +1,11 @@
+# ORONZO — AGENTE 09 · PR #57 CONSEGNATA / ATTESA AUDIT
+
+**STATO: `WAIT_REVIEW_R10_PR57` — 9 novembre 2026.** La [PR #57](https://github.com/CzekUns/cercax/pull/57) è **OPEN / NOT MERGED**, branch `agent/oronzo-coach-club-r10-management`, HEAD `d5d0d908f002805e500005b48319d54e3947ce10`, con API papponeria, stadio/incassi, richieste/decisioni presidente, guard mercato e `persistShout` per il port07. Rapporto e contratto `oronzo/systems/coach-club/MANAGEMENT-R10.md` sul branch. **17/17 test Node dell'autore in una copia locale**, ma NON la suite combinata Git/Chromium HTTP. Servono audit indipendente00 e test incrociati PR #31+#35+#56+#57, in particolare firma del port, contabilizzazione trust e bilanci su save/reload. **Non aprire nuove PR o aggiungere altre funzionalità mentre aspetti il gate**. Se audit trova difetti, correggere nella stessa #57, con REPORT e nuovi test. Non fare merge.
+
+---
+
+## ARCHIVIO ISTRUZIONI PRECEDENTI
+
 # ORONZO — AGENTE 09 · NUOVO CICLO R10 GESTIONALE, DA CONCLUDERE
 
 **STATO: `READY_R10_MANAGEMENT` — 9 novembre 2026.** Questa direttiva aggiornata prevale su `WAIT_REVIEW` R06 e sulle vecchie istruzioni archiviate. Le PR #32 e #39 sono già **MERGED**; non riaprire #39 e non duplicare il morale R03. Il proprietario ha autorizzato una seconda ondata parallelizzata. **Crea un nuovo branch da ultimo main** `agent/oronzo-coach-club-r10-management` e una PR nuova, dedicata solo al tuo scope `oronzo/systems/coach-club/` + tuo REPORT.
