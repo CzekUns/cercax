@@ -14,6 +14,13 @@ import { createClub, createCoach, prepareMatchday, conveneBoard,
   previewOfferMorale, applyOfferEffect, applyPressEffect } from '../../systems/coach-club/index.js';
 import { createMatch } from '../../systems/match-engine/match-engine.js';
 import { createPressConference, answerPressConference } from '../../content/press-kit.js';
+import { generatePlayer as generateAttributesPlayer } from '../../systems/attributes/generator.js';
+import { normalizePlayer as normalizeAttributesPlayer } from '../../systems/attributes/player-model.js';
+import { applyTrainingWeek, applyMatchLoad, advanceSeason } from '../../systems/attributes/training.js';
+import { chooseTrainingPlan } from '../../systems/coach-club/index.js';
+import { ensureM1Ledger, attachSourcedPlayers, chooseM1Training, settleM1Training,
+  issueM1Command, settleM1MatchLoad, journalM1Shouts, settleM1Season
+} from './m1-contract.js';
 
 export const FLOW_VERSION=1;
 export const START_YEAR=1979;
@@ -159,7 +166,7 @@ function answerPress(state,phase,questionId,answerId,{press}={}) {
 
 export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il Mister',
   leagueSizes,playerVisualById={},clubVisualKitsById={},startDate='1979-08-01',
-  effectsMode='integrated'}={}) {
+  effectsMode='integrated',surnameCatalog=null,playerOrigins=[]}={}) {
   if(!Number.isSafeInteger(seed))throw new Error('seed must be an integer');
   if(!['integrated','isolated_test'].includes(effectsMode))
     throw new Error('Unknown morale integration mode');
@@ -221,7 +228,55 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
     effectTransactions:{},history:[],effectsMode,
     pressDependency:effectsMode==='isolated_test'?'isolated_test_only':'agent09_integrated'};
   createInitialOffers(state);
+  ensureM1Ledger(state);
+  if(surnameCatalog) {
+    const result=enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins});
+    if(!result.accepted)throw new Error('M1_SURNAMES_UNAVAILABLE: '+result.reason);
+  }
   return state;
+}
+
+/** Consume actual 08 generator PlayerV2 and its sourced surname records once.
+ * PR #31 adds the verified surnameId; main fallback names are explicitly rejected.
+ * We never invent a player birth municipality when 08 has none.
+ */
+export function enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins=[]}={}) {
+  if(state.flow?.stage!=='offers'||state.flow.acceptedOfferId)
+    return {accepted:false,reason:'initial_world_only'};
+  if(!surnameCatalog?.source?.id || !surnameCatalog?.source?.license ||
+     !Array.isArray(surnameCatalog.surnames)||surnameCatalog.surnames.length<500)
+    return {accepted:false,reason:'verified_surname_catalog_required'};
+  if(!Array.isArray(playerOrigins))throw new TypeError('playerOrigins must be an array');
+  if(state.flow.m1?.playerDataset)return {accepted:false,reason:'already_attached'};
+  const squadsByClub=Object.fromEntries(state.clubs.map(club=>[
+    club.id,club.players.map((old,index)=>
+      generateAttributesPlayer({seed:state.seed,teamId:club.id,index,
+        role:old.positions[0],teamLevel:club.reputation,
+        surnameCatalog,origins:playerOrigins}))
+  ]));
+  try {
+    return attachSourcedPlayers(state,{
+      squadsByClub,dataset:{sourceId:surnameCatalog.source.id,
+        version:String(surnameCatalog.source.datasetSnapshotId ??
+          surnameCatalog.source.year ?? surnameCatalog.schemaVersion),
+        license:surnameCatalog.source.license,surnames:surnameCatalog.surnames},
+      normalizePlayer:normalizeAttributesPlayer
+    });
+  } catch(e) {
+    if(String(e).includes('SOURCED_PLAYER_MISMATCH'))
+      return {accepted:false,reason:'attributes08_verified_surname_output_required'};
+    throw e;
+  }
+}
+export function selectM1Training(state,options) {
+  return chooseM1Training(state,{...options,chooseTrainingPlan});
+}
+/** The UI12 caller keeps the exact engine handle returned by prepareMatch. */
+export function commandM1Match(state,engine,request) {
+  const outcome=issueM1Command(state,engine,request);
+  if(outcome.accepted && request.type==='tacticChange')
+    state.coach.tactics={...state.coach.tactics,...outcome.engineResult.effects.tactics};
+  return outcome;
 }
 
 export function listInitialOffers(state) { return offersView(state); }
@@ -260,11 +315,33 @@ export function answerPostMatchPress(state,questionId,answerId,options) {
 export function getRosterPlayer(state,playerId) { return uiPlayer(state,playerId); }
 export function getTrainingPlayer(state,playerId) { return uiPlayer(state,playerId); }
 
+/** Single authoritative answer for UI12 and matchday progression.
+ * A club can have fewer rounds than the longest division: that is a bye week,
+ * not an unplayed fixture and never a reason to fabricate a coach match.
+ */
+export function getCoachWeekStatus(state) {
+  const base={seasonYear:state.seasonYear,week:state.week,
+    absoluteWeek:state.absoluteWeek,fixtureId:null,canAdvance:false};
+  if(state.phase==='seasonComplete')
+    return {...base,kind:'season_complete',canRollover:state.flow?.stage==='season_complete'};
+  if(state.phase!=='inSeason')return {...base,kind:'season_inactive'};
+  if(!state.coach?.clubId)return {...base,kind:'unemployed',
+    canAdvance:state.flow?.stage==='unemployed'};
+  const fixture=fixturesForWeek(state).find(f=>
+    f.homeId===state.coach.clubId||f.awayId===state.coach.clubId);
+  if(!fixture)return {...base,kind:'bye_week',
+    canAdvance:state.flow?.stage==='hub'&&!state.flow?.pendingMatch};
+  if(!fixture.result)return {...base,kind:'match_pending',fixtureId:fixture.id};
+  return {...base,kind:'match_recorded',fixtureId:fixture.id,
+    canAdvance:state.flow?.stage==='postmatch_ready'};
+}
+
 export function getStateForUI(state) {
   const club=state.coach.clubId?clubById(state,state.coach.clubId):null;
   return clone({
     version:state.flow?.version??null,stage:state.flow?.stage??'legacy_career',
     gameDate:state.gameDate??null,seasonYear:state.seasonYear,seasonWeek:state.week,
+    coachWeekStatus:getCoachWeekStatus(state),
     absoluteWeek:state.absoluteWeek,coach:state.coach,
     club:club?{id:club.id,name:club.name,divisionId:club.divisionId,
       presidentId:club.presidentId,world:getClubGeography(state,club.id),
@@ -276,6 +353,13 @@ export function getStateForUI(state) {
     pendingEffectTransactions:Object.values(state.flow?.effectTransactions??{})
       .filter(e=>e.status!=='applied'),
     worldStatus:state.world?.datasetStatus??'legacy',worldMode:state.world?.mode??'legacy',
+    m1:state.flow?.m1?{version:state.flow.m1.version,
+      playerDataset:state.flow.m1.playerDataset,
+      training:state.flow.m1.training,
+      matchCommands:state.flow.m1.matchCommands,
+      persistentEvents:state.flow.m1.persistentEvents,
+      matchLoads:state.flow.m1.matchLoads,
+      seasonDevelopments:state.flow.m1.seasonDevelopments}:null,
     gameOver:state.coach.gameOver??(state.coach.morale===0?{reason:'morale_zero'}:null)
   });
 }
@@ -283,6 +367,13 @@ export function prepareMatch(state,{xi,bench,captainId}={}) {
   ensureLive(state);
   if(state.flow.stage!=='hub'&&state.flow.stage!=='pre_match')
     return {accepted:false,reason:'wrong_stage'};
+  const weekStatus=getCoachWeekStatus(state);
+  if(weekStatus.kind==='bye_week')return {
+    accepted:false,reason:'bye_week',canAdvance:weekStatus.canAdvance,
+    expectedAbsoluteWeek:weekStatus.absoluteWeek
+  };
+  if(weekStatus.kind==='match_recorded')
+    return {accepted:false,reason:'coach_match_already_recorded'};
   const fixture=getUpcomingFixture(state);
   if(!fixture)return {accepted:false,reason:'no_coach_fixture'};
   if(state.flow.pendingMatch && state.flow.pendingMatch.fixtureId!==fixture.id)
@@ -334,6 +425,16 @@ export function consumeMatchResult(state,engine,{press}={}) {
   const normalizedEvents=events.map(e=>({...e,id:String(e.id)}));
   registerResult(state,{fixtureId:fixture.id,homeId:fixture.homeId,awayId:fixture.awayId,
     score,events:normalizedEvents});
+  // 08 is the sole owner of fatigue/fitness formulas. The engine's
+  // substitution event times determine played minutes once per fixture.
+  const matchLoad=settleM1MatchLoad(state,{
+    fixtureId:fixture.id,teamId:state.coach.clubId,
+    startingXI:meta.lineup.xi,events:normalizedEvents,applyMatchLoad
+  });
+  if(!matchLoad.accepted)throw new Error('M1_MATCH_LOAD_REJECTED: '+matchLoad.reason);
+  // 06 already applied temporary shout modifiers. 09 has not yet exported a
+  // player-trust consumer; journal suggestions, never invent a permanent delta.
+  journalM1Shouts(state,{fixtureId:fixture.id,events:normalizedEvents});
   const coachHome=fixture.homeId===state.coach.clubId;
   const ours=coachHome?score.home:score.away,opponent=coachHome?score.away:score.home;
   const result=ours>opponent?'win':ours<opponent?'loss':'draw';
@@ -355,18 +456,29 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
   // repeatedly, so without it a network/button replay could skip another week.
   if(expectedAbsoluteWeek!==undefined && expectedAbsoluteWeek!==state.absoluteWeek)
     return {accepted:false,reason:'stale_week_action'};
-  if(state.flow.stage==='unemployed' && expectedAbsoluteWeek===undefined)
-    return {accepted:false,reason:'expected_week_required_when_unemployed'};
-  if(!['postmatch_ready','unemployed'].includes(state.flow.stage))
-    return {accepted:false,reason:'postmatch_press_not_completed'};
   if(state.phase!=='inSeason')return {accepted:false,reason:'season_not_active'};
+  const weekStatus=getCoachWeekStatus(state);
+  if(weekStatus.kind==='unemployed' && expectedAbsoluteWeek===undefined)
+    return {accepted:false,reason:'expected_week_required_when_unemployed'};
+  if(weekStatus.kind==='bye_week' && expectedAbsoluteWeek===undefined)
+    return {accepted:false,reason:'expected_week_required_when_bye'};
+  const permitted=weekStatus.kind==='match_recorded'
+    ? state.flow.stage==='postmatch_ready'
+    : weekStatus.canAdvance;
+  if(!permitted)
+    return {accepted:false,reason:weekStatus.kind==='match_pending'
+      ? 'coach_match_not_recorded':'postmatch_press_not_completed'};
   if(!presidentCatalog)return {accepted:false,reason:'president_catalog_required'};
   const draft=clone(state); // Atomic: no scores, payroll or meeting committed on exception.
   const playerClub=draft.coach.clubId;
   const period={week:draft.week,absoluteWeek:draft.absoluteWeek,seasonYear:draft.seasonYear};
   const fixtures=fixturesForWeek(draft);
-  if(playerClub && !fixtures.some(f=>f.result && (f.homeId===playerClub||f.awayId===playerClub)))
+  const coachFixture=playerClub
+    ?fixtures.find(f=>f.homeId===playerClub||f.awayId===playerClub):null;
+  if(coachFixture && !coachFixture.result)
     return {accepted:false,reason:'coach_match_not_recorded'};
+  if(weekStatus.kind==='bye_week' && (draft.flow.pendingMatch || draft.flow.finalMatch))
+    return {accepted:false,reason:'unexpected_coach_match_on_bye'};
   for(const fixture of fixtures)if(!fixture.result){
     if(fixture.homeId===playerClub||fixture.awayId===playerClub)
       throw new Error('Coach match cannot be AI-simulated');
@@ -383,25 +495,34 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
       if(meeting.accepted)club=meeting.club;
       else if(meeting.reason!=='already_met_this_week')
         throw new Error('Board meeting denied: '+meeting.reason);
-      const fixture=fixtures.find(f=>f.homeId===club.id||f.awayId===club.id);
-      const reviewed=reviewMatch(club,president,{
-        ...period,matchId:fixture.id,homeClubId:fixture.homeId,awayClubId:fixture.awayId,
-        snapshot:{phase:'fulltime',t:5400,score:fixture.result.score}
-      },draft.seed);
-      if(!reviewed.accepted && reviewed.reason!=='already_recorded')
-        throw new Error('Board review denied: '+reviewed.reason);
-      if(reviewed.accepted) {club=reviewed.club;dismissed=reviewed.dismissed;}
+      // Weekly board meetings may still occur on a bye; reviewing a match
+      // without a real fixture would invent a coach performance and corrupt trust.
+      if(coachFixture) {
+        const reviewed=reviewMatch(club,president,{
+          ...period,matchId:coachFixture.id,homeClubId:coachFixture.homeId,
+          awayClubId:coachFixture.awayId,
+          snapshot:{phase:'fulltime',t:5400,score:coachFixture.result.score}
+        },draft.seed);
+        if(!reviewed.accepted && reviewed.reason!=='already_recorded')
+          throw new Error('Board review denied: '+reviewed.reason);
+        if(reviewed.accepted) {club=reviewed.club;dismissed=reviewed.dismissed;}
+      }
     }
     const settled=endClubWeek(club,period);
     if(!settled.accepted)throw new Error('Payroll denied: '+settled.reason);
     draft.clubs[i]=settled.club;
   }
+  // Training plans are explicit and week-bound; do not silently invent a plan.
+  const training=settleM1Training(draft,{applyTrainingWeek});
+  if(!training.accepted && !['no_training_selected','already_applied'].includes(training.reason))
+    throw new Error('M1_TRAINING_REJECTED: '+training.reason);
   const matchday=period.absoluteWeek;
   advanceWeek(draft);
   if(dismissed && playerClub)applyBoardDecision(draft,{type:'dismiss',clubId:playerClub});
+  const weekType=coachFixture?'played_match':playerClub?'bye_week':'unemployed';
   draft.flow.history.push({seasonYear:period.seasonYear,week:period.week,
     absoluteWeek:period.absoluteWeek,fixtureCount:fixtures.length,
-    playedFixtureId:draft.flow.finalMatch?.fixtureId??null});
+    playedFixtureId:coachFixture?.id??null,weekType});
   draft.flow.pendingMatch=null;draft.flow.finalMatch=null;draft.flow.press.postmatch=null;
   draft.flow.stage=draft.phase==='seasonComplete'?'season_complete':
     draft.coach.clubId?'hub':'unemployed';
@@ -411,15 +532,23 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
   for(const k of Object.keys(state))delete state[k];
   Object.assign(state,draft);
   return {accepted:true,completedAbsoluteWeek:matchday,nextStage:state.flow.stage,
-    gameDate:state.gameDate,simulatedOtherFixtures:fixtures.filter(f=>f.id!==state.flow.history.at(-1).playedFixtureId).length};
+    gameDate:state.gameDate,weekType,playedFixtureId:coachFixture?.id??null,
+    simulatedOtherFixtures:fixtures.length-(coachFixture?1:0)};
 }
 export function rolloverSeason(state) {
   ensureLive(state);
   if(state.flow.stage!=='season_complete')return {accepted:false,reason:'season_not_complete'};
-  finishSeason(state);
-  state.gameDate=dateAt(state.seasonYear,1,state.calendarPolicy.seasonStartMonth,
-    state.calendarPolicy.seasonStartDay);
-  state.flow.stage=state.coach.clubId?'hub':'unemployed';
+  const draft=clone(state),endingYear=draft.seasonYear;
+  finishSeason(draft);
+  if(draft.flow.m1) {
+    const result=settleM1Season(draft,{advanceSeason,seasonYear:endingYear,alreadyAged:true});
+    if(!result.accepted && result.reason!=='already_applied')
+      throw new Error('M1_SEASON_REJECTED: '+result.reason);
+  }
+  draft.gameDate=dateAt(draft.seasonYear,1,draft.calendarPolicy.seasonStartMonth,
+    draft.calendarPolicy.seasonStartDay);
+  draft.flow.stage=draft.coach.clubId?'hub':'unemployed';
+  commitDraft(state,draft);
   return {accepted:true,seasonYear:state.seasonYear,gameDate:state.gameDate};
 }
 export function takeCareerOffer(state,offerId) {
