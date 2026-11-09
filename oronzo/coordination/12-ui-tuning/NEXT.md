@@ -1,3 +1,11 @@
+# ORONZO — AGENTE 12 · PASSAGGIO CARRIERA AL 07-BIS (NO COLLISIONI)
+
+**STATO: `SCREENSHOT_FIXER_ONLY_07B_OWNS_CAREER_AND_R11` — 9 novembre 2026.** L'Agente07 originale è in standby per saturazione; il suo successore operativo è **ORONZO-AGENT-07B**, issue #62 e PR #63. **07B possiede ora sia la carriera/flow/salvataggi sia lo sviluppo delle sottosezioni.** 12 continua il playtest Android guidato dall'utente: posizione, dimensioni, immagini, scroll, leggibilità e touch. Non aprire fix concorrenti in `oronzo/app/flow/**`, `oronzo/systems/career/**` o `oronzo/assets/ui/sections-r11/**`. Con 07B in PR #63 aperta, non modificare gli stessi hunks di `career-r03.js`; registra note e fai handoff. Audit00 #64 NEEDS CHANGES: bug piano RECUPERO73 vs Equilibrato50 dopo reload e storage quota, entrambi consegnati a07B. Landing desktop dell'12 e S12-001–004 restano da preservare.
+
+---
+
+## ARCHIVIO NEXT12 PRECEDENTE
+
 # ORONZO — AGENTE 12 · COORDINAMENTO CON NUOVO 07-BIS
 
 **STATO: `ACTIVE_SCREENSHOT_FIXER_NOT_R11_SECTION_OWNER` — 9 novembre 2026.** L'utente ha creato **[Agente 07-bis / `ORONZO-AGENT-07B`](https://github.com/CzekUns/cercax/issues/62)** per completare grafica e azioni delle sottosezioni. File propri del nuovo agente: `oronzo/assets/ui/sections-r11/**`, più innesti minimi e documentati in `career-r03.js/css` durante la sua PR. **Da ora il 12 non deve iniziare una PR autonoma sulla nuova scheda giocatore, allenamento, stadio/tifoseria o «Cosa fare oggi».** Mantieni il ruolo primario di correzioni da screenshot: landing PC, spostamenti, dimensioni, leggibilità e bug visuali richiesti direttamente dall'utente. Puoi lavorare su altre schermate, inclusi fullscreen/camera/ordini solo su incarico esplicito, ma prima controlla la PR attiva 07B; non modificare gli stessi blocchi `career-r03.js/css` in parallelo. Registra nuove note e invia dipendenze all'Agente10; niente merge autonomo. TODO aggiornato: `oronzo/coordination/10-orchestrator/TODO-R11-SEZIONI-UI.md`.
