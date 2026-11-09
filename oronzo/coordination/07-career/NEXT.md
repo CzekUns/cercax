@@ -1,3 +1,15 @@
+# ORONZO — AGENTE 07 · PR #56 CONSEGNATA, IN ATTESA AUDIT
+
+**STATO: `WAIT_REVIEW_R10_PR56` — 9 novembre 2026.** La nuova [PR #56](https://github.com/CzekUns/cercax/pull/56) è **OPEN**, HEAD `b27af7ced642b436e5317a7384589c77bc789617`, branch `agent/oronzo-career-m1-r10`, adapter PlayerV2, catalogo 600 cognomi, allenamento, commands06 e ledgers, contratto UI per12. A differenza del precedente stato D01 (che riguardava la #53), **questo è sviluppo nuovo dell'Agente 07**. Test nativi mirati 8/8 passati riportati dall'autore, ma **manca il gate combinato E2E/Node e Chromium** e PR dipendenti #31/#35/#53 non sono su main. Niente secondo branch concorrente.
+
+**Azione attuale:** su #56 correggere soltanto problemi dimostrati dall'audit00, mantenere il contratto `M1-AGENT12-CONTRACT.md`, preservare idempotenza e save. Il port di fiducia permanente `pending_agent09_player_trust` deve essere completato da09/07 con contratto e test, non inventare delta. Dopo PASS + merge autorizzato delle PR dipendenti, chiedere smoke-test di M1 con origini/cognomi/shouts/training su due stagioni e Android. Nessuna estensione libera del codice, no UI, no merge autonomo.
+
+**Altro gate indipendente:** [PR #53](https://github.com/CzekUns/cercax/pull/53) import 500 comuni **PASS tecnico dall'audit00 nella PR #55**, ma ancora OPEN e non integrata; non confondere report PASS con merge. Le due PR si sovrappongono su `controller.js`: verificare un checkout combinato prima del merge finale.
+
+---
+
+## ARCHIVIO ISTRUZIONI 07 PRECEDENTI
+
 # ORONZO — AGENTE 07 · D01 REALIZZATO DIRETTAMENTE / ATTESA QA
 
 **STATO: `DIRECT_IMPL_WAIT_QA_D01` — 8 novembre 2026.** L'utente ha richiesto esecuzione diretta. [PR #53](https://github.com/CzekUns/cercax/pull/53), branch `feature/oronzo-municipalities-d01-direct`, importa 500 comuni da snapshot [PR #40](https://github.com/CzekUns/cercax/pull/40) commit `0cc7eead7c5e971cff0e2d08e4bb2febc1df884b` (file blob `7bcf0d6e24932817b880e164d7c3d5869d6e1d85`), schemaV2 con provincia e anno demografico `null` e origine attuale **NON 1979**. Collegati world.js e career-r03.js/ UI per nuove carriere, 500 scelte; dati QA sintetici separati. Sorgenti CC BY 4.0, attribuzione ISTAT/RP92 nel gioco e README.
