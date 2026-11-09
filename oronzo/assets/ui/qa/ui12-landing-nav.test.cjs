@@ -32,9 +32,9 @@ function renderOn(screen, withFullscreen = false) {
     'Formation','Match','Post','Season','Unemployed','Gameover']
     .map(name => `const render${name}=()=>'<article>${name}</article>';`).join('\n');
   const make = new Function('env', `
-    let screen=env.screen, state=null;
+    let screen=env.screen, state=null, selectedPlayerId=null;
     const root=env.root, area=env.area, restoreMode=()=>{};
-    const mountMatchView=()=>env.mounted.count++;
+    const mountMatchView=()=>env.mounted.count++, mountPlayerIllustration=()=>Promise.resolve(false), getRosterPlayer=()=>({}), errors=[];
     ${stubs}
     ${code}
     return render;
@@ -84,7 +84,7 @@ test('S12: preserved former M01 touch fixes', () => {
 function sectionFixture() {
   const code=between('const hubMenu=', 'function renderFieldGroup(');
   const make=new Function('env', [
-    'let selectedHub="campionato", state=env.state;',
+    'let selectedHub="campionato", state=env.state, trainingPlan="balanced", trainingIntensity=50, trainingRosterOpen=false, supportTab="stadio", integrationBackend=null, leagueTab="classifica", presidentTab="ufficio", rosterFilter="ALL", rosterSort="name";',
     'const getUI=()=>env.ui;',
     'const esc=s=>String(s??""),',
     ' head=(name)=>"<h1>"+name+"</h1>",',
@@ -95,7 +95,14 @@ function sectionFixture() {
     ' playerRow=(p)=>"<button data-action=\\"player\\">"+p.name+"</button>",',
     ' tableRow=(r)=>"<div class=\\"runtime-table-row\\">"+r.clubName+"</div>",',
     ' president=()=>({name:"Presidente QA",goal:"Promozione"}),',
-    ' getStandings=()=>[{clubName:"Club QA",points:3,played:1}];',
+    ' getStandings=()=>[{clubName:"Club QA",points:3,played:1}],',
+    ' agendaSummary=()=>"PREPARA LA PARTITA",',
+    ' renderTrainingPanel=()=>"<div class=\\\"r11-training-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button><button data-action=\\\"training-apply\\\">APPLICA</button></div>",',
+    ' renderSupportersPanel=()=>"<div class=\\\"r11-support-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
+    ' renderDeskAgenda=()=>"<div class=\\\"r11-agenda-view\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
+    ' renderLeaguePage=()=>"<div class=\\\"r11-league-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
+    ' renderPresidentOperations=()=>"<div class=\\\"r11-president-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
+    ' renderRosterLinks=()=>"<div class=\\\"r11-roster-scroll\\\"></div>";',
     code,
     'return {renderHub,renderHubSection,hubMenu,setSection(v){selectedHub=v}};'
   ].join('\n'));
@@ -103,12 +110,12 @@ function sectionFixture() {
     club:{id:'club-1',name:'Club QA',divisionId:'PROM',
       players:[{playerId:'player-1',name:'Giocatore QA',positions:['GK']}]},
     upcomingFixture:null,coach:{relationships:{fans:50,media:50}}};
-  const state={clubs:[{id:'club-1',boardTrust:50,finance:{cash:100,arrears:0}}]};
+  const state={coach:{clubId:'club-1'},clubs:[{id:'club-1',boardTrust:50,finance:{cash:100,arrears:0}}]};
   return make({ui,state});
 }
-test('S12-003: office shows five navigable cards, never an inline right preview', () => {
+test('S12-003/R11: office shows six navigable cards including the agenda', () => {
   const fixture=sectionFixture(),html=fixture.renderHub();
-  assert.equal((html.match(/data-action="section"/g)||[]).length,5);
+  assert.equal((html.match(/data-action="section"/g)||[]).length,6);
   assert.match(html,/runtime-hub-home/);
   assert.ok(!html.includes('runtime-hub-detail'));
   assert.ok(!html.includes('runtime-table-row'));
@@ -118,26 +125,26 @@ test('S12-003: office shows five navigable cards, never an inline right preview'
 test('S12-003: each office section is a full panel with actual data and a return action', () => {
   const fixture=sectionFixture();
   const expectations={
-    campionato:'runtime-table',rosa:'runtime-roster-list',
-    allenamento:'runtime-roster-list',tifoseria:'Morale tifosi',
-    presidente:'Fiducia'
+    campionato:'r11-league-page',rosa:'runtime-roster-list',
+    allenamento:'r11-training-page',tifoseria:'r11-support-page',
+    presidente:'r11-president-page'
   };
   for(const [section,marker] of Object.entries(expectations)){
     fixture.setSection(section);
     const html=fixture.renderHubSection();
-    assert.match(html,/runtime-hub-detail/,section);
+    if(!['allenamento','tifoseria','campionato','presidente'].includes(section))assert.match(html,/runtime-hub-detail/,section);
     assert.ok(html.includes(marker),section);
     assert.match(html,/data-action="hub"/,section);
     assert.ok(!html.includes('class="menu-cards'),section);
     assert.equal((html.match(/data-action="section"/g)||[]).length,0,section);
   }
   fixture.setSection('allenamento');
-  assert.match(fixture.renderHubSection(),/MODIFICA ALLENAMENTO · NON DISPONIBILE/);
+  assert.doesNotMatch(fixture.renderHubSection(),/MODIFICA ALLENAMENTO · NON DISPONIBILE/);
 });
-test('S12-003: menu selection and player back routes point to dedicated office section', () => {
-  const code=between('function interact(action,value)', 'function renderMatchControls()');
+test('S12-003: menu selection and player back routes point to dedicated office section', async () => {
+  const code=between('async function interact(action,value)', 'function renderMatchControls()');
   const factory=new Function('env', [
-    'let selectedHub="campionato", selectedPlayerId=null, screen="hub";',
+    'let selectedHub="campionato", selectedPlayerId=null, screen="hub", trainingRosterOpen=false, supportTab="stadio", leagueTab="classifica", presidentTab="ufficio";',
     'const state={coach:{morale:60,gameOver:false}},',
     ' hubMenu=env.hubMenu;',
     'const activeStage=()=>"hub", failure=s=>{throw Error(s)},',
@@ -148,17 +155,17 @@ test('S12-003: menu selection and player back routes point to dedicated office s
   const f=sectionFixture();
   const page=factory({hubMenu:f.hubMenu});
   for(const section of f.hubMenu.map(row=>row[0])){
-    page.interact('section',section);
+    await page.interact('section',section);
     assert.equal(page.screen,'hub-section');
     assert.equal(page.selectedHub,section);
-    page.interact('hub');
+    await page.interact('hub');
     assert.equal(page.screen,'hub');
   }
-  page.interact('back-rosa');
+  await page.interact('back-rosa');
   assert.equal(page.screen,'hub-section');assert.equal(page.selectedHub,'rosa');
-  page.interact('back-training');
+  await page.interact('back-training');
   assert.equal(page.screen,'hub-section');assert.equal(page.selectedHub,'allenamento');
-  assert.throws(()=>page.interact('section','nonexistent'),/Sezione non disponibile/);
+  await assert.rejects(page.interact('section','nonexistent'),/Sezione non disponibile/);
 });
 
 test('S12-004: visible PC artwork is an explicit image, not only CSS background', () => {
@@ -171,6 +178,6 @@ test('S12-004: visible PC artwork is an explicit image, not only CSS background'
 });
 test('S12-004: career CSS and JS are versioned together for cache invalidation', () => {
   const page=fs.readFileSync(path.join(__dirname,'..','career-r03.html'),'utf8');
-  assert.match(page, /career-r03\.css\?v=s12-004/);
-  assert.match(page, /career-r03\.js\?v=s12-004/);
+  assert.match(page, /career-r03\.css\?v=r11-single/);
+  assert.match(page, /career-r03\.js\?v=r11-single/);
 });
