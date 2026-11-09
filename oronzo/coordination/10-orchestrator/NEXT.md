@@ -1,3 +1,13 @@
+# ORONZO — AGENTE 10 · SUCCESSIONE CAREER07 → 07-BIS, AUDIT #64
+
+**STATO: `OWNER_TRANSFER_07_TO_07B_P0_SAVE_AND_UI` — 9 novembre 2026.** Utente: «7 bis deve sostituire 7 perché 7 è saturo». Attivata la successione operativa: **07 originale = STANDBY**, **07B = unico owner della carriera/flow/salvataggi e sviluppo sezioni UI**. ID 07 e PR storiche non si rinominano. `registry.json`, `07-career/NEXT.md`, `07b-sections/{IDENTITY,RUN,NEXT}.md` e TODO R11 aggiornati. **Rapporto audit #64 NEEDS CHANGES** su [PR #63](https://github.com/CzekUns/cercax/pull/63) HEAD `6eb647894f79b38bc26915f016d245b7ee25bc85`; 64 Node +10 training +8 Chromium superati, due difetti: (1) RECUPERO73 salvato ripresentato nei controlli come EQUILIBRATO50 dopo reload, introdotto da07B; (2) salvataggi carriera standard ~4,1m caratteri per slot, doppio localStorage supera quota, da settimana31 avanzamento in memoria non persistito. **Entrambi ora di competenza07B**, non assegnare il secondo a07 saturo. #63 resta aperta NON MERGED. `07B/NEXT.md` indica **P0-A fix stessa PR63 con UI/piano persistito e avvisi quota → P0-B fix backend salvataggio in PR distinta → cross-audit 00 → merge uno alla volta con permesso utente**. Stadio resta dipendenza Career07↔09, ora owner port Career =07B; 09 mantiene le regole economiche. Non certificare la biglietteria prima di port/fixture/ledger. Agente12 mantiene solo screenshot e layout; evitare collisioni in career-r03.js.
+
+**Backlog successivo:** 07B cura port Stadio prezzo→incasso, requests/market con finestre07 e seller release, trust `persistShout`, cognomi08 nel newGame pubblico, calendario/finanze/stagioni e le altre sezioni R11 (rosa, lavagna, campionato, agenda, tifosi, formazione). Audit00 Node/Chromium e 2 stagioni complete prima release.
+
+---
+
+## ARCHIVIO NEXT10 PRECEDENTE
+
 # ORONZO — AGENTE 10 · R11-01 PR63 CONSEGNATA / GATE 00
 
 **STATO: `WAIT_00_PR63_AUDIT` — 9 novembre 2026.** Agente 07-bis ha consegnato [PR #63](https://github.com/CzekUns/cercax/pull/63) HEAD `6eb647894f79b38bc26915f016d245b7ee25bc85`, branch `agent/oronzo-07b-sections-r11-01`, **OPEN / NOT MERGED / mergeable** al controllo. Ambito: player card, training interattivo, tre tab Stadio/Tifosi/Giornali e agenda dinamica con bye-week. Test dichiarati solo **V8 isolato 14/14 R11 e 10/10 UI12**, senza Node nativo su checkout, Chromium HTTP o Android. Stadio **soltanto grafica/lettura**; manca `club.stadium` canonico e adapter transazionale Career07/Coach09 per prezzi/affluenza. `oronzo/assets/ui/sections-r11/HANDOFF-07-09.md` è handoff preciso. Non dichiarare completato lo stadio operativo.
