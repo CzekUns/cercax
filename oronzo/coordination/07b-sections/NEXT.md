@@ -1,5 +1,36 @@
 # ORONZO — AGENTE 07-BIS · SUCCESSORE CAREER07 + SEZIONI, ORDINI DI LAVORO
 
+## MANDATO PRIORITARIO DEL PROPRIETARIO — UNICA ESECUZIONE DI INTEGRAZIONE GIOCABILE (9 NOVEMBRE 2026)
+
+**STATO: `R11_SINGLE_DISPATCH_FULL_INTEGRATION` — prevale sulla precedente scansione in tanti richiami P0/P1/P2.** Il proprietario vuole **un solo incarico esecutivo completo**, perché molte API sono già integrate ma non consumate dal gioco. Non arrestarti dopo il solo fix della #63, dopo il salvataggio o dopo il singolo adapter, chiedendo un altro prompt: nella **stessa esecuzione della chat 07-bis** procedi fino alla consegna unitaria di tutti i collegamenti giocabili elencati qui sotto, riusando i moduli esistenti. Organizza internamente i commit e più PR tecniche se necessario per tenere isolate modifiche concorrenti; **una esecuzione non equivale a un'unica PR**. Evita nuove iniziative ridondanti o attese su approvazioni intermedie. L'Agente00 eseguirà **un audit indipendente finale della combinazione**, non una nuova ondata per ogni API. Nessun merge senza l'autorizzazione dell'utente.
+
+**Verifica di partenza live:** main `affefc884d7185621b1307bd7f8f2ce0627f4b4b` (coordinamento); PR #63 ancora OPEN, HEAD `6eb647894f79b38bc26915f016d245b7ee25bc85`, audit #64 NEEDS CHANGES; nessuna PR backend save presente. Verifica di nuovo questi valori al tuo avvio.
+
+### Consegna funzionale unica: tutti i collegamenti pronti verso il runtime pubblico R03
+
+| ID | Azione da concludere e dimostrare dalla UI vera | Fonte autentica / owner | Gate |
+| --- | --- | --- | --- |
+| U1 | Fix allenamento RECUPERO73 persistito, evidenziazione/slider; avviso errore save veritiero | 07B UI PR #63; controller07 + Attributes08 | Browser HTTP save/reload, 5 piani, 0/100, delta soltanto ad advance |
+| U2 | Salvataggi robusti con 2 copie recuperabili, migrazione legacy, checksum, quote/failure atomic, import/export | 07B Career/Flow/Save, PR backend distinta | 2 stagioni standard, bye31–38 dopo reload, 2 slot grandi reali in Chromium |
+| U3 | Stadio: stato `club.stadium`, prezzi, biglietteria, affluenza, incassi solo match casalingo concluso, ledger unico | Career07B adapter alle API Coach09; regole 09 intatte | Prezzo→cassa e tifosi dopo fixture reale, save/reload, retry non duplica |
+| U4 | Ufficio presidente, richieste, decisioni, investimenti, mercato, finestre, seller release, acquisti/cessioni, contratti e finanze | 07B adapter/UI su sistemi09 | Rifiuti veri, trasferimenti atomici fra rose, no mercato fuori finestra, no doppi costi |
+| U5 | Fiducia persistente del singolo giocatore dopo ordini `encourage/harsh` | Engine06→Flow07B→Coach09 `persistShout` | Evento valido modifica trust una volta, niente secondo bonus temporaneo, persiste reload |
+| U6 | Catalogo 600 cognomi fornito a `newGame` nella nuova carriera pubblica, mantenendo 500 comuni già integrati | Dati Attributes08→Flow07B→UI | ID cognomi veramente presenti nella rosa iniziale, stabili su save/reload |
+| U7 | Pulsante partita FULL/TV reale; controlli tattiche, modulo, pressing, sostituzioni, ordini individuali | Renderer05 `setCameraMode`; Engine06 `commandM1Match`; UI/Flow07B | Switch senza alterare snapshot/risultato, 22 PNG, ordini con effetti e rifiuti reali |
+| U8 | Rosa/schede, formazione/lavagna, avversario, campionato/calendario/classifica e settimane senza partita | 07B R11 + Career07B, Asset01 quando già disponibile | Navigazione touch e azioni reali; nessuna partita inventata nelle bye31–38 |
+| U9 | Allenamenti con esiti, tifoseria/giornali, agenda COSA FARE OGGI, gestione giornate | 07B sections-r11 su ledger, eventi e status autentici 07/08/09/04 | Indicatori e CTA aggiornati dopo ogni azione/reload, nessun toast fittizio |
+
+**Non ricostruire i sistemi #28/#29/#31/#35/#56/#57 già MERGED.** Per ogni funzione: controlla se l'API esiste, crea **solo** adapter/controller e UI mancanti, preserva contratti e save compatibili. Se un sistema non espone davvero una capability, distingui `BLOCKED_API` nel rapporto, con export mancante, proprietario 05/06/08/09 e un test fallito/riproducibile; **non fabbricare un risultato per chiudere la checklist**. Il 07 originale e 10 originale restano in standby; 12 si occupa soltanto degli screenshot successivi. No Layout Editor, nuova arte/cutscene non bloccanti per questa integrazione, no modifiche al codice owner09/08/06/05 senza mandato separato.
+
+### Packaging e gate finale — sempre in questa unica esecuzione
+
+1. **PR #63 rimane la PR di fix per UI R11 originale.** Non crearne un doppione; risolvi R11-QA-01 e feedback save. **Apri almeno una PR backend distinta** da main per la correzione strutturale U2. Per U3–U9 usa una PR di integrazione dedicata se necessario per controllare diff e collisioni; gestisci le dipendenze tra HEAD con checkout/merge-tree combinato, senza effettuare merge. Non fermarti per chiedere al proprietario permessi di proseguire già concessi con questo mandato.
+2. **Test reali su checkout con tutte le modifiche contemporaneamente:** suite Node native Career07/Flow/Coach09/Attributes08/Engine06; server HTTP e Chromium con JS/CSS/PNG veri su 640×360,800×360,844×390,960×400 e safe-area, touch target ≥44px. Percorso UI: nuova carriera1979, avatar/20 offerte/stampa, 600 cognomi, hub, allenamento, rosa/lavagna, mercato/presidente, stadio, partita TV/comandi/sostituzioni, conferenza, classifica, bye31–38, seconda stagione, save/load e game-over. Seed diversi, retry, idempotenza economica e degli eventi, test di quota reale. Indicare esplicitamente ciò che non è stato provato (Android fisico, deploy GitHub Pages).
+3. **Una sola consegna finale:** PR+HEAD per ogni componente, REPORT07B con matrice U1–U9 `PASS / FAIL / BLOCKED_DEPENDENCY`, elenco prove realmente eseguite, screenshot e percorsi cliccabili; richiesta di **un unico audit00 finale sul checkout combinato**. Nessuna auto-certificazione solo perché esiste il codice. Eventuali blocchi oggettivi vanno isolati e segnalati, senza richiedere dieci nuove esecuzioni; 10-bis farà intervenire gli owner originali soltanto se indispensabile.
+4. **Merge non autorizzato:** rimangono vietati merge e dichiarazioni di PLAYABLE prima di audit indipendente e consenso esplicito del proprietario. Più PR possono essere chiuse con un solo gate finale, ma dovranno essere mergiate una per volta dopo autorizzazione.
+
+---
+
 **STATO: `R11_PR63_NEEDS_CHANGES_AND_CAREER07_HANDOFF_P0` — 9 novembre 2026.** Il proprietario ha messo in **standby l'Agente07 originale**, ora sostituito interamente da **ORONZO-AGENT-07B** (alias 07-bis; NON cambiare il tuo ID). Erediti **TUTTO lo sviluppo carriera / world / calendar / salvataggi / adapter / integrazione con09** e conservi **TUTTO lo sviluppo grafico e operativo delle sottosezioni** già affidate. La PR [#63](https://github.com/CzekUns/cercax/pull/63) è la TUA PR attuale, OPEN, HEAD auditato `6eb647894f79b38bc26915f016d245b7ee25bc85`. Audit [#64](https://github.com/CzekUns/cercax/pull/64), HEAD `9227e057103bff9e745dd25415e2e739af4863a9`: **NEEDS CHANGES** (64/64 Node + 10 scenari training + 8 percorsi Chromium; gli unici due difetti bloccanti sotto). Non mergiare nulla.
 
 ## P0-A — CHIUDI IL TUO LAVORO ATTUALE NELLA STESSA PR #63 (IMMEDIATO)
