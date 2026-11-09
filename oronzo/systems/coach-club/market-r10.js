@@ -57,12 +57,18 @@ export function negotiateTransferInWindow(club,{requestId,terms,window,period}={
   if(!matchWindow(req,window))return {accepted:false,reason:'market_window_changed',club};
   return negotiateWithSeller(club,requestId,terms);
 }
-export function finalizeTransferInWindow(club,{requestId,window,period}={}){
+export function finalizeTransferInWindow(club,{requestId,window,period,sellerRelease}={}){
   const check=windowCheck(club,window,period);if(check.reason)return {accepted:false,reason:check.reason,club};
   const req=club.market?.requests?.find(r=>r.id===requestId);
   if(!matchWindow(req,window))return {accepted:false,reason:'market_window_changed',club};
   const reason=isCurrentMandate(club,req.mandateId,req.agreement?.sellerFee??req.askingFee);
   if(reason)return {accepted:false,reason,club};
+  // Career07 owns source/seller rosters. Never sign an external player without
+  // an explicit seller release assertion that 07 must atomically verify and save.
+  if(req.player?.teamId && req.player.teamId!==club.id &&
+     !(sellerRelease?.source==='career-07' && sellerRelease.confirmed===true &&
+       sellerRelease.playerId===req.player.id && sellerRelease.sellerClubId===req.player.teamId))
+    return {accepted:false,reason:'career07_seller_release_required',club};
   const settled=finalizeTransfer(club,requestId,ledgerEntry(check.period));
   if(!settled.accepted)return settled;
   const c=settled.club,mandate=c.management.requests.find(x=>x.id===req.mandateId);
