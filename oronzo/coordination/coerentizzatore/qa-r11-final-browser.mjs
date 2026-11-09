@@ -329,7 +329,7 @@ for(const [w,h] of sizes){
   const visible=await page.locator('button:visible').evaluateAll(els=>els.map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height,a:e.dataset.action||''})));
   record(view,'touch-size-44x44',visible.every(x=>x.h>=43.5&&x.w>=43.5),JSON.stringify(visible.filter(x=>x.h<43.5||x.w<43.5)));
   record(view,'no-pageerror',errors.length===0,errors.join(';'));
-  record(view,'loaded-png-status',pngs.some(p=>p.status===200)&&pngs.every(p=>p.status===200),JSON.stringify(pngs.filter(p=>p.status!==200)));
+  record(view,'loaded-png-status',pngs.some(p=>p.status===200)&&pngs.every(p=>p.status===200||p.status===304),JSON.stringify(pngs.filter(p=>p.status!==200&&p.status!==304)));
  }catch(err){
    failed=true;findings.push({view,test:'UNCUGHT',pass:false,details:String(err),errors});
    await snap('FAILURE').catch(()=>{});
