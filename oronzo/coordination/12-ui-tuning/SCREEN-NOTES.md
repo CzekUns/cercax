@@ -8,7 +8,7 @@
 | --- | --- | --- | --- | --- | --- |
 | S12-001 | `entry` — apertura, revisione richiesta | Immagine computer a sinistra, due CTA a destra, zero testo introduttivo | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [#59](https://github.com/CzekUns/cercax/pull/59) + S02 |
 | S12-002 | Tutte le viste — navigazione inferiore | Eliminare il menu inferiore onnipresente; mantenere la navigazione in-contesto e futuro fullscreen accessibile senza ripristinare il menu | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [PR #59](https://github.com/CzekUns/cercax/pull/59) |
-| S12-003 | `hub` → sottosezioni | Aprire Campionato, Rosa, Allenamento, Tifoseria e Presidente in viste dedicate, senza anteprima a destra | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | Branch `agent/oronzo-12-ui-playtest-s02` |
+| S12-003 | `hub` → sottosezioni | Aprire Campionato, Rosa, Allenamento, Tifoseria e Presidente in viste dedicate, senza anteprima a destra | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [PR #60](https://github.com/CzekUns/cercax/pull/60) |
 
 **Stati:** `RICHIESTA` → `IMPLEMENTATA_DA_VERIFICARE` → `IMPLEMENTATA_DA_VERIFICARE` → `REVISIONE_00` → `CONFERMATA_UTENTE`; oppure `BLOCCATA` / `DIPENDENZA`. Non segnare una nota come corretta senza prova sufficiente.
 
@@ -60,7 +60,7 @@
 - **Viewport e screenshot:** Android in orizzontale, dimensioni non indicate; feedback testuale, screenshot non presente nel repository.
 - **Ambito:** solo `career-r03.js` e `career-r03.css`, non spostare elementi di altre viste.
 - **Verifiche:** parser V8 su sorgente del branch PASS; 8/8 test QA isolati PASS. Chromium HTTP e Android fisico NON ESEGUITI.
-- **PR / commit / esito:** sorgente JS commit `ead07a9`, CSS `d7b0d9e`, QA `8ce916b` nel branch S02; PR da collegare, senza merge autonomo.
+- **PR / commit / esito:** sorgente JS commit `ead07a9`, CSS `d7b0d9e`, QA `8ce916b` nel branch S02; [PR #60](https://github.com/CzekUns/cercax/pull/60), senza merge autonomo.
 
 ### S12-003 — Ufficio → schermate dedicate
 
@@ -72,7 +72,7 @@
 - **Componenti reali:** `renderHub()`, `playerRow()`, `renderPlayer()`, `interact('section'/'hub'/'back-rosa'/'back-training')`, `#ui-screen`, `.menu-cards`, `.runtime-table`, `.runtime-roster-list`.
 - **Viewport e screenshot:** Android landscape, dimensioni non indicate; feedback testuale in chat, nessun file screenshot in QA.
 - **Vincoli:** mantenere safe area, UI retro, touch ≥44px, zero interventi al motore o alle API; rispettare schermo intero e assenza footer S12-002.
-- **Stato prove / PR:** 8/8 test QA V8 isolati PASS; DOM reale Chromium HTTP, touch e Android NON ESEGUITI; PR S02 da collegare; verifiche da ripetere post feedback utente.
+- **Stato prove / PR:** 8/8 test QA V8 isolati PASS; DOM reale Chromium HTTP, touch e Android NON ESEGUITI; [PR #60](https://github.com/CzekUns/cercax/pull/60); verifiche da ripetere post feedback utente.
 
 ## Scheda richiesta (duplica per ogni ID `S12-xxx`)
 
