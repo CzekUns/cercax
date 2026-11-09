@@ -1,0 +1,43 @@
+name: ORONZO R11 Combined U1-U9 Real Tests
+on:
+  push:
+    branches:
+      - agent/oronzo-07b-r11-combined-qa
+  workflow_dispatch:
+jobs:
+  real-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install HTTP browser test dependencies
+        run: |
+          npm install --no-save playwright fake-indexeddb
+          npx playwright install --with-deps chromium
+      - name: Native syntax checks
+        run: |
+          node --check oronzo/assets/ui/career-r03.js
+          node --check oronzo/assets/ui/sections-r11/sections.js
+          node --check oronzo/assets/ui/qa/r11-combined-browser.mjs
+          node --check oronzo/app/flow/controller.js
+          node --check oronzo/app/flow/durable-save.js
+          node --check oronzo/app/flow/management-r11.js
+      - name: Native Node test suites (including standard two-season R11)
+        run: |
+          node --test oronzo/assets/ui/sections-r11/sections-r11.test.mjs oronzo/assets/ui/qa/ui12-landing-nav.test.cjs oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs oronzo/app/flow/tests/m1-live.test.mjs oronzo/systems/coach-club/management-r10.test.js
+      - name: HTTP Chromium playtest (real UI and PNG)
+        if: always()
+        run: |
+          python3 -m http.server 8123 --bind 127.0.0.1 > /tmp/oronzo-r11-http.log 2>&1 &
+          sleep 2
+          node oronzo/assets/ui/qa/r11-combined-browser.mjs
+      - name: Upload screenshots and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oronzo-r11-combined-browser-results
+          path: r11-screenshots/
+          if-no-files-found: ignore
