@@ -9,6 +9,7 @@ import {initializeCareerVenues,CAREER_STADIUM_POLICY_R11,changeCareerTicketPrice
  careerMarketOperation,careerSaleOperation,listCareerMarketCandidates}
  from '../management-r11.js';
 import {createDurableSaveManager} from '../durable-save.js';
+import {serialize,deserialize} from '../../../systems/career/save.js';
 import {BUILTIN_SURNAME_CATALOG} from '../../../systems/attributes/surnames.js';
 import {qaAvatar,qaMunicipalityCatalog} from './qa-geography.mjs';
 
@@ -132,4 +133,66 @@ test('U1: five live plans 0/100, no effect before advance',()=>{
   assert.deepEqual(club.players.map(p=>p.status.fatigue),before);
   assert.equal(selectM1Training(state,{plan,intensity:75,expectedAbsoluteWeek:state.absoluteWeek}).reason,'already_planned');
  }
+});
+
+test('U2: two 4MB recoverable verified IndexedDB copies and read-only legacy migration',async t=>{
+ let IDBFactory;
+ try{({IDBFactory}=await import('fake-indexeddb'));}catch{t.skip('optional fake-indexeddb not installed; Chromium native quota test required');return}
+ const indexedDB=new IDBFactory();
+ const local=new Map(),storage={getItem:k=>local.get(k)??null,setItem:(k,v)=>local.set(k,v),
+  removeItem:k=>local.delete(k)};
+ const {createSaveManager}=await import('../../../systems/career/save.js');
+ const state=setup(930);
+ // Valid career with a large data field, tests real serialization/checksum without a mocked quota.
+ state.flow.qaLargeHistory='x'.repeat(4200000);
+ const old=createSaveManager(storage,'oronzo.career.flow.r03');
+ old.save(state);const legacyA=storage.getItem('oronzo.career.flow.r03:A');
+ const manager=createDurableSaveManager({indexedDB,legacyStorage:storage});
+ const initial=await manager.load();
+ assert.equal(initial.provider,'localstorage_legacy');
+ assert.equal(initial.state.flow.qaLargeHistory.length,4200000);
+ const first=await manager.save(state);
+ assert.equal(first.verified,true);
+ state.absoluteWeek+=1;state.week+=1;
+ const second=await manager.save(state);
+ assert.equal(second.sequence,first.sequence+1);
+ const diagnostic=await manager.inspect();
+ assert.equal(diagnostic.A.valid,true);assert.equal(diagnostic.B.valid,true);
+ const loaded=await manager.load();
+ assert.equal(loaded.provider,'indexeddb');assert.equal(loaded.state.absoluteWeek,state.absoluteWeek);
+ assert.equal(storage.getItem('oronzo.career.flow.r03:A'),legacyA,
+  'legacy backup is never deleted or modified during IDB upgrade');
+ // Reject an unavailable/denied provider without deleting the existing good DB.
+ const denied=createDurableSaveManager({indexedDB:{open(){throw new Error('QuotaExceededError')}}});
+ await assert.rejects(denied.save(state),/QuotaExceededError/);
+ assert.equal((await manager.load()).state.absoluteWeek,state.absoluteWeek);
+});
+test('U8: two standard seasons, 30 coach fixtures + bye weeks 31–38 and checksum reload', {timeout:240000},()=>{
+ const state=setup(1979,{standard:true});
+ const originalClub=state.coach.clubId;
+ let checks=0;
+ for(let season=0;season<2;season++){
+  let matches=0,byes=0;
+  while(state.phase==='inSeason'){
+   const wk=state.week;
+   const event=playOne(state);if(event==='bye'){byes++;assert.ok(wk>=31&&wk<=38);}
+   else matches++;
+   if(state.week===31 || state.phase==='seasonComplete'){
+    const restored=deserialize(serialize(state));
+    assert.deepEqual(restored.flow.m1,state.flow.m1);
+    checks++;
+   }
+  }
+  assert.equal(matches,30);
+  assert.equal(byes,8);
+  assert.equal(state.flow.history.filter(x=>x.seasonYear===1979+season&&x.weekType==='bye_week').length,8);
+  if(season===0){
+   const rolled=rolloverSeason(state);assert.equal(rolled.accepted,true);
+   assert.equal(state.seasonYear,1980);
+   assert.equal(state.phase,'inSeason');
+  }
+ }
+ assert.equal(state.seasonYear,1980);
+ assert.ok(checks>=4);
+ assert.ok(state.clubs.some(x=>x.id===originalClub));
 });
