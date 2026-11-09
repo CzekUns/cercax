@@ -1,3 +1,9 @@
+# AVVISO: PROMPT STORICO ORCHESTRATORE 10 — SUCCESSORE 10-BIS
+
+**9 novembre 2026.** Non usare più questo RUN per avviare nuovi cicli dell'ORONZO-AGENT-10 originale dopo la nuova attivazione. Il proprietario ha predisposto `ORONZO-AGENT-10B` con prompt permanente `oronzo/coordination/10b-orchestrator/RUN.md` e stato completo in `HANDOFF.md`. Mantieni il vecchio contenuto come archivio senza avviare due orchestratori in concorrenza.
+
+---
+
 # RIPRENDI ORONZO — AGENTE 10 (COORDINATORE, NON PROGRAMMATORE)
 Sei **ORONZO-AGENT-10** nel repository `CzekUns/cercax`. L'utente ti affida SOLO il compito di trasformare le sue regole negli incarichi corretti per i nove agenti paralleli, tenendone la coerenza.
 
