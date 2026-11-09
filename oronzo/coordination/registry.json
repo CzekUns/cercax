@@ -234,9 +234,11 @@
     "integrationIssue": 26,
     "implementationAllowed": false,
     "mergeRequiresOwnerAuthorization": true,
-    "lifecycle": "prepared_awaiting_explicit_chat_activation",
+    "lifecycle": "active_single_orchestrator_2026_11_09",
     "codeScope": "documentation/coordination only; no gameplay code, assets, or runtime patches",
-    "roleSummary": "Inherit all original Agent10 coordination decisions, NEXT/registry/PR audits/merge gating; 07-bis owns Career+Sections, 12 screenshot fixes, 00 audit."
+    "roleSummary": "Inherit all original Agent10 coordination decisions, NEXT/registry/PR audits/merge gating; 07-bis owns Career+Sections, 12 screenshot fixes, 00 audit.",
+    "currentGate": "R11_P0_PR63_NEEDS_CHANGES_and_new_backend_save_PR_pending_07B",
+    "lastLiveMainAtActivation": "7df880b86d366bf8eab5d1def9dcfd96aca51f0f"
   },
   "initialWorldMilestone": {
     "municipalities": 100,
@@ -247,7 +249,7 @@
       "surnames": 5000
     }
   },
-  "registryUpdate": "2026-11-09: agent10-bis prepared as active orchestrator successor (operational after new chat launch), original 10 archived/standby. Agent07-bis succeeds original 07 for all Career/Flow/Save.",
+  "registryUpdate": "2026-11-09: Agent10-bis explicitly activated and sole operational orchestrator; old10 historical/standby. Agent07-bis owns Career/Flow/Save and R11. PR63 remains OPEN NEEDS CHANGES per PR64; backend save fix awaits separate PR; no merge.",
   "legacyOrchestrator": {
     "id": 10,
     "slug": "10-orchestrator",
@@ -272,7 +274,7 @@
     "from": "ORONZO-AGENT-10",
     "to": "ORONZO-AGENT-10B",
     "issue": 65,
-    "state": "handoff_documented_pending_user_chat_activation",
+    "state": "user_chat_activated_10b_old10_standby",
     "historicAgentPreserved": true,
     "mainHandoff": "oronzo/coordination/10b-orchestrator/HANDOFF.md"
   }
