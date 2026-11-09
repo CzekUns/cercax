@@ -176,6 +176,6 @@ test('S12-004: visible PC artwork is an explicit image, not only CSS background'
 });
 test('S12-004: career CSS and JS are versioned together for cache invalidation', () => {
   const page=fs.readFileSync(path.join(__dirname,'..','career-r03.html'),'utf8');
-  assert.match(page, /career-r03\.css\?v=s12-004/);
-  assert.match(page, /career-r03\.js\?v=s12-004/);
+  assert.match(page, /career-r03\.css\?v=r11-single/);
+  assert.match(page, /career-r03\.js\?v=r11-single/);
 });
