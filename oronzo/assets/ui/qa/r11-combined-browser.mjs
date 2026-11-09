@@ -56,6 +56,15 @@ async function run(spec,index){
   check((await page.locator('#r11-intensity-value').innerText())==='73','rest73 restored output');
   await screenshot('training-reloaded');
   await act('hub').click();
+  await page.locator('[data-action="section"][data-value="rosa"]').click();
+  await page.locator('#r11-roster-filter').selectOption('GK');
+  check((await page.locator('.runtime-player-link').count())>0,'GK roster filter');
+  check((await page.locator('.runtime-player-link small').first().innerText()).includes('GK'),
+    'all filtered players are goalkeepers');
+  await page.locator('#r11-roster-sort').selectOption('fitness');
+  check((await page.locator('#r11-roster-sort').inputValue())==='fitness','real fitness sort');
+  await screenshot('roster-filter');
+  await act('hub').click();
   await page.locator('[data-action="section"][data-value="tifoseria"]').click();
   check(await page.locator('[data-action="support-tab"]').count()===3,'three supporters sections');
   await screenshot('stadium');
