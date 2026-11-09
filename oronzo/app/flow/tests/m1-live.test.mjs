@@ -127,7 +127,10 @@ test('M1: individual commands only when PR35 engine is in the checkout',async t=
   assert.equal(response.accepted,true);
   const records=Object.values(s.flow.m1.persistentEvents);
   assert.equal(records.length,1);
-  assert.equal(records[0].status,'pending_agent09_player_trust');
+  assert.equal(records[0].status,'applied'); // R11 reconciles via 09 on fulltime.
+  const persisted=s.clubs.find(c=>c.id===teamId).players.find(p=>p.id===player);
+  assert.equal(Number.isFinite(persisted.relationships.coachTrust),true);
+  assert.equal(Object.keys(s.clubs.find(c=>c.id===teamId).management.shouts).length,1);
   assert.equal(records[0].event.detail.temporaryOwner,'match-engine-06');
   const bank=store();for(const q of s.flow.press.postmatch.questions)
     answerPostMatchPress(s,q.id,q.answers[0].id);
