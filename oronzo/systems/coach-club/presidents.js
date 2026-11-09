@@ -41,7 +41,8 @@ export function presidentBehavior(profile, state={}, seed=1) {
   const pressure=clamp((100-trust)*.55 + losses*12 +(100-t.patience)*.15);
   const fundingRatio=state.cash > 0 ? clamp((state.requestedFee ?? 0)/state.cash,0,5) : (state.requestedFee > 0 ? 5 : 0);
   const chances={
-    marketApproval:clamp(.56+(t.ambition-t.frugality)*.003+trust*.0015+ (t.riskTolerance-50)*.001 - fundingRatio*.19-\n      (Number.isFinite(state.papponeria)?(state.papponeria-50)*.002:0),.03,.97),
+    marketApproval:clamp(.56+(t.ambition-t.frugality)*.003+trust*.0015+ (t.riskTolerance-50)*.001 - fundingRatio*.19-
+      (Number.isFinite(state.papponeria)?(state.papponeria-50)*.002:0),.03,.97),
     interference:clamp((t.interference*.58+t.authoritarianism*.18+pressure*.31)/100,0,.98),
     publicStatement:clamp((t.vanity*.55+pressure*.32)/100,0,.95),
     ultimatum:clamp((pressure*.6+(100-t.patience)*.28)/100,0,.95),
