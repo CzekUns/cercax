@@ -6,7 +6,7 @@
 
 | ID | Schermata | Modifica richiesta | Viewport / dispositivo | Stato | PR / commit |
 | --- | --- | --- | --- | --- | --- |
-| S12-001 | `entry` — apertura, revisione richiesta | Immagine computer a sinistra, due CTA a destra, zero testo introduttivo | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [#59](https://github.com/CzekUns/cercax/pull/59) + S02 |
+| S12-001 | `entry` — apertura, revisione richiesta | Immagine computer a sinistra, due CTA a destra, zero testo introduttivo | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [#59](https://github.com/CzekUns/cercax/pull/59) + [#60](https://github.com/CzekUns/cercax/pull/60) |
 | S12-002 | Tutte le viste — navigazione inferiore | Eliminare il menu inferiore onnipresente; mantenere la navigazione in-contesto e futuro fullscreen accessibile senza ripristinare il menu | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [PR #59](https://github.com/CzekUns/cercax/pull/59) |
 | S12-003 | `hub` → sottosezioni | Aprire Campionato, Rosa, Allenamento, Tifoseria e Presidente in viste dedicate, senza anteprima a destra | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [PR #60](https://github.com/CzekUns/cercax/pull/60) |
 
