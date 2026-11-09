@@ -1,3 +1,35 @@
+# ORONZO — Agente 12, hotfix S12-004 immagine del computer non visibile
+
+**Data:** 9 novembre 2026  
+**Branch:** `agent/oronzo-12-ui-playtest-s03`  
+**Stato:** `IMPLEMENTATA_DA_VERIFICARE` — [PR #61](https://github.com/CzekUns/cercax/pull/61), hotfix 1:1 in integrazione; deploy e test Android ancora da verificare.  
+**Origine:** feedback Android dopo PR #60 integrata e GitHub Pages run #42642167594 riuscita al secondo tentativo.
+
+## Problema segnalato e verifica
+
+Il proprietario vede ancora la landing con due soli pulsanti, senza il computer a sinistra. Il file grafico `office-desk-v02.png` è presente su GitHub main, ma nella PR #60 era usato **solo come background CSS di un div senza contenuto**. La causa finale sul dispositivo non è confermata: potrebbero esserci risorse CSS cached o problemi di rendering. Lo strumento esterno di consultazione non riesce ad accedere direttamente a GitHub Pages in questa sessione.
+
+## Fix concreto
+
+- `career-r03.js`: `renderEntry()` ora include un elemento HTML `img` autentico con `src="./office-desk-v02.png?v=s12-004"`, `alt` leggibile e `fetchpriority=high`; non è più necessario che il background CSS sia applicato per far comparire l'immagine.
+- `career-r03.css`: esplicita layout dell'immagine con dimensioni 100%, `object-fit:contain` e wrapper con `overflow:hidden`, mantenendo i due CTA in colonna a destra.
+- `career-r03.html`: riferimenti a `career-r03.css?v=s12-004` e `career-r03.js?v=s12-004`, per non riusare la vecchia cache sotto gli URL precedenti. Nessuna modifica fullscreen o sistemi.
+- `qa/ui12-landing-nav.test.cjs`: aggiunti 2 test sull'esistenza dell'IMG reale e sulla coerenza delle due versioni asset.
+
+**Regressioni protette:** 2 CTA `start/load`; cinque sottosezioni Campionato/Rosa/Allenamento/Tifoseria/Presidente e ritorni; navigazione inferiore nascosta; fullscreen nella barra alta; canvas partita e save invariati.
+
+## QA eseguita
+
+- Parsing JS autenticato da sorgente GitHub, import ESM eliminati solo per parser V8 isolato: **PASS**.
+- Codice test della repo eseguito in V8 su sorgenti aggiornati recuperati da GitHub, `require` simulato: **10/10 PASS**. Inclusi test delle cinque sottosezioni e nuove asserzioni su `img` e cache bust.
+- **QA HTTP/Chromium sul gioco integrato: NON ESEGUITA** (checkout autenticato GitHub non disponibile dalla sessione). **Test su Android reale: NON ESEGUITO**. Non affermare che il problema su telefono sia risolto prima di vedere la schermata pubblicata.
+
+## Merge/deploy
+
+PR [#61](https://github.com/CzekUns/cercax/pull/61) creata per questo hotfix. Il merge è autorizzato nell'ambito delle modifiche UI 1:1; dopo l'integrazione verificare separatamente pubblicazione Pages e schermata sul telefono. Dopo approvazione merge controllare GitHub Pages `success`, quindi URL HTML con parametro nuovo `?v=s12-004` e screenshot Android, prima di chiudere la nota S12-004.
+
+---
+
 # RAPPORTO ORONZO-AGENT-12 — S02, revisione ingresso e sezioni Ufficio
 
 **Data:** 9 novembre 2026 (Europe/Rome)  

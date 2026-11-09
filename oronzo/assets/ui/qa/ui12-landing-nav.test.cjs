@@ -160,3 +160,17 @@ test('S12-003: menu selection and player back routes point to dedicated office s
   assert.equal(page.screen,'hub-section');assert.equal(page.selectedHub,'allenamento');
   assert.throws(()=>page.interact('section','nonexistent'),/Sezione non disponibile/);
 });
+
+test('S12-004: visible PC artwork is an explicit image, not only CSS background', () => {
+  const html=entryHtml();
+  assert.match(html, /<img class="runtime-entry-photo" /);
+  assert.match(html, /src="\.\/office-desk-v02\.png\?v=s12-004"/);
+  assert.match(html, /alt="Ufficio rétro con computer"/);
+  assert.match(styles, /\.runtime-entry-visual \.runtime-entry-photo\{[\s\S]*object-fit:contain/);
+  assert.match(styles, /\.runtime-entry-visual\{[\s\S]*overflow:hidden/);
+});
+test('S12-004: career CSS and JS are versioned together for cache invalidation', () => {
+  const page=fs.readFileSync(path.join(__dirname,'..','career-r03.html'),'utf8');
+  assert.match(page, /career-r03\.css\?v=s12-004/);
+  assert.match(page, /career-r03\.js\?v=s12-004/);
+});

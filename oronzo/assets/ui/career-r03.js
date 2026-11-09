@@ -95,7 +95,7 @@ function newCareer(){
 function selectLineup(){lineup=new Set();bench=new Set();captain=null;const club=getUI()?.club;if(!club)return;const eligible=club.players.filter(p=>{const full=state.clubs.find(c=>c.id===club.id).players.find(x=>x.id===p.playerId);return !(full.status?.injuryDays||full.status?.suspensionMatches||full.status?.health===0)});
  const gk=eligible.find(p=>p.positions.includes('GK'));if(gk)lineup.add(gk.playerId);for(const p of eligible.filter(x=>!x.positions.includes('GK')).slice(0,10))lineup.add(p.playerId);
  for(const p of eligible.filter(x=>!lineup.has(x.playerId)).slice(0,5))bench.add(p.playerId);captain=[...lineup].find(x=>x!==gk?.playerId)??null;}
-function renderEntry(){return `<div class="runtime-entry" role="group" aria-label="Menu iniziale ORONZO"><div class="runtime-entry-visual" role="img" aria-label="Ufficio rétro con computer"></div><div class="runtime-entry-actions">${btn('▶ NUOVA PARTITA','start','','gold-btn')}${btn('▣ CARICA PARTITA','load')}</div></div>`}
+function renderEntry(){return `<div class="runtime-entry" role="group" aria-label="Menu iniziale ORONZO"><div class="runtime-entry-visual"><img class="runtime-entry-photo" src="./office-desk-v02.png?v=s12-004" alt="Ufficio rétro con computer" decoding="async" fetchpriority="high"></div><div class="runtime-entry-actions">${btn('▶ NUOVA PARTITA','start','','gold-btn')}${btn('▣ CARICA PARTITA','load')}</div></div>`}
 function renderAvatar(){
  const c=baseCoaches[avatar];
  const choices=mode==='qa'?QA.municipalities.slice(0,4):(REAL?.municipalities||[]);
