@@ -1,3 +1,15 @@
+# ORONZO — COERENTIZZATORE 00 · QA POST-MERGE BETA DI MAIN
+
+**STATO: `READY_BETA_MAIN_POSTMERGE_AUDIT` — 9 novembre 2026.** Su richiesta del proprietario, nove PR funzionali/UI sono ora integrate su `main`: #52 #53 #29 #28 #31 #35 #57 #56 #59, ultimo merge SHA `d7a718e7634596e67d9a9be00b366217d82700e3`. **I precedenti verdict PASS di #55/#58 valgono solo per gli HEAD allora esaminati; i nuovi fix #57/#56 e la UI #59 non hanno avuto audit indipendente pre-merge.** Obiettivo: testare SUBITO il main reale per playtest beta, senza creare un'altra roadmap.
+
+**Test obbligatori:** Node nativo su intero repo; `node --check` presidents/negotiations, caso standard Promozione30/altre divisioni38 fino a 1981 con retry/save/load, cross `persistShout` fiducia una sola volta, ticketing incassi e richieste presidente, market guards, 500 comuni/600 cognomi; Chromium HTTP con entry due pulsanti, fullscreen spostato in gamebar e menu inferiore nascosto, 44px e safe areas a 640×360/800×360/844×390/960×400, conferenza, campo 22 PNG, FULL/TV API, touch. Distinguere la **camera disponibile come API** da bottone TV ancora non collegato nella UI. Segnalare il **bug di accessibilità al periodo bye_week**: il controller07 ora permette progressione, ma `renderHub` espone solo FORMAZIONE e SALVA e #59 nasconde la nav PROSSIMA; un allenatore PROM può restare senza pulsante per avanzare dopo 30 gare. Questo non è un difetto già certificato da Chromium, ma un gap evidente nel JS main da riprodurre.
+
+**Consegna:** unico REPORT di post-merge, bug riproducibili, screenshot/log, vertetto `BETA_PLAYABLE` o `NEEDS_FIX` per main e richieste mirate all'Agente12. Nessun merge autonomo.
+
+---
+
+## ARCHIVIO REQUEST00 PRECEDENTI
+
 # ORONZO — COERENTIZZATORE 00 · R10-W2 CHIUSURA MIRATA PR #56 E #57
 
 **STATO: `WAIT_AUTHOR_FIXES_R10_W2_01_02` — 9 novembre 2026.** L'audit [PR #58](https://github.com/CzekUns/cercax/pull/58) è completo e ha certificato **PASS #28/#29/#31/#35**, **NEEDS CHANGES #57** (P0 `SyntaxError` nei file presidents/negotiations) e **NEEDS CHANGES #56** (settimana31 PROM senza fixture che impedisce rollover). Nessun merge autorizzato. I commenti con difetti puntuali sono **già presenti** nelle PR, non replicarli creando nuove issue/PR. Gli autori 09 e07 devono correggere **le stesse PR**.
