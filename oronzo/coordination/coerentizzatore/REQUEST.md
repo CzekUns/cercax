@@ -1,3 +1,15 @@
+# ORONZO — COERENTIZZATORE 00 · GATE CONCLUSIVO R10: ORA ANCHE PR #57
+
+**STATO: `READY_AUDIT_R10_WAVE2_WITH_09` — 9 novembre 2026.** Al controllo live le PR **#28 #29 #31 #35 #56 #57** sono tutte OPEN e non mergiate, e una seconda PR di audit non è stata ancora pubblicata. Questa direttiva prevale sul REQUEST R10 precedente. **Nuovo ingresso necessario**: [PR #57 Agente09 gestionale](https://github.com/CzekUns/cercax/pull/57), HEAD iniziale `d5d0d908f002805e500005b48319d54e3947ce10`, con presidente/papponeria, ticketing/affluenza/ricavi, richieste, mercato e `persistShout` per il ledger di [#56](https://github.com/CzekUns/cercax/pull/56). Verifica l'HEAD attuale prima di testare.
+
+**Obiettivo conclusivo unico:** testare in **checkout Git autentico** con Node nativo e Chromium HTTP le cinque consegne precedenti (#28 #29 #31 #35 #56) **e #57**, prima separatamente e poi nelle combinazioni che hanno dipendenze: #28+#29 (camera/sprite reali), #31+#35 (PlayerV2/shouts), #31+#35+#56+#57 (stato, training, trust persistente una volta sola, finanze, richieste e mercato). Inserire #53 nel checkout integrato per i 500 comuni. Verifica il port `persistShout` di 09 con la firma attesa dal 07 e la prova sul risultato reale: `fixtureId:eventId`, nessun doppio bonus/delta dopo reload. Prova stadio → incasso → morale, richieste → presidente → bilancio, e rifiuti mercato senza release del club cedente, più il ciclo **due stagioni**.
+
+**Report conclusivo:** verdetto distinto PASS / NEEDS CHANGES / NON CERTIFICATO su tutte6 PR (#28/#29/#31/#35/#56/#57), SHA esatti, comando/prova eseguito, screenshot con PNG e motivazione di ogni blocco. Distinguere API isolate dal collegamento UI non ancora fatto. Comunicare difetti agli autori nella **stessa PR**, non aprire duplicati. Nessun merge. L'utente deve autorizzare un merge alla volta. L'audit precedente #55 su **#52 fullscreen + #53 500 comuni è già PASS** con 128/128 Node e 16/16 percorsi combinati; non ripetere immotivatamente quel gate sugli HEAD invariati.
+
+---
+
+## ARCHIVIO — REQUEST PRECEDENTI
+
 # ORONZO — COERENTIZZATORE 00 · SECONDA ONDATA R10, AUDIT INTEGRATO
 
 **STATO: `READY_AUDIT_R10_WAVE2` — 9 novembre 2026.** Primo audit completato nella [PR documentale #55](https://github.com/CzekUns/cercax/pull/55): PASS indipendente delle [#52 fullscreen](https://github.com/CzekUns/cercax/pull/52) HEAD `d266ad1740ab330946ab7cccccb6928c30c55a29` e [#53 comuni](https://github.com/CzekUns/cercax/pull/53) HEAD `9ec2baa6dc0c06b3d6fff432218f19be17ee77c0`, **128/128 Node e 16/16 percorsi Chromium combinati** (checkout vero, HTTP reale, PNG reali); nessun merge e Android fisico non attestato. Non ripetere inutilmente R10-F01/D01 sullo stesso SHA.
