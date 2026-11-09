@@ -96,6 +96,64 @@ async function run(spec,index){
    check((await screen())==='post','real match post-conference');
    await act('advance').click();
    check((await state()).absoluteWeek===2,'real week advance');
+
+   // Native Chromium quota/recovery with REAL standard 1979/1980 career states
+   // exported by the Node two-season Engine06 suite above.
+   const persistence=await page.evaluate(async()=>{
+    const [{createDurableSaveManager,DURABLE_DB,DURABLE_STORE},{deserialize}]=
+      await Promise.all([import('/oronzo/app/flow/durable-save.js'),
+        import('/oronzo/systems/career/save.js')]);
+    const download=async name=>{
+      const response=await fetch('/r11-screenshots/'+name);
+      if(!response.ok)throw Error('standard save HTTP '+response.status+' '+name);
+      const text=await response.text();
+      return {state:deserialize(text),size:text.length};
+    };
+    const one=await download('standard-one-season.json'),
+          two=await download('standard-two-season.json');
+    const manager=createDurableSaveManager({indexedDB,legacyStorage:localStorage});
+    const first=await manager.save(one.state),second=await manager.save(two.state);
+    const slots=await manager.inspect();
+    const loaded=await manager.load();
+    if(!slots.A?.valid||!slots.B?.valid)throw Error('IDB dual recovery missing');
+    if(loaded.state.seasonYear!==1980)throw Error('IDB latest year mismatch');
+    // Damage the active slot, then verify that the independent first copy loads.
+    const db=await new Promise((resolve,reject)=>{
+      const q=indexedDB.open(DURABLE_DB,1);
+      q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error);
+    });
+    await new Promise((resolve,reject)=>{
+      const tx=db.transaction(DURABLE_STORE,'readwrite');
+      tx.objectStore(DURABLE_STORE).put({blob:'intentional-corruption-for-qa'},slots.active);
+      tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+    });
+    db.close();
+    const recovered=await manager.load();
+    if(!recovered.recovered||recovered.state.seasonYear!==1979)
+      throw Error('damaged active slot did not recover valid 1979 backup');
+    const restoration=await manager.save(two.state);
+    const final=await manager.load();
+    return {
+      firstChars:one.size,secondChars:two.size,
+      firstSequence:first.sequence,secondSequence:second.sequence,
+      firstValid:slots.A.valid,secondValid:slots.B.valid,
+      recoveredYear:recovered.state.seasonYear,recovered:recovered.recovered,
+      finalYear:final.state.seasonYear,finalWeek:final.state.week,
+      restoredSequence:restoration.sequence
+    };
+   });
+   check(persistence.firstChars>4000000&&persistence.secondChars>4000000,
+     'real two-standard-season snapshots both exceed 4MB');
+   check(persistence.firstValid&&persistence.secondValid&&persistence.finalYear===1980,
+     'native Chromium IndexedDB dual-slot verified');
+   check(persistence.recovered&&persistence.recoveredYear===1979,
+     'native Chromium recovery after intentional active-slot corruption');
+   await page.reload({waitUntil:'networkidle'});
+   await act('load').click();
+   await page.waitForFunction(()=>window.OronzoR03?.getState()?.seasonYear===1980);
+   check((await screen())==='season','real 1980 season-end save loaded in public UI');
+   await screenshot('standard-two-seasons-loaded');
+
   }
   const touch=await page.locator('button:visible').evaluateAll(nodes=>nodes.map(e=>{
    const b=e.getBoundingClientRect();return {action:e.dataset.action||'button',width:b.width,height:b.height};
