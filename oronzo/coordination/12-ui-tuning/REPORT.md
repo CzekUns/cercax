@@ -1,9 +1,10 @@
 # RAPPORTO ORONZO-AGENT-12 — S02, revisione ingresso e sezioni Ufficio
 
 **Data:** 9 novembre 2026 (Europe/Rome)  
-**Stato:** `IMPLEMENTATA_DA_VERIFICARE` — PR S02 in preparazione; **nessun merge**  
+**Stato:** `IMPLEMENTATA_DA_VERIFICARE` — [PR #60](https://github.com/CzekUns/cercax/pull/60) DRAFT; **nessun merge**  
 **Base del branch:** `a8e980a2baa1bb45d9c0a34a7db4e6f49df9712c` (main aggiornato dopo merge #59, #52 e #53)  
 **Branch:** `agent/oronzo-12-ui-playtest-s02`  
+**PR:** [#60](https://github.com/CzekUns/cercax/pull/60)  
 **Issue:** [#54](https://github.com/CzekUns/cercax/issues/54)  
 **Note:** `oronzo/coordination/12-ui-tuning/SCREEN-NOTES.md`
 
