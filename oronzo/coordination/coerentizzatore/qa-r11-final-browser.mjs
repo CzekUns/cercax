@@ -244,6 +244,20 @@ for(const [w,h] of sizes){
     record(view,'live-tactic-ui',await action('match-tactic').count()===1);
     await action('match-tactic').click();
     await action('match-shout').click();
+    const substituteOptions=await page.evaluate(()=>{
+      const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+      const ids=id=>[...document.querySelectorAll('#'+id+' option')].map(o=>o.value);
+      const eligible=id=>!!c.players.find(p=>p.id===id && !p.positions.includes('GK'));
+      return {outId:ids('r11-sub-out').find(eligible),inId:ids('r11-sub-in').find(eligible)};
+    });
+    record(view,'substitution-valid-real-roster-pair',
+      !!substituteOptions.outId&&!!substituteOptions.inId,JSON.stringify(substituteOptions));
+    await page.locator('#r11-sub-out').selectOption(substituteOptions.outId);
+    await page.locator('#r11-sub-in').selectOption(substituteOptions.inId);
+    await action('match-substitute').click();
+    const substitutionToast=await page.locator('#ui-toast').innerText();
+    record(view,'substitution-through-real-click',
+      substitutionToast.includes('Engine06 conferma: substitution'),substitutionToast);
     await snap('match-controls');
     const matchErrors=await st(()=>window.OronzoR03.getErrors());
     record(view,'runtime-errors-empty',matchErrors.length===0,JSON.stringify(matchErrors).slice(0,800));
@@ -278,7 +292,7 @@ for(const [w,h] of sizes){
       slots.first!==slots.second&&slots.recovered&&slots.year===1979,JSON.stringify(slots));
   }
   const visible=await page.locator('button:visible').evaluateAll(els=>els.map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height,a:e.dataset.action||''})));
-  record(view,'touch-size',visible.every(x=>x.h>=43.5&&x.w>=40),JSON.stringify(visible.filter(x=>x.h<43.5||x.w<40)));
+  record(view,'touch-size-44x44',visible.every(x=>x.h>=43.5&&x.w>=43.5),JSON.stringify(visible.filter(x=>x.h<43.5||x.w<43.5)));
   record(view,'no-pageerror',errors.length===0,errors.join(';'));
   record(view,'loaded-png-status',pngs.some(p=>p.status===200)&&pngs.every(p=>p.status===200),JSON.stringify(pngs.filter(p=>p.status!==200)));
  }catch(err){
