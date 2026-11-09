@@ -121,7 +121,7 @@ export function renderRosterLinks({ui,activeTraining=false}){
  return '<div class="r11-column-scroll r11-roster-scroll">'+rows+'</div>';
 }
 const tabs=[['stadio','STADIO'],['tifosi','TIFOSI'],['giornali','GIORNALI']];
-export function renderSupportersPanel({ui,club,tab='stadio'}){
+export function renderSupportersPanel({ui,club,tab='stadio',canEditTicket=false}){
  const toolbar='<nav class="r11-tabs" aria-label="Sottosezioni tifoseria">'+tabs.map(([id,label])=>
   '<button type="button" data-action="support-tab" data-value="'+id+'" '+(id===tab?'aria-current="page"':'')+'>'+label+'</button>').join('')+'</nav>';
  let inside='';
@@ -134,7 +134,8 @@ export function renderSupportersPanel({ui,club,tab='stadio'}){
    metric('Capienza',fmt(s.capacity))+metric('Condizione',fmt(s.condition)+'/100')+
    metric('Biglietto',fmt(s.ticketPriceITL)+' ₤')+
    metric('Cassa società',fmt(club?.finance?.cash)+' ₤')+'</div>'+
-   '<p class="r11-hint">Prezzi e incassi modificabili solo quando Career07 integra il port transazionale 09.</p>':
+   (canEditTicket?'<div class="r11-stadium-price"><input type="number" id="r11-ticket-price" min="0" max="1000000" step="50" value="'+E(s.ticketPriceITL)+'" aria-label="Prezzo biglietto in lire">'+B('APPLICA PREZZO','ticket-change')+'</div>':
+   '<p class="r11-hint">Adapter biglietteria non disponibile: prezzo in lettura.</p>'):
    '<div class="r11-empty"><b>DATI STADIO NON DISPONIBILI</b><p>La carriera non conserva capienza, condizioni e prezzo dei biglietti. Nessuna affluenza o incasso è stimato.</p>'+
    '<small>Richiesto adapter Career07 per inizializzare club.stadium da dati espliciti; gestione 09 subordinata a salvataggio atomico.</small></div>')+
    (history.length?'<div class="r11-timeline">'+history.slice(-4).reverse().map(x=>'<div>'+E(x.fixtureId??x.matchId??'Gara registrata')+
@@ -186,6 +187,14 @@ export function agendaItems(ui){
  }else if(status.kind==='unemployed'){
   items.push({title:'SENZA PANCHINA',detail:'Consulta le offerte oppure avanza la settimana.',
    action:status.canAdvance?'advance':'',done:false});
+ }
+ if(ui.clubManagement?.requests?.some(x=>x.status==='pending')){
+  items.push({title:'DECISIONE PRESIDENZIALE',detail:'Una richiesta al presidente attende una decisione.',
+   action:'section',value:'presidente',done:false});
+ }
+ if(ui.marketWindow?.open===true){
+  items.push({title:'MERCATO APERTO',detail:'È attiva una finestra di gameplay. Consulta proposte e mandati.',
+   action:'section',value:'presidente',done:false});
  }
  if(ui.club)items.push({title:'ROSA E CONTRATTI',detail:'Consulta calciatori, condizioni e fiducia nel mister.',
    action:'section',value:'rosa',done:false});
