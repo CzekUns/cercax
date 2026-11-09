@@ -8,6 +8,10 @@ import {BUILTIN_SURNAME_CATALOG} from '../../systems/attributes/surnames.js';
 import {previewOfferMorale} from '../../systems/coach-club/index.js';
 import {getStandings} from '../../systems/career/career.js';
 import {createMatchView,createEngineViewBridge} from '../../systems/match-view/match-view.js';
+import {formationAnchors,FORMATIONS} from '../../systems/match-engine/movement.js';
+import {commandM1Match} from '../../app/flow/controller.js';
+import {renderPresidentOperations} from './sections-r11/management-ui.js';
+import {renderLeaguePage} from './sections-r11/league-ui.js';
 import {renderPlayerCard,renderTrainingPanel,renderRosterLinks,renderSupportersPanel,
   renderDeskAgenda,agendaSummary,trainingStatus,mountPlayerIllustration}
   from './sections-r11/sections.js';
@@ -36,7 +40,7 @@ let state=null, press=null, presidents=null, mode='normal', screen='entry', avat
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
 let errors=[], viewReady=false;
 let trainingPlan='balanced',trainingIntensity=50,trainingRosterOpen=false,supportTab='stadio';
-let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full';
+let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full',matchToolsOpen=false,leagueTab='classifica',presidentTab='ufficio',formationChoice='4-4-2',pressingChoice=50;
 let integrationBackend=null;
 const backendPromise=import('../../app/flow/management-r11.js')
  .then(m=>{integrationBackend=m; if(state&&screen!=='match')render();return m;})
@@ -222,6 +226,10 @@ function renderHub(){
  return head('UFFICIO DEL MISTER',`${ui.gameDate} · ${club.name}`)+kpis()+
   pane('SCRIVANIA',`<div class="r11-desk-brief">${esc(agendaSummary(ui))}</div><div class="menu-cards runtime-grow">${choices}</div>${h(btn('FORMAZIONE ▶','formation','','gold-btn')+btn('SALVA','save'))}`,'runtime-grow runtime-hub-home');
 }
+const controlledClub=()=>state?.clubs.find(c=>c.id===state.coach.clubId);
+function marketWindow(){return integrationBackend?.getCareerMarketWindow(state)||null}
+function nextActionId(prefix){return prefix+':'+state.absoluteWeek+':'+
+ (globalThis.crypto?.randomUUID?.()||String(Date.now())+'-'+(++actionSerial))}
 function renderHubSection(){
  const ui=getUI(),club=ui?.club;
  if(!club)return head('UFFICIO NON DISPONIBILE');
@@ -239,26 +247,24 @@ function renderHubSection(){
  }
  if(selectedHub==='tifoseria'){
   return head('TIFOSERIA',ui.gameDate+' · '+club.name)+
-    renderSupportersPanel({ui,club:full,tab:supportTab});
+    renderSupportersPanel({ui,club:full,tab:supportTab,canEditTicket:!!integrationBackend});
+ }
+ if(selectedHub==='presidente'){
+  const p=president();
+  return head('PRESIDENTE E MERCATO',ui.gameDate+' · '+club.name)+
+   renderPresidentOperations({club:full,profile:p,tab:presidentTab,
+    backendReady:!!integrationBackend,window:marketWindow(),
+    candidates:integrationBackend?.listCareerMarketCandidates(state)||[],
+    otherClubs:state.clubs});
  }
  if(selectedHub==='agenda'){
   return head('COSA FARE OGGI','SETTIMANA '+ui.seasonWeek+' · '+ui.gameDate)+
-    pane('SCRIVANIA DEL MISTER',renderDeskAgenda(ui),'runtime-grow runtime-hub-detail');
+    pane('SCRIVANIA DEL MISTER',renderDeskAgenda({...ui,clubManagement:full?.management,marketWindow:marketWindow()}),'runtime-grow runtime-hub-detail');
  }
  let body='';
  if(selectedHub==='campionato'){
-  const opponent=ui.upcomingFixture?
-    state.clubs.find(c=>c.id===(ui.upcomingFixture.homeId===club.id?ui.upcomingFixture.awayId:ui.upcomingFixture.homeId)):null;
-  const rows=getStandings(state,club.divisionId);
-  const week=ui.coachWeekStatus;
-  const label=week?.kind==='bye_week'?'Turno di riposo · nessuna partita del mister':
-    week?.kind==='season_complete'?'Stagione terminata':
-    opponent?.name||'Nessun incontro in programma';
-  body='<p class="runtime-info">Prossima: <b>'+esc(label)+'</b> · '+esc(ui.gameDate)+' · giornata '+esc(ui.seasonWeek)+'</p>'+
-   '<div class="runtime-scroll runtime-grow runtime-table" data-total-rows="'+rows.length+'" aria-label="Classifica completa">'+
-   rows.map((r,i)=>tableRow(r,i,club.id)).join('')+'</div>';
-  if(week?.kind==='bye_week'&&week.canAdvance)
-   body+=h(btn('AVANZA SETTIMANA','advance','','gold-btn'));
+  return head('CAMPIONATO',ui.gameDate+' · '+club.name)+
+   renderLeaguePage({state,ui,standings:getStandings(state,club.divisionId),tab:leagueTab});
  }else if(selectedHub==='rosa'){
   body='<p class="runtime-foot">Rosa completa · '+club.players.length+' calciatori · apri una scheda.</p>'+
    '<div class="runtime-scroll runtime-grow runtime-roster-list" aria-label="Rosa">'+
@@ -343,9 +349,11 @@ async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.
  case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press}),()=>{selectLineup();display('president');persistAction('Contratto di ingaggio salvato')});break;}
  case 'press':display('press');break;case 'answer':{const [q,a]=value.split('|');const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const result=kind==='opening'?answerOpeningPress(state,q,a,{press}):answerPostMatchPress(state,q,a,{press});api(result,()=>{display(activeStage()==='hub'?'hub':activeStage()==='postmatch_ready'?'post':'press');persistAction('Risposta stampa salvata')});break;}
  case 'hub':if(!state)return display('entry');if(activeStage()==='hub')display('hub');else if(activeStage()==='postmatch_ready')display('post');else failure('Completa il passaggio corrente');break;
- case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;trainingRosterOpen=false;if(value==='tifoseria')supportTab='stadio';display('hub-section');break;
+ case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;trainingRosterOpen=false;if(value==='tifoseria')supportTab='stadio';if(value==='campionato')leagueTab='classifica';if(value==='presidente')presidentTab='ufficio';display('hub-section');break;
  case 'training-roster':trainingRosterOpen=!trainingRosterOpen;display('hub-section');break;
  case 'support-tab':if(!['stadio','tifosi','giornali'].includes(value))return failure('Scheda tifoseria non disponibile');supportTab=value;render();break;
+ case 'league-tab':if(!['classifica','calendario','prossima'].includes(value))return failure('Vista campionato sconosciuta');leagueTab=value;render();break;
+ case 'pres-tab':if(!['ufficio','mercato'].includes(value))return failure('Vista presidente sconosciuta');presidentTab=value;render();break;
  case 'training-plan':{
   if(!trainingStatus(getUI()).canSelect)return failure('Allenamento già pianificato');
   if(!['technical','athletic','tactical','balanced','rest'].includes(value))return failure('Programma non valido');
