@@ -84,7 +84,7 @@ test('S12: preserved former M01 touch fixes', () => {
 function sectionFixture() {
   const code=between('const hubMenu=', 'function renderFieldGroup(');
   const make=new Function('env', [
-    'let selectedHub="campionato", state=env.state, trainingPlan="balanced", trainingIntensity=50, trainingRosterOpen=false, supportTab="stadio";',
+    'let selectedHub="campionato", state=env.state, trainingPlan="balanced", trainingIntensity=50, trainingRosterOpen=false, supportTab="stadio", integrationBackend=null, leagueTab="classifica", presidentTab="ufficio";',
     'const getUI=()=>env.ui;',
     'const esc=s=>String(s??""),',
     ' head=(name)=>"<h1>"+name+"</h1>",',
@@ -100,6 +100,8 @@ function sectionFixture() {
     ' renderTrainingPanel=()=>"<div class=\\\"r11-training-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button><button data-action=\\\"training-apply\\\">APPLICA</button></div>",',
     ' renderSupportersPanel=()=>"<div class=\\\"r11-support-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
     ' renderDeskAgenda=()=>"<div class=\\\"r11-agenda-view\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
+    ' renderLeaguePage=()=>"<div class=\\\"r11-league-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
+    ' renderPresidentOperations=()=>"<div class=\\\"r11-president-page\\\"><button data-action=\\\"hub\\\">UFFICIO</button></div>",',
     ' renderRosterLinks=()=>"<div class=\\\"r11-roster-scroll\\\"></div>";',
     code,
     'return {renderHub,renderHubSection,hubMenu,setSection(v){selectedHub=v}};'
@@ -108,7 +110,7 @@ function sectionFixture() {
     club:{id:'club-1',name:'Club QA',divisionId:'PROM',
       players:[{playerId:'player-1',name:'Giocatore QA',positions:['GK']}]},
     upcomingFixture:null,coach:{relationships:{fans:50,media:50}}};
-  const state={clubs:[{id:'club-1',boardTrust:50,finance:{cash:100,arrears:0}}]};
+  const state={coach:{clubId:'club-1'},clubs:[{id:'club-1',boardTrust:50,finance:{cash:100,arrears:0}}]};
   return make({ui,state});
 }
 test('S12-003/R11: office shows six navigable cards including the agenda', () => {
@@ -123,14 +125,14 @@ test('S12-003/R11: office shows six navigable cards including the agenda', () =>
 test('S12-003: each office section is a full panel with actual data and a return action', () => {
   const fixture=sectionFixture();
   const expectations={
-    campionato:'runtime-table',rosa:'runtime-roster-list',
+    campionato:'r11-league-page',rosa:'runtime-roster-list',
     allenamento:'r11-training-page',tifoseria:'r11-support-page',
-    presidente:'Fiducia'
+    presidente:'r11-president-page'
   };
   for(const [section,marker] of Object.entries(expectations)){
     fixture.setSection(section);
     const html=fixture.renderHubSection();
-    if(!['allenamento','tifoseria'].includes(section))assert.match(html,/runtime-hub-detail/,section);
+    if(!['allenamento','tifoseria','campionato','presidente'].includes(section))assert.match(html,/runtime-hub-detail/,section);
     assert.ok(html.includes(marker),section);
     assert.match(html,/data-action="hub"/,section);
     assert.ok(!html.includes('class="menu-cards'),section);
@@ -139,10 +141,10 @@ test('S12-003: each office section is a full panel with actual data and a return
   fixture.setSection('allenamento');
   assert.doesNotMatch(fixture.renderHubSection(),/MODIFICA ALLENAMENTO · NON DISPONIBILE/);
 });
-test('S12-003: menu selection and player back routes point to dedicated office section', () => {
-  const code=between('function interact(action,value)', 'function renderMatchControls()');
+test('S12-003: menu selection and player back routes point to dedicated office section', async () => {
+  const code=between('async function interact(action,value)', 'function renderMatchControls()');
   const factory=new Function('env', [
-    'let selectedHub="campionato", selectedPlayerId=null, screen="hub", trainingRosterOpen=false, supportTab="stadio";',
+    'let selectedHub="campionato", selectedPlayerId=null, screen="hub", trainingRosterOpen=false, supportTab="stadio", leagueTab="classifica", presidentTab="ufficio";',
     'const state={coach:{morale:60,gameOver:false}},',
     ' hubMenu=env.hubMenu;',
     'const activeStage=()=>"hub", failure=s=>{throw Error(s)},',
@@ -153,17 +155,17 @@ test('S12-003: menu selection and player back routes point to dedicated office s
   const f=sectionFixture();
   const page=factory({hubMenu:f.hubMenu});
   for(const section of f.hubMenu.map(row=>row[0])){
-    page.interact('section',section);
+    await page.interact('section',section);
     assert.equal(page.screen,'hub-section');
     assert.equal(page.selectedHub,section);
-    page.interact('hub');
+    await page.interact('hub');
     assert.equal(page.screen,'hub');
   }
-  page.interact('back-rosa');
+  await page.interact('back-rosa');
   assert.equal(page.screen,'hub-section');assert.equal(page.selectedHub,'rosa');
-  page.interact('back-training');
+  await page.interact('back-training');
   assert.equal(page.screen,'hub-section');assert.equal(page.selectedHub,'allenamento');
-  assert.throws(()=>page.interact('section','nonexistent'),/Sezione non disponibile/);
+  await assert.rejects(page.interact('section','nonexistent'),/Sezione non disponibile/);
 });
 
 test('S12-004: visible PC artwork is an explicit image, not only CSS background', () => {
