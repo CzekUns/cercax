@@ -1,3 +1,5 @@
+> **AVVISO HANDOFF — 9 novembre 2026:** Questo è un registro storico, con molte decisioni e stati superati. Il nuovo **Agente 10-bis** è il successore dell'orchestratore10: fonte operativa `oronzo/coordination/10b-orchestrator/HANDOFF.md` e `NEXT.md`. L'Agente07 originale è in standby ed è sostituito da07-bis; audit PR #64 = NEEDS CHANGES per PR #63, incluso blocco localStorage. **Non prendere i vecchi passaggi ambientati nel 1985 o i vecchi owner come stato attuale; GAME-VISION-v02 (1979) prevale.**
+
 # ORONZO — MEMORIA OPERATIVA PERSISTENTE DELL'ORCHESTRATORE
 
 **Proprietario operativo:** chat principale di ChatGPT ORONZO (orchestratore).
