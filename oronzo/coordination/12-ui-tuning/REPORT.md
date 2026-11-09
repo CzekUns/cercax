@@ -2,7 +2,7 @@
 
 **Data:** 9 novembre 2026  
 **Branch:** `agent/oronzo-12-ui-playtest-s03`  
-**Stato:** `IMPLEMENTATA_DA_VERIFICARE`; senza merge.  
+**Stato:** `IMPLEMENTATA_DA_VERIFICARE` — [PR #61](https://github.com/CzekUns/cercax/pull/61), hotfix 1:1 in integrazione; deploy e test Android ancora da verificare.  
 **Origine:** feedback Android dopo PR #60 integrata e GitHub Pages run #42642167594 riuscita al secondo tentativo.
 
 ## Problema segnalato e verifica
@@ -26,7 +26,7 @@ Il proprietario vede ancora la landing con due soli pulsanti, senza il computer 
 
 ## Merge/deploy
 
-PR in bozza da aprire, ancora nessun merge; l'utente continua quindi a vedere `main` precedente. Dopo approvazione merge controllare GitHub Pages `success`, quindi URL HTML con parametro nuovo `?v=s12-004` e screenshot Android, prima di chiudere la nota S12-004.
+PR [#61](https://github.com/CzekUns/cercax/pull/61) creata per questo hotfix. Il merge è autorizzato nell'ambito delle modifiche UI 1:1; dopo l'integrazione verificare separatamente pubblicazione Pages e schermata sul telefono. Dopo approvazione merge controllare GitHub Pages `success`, quindi URL HTML con parametro nuovo `?v=s12-004` e screenshot Android, prima di chiudere la nota S12-004.
 
 ---
 
