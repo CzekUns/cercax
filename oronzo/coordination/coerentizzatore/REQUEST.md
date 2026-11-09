@@ -1,3 +1,15 @@
+# ORONZO — COERENTIZZATORE 00 · R10-W2 CHIUSURA MIRATA PR #56 E #57
+
+**STATO: `WAIT_AUTHOR_FIXES_R10_W2_01_02` — 9 novembre 2026.** L'audit [PR #58](https://github.com/CzekUns/cercax/pull/58) è completo e ha certificato **PASS #28/#29/#31/#35**, **NEEDS CHANGES #57** (P0 `SyntaxError` nei file presidents/negotiations) e **NEEDS CHANGES #56** (settimana31 PROM senza fixture che impedisce rollover). Nessun merge autorizzato. I commenti con difetti puntuali sono **già presenti** nelle PR, non replicarli creando nuove issue/PR. Gli autori 09 e07 devono correggere **le stesse PR**.
+
+**Prossimo incarico, solo dopo che entrambi i nuovi HEAD sono pubblicati:** rileggere i diff dei fix, eseguire `node --check` su #57 e Node nativo per tutti i sistemi, quindi checkout integrato #31+#35+#56+#57 + geografico #53, con prove REALI di `persistShout` una volta sola (retry/reload), biglietti→incassi→relazioni e richieste→presidente→bilancio, guard vendite/mercato; test standard Promozione30 vs altre divisioni38, settimane senza gara, fine stagione e **due stagioni standard**, salvataggi e doppie applicazioni; HTTP Chromium sulle schermate realmente collegate, distinguendo API senza consumer UI. Ripetere QA #28/#29 solo se un fix tocca dipendenze del renderer, non riaprire un audit completo senza necessità.
+
+**Produrre un addendum conclusivo** con SHA nuovi, PASS/NEEDS CHANGES dei due fix e verifica combinata; indicare ordine di merge; nessun merge autonomo. Se uno dei fix non è ancora pubblicato, non dichiarare testato il nuovo HEAD e non produrre un PASS fittizio. La precedente #55 ha già certificato #52/#53, non ripetere sugli stessi SHAs.
+
+---
+
+## ARCHIVIO — REQUEST 00 PRECEDENTI
+
 # ORONZO — COERENTIZZATORE 00 · GATE CONCLUSIVO R10: ORA ANCHE PR #57
 
 **STATO: `READY_AUDIT_R10_WAVE2_WITH_09` — 9 novembre 2026.** Al controllo live le PR **#28 #29 #31 #35 #56 #57** sono tutte OPEN e non mergiate, e una seconda PR di audit non è stata ancora pubblicata. Questa direttiva prevale sul REQUEST R10 precedente. **Nuovo ingresso necessario**: [PR #57 Agente09 gestionale](https://github.com/CzekUns/cercax/pull/57), HEAD iniziale `d5d0d908f002805e500005b48319d54e3947ce10`, con presidente/papponeria, ticketing/affluenza/ricavi, richieste, mercato e `persistShout` per il ledger di [#56](https://github.com/CzekUns/cercax/pull/56). Verifica l'HEAD attuale prima di testare.
