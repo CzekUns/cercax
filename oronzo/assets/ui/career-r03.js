@@ -95,7 +95,7 @@ function newCareer(){
 function selectLineup(){lineup=new Set();bench=new Set();captain=null;const club=getUI()?.club;if(!club)return;const eligible=club.players.filter(p=>{const full=state.clubs.find(c=>c.id===club.id).players.find(x=>x.id===p.playerId);return !(full.status?.injuryDays||full.status?.suspensionMatches||full.status?.health===0)});
  const gk=eligible.find(p=>p.positions.includes('GK'));if(gk)lineup.add(gk.playerId);for(const p of eligible.filter(x=>!x.positions.includes('GK')).slice(0,10))lineup.add(p.playerId);
  for(const p of eligible.filter(x=>!lineup.has(x.playerId)).slice(0,5))bench.add(p.playerId);captain=[...lineup].find(x=>x!==gk?.playerId)??null;}
-function renderEntry(){return head('IL FISCHIO D’INIZIO')+`<div class="runtime-split">${pane('L’UFFICIO TI ASPETTA',`<div class="news entry-brief">STAGIONE 1979<br>Inizia la tua carriera di provincia. Ingaggi e risultati provengono dai moduli reali.</div><p class="runtime-foot">500 comuni: fonte ISTAT/RP92 (CC BY 4.0). Dati attuali, non geografia certificata per il 1979.</p><div class="v-stack entry-actions">${btn('▶ NUOVA PARTITA','start','','gold-btn')}${btn('▣ CARICA PARTITA','load')}</div>`, 'runtime-grow entry-panel')}<div class="panel runtime-image" role="img" aria-label="Ufficio di allenatore rétro"></div></div>`}
+function renderEntry(){return `<div class="runtime-entry" role="group" aria-label="Menu iniziale ORONZO"><div class="runtime-entry-actions">${btn('▶ NUOVA PARTITA','start','','gold-btn')}${btn('▣ CARICA PARTITA','load')}</div></div>`}
 function renderAvatar(){
  const c=baseCoaches[avatar];
  const choices=mode==='qa'?QA.municipalities.slice(0,4):(REAL?.municipalities||[]);
@@ -175,7 +175,22 @@ function renderPost(){const fm=state.flow.finalMatch;return head('FISCHIO FINALE
 function renderSeason(){return head('STAGIONE TERMINATA')+pane('PROSSIMO ANNO',`<p class="runtime-info">Ultima giornata conclusa. I risultati precedenti restano nella carriera.</p>${h(btn('INIZIA NUOVA STAGIONE','rollover','','gold-btn'))}`,'runtime-grow')}
 function renderUnemployed(){return head('SENZA PANCHINA',state.gameDate)+pane('NUOVE OCCASIONI',`<p class="runtime-info">Il presidente ha deciso. Le vacanze contrattuali restano del sistema 07.</p><div class="runtime-scroll runtime-grow">${(getUI().careerOffers||[]).map(x=>btn(x.clubName||x.clubId,'vacancy',x.id)).join('')}</div>${h(btn('AVANZA SETTIMANA','advance','','gold-btn'))}`,'runtime-grow')}
 function renderGameover(){return head('GAME OVER · MORALE ESAURITO')+pane('CARRIERA CONCLUSA',`<div class="runtime-info">Morale del mister: 0. Il controller 07/09 ha chiuso questa carriera. Puoi crearne una nuova senza eliminare i salvataggi precedenti, oppure caricare una carriera valida.</div>${h(btn('NUOVA CARRIERA','reset-career','','gold-btn')+btn('CARICA SALVATAGGIO','load'))}`,'runtime-grow')}
-function render(){restoreMode();if(state?.coach?.gameOver||state?.coach?.morale===0)screen='gameover';const output={entry:renderEntry,avatar:renderAvatar,offers:renderOffers,president:renderPresident,press:renderPress,hub:renderHub,formation:renderFormation,match:renderMatch,post:renderPost,season:renderSeason,unemployed:renderUnemployed,gameover:renderGameover,player:renderPlayer}[screen]||renderEntry;area.innerHTML=output();root.querySelectorAll('.quick-nav button').forEach(b=>b.disabled=screen==='match'||screen==='gameover'&&b.dataset.action!=='home'&&b.dataset.action!=='save');if(screen==='match')mountMatchView();}
+function render(){
+ restoreMode();
+ if(state?.coach?.gameOver||state?.coach?.morale===0)screen='gameover';
+ const output={entry:renderEntry,avatar:renderAvatar,offers:renderOffers,president:renderPresident,press:renderPress,hub:renderHub,formation:renderFormation,match:renderMatch,post:renderPost,season:renderSeason,unemployed:renderUnemployed,gameover:renderGameover,player:renderPlayer}[screen]||renderEntry;
+ root.dataset.screen=screen;
+ area.innerHTML=output();
+ // The persistent five-item footer duplicates screen-local navigation and wastes landscape height.
+ // Keep its markup for the pending PR #52, but remove it from every view.
+ const nav=root.querySelector('#runtime-nav');
+ if(nav)nav.hidden=true;
+ // PR #52 adds a native fullscreen control to the footer. Once present, promote only
+ // that control to the header so its existing listener and 44px hit area remain available.
+ const fullscreen=root.querySelector('#fullscreen-toggle'),header=root.querySelector('.gamebar');
+ if(fullscreen&&header&&fullscreen.parentElement!==header)header.appendChild(fullscreen);
+ if(screen==='match')mountMatchView();
+}
 function clearMatch(){if(view)view.destroy();viewReady=false;view=null;bridge=null;engine=null;matchInput=null;scoreSnapshot=null;paused=true;}
 function prepare(){if(!state)return;const all=getUI().club.players;const chosen=all.filter(p=>lineup.has(p.playerId));const goalkeepers=chosen.filter(p=>p.positions.includes('GK'));if(chosen.length!==11||goalkeepers.length!==1){failure('La formazione richiede 11 titolari, esattamente un portiere');return}
  const candidates=all.filter(x=>!lineup.has(x.playerId));const b=[...bench].filter(x=>candidates.some(p=>p.playerId===x));if(!b.length){failure('Scegli almeno una riserva');return}const result=prepareMatch(state,{xi:[...lineup],bench:b,captainId:captain});api(result,()=>{engine=result.engine;matchInput=result.matchInput;paused=true;speed=1;display('match');});}
