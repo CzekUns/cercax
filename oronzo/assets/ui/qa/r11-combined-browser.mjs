@@ -57,7 +57,7 @@ async function run(spec,index){
   await screenshot('training-reloaded');
   await act('hub').click();
   await page.locator('[data-action="section"][data-value="tifoseria"]').click();
-  check(await act('support-tab').count()===3,'three supporters sections');
+  check(await page.locator('[data-action="support-tab"]').count()===3,'three supporters sections');
   await screenshot('stadium');
   if(index===0){
    const inp=page.locator('#r11-ticket-price');
