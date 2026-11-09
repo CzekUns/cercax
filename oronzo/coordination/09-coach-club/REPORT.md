@@ -1,12 +1,38 @@
 # RAPPORTO ORONZO-AGENT-09 — R10 · Gestionale profondo v0.2
 
-**Stato:** PR_OPEN · DELIVERED FOR REVIEW · NON MERGED
+**Stato:** PR_OPEN · FIX R10-W2-01 CONSEGNATO · NUOVO AUDIT RICHIESTO · NON MERGED
 **Repository:** CzekUns/cercax
 **Branch:** `agent/oronzo-coach-club-r10-management`
 **Pull Request:** https://github.com/CzekUns/cercax/pull/57
 **Base:** `e7c37fa838e08bf352fa43e943b314d7856155c3` (main verificato al checkout)
 **Issue storica:** https://github.com/CzekUns/cercax/issues/11
 **Data:** 9 novembre 2026, Europe/Rome
+
+## Fix P0 R10-W2-01 — SyntaxError in PR #57 (9 novembre 2026)
+
+**Origine:** audit indipendente [PR #58, REPORT-R10-WAVE2.md](https://github.com/CzekUns/cercax/blob/audit/oronzo-coerentizzatore-r10-wave2/oronzo/coordination/coerentizzatore/REPORT-R10-WAVE2.md). **PR corretta:** [#57](https://github.com/CzekUns/cercax/pull/57), branch invariato `agent/oronzo-coach-club-r10-management`; nessun merge.
+
+### Codice corretto e pubblicato
+
+- `oronzo/systems/coach-club/presidents.js:44`: eliminato un token letterale `\\n` fuori stringa da `presidentBehavior`, ora esiste un vero ritorno a capo JS. Commit `7c5afbc740da7aa6fbcde3f30a6c62dd984627ef`.
+- `oronzo/systems/coach-club/negotiations.js:29,81`: eliminati altri due `\\n` letterali fuori stringa da `reviewTransfer` e `decideSale`, invariata la logica papponeria. Commit `a2df6eb216debea547f9592f8c96fe485c1cb0bd`.
+- Creato `oronzo/systems/coach-club/syntax-r10.test.js`: test di regressione Node che esegue `node --check` nativo su entrambi i file, poi importa `./index.js` dell'Agente09 e `../../app/flow/controller.js` reale dell'Agente07. Commit `3b5cccf4f0ea8b0af051db9dd08fdc9ed2adecee`. Questo test è ora sulla PR, **non è stato eseguito fino in fondo** in questo container privo di checkout: serve eseguirlo nel gate Git combinato.
+
+### Verifiche eseguite e risultati osservati
+
+1. Sorgenti riletti **dalla PR #57 dopo l'update**, confrontati con i file locali usando `git hash-object`. Hash autentici coincidenti: `presidents.js=2406941e21f4c0051bfdb5a6633a6b72efdbb487`; `negotiations.js=e92375131e83fb64fba2f4b5b767ed0d75451e09`. Cercate tutte le sequenze testuali `\\n` in entrambi i file: **0** dopo la correzione.
+2. **Node v22.16.0**, file byte-identici ai due blob GitHub: `node --check presidents.js` **PASS** e `node --check negotiations.js` **PASS**. Validati anche i blob originali di `core.js=fb4b00debfc66ab870b41880a67d1264939a725e`, `period.js=48b8cfa889d2650e71e5d63d5c78ddb1b2c9ff20`, `finance.js=88c0469e685d013df33503036b5bc66f051d6b18`.
+3. **Node nativo**, `node --test targeted-fix.test.mjs` su quelle **cinque copie autentiche**, fixture di prova esterna alla PR: **7/7 PASS, 0 FAIL**. Verificati import funzionante, policy mercato con papponeria, `reviewTransfer` deterministico, `decideSale` persistente e idempotente, presidente canonico, payroll e settlement `a:1` (1979) / `a:40` (1980) con save/load e zero doppi addebiti. Questo non è il checkout completo: test mirati sui blob 09 con hash comprovati.
+4. **V8 Code Mode, non Node**: caricati i veri 11 sorgenti GitHub della PR #57, inclusa la versione completa di `management-r10.test.js`. Eseguiti i **17/17 test gestionali PASS, 0 FAIL** mediante loader ESM in V8 e sostituto `structuredClone` per oggetti JSON; nessuna stub delle regole 09. È un ulteriore controllo sui blob autentici, ma **non** sostituisce `node --test` su checkout.
+5. **Cross 06/07/08/09 in V8**, fonti PR #35 (`orders.js`), #31 (`player-model.js`), #56 (`m1-contract.js`), #57 (`shouts-r10.js`): generato `persistentSuggestion` reale dal 06 per PlayerV2 normalizzato 08, `journalM1Shouts` ha registrato **1 pending**, `reconcileM1Shouts` con `persistShout` 09 ha applicato **1** aggiornamento `coachTrust:50→52`. Dopo serializzazione JSON, un nuovo reconcile ha applicato **0** effetti; nuovo journal ha registrato **0** duplicati. Il modificatore temporaneo dell'Engine06 è rimasto intatto e non è stato aggiunto ai dati permanenti. **Cross-firma e replay PASS in V8**, **non ancora test combinato Node sull'albero Git autentico**.
+
+**Limitazione verificabile:** il container non può clonare la repository (`git ls-remote https://github.com/CzekUns/cercax.git HEAD` → `Could not resolve host: github.com`). Quindi `node --test oronzo/systems/coach-club/*.test.js`, la nuova `syntax-r10.test.js` fino all'import di Career07 e lo smoke ESM dell'HTML autentico **non sono stati eseguiti su checkout Git** in questa sessione. Non attribuire a questi ultimi un PASS. Richiesto all'auditor00 un re-run combinato con HEAD aggiornato della #57 e degli agenti #31/#35/#56. Il diverso blocco R10-W2-02 nella PR #56 (giornate senza partita) appartiene al 07.
+
+### API e perimetro
+
+Nessuna firma modificata: `presidentBehavior`, `reviewTransfer`, `decideSale`, `persistShout({key,event,coach,club})` rimangono identici; sono cambiati solo i tre separatori di riga e il test anti-regressione. Solo scope `oronzo/systems/coach-club/` e questo REPORT. PR aperta, **mai mergiata**. Il nuovo HEAD va verificato dalla PR dopo questo aggiornamento documentale.
+
+---
 
 ## Implementazione reale — R10
 
