@@ -1,6 +1,19 @@
 # ORONZO — TODO R11: completamento schermate e azioni giocabili
 _Data di verifica: 9 novembre 2026; fonte di verità: `main` (career-r03.js, controller07, modules08/09), GAME-VISION-v02, Epic #25 e SCREEN-NOTES agente12._
 
+## Aggiornamento ownership — AGENTE 07-BIS (9 novembre 2026)
+
+Su richiesta del proprietario è attivo l'**[Agente 07-bis / ORONZO-AGENT-07B](https://github.com/CzekUns/cercax/issues/62)**, distinto da Agente 07 e 12. **Questa assegnazione prevale sulle etichette owner storiche nei singoli task di seguito**.
+
+- **07-bis**: R11-01 (CTA in agenda), R11-03 (allenamento UI), R11-06/07 (scheda e rosa), R11-08/10 (stadio/tifoseria/giornali), R11-09 (UI presidente/mercato, dopo gate backend), R11-11/12/13/14 (calendario/lavagna/agenda/arte sezioni), in cicli successivi a R11-01; R11-05 solo UI consumer con contratto 07. **Primo ciclo:** scheda giocatore, allenamento, stadio/tifoseria, agenda con bye-week.
+- **12**: correzioni *da screenshot* di grafica/spaziature/touch e interventi mirati già attribuiti (camera TV e comandi in partita soltanto quando non confliggono), nessun doppione delle schermate sviluppate da07B.
+- **07 originale**: adapter Career/Flow, settaggi e dati stadio/capienza, calendari/finestre/operazioni atomiche; **09**: regole stadio, finanziarie, presidente e mercato; **00**: audit indipendente; **10**: coordinamento e merge con consenso utente.
+- I file condivisi `career-r03.js/css/html` vanno gestiti con una PR per volta sulle stesse funzioni: 07-bis crea componenti in `oronzo/assets/ui/sections-r11/**` e innesti minimi; 12 non sovrascrive quegli innesti finché PR07B è aperta.
+
+**Documenti permanenti:** `oronzo/coordination/07b-sections/{IDENTITY,RUN,NEXT}.md` su main.
+
+---
+
 ## 0. Nota sulla TODO originale
 L'[Epic #25](https://github.com/CzekUns/cercax/issues/25) è la vecchia checklist della visione v0.2 e contiene attività ancora [ ] anche quando le relative PR sono ormai MERGED. Non usarlo come inventario delle funzionalità assenti. S12-001/002/003/004 sono state lavorate nelle PR UI #59/#60/#61 e non vanno duplicate. Il presente file è il **backlog di prodotto aggiornato per il playtest**, non un'indicazione che il gioco è completo. Cambi UI di proprietà 12, flusso/calendar/atomici 07, regole gestionali 09, attributi 08, QA 00. PR + test obbligatori; nessun merge automatico.
 
