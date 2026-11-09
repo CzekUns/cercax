@@ -1,5 +1,53 @@
 # ORONZO — Integrazione match-view nel runtime
 
+## R10 — collegamento minimo al runtime (owner attuale: Agente 12)
+
+La roadmap R10 assegna il futuro pulsante FULL/TV del runtime all'**Agente 12** (il riferimento storico all'Agente 03 resta relativo al ciclo precedente). Nessun HTML/CSS runtime è modificato nella PR #28.
+
+```js
+// Dopo la creazione della vista / il sync del motore, su vera interazione utente:
+view.setCameraMode(view.cameraMode === 'full' ? 'broadcast' : 'full');
+// Lo stesso view, bridge, engine e snapshot restano in funzione.
+button.setAttribute('aria-pressed', String(view.cameraMode === 'broadcast'));
+button.textContent = view.cameraMode === 'broadcast' ? 'CAMERA TV' : 'CAMPO COMPLETO';
+```
+
+**Contratto invariato:** `createMatchView(canvas, {config:{cameraMode:'full',cameraZoom:2,simSecondsPerRealSecond:6,homeTeamId,awayTeamId,keeperIds,appearances?}})`. `appearances` è facoltativo; ora colori casa/trasferta/GK corretti anche se vuoto. `setCameraMode` non cambia coordinate, score o eventi; `view.getCameraState()` è solo diagnostica. Per pulsanti touch rispettare il minimo runtime **44px**, safe area e selezione visibile.
+
+**Gate grafico:** `browser-qa-playwright.py` resta il test HTTP obbligatorio in ambiente con URL permessi; `browser-qa-offline.py` è alternativa Chromium vera con PNG originali in data URI per ambienti amministrati. Il secondo **non** prova che il browser possa caricare i PNG via HTTP, che resta una verifica separata. Evidenze in `QA-R10-REAL-PNG.json` e `REPORT.md`.
+
+
+## Hookup v0.2 per Agente 03 — controllo delle due camere
+
+**Questa PR non modifica** `oronzo/partita-rapida.html`, `oronzo/game.js`, la UI generale o il motore. Al successivo ciclo UI autorizzato, Agente 03 può aggiungere un controllo touch FULL/TV al pannello della partita e chiamare:
+
+```js
+// Il renderer esistente è creato dal runner con `createMatchView(canvas, ...)`.
+const cameraButton = document.querySelector('#cameraMode');
+function updateCameraButton() {
+  cameraButton.textContent = view.cameraMode === 'full' ? 'CAMERA: CAMPO' : 'CAMERA: TV';
+  cameraButton.setAttribute('aria-pressed', String(view.cameraMode === 'broadcast'));
+}
+cameraButton.addEventListener('click', () => {
+  view.setCameraMode(view.cameraMode === 'full' ? 'broadcast' : 'full');
+  updateCameraButton();
+});
+updateCameraButton();
+```
+
+**Separazione:** non occorre alcuna chiamata a `engine.command`, `engine.step` o `advanceRealSeconds` quando cambia la camera. Il bridge e il cursore eventi restano invariati. `render(snapshot)` deve continuare a ricevere lo **stesso** `MatchSnapshotV1`, indipendentemente dalla vista attiva.
+
+Per impostazioni iniziali, `createMatchView(canvas, {config:{cameraMode:'broadcast',cameraZoom:2,cameraHalfLifeMs:190,simSecondsPerRealSecond:6}})`. `cameraZoom=2` conserva pixel interi. Per la visualizzazione completa usare `cameraMode:'full'`; in questa modalità il transform è identità, il campo resta integralmente visibile. Lo zoom televisivo segue `snapshot.ball` e ritaglia il campo. A kickoff/intervallo/riavvio la camera si riallinea immediatamente senza attraversamento vuoto.
+
+### QA minimo di integrazione da svolgere sul runtime (non eseguito da Agente 05)
+
+1. Toccare FULL/TV a gioco in corso con motore a 1× e poi 8×, verificare score e posizioni invariati nel feed, palla visibile e assenza di errori JS.
+2. Inquadrare quattro angoli, ripresa dopo gol e inversione delle metà campo, verificando nessun pan nel vuoto. Gli sprite nell'inquadratura TV devono essere gli stessi sprite del campo completo, solo zoomati.
+3. Testare CSS landscape a 640×360, 800×360, 844×390; canvas buffer sempre 640×360, `object-fit:contain`/aspect 16:9, click touch >= 36px. Lo screen test automatico qui è **bloccato** dal browser headless (`net::ERR_BLOCKED_BY_ADMINISTRATOR`), quindi richiede QA Android reale.
+
+Il modulo `camera.js` è proprietà dell'Agente 05. Eventuali modifiche di movimenti tattici o collisioni fisiche vanno invece richieste all'Agente 06. La cutscene grafica finale dipende dal gate artistico dell'Agente 02.
+
+
 **Scope modificato da Agente 5:** solo `oronzo/systems/match-view/`. `oronzo/game.js`, `index.html`, `ui.css`, `oronzo/assets/players/`, `oronzo/assets/cutscenes/` sono rimasti intatti. Non dichiarare questa PR già connessa al prototipo.
 
 ## Dipendenze su branch altri agenti
@@ -75,7 +123,7 @@ non chiamare entrambi i canali in parallelo.
   lo converte a **0..1** nella copia visiva. Non inviare energia gia' normalizzata
   senza adattarla alla scala del contratto.
 
-`render(snapshot)` non imposta un altro timer di simulazione. Soltanto il runner chiama `engine.step(dt)`. Il renderer usa `t` per calcolare il tempo di transizione; presuppone che 1× faccia trascorrere 60 secondi di gioco per secondo reale (5400s / 90s), valore configurabile `simSecondsPerRealSecond`. Il backend può emettere snapshot a cadenza diversa, ma deve sempre includere `t` monotono. `setSpeed` e `setPaused` devono essere chiamati **insieme ai comandi del runner**.
+`render(snapshot)` non imposta un altro timer di simulazione. Soltanto il runner chiama `engine.step(dt)`. Il renderer usa `t` per calcolare il tempo di transizione; presuppone che 1× faccia trascorrere 6 secondi simulati per secondo reale (5400s / 900s, specifica v0.2), valore configurabile `simSecondsPerRealSecond`. Il backend può emettere snapshot a cadenza diversa, ma deve sempre includere `t` monotono. `setSpeed` e `setPaused` devono essere chiamati **insieme ai comandi del runner**.
 
 `facing` opzionale: radiante numerico (come nel motore), cardinale stringa, vettore o oggetto radianti. Azioni consigliate: `idle`, `run`, `sprint`, `chase`, `unmark`, `dribble`, `pass`, `shot`, `tackle`, `save`. La vista usa l'immagine `kick` per pass/shot, `keeper` per save, `tackle` per intercettazioni, `run` per corse e smarcamento; senza un'action la velocità determina il passo e il resto è `idle`.
 

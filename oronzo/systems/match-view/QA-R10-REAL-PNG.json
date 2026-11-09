@@ -1,0 +1,88 @@
+{
+  "project": "ORONZO",
+  "agent": "05",
+  "pr": 28,
+  "cycle": "R10 visual QA",
+  "captureDate": "2026-11-08",
+  "qaStatus": "ALTERNATE_BROWSER_PASS_HTTP_NAVIGATION_BLOCKED",
+  "browser": "Chromium 144.0.7559.96 headless Playwright",
+  "environment": "Managed Chromium policy URLBlocklist=['*'] blocks HTTP browser navigation. Python stdlib HTTP GET to exact atlas returns 200.",
+  "transport": "page.set_content + injected in-memory JS bundle; PNG bytes embedded as data:image/png;base64. NOT HTTP browser QA.",
+  "sourceFidelity": "Local JS reconstructed from GitHub branch APIs; camera.js identical Git blob, asset-generator-made PNGs verified Git blob SHA. Not a true Git checkout due no outbound github DNS.",
+  "shotCount": 54,
+  "dimensions": [
+    [
+      640,
+      360
+    ],
+    [
+      800,
+      360
+    ],
+    [
+      844,
+      390
+    ]
+  ],
+  "modes": [
+    "full",
+    "broadcast"
+  ],
+  "scenarios": [
+    "opening",
+    "left",
+    "right",
+    "running",
+    "restart",
+    "halftime",
+    "paused",
+    "replay",
+    "late"
+  ],
+  "scenariosPass": 54,
+  "realSpritesPerFrame": 22,
+  "realSpritesDuringPauseDoubleDraw": 44,
+  "checks": [
+    "assetState=ready",
+    "allRealSprites=true",
+    "22 actors rendered",
+    "ball drawn and on screen",
+    "canvas contained",
+    "zoom full=1 TV=2",
+    "source snapshot unchanged",
+    "score unchanged",
+    "pause stable",
+    "rewind overlay cleared"
+  ],
+  "nodeLocal": "15/15 on compatible reconstructed module incl 3 new fallback kit regression tests; exact PR head suite not re-executed locally",
+  "pngMainGitBlobs": {
+    "ball.png": "451dfdfa30521884fb2f4ba5468149b64aa425a9",
+    "idle.png": "2bf806dbb1d17d0c91687d4cd3b05950e1c1fc62",
+    "idle-mask.png": "2427baed1e4ee09a0e20e31655835baccc72f798",
+    "run.png": "6c45819987f3253457cc90999ecd28738eb28e20",
+    "run-mask.png": "041e845d7918764bb1435150ee0b47a9c9179590",
+    "kick.png": "8f8d1fc54814cda916db36b6514d2665b078360d",
+    "kick-mask.png": "c8c3c50c94b92b804d08fe064c6e75e150706bce",
+    "tackle.png": "b4d69bbda82c4485a7a940d63db99f01581f82c9",
+    "tackle-mask.png": "86bd9e091e83346b0f503b1392e5ad7d5fd10e66",
+    "keeper.png": "b6dca1993ae2eed01440f1ae715d7032b93303ae",
+    "keeper-mask.png": "e98d7c50b54b91706d2eb0cece0ff8fb27c670aa"
+  },
+  "screenshotSha256Running": {
+    "640x360": {
+      "full": "55e5bdc0e9cf842c0d0ae6a4e9119e4ac381d4318281d44c75e7790af398ba8f",
+      "broadcast": "ef1530004021eaee5caa38ca8930e156dd9ef6fc24113b262f98fcdf3cbc5cbd"
+    },
+    "800x360": {
+      "full": "e804aca54431ec4552a5b90c2012d7eef65dc8f8423a26221e94739ca8e7a313",
+      "broadcast": "500d6b1b69a7e0fce435e98341b9480ec8e2e0527c37175d67589f350900dfa9"
+    },
+    "844x390": {
+      "full": "7b9378b450c7280697cabc94d0e2d563608c24c49e2ca345dff7b07c1ab1f265",
+      "broadcast": "5d3af6645fc0eb8ade1a1c2b21b1d3cf3ebea5bd0c13757f84adb7ed9a68f001"
+    }
+  },
+  "screenshotBundleSHA256": "808e199972a67d25dbd36bf804a934b5441f3d2d18694c8581386bf504493eb6",
+  "screenshotBundleBytes": 1380919,
+  "auditNote": "Use browser-qa-playwright.py for unrestricted HTTP gate; browser-qa-offline.py reproduces alternate real-PNG Chromium gate. Screenshots bundle accompanies this chat and is not a tracked GitHub artifact."
+}

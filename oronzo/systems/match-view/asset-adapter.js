@@ -59,6 +59,10 @@ function recolorScene(manifest,spec,sprite,materials,shades,kit){
   }
   ctx.putImageData(img,0,0);return out;
 }
+/** Explicit user appearance overrides kit defaults, never erases them. */
+export function resolvePlayerAppearance({appearance,team='home',isKeeper=false}={}){
+  return {...(PALETTES[isKeeper?'keeper':team]||PALETTES.home),...(appearance||{})};
+}
 export function createAssetAdapter({assetLoader={},playerBaseUrl=PLAYER_BASE,cutsceneBaseUrl=SCENE_BASE,onWarning=()=>{}}={}){
   const json=assetLoader.loadJson||defaultLoadJson, image=assetLoader.loadImage||defaultLoadImage;
   const playerUrl=new URL(playerBaseUrl,import.meta.url), sceneUrl=new URL(cutsceneBaseUrl,import.meta.url);
@@ -103,7 +107,7 @@ export function createAssetAdapter({assetLoader={},playerBaseUrl=PLAYER_BASE,cut
     const act=atlases.has(action)?action:'idle';const frameset=frames(act,DIRECTIONS.includes(direction)?direction:'S');
     if(!frameset.length){drawFallbackPlayer(ctx,x,y,team,isKeeper);return false;}
     const cell=frameset[clamp(frame,0,frameset.length-1)];
-    const kit=appearance||PALETTES[isKeeper?'keeper':team]||PALETTES.home;
+    const kit=resolvePlayerAppearance({appearance,team,isKeeper});
     const atlas=getPalette(act,kit)||atlases.get(act);
     ctx.drawImage(atlas,cell.x,cell.y,cell.w,cell.h,Math.round(x-(cell.pivotX??16)),Math.round(y-(cell.pivotY??29)),cell.w,cell.h);
     return true;
