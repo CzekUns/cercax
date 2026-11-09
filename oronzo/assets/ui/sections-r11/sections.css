@@ -147,3 +147,25 @@
 #oronzo-r03 .r11-match-orders select{min-width:0;min-height:44px;width:100%;color:#ffe0a0;background:#0b2461;border:2px ridge #5479b7;font-size:9px}
 #oronzo-r03 .r11-match-orders .ui-btn{min-height:44px;font-size:9px}
 @media(max-width:675px){#oronzo-r03 .r11-manager-summary{grid-template-columns:repeat(2,minmax(0,1fr))}#oronzo-r03 .r11-market-split{grid-template-columns:1fr}}
+
+/* Real league schedule and tables */
+#oronzo-r03 .r11-league-page{display:flex;flex:1;min-height:0;width:100%}
+#oronzo-r03 .r11-league-panel{display:flex;flex:1;flex-direction:column;min-width:0;min-height:0;gap:4px}
+#oronzo-r03 .r11-league-tabs .ui-btn{flex:1;min-height:44px;font-size:10px}
+#oronzo-r03 .r11-league-row,
+#oronzo-r03 .r11-league-fixture{display:flex;align-items:center;gap:7px;padding:4px 6px;min-height:33px;border-bottom:1px solid #526da2;font-size:10px}
+#oronzo-r03 .r11-league-row span,
+#oronzo-r03 .r11-league-fixture span{flex:1;min-width:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+#oronzo-r03 .r11-league-row b,
+#oronzo-r03 .r11-league-fixture b{color:#ffd976;min-width:21px}
+#oronzo-r03 .r11-league-row strong,
+#oronzo-r03 .r11-league-fixture strong{color:#ffe298;min-width:42px;text-align:right}
+#oronzo-r03 .r11-league-row small{min-width:32px;text-align:right;color:#bad2e8}
+#oronzo-r03 .r11-league-row.is-mine,
+#oronzo-r03 .r11-league-fixture.my-match{background:#2d4b89;border:1px solid #e6ca66}
+#oronzo-r03 .r11-league-preview{display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;min-height:135px;text-align:center;background:linear-gradient(#173e8d,#0a1842);border:2px ridge #8eadd5;padding:16px}
+#oronzo-r03 .r11-league-preview b{color:#ffe783;font-size:16px}
+#oronzo-r03 .r11-league-preview p{font-size:12px}
+#oronzo-r03 .r11-league-preview small{font-size:9px;color:#d6dff3}
+#oronzo-r03 .r11-league-masthead{font:900 14px Georgia,serif;color:#ffd66f;border-bottom:2px solid #ffd66f}
+#oronzo-r03 .r11-league-page .r11-bottom .ui-btn{flex:1;min-height:44px;font-size:9px}
