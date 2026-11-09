@@ -26,7 +26,7 @@ export function reviewTransfer(club, profile, requestId, seed=1) {
   else if(!director || (director.competence??50)<15) reason='director_rejects';
   const p=presidentBehavior(profile,{
     boardTrust:club.boardTrust,lossStreak:club.board.lossStreak,
-    cash:club.finance.cash,requestedFee:request.askingFee},seed);
+    cash:club.finance.cash,requestedFee:request.askingFee,\n    papponeria:club.boardTraits?.papponeria},seed);
   const dsChance=clamp(.35+(director?.competence??50)*.006,0,1);
   const dsAccept=rngFromSeed(String(seed)+':director')()<dsChance;
   if(!reason && !dsAccept) reason='sporting_director_rejects';
@@ -50,13 +50,13 @@ export function negotiateWithSeller(club,requestId,{sellerAccepts,sellerFee,agre
   item.history.push({status:'negotiated',actor:'director'});
   return {accepted:true,club:c};
 }
-export function finalizeTransfer(club,requestId,{week=0}={}) {
+export function finalizeTransfer(club,requestId,{week=0,absoluteWeek,seasonYear}={}) {
   const r=findRequest(club,requestId);
   if(!r || r.kind!=='buy' || r.status!=='negotiated') return {accepted:false,reason:'not_negotiated',club};
   if(club.players.some(p=>p.id===r.player.id)) return {accepted:false,reason:'already_owned',club};
   if(weeklyPayroll(club)+r.agreement.agreedWage>club.wageBudget)
     return {accepted:false,reason:'wage_ceiling',club};
-  const payment=book(club,{type:'expense',amount:r.agreement.sellerFee,week,note:'transfer:'+r.player.id});
+  const payment=book(club,{type:'expense',amount:r.agreement.sellerFee,week,absoluteWeek,seasonYear,note:'transfer:'+r.player.id});
   if(!payment.accepted) return {accepted:false,reason:payment.reason,club};
   const c=payment.club;
   const signing=copy(r.player);signing.teamId=c.id;signing.contract={...(signing.contract||{}),weeklyWage:r.agreement.agreedWage};
@@ -78,18 +78,18 @@ export function decideSale(club,profile,requestId,seed=1) {
   const r=findRequest(club,requestId);
   if(!r ||r.kind!=='sell'||r.status!=='proposed')return {accepted:false,reason:'not_pending',club};
   const t=profile.traits;const rng=rngFromSeed(seed);
-  const probability=clamp(.3+t.frugality*.004+(100-t.ambition)*.0015,0,1);
+  const probability=clamp(.3+t.frugality*.004+(100-t.ambition)*.0015+\n    (club.boardTraits?.papponeria===undefined?0:(club.boardTraits.papponeria-50)*.002),0,1);
   const approved=rng()<probability;
   const c=copy(club),item=findRequest(c,requestId);
   item.status=approved?'approved':'rejected';item.history.push({status:item.status,actor:'club',seed});
   return {accepted:approved,club:c,reason:approved?'approved':'board_wants_to_keep_player'};
 }
-export function finalizeSale(club,requestId,{buyerAccepts,fee,week=0}={}) {
+export function finalizeSale(club,requestId,{buyerAccepts,fee,week=0,absoluteWeek,seasonYear}={}) {
   const r=findRequest(club,requestId);integer(fee,'fee');
   if(!r ||r.kind!=='sell'||r.status!=='approved')return {accepted:false,reason:'not_approved',club};
   if(!buyerAccepts || fee<r.minimumFee)return {accepted:false,reason:'no_acceptable_offer',club};
   if(!club.players.some(p=>p.id===r.playerId))return {accepted:false,reason:'player_not_owned',club};
-  const receipt=book(club,{type:'income',amount:fee,week,note:'sale:'+r.playerId});
+  const receipt=book(club,{type:'income',amount:fee,week,absoluteWeek,seasonYear,note:'sale:'+r.playerId});
   const c=receipt.club;
   c.players=c.players.filter(p=>p.id!==r.playerId);
   const item=findRequest(c,requestId);item.status='completed';item.history.push({status:'completed',actor:'club',week});
