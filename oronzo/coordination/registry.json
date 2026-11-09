@@ -217,6 +217,38 @@
     }
   ],
   "orchestrator": {
+    "id": 14,
+    "displayId": "10-bis",
+    "slug": "10b-orchestrator",
+    "role": "ORONZO-AGENT-10B",
+    "name": "Orchestratore delle regole, agenti, PR e gate · successore del 10",
+    "issue": 65,
+    "coordinationDir": "oronzo/coordination/10b-orchestrator/",
+    "identity": "oronzo/coordination/10b-orchestrator/IDENTITY.md",
+    "run": "oronzo/coordination/10b-orchestrator/RUN.md",
+    "next": "oronzo/coordination/10b-orchestrator/NEXT.md",
+    "handoff": "oronzo/coordination/10b-orchestrator/HANDOFF.md",
+    "legacyOwner": "ORONZO-AGENT-10",
+    "legacyDocsDir": "oronzo/coordination/10-orchestrator/",
+    "epicIssue": 25,
+    "integrationIssue": 26,
+    "implementationAllowed": false,
+    "mergeRequiresOwnerAuthorization": true,
+    "lifecycle": "prepared_awaiting_explicit_chat_activation",
+    "codeScope": "documentation/coordination only; no gameplay code, assets, or runtime patches",
+    "roleSummary": "Inherit all original Agent10 coordination decisions, NEXT/registry/PR audits/merge gating; 07-bis owns Career+Sections, 12 screenshot fixes, 00 audit."
+  },
+  "initialWorldMilestone": {
+    "municipalities": 100,
+    "surnames": 500,
+    "source": "scheduled ORONZO hourly data research PR, verified only",
+    "expansion": {
+      "municipalities": 500,
+      "surnames": 5000
+    }
+  },
+  "registryUpdate": "2026-11-09: agent10-bis prepared as active orchestrator successor (operational after new chat launch), original 10 archived/standby. Agent07-bis succeeds original 07 for all Career/Flow/Save.",
+  "legacyOrchestrator": {
     "id": 10,
     "slug": "10-orchestrator",
     "name": "Orchestratore delle regole e delle deleghe",
@@ -230,16 +262,18 @@
     "epicIssue": 25,
     "integrationIssue": 26,
     "implementationAllowed": false,
-    "roleSummary": "Requisiti, contratti, NEXT, issue, review/merge; non scrive codice né asset"
+    "roleSummary": "Requisiti, contratti, NEXT, issue, review/merge; non scrive codice né asset",
+    "lifecycle": "standby_successor_10b",
+    "handoffTo": "ORONZO-AGENT-10B",
+    "handoffNote": "Historical agent10 saturated; owner requested creation of 10-bis. No concurrent assignments after 10-bis activation."
   },
-  "initialWorldMilestone": {
-    "municipalities": 100,
-    "surnames": 500,
-    "source": "scheduled ORONZO hourly data research PR, verified only",
-    "expansion": {
-      "municipalities": 500,
-      "surnames": 5000
-    }
-  },
-  "registryUpdate": "2026-11-09: user transferred ALL productive career07 and flow tasks to 07-bis due to original agent saturation; original07 standby; 07B P0 QA64 save quota and training reload."
+  "orchestratorTransition": {
+    "date": "2026-11-09",
+    "from": "ORONZO-AGENT-10",
+    "to": "ORONZO-AGENT-10B",
+    "issue": 65,
+    "state": "handoff_documented_pending_user_chat_activation",
+    "historicAgentPreserved": true,
+    "mainHandoff": "oronzo/coordination/10b-orchestrator/HANDOFF.md"
+  }
 }
