@@ -1,3 +1,15 @@
+# ORONZO — AGENTE 07 ORIGINALE · STANDBY / DELEGA DEFINITIVA AL 07-BIS
+
+**STATO: `STANDBY_HANDOFF_TO_07B` — 9 novembre 2026.** Su disposizione del proprietario, questa chat AGENTE07 originale è **satura e non deve ricevere ulteriori incarichi attivi**. Ogni sviluppo o correzione su `oronzo/systems/career/**`, `oronzo/app/flow/**`, `oronzo/systems/career/save.js`, calendario, mondi, ingaggi, campionati, salvataggi, stadio adapter e persistenza è ora assegnato a **ORONZO-AGENT-07B**, alias 07-bis, issue [#62](https://github.com/CzekUns/cercax/issues/62). L'ID 07 resta storicamente distinto e NON è trasferito/rinominato; i commit e le PR storiche rimangono intatti.
+
+**Passaggio di consegne:** PR #56 è già MERGED; fonte di verità è `main`. La [PR #63](https://github.com/CzekUns/cercax/pull/63) appartiene al 07B, audit indipendente [#64](https://github.com/CzekUns/cercax/pull/64) = NEEDS CHANGES. R11-QA-01 (slider/piano UI incoerenti dopo reload) e R11-QA-02 (quota localStorage standard, salvataggi perdita progresso bye 31–38) sono entrambi responsabilità corrente del 07B. Rapporto esatto `oronzo/coordination/coerentizzatore/REPORT.md` nel branch PR#64. **Non creare branch, PR, commit o rispondere con nuovo piano nell'agente 07 originale.**
+
+Se il proprietario vuole riattivare il 07 in futuro, servirà un nuovo mandato esplicito. Ulteriori attività e owner nel `oronzo/coordination/07b-sections/NEXT.md` e `oronzo/coordination/10-orchestrator/TODO-R11-SEZIONI-UI.md`.
+
+---
+
+## ARCHIVIO NEXT07 PRECEDENTE
+
 # ORONZO — AGENTE 07 · FIX BLOCCANTE R10-W2-02 SU PR #56
 
 **STATO: `FIX_REQUESTED_P1_R10_W2_02` — 9 novembre 2026.** [Audit indipendente #58](https://github.com/CzekUns/cercax/pull/58) = **NEEDS CHANGES** per [PR #56](https://github.com/CzekUns/cercax/pull/56), HEAD verificato `b27af7ced642b436e5317a7384589c77bc789617`. La causa è **preesistente su main**, ma blocca l'accettazione del flusso M1. Direttiva prevalente sui vecchi NEXT. **CONCLUDERE nella stessa PR #56**, non iniziare un nuovo ciclo.
