@@ -1,4 +1,9 @@
 # ORONZO — TODO R11: completamento schermate e azioni giocabili
+
+## OVERRIDE OPERATIVO — UNICA CONSEGNA INTEGRATA 07-BIS (DECISIONE PROPRIETARIO 9/11/2026)
+
+La lista seguente **rimane checklist di verifica**, ma **non** va più spezzata in nove richiami/cicli separati. Il 07-bis deve concludere nella **stessa esecuzione della sua chat** tutti i collegamenti realmente predisposti e i due fix bloccanti. La matrice vincolante **U1–U9** e i gate di codice/Chromium/due stagioni sono nel [NEXT07B](../07b-sections/NEXT.md). Gli item R11-01–17 non sono marcati completi soltanto per aver pubblicato il mandato. Produzione: #63 correttiva UI, PR separata backend save, eventuale PR wiring integrato; **una sola richiesta di audit finale 00**, senza dieci report intermedi; nessun merge senza consenso proprietario. Ambiti: 07B Career/Flow/UI, 09 regole finanza/presidente, 08 Attributes, 06 Engine, 05 Renderer, 12 screenshot Android. È uno **sprint unico di integrazione**, non una certificazione che tutto il codice sia già pronto. Gli eventuali blocchi reali rimangono segnalati in `BLOCKED_API` e attribuiti, senza inventare implementazioni o stati di gioco.
+
 _Data di verifica: 9 novembre 2026; fonte di verità: `main` (career-r03.js, controller07, modules08/09), GAME-VISION-v02, Epic #25 e SCREEN-NOTES agente12._
 
 ## OWNER R11 AGGIORNATO — 07-BIS SUCCESSORE TOTALE DEL 07 (9 NOVEMBRE 2026)
