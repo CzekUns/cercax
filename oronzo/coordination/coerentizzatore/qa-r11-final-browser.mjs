@@ -74,10 +74,12 @@ for(const [w,h] of sizes){
   if(w===640){
    await page.locator('#r11-request-kind').selectOption('market_mandate');
    await page.locator('#r11-request-amount').fill('5000');
-   const before=await st(()=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).management.requests.length);
+   const before=await st(()=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).management?.requests?.length??0);
    await action('board-request').click();
-   await page.waitForFunction(n=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).management.requests.length>n,before);
+   await page.waitForFunction(n=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).management?.requests?.length??0>n,before);
+   await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
    await action('board-decide').first().click();
+   await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
    const board=await st(()=>{
     let s=window.OronzoR03.getState(),club=s.clubs.find(c=>c.id===s.coach.clubId),r=club.management.requests.at(-1);
     return {id:r.id,kind:r.kind,status:r.status,boardTrust:club.boardTrust};
@@ -102,9 +104,10 @@ for(const [w,h] of sizes){
       await page.locator('#r11-sale-player').selectOption(chosen.playerId);
       await page.locator('#r11-sale-buyer').selectOption(chosen.buyerId);
       await page.locator('#r11-sale-fee').fill('1000');
-      const before=await st(()=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market.requests.length);
+      const before=await st(()=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market?.requests?.length??0);
       await action('market-sale').click();
-      await page.waitForFunction(n=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market.requests.length>n,before);
+      await page.waitForFunction(n=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market?.requests?.length??0>n,before);
+      await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
       const req=await st(()=>{
         const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
         return c.market.requests.at(-1);
@@ -119,6 +122,7 @@ for(const [w,h] of sizes){
         const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
         return c.market.requests.find(x=>x.id===id).status;
       },req.id);
+      await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
       if(status==='approved'){approved=req.id;break;}
       if(status!=='rejected')throw Error('Sale review unexpected '+status);
     }
@@ -131,6 +135,7 @@ for(const [w,h] of sizes){
       const s=window.OronzoR03.getState(),a=s.clubs.find(c=>c.id===sellerId),b=s.clubs.find(c=>c.id===buyerId);
       return !a.players.some(p=>p.id===playerId)&&b.players.some(p=>p.id===playerId);
     },chosen);
+    await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
     const finalized=await st(()=>{
       const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
       return {requests:c.market.requests.length,completed:c.market.requests.filter(x=>x.status==='completed').length,
