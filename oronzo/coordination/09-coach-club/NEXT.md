@@ -1,3 +1,17 @@
+# ORONZO — AGENTE 09 · FIX BLOCCANTE R10-W2-01 SU PR #57
+
+**STATO: `FIX_REQUESTED_P0_R10_W2_01` — 9 novembre 2026.** [Audit indipendente #58](https://github.com/CzekUns/cercax/pull/58) = **NEEDS CHANGES** per [PR #57](https://github.com/CzekUns/cercax/pull/57) HEAD verificato `d5d0d908f002805e500005b48319d54e3947ce10`. Direttiva prevalente sulle precedenti READY/WAIT_REVIEW. L'agente deve **CONCLUDERE il fix nella stessa PR #57**, senza nuovo branch, nuova PR o funzionalità collaterali.
+
+**Errore riprodotto:** sequenze letterali `\\n` fuori stringa causano `SyntaxError: Invalid or unexpected token`, impedendo import di Coach09, Career07 e avvio HTML reale. Posizioni indicate da00: `oronzo/systems/coach-club/presidents.js:44` (`presidentBehavior`), `negotiations.js:29` (`reviewTransfer`), `negotiations.js:81` (`decideSale`). Vedi [richiesta puntuale già nella PR](https://github.com/CzekUns/cercax/pull/57#issuecomment-6739791542).
+
+**Azione immediata:** leggi il codice della PR al HEAD attuale; sostituisci i tre token di newline escapati con newline/spazi validi JavaScript; controlla altri token simili negli stessi file; esegui `node --check` su entrambi i file e `node --test oronzo/systems/coach-club/*.test.js` su checkout Git reale (non una copia ridotta); poi smoke import di `oronzo/systems/coach-club/index.js` e `oronzo/app/flow/controller.js`. Esegui dove possibile test veri dei verticali 09 e del port `persistShout` con #31/#35/#56 in combinazione. Se la combinazione non è disponibile in ambiente, documenta i limiti **senza dichiarare PASS** e richiedi audit00.
+
+**Consegna definitiva:** codice corretto pubblicato sulla PR #57, nuovo HEAD, REPORT aggiornato, output reali delle prove, nessun merge. **Non inviare altra pianificazione**: risolvi l'errore sintattico e verifica che il gioco possa importare i moduli.
+
+---
+
+## ARCHIVIO — NEXT 09 PRECEDENTI
+
 # ORONZO — AGENTE 09 · PR #57 CONSEGNATA / ATTESA AUDIT
 
 **STATO: `WAIT_REVIEW_R10_PR57` — 9 novembre 2026.** La [PR #57](https://github.com/CzekUns/cercax/pull/57) è **OPEN / NOT MERGED**, branch `agent/oronzo-coach-club-r10-management`, HEAD `d5d0d908f002805e500005b48319d54e3947ce10`, con API papponeria, stadio/incassi, richieste/decisioni presidente, guard mercato e `persistShout` per il port07. Rapporto e contratto `oronzo/systems/coach-club/MANAGEMENT-R10.md` sul branch. **17/17 test Node dell'autore in una copia locale**, ma NON la suite combinata Git/Chromium HTTP. Servono audit indipendente00 e test incrociati PR #31+#35+#56+#57, in particolare firma del port, contabilizzazione trust e bilanci su save/reload. **Non aprire nuove PR o aggiungere altre funzionalità mentre aspetti il gate**. Se audit trova difetti, correggere nella stessa #57, con REPORT e nuovi test. Non fare merge.
