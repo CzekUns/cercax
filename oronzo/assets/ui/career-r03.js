@@ -40,7 +40,7 @@ let state=null, press=null, presidents=null, mode='normal', screen='entry', avat
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
 let errors=[], viewReady=false;
 let trainingPlan='balanced',trainingIntensity=50,trainingRosterOpen=false,supportTab='stadio';
-let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full',matchToolsOpen=false,leagueTab='classifica',presidentTab='ufficio',formationChoice='4-4-2',pressingChoice=50;
+let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full',matchToolsOpen=false,leagueTab='classifica',presidentTab='ufficio',formationChoice='4-4-2',pressingChoice=50,rosterFilter='ALL',rosterSort='name';
 let integrationBackend=null;
 const backendPromise=import('../../app/flow/management-r11.js')
  .then(m=>{integrationBackend=m; if(state&&screen!=='match')render();return m;})
@@ -218,7 +218,12 @@ function tableRow(r,i,clubId){
  const rank=r.position??(i+1), id=r.clubId??r.id;
  return `<div class="runtime-table-row ${id===clubId?'mine':''}" data-club-id="${esc(id)}" data-rank="${esc(rank)}"><b>${esc(rank)}.</b><span>${esc(r.clubName)}</span><strong>${esc(r.points)} PT</strong><small>${esc(r.played)} G</small></div>`;
 }
-function playerRow(p,source){return `<button type="button" class="runtime-player-link" data-action="player" data-value="${esc(p.playerId)}" data-player-id="${esc(p.playerId)}"><span>${esc(p.name)}</span><small>${esc(p.positions?.join('/')||'ruolo non disponibile')}</small><b>›</b></button>`;}
+function playerRow(p,source){
+ const stored=controlledClub()?.players?.find(x=>x.id===p.playerId);
+ const injury=(stored?.status?.injuryDays??0)>0,suspended=(stored?.status?.suspensionMatches??0)>0;
+ return `<button type="button" class="runtime-player-link" data-action="player" data-value="${esc(p.playerId)}" data-player-id="${esc(p.playerId)}">
+ <span>${esc(p.name)}</span><small>${esc(p.positions?.join('/')||'—')} · FORMA ${esc(stored?.status?.fitness??'—')} · FIDUCIA ${esc(stored?.relationships?.coachTrust??'—')}${injury?' · INFORTUNATO':suspended?' · SQUALIFICATO':''}</small><b>›</b></button>`;
+}
 const hubMenu=[['campionato','⚽','CAMPIONATO'],['rosa','▤','ROSA'],['allenamento','◆','ALLENAMENTO'],['tifoseria','♟','TIFOSERIA'],['presidente','♛','PRESIDENTE'],['agenda','▣','COSA FARE OGGI']];
 function renderHub(){
  const ui=getUI(),club=ui?.club;
@@ -269,9 +274,22 @@ function renderHubSection(){
   return head('CAMPIONATO',ui.gameDate+' · '+club.name)+
    renderLeaguePage({state,ui,standings:getStandings(state,club.divisionId),tab:leagueTab});
  }else if(selectedHub==='rosa'){
-  body='<p class="runtime-foot">Rosa completa · '+club.players.length+' calciatori · apri una scheda.</p>'+
+  const storedById=new Map((full?.players||[]).map(p=>[p.id,p]));
+  const players=club.players.filter(p=>rosterFilter==='ALL'||p.positions?.includes(rosterFilter)).slice();
+  const numeric=(p,key)=>key==='fitness'?storedById.get(p.playerId)?.status?.fitness:
+    storedById.get(p.playerId)?.relationships?.coachTrust;
+  players.sort((a,b)=>rosterSort==='name'?a.name.localeCompare(b.name,'it'):
+    (numeric(b,rosterSort)??-1)-(numeric(a,rosterSort)??-1)||
+    a.name.localeCompare(b.name,'it'));
+  const filterOptions=['ALL','GK','DF','MF','FW'].map(x=>
+   '<option value="'+x+'"'+(x===rosterFilter?' selected':'')+'>'+x+'</option>').join('');
+  const sortOptions=[['name','NOME'],['fitness','FORMA'],['trust','FIDUCIA']].map(([x,label])=>
+   '<option value="'+x+'"'+(x===rosterSort?' selected':'')+'>'+label+'</option>').join('');
+  body='<div class="r11-roster-controls"><label>RUOLO<select id="r11-roster-filter">'+filterOptions+'</select></label>'+
+   '<label>ORDINA PER<select id="r11-roster-sort">'+sortOptions+'</select></label></div>'+
+   '<p class="runtime-foot">'+players.length+' / '+club.players.length+' calciatori · seleziona una scheda.</p>'+
    '<div class="runtime-scroll runtime-grow runtime-roster-list" aria-label="Rosa">'+
-    club.players.map(p=>playerRow(p,'rosa')).join('')+'</div>';
+    players.map(p=>playerRow(p,'rosa')).join('')+'</div>';
  }else if(selectedHub==='presidente'){
   const p=president();
   body='<div class="runtime-info">'+esc(p?.name??'dato non disponibile')+
@@ -552,7 +570,9 @@ function renderMatchControls(){if(screen!=='match')return;
  const p=area.querySelector('[data-action="pause"]'),s=area.querySelector('[data-action="speed"]');if(p){p.textContent=paused?'▶ RIPRENDI':'Ⅱ PAUSA';p.classList.toggle('gold-btn',paused)}if(s)s.textContent=speed+'× VELOCITÀ'}
 root.addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b||b.disabled||!root.contains(b))return;guard(()=>interact(b.dataset.action,b.dataset.value))});
 root.addEventListener('input',e=>{if(e.target.matches('[data-training-intensity]')){trainingIntensity=Number(e.target.value);const out=root.querySelector('#r11-intensity-value');if(out)out.textContent=String(trainingIntensity)}});
-root.addEventListener('change',e=>{if(e.target.id==='r11-save-import'){importSave(e.target.files?.[0]);e.target.value='';return;}if(e.target.id==='origin'){origin=e.target.value;return}if(e.target.id==='qa-mode'){mode=e.target.checked?'qa':'normal';origin=mode==='qa'?'000001':REAL?.municipalities[0]?.municipalityId||'';render();return}if(e.target.id==='captain'){captain=e.target.value;return}
+root.addEventListener('change',e=>{if(e.target.id==='r11-save-import'){importSave(e.target.files?.[0]);e.target.value='';return;}if(e.target.id==='origin'){origin=e.target.value;return}if(e.target.id==='qa-mode'){mode=e.target.checked?'qa':'normal';origin=mode==='qa'?'000001':REAL?.municipalities[0]?.municipalityId||'';render();return}if(e.target.id==='r11-roster-filter'){rosterFilter=e.target.value;render();return}
+ if(e.target.id==='r11-roster-sort'){rosterSort=e.target.value;render();return}
+ if(e.target.id==='captain'){captain=e.target.value;return}
  if(e.target.id==='r11-pre-formation'){formationChoice=e.target.value;render();return}
  if(e.target.id==='r11-pre-pressing'){pressingChoice=Number(e.target.value);render();return}if(!e.target.matches('[data-player]'))return;const id=e.target.dataset.player;if(e.target.checked)lineup.add(id);else lineup.delete(id);const club=getUI()?.club;const eligible=club?.players||[];bench=new Set(eligible.filter(p=>!lineup.has(p.playerId)).slice(0,5).map(p=>p.playerId));if(!lineup.has(captain))captain=[...lineup].find(x=>!club.players.find(p=>p.playerId===x)?.positions.includes('GK'))||null;render();});
 function loop(now){if(view&&viewReady&&screen==='match'){try{view.drawAt(now)}catch(e){viewReady=false;failure('Errore renderer: '+e.message)}}const dt=Math.max(0,Math.min(.20,(now-last)/1000));last=now;if(engine&&screen==='match'&&!paused){try{step(dt)}catch(e){paused=true;view?.setPaused(true);failure(e.message)}}requestAnimationFrame(loop)}
