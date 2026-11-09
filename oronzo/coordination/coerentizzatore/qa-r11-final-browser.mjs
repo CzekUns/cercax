@@ -1,0 +1,176 @@
+// Independent Agent00 final R11 check. Audit-only harness; game code is untouched.
+import {chromium} from 'playwright';
+import {mkdir,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+
+const sizes=[[640,360],[800,360],[844,390],[960,400]];
+const outDir='audit00-r11-evidence';
+await mkdir(outDir,{recursive:true});
+const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+const findings=[];
+let failed=false;
+function record(view,test,pass,details=''){
+ findings.push({view,test,pass,details});
+ if(!pass){failed=true;throw Error(test+': '+details);}
+}
+const base=process.env.ORONZO_URL||'http://127.0.0.1:8123/oronzo/assets/ui/career-r03.html';
+for(const [w,h] of sizes){
+ const view=w+'x'+h, context=await browser.newContext({viewport:{width:w,height:h},isMobile:true,hasTouch:true,deviceScaleFactor:1});
+ const page=await context.newPage();
+ const errors=[],pngs=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ page.on('response',r=>{if(/\.png(?:\?|$)/i.test(r.url()))pngs.push({url:r.url(),status:r.status()})});
+ const action=(name,value)=>page.locator('[data-action="'+name+'"]'+(value===undefined?'':'[data-value="'+value+'"]')).first();
+ const snap=name=>page.screenshot({path:outDir+'/'+view+'-'+name+'.png'});
+ const screen=()=>page.evaluate(()=>window.OronzoR03?.getScreen());
+ const st=fn=>page.evaluate(fn);
+ try {
+  const result=await page.goto(base,{waitUntil:'networkidle'});
+  record(view,'http-200',result.status()===200,String(result.status()));
+  await page.waitForFunction(()=>window.OronzoR03?.getStage);
+  const imageOk=await page.locator('img.runtime-entry-photo').evaluate(e=>e.complete&&e.naturalWidth>0);
+  record(view,'entry-real-png',imageOk);
+  await snap('entry');
+  await action('start').click();
+  await page.locator('#qa-mode').check();
+  await action('begin').click();
+  record(view,'twenty-real-offers',(await page.locator('[data-action="offer"]').count())===20);
+  await action('accept').click();
+  for(let n=0;n<8&&(await screen())!=='hub';n++){
+   const x=await screen();
+   if(x==='president') await action('press').click();
+   else if(x==='press') await action('answer').click();
+   else throw Error('Opening blocked: '+x);
+  }
+  record(view,'career-reaches-hub',(await screen())==='hub');
+  await action('section','allenamento').click();
+  await action('training-plan','rest').click();
+  await page.locator('#r11-training-intensity').evaluate(e=>{e.value='73';e.dispatchEvent(new Event('input',{bubbles:true}));});
+  await action('training-apply').click();
+  await page.waitForFunction(()=>window.OronzoR03.getState()?.flow?.m1?.training?.selected?.intensity===73);
+  record(view,'recupero73-ledger',await st(()=>window.OronzoR03.getState().flow.m1.training.selected.plan==='rest'));
+  await page.reload({waitUntil:'networkidle'});
+  await action('load').click();
+  await page.waitForFunction(()=>window.OronzoR03.getScreen()==='hub');
+  await action('section','allenamento').click();
+  record(view,'recupero73-reloaded',await page.locator('#r11-training-intensity').inputValue()==='73' &&
+   await action('training-plan','rest').getAttribute('aria-pressed')==='true');
+  await snap('training-reload');
+  await action('hub').click();
+  await action('section','rosa').click();
+  record(view,'roster-buttons',await page.locator('.runtime-player-link').count()>0);
+  await page.locator('#r11-roster-filter').selectOption('GK');
+  record(view,'roster-gk-filter',await page.locator('.runtime-player-link').count()>0);
+  await snap('roster');
+  await action('hub').click();
+  await action('section','presidente').click();
+  record(view,'president-requests-ui',await action('board-request').isVisible());
+  if(w===640){
+   await page.locator('#r11-request-kind').selectOption('market_mandate');
+   await page.locator('#r11-request-amount').fill('5000');
+   const before=await st(()=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).management.requests.length);
+   await action('board-request').click();
+   await page.waitForFunction(n=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).management.requests.length>n,before);
+   await action('board-decide').first().click();
+   const board=await st(()=>{
+    let s=window.OronzoR03.getState(),club=s.clubs.find(c=>c.id===s.coach.clubId),r=club.management.requests.at(-1);
+    return {id:r.id,kind:r.kind,status:r.status,boardTrust:club.boardTrust};
+   });
+   record(view,'board-request-clicks',board.kind==='market_mandate' && ['approved','rejected'].includes(board.status),JSON.stringify(board));
+  }
+  await action('pres-tab','mercato').click();
+  record(view,'market-page-real',await page.locator('#r11-sale-player').count()===1);
+  await snap('market-before');
+  if(w===640){
+    const chosen=await st(()=>{
+      const s=window.OronzoR03.getState(),seller=s.clubs.find(c=>c.id===s.coach.clubId);
+      const player=seller.players.find(p=>!p.positions.includes('GK'));
+      const buyer=s.clubs.find(c=>c.id!==seller.id && c.finance.cash>=1000 &&
+        c.wageBudget-c.players.reduce((sum,p)=>sum+(p.contract?.weeklyWage||0),0)>=(player.contract.weeklyWage||0));
+      return {sellerId:seller.id,playerId:player.id,playerWage:player.contract.weeklyWage,
+       buyerId:buyer?.id||null,cash:seller.finance.cash,buyerCash:buyer?.finance.cash};
+    });
+    record(view,'real-buyer-available',Boolean(chosen.buyerId),JSON.stringify(chosen));
+    let approved=null;
+    for(let attempt=0;attempt<28;attempt++){
+      await page.locator('#r11-sale-player').selectOption(chosen.playerId);
+      await page.locator('#r11-sale-buyer').selectOption(chosen.buyerId);
+      await page.locator('#r11-sale-fee').fill('1000');
+      const before=await st(()=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market.requests.length);
+      await action('market-sale').click();
+      await page.waitForFunction(n=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market.requests.length>n,before);
+      const req=await st(()=>{
+        const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+        return c.market.requests.at(-1);
+      });
+      record(view,'sale-proposal-'+attempt,req.kind==='sell' && req.status==='proposed',req.id);
+      await action('market-progress','review|'+req.id).click();
+      await page.waitForFunction(id=>{
+        const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+        return c.market.requests.find(x=>x.id===id).status!=='proposed';
+      },req.id);
+      const status=await page.evaluate(id=>{
+        const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+        return c.market.requests.find(x=>x.id===id).status;
+      },req.id);
+      if(status==='approved'){approved=req.id;break;}
+      if(status!=='rejected')throw Error('Sale review unexpected '+status);
+    }
+    record(view,'sale-approved-via-buttons',Boolean(approved),approved||'no approval in 28 proposals');
+    await page.locator('#r11-sale-buyer').selectOption(chosen.buyerId);
+    await page.locator('#r11-sale-fee').fill('1000');
+    await snap('market-approved');
+    await action('market-progress','finalize-sale|'+approved).click();
+    await page.waitForFunction(({sellerId,buyerId,playerId})=>{
+      const s=window.OronzoR03.getState(),a=s.clubs.find(c=>c.id===sellerId),b=s.clubs.find(c=>c.id===buyerId);
+      return !a.players.some(p=>p.id===playerId)&&b.players.some(p=>p.id===playerId);
+    },chosen);
+    const finalized=await st(()=>{
+      const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+      return {requests:c.market.requests.length,completed:c.market.requests.filter(x=>x.status==='completed').length,
+        clubId:c.id,playerCount:c.players.length,cash:c.finance.cash};
+    });
+    record(view,'sale-finalized-actual-transaction',finalized.completed>0,JSON.stringify(finalized));
+    await snap('market-finalized');
+    await page.reload({waitUntil:'networkidle'});
+    await action('load').click();
+    await page.waitForFunction(()=>window.OronzoR03.getScreen()==='hub');
+    const reloaded=await page.evaluate(({sellerId,buyerId,playerId,cash,buyerCash})=>{
+      const s=window.OronzoR03.getState(),a=s.clubs.find(c=>c.id===sellerId),b=s.clubs.find(c=>c.id===buyerId);
+      return {sold:!a.players.some(p=>p.id===playerId),bought:b.players.filter(p=>p.id===playerId).length,
+        sellerDelta:a.finance.cash-cash,buyerDelta:b.finance.cash-buyerCash};
+    },chosen);
+    record(view,'sale-still-correct-after-real-idb-reload',reloaded.sold&&reloaded.bought===1 &&
+      reloaded.sellerDelta===1000&&reloaded.buyerDelta===-1000,JSON.stringify(reloaded));
+    await snap('market-after-reload');
+    await action('formation').click();
+    await action('prepare').click();
+    await page.waitForFunction(()=>window.OronzoR03.getScreen()==='match');
+    await page.waitForFunction(()=>window.OronzoR03.isViewReady(),{timeout:45000});
+    const pre=await st(()=>window.OronzoR03.getSnapshot());
+    await action('camera-tv').click();
+    const post=await st(()=>window.OronzoR03.getSnapshot());
+    record(view,'tv-switch-preserves-match-state',JSON.stringify(pre)===JSON.stringify(post));
+    record(view,'tv-button-clicked',await action('camera-tv').getAttribute('aria-pressed')==='true');
+    await snap('match-tv');
+    await action('match-tools').click();
+    record(view,'live-tactic-ui',await action('match-tactic').count()===1);
+    await action('match-tactic').click();
+    await action('match-shout').click();
+    await snap('match-controls');
+    const matchErrors=await st(()=>window.OronzoR03.getErrors());
+    record(view,'runtime-errors-empty',matchErrors.length===0,JSON.stringify(matchErrors).slice(0,800));
+  }
+  const visible=await page.locator('button:visible').evaluateAll(els=>els.map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height,a:e.dataset.action||''})));
+  record(view,'touch-size',visible.every(x=>x.h>=43.5&&x.w>=40),JSON.stringify(visible.filter(x=>x.h<43.5||x.w<40)));
+  record(view,'no-pageerror',errors.length===0,errors.join(';'));
+  record(view,'loaded-png-status',pngs.some(p=>p.status===200)&&pngs.every(p=>p.status===200),JSON.stringify(pngs.filter(p=>p.status!==200)));
+ }catch(err){
+   failed=true;findings.push({view,test:'UNCUGHT',pass:false,details:String(err),errors});
+   await snap('FAILURE').catch(()=>{});
+ }finally {await context.close();}
+}
+await browser.close();
+await writeFile(outDir+'/results.json',JSON.stringify({findings,failed},null,2));
+console.log('AGENT00_INDEPENDENT_QA '+JSON.stringify({pass:findings.filter(x=>x.pass).length,fail:findings.filter(x=>!x.pass).length,findings},null,2));
+if(failed)process.exitCode=1;
