@@ -154,6 +154,82 @@ for(const [w,h] of sizes){
     record(view,'sale-still-correct-after-real-idb-reload',reloaded.sold&&reloaded.bought===1 &&
       reloaded.sellerDelta===1000&&reloaded.buyerDelta===-1000,JSON.stringify(reloaded));
     await snap('market-after-reload');
+    // Purchase: genuine president mandate, candidate, proposal, review, negotiation,
+    // completion via rendered buttons (no controller injection).
+    await action('section','presidente').click();
+    await action('pres-tab','mercato').click();
+    const buying=await page.evaluate(()=>{
+      const s=window.OronzoR03.getState(),mine=s.clubs.find(c=>c.id===s.coach.clubId);
+      const mandate=mine.management?.requests?.find(r=>r.kind==='market_mandate'&&r.status==='approved');
+      const values=[...document.querySelectorAll('#r11-market-candidate option')].map(o=>o.value);
+      const candidate=values.map(v=>v.split('|')).find(([id,playerId])=>
+        s.clubs.some(c=>c.id===id&&c.players.some(p=>p.id===playerId)));
+      const source=s.clubs.find(c=>c.id===candidate?.[0]);
+      const player=source?.players.find(p=>p.id===candidate?.[1]);
+      return {mandateId:mandate?.id||null,sourceId:source?.id||null,
+        playerId:player?.id||null,fee:1000,cash:mine.finance.cash,sourceCash:source?.finance.cash};
+    });
+    record(view,'purchase-prerequisites',!!buying.mandateId&&!!buying.playerId,JSON.stringify(buying));
+    let buyApproved=null;
+    for(let attempt=0;attempt<35;attempt++){
+      await page.locator('#r11-market-candidate').selectOption(buying.sourceId+'|'+buying.playerId);
+      await page.locator('#r11-market-mandate').selectOption(buying.mandateId);
+      await page.locator('#r11-market-fee').fill('1000');
+      await page.locator('#r11-market-wage').fill('0');
+      const before=await st(()=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market.requests.length);
+      await action('market-request').click();
+      await page.waitForFunction(n=>window.OronzoR03.getState().clubs.find(c=>c.id===window.OronzoR03.getState().coach.clubId).market.requests.length>n,before);
+      await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
+      const req=await st(()=>{
+        const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);return c.market.requests.at(-1);
+      });
+      record(view,'buy-proposal-'+attempt,req.kind==='buy'&&req.status==='proposed',req.id);
+      await action('market-progress','review|'+req.id).click();
+      await page.waitForFunction(id=>{
+        const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+        return c.market.requests.find(x=>x.id===id).status!=='proposed';
+      },req.id);
+      await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
+      const status=await page.evaluate(id=>{
+        const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+        return c.market.requests.find(x=>x.id===id).status;
+      },req.id);
+      if(status==='approved'){buyApproved=req.id;break;}
+      if(status!=='rejected')throw Error('Unexpected purchase review '+status);
+    }
+    record(view,'purchase-board-approved-by-clicks',!!buyApproved,buyApproved||'no approval');
+    await snap('purchase-approved');
+    await action('market-progress','negotiate|'+buyApproved).click();
+    await page.waitForFunction(id=>{
+      const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+      return c.market.requests.find(x=>x.id===id)?.status==='negotiated';
+    },buyApproved);
+    await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
+    await action('market-progress','finalize|'+buyApproved).click();
+    await page.waitForFunction(id=>{
+      const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+      return c.market.requests.find(x=>x.id===id)?.status==='completed';
+    },buyApproved);
+    await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
+    const buyResult=await page.evaluate(({sourceId,playerId,cash,sourceCash})=>{
+      const s=window.OronzoR03.getState(),mine=s.clubs.find(x=>x.id===s.coach.clubId);
+      const seller=s.clubs.find(x=>x.id===sourceId);
+      return {mineCount:mine.players.filter(p=>p.id===playerId).length,
+        sourceCount:seller.players.filter(p=>p.id===playerId).length,
+        mineCashDelta:mine.finance.cash-cash,sourceCashDelta:seller.finance.cash-sourceCash};
+    },buying);
+    record(view,'purchase-completed-both-clubs-accounted',buyResult.mineCount===1&&
+      buyResult.sourceCount===0&&buyResult.mineCashDelta===-1000&&
+      buyResult.sourceCashDelta===1000,JSON.stringify(buyResult));
+    await snap('purchase-completed');
+    await page.reload({waitUntil:'networkidle'});
+    await action('load').click();
+    await page.waitForFunction(()=>window.OronzoR03.getScreen()==='hub');
+    const boughtAfterReload=await page.evaluate(({sourceId,playerId})=>{
+      const s=window.OronzoR03.getState(),mine=s.clubs.find(x=>x.id===s.coach.clubId),seller=s.clubs.find(x=>x.id===sourceId);
+      return mine.players.filter(p=>p.id===playerId).length===1&&!seller.players.some(p=>p.id===playerId);
+    },buying);
+    record(view,'purchase-survives-real-idb-reload',boughtAfterReload);
     await action('formation').click();
     await action('prepare').click();
     await page.waitForFunction(()=>window.OronzoR03.getScreen()==='match');
@@ -171,6 +247,35 @@ for(const [w,h] of sizes){
     await snap('match-controls');
     const matchErrors=await st(()=>window.OronzoR03.getErrors());
     record(view,'runtime-errors-empty',matchErrors.length===0,JSON.stringify(matchErrors).slice(0,800));
+    // Native browser IndexedDB two large standard seasons with intentional corruption.
+    const slots=await page.evaluate(async()=>{
+      const [{createDurableSaveManager,DURABLE_DB,DURABLE_STORE},{deserialize}]=await Promise.all([
+        import('/oronzo/app/flow/durable-save.js'),import('/oronzo/systems/career/save.js')]);
+      const names=['standard-one-season.json','standard-two-season.json'];
+      const texts=await Promise.all(names.map(async n=>{
+        const r=await fetch('/r11-screenshots/'+n);if(!r.ok)throw Error('Snapshot not served: '+n+' '+r.status);return r.text();
+      }));
+      const m=createDurableSaveManager({indexedDB,legacyStorage:localStorage});
+      const a=await m.save(deserialize(texts[0])),b=await m.save(deserialize(texts[1]));
+      const start=await m.inspect();
+      const db=await new Promise((resolve,reject)=>{
+        const req=indexedDB.open(DURABLE_DB,1);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+      });
+      await new Promise((resolve,reject)=>{
+        const tx=db.transaction(DURABLE_STORE,'readwrite');
+        tx.objectStore(DURABLE_STORE).put({blob:'bad-audit00-corrupted-envelope'},start.active);
+        tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+      });
+      db.close();
+      const recovered=await m.load();
+      return {chars:texts.map(s=>s.length),first:a.slot,second:b.slot,
+       aValid:start.A?.valid,bValid:start.B?.valid,active:start.active,
+       recovered:recovered.recovered,year:recovered.state?.seasonYear,
+       recoveredSequence:recovered.sequence};
+    });
+    record(view,'native-chromium-idb-dual-over4m-corruption-recovery',
+      slots.chars.every(n=>n>4000000)&&slots.aValid&&slots.bValid&&
+      slots.first!==slots.second&&slots.recovered&&slots.year===1979,JSON.stringify(slots));
   }
   const visible=await page.locator('button:visible').evaluateAll(els=>els.map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height,a:e.dataset.action||''})));
   record(view,'touch-size',visible.every(x=>x.h>=43.5&&x.w>=40),JSON.stringify(visible.filter(x=>x.h<43.5||x.w<40)));
