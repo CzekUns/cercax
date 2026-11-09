@@ -44,7 +44,9 @@ function setup(seed=1979){
   assert.equal(Math.max(...state.leagues.PROM.fixtures.map(f=>f.round)),30);
   assert.ok(Object.values(state.leagues).some(l=>l.fixtures.some(f=>f.round===38)));
   assert.equal(listInitialOffers(state).length,20);
-  const offer=listInitialOffers(state).find(o=>o.divisionId==='PROM');
+  const offer=listInitialOffers(state).filter(o=>o.divisionId==='PROM')
+    .sort((a,b)=>state.clubs.find(c=>c.id===b.clubId).reputation-
+      state.clubs.find(c=>c.id===a.clubId).reputation)[0];
   assert.ok(offer,'at least one regional Promozione offer');
   assert.equal(acceptOffer(state,offer.id,{press}).accepted,true);
   answerAll(state,'opening');
