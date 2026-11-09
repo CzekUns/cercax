@@ -1,12 +1,15 @@
 /** ORONZO 03 R03 — mobile career runtime. Imports 07/09/06/05; no parallel simulation. */
 import {newGame,listInitialOffers,acceptOffer,getStateForUI,answerOpeningPress,
   answerPostMatchPress,prepareMatch,tickMatch,consumeMatchResult,advanceMatchday,
-  rolloverSeason,saveGame,loadGame,takeCareerOffer,getRosterPlayer,getTrainingPlayer}
+  rolloverSeason,saveGame,loadGame,takeCareerOffer,getRosterPlayer,getTrainingPlayer,selectM1Training}
   from '../../app/flow/controller.js';
 import {qaMunicipalityCatalog} from '../../app/flow/tests/qa-geography.mjs';
 import {previewOfferMorale} from '../../systems/coach-club/index.js';
 import {getStandings} from '../../systems/career/career.js';
 import {createMatchView,createEngineViewBridge} from '../../systems/match-view/match-view.js';
+import {renderPlayerCard,renderTrainingPanel,renderRosterLinks,renderSupportersPanel,
+  renderDeskAgenda,agendaSummary,trainingStatus,mountPlayerIllustration}
+  from './sections-r11/sections.js';
 
 const root=document.querySelector('#oronzo-r03'), area=document.querySelector('#ui-screen');
 const status=document.querySelector('#ui-toast'), date=document.querySelector('#stageDate');
@@ -31,6 +34,7 @@ let state=null, press=null, presidents=null, mode='normal', screen='entry', avat
  engine=null,matchInput=null,view=null,bridge=null,paused=true,speed=1,last=0,locking=false,
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
 let errors=[], viewReady=false;
+let trainingPlan='balanced',trainingIntensity=50,trainingRosterOpen=false,supportTab='stadio';
 const activeStage=()=>state?.flow?.stage??'entry';
 const getUI=()=>state?getStateForUI(state):null;
 const dataOk=()=>!!press&&!!presidents;
@@ -133,33 +137,66 @@ function tableRow(r,i,clubId){
  return `<div class="runtime-table-row ${id===clubId?'mine':''}" data-club-id="${esc(id)}" data-rank="${esc(rank)}"><b>${esc(rank)}.</b><span>${esc(r.clubName)}</span><strong>${esc(r.points)} PT</strong><small>${esc(r.played)} G</small></div>`;
 }
 function playerRow(p,source){return `<button type="button" class="runtime-player-link" data-action="player" data-value="${esc(p.playerId)}" data-player-id="${esc(p.playerId)}"><span>${esc(p.name)}</span><small>${esc(p.positions?.join('/')||'ruolo non disponibile')}</small><b>›</b></button>`;}
-const hubMenu=[['campionato','⚽','CAMPIONATO'],['rosa','▤','ROSA'],['allenamento','◆','ALLENAMENTO'],['tifoseria','♟','TIFOSERIA'],['presidente','♛','PRESIDENTE']];
+const hubMenu=[['campionato','⚽','CAMPIONATO'],['rosa','▤','ROSA'],['allenamento','◆','ALLENAMENTO'],['tifoseria','♟','TIFOSERIA'],['presidente','♛','PRESIDENTE'],['agenda','▣','COSA FARE OGGI']];
 function renderHub(){
  const ui=getUI(),club=ui?.club;
  if(!club)return head('UFFICIO NON DISPONIBILE');
  const choices=hubMenu.map(([key,icon,title])=>`<button type="button" class="menu-card" data-action="section" data-value="${key}"><span class="emoji" aria-hidden="true">${icon}</span>${title}</button>`).join('');
  return head('UFFICIO DEL MISTER',`${ui.gameDate} · ${club.name}`)+kpis()+
-  pane('SCRIVANIA',`<div class="menu-cards runtime-grow">${choices}</div>${h(btn('FORMAZIONE ▶','formation','','gold-btn')+btn('SALVA','save'))}`,'runtime-grow runtime-hub-home');
+  pane('SCRIVANIA',`<div class="r11-desk-brief">${esc(agendaSummary(ui))}</div><div class="menu-cards runtime-grow">${choices}</div>${h(btn('FORMAZIONE ▶','formation','','gold-btn')+btn('SALVA','save'))}`,'runtime-grow runtime-hub-home');
 }
 function renderHubSection(){
- const ui=getUI(),club=ui.club, meeting=ui.upcomingFixture;
- const opponent=meeting?state.clubs.find(c=>c.id===(meeting.homeId===club.id?meeting.awayId:meeting.homeId)):null;
+ const ui=getUI(),club=ui?.club;
+ if(!club)return head('UFFICIO NON DISPONIBILE');
+ const full=state.clubs.find(c=>c.id===club.id);
+ const title=hubMenu.find(([key])=>key===selectedHub)?.[2]||'UFFICIO';
+ if(selectedHub==='allenamento'){
+  if(trainingRosterOpen){
+   return head('ROSA IN ALLENAMENTO',ui.gameDate+' · '+club.name)+
+    pane('SELEZIONA CALCIATORE',renderRosterLinks({ui,activeTraining:true})+
+      h(btn('PROGRAMMA SETTIMANALE','training-roster','','gold-btn')+btn('UFFICIO','hub')),
+      'runtime-grow runtime-hub-detail');
+  }
+  return head('ALLENAMENTO',ui.gameDate+' · '+club.name)+
+    renderTrainingPanel({ui,plan:trainingPlan,intensity:trainingIntensity});
+ }
+ if(selectedHub==='tifoseria'){
+  return head('TIFOSERIA',ui.gameDate+' · '+club.name)+
+    renderSupportersPanel({ui,club:full,tab:supportTab});
+ }
+ if(selectedHub==='agenda'){
+  return head('COSA FARE OGGI','SETTIMANA '+ui.seasonWeek+' · '+ui.gameDate)+
+    pane('SCRIVANIA DEL MISTER',renderDeskAgenda(ui),'runtime-grow runtime-hub-detail');
+ }
  let body='';
  if(selectedHub==='campionato'){
+  const opponent=ui.upcomingFixture?
+    state.clubs.find(c=>c.id===(ui.upcomingFixture.homeId===club.id?ui.upcomingFixture.awayId:ui.upcomingFixture.homeId)):null;
   const rows=getStandings(state,club.divisionId);
-  body=`<p class="runtime-info">Prossima: <b>${esc(opponent?.name||'Fine stagione')}</b> · ${esc(ui.gameDate)} · giornata ${ui.seasonWeek}</p><div class="runtime-scroll runtime-grow runtime-table" data-total-rows="${rows.length}" aria-label="Classifica completa">${rows.map((r,i)=>tableRow(r,i,club.id)).join('')}</div>`;
- }else if(selectedHub==='rosa'||selectedHub==='allenamento'){
-  const training=selectedHub==='allenamento';
-  body=`<p class="runtime-foot">${training?'Allenamento: consultazione dei dati reali. Modifica dei programmi non ancora disponibile.':'Rosa completa · '+club.players.length+' calciatori · seleziona una scheda.'}</p><div class="runtime-scroll runtime-grow runtime-roster-list" data-total-players="${club.players.length}" aria-label="${training?'Giocatori allenamento':'Rosa completa'}">${training?'<button class="ui-btn runtime-unavailable" type="button" disabled aria-label="Piano allenamento non disponibile">MODIFICA ALLENAMENTO · NON DISPONIBILE</button>':''}${club.players.map(p=>playerRow(p,selectedHub)).join('')}</div>`;
+  const week=ui.coachWeekStatus;
+  const label=week?.kind==='bye_week'?'Turno di riposo · nessuna partita del mister':
+    week?.kind==='season_complete'?'Stagione terminata':
+    opponent?.name||'Nessun incontro in programma';
+  body='<p class="runtime-info">Prossima: <b>'+esc(label)+'</b> · '+esc(ui.gameDate)+' · giornata '+esc(ui.seasonWeek)+'</p>'+
+   '<div class="runtime-scroll runtime-grow runtime-table" data-total-rows="'+rows.length+'" aria-label="Classifica completa">'+
+   rows.map((r,i)=>tableRow(r,i,club.id)).join('')+'</div>';
+  if(week?.kind==='bye_week'&&week.canAdvance)
+   body+=h(btn('AVANZA SETTIMANA','advance','','gold-btn'));
+ }else if(selectedHub==='rosa'){
+  body='<p class="runtime-foot">Rosa completa · '+club.players.length+' calciatori · apri una scheda.</p>'+
+   '<div class="runtime-scroll runtime-grow runtime-roster-list" aria-label="Rosa">'+
+    club.players.map(p=>playerRow(p,'rosa')).join('')+'</div>';
  }else if(selectedHub==='presidente'){
-  const p=president(),full=state.clubs.find(c=>c.id===club.id);
-  body=`<div class="runtime-info">${esc(p?.name??'dato non disponibile')}<br>${esc(p?.goal??'dato non disponibile')}<br>Fiducia: ${esc(full.boardTrust??'dato non disponibile')}/100<br>Cassa: ${esc(full.finance?.cash?.toLocaleString('it-IT')??'dato non disponibile')} ₤<br>Arretrati: ${esc(full.finance?.arrears?.toLocaleString('it-IT')??'dato non disponibile')} ₤</div>`;
- }else{
-  body=`<div class="runtime-info">Morale tifosi ${esc(ui.coach.relationships.fans)}/100<br>Stampa ${esc(ui.coach.relationships.media)}/100<br>Rapporti persistiti dalla conferenza e dal sistema 09.</div>`;
+  const p=president();
+  body='<div class="runtime-info">'+esc(p?.name??'dato non disponibile')+
+   '<br>'+esc(p?.goal??'dato non disponibile')+
+   '<br>Fiducia: '+esc(full?.boardTrust??'dato non disponibile')+
+   '/100<br>Cassa: '+esc(full?.finance?.cash?.toLocaleString('it-IT')??'dato non disponibile')+
+   ' ₤<br>Arretrati: '+esc(full?.finance?.arrears?.toLocaleString('it-IT')??'dato non disponibile')+' ₤</div>';
  }
- const title=hubMenu.find(([key])=>key===selectedHub)?.[2]||'UFFICIO';
  const secondary=selectedHub==='rosa'?btn('FORMAZIONE ▶','formation','','gold-btn'):btn('SALVA','save');
- return head(title,`${ui.gameDate} · ${club.name}`)+pane(title,body+h(btn('TORNA ALL’UFFICIO','hub')+secondary),'runtime-grow runtime-hub-detail');
+ return head(title,ui.gameDate+' · '+club.name)+pane(title,body+h(btn('TORNA ALL’UFFICIO','hub')+secondary),
+  'runtime-grow runtime-hub-detail');
 }
 function renderFieldGroup(title,object){
  const fields=object&&typeof object==='object'?Object.entries(object).filter(([,val])=>typeof val==='number'||typeof val==='string'):[];
@@ -168,14 +205,16 @@ function renderFieldGroup(title,object){
 function renderPlayer(){
  const club=getUI()?.club;
  const selected=club?.players.find(p=>p.playerId===selectedPlayerId);
- if(!selected)return head('GIOCATORE NON DISPONIBILE')+pane('SCHEDA',h(btn(profileSource==='allenamento'?'TORNA ALL’ALLENAMENTO':'TORNA ALLA ROSA',profileSource==='allenamento'?'back-training':'back-rosa')),'runtime-grow');
- // Both authoritative read-only projections must refer to the same player ID.
+ if(!selected)return head('GIOCATORE NON DISPONIBILE')+
+  pane('SCHEDA',h(btn('TORNA ALLA ROSA','back-rosa')),'runtime-grow');
  const roster=getRosterPlayer(state,selectedPlayerId),training=getTrainingPlayer(state,selectedPlayerId);
- if(roster.playerId!==selectedPlayerId||training.playerId!==selectedPlayerId||roster.clubId!==club.id||training.clubId!==club.id)
+ if(roster.playerId!==selectedPlayerId||training.playerId!==selectedPlayerId||
+    roster.clubId!==club.id||training.clubId!==club.id)
   throw Error('Scheda giocatore non coerente col club selezionato');
  const item=profileSource==='allenamento'?training:roster;
- const p=item.player;
- return head('SCHEDA GIOCATORE',`${esc(club.name)} · ${profileSource==='allenamento'?'ALLENAMENTO (LETTURA)':'ROSA'}`)+`<div class="runtime-split">${pane('ANAGRAFICA E CONDIZIONE',`<div class="runtime-scroll runtime-grow runtime-detail-scroll"><h2 class="runtime-player-name">${esc(p.name)}</h2><div class="runtime-info">ID: ${esc(p.id)}<br>Club: ${esc(club.name)}<br>Ruoli: ${esc(p.positions?.join('/')||'dato non disponibile')}<br>Età: ${esc(p.age??'dato non disponibile')}<br>Grafica: ${esc(item.appearanceStatus==='ready'?'disponibile':'dato non disponibile')}</div>${renderFieldGroup('CONDIZIONE · STATUS',p.status)}${renderFieldGroup('CONTRATTO',p.contract)}</div>${h(btn(profileSource==='allenamento'?'TORNA ALL’ALLENAMENTO':'TORNA ALLA ROSA',profileSource==='allenamento'?'back-training':'back-rosa')+btn(profileSource==='allenamento'?'ROSA':'ALLENAMENTO',profileSource==='allenamento'?'back-rosa':'back-training'))}`,'runtime-grow')}${pane('ATTRIBUTI REALI',`<div class="runtime-scroll runtime-grow runtime-detail-scroll">${renderFieldGroup('TECNICA',p.technical)}${renderFieldGroup('FISICO',p.physical)}${renderFieldGroup('MENTALE',p.mental)}<p class="runtime-foot">Valori letti da ${profileSource==='allenamento'?'getTrainingPlayer':'getRosterPlayer'} (Agente 07). Nessun effetto attribuito dalla UI.</p></div><button class="ui-btn runtime-unavailable" disabled type="button">AZIONI ALLENAMENTO NON DISPONIBILI</button>`,'runtime-grow')}</div>`;
+ return head('SCHEDA GIOCATORE',club.name+' · '+profileSource.toUpperCase())+
+  renderPlayerCard({item,clubName:club.name,source:profileSource,
+   reports:getUI()?.m1?.training?.reports||[]});
 }
 
 function renderFormation(){const club=getUI()?.club;if(!club)return head('NESSUNA SQUADRA');const all=club.players;return head('FORMAZIONE E PANCHINA',`${lineup.size} TITOLARI · ${bench.size} RISERVE`)+`<div class="runtime-split">${pane('TOCCA TITOLARI / PANCHINA',`<div class="runtime-roster runtime-grow">${all.map(p=>`<label class="runtime-player"><input type="checkbox" data-player="${esc(p.playerId)}" ${lineup.has(p.playerId)?'checked':''} aria-label="Titolare ${esc(p.name)}"><span>${esc(p.name)}</span><small>${esc(p.positions.join('/'))}</small></label>`).join('')}</div>`,'runtime-grow')}${pane('PREPARTITA',`<p class="runtime-info">Esattamente 11 titolari e un portiere. Le spunte controllano l’undici; gli altri idonei vanno in panchina (max 5).</p><label class="runtime-label">Capitano<select id="captain">${all.filter(p=>lineup.has(p.playerId)).map(p=>`<option value="${esc(p.playerId)}" ${captain===p.playerId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label><p class="runtime-info">Portieri titolari: ${all.filter(p=>lineup.has(p.playerId)&&p.positions.includes('GK')).length}</p><p class="runtime-foot">Il controller 07 e il modulo 09 convalidano la scelta. Il salvataggio è vietato durante una gara preparata.</p>${h(btn('UFFICIO','hub')+btn('CALCIO D’INIZIO','prepare','','gold-btn'))}`,'runtime-grow')}</div>`}
@@ -190,6 +229,10 @@ function render(){
  const output={entry:renderEntry,avatar:renderAvatar,offers:renderOffers,president:renderPresident,press:renderPress,hub:renderHub,'hub-section':renderHubSection,formation:renderFormation,match:renderMatch,post:renderPost,season:renderSeason,unemployed:renderUnemployed,gameover:renderGameover,player:renderPlayer}[screen]||renderEntry;
  root.dataset.screen=screen;
  area.innerHTML=output();
+ if(screen==='player'&&selectedPlayerId){
+  try{mountPlayerIllustration(area,getRosterPlayer(state,selectedPlayerId))
+   .catch(e=>errors.push('Sprite scheda: '+e.message));}catch(e){errors.push('Sprite scheda: '+e.message)}
+ }
  // The persistent five-item footer duplicates screen-local navigation and wastes landscape height.
  // Keep its markup for the pending PR #52, but remove it from every view.
  const nav=root.querySelector('#runtime-nav');
@@ -210,28 +253,53 @@ function updateMatch(){if(!engine||screen!=='match')return;const s=engine.snapsh
 function step(seconds){if(!engine||screen!=='match')return;tickMatch(engine,seconds,{speed});const d=bridge.sync(performance.now());for(const e of d.events){if(['goal','fulltime','halftime','shot','save'].includes(e.type))lastEvent=`${Math.floor(e.t/60)}′ · ${e.type.toUpperCase()} · ${e.playerId||''}`;}const feed=document.querySelector('#match-news');if(feed)feed.textContent=lastEvent||'Rendering 05 · dati del motore 06';updateMatch();if(engine.isFinished())finishMatch()}
 function finishMatch(){if(!engine||!engine.isFinished())return;const result=consumeMatchResult(state,engine,{press});api(result,()=>{clearMatch();save({silent:true});display('press')})}
 function fulltimeQA(){if(!engine||mode!=='qa')return;if(!engine.isFinished())step((5400-engine.snapshot().t)/6/speed+1);}
-function advance(){if(!state)return;const week=state.absoluteWeek;api(advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek:week}),()=>{save({silent:true});display(activeStage()==='season_complete'?'season':activeStage()==='unemployed'?'unemployed':'hub');message('Giornata '+week+' chiusa · nuova data '+state.gameDate)})}
+function advance(){if(!state)return;const week=state.absoluteWeek;
+ const result=advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek:week});
+ api(result,()=>{save({silent:true});
+  display(activeStage()==='season_complete'?'season':activeStage()==='unemployed'?'unemployed':'hub');
+  message((result.weekType==='bye_week'?'Turno di riposo':'Giornata')+' '+week+' chiuso · nuova data '+state.gameDate);
+ });
+}
 function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career'].includes(action))return failure('GAME_OVER');
  switch(action){case 'reset-career':restartAfterGameOver();break;case 'home':if(state&&screen!=='entry'&&screen!=='match'&&activeStage()==='hub'){display('hub')}else display('entry');break;
  case 'start':display('avatar');break;case 'avatar':avatar=Number(value);render();break;case 'back-avatar':display('avatar');break;case 'begin':newCareer();break;
  case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press}),()=>{selectLineup();save({silent:true});display('president')});break;}
  case 'press':display('press');break;case 'answer':{const [q,a]=value.split('|');const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const result=kind==='opening'?answerOpeningPress(state,q,a,{press}):answerPostMatchPress(state,q,a,{press});api(result,()=>{save({silent:true});display(activeStage()==='hub'?'hub':activeStage()==='postmatch_ready'?'post':'press')});break;}
  case 'hub':if(!state)return display('entry');if(activeStage()==='hub')display('hub');else if(activeStage()==='postmatch_ready')display('post');else failure('Completa il passaggio corrente');break;
- case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;display('hub-section');break;
+ case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;trainingRosterOpen=false;if(value==='tifoseria')supportTab='stadio';display('hub-section');break;
+ case 'training-roster':trainingRosterOpen=!trainingRosterOpen;display('hub-section');break;
+ case 'support-tab':if(!['stadio','tifosi','giornali'].includes(value))return failure('Scheda tifoseria non disponibile');supportTab=value;render();break;
+ case 'training-plan':{
+  if(!trainingStatus(getUI()).canSelect)return failure('Allenamento già pianificato');
+  if(!['technical','athletic','tactical','balanced','rest'].includes(value))return failure('Programma non valido');
+  trainingIntensity=Number(area.querySelector('#r11-training-intensity')?.value??trainingIntensity);
+  trainingPlan=value;render();break;
+ }
+ case 'training-apply':{
+  if(!trainingStatus(getUI()).canSelect)return failure('Settimana già pianificata');
+  const result=selectM1Training(state,{plan:trainingPlan,intensity:trainingIntensity,
+   expectedAbsoluteWeek:state.absoluteWeek});
+  api(result,()=>{const persisted=save({silent:true});render();
+    message(persisted?'Programma registrato e salvato · sett. '+result.selection.absoluteWeek:
+      'Programma registrato in memoria · salvataggio precedente protetto');
+  });break;
+ }
+ case 'training-locked':failure('Programma già registrato per questa settimana');break;
  case 'player':{const club=getUI()?.club;if(!club?.players.some(p=>p.playerId===value))return failure('Giocatore non presente nella rosa');selectedPlayerId=value;profileSource=selectedHub==='allenamento'?'allenamento':'rosa';display('player');break;}
  case 'back-rosa':selectedHub='rosa';selectedPlayerId=null;display('hub-section');break;
- case 'back-training':selectedHub='allenamento';selectedPlayerId=null;display('hub-section');break;case 'formation':if(activeStage()==='hub')display('formation');else failure('Non è il momento di preparare la squadra');break;
+ case 'back-training':selectedHub='allenamento';selectedPlayerId=null;trainingRosterOpen=true;display('hub-section');break;case 'formation':if(activeStage()==='hub')display('formation');else failure('Non è il momento di preparare la squadra');break;
  case 'prepare':prepare();break;case 'pause':paused=!paused;view?.setPaused(paused);renderMatchControls();last=performance.now();break;
  case 'speed':speed=speed===8?1:speed*2;view?.setSpeed(speed);renderMatchControls();break;
  case 'camera-full':message('Vista a campo completo del renderer 05');break;
  case 'camera-tv':message('Camera televisiva non disponibile nel renderer 05: nessuno zoom finto');break;
- case 'finish-qa':fulltimeQA();break;case 'advance':advance();break;case 'next':if(activeStage()==='postmatch_ready'||activeStage()==='unemployed')advance();else if(activeStage()==='hub')display('formation');else failure('Giornata non avanzabile');break;
+ case 'finish-qa':fulltimeQA();break;case 'advance':advance();break;case 'next':if(getUI()?.coachWeekStatus?.kind==='bye_week'&&getUI()?.coachWeekStatus?.canAdvance)advance();else if(activeStage()==='postmatch_ready'||activeStage()==='unemployed')advance();else if(activeStage()==='hub')display('formation');else failure('Giornata non avanzabile');break;
  case 'save':save();break;case 'load':load();break;case 'rollover':api(rolloverSeason(state),()=>{save({silent:true});selectLineup();display('hub')});break;
  case 'vacancy':api(takeCareerOffer(state,value),()=>{selectLineup();save({silent:true});display('hub')});break;
  default:failure('Azione non gestita: '+action);
  }}
 function renderMatchControls(){if(screen!=='match')return;const p=area.querySelector('[data-action="pause"]'),s=area.querySelector('[data-action="speed"]');if(p){p.textContent=paused?'▶ RIPRENDI':'Ⅱ PAUSA';p.classList.toggle('gold-btn',paused)}if(s)s.textContent=speed+'× VELOCITÀ'}
 root.addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b||b.disabled||!root.contains(b))return;guard(()=>interact(b.dataset.action,b.dataset.value))});
+root.addEventListener('input',e=>{if(e.target.matches('[data-training-intensity]')){trainingIntensity=Number(e.target.value);const out=root.querySelector('#r11-intensity-value');if(out)out.textContent=String(trainingIntensity)}});
 root.addEventListener('change',e=>{if(e.target.id==='origin'){origin=e.target.value;return}if(e.target.id==='qa-mode'){mode=e.target.checked?'qa':'normal';origin=mode==='qa'?'000001':REAL?.municipalities[0]?.municipalityId||'';render();return}if(e.target.id==='captain'){captain=e.target.value;return}if(!e.target.matches('[data-player]'))return;const id=e.target.dataset.player;if(e.target.checked)lineup.add(id);else lineup.delete(id);const club=getUI()?.club;const eligible=club?.players||[];bench=new Set(eligible.filter(p=>!lineup.has(p.playerId)).slice(0,5).map(p=>p.playerId));if(!lineup.has(captain))captain=[...lineup].find(x=>!club.players.find(p=>p.playerId===x)?.positions.includes('GK'))||null;render();});
 function loop(now){if(view&&viewReady&&screen==='match'){try{view.drawAt(now)}catch(e){viewReady=false;failure('Errore renderer: '+e.message)}}const dt=Math.max(0,Math.min(.20,(now-last)/1000));last=now;if(engine&&screen==='match'&&!paused){try{step(dt)}catch(e){paused=true;view?.setPaused(true);failure(e.message)}}requestAnimationFrame(loop)}
 window.OronzoR03=Object.freeze({getState:()=>state,getScreen:()=>screen,getSnapshot:()=>scoreSnapshot,completeQaMatch:()=>guard(fulltimeQA),getErrors:()=>errors.slice(),getMode:()=>mode, isViewReady:()=>viewReady, getStage:activeStage});
