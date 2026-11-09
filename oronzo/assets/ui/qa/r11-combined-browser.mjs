@@ -63,7 +63,8 @@ async function run(spec,index){
    const inp=page.locator('#r11-ticket-price');
    check(await inp.count()===1,'real ticket input');
    await inp.fill('2000');await act('ticket-change').click();
-   check((await state()).clubs.find(c=>c.id===(await state()).coach.clubId).stadium.ticketPriceITL===2000,'stadium real ticket changed');
+   const ticketState=await state();
+   check(ticketState.clubs.find(c=>c.id===ticketState.coach.clubId).stadium.ticketPriceITL===2000,'stadium real ticket changed');
    await page.locator('[data-action="support-tab"][data-value="giornali"]').click();
    await screenshot('newspaper');
    await act('hub').click();
