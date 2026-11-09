@@ -302,8 +302,76 @@ function renderPlayer(){
    reports:getUI()?.m1?.training?.reports||[]});
 }
 
-function renderFormation(){const club=getUI()?.club;if(!club)return head('NESSUNA SQUADRA');const all=club.players;return head('FORMAZIONE E PANCHINA',`${lineup.size} TITOLARI · ${bench.size} RISERVE`)+`<div class="runtime-split">${pane('TOCCA TITOLARI / PANCHINA',`<div class="runtime-roster runtime-grow">${all.map(p=>`<label class="runtime-player"><input type="checkbox" data-player="${esc(p.playerId)}" ${lineup.has(p.playerId)?'checked':''} aria-label="Titolare ${esc(p.name)}"><span>${esc(p.name)}</span><small>${esc(p.positions.join('/'))}</small></label>`).join('')}</div>`,'runtime-grow')}${pane('PREPARTITA',`<p class="runtime-info">Esattamente 11 titolari e un portiere. Le spunte controllano l’undici; gli altri idonei vanno in panchina (max 5).</p><label class="runtime-label">Capitano<select id="captain">${all.filter(p=>lineup.has(p.playerId)).map(p=>`<option value="${esc(p.playerId)}" ${captain===p.playerId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label><p class="runtime-info">Portieri titolari: ${all.filter(p=>lineup.has(p.playerId)&&p.positions.includes('GK')).length}</p><p class="runtime-foot">Il controller 07 e il modulo 09 convalidano la scelta. Il salvataggio è vietato durante una gara preparata.</p>${h(btn('UFFICIO','hub')+btn('CALCIO D’INIZIO','prepare','','gold-btn'))}`,'runtime-grow')}</div>`}
-function renderMatch(){const snap=engine?.snapshot(),mi=matchInput,fx=state?.flow?.pendingMatch;const hclub=state.clubs.find(c=>c.id===fx?.homeId),aclub=state.clubs.find(c=>c.id===fx?.awayId);return head('PARTITA VERA · ENGINE 06',`GIORNATA ${state.week} · 1× ≈ 15 MINUTI`)+`<div class="runtime-score"><span>${esc(hclub?.name)}</span><b id="match-score">${snap?.score.home??0} — ${snap?.score.away??0}</b><span>${esc(aclub?.name)}</span><strong id="match-time">00:00</strong></div><div class="runtime-split"><div class="runtime-pitch"><canvas id="r03-pitch" width="640" height="360" aria-label="Partita reale in 22 giocatori renderizzata su canvas"></canvas></div><section class="panel runtime-match-panel"><div class="runtime-grid"><div class="kpi"><small>POSSESSO</small><b id="match-pos">50%</b></div><div class="kpi"><small>TIRI</small><b id="match-shots">0–0</b></div></div><div class="runtime-grid">${btn('▶ RIPRENDI','pause','','gold-btn')}${btn('1× VELOCITÀ','speed')}${btn('CAMPO COMPLETO','camera-full','','active')}${btn('TV NON DISP.','camera-tv')}</div><p class="runtime-match-note" id="match-news">Render 05 · La camera televisiva non è ancora implementata.</p>${mode==='qa'?btn('TERMINA GARA CON ENGINE06 (QA)','finish-qa','','gold-btn'):''}<p class="runtime-match-note">Gol, minuti e statistiche: solo snapshot ed eventi Engine 06.</p></section></div>`}
+function renderFormation(){
+ const club=getUI()?.club;if(!club)return head('NESSUNA SQUADRA');
+ const players=club.players,real=controlledClub(),fixture=getUI().upcomingFixture;
+ const opponent=fixture?state.clubs.find(c=>c.id===(fixture.homeId===club.id?fixture.awayId:fixture.homeId)):null;
+ const valid=players.filter(p=>lineup.has(p.playerId)),
+   gk=valid.find(p=>p.positions.includes('GK')), ordered=[...(gk?[gk]:[]),...valid.filter(x=>x!==gk)].slice(0,11);
+ const anchors=formationAnchors(formationChoice);
+ const field='<div class="r11-formation-board" aria-label="Lavagna con posizioni del modulo '+esc(formationChoice)+'">'+
+ ordered.map((p,i)=>'<div class="r11-position-marker" style="left:'+Math.round(anchors[i].x*88+6)+'%;top:'+Math.round(anchors[i].y*82+9)+'%">'+
+  '<b>'+esc(p.positions[0])+'</b><small>'+esc(p.name.split(' ').at(-1))+'</small></div>').join('')+'</div>';
+ const choices=Object.keys(FORMATIONS).map(x=>'<option value="'+esc(x)+'"'+(x===formationChoice?' selected':'')+'>'+esc(x)+'</option>').join('');
+ const roster='<div class="runtime-roster runtime-grow">'+players.map(p=>{
+  const full=real?.players.find(x=>x.id===p.playerId),status=full?.status||{},unavailable=status.injuryDays>0||status.suspensionMatches>0||status.health===0;
+  return '<label class="runtime-player"><input type="checkbox" data-player="'+esc(p.playerId)+'"'+(lineup.has(p.playerId)?' checked':'')+
+   (unavailable?' disabled':'')+' aria-label="Titolare '+esc(p.name)+'"><span>'+esc(p.name)+'</span><small>'+
+   esc(p.positions.join('/'))+' · forma '+esc(status.fitness??'—')+(unavailable?' · NON DISPONIBILE':'')+'</small></label>';
+ }).join('')+'</div>';
+ return head('FORMAZIONE E PANCHINA',lineup.size+' TITOLARI · '+bench.size+' RISERVE')+
+  '<div class="runtime-split">'+pane('ROSA · SELEZIONE REALE',roster,'runtime-grow')+
+  pane('LAVAGNA PREPARTITA',
+   '<div class="runtime-scroll runtime-grow">'+
+   '<p class="r11-hint">Avversario: '+esc(opponent?.name||'non disponibile')+
+    ' · '+(fixture?.homeId===club.id?'CASA':'TRASFERTA')+'</p>'+field+
+   '<label class="runtime-label">MODULO<select id="r11-pre-formation">'+choices+'</select></label>'+
+   '<label class="runtime-label">PRESSING '+esc(pressingChoice)+'<input id="r11-pre-pressing" type="range" min="0" max="100" step="5" value="'+esc(pressingChoice)+'"></label>'+
+   '<label class="runtime-label">CAPITANO<select id="captain">'+
+   valid.filter(p=>!p.positions.includes('GK')).map(p=>'<option value="'+esc(p.playerId)+'"'+(p.playerId===captain?' selected':'')+'>'+esc(p.name)+'</option>').join('')+
+   '</select></label></div>'+
+   h(btn('UFFICIO','hub')+btn('CALCIO D’INIZIO','prepare','','gold-btn')),'runtime-grow')+'</div>';
+}
+function renderMatchTools(){
+ const snap=engine?.snapshot(),club=controlledClub(),myId=club?.id;
+ const active=(snap?.players||[]).filter(x=>x.teamId===myId),
+  benchIds=(matchInput?(matchInput.homeClub.id===myId?matchInput.homeBench:matchInput.awayBench):[])||[];
+ const unused=benchIds.filter(id=>!active.some(x=>x.id===id));
+ const names=id=>club?.players?.find(p=>p.id===id)?.name||id;
+ const mk=(ids,id)=>'<select id="'+id+'">'+ids.map(p=>{
+  const v=typeof p==='string'?p:p.id;
+  return '<option value="'+esc(v)+'">'+esc(names(v))+'</option>'}).join('')+'</select>';
+ const formations=Object.keys(FORMATIONS).map(x=>'<option value="'+esc(x)+'"'+(x===state.coach.tactics?.formation?' selected':'')+'>'+esc(x)+'</option>').join('');
+ return '<div class="r11-match-orders">'+
+  btn('◀ TORNA AL CAMPO','match-tools')+
+  '<label>MODULO<select id="r11-live-formation">'+formations+'</select></label>'+
+  '<label>PRESSING <input id="r11-live-pressing" type="number" min="0" max="100" value="'+esc(state.coach.tactics?.pressing??50)+'"></label>'+
+  btn('APPLICA TATTICA','match-tactic')+
+  '<label>FUORI'+mk(active,'r11-sub-out')+'</label><label>DENTRO'+mk(unused,'r11-sub-in')+'</label>'+
+  btn('SOSTITUISCI','match-substitute')+
+  '<label>GIOCATORE'+mk(active,'r11-shout-player')+'</label>'+
+  '<label>ORDINE<select id="r11-shout-tone"><option value="encourage">INCORAGGIA</option><option value="harsh">RIMPROVERA</option></select></label>'+
+  btn('COMUNICA ORDINE','match-shout')+
+ '</div>';
+}
+function renderMatch(){
+ const snap=engine?.snapshot(),fx=state?.flow?.pendingMatch;
+ const home=state.clubs.find(c=>c.id===fx?.homeId),away=state.clubs.find(c=>c.id===fx?.awayId);
+ return head('PARTITA VERA · ENGINE 06','GIORNATA '+state.week+' · 1× ≈ 15 MINUTI')+
+ '<div class="runtime-score"><span>'+esc(home?.name)+'</span><b id="match-score">'+
+ esc(snap?.score.home??0)+' — '+esc(snap?.score.away??0)+'</b><span>'+esc(away?.name)+
+ '</span><strong id="match-time">00:00</strong></div>'+
+ '<div class="runtime-split"><div class="runtime-pitch"><canvas id="r03-pitch" width="640" height="360" aria-label="Partita reale con 22 giocatori"></canvas></div>'+
+ '<section class="panel runtime-match-panel">'+(matchToolsOpen?renderMatchTools():
+  '<div class="runtime-grid"><div class="kpi"><small>POSSESSO</small><b id="match-pos">50%</b></div>'+
+  '<div class="kpi"><small>TIRI</small><b id="match-shots">0–0</b></div></div>'+
+  '<div class="runtime-grid">'+btn('▶ RIPRENDI','pause','','gold-btn')+btn('1× VELOCITÀ','speed')+
+  btn('CAMPO COMPLETO','camera-full')+btn('TELECAMERA TV','camera-tv')+'</div>'+
+  btn('TATTICHE · CAMBI · ORDINI','match-tools')+
+  '<p class="runtime-match-note" id="match-news">'+esc(lastEvent||'Feed reale Engine 06')+'</p>'+
+  (mode==='qa'?btn('TERMINA GARA CON ENGINE06 (QA)','finish-qa','','gold-btn'):'')
+ )+'</section></div>';
+}
 function renderPost(){const fm=state.flow.finalMatch;return head('FISCHIO FINALE · RISULTATO UFFICIALE','MATCH ENGINE 06')+`<div class="runtime-split">${pane('RISULTATO VERIFICATO',`<div class="runtime-score"><b>${fm.score.home} — ${fm.score.away}</b></div><div class="runtime-info">Esito del mister: ${esc(fm.result)}<br>Eventi motore: ${esc(fm.eventCount)}<br>Fonte: ${esc(state.flow.resultSources[fm.fixtureId])}</div>`,'runtime-grow')}${pane('CHIUSURA GIORNATA',`<p class="runtime-info">Due risposte stampa completate. L’Agente 09 aggiornerà il bilancio e il rapporto col presidente; il controller avanzerà il campionato una sola volta.</p>${h(btn('AVANZA GIORNATA ▶','advance','','gold-btn'))}`,'runtime-grow')}</div>`}
 function renderSeason(){return head('STAGIONE TERMINATA')+pane('PROSSIMO ANNO',`<p class="runtime-info">Ultima giornata conclusa. I risultati precedenti restano nella carriera.</p>${h(btn('INIZIA NUOVA STAGIONE','rollover','','gold-btn'))}`,'runtime-grow')}
 function renderUnemployed(){return head('SENZA PANCHINA',state.gameDate)+pane('NUOVE OCCASIONI',`<p class="runtime-info">Il presidente ha deciso. Le vacanze contrattuali restano del sistema 07.</p><div class="runtime-scroll runtime-grow">${(getUI().careerOffers||[]).map(x=>btn(x.clubName||x.clubId,'vacancy',x.id)).join('')}</div>${h(btn('AVANZA SETTIMANA','advance','','gold-btn'))}`,'runtime-grow')}
