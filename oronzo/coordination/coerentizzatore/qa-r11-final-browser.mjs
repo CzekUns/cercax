@@ -49,12 +49,18 @@ for(const [w,h] of sizes){
   await action('training-apply').click();
   await page.waitForFunction(()=>window.OronzoR03.getState()?.flow?.m1?.training?.selected?.intensity===73);
   record(view,'recupero73-ledger',await st(()=>window.OronzoR03.getState().flow.m1.training.selected.plan==='rest'));
+  // Distinguish an in-flight user action from a completed durable save.
+  await page.waitForFunction(()=>window.OronzoR03 && !window.OronzoR03.hasUnsavedProgress(),null,{timeout:45000});
+  record(view,'save-acknowledged',await st(()=>!window.OronzoR03.hasUnsavedProgress()&&!window.OronzoR03.getSaveError()));
+  await snap('training-saved-before-reload');
   await page.reload({waitUntil:'networkidle'});
   await action('load').click();
   await page.waitForFunction(()=>window.OronzoR03.getScreen()==='hub');
   await action('section','allenamento').click();
-  record(view,'recupero73-reloaded',await page.locator('#r11-training-intensity').inputValue()==='73' &&
-   await action('training-plan','rest').getAttribute('aria-pressed')==='true');
+  const loadedTraining={slider:await page.locator('#r11-training-intensity').inputValue(),
+   pressed:await action('training-plan','rest').getAttribute('aria-pressed'),
+   state:await st(()=>window.OronzoR03.getState()?.flow?.m1?.training?.selected)};
+  record(view,'recupero73-reloaded',loadedTraining.slider==='73'&&loadedTraining.pressed==='true'&&loadedTraining.state?.intensity===73,JSON.stringify(loadedTraining));
   await snap('training-reload');
   await action('hub').click();
   await action('section','rosa').click();
