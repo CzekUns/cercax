@@ -88,12 +88,14 @@ export function trainingStatus(ui){
 }
 export function renderTrainingPanel({ui,plan='balanced',intensity=50}){
  const state=trainingStatus(ui),ledger=ui?.m1?.training||{};
+ // Once confirmed, persisted controller values own every locked control, even after reload.
+ const shownPlan=state.selected?.plan??plan,shownIntensity=state.selected?.intensity??intensity;
  const last=Array.isArray(ledger.reports)?ledger.reports.at(-1):null;
  const clubPlayers=ui?.club?.players||[];
  const planName=x=>TRAINING_PLANS_R11.find(p=>p[0]===x)?.[1]||x;
  const pills=TRAINING_PLANS_R11.map(([key,name,description])=>
-  '<button type="button" data-action="training-plan" data-value="'+E(key)+'" class="r11-plan'+(plan===key?' is-selected':'')+
-  '" aria-pressed="'+(plan===key)+'" '+(!state.canSelect?'disabled':'')+' title="'+E(description)+'">'+E(name)+'</button>').join('');
+  '<button type="button" data-action="training-plan" data-value="'+E(key)+'" class="r11-plan'+(shownPlan===key?' is-selected':'')+
+  '" aria-pressed="'+(shownPlan===key)+'" '+(!state.canSelect?'disabled':'')+' title="'+E(description)+'">'+E(name)+'</button>').join('');
  const stateText=state.selected?'PIANO BLOCCATO: '+planName(state.selected.plan)+' · '+fmt(state.selected.intensity)+'% · settimana '+E(ui.absoluteWeek):
   state.applied?'SETTIMANA GIÀ ALLENATA':'PIANIFICA LA SETTIMANA '+E(ui.absoluteWeek);
  const lastBlock=last?'<div class="r11-training-report"><b>ULTIMA SEDUTA APPLICATA · SETT. '+E(last.absoluteWeek)+'</b>'+
@@ -106,8 +108,8 @@ export function renderTrainingPanel({ui,plan='balanced',intensity=50}){
  '<div class="r11-bottom">'+B('SCHEDE CALCIATORI','training-roster')+'</div></section>'+
  '<section class="panel r11-training-controls"><div class="panel-title">PROGRAMMA SETTIMANALE</div>'+
  '<div class="r11-column-scroll"><div class="r11-plan-grid">'+pills+'</div>'+
- '<label class="r11-intensity-label" for="r11-training-intensity">INTENSITÀ <output id="r11-intensity-value">'+E(intensity)+'</output>%</label>'+
- '<input id="r11-training-intensity" data-training-intensity type="range" min="0" max="100" step="1" value="'+E(intensity)+'" '+(!state.canSelect?'disabled':'')+'>'+
+ '<label class="r11-intensity-label" for="r11-training-intensity">INTENSITÀ <output id="r11-intensity-value">'+E(shownIntensity)+'</output>%</label>'+
+ '<input id="r11-training-intensity" data-training-intensity type="range" min="0" max="100" step="1" value="'+E(shownIntensity)+'" '+(!state.canSelect?'disabled':'')+'>'+
  '<p class="r11-hint">La scelta viene registrata oggi. Fatica e attributi cambiano soltanto con l’avanzamento reale della settimana.</p>'+
  '<small class="r11-hint">Rosa: '+E(clubPlayers.length)+' giocatori · programma corrente: '+E(state.selected?.plan||'da scegliere')+'</small></div>'+
  '<div class="r11-bottom">'+B('UFFICIO','hub')+(state.canSelect?B('CONFERMA PROGRAMMA','training-apply','','gold-btn'):B('PIANO GIÀ REGISTRATO','training-locked','','r11-inactive'))+'</div>'+
