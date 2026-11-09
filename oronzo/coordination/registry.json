@@ -186,6 +186,26 @@
       "editorPolicy": "no-layout-editor; accumulate notes and implement localized UI changes",
       "mergesAllowed": false,
       "coordination": "Agente12 handles user requests. Agente11 historical and F01 PR52; avoid concurrent UI edits. Agent10 gates merges; 00 audits."
+    },
+    {
+      "id": 13,
+      "displayId": "07-bis",
+      "role": "ORONZO-AGENT-07B",
+      "slug": "07b-sections",
+      "name": "Sezioni giocabili, grafica e interazioni R11",
+      "issue": 62,
+      "originalBranch": "agent/oronzo-07b-sections-r11-01",
+      "spec": "oronzo/agents/07b-sections.md",
+      "codeScope": "oronzo/assets/ui/sections-r11/**; minimal career-r03.js/css/html section integration only",
+      "coordinationDir": "oronzo/coordination/07b-sections/",
+      "identity": "oronzo/coordination/07b-sections/IDENTITY.md",
+      "run": "oronzo/coordination/07b-sections/RUN.md",
+      "next": "oronzo/coordination/07b-sections/NEXT.md",
+      "report": "oronzo/coordination/07b-sections/REPORT.md",
+      "lifecycle": "ready_r11_01",
+      "mergesAllowed": false,
+      "conflictRule": "12 owns screenshot-led fixes, 07B owns new rich section modules. Do not edit same career-r03.js hunks concurrently. 07 owns app/flow, 09 owns coach-club.",
+      "contract": "oronzo/coordination/10-orchestrator/TODO-R11-SEZIONI-UI.md"
     }
   ],
   "orchestrator": {
@@ -213,5 +233,5 @@
       "surnames": 5000
     }
   },
-  "registryUpdate": "2026-11-08: Agent12 owns user-guided screenshot/UI tweaks with Markdown screen register; Layout Studio cancelled. Agent11 M01 legacy, PR52 fullscreen pending."
+  "registryUpdate": "2026-11-09: 07-bis section developer registered as registry id13 / role ORONZO-AGENT-07B; 12 remains screenshot layout fixer"
 }
