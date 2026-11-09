@@ -103,6 +103,99 @@ test('U4: transfer requires gameplay window and verified president mandate',()=>
   requestId:'outside-window',playerId:s.clubs.find(c=>c.id===s.coach.clubId).players[0].id,
   feeITL:1000,expectedAbsoluteWeek:s.absoluteWeek}).reason,'market_window_closed');
 });
+
+test('U4: actual approved transfer debits buyer, credits seller, moves player once and survives save/load',()=>{
+ let chosen=null;
+ for(let seed=960;seed<1030;seed++){
+  const state=setup(seed),id='market-mandate:'+seed;
+  const proposed=requestCareerPresident(state,{presidentCatalog:presidents,
+   requestId:id,kind:'market_mandate',amountITL:5000,
+   expectedAbsoluteWeek:state.absoluteWeek});
+  if(!proposed.accepted)continue;
+  const voted=decideCareerPresident(state,{presidentCatalog:presidents,
+   requestId:id,expectedAbsoluteWeek:state.absoluteWeek});
+  if(voted.accepted&&voted.approved){chosen={state,mandateId:id,seed};break}
+ }
+ assert.ok(chosen,'at least one authentic 09 president must approve a modest mandate');
+ const {state,mandateId,seed}=chosen;
+ const buyer=state.clubs.find(c=>c.id===state.coach.clubId);
+ const seller=state.clubs.find(c=>c.id!==buyer.id&&c.divisionId===buyer.divisionId);
+ assert.ok(seller,'real source club');
+ const player=seller.players.slice().sort((a,b)=>a.contract.weeklyWage-b.contract.weeklyWage)[0];
+ const room=buyer.wageBudget-buyer.players.reduce((sum,x)=>sum+x.contract.weeklyWage,0);
+ const weeklyWage=Math.max(0,Math.min(1000,room));
+ const ctx={presidentCatalog:presidents,expectedAbsoluteWeek:state.absoluteWeek};
+ const cashBuyer=buyer.finance.cash,cashSeller=seller.finance.cash;
+ let approved=null;
+ for(let i=0;i<35;i++){
+  const requestId='r11-purchase:'+seed+':'+i;
+  const ask=careerMarketOperation(state,{...ctx,action:'request',requestId,
+   sellerClubId:seller.id,playerId:player.id,feeITL:1000,weeklyWage,mandateId});
+  assert.equal(ask.accepted,true,ask.reason);
+  const review=careerMarketOperation(state,{...ctx,action:'review',requestId});
+  if(review.accepted&&review.approved){approved=requestId;break}
+ }
+ assert.ok(approved,'at least one deterministic board/director approval must succeed');
+ const negotiation=careerMarketOperation(state,{...ctx,action:'negotiate',
+  requestId:approved,feeITL:1000,weeklyWage,sellerAccepts:true});
+ assert.equal(negotiation.accepted,true,negotiation.reason);
+ const signed=careerMarketOperation(state,{...ctx,action:'finalize',requestId:approved});
+ assert.equal(signed.accepted,true,signed.reason);
+ const afterBuyer=state.clubs.find(c=>c.id===buyer.id),afterSeller=state.clubs.find(c=>c.id===seller.id);
+ assert.equal(afterBuyer.players.filter(p=>p.id===player.id).length,1);
+ assert.equal(afterSeller.players.filter(p=>p.id===player.id).length,0);
+ assert.equal(afterBuyer.players.find(p=>p.id===player.id).teamId,buyer.id);
+ assert.equal(afterBuyer.players.find(p=>p.id===player.id).contract.weeklyWage,weeklyWage);
+ assert.equal(afterBuyer.finance.cash,cashBuyer-1000);
+ assert.equal(afterSeller.finance.cash,cashSeller+1000);
+ assert.equal(afterBuyer.management.requests.find(r=>r.id===mandateId).status,'spent');
+ const checkpoint=JSON.stringify(state);
+ const duplicate=careerMarketOperation(state,{...ctx,action:'finalize',requestId:approved});
+ assert.equal(duplicate.accepted,false);
+ assert.equal(JSON.stringify(state),checkpoint,'retry may not double debit or duplicate the roster');
+ const restored=deserialize(serialize(state));
+ assert.deepEqual(restored.clubs.find(c=>c.id===buyer.id).players.map(p=>p.id),
+  afterBuyer.players.map(p=>p.id));
+});
+test('U4: approved sale moves a real player to a distinct club and books both sides',()=>{
+ let found=null;
+ for(let seed=1100;seed<1130;seed++){
+  const s=setup(seed),club=s.clubs.find(c=>c.id===s.coach.clubId);
+  const wanted=club.players.find(p=>!p.positions.includes('GK'));
+  const buyer=s.clubs.find(c=>c.id!==club.id&&c.divisionId===club.divisionId);
+  if(!wanted||!buyer)continue;
+  const ctx={presidentCatalog:presidents,expectedAbsoluteWeek:s.absoluteWeek};
+  for(let i=0;i<35;i++){
+   const id='r11-sale:'+seed+':'+i;
+   const request=careerSaleOperation(s,{...ctx,action:'request',requestId:id,
+    playerId:wanted.id,feeITL:1000});
+   assert.equal(request.accepted,true,request.reason);
+   const decision=careerSaleOperation(s,{...ctx,action:'review',requestId:id});
+   if(decision.accepted&&decision.approved){found={s,ctx,clubId:club.id,buyerId:buyer.id,
+     playerId:wanted.id,requestId:id};break}
+  }
+  if(found)break;
+ }
+ assert.ok(found,'a real president must eventually authorize a sale');
+ const {s,ctx,clubId,buyerId,playerId,requestId}=found;
+ const beforeSeller=s.clubs.find(c=>c.id===clubId).finance.cash;
+ const beforeBuyer=s.clubs.find(c=>c.id===buyerId).finance.cash;
+ const out=careerSaleOperation(s,{...ctx,action:'finalize',requestId,
+  buyerClubId:buyerId,feeITL:1000});
+ assert.equal(out.accepted,true,out.reason);
+ const sell=s.clubs.find(c=>c.id===clubId),buy=s.clubs.find(c=>c.id===buyerId);
+ assert.equal(sell.players.some(p=>p.id===playerId),false);
+ assert.equal(buy.players.filter(p=>p.id===playerId).length,1);
+ assert.equal(buy.players.find(p=>p.id===playerId).teamId,buyerId);
+ assert.equal(sell.finance.cash,beforeSeller+1000);
+ assert.equal(buy.finance.cash,beforeBuyer-1000);
+ assert.equal(careerSaleOperation(s,{...ctx,action:'finalize',requestId,
+  buyerClubId:buyerId,feeITL:1000}).accepted,false);
+ assert.equal(sell.players.some(p=>p.id===playerId),false);
+ assert.deepEqual(deserialize(serialize(s)).clubs.find(c=>c.id===buyerId).players.map(p=>p.id),
+  buy.players.map(p=>p.id));
+});
+
 test('U5: accepted individual shout is reconciled once into player trust',()=>{
  const s=setup(915),club=s.clubs.find(c=>c.id===s.coach.clubId),
   before=Object.fromEntries(club.players.map(p=>[p.id,p.relationships.coachTrust]));
