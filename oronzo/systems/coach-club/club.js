@@ -15,6 +15,11 @@ export function createClub(data, finances={}) {
     budget:integer(data.budget ?? 0,'budget'),wageBudget:integer(data.wageBudget ?? 0,'wageBudget'),
     boardTrust:Math.round(clamp(data.boardTrust ?? 65)),seasonObjective:data.seasonObjective ?? 'safety',
     presidentId:data.presidentId,players:copy(data.players ?? []),
+    // R10 persistent management: preserve values supplied by Career07 or old saves.
+    ...(data.stadium===undefined?{}:{stadium:copy(data.stadium)}),
+    ...(data.supporters===undefined?{}:{supporters:copy(data.supporters)}),
+    ...(data.boardTraits===undefined?{}:{boardTraits:copy(data.boardTraits)}),
+    ...(data.management===undefined?{}:{management:copy(data.management)}),
     staff:copy(data.staff ?? {sportingDirector:{competence:55,loyalty:55}}),
     reputation:Math.round(clamp(data.reputation ?? 30)),
     board:copy(data.board ?? {status:'employed',winStreak:0,lossStreak:0,results:[],lastMatchIds:[],weeksUnderPressure:0,notices:[],promises:[],eventsUsed:{}}),

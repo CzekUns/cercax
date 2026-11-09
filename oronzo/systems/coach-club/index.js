@@ -9,3 +9,6 @@ export * from './board.js';
 export * from './objectives.js';
 export * from './period.js';
 export * from './morale.js';
+export * from './management-r10.js';
+export * from './market-r10.js';
+export * from './shouts-r10.js';
