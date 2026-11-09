@@ -25,7 +25,8 @@ const baseCoaches=[
 ];
 const names=['FORTUNA','LEADERSHIP','AUTOSTIMA','PAZIENZA'];
 const QA=qaMunicipalityCatalog();
-let state=null, press=null, presidents=null, mode='qa', screen='entry', avatar=0, origin='000001',
+let REAL=null; // Contemporary catalog is separate from synthetic QA fixtures.
+let state=null, press=null, presidents=null, mode='normal', screen='entry', avatar=0, origin='',
  offerIndex=0, selectedHub='campionato', lineup=new Set(), bench=new Set(), captain=null,
  engine=null,matchInput=null,view=null,bridge=null,paused=true,speed=1,last=0,locking=false,
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
@@ -37,7 +38,7 @@ function message(text){status.textContent=text;status.hidden=false;clearTimeout(
 function failure(reason){message(String(reason??'Azione non disponibile'));}
 function guard(action){if(locking)return;locking=true;try{action()}catch(e){errors.push(String(e));failure(e?.message??e)}finally{locking=false}}
 function api(result,success){if(result?.accepted===false){failure(result.reason==='geography_required'?'geography_required: località verificate non disponibili; usa DEMO TECNICA per provare':result.reason);return false}success?.();return true}
-function restoreMode(){label.textContent=state?.world?.mode==='qa_fixture'||mode==='qa'?'DEMO TECNICA — LOCALITÀ SINTETICHE':'DATI GEOGRAFICI NON VERIFICATI';date.textContent=state?.gameDate||'1979-08-01'}
+function restoreMode(){const qa=state?.world?.mode==='qa_fixture'||mode==='qa';label.textContent=qa?'DEMO TECNICA — LOCALITÀ SINTETICHE':REAL?'COMUNI REALI · DATI ATTUALI (NON 1979)':'CATALOGO COMUNI NON DISPONIBILE';date.textContent=state?.gameDate||'1979-08-01'}
 function display(next){screen=next;render()}
 function save({silent=false}={}){
  if(!state)return false;
@@ -54,25 +55,73 @@ function save({silent=false}={}){
  catch(e){if(!silent)failure(e.message);return false}
 }
 function load(){const payload=loadGame(localStorage);if(!payload){message('Nessuna carriera R03 salvata');return}if(payload.legacy){message('Salvataggio storico 1985 protetto. Apri il prototipo precedente per continuarlo.');return}clearMatch();protectPreviousSave=false;selectedPlayerId=null;profileSource='rosa';state=payload.state;mode=state.world?.mode==='qa_fixture'?'qa':'normal';avatar=Math.max(0,baseCoaches.findIndex((_,i)=>'ui-r03-'+i===state.coach.avatarId));selectLineup();const stage=activeStage();display(stage==='offers'?'offers':stage==='opening_press'?'president':stage==='postmatch_press'?'press':stage==='postmatch_ready'?'post':stage==='pre_match'?'hub':stage==='season_complete'?'season':stage==='unemployed'?'unemployed':'hub');message('Salvataggio R03 caricato · '+state.gameDate)}
-async function loadCopy(){const paths=['../../content/press-opening.json','../../content/press-postmatch.json','../../content/press-media.json','../../content/presidents.json'];const all=await Promise.all(paths.map(async p=>{const r=await fetch(p);if(!r.ok)throw new Error(`COPY04 HTTP ${r.status}: ${p}`);return r.json()}));press={opening:all[0],postmatch:all[1],media:all[2]};presidents=all[3];render()}
+async function loadCopy(){
+ const paths=['../../content/press-opening.json','../../content/press-postmatch.json','../../content/press-media.json','../../content/presidents.json'];
+ const all=await Promise.all(paths.map(async p=>{
+  const r=await fetch(p);if(!r.ok)throw new Error('COPY04 HTTP '+r.status+': '+p);return r.json();
+ }));
+ press={opening:all[0],postmatch:all[1],media:all[2]};presidents=all[3];
+ try{
+  const response=await fetch('../../data/world/municipalities-m1.json');
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  const catalog=await response.json();
+  if(catalog.reviewStatus!=='approved'||!Array.isArray(catalog.municipalities)||catalog.municipalities.length<100)
+   throw new Error('WORLD_DATA_UNREVIEWED');
+  REAL=catalog;origin=REAL.municipalities[0].municipalityId;
+ }catch(e){REAL=null;errors.push('Catalogo comuni: '+e.message);}
+ render();
+}
 function restartAfterGameOver(){
  // End the previous in-memory career only. Save slots are purposefully untouched.
  clearMatch();state=null;selectedPlayerId=null;profileSource='rosa';selectedHub='campionato';
- lineup=new Set();bench=new Set();captain=null;offerIndex=0;avatar=0;origin='000001';mode='qa';
+ lineup=new Set();bench=new Set();captain=null;offerIndex=0;avatar=0;mode='normal';origin=REAL?.municipalities[0]?.municipalityId||'';
  protectPreviousSave=true;
  display('avatar');
  message('Nuova carriera: il salvataggio precedente resta protetto finché non decidi di sostituirlo.');
 }
-function newCareer(){if(!dataOk())return failure('Cataloghi Copy04 ancora non disponibili');const c=baseCoaches[avatar],r=QA.municipalities.find(x=>x.municipalityId===origin);if(mode==='qa'&&!r)return failure('Origine fixture non valida');
- const originData=mode==='qa'?{municipalityId:r.municipalityId,regionId:r.regionId,macroRegion:r.macroRegion}:null;
- state=newGame({seed:1979,coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{luck:c[1][0],leadership:c[1][1],selfEsteem:c[1][2],patience:c[1][3]},origin:originData},...(mode==='qa'?{municipalityCatalog:QA}:{})});
- offerIndex=0;selectLineup();display('offers');}
+function newCareer(){
+ if(!dataOk())return failure('Cataloghi Copy04 ancora non disponibili');
+ const c=baseCoaches[avatar],catalog=mode==='qa'?QA:REAL;
+ if(!catalog)return failure('Comuni non disponibili. Se vuoi provare la demo, abilita la modalità TEST.');
+ const place=catalog.municipalities.find(x=>x.municipalityId===origin);
+ if(!place)return failure('Seleziona un comune di origine valido');
+ const originData={municipalityId:place.municipalityId,regionId:place.regionId,macroRegion:place.macroRegion};
+ state=newGame({seed:1979,coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{
+  luck:c[1][0],leadership:c[1][1],selfEsteem:c[1][2],patience:c[1][3]
+ },origin:originData},municipalityCatalog:catalog});
+ offerIndex=0;selectLineup();display('offers');
+}
+
 function selectLineup(){lineup=new Set();bench=new Set();captain=null;const club=getUI()?.club;if(!club)return;const eligible=club.players.filter(p=>{const full=state.clubs.find(c=>c.id===club.id).players.find(x=>x.id===p.playerId);return !(full.status?.injuryDays||full.status?.suspensionMatches||full.status?.health===0)});
  const gk=eligible.find(p=>p.positions.includes('GK'));if(gk)lineup.add(gk.playerId);for(const p of eligible.filter(x=>!x.positions.includes('GK')).slice(0,10))lineup.add(p.playerId);
  for(const p of eligible.filter(x=>!lineup.has(x.playerId)).slice(0,5))bench.add(p.playerId);captain=[...lineup].find(x=>x!==gk?.playerId)??null;}
-function renderEntry(){return head('IL FISCHIO D’INIZIO')+`<div class="runtime-split">${pane('L’UFFICIO TI ASPETTA',`<div class="news entry-brief">STAGIONE 1979<br>Inizia la tua carriera di provincia. Ingaggi e risultati provengono dai moduli reali.</div><p class="runtime-foot">Per il playtest personale useremo 100 località dichiaratamente sintetiche.</p><div class="v-stack entry-actions">${btn('▶ NUOVA PARTITA','start','','gold-btn')}${btn('▣ CARICA PARTITA','load')}</div>`, 'runtime-grow entry-panel')}<div class="panel runtime-image" role="img" aria-label="Ufficio di allenatore rétro"></div></div>`}
-function renderAvatar(){const c=baseCoaches[avatar];const choices=QA.municipalities.filter(x=>x.municipalityId==='000001'||x.municipalityId==='000002'||x.municipalityId==='000003'||x.municipalityId==='000004');return head('SCEGLI IL MISTER','8 AVATAR ORIGINALI')+`<div class="runtime-split">${pane('RITRATTI',`<div class="avatar-grid runtime-grow">${baseCoaches.map((v,i)=>`<button class="avatar-tile" data-action="avatar" data-value="${i}" aria-label="${esc(v[0])}" aria-pressed="${avatar===i}">${portraits('coach',i)}</button>`).join('')}</div>`,'runtime-grow')}${pane('PROFILO ALLENATORE',`<div class="runtime-avatar-fields runtime-scroll runtime-grow"><div class="runtime-top-row"><div class="runtime-portrait">${portraits('coach',avatar)}</div><div class="runtime-info"><b>${esc(c[0])}</b><br>${names.map((x,i)=>`${x}: ${c[1][i]}`).join('<br>')}</div></div><label class="runtime-label">Origine QA (località inventata)<select id="origin">${choices.map(x=>`<option value="${esc(x.municipalityId)}" ${origin===x.municipalityId?'selected':''}>${esc(x.municipalityName)} · ${esc(x.regionId)}</option>`).join('')}</select></label><label class="runtime-label"><input id="qa-mode" type="checkbox" ${mode==='qa'?'checked':''}> Modalità TEST: luoghi sintetici</label></div>${h(btn('INDIETRO','home')+btn('20 OFFERTE ▶','begin','','gold-btn'))}`,'runtime-grow') }</div>`}
-function offerResult(o){if(mode!=='qa')return null;try{const club=state.clubs.find(c=>c.id===o.clubId);return previewOfferMorale(state.coach,o,club)}catch{return null}}
+function renderEntry(){return head('IL FISCHIO D’INIZIO')+`<div class="runtime-split">${pane('L’UFFICIO TI ASPETTA',`<div class="news entry-brief">STAGIONE 1979<br>Inizia la tua carriera di provincia. Ingaggi e risultati provengono dai moduli reali.</div><p class="runtime-foot">500 comuni: fonte ISTAT/RP92 (CC BY 4.0). Dati attuali, non geografia certificata per il 1979.</p><div class="v-stack entry-actions">${btn('▶ NUOVA PARTITA','start','','gold-btn')}${btn('▣ CARICA PARTITA','load')}</div>`, 'runtime-grow entry-panel')}<div class="panel runtime-image" role="img" aria-label="Ufficio di allenatore rétro"></div></div>`}
+function renderAvatar(){
+ const c=baseCoaches[avatar];
+ const choices=mode==='qa'?QA.municipalities.slice(0,4):(REAL?.municipalities||[]);
+ if(choices.length&&!choices.some(x=>x.municipalityId===origin))origin=choices[0].municipalityId;
+ const ordered=mode==='qa'?choices:choices.slice().sort((a,b)=>
+  a.regionId.localeCompare(b.regionId)||a.municipalityName.localeCompare(b.municipalityName,'it'));
+ const opts=ordered.map(x=>'<option value="'+esc(x.municipalityId)+'"'+
+  (origin===x.municipalityId?' selected':'')+'>'+esc(x.municipalityName)+' · '+esc(x.regionId)+'</option>').join('');
+ const avatars='<div class="avatar-grid runtime-grow">'+baseCoaches.map((v,i)=>
+  '<button class="avatar-tile" data-action="avatar" data-value="'+i+'" aria-label="'+esc(v[0])+
+  '" aria-pressed="'+(avatar===i)+'">'+portraits('coach',i)+'</button>').join('')+'</div>';
+ const profile='<div class="runtime-avatar-fields runtime-scroll runtime-grow">'+
+  '<div class="runtime-top-row"><div class="runtime-portrait">'+portraits('coach',avatar)+
+  '</div><div class="runtime-info"><b>'+esc(c[0])+'</b><br>'+
+  names.map((x,i)=>x+': '+c[1][i]).join('<br>')+'</div></div>'+
+  '<label class="runtime-label">'+
+  (mode==='qa'?'Origine QA · località inventata':'Comune italiano · fonte attuale, non 1979')+
+  '<select id="origin">'+opts+'</select></label>'+
+  '<label class="runtime-label"><input id="qa-mode" type="checkbox"'+
+  (mode==='qa'?' checked':'')+'> Modalità TEST: luoghi sintetici</label></div>'+
+  h(btn('INDIETRO','home')+btn('20 OFFERTE ▶','begin','','gold-btn'));
+ return head('SCEGLI IL MISTER','8 AVATAR ORIGINALI')+
+  '<div class="runtime-split">'+pane('RITRATTI',avatars,'runtime-grow')+
+  pane('PROFILO ALLENATORE',profile,'runtime-grow')+'</div>';
+}
+function offerResult(o){try{const club=state.clubs.find(c=>c.id===o.clubId);return previewOfferMorale(state.coach,o,club)}catch{return null}}
 function renderOffers(){const opts=listInitialOffers(state),o=opts[offerIndex]||opts[0];if(!o)return head('NESSUNA OFFERTA');const pr=offerResult(o);return head('MERCATO DELLE PANCHINE','20 OFFERTE REALI DEL CONTROLLER 07')+`<div class="runtime-split">${pane('LE PROPOSTE',`<div class="runtime-list runtime-scroll runtime-grow">${opts.map((x,i)=>`<button class="runtime-offer" data-action="offer" data-value="${i}" aria-selected="${offerIndex===i}"><span><b>${i+1}. ${esc(x.clubName)}</b><small>${esc(x.divisionId)}</small></span><b>${esc(offerResult(x)?.finalMoraleDelta??'—')} ♥</b></button>`).join('')}</div>`,'runtime-grow')}${pane('CONTRATTO',`<div class="runtime-info"><b>${esc(o.clubName)}</b><br>Serie ${esc(o.divisionId)}<br>Compenso settimanale: ${esc(o.coachWageITL.toLocaleString('it-IT'))} ₤ (bilanciamento fittizio)<br>Morale ingaggio: ${esc(pr?.finalMoraleDelta??'non calcolabile')}<br>Scadenza: ${esc(o.contractUntil)}<br>Regione: ${esc(o.regionId||'geografia assente')}</div><p class="runtime-foot">Preview del modulo 09. Nessuna firma se mancano origine/regione attendibili.</p>${h(btn('AVATAR','back-avatar')+btn('ACCETTA OFFERTA','accept','','gold-btn'))}`,'runtime-grow') }</div>`}
 function president(){const club=state?.clubs.find(c=>c.id===state.coach.clubId);return presidents?.presidents.find(p=>p.id===club?.presidentId)}
 function renderPresident(){const p=president(),idx=presidents.presidents.findIndex(x=>x.id===p?.id),club=getUI()?.club;return head('IL PRESIDENTE TI ASPETTA','PRESENTAZIONE SOCIETÀ · COPY04')+`<div class="runtime-split"><div class="panel runtime-reporter">${portraits('president',Math.max(0,idx)%4)}</div>${pane(p?.name||'Presidente',`<p class="speech">“${esc(p?.lines?.[0]||p?.goal||'—')}”</p><div class="runtime-info">${esc(club?.name||'')}<br>Presidente: ${esc(p?.archetype||'')}<br>Fiducia società: ${esc(state.clubs.find(c=>c.id===club?.id)?.boardTrust??'—')}</div>${h(btn('CONFERENZA STAMPA ▶','press','','gold-btn'))}`,'runtime-grow')}</div>`}
@@ -159,7 +208,7 @@ function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale
  }}
 function renderMatchControls(){if(screen!=='match')return;const p=area.querySelector('[data-action="pause"]'),s=area.querySelector('[data-action="speed"]');if(p){p.textContent=paused?'▶ RIPRENDI':'Ⅱ PAUSA';p.classList.toggle('gold-btn',paused)}if(s)s.textContent=speed+'× VELOCITÀ'}
 root.addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b||b.disabled||!root.contains(b))return;guard(()=>interact(b.dataset.action,b.dataset.value))});
-root.addEventListener('change',e=>{if(e.target.id==='origin'){origin=e.target.value;return}if(e.target.id==='qa-mode'){mode=e.target.checked?'qa':'normal';render();return}if(e.target.id==='captain'){captain=e.target.value;return}if(!e.target.matches('[data-player]'))return;const id=e.target.dataset.player;if(e.target.checked)lineup.add(id);else lineup.delete(id);const club=getUI()?.club;const eligible=club?.players||[];bench=new Set(eligible.filter(p=>!lineup.has(p.playerId)).slice(0,5).map(p=>p.playerId));if(!lineup.has(captain))captain=[...lineup].find(x=>!club.players.find(p=>p.playerId===x)?.positions.includes('GK'))||null;render();});
+root.addEventListener('change',e=>{if(e.target.id==='origin'){origin=e.target.value;return}if(e.target.id==='qa-mode'){mode=e.target.checked?'qa':'normal';origin=mode==='qa'?'000001':REAL?.municipalities[0]?.municipalityId||'';render();return}if(e.target.id==='captain'){captain=e.target.value;return}if(!e.target.matches('[data-player]'))return;const id=e.target.dataset.player;if(e.target.checked)lineup.add(id);else lineup.delete(id);const club=getUI()?.club;const eligible=club?.players||[];bench=new Set(eligible.filter(p=>!lineup.has(p.playerId)).slice(0,5).map(p=>p.playerId));if(!lineup.has(captain))captain=[...lineup].find(x=>!club.players.find(p=>p.playerId===x)?.positions.includes('GK'))||null;render();});
 function loop(now){if(view&&viewReady&&screen==='match'){try{view.drawAt(now)}catch(e){viewReady=false;failure('Errore renderer: '+e.message)}}const dt=Math.max(0,Math.min(.20,(now-last)/1000));last=now;if(engine&&screen==='match'&&!paused){try{step(dt)}catch(e){paused=true;view?.setPaused(true);failure(e.message)}}requestAnimationFrame(loop)}
 window.OronzoR03=Object.freeze({getState:()=>state,getScreen:()=>screen,getSnapshot:()=>scoreSnapshot,completeQaMatch:()=>guard(fulltimeQA),getErrors:()=>errors.slice(),getMode:()=>mode, isViewReady:()=>viewReady, getStage:activeStage});
 render();loadCopy().catch(e=>{failure(e.message);errors.push(e.message)});last=performance.now();requestAnimationFrame(loop);
