@@ -4,7 +4,7 @@
 
 ## Missione immediata: rimuovere il blocco per il playtest persistente
 - [x] Verifica live **[PR #63](https://github.com/CzekUns/cercax/pull/63)** e **[audit #64](https://github.com/CzekUns/cercax/pull/64)**; HEAD, test, stato merge, eventuali nuovi commenti. L'ultimo audit noto ha verdict **NEEDS CHANGES** (non sovrascrivere il report dell'auditor).
-- [ ] Conferma a **07-bis** la sequenza: **P0-A stessa PR #63** corregge UI training salvata (Recupero 73% deve restare sui pulsanti/slider dopo reload) e avvisi espliciti in caso di salvataggio fallito; **P0-B PR backend distinta** risolve carriere standard > quota localStorage (due slot recuperabili, protezione legacy e failure atomico).
+- [x] Conferma a **07-bis** la sequenza (issue #62 rettificata e [commento PR #63](https://github.com/CzekUns/cercax/pull/63#issuecomment-6750326759); la chat 07B deve ancora eseguire l'incarico): **P0-A stessa PR #63** corregge UI training salvata (Recupero 73% deve restare sui pulsanti/slider dopo reload) e avvisi espliciti in caso di salvataggio fallito; **P0-B PR backend distinta** risolve carriere standard > quota localStorage (due slot recuperabili, protezione legacy e failure atomico).
 - [ ] Solo ai nuovi HEAD richiedi **Agente00** QA mirato: Node nativo + Chromium HTTP carriere standard, training, 2 stagioni 30/38, recupero dopo errori/quota, salvataggi e touch Android landscape; distingue bug originari, fix UI e backend. Stadio soltanto read-only se adapter assente.
 - [ ] Dopo PASS verificabile, presenta al proprietario **ordine di merge e caveat**; non mergiare senza sua autorizzazione. Dopo merge verifica main e Playtest con12.
 
