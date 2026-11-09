@@ -26,7 +26,8 @@ export function reviewTransfer(club, profile, requestId, seed=1) {
   else if(!director || (director.competence??50)<15) reason='director_rejects';
   const p=presidentBehavior(profile,{
     boardTrust:club.boardTrust,lossStreak:club.board.lossStreak,
-    cash:club.finance.cash,requestedFee:request.askingFee,\n    papponeria:club.boardTraits?.papponeria},seed);
+    cash:club.finance.cash,requestedFee:request.askingFee,
+    papponeria:club.boardTraits?.papponeria},seed);
   const dsChance=clamp(.35+(director?.competence??50)*.006,0,1);
   const dsAccept=rngFromSeed(String(seed)+':director')()<dsChance;
   if(!reason && !dsAccept) reason='sporting_director_rejects';
@@ -78,7 +79,8 @@ export function decideSale(club,profile,requestId,seed=1) {
   const r=findRequest(club,requestId);
   if(!r ||r.kind!=='sell'||r.status!=='proposed')return {accepted:false,reason:'not_pending',club};
   const t=profile.traits;const rng=rngFromSeed(seed);
-  const probability=clamp(.3+t.frugality*.004+(100-t.ambition)*.0015+\n    (club.boardTraits?.papponeria===undefined?0:(club.boardTraits.papponeria-50)*.002),0,1);
+  const probability=clamp(.3+t.frugality*.004+(100-t.ambition)*.0015+
+    (club.boardTraits?.papponeria===undefined?0:(club.boardTraits.papponeria-50)*.002),0,1);
   const approved=rng()<probability;
   const c=copy(club),item=findRequest(c,requestId);
   item.status=approved?'approved':'rejected';item.history.push({status:item.status,actor:'club',seed});
