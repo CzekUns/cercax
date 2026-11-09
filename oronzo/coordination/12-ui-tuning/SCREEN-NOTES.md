@@ -9,7 +9,7 @@
 | S12-001 | `entry` — apertura, revisione richiesta | Immagine computer a sinistra, due CTA a destra, zero testo introduttivo | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [#59](https://github.com/CzekUns/cercax/pull/59) + [#60](https://github.com/CzekUns/cercax/pull/60) |
 | S12-002 | Tutte le viste — navigazione inferiore | Eliminare il menu inferiore onnipresente; mantenere la navigazione in-contesto e futuro fullscreen accessibile senza ripristinare il menu | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [PR #59](https://github.com/CzekUns/cercax/pull/59) |
 | S12-003 | `hub` → sottosezioni | Aprire Campionato, Rosa, Allenamento, Tifoseria e Presidente in viste dedicate, senza anteprima a destra | Android landscape, risoluzione da verificare | `IMPLEMENTATA_DA_VERIFICARE` | [PR #60](https://github.com/CzekUns/cercax/pull/60) |
-| S12-004 | `entry` — immagine non visibile nella home pubblica | Mostrare realmente l'immagine del PC oltre ai due pulsanti; bypass della cache CSS/JS | Android landscape, versione pubblicata PR #60 | `IMPLEMENTATA_DA_VERIFICARE` | Branch `agent/oronzo-12-ui-playtest-s03` |
+| S12-004 | `entry` — immagine non visibile nella home pubblica | IMG reale del PC a sinistra e versione aggiornata di CSS/JS | Android landscape | `IMPLEMENTATA_DA_VERIFICARE` | [PR #61](https://github.com/CzekUns/cercax/pull/61) |
 
 **Stati:** `RICHIESTA` → `IMPLEMENTATA_DA_VERIFICARE` → `IMPLEMENTATA_DA_VERIFICARE` → `REVISIONE_00` → `CONFERMATA_UTENTE`; oppure `BLOCCATA` / `DIPENDENZA`. Non segnare una nota come corretta senza prova sufficiente.
 
@@ -60,7 +60,7 @@
 - **Correzione sviluppata:** elemento `<img class="runtime-entry-photo" src="./office-desk-v02.png?v=s12-004">` dentro `.runtime-entry-visual` a sinistra; CSS width/height 100%, object-fit contain, senza ritaglio del PC. Riferimenti in `career-r03.html` versionati `?v=s12-004` sia per CSS sia per JS. Stessi due pulsanti a destra, cinque sottosezioni immutate e footer nascosto.
 - **File modificati:** `oronzo/assets/ui/career-r03.js`, `oronzo/assets/ui/career-r03.css`, `oronzo/assets/ui/career-r03.html`, `oronzo/assets/ui/qa/ui12-landing-nav.test.cjs`.
 - **Prove svolte:** parser V8 JS del branch PASS, **10/10 test isolati V8 PASS** incluse 2 verifiche nuove di `img` esplicito e cache busting. **HTTP/Chromium autentico e Android fisico NON ESEGUITI**. L'utente deve rivedere la home con URL aggiornato dopo la pubblicazione.
-- **PR, commit, esito:** ramo S03; PR da collegare dopo creazione; nessun merge effettuato.
+- **PR, commit, esito:** [PR #61](https://github.com/CzekUns/cercax/pull/61); integrazione in corso dopo autorizzazione dell'utente alle correzioni UI 1:1, esito sul sito e su Android ancora da verificare.
 
 ## Feedback Android successivo — 9 novembre 2026
 
