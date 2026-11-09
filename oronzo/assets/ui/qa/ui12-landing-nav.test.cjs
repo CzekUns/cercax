@@ -45,15 +45,15 @@ function renderOn(screen, withFullscreen = false) {
 
 test('S12-001: opening contains only two functioning career actions', () => {
   const html = entryHtml();
-  assert.equal((html.match(/<button\\b/g) || []).length, 2);
+  assert.equal((html.match(/<button\b/g) || []).length, 2);
   assert.match(html, /data-action="start"/);
   assert.match(html, /data-action="load"/);
   for (const legacy of ['entry-brief', 'runtime-image', 'entry-panel', 'runtime-foot'])
     assert.ok(!html.includes(legacy), `legacy UI still visible: ${legacy}`);
 });
 test('S12-001: landing styles own the viewport without changing shared panels', () => {
-  assert.match(styles, /#oronzo-r03\\[data-screen="entry"\\] #ui-screen\\{padding:0;gap:0\\}/);
-  assert.match(styles, /runtime-entry-actions[\\s\\S]*grid-template-columns:repeat\\(2,minmax\\(0,1fr\\)\\)/);
+  assert.match(styles, /#oronzo-r03\[data-screen="entry"\] #ui-screen\{padding:0;gap:0\}/);
+  assert.match(styles, /runtime-entry-actions[\s\S]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
 });
 test('S12-002: all 13 screens hide persistent navigation while preserving rendering', () => {
   for (const screen of ['entry','avatar','offers','president','press','hub','player',
@@ -71,9 +71,9 @@ test('S12-002: future F01 fullscreen link moves to header, retaining node identi
     assert.equal(result.fullscreen.parentElement,result.header);
     assert.equal(result.nav.hidden,true);
   }
-  assert.match(styles, /gamebar #fullscreen-toggle[\\s\\S]*height:44px;min-height:44px/);
+  assert.match(styles, /gamebar #fullscreen-toggle[\s\S]*height:44px;min-height:44px/);
 });
 test('S12: preserved former M01 touch fixes', () => {
   assert.match(styles, /runtime-answers::before/);
-  assert.match(styles, /runtime-match-panel>\\[data-action="finish-qa"\\]/);
+  assert.match(styles, /runtime-match-panel>\[data-action="finish-qa"\]/);
 });
