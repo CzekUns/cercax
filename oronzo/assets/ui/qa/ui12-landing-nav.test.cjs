@@ -84,7 +84,7 @@ test('S12: preserved former M01 touch fixes', () => {
 function sectionFixture() {
   const code=between('const hubMenu=', 'function renderFieldGroup(');
   const make=new Function('env', [
-    'let selectedHub="campionato", state=env.state, trainingPlan="balanced", trainingIntensity=50, trainingRosterOpen=false, supportTab="stadio", integrationBackend=null, leagueTab="classifica", presidentTab="ufficio";',
+    'let selectedHub="campionato", state=env.state, trainingPlan="balanced", trainingIntensity=50, trainingRosterOpen=false, supportTab="stadio", integrationBackend=null, leagueTab="classifica", presidentTab="ufficio", rosterFilter="ALL", rosterSort="name";',
     'const getUI=()=>env.ui;',
     'const esc=s=>String(s??""),',
     ' head=(name)=>"<h1>"+name+"</h1>",',
