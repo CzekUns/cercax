@@ -1,3 +1,48 @@
+# ORONZO — AGENTE 07 · R10-W2-02: settimane senza gara (9 novembre 2026)
+
+**Esito tecnico del fix:** codice corretto e pubblicato nella **stessa PR #56**, senza merge. `main` iniziale letto: `21337c0161d654cce118a51f2cbbbca4b7e7eeff` al momento di questo incarico. Fonte audit00: [REPORT-R10-WAVE2.md nella PR #58](https://github.com/CzekUns/cercax/blob/9398b6372fe0114c979d7544ba49615046343f7d/oronzo/coordination/coerentizzatore/REPORT-R10-WAVE2.md). È stata corretta soltanto **R10-W2-02**. La PR #57 e il suo fix sintattico sono responsabilità esclusiva dell'Agente09.
+
+## Causa e modifica del codice
+`oronzo/app/flow/controller.js` subordinava ogni avanzamento a `postmatch_ready` e a una `coachFixture.result`. In Promozione con 16 squadre il calendario autentico ha **30 giornate**, ma la stagione globale prosegue a **38** per le altre divisioni. Dopo il turno30 il mister restava in `hub` senza match: `prepareMatch` rispondeva `no_coach_fixture`, mentre `advanceMatchday` rispondeva `postmatch_press_not_completed`; forzare lo stage conduceva a `coach_match_not_recorded`. Non era un problema di risultati mancanti e non occorre modificare i calendari.
+
+Il fix introduce il puro `getCoachWeekStatus(state)` e il suo mirror `getStateForUI(state).coachWeekStatus`:
+- `match_pending`: c'è una gara reale del mister **ancora da giocare** → `advanceMatchday` rifiuta con `coach_match_not_recorded`.
+- `match_recorded`: risultato vero già registrato → avanzamento ammesso soltanto a `postmatch_ready` dopo le risposte stampa.
+- `bye_week`: nessuna gara del mister nel periodo → `prepareMatch` indica `bye_week`; `advanceMatchday` è consentito da `hub` **solo con `expectedAbsoluteWeek` obbligatorio**, senza `consumeMatchResult`, senza `reviewMatch` per il club allenato, senza inventare gol o conferenze. Rimangono realmente le gare delle altre divisioni, la riunione settimanale, `endClubWeek`, `settleM1Training`, `advanceWeek` e i ledger.
+- `season_complete`: la carriera globale è finita, `rolloverSeason` resta il solo passaggio successivo.
+- `unemployed`: vecchio comportamento mantenuto, sempre con token di settimana.
+
+`flow.history` aggiunge `weekType:'played_match'|'bye_week'|'unemployed'` e `playedFixtureId:null` nel bye. La risposta `advanceMatchday` include `weekType`, `playedFixtureId`, `completedAbsoluteWeek` e `simulatedOtherFixtures`. Salvare/caricare non genera alcuna nuova fixture. Nessun cambio a engine06, board09, attr08, comuni/cognomi e UI. Il vecchio formato di save è ancora valido; l'aggiunta allo storico non impone una migration dei record pregressi.
+
+## File pubblicati e commit verificati
+
+1. `oronzo/app/flow/controller.js` — fix effettivo, commit `63f927bd1dd375e1e0e95be020c96ec381decaf8`, blob `d3818409c05a0c592acd09c0231399c7c7df024d`.
+2. `oronzo/app/flow/tests/r10-wave2-standard.test.mjs` — **nuova suite Node nativa integrata** con due stagioni standard, 1979→1980→1981, default sizes, prova esplicita turni31–38, match engine fulltime, Copy04 press, Node save/load ogni settimana, replay/stipendi/training, game-over; creato in commit `a42cef783f86136ac6f4e371454ac18d70639442`, stabilizzato in `0bc29b0315a99859ce8fe2a40b80103dcec053f7`, blob `9c6069c77a48be88243d32c132406c2683590588`.
+3. `oronzo/app/flow/M1-AGENT12-CONTRACT.md` — contratto UI dei tre stati / token / errori, commit `b772a5de57f1abf9b27adc045231e2b16b0f37be`, blob `a80163a891c8373d2206a1baada0eaccaa38646a`.
+4. Questo `oronzo/coordination/07-career/REPORT.md` — rapporto verificabile dell'incarico.
+
+## QA eseguito REALMENTE in questo incarico
+
+**1. Node.js nativo v22.16.0, prova focale a dimensioni standard: PASS 1/1.** Harness isolato locale `/mnt/data/oronzo-w2-native/bye-week.native.test.mjs`; generatore autentico `league.js`, blob `cd3b73205ce8067a1b070f947607e4222bdad5eb`. Contiene **verbatim** `getCoachWeekStatus` e `advanceMatchday` estratte da `controller.js` pubblicato: checksum FNV32 riconciliati da GitHub e file test locale rispettivamente `6c87146b` e `371f677d`. **Stessa carriera**, **104 club nelle dimensioni standard** (A16, B20, C1/C2 18, INTER16, PROM16), **76 periodi e 76 round-trip JSON**, **60 partite di test** e **16 bye**, 76 allenamenti selezionati e liquidati una sola volta, 76 riunioni, 60 review, 7.904 liquidazioni club non duplicate (104×76), due passaggi annuali. **Limite dichiarato:** provider esterni 04/06/08/09 simulati con fixture controllate in questo harness focale e turnover manuale equivalente per lo stato calendario: NON è l'esecuzione completa della nuova suite nativa PR. La vera implementazione `finishSeason` viene invece eseguita nelle prove V8 seguenti.
+
+**2. V8 con sorgenti GitHub AUTENTICI PR #56 e Career07 + VERI moduli MatchEngine06 del main: PASS.** Sono stati eseguiti `createMatch`, `step(5400)`, `getEventsSince(0)`, `consumeMatchResult`, le 30 partite del mister per ciascuna delle due stagioni, la generazione originale Career07 per tutte le altre gare, avanzamento 38 settimane per stagione, serialize/deserialize a **ogni turno**, la vera `finishSeason` tramite `rolloverSeason` e i retry anti-duplicazione. 1979: 30 match reali / 8 bye / **46.761 eventi motore**; 1980: 30 / 8 / **46.543 eventi motore**; totale **60 match completi / 16 bye / 93.304 eventi**, **76 settimane** nello storico e nuovo anno1981. Sorgenti: controller `d3818409...`, engine06 reale `d92c566e22c77a48df403ba6d4c681c8c158d2e9`, calendario reale `cd3b732...`. **Limite:** 04,08,09 come porte QA stub esplicitamente isolate (no claim di test E2E di tutte le API).
+
+**3. V8 con sorgenti GitHub AUTENTICI PR #56/Career07 + Board09/Finanze09/Periodi09 REALI del main: PASS.** Senza sostituire `conveneBoard`, `reviewMatch`, `endClubWeek` e liquidazione/ledger reali: **due stagioni standard complete**; PR test con score simulato soltanto nel provider 06, stampa/attributi in fixture. La società PROM-16 ha **30 review/38 riunioni/38 settledWeeks** nel1979 e **60 review/76 riunioni/76 settledWeeks** cumulativi nel1980, con arrears veri persistiti e stato arrivato al1981, **0 match-review fittizi in bye**. Le interazioni finanziarie hanno usato `absoluteWeek` originale con chiavi `a:N`. Ogni turno ha serializzato e ricaricato con Career save originale.
+
+**4. Parsing JavaScript dei file R10-W2-02 aggiornati in V8: PASS** per controller e nuovo `r10-wave2-standard.test.mjs`. Le 251 prove Node di R10-WAVE2 nella PR #58 sono precedenti alla presente correzione, **non** vengono conteggiate come regressione superata su questo HEAD.
+
+## Gate non ancora certificato
+- **La nuova suite nativa Node a moduli REALI, già pubblicata in `r10-wave2-standard.test.mjs`, NON è stata eseguita integralmente sul checkout unificato**: il container non risolve `github.com` ed è disponibile solo l'archivio Career07 precedente; i test Node locali sopra provano le funzioni autentiche ma isolano dipendenze. Il test integrato richiede il repo completo e, per il gate finale, #31/#35 e #57 corretta. Non rivendicare 251/251 sui nuovi commit né Node E2E con tutti i sistemi reali.
+- Audit00 deve lanciare **su HEAD nuovo della PR #56**: `node --test oronzo/app/flow/tests/r10-wave2-standard.test.mjs` (test DEFAULT, nessun `leagueSizes:4`), poi `node --test oronzo/app/flow/tests/*.mjs oronzo/systems/career/tests/*.mjs oronzo/systems/coach-club/*.test.js`, e su checkout combinato con #57 corretta. Controllare che una dimissione eventuale o una promozione del mister non invalidi per caso il gate di 30 partite del primo anno.
+- Browser HTTP/Android e controlli UI12 non eseguiti da07 e non simulati.
+- No modifica alla #57 o ad altri agenti; dipendenze e merge ancora dell'Orchestratore10.
+
+**Richiesta:** nuova revisione R10-W2-02 su HEAD definitivo di **PR #56** e test combinato dopo fix #57. **NESSUN MERGE da ORONZO-AGENT-07.**
+
+---
+
+## Archivio storico REPORT precedente (R10 M1 / R06)
+
 # ORONZO — ORONZO-AGENT-07 · R10 M1 adapter / accelerazione
 **Data:** 9 novembre 2026 (Europe/Rome)  
 **Stato:** DELIVERED_FOR_REVIEW; PR nuova da main, nessun merge.  
