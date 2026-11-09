@@ -1,3 +1,42 @@
+# RAPPORTO ORONZO-AGENT-12 — S02, revisione ingresso e sezioni Ufficio
+
+**Data:** 9 novembre 2026 (Europe/Rome)  
+**Stato:** `IMPLEMENTATA_DA_VERIFICARE` — PR S02 in preparazione; **nessun merge**  
+**Base del branch:** `a8e980a2baa1bb45d9c0a34a7db4e6f49df9712c` (main aggiornato dopo merge #59, #52 e #53)  
+**Branch:** `agent/oronzo-12-ui-playtest-s02`  
+**Issue:** [#54](https://github.com/CzekUns/cercax/issues/54)  
+**Note:** `oronzo/coordination/12-ui-tuning/SCREEN-NOTES.md`
+
+## Due modifiche realizzate
+
+1. **Revisione S12-001:** `renderEntry()` in `career-r03.js` mantiene due sole CTA `start/load`, adesso a **destra e in colonna**, mentre l'asset autentico già presente nel kit `office-desk-v02.png` è ripristinato **a sinistra** con `.runtime-entry-visual`. `career-r03.css` dedica la larghezza utile all'immagine e ai tasti, senza testo introduttivo, con media query mobile landscape. Header e fullscreen della #52 restano intatti. Il file PNG non è stato modificato.
+2. **S12-003:** dal `renderHub()` si vedono cinque scelte a tutta larghezza; `data-action=section` apre la vista nuova `hub-section` tramite `renderHubSection()`, con un pannello che occupa la larghezza disponibile e pulsante `TORNA ALL'UFFICIO`. Sono state riutilizzate senza reinterpretazione le proiezioni già esistenti del campionato (classifica), Rosa, Allenamento in sola lettura, Tifoseria e Presidente. Le schede giocatore ritornano a Rosa o Allenamento corretto; SALVA e FORMAZIONE rimangono utilizzabili. Non sono state inventate funzioni di allenamento, presidente o gestione reale.
+
+**File di codice modificati:** `oronzo/assets/ui/career-r03.js` (commit `ead07a9`), `oronzo/assets/ui/career-r03.css` (commit `d7b0d9e`).  
+**QA aggiornata:** `oronzo/assets/ui/qa/ui12-landing-nav.test.cjs` (commit `8ce916b`).  
+**Registro aggiornato:** `oronzo/coordination/12-ui-tuning/SCREEN-NOTES.md`.
+
+## Verifiche effettivamente eseguite
+
+- Parsing JavaScript reale del branch tramite V8, eliminando soltanto le dichiarazioni `import` ESM per consentire il parser isolato: **PASS**.
+- Esecuzione in V8 del test QA letto dal branch, con `require` compatibile simulato per i file autentici: **8/8 test isolati PASS** (entry due CTA, CSS immagine/colonna, menu assente su 14 screen, fullscreen nodo invariato, conservazione fix M01, cinque carte menu senza preview, contenuti reali delle cinque sottosezioni, rotte menu/back).
+- Il confronto dello scope mostra solo modifiche UI/QA/docs nel ramo S02; controller, engine, world, morale, calendario, salvataggi e asset binari **non modificati**.
+
+## Verifiche NON eseguite e limiti
+
+- **Chromium HTTP sul runtime autentico: NON ESEGUITO.** Il container non riesce a risolvere `github.com` per ottenere un checkout (`git ls-remote` fallisce con `Could not resolve host: github.com`). I test su sorgente/DOM simulato non certificano clipping, layout esatto, comportamento browser o geometria.
+- **Node test eseguito su checkout completo: NON ESEGUITO.** Il test committed è predisposto per `node --test oronzo/assets/ui/qa/ui12-landing-nav.test.cjs`, ma in questa sessione è stato eseguito soltanto il codice V8 isolato.
+- **Android fisico e screenshot dopo il fix: NON ESEGUITI / non disponibili.** Va verificato 640×360, 800×360, 844×390, 960×400, safe area con/senza inset, interazioni e pulsanti ≥44px realmente visibili, scroll classifica/rosa, usabilità header fullscreen e canvas16:9 durante la partita. Prove necessarie prima del merge.
+- Le scelte di menu sono **navigazione UI** verso gli stessi dati reali già presenti, nessun nuovo comportamento di gioco.
+
+## Integrazione e prossimo passo
+
+Raccogliere feedback Android sullo schermo iniziale illustrato e sulla navigazione a sottopagine; documentare eventuali correzioni sulla stessa PR S02 e richiedere revisione indipendente del browser QA. **Non effettuare merge senza autorizzazione dell'utente.**
+
+---
+
+## Storico S01 · PR #59 integrata (testo originale preservato)
+
 # RAPPORTO ORONZO AGENTE 12 — S01, primo feedback Android
 
 **Data:** 9 novembre 2026 (Europe/Rome)  
