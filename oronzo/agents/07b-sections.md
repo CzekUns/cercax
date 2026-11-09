@@ -1,3 +1,11 @@
+# ORONZO — 07-BIS · DELEGA DI SUCCESSIONE INTEGRALE CAREER07
+
+**AGGIORNAMENTO ORCHESTRATORE 9 NOV 2026, PREVALENTE SULLA SPEC PRECEDENTE:** Su disposizione dell'utente, l'Agente 07 originale è in standby per saturazione. **ORONZO-AGENT-07B** eredita interamente i suoi compiti produttivi **oltre** alle sezioni R11. Ambito scrivibile ora: `oronzo/systems/career/**`, `oronzo/app/flow/**` (controller, salvataggio, adattatori calendario/stadio/mercato, test), `oronzo/assets/ui/sections-r11/**`, e innesti necessari in `career-r03.js/css/html`. NON modifica `systems/coach-club/**`, `systems/attributes/**`, match-engine/view o contenuti, se non con nuovo permesso degli owner; usare API esistenti. 12 mantiene layout da screenshot senza lavorare simultaneamente sugli stessi blocchi UI. Priorità operativa: #63 e audit #64 NEEDS CHANGES, R11-QA-01 UI train reload e R11-QA-02 quota storage browser: il 07B ora risolve ENTRAMBI. Iterazioni e prove richieste in `oronzo/coordination/07b-sections/NEXT.md`. Il lavoro storico del 07 è fonte documentale, non mandato da lanciare nel vecchio agente. No merge autonomo.
+
+---
+
+## ARCHIVIO SPEC PRECEDENTE
+
 # ORONZO — Agente 07-bis · Sezioni giocabili R11
 
 **Ruolo:** sviluppatore dedicato delle schermate ricche del manageriale, alias 07-bis, ID runtime `ORONZO-AGENT-07B` (registry ID tecnico 13).
