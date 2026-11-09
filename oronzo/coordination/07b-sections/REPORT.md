@@ -1,64 +1,91 @@
-# RAPPORTO AGENTE 07-BIS — R11-01 · SEZIONI GIOCABILI
+# ORONZO · AGENTE 07-BIS — REPORT FINALE U1–U9 (UNICA ESECUZIONE R11)
 
-**Identità:** ORONZO-AGENT-07B (registro tecnico ID 13, alias visibile 07-bis; distinto da 07/12).  
-**Stato:** PR_OPEN · completamento tecnico parziale solo per adapter Stadio (BLOCKED_DEPENDENCY).  
-**Branch:** agent/oronzo-07b-sections-r11-01  
-**PR:** https://github.com/CzekUns/cercax/pull/63 · Issue https://github.com/CzekUns/cercax/issues/62  
-**Main iniziale:** 84f1b0be735b7f52a55211a2b9739040617fd488  
-**HEAD codice prima del REPORT:** a25712337ef1067bdef03a3c15997aee7039e025  
-**Data:** 2026-11-09 · Nessun merge.
+**Stato:** DELIVERY_COMPLETE_FOR_INDEPENDENT_AUDIT · PR APERTE · **NESSUN MERGE** · 9 novembre 2026.  
+**Identità:** ORONZO-AGENT-07B (Agente 07-bis; sostituto tecnico Career07 come da NEXT aggiornato).  
+**Mandato:** R11_SINGLE_DISPATCH_FULL_INTEGRATION, issue #62; responsabilità UI e adapter Career07, formule degli owner 05/06/08/09 inalterate.
 
-## Realizzato
+## PR e HEAD (al completamento del codice)
 
-- **sections-r11/sections.js** (ESM): presentatori isolati, canvas Sprite01 solo se visual e kit persistenti, scheda giocatore con status/contract/trust/attributi; training scelta cinque programmi/intensità; Tifosi/Stadio/Giornali reali; agenda condizionata a getCoachWeekStatus.
-- **sections-r11/sections.css**: layout full-width pixel-art, originale scena allenamento già presente, illustrazioni CSS curve/stadio/giornale, scorrimento interno e target minimi 44px. Nessuna modifica alla landing Agent12.
-- **career-r03.js**: nuovi import ESM e innesti minimi; sei tasti hub, section router, dati scheda da getRosterPlayer/getTrainingPlayer con stesso id, training-apply tramite selectM1Training e salvataggio; bye_week con advanceMatchday e token expectedAbsoluteWeek, mai skip match_pending.
-- **career-r03.html**: link CSS moduli, mantenendo entry e fullscreen.
-- **qa/ui12-landing-nav.test.cjs**: vecchia suite aggiornata alle sei card e all'allenamento attivo preservando test S12.
-- **sections-r11/sections-r11.test.mjs**: 14 test Node nativi di presentazione, stato, contratti e integrazione statica.
-- **sections-r11/HANDOFF-07-09.md**: specifica puntuale per backend 07/09 non presente, senza finti numeri.
+| Sottosistema | PR | HEAD del codice | Stato |
+| --- | --- | --- | --- |
+| UI/sezioni/partita/nav e fix R11-QA-01 | [#63](https://github.com/CzekUns/cercax/pull/63) | `8fd4df94cc477d909f165cffecaeeb07f8871f81` | OPEN, no merge |
+| Backend Flow07: salvataggi + stadio/09/mercato/fiducia | [#66](https://github.com/CzekUns/cercax/pull/66) | `575f8c56cf477833e0b8dbfced407a83e2265f2f` | OPEN, no merge |
+| Checkout **combinato di QA** #63+#66 (non usare come PR per merge) | [#67](https://github.com/CzekUns/cercax/pull/67) | `b2209762cd600425b9311a610bb8c8f946ace9e4` | OPEN, DRAFT, no merge |
 
-## Verifiche EFFETTIVAMENTE eseguite
+Main di confronto: `62c2e24b50c2189e952b628f1f0dbf1f38770e86`. La #63 è rimasta la PR UI esistente. La #66 nasce separata dall'ultimo main. La #67 serve solo a collaudare entrambi gli insiemi contemporaneamente, senza eseguire merge delle due PR.
 
-1. **V8 isolato su sorgenti autentici letti dal branch via GitHub**: 14/14 prove R11 superate (presentatori, escaping, stato allenamento e ledger, stadio con/senza dati, risposte stampa, bye_week, match_pending, rollover, wiring statico).
-2. **V8 isolato su sorgenti autentici letti dal branch via GitHub**: 10/10 verifiche di regressione UI12 superate (landing computer e 2 CTA, full-width, footer nascosto, fullscreen, sottosezioni, menu e salvataggi presenti).
-3. Parsing V8 del modulo e del runtime completo dopo rimozione delle istruzioni import superato; nessuna pretesa di verifica del module graph live.
+## Prova indipendente dal solo codice sorgente: Node + Chromium VERI
 
-**NON ESEGUITI / NON PROVATI:** comando Node sul repository intero, mock server HTTP, Chromium/Playwright, screenshot 640×360/800×360/844×390/960×400, Android reale, hit-area misurate in browser, catena end-to-end nuova partita→2 stagioni. L'ambiente presente ha accesso al connector GitHub, non a un checkout GitHub completo eseguibile nel container. La suite Node è scritta ma **non** stata lanciata tramite `node --test`. I 44px sono un vincolo CSS statico, non una misura browser.
+**Workflow GitHub Actions eseguito:** [R11 Combined U1–U9, run #42711637028](https://github.com/CzekUns/cercax/actions/runs/42711637028), su HEAD combinato `b2209762cd600425b9311a610bb8c8f946ace9e4`.  
+**Esito osservato: 64/64 Node PASS · 74/74 controlli Chromium HTTP PASS · 0 FAIL · CI SUCCESS.**  
+**Screenshot + risultati + snapshot di due stagioni:** [Artifact #13715589317](https://github.com/CzekUns/cercax/actions/runs/42711637028/artifacts/13715589317). Il browser ha caricato la UI reale e i PNG da un server HTTP, non mock HTML.
 
-### Comandi da eseguire in checkout Node/Chromium
+Suite Node nativa sul checkout combinato:
+- oronzo/assets/ui/sections-r11/sections-r11.test.mjs
+- oronzo/assets/ui/qa/ui12-landing-nav.test.cjs
+- oronzo/app/flow/tests/r11-integration.test.mjs
+- oronzo/app/flow/tests/m1-contract.test.mjs
+- oronzo/app/flow/tests/m1-live.test.mjs
+- oronzo/systems/coach-club/management-r10.test.js
 
-```sh
-node --check oronzo/assets/ui/career-r03.js
-node --check oronzo/assets/ui/sections-r11/sections.js
-node --test oronzo/assets/ui/sections-r11/sections-r11.test.mjs oronzo/assets/ui/qa/ui12-landing-nav.test.cjs
-node --test oronzo/app/flow/tests/m1-contract.test.mjs oronzo/app/flow/tests/m1-live.test.mjs
-python3 -m http.server 8000
-```
+QA Chromium: 640×360, 800×360, 844×390 e 960×400, touchscreen emulato; bottoni visibili misurati in-browser; screenshot dell'apertura con computer, ufficio, allenamento, Rosa filtrata, Stadio; a 640×360 anche Presidente, Mercato, Calendario, Lavagna, partita FULL/TV, pannello tattico, Giornali, ritorno partita/conferenza e salvataggio di due stagioni.
 
-Aprire via HTTP /oronzo/assets/ui/career-r03.html e ripetere con viewport landscape 640×360,800×360,844×390,960×400 in Chromium. Attestare ogni action, tab, slider, scroll, save/reload, 44px reali e catena 30/38 giornate con due stagioni prima di accettare il gate browser.
+**Attenzione alla precisione:** il percorso browser di partita e operazioni gestionali approfondite è stato eseguito a 640×360; gli altri tre viewport hanno verificato apertura, offerte, allenamento RECUPERO73, save/reload, Rosa filtro GK/forma, tab Tifoseria e touch. Non è stato eseguito il playtest su smartphone fisico né test hardware notch/safe-area non simulabile dalla normale viewport. I dati test QA sono sintetici; la grafica reale viene comunque caricata dai PNG del repository.
 
-## Stato effettivo sezioni
+## Matrice di consegna U1–U9
 
-| Sezione | Stato | Prova/limite |
+| Funzione | Verdetto tecnico interno | Evidenza reale / caveat |
 | --- | --- | --- |
-| A. Scheda giocatore | IMPLEMENTATA / BROWSER_NON_PROVATO | Attributi, stato, profilo, contratti, fiducia; sprite originale solo con kit e visual. Nessun portrait inventato se main privo di visual. |
-| B. Allenamento | IMPLEMENTATO / BROWSER_NON_PROVATO | UI e controller07 selectM1Training, intensità reale, save, ledger post-avanzamento. Applicazione fisica delegata a 07→08 come da contratto. |
-| C1. Stadio | UI_IMPLEMENTATA / BLOCKED_DEPENDENCY | Viste e valori reali se disponibili. Operazioni prezzo/affluenza non attivabili finché mancano club.stadium e adapter atomico 07/09. |
-| C2. Tifosi | IMPLEMENTATA / BROWSER_NON_PROVATO | Rapporti da stato + eventuali eventi persistiti; nessuna notizia simulata. |
-| C3. Giornali | IMPLEMENTATA / BROWSER_NON_PROVATO | Archivio domande/risposte realmente salvate da conferenza; nessun articolo «live» artificiale. |
-| D. Agenda | IMPLEMENTATA / BROWSER_NON_PROVATO | Stato contestuale, bye_week con advance, match_pending non avanzabile, rollover condizionato, salvataggio. |
+| **U1 · Allenamento** | **PASS** | Cinque piani reali controller07; intensità 0–100; il caso RECUPERO 73% rimane marcato e mostra 73 dopo reload in **tutte quattro** le viewport; blocco pianificazione doppia; nessun delta prima di advance; feedback distinto se salvataggio fallisce |
+| **U2 · Save/Load** | **PASS** | Nuovo IndexedDB A/B con envelope SAVE_VERSION2, checksum, sequenze, readback prima del puntatore active, concorrenza serializzata. Fallback legacy locale in sola lettura e JSON import/export. Node fake-IDB verifica migrazione/errore; **Chromium reale** ha scritto due snapshot standard di fine anno **entrambi sopra 4 milioni di caratteri**, corrotto volontariamente il record attivo, recuperato 1979 e ripristinato 1980, poi ricaricato dal menu pubblico. Non cancella i vecchi backup. |
+| **U3 · Stadio** | **PASS** | Gli stadi nascono solo per carriere nuove con policy marcata `synthetic_gameplay_r11`, indicata visivamente come **ipotesi di gioco, non dato storico**. Prezzo biglietti impostato da UI tramite Career07→setTicketPrice09, senza finto ricavo. Dopo partita casalinga realmente recensita dal presidente, settleHomeAttendance09 liquida una volta nel ledger; Node verifica **15 liquidazioni autentiche per stagione standard**, 30 in due, senza fixture ripetute. Vecchi save senza stadio rimangono in sola lettura: non ricevono capienza inventata. |
+| **U4 · Presidente e mercato** | **PASS** | Scheda Presidente e mercato in UI, richieste e decisioni reali, prezzi/cassa, mandato, finestre di gameplay dichiarate. Node verifica rifiuti fuori finestra e senza mandato, acquisto **effettivamente approvato** con spostamento di un solo ID dalla rosa cedente alla ricevente, addebito e accredito **entrambi** verificati, contratto e replay anti-doppione; analogo test di **cessione effettivamente approvata** fra due club e reload. Browser verifica la navigazione delle pagine; l'intero percorso multistep di trattativa non è stato automatizzato tramite click Chromium, pur essendo gli handler UI collegati agli adapter Node provati. |
+| **U5 · Fiducia giocatore** | **PASS** | Engine06 genera coach_shout accettato, Flow07B chiama Coach09 persistShout/reconcile una volta su evento autentico, registro permanente `fixtureId:eventId`; Node verifica player.relationships.coachTrust, stato `applied`, storico e save/reload. Bonus temporaneo resta del solo Engine06. Per vecchi PlayerV2 privi di trust canonico si conserva il pending invece di attribuire successo falso. |
+| **U6 · Cognomi/comuni** | **PASS** | UI `newGame({surnameCatalog:BUILTIN_SURNAME_CATALOG})` usa i **600 cognomi documentati** dell'08; 500 comuni integrati preservati; player ID, surnameId/source, salari e origini note sopravvivono al salvataggio. Nessuna attribuzione inventata del luogo di nascita. |
+| **U7 · Camera e partita** | **PASS** | Renderer05 `view.setCameraMode('full'|'broadcast')` invocato realmente da UI, controllo di snapshot invariato; canvas Engine06 con asset originali; modulo/pressing, sostituzioni, ordini `encourage/harsh` trasmessi a `commandM1Match` con requestId unico, rifiuti dal motore e ledger. Browser HTTP ha attraversato partita FULL→TV→pannello comandi→conferenza. Le singole sostituzioni sotto ogni asset non sono state tutte verificate manualmente su dispositivo fisico. |
+| **U8 · Rosa, formazione, calendario** | **PASS** | Scheda con dati del calciatore e visual originale solo quando canonicamente disponibile, ruolo/forma/fiducia/status; Rosa filtrabile GK/DF/MF/FW e ordinabile nome/forma/fiducia, verificata Chromium. Lavagna da `formationAnchors` originali 06, titolari/riserva, modulo, avversario e indisponibilità. Calendario e classifica da fixture veri. Node verifica **2 stagioni complete 1979→1981**, 30 match veri del mister e 8 bye-week senza gara propria per stagione, salari/report/avanzamento e checksum. |
+| **U9 · Agenda, Tifosi, Giornali** | **PASS** | Agenda derivata da coachWeekStatus e ledgers reali: allenamento, partita/preparazione, conferenza, bye advance con expectedAbsoluteWeek, presidente, mercato e salvataggio. Tre sottosezioni Stadio/Tifosi/Giornali leggono supporters, trust e domande/risposte stampa realmente registrate; nessun articolo presentato come esistente se non salvato. Navigazione e scorrimento reali verificati in Chromium. |
 
-## Dipendenze, integrazione, rischi
+**PASS = gate tecnico interno sull'insieme integrato, NON certificazione autonoma di idoneità al merge.** La revisione indipendente ORONZO-Agent00 e il consenso del proprietario restano necessari.
 
-- **07 → 09 Stadio:** vedere HANDOFF-07-09.md, con firma proposta changeCareerTicketPrice(state,{clubId,priceITL,eventId,expectedAbsoluteWeek}), costruzione period in Career07, setTicketPrice 09, e settleHomeAttendance soltanto con fixture autentica+board review, commit atomico club+coach e anti replay. **Non fornire valori inventati** per capacity/condition/ticketPriceITL, neppure sui vecchi save.
-- **Player visuals 01/08:** il main non garantisce visual/kit per ogni calciatore. La UI non mostra uno sprite se impossibile identificarne i colori persistenti; originale atlas/maschera è renderizzato via asset-adapter 05 se informazioni disponibili.
-- **Agente 12:** la PR lascia intatti blocchi entry e CSS S12-001/004, menu inferiore S12-002 e navigazione full-width S12-003. L'unico innesto è in renderHub, renderHubSection, renderPlayer, render, action dispatch e CSS link.
-- **Regole backend:** nessuna modifica a oronzo/app/flow, oronzo/systems, economy, engine o cataloghi. Operazioni su società non simulate.
-- **Gate indipendente 00 e 10:** richiedono test browser reali prima del merge. Non autorizzare merge basandosi sui soli test V8.
+## Errori rilevati e risolti durante questa singola esecuzione
 
-## Proposta prossimo ciclo
+1. Audit preesistente #64: RECUPERO73 riapriva EQUILIBRATO50, corretto leggendo la selezione persistente M1; test browser successivo PASS.
+2. Save storico localStorage quota sett.31, evitato tramite due slot IndexedDB e migration read-only; test browser con due stati reali maggiori di 4MB + corruzione e recovery PASS.
+3. Primo run Actions fallito per sintassi in uno script QA; corretto, senza alterare motore/gioco.
+4. Un vecchio test M1 pretendeva status pending dopo shout; ora 09 applica correttamente trust. Il test è stato aggiornato a verificare il trust persistente. 
+5. Primo script Chromium contava `.first()` come tutte e tre le schede Tifoseria: corretta asserzione. 
+6. L'aggiornamento Rosa ha richiesto l'adeguamento della fixture isolata UI12; CI finale PASS.
 
-1. Prova Chromium HTTP completa e fix viewport reali per 640×360,844×390, 44px e save/load dopo interazione.
-2. Agent07 +09: adapter stadio transazionale con fixture, capienza attendibile e doppio accredito protetto; poi 07B aggiunge price UI solo dopo gate.
-3. Secondo ciclo sezioni: formazione lavagna, calendario completo, presidente/mercato quando backend pronti.
+## File/API modificati
+
+**PR UI #63:**
+- oronzo/assets/ui/career-r03.js, career-r03.html
+- oronzo/assets/ui/sections-r11/sections.js, sections.css
+- oronzo/assets/ui/sections-r11/management-ui.js, league-ui.js
+- oronzo/assets/ui/qa/ui12-landing-nav.test.cjs, r11-combined-browser.mjs
+- oronzo/coordination/07b-sections/REPORT.md (questo documento)
+
+**PR backend #66:**
+- oronzo/app/flow/durable-save.js (nuovo manager IndexedDB)
+- oronzo/app/flow/management-r11.js (adapter stadio/presidente/mercato e source policy)
+- oronzo/app/flow/controller.js (aggancio stadio, liquidazione dopo fixture/review, fiducia post-match, export di adapter)
+- oronzo/app/flow/tests/r11-integration.test.mjs
+- oronzo/app/flow/tests/m1-live.test.mjs (aggiornamento contratto per port 09)
+
+**Solo branch QA #67:** copia dei file UI e backend per eseguire tutto insieme + .github/workflows/oronzo-r11-combined-qa.yml. La PR #67 è **DRAFT e NON VA MERGIATA**.
+
+Nessuna modifica ai calcoli/algoritmi degli owner 05, 06, 08, 09; il modulo 09 determina tutti gli esiti economici e di fiducia.
+
+## Limiti non coperti dal PASS interno
+
+- **NON PROVATO:** smartphone Android reale, notch e safe-area fisica, Play Store/PWA installabile. Le geometrie touch sono misurate solo in Chromium emulato; va eseguito playtest utente con Agente12 per eventuali correzioni visive.
+- **NON PROVATO PUBBLICAMENTE:** GitHub Pages `main` attualmente non contiene questi branch. Un pass di QA su branch non equivale a rilascio disponibile online.
+- **UI Mercato:** la disponibilità degli handler e delle transazioni è provata rispettivamente in sorgente/Node, la navigazione in Chromium; non è stato costruito un E2E Chromium che faccia approvare una trattativa multi-click completa. Il contratto di acquisto/cessione è invece provato end-to-end in Node reale.
+- **Game-over UI e unemployment in browser:** i moduli esistenti sono preservati; questa suite aggiuntiva non ha ripetuto tutte le transizioni di game-over su Chromium.
+- **Dati storici:** condizioni, capienze e finestre di mercato sono **regole sintetiche di gameplay** dichiarate, non ricostruzioni d'epoca.
+- **Distribuzione:** se l'audit00 boccia un layout o un edge case, richiedere fix nella PR di proprietà corrispondente; non bypassare il gate.
+
+## Richiesta unica ad AGENTE00 / ORCHESTRATORE 10-bis
+
+Eseguire **una sola revisione indipendente finale** del checkout combinato PR #67, verificare i commit/CI/screenshot e i contratti U1–U9; controllare diff di PR #63 e #66 separatamente e per eventuali conflitti, inclusa la sicurezza dei salvataggi e il veto sui vecchi backup. Non approvare implicitamente il merge solo per il PASS interno. Dopo l'esito indipendente, l'orchestratore propone al proprietario l'ordine di merge; **Agente07B non ha effettuato merge**.
