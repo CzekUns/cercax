@@ -1,3 +1,13 @@
+# ORONZO — AGENTE 10 · STATUS 9 NOVEMBRE 2026, CHECKPOINT R10
+
+**STATO: `WAIT_INDEPENDENT_WAVE2_AUDIT`.** Il primo gate è passato: PR #52 fullscreen e #53 comuni (audit documentale #55) **PASS**, tutte ancora OPEN e NON MERGED, merge richiede autorizzazione esplicita del proprietario. Il secondo ciclo produttivo ha già PR aperte **#56 Agente07** (adapter carriera/player/training/shouts) e **#57 Agente09** (papponeria/biglietti/stadio/mercato/shout ledger), oltre alle #28 camera, #29 sprite, #31 attributi/cognomi600, #35 comandi. Nessuna nuova PR audit della seconda ondata emersa al controllo. **Prossimo collo di bottiglia: revisore00 deve auditare #28/#29/#31/#35/#56/#57 con checkout combinato e schema effettivo di mercato/shouts; poi gate di merge uno alla volta.** L'Agente12 resta in attesa di screenshot, non va avviato per rifare layout arbitrariamente.
+
+**Non ordinare agli autori 01/05/06/07/08/09 di ricominciare**, sono tutti già DELIVERED per il rispettivo scope; riattivarli soltanto per difetti riproducibili. La UI finale con comandi/TV/stadio dipenderà da API integrate e NEXT12 dedicato. Evitare stato di rilascio M1 falso: nessuna di queste6 PR è su main.
+
+---
+
+## ARCHIVIO NEXT10 PRECEDENTE
+
 # ORONZO — AGENTE 10 · CONTROLLO 9 NOVEMBRE 2026, ONDATE R10
 
 **STATO: `WAVE1_DELIVERED_WAVE2_PARTIAL`.** Verifica GitHub: PR #28, #29, #31, #35, #52, #53, #55 e **#56 nuova da Agente07** tutte OPEN / non mergiate. L'audit indipendente00 [#55](https://github.com/CzekUns/cercax/pull/55) ha PASS #52/#53 e checkout combinato; si attende consenso utente per merge, NON procedere automaticamente. #28 camera 54 scenari con PNG reali in Chromium offline (HTTP browser bloccato); #29 sprite con PNG/atlas verificati ma senza prova browser HTTP; #31/#35 comandi PlayerV2/600 cognomi consegnati, non testati in Node combinato autenticato. #56 adapter carriera su branch, 8/8 Node mirati e V8 reale, E2E mancante.
