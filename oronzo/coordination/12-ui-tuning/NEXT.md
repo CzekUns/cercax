@@ -1,3 +1,15 @@
+# ORONZO — AGENTE 12 · PR #59 MERGED, PROSSIMO PLAYTEST
+
+**STATO: `READY_PLAYTEST_AFTER_S01_MERGE` — 9 novembre 2026.** L'utente ha richiesto merge per provare immediatamente sul telefono. La [PR #59](https://github.com/CzekUns/cercax/pull/59) è **MERGED** su main, con [#52 fullscreen](https://github.com/CzekUns/cercax/pull/52) e [#53 comuni](https://github.com/CzekUns/cercax/pull/53) già integrati. Primo feedback S12-001/S12-002 pubblicato e visibile nella beta: schermata iniziale a due CTA e navigazione inferiore non più onnipresente. **Il feedback Android effettivo e la QA Chromium di #59 mancano tuttora**, non segnare `CONFERMATA_UTENTE` prima della prova.
+
+**Due gap funzionali emersi dal codice main, da gestire su nuova PR UI mirata quando confermati:** (1) durante settimane 31–38 dopo le 30 partite PROM, `getCoachWeekStatus(state)` espone `bye_week` e `advanceMatchday(state,{presidentCatalog,expectedAbsoluteWeek:state.absoluteWeek})` è disponibile, ma `renderHub()` espone solo FORMAZIONE/SALVA e il footer PROSSIMA non compare più. Aggiungere pulsante contestuale **AVANZA SETTIMANA** solo quando è un bye reale, con richiesta idempotente all'adapter; non reintrodurre il menu inferiore e non inventare risultati. (2) `renderMatch()` mostra ancora **TV NON DISP.** e `interact('camera-tv')` emette toast: il renderer05 integrato espone `view.setCameraMode('broadcast')` / `view.setCameraMode('full')`. Collegare il vero cambio camera conservando motore/snapshot e QA 640×360/844×390.
+
+**Poi, su incarichi mirati:** presentare allenamenti, shout individuali, stadio/mercato già esistenti come API, senza simulazioni. Prima missione resta raccogliere screenshot/feedback dal proprietario sulla landing dopo #59; non modificare tutto da solo senza test di regressione. Per ogni fix nuova PR di ciclo, REPORT, Node/Chromium HTTP e 44px. No merge automatico.
+
+---
+
+## ARCHIVIO NEXT12 PRECEDENTE
+
 # ORONZO — AGENTE 12 · S01 PLAYTEST ASSISTITO, SCHERMATA PER SCHERMATA
 
 **STATO: `READY_FOR_USER_SCREEN_FEEDBACK` — 8 novembre 2026.** Incario autorizzato: assistere il proprietario che prova il gioco su smartphone e correggere **posizione, dimensioni e disposizione dei componenti UI** sulla base delle istruzioni fornite durante i test. **Niente Layout Editor**: il sostituto è il registro di annotazioni per schermata `SCREEN-NOTES.md`, conservato nella repo.
