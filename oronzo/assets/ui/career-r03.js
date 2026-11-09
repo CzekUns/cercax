@@ -224,7 +224,9 @@ function renderHub(){
  if(!club)return head('UFFICIO NON DISPONIBILE');
  const choices=hubMenu.map(([key,icon,title])=>`<button type="button" class="menu-card" data-action="section" data-value="${key}"><span class="emoji" aria-hidden="true">${icon}</span>${title}</button>`).join('');
  return head('UFFICIO DEL MISTER',`${ui.gameDate} · ${club.name}`)+kpis()+
-  pane('SCRIVANIA',`<div class="r11-desk-brief">${esc(agendaSummary(ui))}</div><div class="menu-cards runtime-grow">${choices}</div>${h(btn('FORMAZIONE ▶','formation','','gold-btn')+btn('SALVA','save'))}`,'runtime-grow runtime-hub-home');
+  pane('SCRIVANIA',`<div class="r11-desk-brief">${esc(agendaSummary(ui))}</div><div class="menu-cards runtime-grow">${choices}</div>${h(btn('FORMAZIONE ▶','formation','','gold-btn')+btn('SALVA','save')+
+    btn('ESPORTA','export-save')+btn('IMPORTA','import-save'))+
+    '<input id="r11-save-import" type="file" accept="application/json,.json" hidden>'}`,'runtime-grow runtime-hub-home');
 }
 const controlledClub=()=>state?.clubs.find(c=>c.id===state.coach.clubId);
 function marketWindow(){return integrationBackend?.getCareerMarketWindow(state)||null}
@@ -343,6 +345,52 @@ function advance(){if(!state)return;const week=state.absoluteWeek;
   persistAction((result.weekType==='bye_week'?'Turno di riposo':'Giornata')+' '+week+' salvato · '+state.gameDate);
  });
 }
+
+const readValue=id=>area.querySelector('#'+id)?.value;
+const readMoney=id=>{
+ const v=readValue(id),n=Number(v);
+ if(v==null||v===''||!Number.isSafeInteger(n)||n<0)throw Error('Importo non valido');
+ return n;
+};
+async function applyManagementAction(action,value){
+ const apiR11=integrationBackend||await backendPromise;
+ if(!apiR11)return failure('Adapter Career07 non disponibile · operazione non eseguita');
+ if(!state?.coach?.clubId||activeStage()!=='hub')return failure('Operazione ammessa solo in ufficio');
+ const ctx={presidentCatalog:presidents,expectedAbsoluteWeek:state.absoluteWeek};
+ let r;
+ if(action==='ticket-change')
+  r=apiR11.changeCareerTicketPrice(state,{...ctx,clubId:state.coach.clubId,
+   priceITL:readMoney('r11-ticket-price'),eventId:nextActionId('ticket')});
+ else if(action==='board-request')
+  r=apiR11.requestCareerPresident(state,{...ctx,kind:readValue('r11-request-kind'),
+   amountITL:readMoney('r11-request-amount'),requestId:nextActionId('board')});
+ else if(action==='board-decide')
+  r=apiR11.decideCareerPresident(state,{...ctx,requestId:value});
+ else if(action==='market-request'){
+  const [sellerClubId,playerId]=String(readValue('r11-market-candidate')||'').split('|');
+  r=apiR11.careerMarketOperation(state,{...ctx,action:'request',requestId:nextActionId('transfer'),
+   sellerClubId,playerId,mandateId:readValue('r11-market-mandate'),
+   feeITL:readMoney('r11-market-fee'),weeklyWage:readMoney('r11-market-wage')});
+ }else if(action==='market-sale')
+  r=apiR11.careerSaleOperation(state,{...ctx,action:'request',requestId:nextActionId('sale'),
+   playerId:readValue('r11-sale-player'),buyerClubId:readValue('r11-sale-buyer'),
+   feeITL:readMoney('r11-sale-fee')});
+ else if(action==='market-progress'){
+  const [step,requestId]=String(value).split('|');
+  const req=controlledClub()?.market?.requests?.find(x=>x.id===requestId);
+  if(!req)return failure('Pratica non registrata');
+  if(req.kind==='sell')
+   r=apiR11.careerSaleOperation(state,{...ctx,action:step==='finalize-sale'?'finalize':step,requestId,
+    buyerClubId:readValue('r11-sale-buyer'),feeITL:readMoney('r11-sale-fee')});
+  else if(['review','negotiate','finalize'].includes(step))
+   r=apiR11.careerMarketOperation(state,{...ctx,action:step,requestId,
+    feeITL:req.agreement?.sellerFee??req.askingFee,
+    weeklyWage:req.agreement?.agreedWage??req.weeklyWage,sellerAccepts:true});
+  else return failure('Fase mercato non ammessa');
+ }else return failure('Azione sconosciuta');
+ if(!r?.accepted)return failure('RESPINTO · '+String(r?.reason||'non eseguito'));
+ render();await persistAction('Operazione reale salvata'+(r.reason?' · '+r.reason:''));
+}
 async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career','export-save'].includes(action))return failure('GAME_OVER');
  switch(action){case 'reset-career':restartAfterGameOver();break;case 'home':if(state&&screen!=='entry'&&screen!=='match'&&activeStage()==='hub'){display('hub')}else display('entry');break;
  case 'start':display('avatar');break;case 'avatar':avatar=Number(value);render();break;case 'back-avatar':display('avatar');break;case 'begin':newCareer();break;
@@ -354,6 +402,9 @@ async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.
  case 'support-tab':if(!['stadio','tifosi','giornali'].includes(value))return failure('Scheda tifoseria non disponibile');supportTab=value;render();break;
  case 'league-tab':if(!['classifica','calendario','prossima'].includes(value))return failure('Vista campionato sconosciuta');leagueTab=value;render();break;
  case 'pres-tab':if(!['ufficio','mercato'].includes(value))return failure('Vista presidente sconosciuta');presidentTab=value;render();break;
+ case 'ticket-change':case 'board-request':case 'board-decide':
+ case 'market-request':case 'market-sale':case 'market-progress':
+  await applyManagementAction(action,value);break;
  case 'training-plan':{
   if(!trainingStatus(getUI()).canSelect)return failure('Allenamento già pianificato');
   if(!['technical','athletic','tactical','balanced','rest'].includes(value))return failure('Programma non valido');
