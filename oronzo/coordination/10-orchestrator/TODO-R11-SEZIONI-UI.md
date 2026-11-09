@@ -1,6 +1,16 @@
 # ORONZO — TODO R11: completamento schermate e azioni giocabili
 _Data di verifica: 9 novembre 2026; fonte di verità: `main` (career-r03.js, controller07, modules08/09), GAME-VISION-v02, Epic #25 e SCREEN-NOTES agente12._
 
+## OWNER R11 AGGIORNATO — 07-BIS SUCCESSORE TOTALE DEL 07 (9 NOVEMBRE 2026)
+
+**Questa rettifica prevale su ogni vecchio owner riportato nella lista.** Il proprietario ha posto `ORONZO-AGENT-07` in **STANDBY** per saturazione. **`ORONZO-AGENT-07B` è l'unico owner attivo sia delle sezioni grafiche R11 sia del backend di carriera/flow/salvataggi che appartenevano al07**. Non cambiare le formule owned 09/08/06/05. Agente12 mantiene QA visuale da screenshot e nessuna sovrapposizione sui blocchi UI del07B.
+
+**P0 immediato e verificato da audit PR #64:** [PR #63](https://github.com/CzekUns/cercax/pull/63) necessita fix R11-QA-01: training controlli visivi (RECUPERO73) coerenti con ledger ricaricato, più messaggi di fallimento save chiari. Il **R11-QA-02**, backend ora assegnato a07B, richiede nuovo provider/formato persistente per grande carriera standard e due slot recuperabili: 4.125.983 caratteri 1° slot, secondo slot oltre quota localStorage; avanzamenti31→39 non sopravvivono al reload. Rapporto in `coerentizzatore/REPORT.md` branch PR64. Organizzare PR#63 correttiva + PR backend dedicata da main, review indipendente 00 e merge autorizzati.
+
+**P1 successivo 07B:** adapter stadio Career↔09 con dati veri/assunzioni dichiarate, prezzo→incasso casalingo/ledger morale, richieste Presidente e mercato atomico/finestre reali, trust shout persistente, 600 cognomi08 davvero usati da newGame pubblico, calendario/regressione 2 stagioni. **P2 07B:** resto delle sezioni R11. I dettagli operativi e la lista integrale sono in `oronzo/coordination/07b-sections/NEXT.md`.
+
+---
+
 ## Aggiornamento ownership — AGENTE 07-BIS (9 novembre 2026)
 
 Su richiesta del proprietario è attivo l'**[Agente 07-bis / ORONZO-AGENT-07B](https://github.com/CzekUns/cercax/issues/62)**, distinto da Agente 07 e 12. **Questa assegnazione prevale sulle etichette owner storiche nei singoli task di seguito**.
