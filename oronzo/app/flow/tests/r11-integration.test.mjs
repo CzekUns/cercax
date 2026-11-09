@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {newGame,acceptOffer,listInitialOffers,answerOpeningPress,answerPostMatchPress,
  prepareMatch,tickMatch,consumeMatchResult,advanceMatchday,rolloverSeason,
  getCoachWeekStatus,selectM1Training,commandM1Match} from '../controller.js';
@@ -186,6 +186,10 @@ test('U8: two standard seasons, 30 coach fixtures + bye weeks 31–38 and checks
   assert.equal(matches,30);
   assert.equal(byes,8);
   assert.equal(state.flow.history.filter(x=>x.seasonYear===1979+season&&x.weekType==='bye_week').length,8);
+  // Both files are genuine final states after 30 played fixtures and bye 31–38;
+  // Chromium uses them to test two native IndexedDB slots at browser quota.
+  mkdirSync('r11-screenshots',{recursive:true});
+  writeFileSync('r11-screenshots/standard-'+(season===0?'one':'two')+'-season.json',serialize(state));
   if(season===0){
    const rolled=rolloverSeason(state);assert.equal(rolled.accepted,true);
    assert.equal(state.seasonYear,1980);
