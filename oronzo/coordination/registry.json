@@ -114,7 +114,10 @@
       "run": "oronzo/coordination/07-career/RUN.md",
       "initialPr": null,
       "reservedFutureAdapterScope": "oronzo/app/flow/",
-      "futureScopeGate": "Solo dopo #30 e #32 fix R02 mergiati con suite Node V1/V2 verde; coordinare contratto #31/#35 prima di integrare shouts"
+      "futureScopeGate": "Solo dopo #30 e #32 fix R02 mergiati con suite Node V1/V2 verde; coordinare contratto #31/#35 prima di integrare shouts",
+      "lifecycle": "standby_owner_transferred_to_07b_2026_11_09",
+      "handoffTo": "ORONZO-AGENT-07B",
+      "handoffNote": "User explicitly retires/suspends original Agent07 due to saturation. Historical PR/issues unchanged; no new tasks. Career and flow ownership moved to 07B. This does not rename Agent07."
     },
     {
       "id": 8,
@@ -192,20 +195,25 @@
       "displayId": "07-bis",
       "role": "ORONZO-AGENT-07B",
       "slug": "07b-sections",
-      "name": "Sezioni giocabili, grafica e interazioni R11",
+      "name": "Successore Carriera07 + Sezioni grafiche e funzionali R11",
       "issue": 62,
       "originalBranch": "agent/oronzo-07b-sections-r11-01",
       "spec": "oronzo/agents/07b-sections.md",
-      "codeScope": "oronzo/assets/ui/sections-r11/**; minimal career-r03.js/css/html section integration only",
+      "codeScope": "oronzo/systems/career/**; oronzo/app/flow/**; oronzo/assets/ui/sections-r11/**; necessary career-r03.js/css/html UI connectors; tests in corresponding scopes",
       "coordinationDir": "oronzo/coordination/07b-sections/",
       "identity": "oronzo/coordination/07b-sections/IDENTITY.md",
       "run": "oronzo/coordination/07b-sections/RUN.md",
       "next": "oronzo/coordination/07b-sections/NEXT.md",
       "report": "oronzo/coordination/07b-sections/REPORT.md",
-      "lifecycle": "ready_r11_01",
+      "lifecycle": "active_successor_career07_r11_qa64_fix_priority",
       "mergesAllowed": false,
-      "conflictRule": "12 owns screenshot-led fixes, 07B owns new rich section modules. Do not edit same career-r03.js hunks concurrently. 07 owns app/flow, 09 owns coach-club.",
-      "contract": "oronzo/coordination/10-orchestrator/TODO-R11-SEZIONI-UI.md"
+      "conflictRule": "07 original standby. 07B owns career/flow/storage/UI sections. 09 owns coach-club formulas; 12 screenshot layout fixes, avoid concurrent hunks in career-r03.js. 00 independent audit; 10 merges with owner consent.",
+      "contract": "oronzo/coordination/07b-sections/NEXT.md",
+      "successorOf": "ORONZO-AGENT-07",
+      "handoffFromAgent": 7,
+      "handoffReport": "oronzo/coordination/coerentizzatore/REPORT.md in PR #64",
+      "currentPr": 63,
+      "blockingAuditPr": 64
     }
   ],
   "orchestrator": {
@@ -233,5 +241,5 @@
       "surnames": 5000
     }
   },
-  "registryUpdate": "2026-11-09: 07-bis section developer registered as registry id13 / role ORONZO-AGENT-07B; 12 remains screenshot layout fixer"
+  "registryUpdate": "2026-11-09: user transferred ALL productive career07 and flow tasks to 07-bis due to original agent saturation; original07 standby; 07B P0 QA64 save quota and training reload."
 }
