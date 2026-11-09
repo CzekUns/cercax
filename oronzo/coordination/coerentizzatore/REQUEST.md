@@ -1,3 +1,17 @@
+# ORONZO — COERENTIZZATORE 00 · SECONDA ONDATA R10, AUDIT INTEGRATO
+
+**STATO: `READY_AUDIT_R10_WAVE2` — 9 novembre 2026.** Primo audit completato nella [PR documentale #55](https://github.com/CzekUns/cercax/pull/55): PASS indipendente delle [#52 fullscreen](https://github.com/CzekUns/cercax/pull/52) HEAD `d266ad1740ab330946ab7cccccb6928c30c55a29` e [#53 comuni](https://github.com/CzekUns/cercax/pull/53) HEAD `9ec2baa6dc0c06b3d6fff432218f19be17ee77c0`, **128/128 Node e 16/16 percorsi Chromium combinati** (checkout vero, HTTP reale, PNG reali); nessun merge e Android fisico non attestato. Non ripetere inutilmente R10-F01/D01 sullo stesso SHA.
+
+**Missione nuova, da CONCLUDERE:** audit indipendente degli HEAD aggiornati di [#28 camera](https://github.com/CzekUns/cercax/pull/28) `34aa26dce251c3c4f26e9705bca1fbefc20137f8`, [#29 sprite](https://github.com/CzekUns/cercax/pull/29) `7475cba747d6446841c4942178a9ec0b82d8abec`, [#31 PlayerV2/600 cognomi](https://github.com/CzekUns/cercax/pull/31) `b6235d6a1115e6323fddfc6acce9a86d954e79e2`, [#35 comandi individuali](https://github.com/CzekUns/cercax/pull/35) `923b198c92f8d02983dfdedf659e8823e6d6c26f`, e [#56 adapter carriera](https://github.com/CzekUns/cercax/pull/56) `b27af7ced642b436e5317a7384589c77bc789617`. Verificare HEAD live, non presumere immutati.
+
+**Percorsi obbligatori:** Node nativi su checkout autentico, harness Chromium HTTP di render FULL/TV con 22 PNG reali e confronto col #29, 100 seed/suite cross-PR #31+#35, normalize origin/trust/toni, shout temporaneo unico e evento persistente non duplicato, 600 cognomi fonte/licenza/ID, prova PR #56 su main + branch dipendenti #31/#35/#53 con training/settimane/save/reload/compatibilità. Verificare collisione `controller.js` fra #53 e #56. Distingui un gate riproducibile non superato da bug codice. Se fallisce, indica esatto file, riproduzione e fix nella PR stessa: nessun secondo progetto.
+
+**Consegna:** rapporti con SHA/risultati e PASS/NEEDS_CHANGES/NON_CERTIFICATO per ogni PR, matrice test incrociati, ordine di merge proposto senza eseguirlo; niente nuovi branch di codice o merge senza autorizzazione utente. Riferimento [Roadmap R10](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md).
+
+---
+
+## ARCHIVIO AUDIT PRECEDENTI
+
 # ORONZO — COERENTIZZATORE 00 · ACCELERAZIONE GATE M1
 
 **STATO: `AUDIT_REQUIRED_PR52_PR53` — 8 novembre 2026.** Piano aggiornato in [ROADMAP-R10-ACCELERAZIONE.md](../10-orchestrator/ROADMAP-R10-ACCELERAZIONE.md). **Audit immediatamente prioritario sulle PR #52 (Fullscreen) e #53 (500 comuni)**, entrambe OPEN/NOT MERGED all'ultimo controllo; verificare HEAD reale. Report **separati** e una prova di compatibilità con entrambi i branch nello stesso checkout/merge-base prima di raccomandare il secondo merge, senza simulare repository via fixture. La #53 va verificata con cura per i metadati contemporanei `null` e uso di `reviewStatus:'approved'`: mai rivendicare geografia1979. 119 Node e Chromium HTTP end-to-end, touch e save/load realmente eseguiti. PASS/NEEDS_CHANGES/NON_CERTIFICATO con comandi e screenshot propri. NO MERGE.
