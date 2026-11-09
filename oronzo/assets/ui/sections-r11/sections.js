@@ -50,7 +50,8 @@ export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
  const active=source==='allenamento';
  const availability=s.injuryDays>0?badge('INFORTUNATO · '+fmt(s.injuryDays)+' GG','warning'):
    s.suspensionMatches>0?badge('SQUALIFICATO · '+fmt(s.suspensionMatches)+' TURNI','warning'):badge('DISPONIBILE','okay');
- const appearance=item.appearanceStatus==='ready'&&item.appearance;
+ const appearance=item.appearanceStatus==='ready'&&item.appearance&&item.visualKits?.home&&
+  paletteIndex(item.appearance.skinToneId,skins)&&paletteIndex(item.appearance.hairColorId,hairs);
  const card='<div class="r11-player-hero"><div class="r11-player-picture">'+
  (appearance?'<canvas id="r11-player-art" width="112" height="112" aria-label="Sprite autentico del calciatore" role="img"></canvas>':
  '<div class="r11-no-portrait" role="note"><span>▦</span>IDENTITÀ VISIVA<br>NON ASSOCIATA</div>')+
