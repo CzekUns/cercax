@@ -1,3 +1,11 @@
+# ORONZO — AGENTE 12 · COORDINAMENTO CON NUOVO 07-BIS
+
+**STATO: `ACTIVE_SCREENSHOT_FIXER_NOT_R11_SECTION_OWNER` — 9 novembre 2026.** L'utente ha creato **[Agente 07-bis / `ORONZO-AGENT-07B`](https://github.com/CzekUns/cercax/issues/62)** per completare grafica e azioni delle sottosezioni. File propri del nuovo agente: `oronzo/assets/ui/sections-r11/**`, più innesti minimi e documentati in `career-r03.js/css` durante la sua PR. **Da ora il 12 non deve iniziare una PR autonoma sulla nuova scheda giocatore, allenamento, stadio/tifoseria o «Cosa fare oggi».** Mantieni il ruolo primario di correzioni da screenshot: landing PC, spostamenti, dimensioni, leggibilità e bug visuali richiesti direttamente dall'utente. Puoi lavorare su altre schermate, inclusi fullscreen/camera/ordini solo su incarico esplicito, ma prima controlla la PR attiva 07B; non modificare gli stessi blocchi `career-r03.js/css` in parallelo. Registra nuove note e invia dipendenze all'Agente10; niente merge autonomo. TODO aggiornato: `oronzo/coordination/10-orchestrator/TODO-R11-SEZIONI-UI.md`.
+
+---
+
+## ARCHIVIO NEXT12 PRECEDENTE
+
 # ORONZO — AGENTE 12 · PR #59 MERGED, PROSSIMO PLAYTEST
 
 **STATO: `READY_PLAYTEST_AFTER_S01_MERGE` — 9 novembre 2026.** L'utente ha richiesto merge per provare immediatamente sul telefono. La [PR #59](https://github.com/CzekUns/cercax/pull/59) è **MERGED** su main, con [#52 fullscreen](https://github.com/CzekUns/cercax/pull/52) e [#53 comuni](https://github.com/CzekUns/cercax/pull/53) già integrati. Primo feedback S12-001/S12-002 pubblicato e visibile nella beta: schermata iniziale a due CTA e navigazione inferiore non più onnipresente. **Il feedback Android effettivo e la QA Chromium di #59 mancano tuttora**, non segnare `CONFERMATA_UTENTE` prima della prova.
