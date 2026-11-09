@@ -17,9 +17,14 @@ import { createPressConference, answerPressConference } from '../../content/pres
 import { generatePlayer as generateAttributesPlayer } from '../../systems/attributes/generator.js';
 import { normalizePlayer as normalizeAttributesPlayer } from '../../systems/attributes/player-model.js';
 import { applyTrainingWeek, applyMatchLoad, advanceSeason } from '../../systems/attributes/training.js';
-import { chooseTrainingPlan } from '../../systems/coach-club/index.js';
+import { chooseTrainingPlan,settleHomeAttendance,persistShout } from '../../systems/coach-club/index.js';
+import {initializeCareerVenues} from './management-r11.js';
+export {changeCareerTicketPrice,requestCareerPresident,decideCareerPresident,
+ listCareerMarketCandidates,careerMarketOperation,careerSaleOperation,getCareerMarketWindow}
+ from './management-r11.js';
+export {createDurableSaveManager} from './durable-save.js';
 import { ensureM1Ledger, attachSourcedPlayers, chooseM1Training, settleM1Training,
-  issueM1Command, settleM1MatchLoad, journalM1Shouts, settleM1Season
+  issueM1Command, settleM1MatchLoad, journalM1Shouts, reconcileM1Shouts, settleM1Season
 } from './m1-contract.js';
 
 export const FLOW_VERSION=1;
@@ -229,6 +234,8 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
     pressDependency:effectsMode==='isolated_test'?'isolated_test_only':'agent09_integrated'};
   createInitialOffers(state);
   ensureM1Ledger(state);
+  const venue=initializeCareerVenues(state);
+  if(!venue.accepted)throw Error('STADIUM_SETUP_FAILED: '+venue.reason);
   if(surnameCatalog) {
     const result=enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins});
     if(!result.accepted)throw new Error('M1_SURNAMES_UNAVAILABLE: '+result.reason);
@@ -435,6 +442,10 @@ export function consumeMatchResult(state,engine,{press}={}) {
   // 06 already applied temporary shout modifiers. 09 has not yet exported a
   // player-trust consumer; journal suggestions, never invent a permanent delta.
   journalM1Shouts(state,{fixtureId:fixture.id,events:normalizedEvents});
+  // 09 authentic persistent trust: does not re-apply the Engine06 temporary bonus.
+  // Legacy careers without normalized PlayerV2 keep pending entries instead of inventing trust.
+  try{reconcileM1Shouts(state,{persistShout});}
+  catch(error){state.flow.m1.shoutReconcileError=String(error.message??error);}
   const coachHome=fixture.homeId===state.coach.clubId;
   const ours=coachHome?score.home:score.away,opponent=coachHome?score.away:score.home;
   const result=ours>opponent?'win':ours<opponent?'loss':'draw';
@@ -506,6 +517,16 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
         if(!reviewed.accepted && reviewed.reason!=='already_recorded')
           throw new Error('Board review denied: '+reviewed.reason);
         if(reviewed.accepted) {club=reviewed.club;dismissed=reviewed.dismissed;}
+        // Only a *reviewed* real home fixture may yield gate receipts.
+        if(coachFixture.homeId===playerClub && club.stadium){
+          const attendance=settleHomeAttendance(club,draft.coach,president,{
+            fixture:{id:coachFixture.id,homeId:coachFixture.homeId,awayId:coachFixture.awayId,
+              result:coachFixture.result},period
+          });
+          if(!attendance.accepted && attendance.reason!=='already_settled')
+            throw Error('STADIUM_SETTLEMENT_DENIED: '+attendance.reason);
+          if(attendance.accepted){club=attendance.club;draft.coach=attendance.coach;}
+        }
       }
     }
     const settled=endClubWeek(club,period);
