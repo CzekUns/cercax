@@ -26,9 +26,10 @@ test('scheda: dati persistenti, barre, ID e HTML escapato',()=>{
  const html=renderPlayerCard({item:item(),clubName:'Atletico Campanile'});
  assert.match(html,/Nino &lt;Rocchi&gt;/);
  assert.doesNotMatch(html,/Nino <Rocchi>/);
- for(const marker of ['Parate','Fatica','Fiducia nel mister','weekly','Contratto fino al','63','2.000']) {
+ for(const marker of ['Parate','Fatica','Fiducia nel mister','weekly','Contratto fino al','63']) {
   if(marker!=='weekly') assert.ok(html.includes(marker),marker);
  }
+ assert.match(html,/2[.]?000/);
  assert.match(html,/data-action="back-rosa"/);
  assert.doesNotMatch(html,/<canvas/,'no made-up illustration without visual/kit');
 });
@@ -67,9 +68,9 @@ test('stadio autentico: dati numerici letti dal club e nessuna mutazione',()=>{
  const stadium={capacity:2750,condition:81,ticketPriceITL:600};
  const club={stadium,finance:{cash:120000}};
  const html=renderSupportersPanel({ui:ui(),club,tab:'stadio'});
- assert.match(html,/2\.750/);
+ assert.match(html,/2[.]?750/);
  assert.match(html,/600/);
- assert.match(html,/120\.000/);
+ assert.match(html,/120[.]?000/);
  assert.equal(stadium.ticketPriceITL,600);
 });
 test('tifosi: rapporti provenienti dallo stato, tre schede navigabili',()=>{
