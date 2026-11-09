@@ -4,7 +4,7 @@
 
 **Azione attuale:** su #56 correggere soltanto problemi dimostrati dall'audit00, mantenere il contratto `M1-AGENT12-CONTRACT.md`, preservare idempotenza e save. Il port di fiducia permanente `pending_agent09_player_trust` deve essere completato da09/07 con contratto e test, non inventare delta. Dopo PASS + merge autorizzato delle PR dipendenti, chiedere smoke-test di M1 con origini/cognomi/shouts/training su due stagioni e Android. Nessuna estensione libera del codice, no UI, no merge autonomo.
 
-**Altro gate indipendente:** [PR #53](https://github.com/CzekUns/cercax/pull/53) import 500 comuni **PASS tecnico dall'audit00 nella PR #55**, ma ancora OPEN e non integrata; non confondere report PASS con merge. Le due PR si sovrappongono su `controller.js`: verificare un checkout combinato prima del merge finale.
+**Altro gate indipendente:** [PR #53](https://github.com/CzekUns/cercax/pull/53) import 500 comuni **PASS tecnico dall'audit00 nella PR #55**, ma ancora OPEN e non integrata; non confondere report PASS con merge. Le due PR **non toccano lo stesso `controller.js`** (#53 modifica UI R03 e `world.js`; #56 modifica `controller.js` e adapter): verificare comunque l'interazione runtime con un checkout combinato prima del merge finale.
 
 ---
 
