@@ -315,11 +315,33 @@ export function answerPostMatchPress(state,questionId,answerId,options) {
 export function getRosterPlayer(state,playerId) { return uiPlayer(state,playerId); }
 export function getTrainingPlayer(state,playerId) { return uiPlayer(state,playerId); }
 
+/** Single authoritative answer for UI12 and matchday progression.
+ * A club can have fewer rounds than the longest division: that is a bye week,
+ * not an unplayed fixture and never a reason to fabricate a coach match.
+ */
+export function getCoachWeekStatus(state) {
+  const base={seasonYear:state.seasonYear,week:state.week,
+    absoluteWeek:state.absoluteWeek,fixtureId:null,canAdvance:false};
+  if(state.phase==='seasonComplete')
+    return {...base,kind:'season_complete',canRollover:state.flow?.stage==='season_complete'};
+  if(state.phase!=='inSeason')return {...base,kind:'season_inactive'};
+  if(!state.coach?.clubId)return {...base,kind:'unemployed',
+    canAdvance:state.flow?.stage==='unemployed'};
+  const fixture=fixturesForWeek(state).find(f=>
+    f.homeId===state.coach.clubId||f.awayId===state.coach.clubId);
+  if(!fixture)return {...base,kind:'bye_week',
+    canAdvance:state.flow?.stage==='hub'&&!state.flow?.pendingMatch};
+  if(!fixture.result)return {...base,kind:'match_pending',fixtureId:fixture.id};
+  return {...base,kind:'match_recorded',fixtureId:fixture.id,
+    canAdvance:state.flow?.stage==='postmatch_ready'};
+}
+
 export function getStateForUI(state) {
   const club=state.coach.clubId?clubById(state,state.coach.clubId):null;
   return clone({
     version:state.flow?.version??null,stage:state.flow?.stage??'legacy_career',
     gameDate:state.gameDate??null,seasonYear:state.seasonYear,seasonWeek:state.week,
+    coachWeekStatus:getCoachWeekStatus(state),
     absoluteWeek:state.absoluteWeek,coach:state.coach,
     club:club?{id:club.id,name:club.name,divisionId:club.divisionId,
       presidentId:club.presidentId,world:getClubGeography(state,club.id),
@@ -345,6 +367,13 @@ export function prepareMatch(state,{xi,bench,captainId}={}) {
   ensureLive(state);
   if(state.flow.stage!=='hub'&&state.flow.stage!=='pre_match')
     return {accepted:false,reason:'wrong_stage'};
+  const weekStatus=getCoachWeekStatus(state);
+  if(weekStatus.kind==='bye_week')return {
+    accepted:false,reason:'bye_week',canAdvance:weekStatus.canAdvance,
+    expectedAbsoluteWeek:weekStatus.absoluteWeek
+  };
+  if(weekStatus.kind==='match_recorded')
+    return {accepted:false,reason:'coach_match_already_recorded'};
   const fixture=getUpcomingFixture(state);
   if(!fixture)return {accepted:false,reason:'no_coach_fixture'};
   if(state.flow.pendingMatch && state.flow.pendingMatch.fixtureId!==fixture.id)
@@ -427,18 +456,29 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
   // repeatedly, so without it a network/button replay could skip another week.
   if(expectedAbsoluteWeek!==undefined && expectedAbsoluteWeek!==state.absoluteWeek)
     return {accepted:false,reason:'stale_week_action'};
-  if(state.flow.stage==='unemployed' && expectedAbsoluteWeek===undefined)
-    return {accepted:false,reason:'expected_week_required_when_unemployed'};
-  if(!['postmatch_ready','unemployed'].includes(state.flow.stage))
-    return {accepted:false,reason:'postmatch_press_not_completed'};
   if(state.phase!=='inSeason')return {accepted:false,reason:'season_not_active'};
+  const weekStatus=getCoachWeekStatus(state);
+  if(weekStatus.kind==='unemployed' && expectedAbsoluteWeek===undefined)
+    return {accepted:false,reason:'expected_week_required_when_unemployed'};
+  if(weekStatus.kind==='bye_week' && expectedAbsoluteWeek===undefined)
+    return {accepted:false,reason:'expected_week_required_when_bye'};
+  const permitted=weekStatus.kind==='match_recorded'
+    ? state.flow.stage==='postmatch_ready'
+    : weekStatus.canAdvance;
+  if(!permitted)
+    return {accepted:false,reason:weekStatus.kind==='match_pending'
+      ? 'coach_match_not_recorded':'postmatch_press_not_completed'};
   if(!presidentCatalog)return {accepted:false,reason:'president_catalog_required'};
   const draft=clone(state); // Atomic: no scores, payroll or meeting committed on exception.
   const playerClub=draft.coach.clubId;
   const period={week:draft.week,absoluteWeek:draft.absoluteWeek,seasonYear:draft.seasonYear};
   const fixtures=fixturesForWeek(draft);
-  if(playerClub && !fixtures.some(f=>f.result && (f.homeId===playerClub||f.awayId===playerClub)))
+  const coachFixture=playerClub
+    ?fixtures.find(f=>f.homeId===playerClub||f.awayId===playerClub):null;
+  if(coachFixture && !coachFixture.result)
     return {accepted:false,reason:'coach_match_not_recorded'};
+  if(weekStatus.kind==='bye_week' && (draft.flow.pendingMatch || draft.flow.finalMatch))
+    return {accepted:false,reason:'unexpected_coach_match_on_bye'};
   for(const fixture of fixtures)if(!fixture.result){
     if(fixture.homeId===playerClub||fixture.awayId===playerClub)
       throw new Error('Coach match cannot be AI-simulated');
@@ -455,14 +495,18 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
       if(meeting.accepted)club=meeting.club;
       else if(meeting.reason!=='already_met_this_week')
         throw new Error('Board meeting denied: '+meeting.reason);
-      const fixture=fixtures.find(f=>f.homeId===club.id||f.awayId===club.id);
-      const reviewed=reviewMatch(club,president,{
-        ...period,matchId:fixture.id,homeClubId:fixture.homeId,awayClubId:fixture.awayId,
-        snapshot:{phase:'fulltime',t:5400,score:fixture.result.score}
-      },draft.seed);
-      if(!reviewed.accepted && reviewed.reason!=='already_recorded')
-        throw new Error('Board review denied: '+reviewed.reason);
-      if(reviewed.accepted) {club=reviewed.club;dismissed=reviewed.dismissed;}
+      // Weekly board meetings may still occur on a bye; reviewing a match
+      // without a real fixture would invent a coach performance and corrupt trust.
+      if(coachFixture) {
+        const reviewed=reviewMatch(club,president,{
+          ...period,matchId:coachFixture.id,homeClubId:coachFixture.homeId,
+          awayClubId:coachFixture.awayId,
+          snapshot:{phase:'fulltime',t:5400,score:coachFixture.result.score}
+        },draft.seed);
+        if(!reviewed.accepted && reviewed.reason!=='already_recorded')
+          throw new Error('Board review denied: '+reviewed.reason);
+        if(reviewed.accepted) {club=reviewed.club;dismissed=reviewed.dismissed;}
+      }
     }
     const settled=endClubWeek(club,period);
     if(!settled.accepted)throw new Error('Payroll denied: '+settled.reason);
@@ -475,9 +519,10 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
   const matchday=period.absoluteWeek;
   advanceWeek(draft);
   if(dismissed && playerClub)applyBoardDecision(draft,{type:'dismiss',clubId:playerClub});
+  const weekType=coachFixture?'played_match':playerClub?'bye_week':'unemployed';
   draft.flow.history.push({seasonYear:period.seasonYear,week:period.week,
     absoluteWeek:period.absoluteWeek,fixtureCount:fixtures.length,
-    playedFixtureId:draft.flow.finalMatch?.fixtureId??null});
+    playedFixtureId:coachFixture?.id??null,weekType});
   draft.flow.pendingMatch=null;draft.flow.finalMatch=null;draft.flow.press.postmatch=null;
   draft.flow.stage=draft.phase==='seasonComplete'?'season_complete':
     draft.coach.clubId?'hub':'unemployed';
@@ -487,7 +532,8 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
   for(const k of Object.keys(state))delete state[k];
   Object.assign(state,draft);
   return {accepted:true,completedAbsoluteWeek:matchday,nextStage:state.flow.stage,
-    gameDate:state.gameDate,simulatedOtherFixtures:fixtures.filter(f=>f.id!==state.flow.history.at(-1).playedFixtureId).length};
+    gameDate:state.gameDate,weekType,playedFixtureId:coachFixture?.id??null,
+    simulatedOtherFixtures:fixtures.length-(coachFixture?1:0)};
 }
 export function rolloverSeason(state) {
   ensureLive(state);
