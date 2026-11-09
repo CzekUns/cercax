@@ -134,6 +134,9 @@ export function renderSupportersPanel({ui,club,tab='stadio',canEditTicket=false}
    metric('Capienza',fmt(s.capacity))+metric('Condizione',fmt(s.condition)+'/100')+
    metric('Biglietto',fmt(s.ticketPriceITL)+' ₤')+
    metric('Cassa società',fmt(club?.finance?.cash)+' ₤')+'</div>'+
+   '<p class="r11-hint">'+(s.provenance==='synthetic_gameplay_r11'?
+    'CAPACITÀ E PREZZI: PARAMETRI SINTETICI DI GAMEPLAY, NON DATI STORICI DEL 1979.':
+    'Parametri stadio letti dal salvataggio, senza ricostruzione storica.')+'</p>'+
    (canEditTicket?'<div class="r11-stadium-price"><input type="number" id="r11-ticket-price" min="0" max="1000000" step="50" value="'+E(s.ticketPriceITL)+'" aria-label="Prezzo biglietto in lire">'+B('APPLICA PREZZO','ticket-change')+'</div>':
    '<p class="r11-hint">Adapter biglietteria non disponibile: prezzo in lettura.</p>'):
    '<div class="r11-empty"><b>DATI STADIO NON DISPONIBILI</b><p>La carriera non conserva capienza, condizioni e prezzo dei biglietti. Nessuna affluenza o incasso è stimato.</p>'+
