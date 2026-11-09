@@ -26,7 +26,7 @@ test('scheda: dati persistenti, barre, ID e HTML escapato',()=>{
  const html=renderPlayerCard({item:item(),clubName:'Atletico Campanile'});
  assert.match(html,/Nino &lt;Rocchi&gt;/);
  assert.doesNotMatch(html,/Nino <Rocchi>/);
- for(const marker of ['Parate','Fatica','Fiducia nel mister','weekly','Contratto fino al','63','2000']) {
+ for(const marker of ['Parate','Fatica','Fiducia nel mister','weekly','Contratto fino al','63','2.000']) {
   if(marker!=='weekly') assert.ok(html.includes(marker),marker);
  }
  assert.match(html,/data-action="back-rosa"/);
