@@ -1,3 +1,11 @@
+# ORONZO — AGENTE 10 · ATTIVAZIONE 07-BIS PER SCHERMATE R11
+
+**STATO: `AGENT_07B_CREATED_R11_01_READY` — 9 novembre 2026.** Su richiesta utente creato **Agente 07-bis / `ORONZO-AGENT-07B`**, registry ID tecnico 13, [issue #62](https://github.com/CzekUns/cercax/issues/62), spec `oronzo/agents/07b-sections.md` e `oronzo/coordination/07b-sections/{IDENTITY,RUN,NEXT}.md`. Distinto da 07 originale (Career/flow) e 12 (correzioni grafiche da screenshot). L'incarico **R11-01** comprende scheda giocatore illustrata, allenamento vero 5 piani e intensità, viste Stadio/Tifosi/Giornali con backend reale o blocchi espliciti, agenda «Cosa fare oggi» con gestione bye-week. Nuovi moduli preferiti `oronzo/assets/ui/sections-r11/**`; innesti minimi `career-r03.js/css/html` con no conflict12. 07B crea PR e REPORT, non merge. 12 NEXT riallineato per concentrarsi su feedback da telefono senza avviare lo stesso lavoro. Backlog `TODO-R11-SEZIONI-UI.md` prevale sui vecchi owner assignment. **Le chat Work vanno avviate dall'utente con il prompt 07B**: un commit di coordinamento non avvia autonomamente un agente. Prima di nuovi merge, auditor00 controlla regressioni e browser reale.
+
+---
+
+## ARCHIVIO NEXT10 PRECEDENTE
+
 # ORONZO — AGENTE 10 · BETA INTEGRATA SU MAIN, PLAYTEST UTENTE
 
 **STATO: `BETA_MERGED_NEEDS_POSTMERGE_QA` — 9 novembre 2026.** Su richiesta esplicita del proprietario sono state mergiate e confermate su GitHub, nell'ordine, **#52 fullscreen → #53 500 comuni → #29 sprite → #28 camera FULL/TV → #31 PlayerV2/600 cognomi → #35 comandi individuali → #57 società/papponeria/stadio/mercato → #56 carriera/training/settimane senza fixture → #59 UI iniziale larga e menu inferiore nascosto**. HEAD main ultimo merge #59 `d7a718e7634596e67d9a9be00b366217d82700e3`. Per la #59 è stato risolto il conflitto preservando su main tutti i cambi delle altre PR, con merge commit sulla sua branch `9ceb15d70230ef7bd51b229f239e145ad2bc5a25`. Le #52/#53 avevano audit PASS #55; #28/#29/#31/#35 PASS #58. **I nuovi HEAD #56/#57/#59 sono entrati per playtest beta prima di un nuovo gate indipendente completo**: non dichiararli certificati né il gioco finito.
