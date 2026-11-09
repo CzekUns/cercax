@@ -1,3 +1,19 @@
+# ORONZO — COERENTIZZATORE 00 · AUDIT PRE-MERGE PR #63 / AGENTE 07-BIS
+
+**STATO: `READY_REVIEW_PR63_R11_01` — 9 novembre 2026.** Consegna 07-bis [PR #63](https://github.com/CzekUns/cercax/pull/63), HEAD iniziale `6eb647894f79b38bc26915f016d245b7ee25bc85`, branch `agent/oronzo-07b-sections-r11-01`, READY, non merged. L'utente ha comunicato «7bis fatto»: si deve verificare e poi richiedere consenso al merge. Controlla eventuale nuovo HEAD live.
+
+**Obiettivo:** audit indipendente del codice realmente proposto sul main. Non ripetere i vecchi audit R10 già risolti; questa verifica è mirata alle nuove viste R11, alla compatibilità con gli agenti07/09 e alle modifiche UI già integrate del12.
+
+**Da testare obbligatoriamente:** `node --check` su `career-r03.js` e `sections-r11/sections.js`; `node --test oronzo/assets/ui/sections-r11/sections-r11.test.mjs oronzo/assets/ui/qa/ui12-landing-nav.test.cjs`; suite Node pertinenti a controller07, match/08/09; HTML HTTP + Chromium reale su `career-r03.html` con test di tutti i percorsi: entry→avatar→offerte→stampa→hub→scheda giocatore→rosa/allenamento→piano 5 opzioni con intensità e reload→tifoseria/stadio/giornali→agenda→bye-week 31–38 (nessuna partita inventata, retry idempotente), ritorni e salvataggi. Controlla 640×360, 800×360, 844×390, 960×400 con safe-area e touch ≥44px, scroll su gruppi/roster, fullscreen e immagine del PC all'avvio. Asset `training.png` e sprite reali: verifica effettiva di carico PNG; la scheda non deve fingere un ritratto senza visual/kit canonici. Controlla anche UI press originale e il primo accesso a campionato/presidente.
+
+**Attenzione speciale:** il training `selectM1Training` muta realmente il ledger; verificare selezione una volta, `saveGame/loadGame`, settlement solo alla prossima settimana, esito/infortuni da 08, nessun doppio addebito. L'agenda deve rifiutare salti di gare `match_pending` e avanzare solo i `bye_week`. Lo Stadio è **dichiarato read-only per backend mancante**: `club.stadium` non è garantito da Career07 e manca la transazione Career07↔09; il report di 07-bis ha handoff `sections-r11/HANDOFF-07-09.md`. Non certificare il vero prezzo/affluenza operativi e non trattare il blocco stadio come grafica completata.
+
+**Esito richiesto:** PASS / NEEDS CHANGES / NON CERTIFICATO per PR63, commit SHA, veri comandi/risultati Node, screenshot e browser HTTP, conflitti, priorità specifiche per 07B. Se il codice è sano ma lo stadio resta backend-blocked, distinguere `R11-01_UI_PASS_STADIUM_BLOCKED` dall'accettazione completa delle funzionalità stadio; proporre merge beta condizionato con tale limite. Non merge autonomo. Pubblica REPORT, commento nella PR#63 e risposta con verdetto.
+
+---
+
+## ARCHIVIO REQUEST PRECEDENTI
+
 # ORONZO — COERENTIZZATORE 00 · QA POST-MERGE BETA DI MAIN
 
 **STATO: `READY_BETA_MAIN_POSTMERGE_AUDIT` — 9 novembre 2026.** Su richiesta del proprietario, nove PR funzionali/UI sono ora integrate su `main`: #52 #53 #29 #28 #31 #35 #57 #56 #59, ultimo merge SHA `d7a718e7634596e67d9a9be00b366217d82700e3`. **I precedenti verdict PASS di #55/#58 valgono solo per gli HEAD allora esaminati; i nuovi fix #57/#56 e la UI #59 non hanno avuto audit indipendente pre-merge.** Obiettivo: testare SUBITO il main reale per playtest beta, senza creare un'altra roadmap.
