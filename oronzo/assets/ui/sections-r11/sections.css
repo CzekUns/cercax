@@ -191,3 +191,10 @@
  #oronzo-r03 .runtime-match-panel>.runtime-grid:nth-child(2){flex:0 0 91px;min-height:91px}
  #oronzo-r03 .runtime-match-panel>[data-action="finish-qa"]{margin-top:0;flex:0 0 44px}
 }
+
+
+/* Role and trust selectors preserve 44px hit targets and scroll under short landscape. */
+#oronzo-r03 .r11-roster-controls{display:flex;gap:6px;flex:0 0 44px;min-width:0}
+#oronzo-r03 .r11-roster-controls label{display:flex;align-items:center;gap:5px;flex:1;min-width:0;font-size:9px;color:#e1eaf4}
+#oronzo-r03 .r11-roster-controls select{height:44px;min-height:44px;flex:1;min-width:0;color:#ffe6a9;background:#102c6e;border:2px ridge #88a8d8;font-size:10px}
+#oronzo-r03 .runtime-roster-list .runtime-player-link small{max-width:45%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
