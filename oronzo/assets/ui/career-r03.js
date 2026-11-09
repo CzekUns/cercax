@@ -1,9 +1,10 @@
 /** ORONZO 03 R03 — mobile career runtime. Imports 07/09/06/05; no parallel simulation. */
 import {newGame,listInitialOffers,acceptOffer,getStateForUI,answerOpeningPress,
   answerPostMatchPress,prepareMatch,tickMatch,consumeMatchResult,advanceMatchday,
-  rolloverSeason,saveGame,loadGame,takeCareerOffer,getRosterPlayer,getTrainingPlayer,selectM1Training}
+  rolloverSeason,saveGame,loadGame,takeCareerOffer,getRosterPlayer,getTrainingPlayer,selectM1Training,exportGame,importGame}
   from '../../app/flow/controller.js';
 import {qaMunicipalityCatalog} from '../../app/flow/tests/qa-geography.mjs';
+import {BUILTIN_SURNAME_CATALOG} from '../../systems/attributes/surnames.js';
 import {previewOfferMorale} from '../../systems/coach-club/index.js';
 import {getStandings} from '../../systems/career/career.js';
 import {createMatchView,createEngineViewBridge} from '../../systems/match-view/match-view.js';
@@ -35,30 +36,106 @@ let state=null, press=null, presidents=null, mode='normal', screen='entry', avat
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
 let errors=[], viewReady=false;
 let trainingPlan='balanced',trainingIntensity=50,trainingRosterOpen=false,supportTab='stadio';
+let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full';
+let integrationBackend=null;
+const backendPromise=import('../../app/flow/management-r11.js')
+ .then(m=>{integrationBackend=m; if(state&&screen!=='match')render();return m;})
+ .catch(()=>null); // PR63 can be tested independently before backend PR is merged.
+const durablePromise=import('../../app/flow/durable-save.js')
+ .then(m=>m.createDurableSaveManager({indexedDB:globalThis.indexedDB,legacyStorage:localStorage}))
+ .catch(()=>null);
 const activeStage=()=>state?.flow?.stage??'entry';
 const getUI=()=>state?getStateForUI(state):null;
 const dataOk=()=>!!press&&!!presidents;
 function message(text){status.textContent=text;status.hidden=false;clearTimeout(showToastTimer);showToastTimer=setTimeout(()=>status.hidden=true,4600)}
 function failure(reason){message(String(reason??'Azione non disponibile'));}
-function guard(action){if(locking)return;locking=true;try{action()}catch(e){errors.push(String(e));failure(e?.message??e)}finally{locking=false}}
+async function guard(action){if(locking)return;locking=true;try{await action()}catch(e){errors.push(String(e));failure(e?.message??e)}finally{locking=false}}
 function api(result,success){if(result?.accepted===false){failure(result.reason==='geography_required'?'geography_required: località verificate non disponibili; usa DEMO TECNICA per provare':result.reason);return false}success?.();return true}
-function restoreMode(){const qa=state?.world?.mode==='qa_fixture'||mode==='qa';label.textContent=qa?'DEMO TECNICA — LOCALITÀ SINTETICHE':REAL?'COMUNI REALI · DATI ATTUALI (NON 1979)':'CATALOGO COMUNI NON DISPONIBILE';date.textContent=state?.gameDate||'1979-08-01'}
+function restoreMode(){const qa=state?.world?.mode==='qa_fixture'||mode==='qa';label.textContent=qa?'DEMO TECNICA — LOCALITÀ SINTETICHE':REAL?'COMUNI REALI · DATI ATTUALI (NON 1979)':'CATALOGO COMUNI NON DISPONIBILE';date.textContent=(state?.gameDate||'1979-08-01')+(dirtyUnsaved?' · NON PERSISTITO':'')}
 function display(next){screen=next;render()}
-function save({silent=false}={}){
+function saveErrorText(error){
+ const code=String(error?.name||'')+' '+String(error?.message||error);
+ if(/QuotaExceeded|quota|storage full/i.test(code))return 'Quota memoria esaurita';
+ if(/SecurityError|NotAllowed|permission|denied/i.test(code))return 'Accesso alla memoria negato';
+ if(/checksum|corrupt|invalid save|verify/i.test(code))return 'Verifica salvataggio fallita';
+ return code.slice(0,160);
+}
+async function save({silent=false}={}){
  if(!state)return false;
- // On a restart after GAME OVER, keep the previous, potentially recoverable save
- // until the user explicitly chooses to replace it. Never erase a slot to reset UI.
  if(protectPreviousSave){
-  if(silent)return false;
+  if(silent){lastSaveError='Conferma sovrascrittura richiesta';dirtyUnsaved=true;restoreMode();return false;}
   if(!window.confirm('Esiste un salvataggio precedente. Vuoi sovrascriverlo con questa nuova carriera?')){
-   message('Salvataggio precedente conservato.');return false;
+   lastSaveError='Sovrascrittura rifiutata';dirtyUnsaved=true;
+   message('Salvataggio precedente conservato · nuova carriera NON PERSISTITA');
+   restoreMode();return false;
   }
   protectPreviousSave=false;
  }
- try{const result=saveGame(state,localStorage);if(!silent)message('Carriera salvata · '+result.sequence);return true}
- catch(e){if(!silent)failure(e.message);return false}
+ const snapshot=JSON.parse(JSON.stringify(state));
+ try {
+  const durable=await durablePromise;
+  const result=durable?await durable.save(snapshot):saveGame(snapshot,localStorage);
+  lastSaveError='';dirtyUnsaved=false;restoreMode();
+  if(!silent)message('Carriera verificata e salvata · '+result.sequence);
+  return true;
+ }catch(e){
+  lastSaveError=saveErrorText(e);dirtyUnsaved=true;restoreMode();
+  failure('NON PERSISTITO · '+lastSaveError+' · usa ESPORTA SALVATAGGIO');
+  errors.push('SAVE_FAILED: '+String(e));
+  return false;
+ }
 }
-function load(){const payload=loadGame(localStorage);if(!payload){message('Nessuna carriera R03 salvata');return}if(payload.legacy){message('Salvataggio storico 1985 protetto. Apri il prototipo precedente per continuarlo.');return}clearMatch();protectPreviousSave=false;selectedPlayerId=null;profileSource='rosa';state=payload.state;mode=state.world?.mode==='qa_fixture'?'qa':'normal';avatar=Math.max(0,baseCoaches.findIndex((_,i)=>'ui-r03-'+i===state.coach.avatarId));selectLineup();const stage=activeStage();display(stage==='offers'?'offers':stage==='opening_press'?'president':stage==='postmatch_press'?'press':stage==='postmatch_ready'?'post':stage==='pre_match'?'hub':stage==='season_complete'?'season':stage==='unemployed'?'unemployed':'hub');message('Salvataggio R03 caricato · '+state.gameDate)}
+function persistAction(success){
+ dirtyUnsaved=true;restoreMode();
+ return save({silent:true}).then(ok=>{
+  message(ok?success:'NON PERSISTITO · '+lastSaveError+' · progressi solo in memoria');
+  return ok;
+ });
+}
+async function load(){
+ try{
+  const durable=await durablePromise;
+  const payload=durable?await durable.load():loadGame(localStorage);
+  if(!payload){message('Nessuna carriera salvata');return}
+  if(payload.legacy){message('Salvataggio storico 1985 protetto. Usa il prototipo precedente.');return}
+  clearMatch();protectPreviousSave=false;dirtyUnsaved=false;lastSaveError='';
+  selectedPlayerId=null;profileSource='rosa';state=payload.state;
+  mode=state.world?.mode==='qa_fixture'?'qa':'normal';
+  avatar=Math.max(0,baseCoaches.findIndex((_,i)=>'ui-r03-'+i===state.coach.avatarId));
+  selectLineup();
+  const stage=activeStage();
+  display(stage==='offers'?'offers':stage==='opening_press'?'president':
+   stage==='postmatch_press'?'press':stage==='postmatch_ready'?'post':
+   stage==='pre_match'?'hub':stage==='season_complete'?'season':
+   stage==='unemployed'?'unemployed':'hub');
+  message('Carriera caricata · '+state.gameDate+
+   (payload.recovered?' · copia di recupero':'')+
+   (payload.provider?' · '+payload.provider:''));
+ }catch(e){failure('CARICAMENTO FALLITO · '+saveErrorText(e));errors.push('LOAD_FAILED: '+String(e))}
+}
+function exportSave(){
+ if(!state)return failure('Nessuna carriera da esportare');
+ try{
+  const content=exportGame(state);
+  const blob=new Blob([content],{type:'application/json'});
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(blob);
+  link.download='oronzo-carriera-'+state.seasonYear+'-sett-'+state.absoluteWeek+'.json';
+  document.body.appendChild(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+  message('Esportazione JSON avviata · verifica il file scaricato');
+ }catch(e){failure('ESPORTAZIONE FALLITA · '+saveErrorText(e))}
+}
+async function importSave(file){
+ if(!file)return;
+ try{
+  const candidate=importGame(await file.text());
+  if(!window.confirm('Caricare questo file come carriera in memoria? Il salvataggio precedente non sarà cancellato.'))return;
+  clearMatch();state=candidate;protectPreviousSave=true;dirtyUnsaved=true;
+  selectLineup();display(activeStage()==='hub'?'hub':'entry');
+  message('Importazione verificata · IN MEMORIA. Premi SALVA per confermare sovrascrittura.');
+ }catch(e){failure('IMPORTAZIONE RIFIUTATA · '+saveErrorText(e))}
+}
 async function loadCopy(){
  const paths=['../../content/press-opening.json','../../content/press-postmatch.json','../../content/press-media.json','../../content/presidents.json'];
  const all=await Promise.all(paths.map(async p=>{
@@ -92,8 +169,8 @@ function newCareer(){
  const originData={municipalityId:place.municipalityId,regionId:place.regionId,macroRegion:place.macroRegion};
  state=newGame({seed:1979,coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{
   luck:c[1][0],leadership:c[1][1],selfEsteem:c[1][2],patience:c[1][3]
- },origin:originData},municipalityCatalog:catalog});
- offerIndex=0;selectLineup();display('offers');
+ },origin:originData},municipalityCatalog:catalog,surnameCatalog:BUILTIN_SURNAME_CATALOG});
+ offerIndex=0;dirtyUnsaved=true;selectLineup();display('offers');
 }
 
 function selectLineup(){lineup=new Set();bench=new Set();captain=null;const club=getUI()?.club;if(!club)return;const eligible=club.players.filter(p=>{const full=state.clubs.find(c=>c.id===club.id).players.find(x=>x.id===p.playerId);return !(full.status?.injuryDays||full.status?.suspensionMatches||full.status?.health===0)});
@@ -251,20 +328,20 @@ function mountMatchView(){if(view){view.destroy();view=null}viewReady=false;cons
  view=createMatchView(canvas,{config:{homeTeamId:input.homeClub.id,awayTeamId:input.awayClub.id,keeperIds:ids,appearances:kit,simSecondsPerRealSecond:6,autoStart:false,onWarning:()=>{}}});bridge=createEngineViewBridge(engine,view,{keeperIds:ids});view.setPaused(true);bridge.sync();const loading=view;view.ready.then(()=>{if(view===loading&&!view.destroyed){viewReady=true;view.drawAt(performance.now());}}).catch(()=>{});updateMatch();}
 function updateMatch(){if(!engine||screen!=='match')return;const s=engine.snapshot();scoreSnapshot=s;const el=id=>document.querySelector('#'+id);if(el('match-score'))el('match-score').textContent=`${s.score.home} — ${s.score.away}`;if(el('match-time')){const m=Math.floor(s.t/60),sec=Math.floor(s.t%60);el('match-time').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')};if(el('match-pos'))el('match-pos').textContent=Math.round(s.stats.home.possession)+'%';if(el('match-shots'))el('match-shots').textContent=`${s.stats.home.shots}–${s.stats.away.shots}`;}
 function step(seconds){if(!engine||screen!=='match')return;tickMatch(engine,seconds,{speed});const d=bridge.sync(performance.now());for(const e of d.events){if(['goal','fulltime','halftime','shot','save'].includes(e.type))lastEvent=`${Math.floor(e.t/60)}′ · ${e.type.toUpperCase()} · ${e.playerId||''}`;}const feed=document.querySelector('#match-news');if(feed)feed.textContent=lastEvent||'Rendering 05 · dati del motore 06';updateMatch();if(engine.isFinished())finishMatch()}
-function finishMatch(){if(!engine||!engine.isFinished())return;const result=consumeMatchResult(state,engine,{press});api(result,()=>{clearMatch();save({silent:true});display('press')})}
+function finishMatch(){if(!engine||!engine.isFinished())return;const result=consumeMatchResult(state,engine,{press});api(result,()=>{clearMatch();display('press');persistAction('Risultato reale registrato e salvato')})}
 function fulltimeQA(){if(!engine||mode!=='qa')return;if(!engine.isFinished())step((5400-engine.snapshot().t)/6/speed+1);}
 function advance(){if(!state)return;const week=state.absoluteWeek;
  const result=advanceMatchday(state,{presidentCatalog:presidents,expectedAbsoluteWeek:week});
- api(result,()=>{save({silent:true});
+ api(result,()=>{
   display(activeStage()==='season_complete'?'season':activeStage()==='unemployed'?'unemployed':'hub');
-  message((result.weekType==='bye_week'?'Turno di riposo':'Giornata')+' '+week+' chiuso · nuova data '+state.gameDate);
+  persistAction((result.weekType==='bye_week'?'Turno di riposo':'Giornata')+' '+week+' salvato · '+state.gameDate);
  });
 }
-function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career'].includes(action))return failure('GAME_OVER');
+async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career'].includes(action))return failure('GAME_OVER');
  switch(action){case 'reset-career':restartAfterGameOver();break;case 'home':if(state&&screen!=='entry'&&screen!=='match'&&activeStage()==='hub'){display('hub')}else display('entry');break;
  case 'start':display('avatar');break;case 'avatar':avatar=Number(value);render();break;case 'back-avatar':display('avatar');break;case 'begin':newCareer();break;
- case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press}),()=>{selectLineup();save({silent:true});display('president')});break;}
- case 'press':display('press');break;case 'answer':{const [q,a]=value.split('|');const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const result=kind==='opening'?answerOpeningPress(state,q,a,{press}):answerPostMatchPress(state,q,a,{press});api(result,()=>{save({silent:true});display(activeStage()==='hub'?'hub':activeStage()==='postmatch_ready'?'post':'press')});break;}
+ case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press}),()=>{selectLineup();display('president');persistAction('Contratto di ingaggio salvato')});break;}
+ case 'press':display('press');break;case 'answer':{const [q,a]=value.split('|');const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const result=kind==='opening'?answerOpeningPress(state,q,a,{press}):answerPostMatchPress(state,q,a,{press});api(result,()=>{display(activeStage()==='hub'?'hub':activeStage()==='postmatch_ready'?'post':'press');persistAction('Risposta stampa salvata')});break;}
  case 'hub':if(!state)return display('entry');if(activeStage()==='hub')display('hub');else if(activeStage()==='postmatch_ready')display('post');else failure('Completa il passaggio corrente');break;
  case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;trainingRosterOpen=false;if(value==='tifoseria')supportTab='stadio';display('hub-section');break;
  case 'training-roster':trainingRosterOpen=!trainingRosterOpen;display('hub-section');break;
@@ -279,10 +356,7 @@ function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale
   if(!trainingStatus(getUI()).canSelect)return failure('Settimana già pianificata');
   const result=selectM1Training(state,{plan:trainingPlan,intensity:trainingIntensity,
    expectedAbsoluteWeek:state.absoluteWeek});
-  api(result,()=>{const persisted=save({silent:true});render();
-    message(persisted?'Programma registrato e salvato · sett. '+result.selection.absoluteWeek:
-      'Programma registrato in memoria · salvataggio precedente protetto');
-  });break;
+  api(result,()=>{render();persistAction('Programma registrato e salvato · sett. '+result.selection.absoluteWeek)});break;
  }
  case 'training-locked':failure('Programma già registrato per questa settimana');break;
  case 'player':{const club=getUI()?.club;if(!club?.players.some(p=>p.playerId===value))return failure('Giocatore non presente nella rosa');selectedPlayerId=value;profileSource=selectedHub==='allenamento'?'allenamento':'rosa';display('player');break;}
@@ -293,14 +367,16 @@ function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale
  case 'camera-full':message('Vista a campo completo del renderer 05');break;
  case 'camera-tv':message('Camera televisiva non disponibile nel renderer 05: nessuno zoom finto');break;
  case 'finish-qa':fulltimeQA();break;case 'advance':advance();break;case 'next':if(getUI()?.coachWeekStatus?.kind==='bye_week'&&getUI()?.coachWeekStatus?.canAdvance)advance();else if(activeStage()==='postmatch_ready'||activeStage()==='unemployed')advance();else if(activeStage()==='hub')display('formation');else failure('Giornata non avanzabile');break;
- case 'save':save();break;case 'load':load();break;case 'rollover':api(rolloverSeason(state),()=>{save({silent:true});selectLineup();display('hub')});break;
- case 'vacancy':api(takeCareerOffer(state,value),()=>{selectLineup();save({silent:true});display('hub')});break;
+ case 'save':await save();break;case 'load':await load();break;case 'export-save':exportSave();break;
+ case 'import-save':root.querySelector('#r11-save-import')?.click();break;
+ case 'rollover':api(rolloverSeason(state),()=>{selectLineup();display('hub');persistAction('Nuova stagione salvata')});break;
+ case 'vacancy':api(takeCareerOffer(state,value),()=>{selectLineup();display('hub');persistAction('Nuovo ingaggio salvato')});break;
  default:failure('Azione non gestita: '+action);
  }}
 function renderMatchControls(){if(screen!=='match')return;const p=area.querySelector('[data-action="pause"]'),s=area.querySelector('[data-action="speed"]');if(p){p.textContent=paused?'▶ RIPRENDI':'Ⅱ PAUSA';p.classList.toggle('gold-btn',paused)}if(s)s.textContent=speed+'× VELOCITÀ'}
 root.addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b||b.disabled||!root.contains(b))return;guard(()=>interact(b.dataset.action,b.dataset.value))});
 root.addEventListener('input',e=>{if(e.target.matches('[data-training-intensity]')){trainingIntensity=Number(e.target.value);const out=root.querySelector('#r11-intensity-value');if(out)out.textContent=String(trainingIntensity)}});
-root.addEventListener('change',e=>{if(e.target.id==='origin'){origin=e.target.value;return}if(e.target.id==='qa-mode'){mode=e.target.checked?'qa':'normal';origin=mode==='qa'?'000001':REAL?.municipalities[0]?.municipalityId||'';render();return}if(e.target.id==='captain'){captain=e.target.value;return}if(!e.target.matches('[data-player]'))return;const id=e.target.dataset.player;if(e.target.checked)lineup.add(id);else lineup.delete(id);const club=getUI()?.club;const eligible=club?.players||[];bench=new Set(eligible.filter(p=>!lineup.has(p.playerId)).slice(0,5).map(p=>p.playerId));if(!lineup.has(captain))captain=[...lineup].find(x=>!club.players.find(p=>p.playerId===x)?.positions.includes('GK'))||null;render();});
+root.addEventListener('change',e=>{if(e.target.id==='r11-save-import'){importSave(e.target.files?.[0]);e.target.value='';return;}if(e.target.id==='origin'){origin=e.target.value;return}if(e.target.id==='qa-mode'){mode=e.target.checked?'qa':'normal';origin=mode==='qa'?'000001':REAL?.municipalities[0]?.municipalityId||'';render();return}if(e.target.id==='captain'){captain=e.target.value;return}if(!e.target.matches('[data-player]'))return;const id=e.target.dataset.player;if(e.target.checked)lineup.add(id);else lineup.delete(id);const club=getUI()?.club;const eligible=club?.players||[];bench=new Set(eligible.filter(p=>!lineup.has(p.playerId)).slice(0,5).map(p=>p.playerId));if(!lineup.has(captain))captain=[...lineup].find(x=>!club.players.find(p=>p.playerId===x)?.positions.includes('GK'))||null;render();});
 function loop(now){if(view&&viewReady&&screen==='match'){try{view.drawAt(now)}catch(e){viewReady=false;failure('Errore renderer: '+e.message)}}const dt=Math.max(0,Math.min(.20,(now-last)/1000));last=now;if(engine&&screen==='match'&&!paused){try{step(dt)}catch(e){paused=true;view?.setPaused(true);failure(e.message)}}requestAnimationFrame(loop)}
-window.OronzoR03=Object.freeze({getState:()=>state,getScreen:()=>screen,getSnapshot:()=>scoreSnapshot,completeQaMatch:()=>guard(fulltimeQA),getErrors:()=>errors.slice(),getMode:()=>mode, isViewReady:()=>viewReady, getStage:activeStage});
+window.OronzoR03=Object.freeze({getState:()=>state,hasUnsavedProgress:()=>dirtyUnsaved,getSaveError:()=>lastSaveError,getScreen:()=>screen,getSnapshot:()=>scoreSnapshot,completeQaMatch:()=>guard(fulltimeQA),getErrors:()=>errors.slice(),getMode:()=>mode, isViewReady:()=>viewReady, getStage:activeStage});
 render();loadCopy().catch(e=>{failure(e.message);errors.push(e.message)});last=performance.now();requestAnimationFrame(loop);
