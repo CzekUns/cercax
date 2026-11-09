@@ -69,6 +69,41 @@ for(const [w,h] of sizes){
   record(view,'roster-gk-filter',await page.locator('.runtime-player-link').count()>0);
   await snap('roster');
   await action('hub').click();
+  await action('section','campionato').click();
+  record(view,'league-calendar-tab',await action('league-tab','calendario').isVisible());
+  await action('league-tab','calendario').click();
+  record(view,'league-calendar-real-ui',(await screen())==='hub-section');
+  if(w===640)await snap('calendar');
+  await action('hub').click();
+  await action('section','tifoseria').click();
+  record(view,'supporters-tabs-exist',(await page.locator('[data-action="support-tab"]').count())===3);
+  const stadiumBefore=await st(()=>{
+    const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+    return {cash:c.finance.cash,price:c.stadium?.ticketPriceITL,stadium:!!c.stadium};
+  });
+  record(view,'stadium-genuine-club-state',stadiumBefore.stadium,JSON.stringify(stadiumBefore));
+  if(w===640){
+    await page.locator('#r11-ticket-price').fill('2000');
+    await action('ticket-change').click();
+    await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress());
+    const stadiumAfter=await st(()=>{
+      const s=window.OronzoR03.getState(),c=s.clubs.find(x=>x.id===s.coach.clubId);
+      return {cash:c.finance.cash,price:c.stadium?.ticketPriceITL};
+    });
+    record(view,'ticket-ui-real-change-no-phantom-cash',
+      stadiumAfter.price===2000&&stadiumAfter.cash===stadiumBefore.cash,JSON.stringify(stadiumAfter));
+    await snap('stadium-after-ticket');
+  }
+  await action('support-tab','tifosi').click();
+  record(view,'supporters-page-reached',(await screen())==='hub-section');
+  await action('support-tab','giornali').click();
+  record(view,'newspaper-page-reached',(await screen())==='hub-section');
+  if(w===640)await snap('newspaper');
+  await action('hub').click();
+  await action('section','agenda').click();
+  record(view,'agenda-page-real',await page.locator('.runtime-hub-detail').count()>0);
+  if(w===640)await snap('agenda');
+  await action('hub').click();
   await action('section','presidente').click();
   record(view,'president-requests-ui',await action('board-request').isVisible());
   if(w===640){
