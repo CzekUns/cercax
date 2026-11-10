@@ -110,7 +110,7 @@ export function settleM1Training(state,{applyTrainingWeek}={}) {
     report:copy(output.report),incidents:copy(output.incidents)};
 }
 /** Use an authoritative Engine06 command; never fake acceptance or coordinates. */
-export function issueM1Command(state,engine,{requestId,type,payload={},tone,targetPlayerId}={}) {
+export function issueM1Command(state,engine,{requestId,type,payload={},tone,targetPlayerId,utteranceId}={}) {
   if (state?.coach?.gameOver || state?.coach?.morale===0)
     return {accepted:false,reason:'game_over'};
   if (state.flow?.stage!=='pre_match' || !state.flow.pendingMatch)
@@ -140,7 +140,7 @@ export function issueM1Command(state,engine,{requestId,type,payload={},tone,targ
       coachOrigin:state.coach.origin??null,
       coachTraits:{leadership:effectiveCoachTraitsR12(state.coach,club).effective.leadership},
       ...(player.origin?{playerOrigin:player.origin}:{}),
-      utteranceId:requestId}};
+      utteranceId:utteranceId??requestId}};
   } else if (type==='teamShout') {
     command={type:'shout',teamId,payload};
   } else command={type,teamId,payload};
