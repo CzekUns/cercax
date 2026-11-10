@@ -44,11 +44,13 @@ test('R12: postmatch selection is deterministic for a stable career seed',()=>{
 });
 
 test('R12: actual match press consequences persist after save/load and reject replay',async()=>{
- const {newGame,listInitialOffers,acceptOffer,answerOpeningPress,prepareMatch,tickMatch,consumeMatchResult,answerPostMatchPress}=await import('../../app/flow/controller.js');
+ const {newGame,listInitialOffers,acceptOffer,answerOpeningPress,prepareMatch,tickMatch,consumeMatchResult,answerPostMatchPress,advanceMatchday,getStateForUI}=await import('../../app/flow/controller.js');
  const {serialize,deserialize}=await import('../../systems/career/save.js');
  const {qaAvatar,qaMunicipalityCatalog}=await import('../../app/flow/tests/qa-geography.mjs');
  const read=path=>JSON.parse(readFileSync(new URL(path,import.meta.url),'utf8'));
  const press={opening:read('../press-opening.json'),postmatch:catalog,media:read('../press-media.json')};
+ const presidents=read('../presidents.json');
+ const {renderSupportersPanel}=await import('../../assets/ui/sections-r11/sections.js');
  const leagueSizes={PROM:4,INTER:4,C2:4,C1:4,B:4,A:4};
  for(const seed of [1979,1980,1981]){
   const state=newGame({seed,avatar:qaAvatar,municipalityCatalog:qaMunicipalityCatalog(),leagueSizes});
@@ -75,5 +77,18 @@ test('R12: actual match press consequences persist after save/load and reject re
   for(const q of questions.slice(1))
    assert.equal(answerPostMatchPress(restored,q.id,q.answers[0].id,{press}).accepted,true);
   assert.equal(restored.flow.press.postmatch.completed,true);
+  const fixtureId=restored.flow.finalMatch.fixtureId,week=restored.absoluteWeek;
+  const progressed=advanceMatchday(restored,{presidentCatalog:presidents,expectedAbsoluteWeek:week});
+  assert.equal(progressed.accepted,true,JSON.stringify(progressed));
+  assert.equal(restored.flow.press.postmatch,null);
+  assert.equal(restored.flow.pressArchive.length,1);
+  assert.equal(restored.flow.pressArchive[0].fixtureId,fixtureId);
+  assert.equal(restored.flow.pressArchive[0].session.completed,true);
+  const html=renderSupportersPanel({ui:getStateForUI(restored),club:{},tab:'giornali'});
+  for(const q of questions)assert.ok(html.includes(q.text),'saved article missing '+q.id);
+  assert.equal(advanceMatchday(restored,{presidentCatalog:presidents,expectedAbsoluteWeek:week}).accepted,false,
+   'replay week must not duplicate conference');
+  assert.equal(restored.flow.pressArchive.length,1);
+  assert.deepEqual(deserialize(serialize(restored)).flow.pressArchive,restored.flow.pressArchive);
  }
 });
