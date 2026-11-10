@@ -18,3 +18,10 @@ Data: 2026-11-10. Scope: conferenze postpartita contestuali, persistenza UI, reg
 
 ## Criteri di merge e limiti
 Queste prove valgono per #72 isolata sul main pre-R12. Deve ancora essere eseguito il gate combinato con #70 prima della consegna pubblica. Lo smartphone Android fisico e le tre risoluzioni partita in browser restano da verificare separatamente. Nessuna PR #12 cutscene viene mergiata direttamente da qui.
+
+## Integrazione con PR #70 — correzione emersa dal percorso combinato
+- La PR #70 è confluita su `main` al commit `ec9c7b0798a1e2dc118de6507970fb8483da560a`. Il file `oronzo/assets/ui/career-r03.js` di #72 è stato ricostruito dal runtime del main già integrato applicando le stesse sei correzioni di serializzazione e preservando la protezione della #71, senza force push.
+- Un test di percorso ha individuato un limite reale ereditato da R11: `advanceMatchday` cancellava `flow.press.postmatch`, quindi i quotidiani non potevano mostrare conferenze concluse nelle settimane precedenti. Non vengono inventate conferenze: ora unicamente la conferenza effettivamente completata viene archiviata con ID fixture e anno/settimana in `flow.pressArchive`, una volta sola, in fase di avanzamento effettivo. Gli old save senza archivio restano compatibili; nessun vecchio articolo viene fabbricato.
+- `getStateForUI` espone l'archivio e il renderer GIORNALI mostra le risposte originali effettivamente registrate, senza duplicati su replay.
+- Le asserzioni Node controllano archivio, idempotenza, compatibilità save/load e render; un nuovo script Chromium `r12-combined-outcomes-browser.mjs` esegue conferenze win/draw/loss con seed reali, quattro viewport, verifica IndexedDB, giornali dopo avanzamento e ricarica.
+- Workflow aggiornato: esegue anche la suite R12 quinquennale e la QA grafica #70 sul checkout combinato e, dopo un merge autorizzato e CI verdi, controlla la pubblicazione HTTPS effettiva di GitHub Pages. **Non contare come PASS questi nuovi gate finché non sono eseguiti sull'ultimo HEAD.**
