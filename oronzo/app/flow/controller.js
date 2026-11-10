@@ -18,6 +18,8 @@ import { generatePlayer as generateAttributesPlayer } from '../../systems/attrib
 import {derivePlayerOriginsFromWorldR12} from '../../systems/attributes/world-origins-r12.js';
 import {ensureCareerVisualsR12} from '../../systems/attributes/visual-r12.js';
 import {syncPresidentTraitsR12,effectiveCoachTraitsR12} from '../../systems/coach-club/president-traits-r12.js';
+import {recordCareerNarrativeR12,decideCareerNarrativeR12} from '../../content/career-narrative-r12.js';
+export {decideCareerNarrativeR12};
 import { normalizePlayer as normalizeAttributesPlayer } from '../../systems/attributes/player-model.js';
 import { applyTrainingWeek, applyMatchLoad, advanceSeason } from '../../systems/attributes/training.js';
 import { chooseTrainingPlan,settleHomeAttendance,persistShout } from '../../systems/coach-club/index.js';
@@ -320,6 +322,7 @@ export function acceptOffer(state,offerId,{press,presidents}={}) {
   const eventId='offer-morale:'+offerId;
   const effect=recordEffect(draft,eventId,'initial_offer',{preview},{offer:found});
   if(presidents)syncPresidentTraitsR12(draft.coach,clubById(draft,accepted.clubId),presidents);
+  recordCareerNarrativeR12(draft,{context:'appointment',presidentCatalog:presidents});
   startPress(draft,'opening',press,offerId);
   commitDraft(state,draft);
   return {...accepted,effectStatus:effect.status,previewMorale:preview};
@@ -367,6 +370,7 @@ export function getStateForUI(state) {
       players:club.players.map(p=>({playerId:p.id,name:p.name,positions:p.positions,
         visual:p.visual??null}))}:null,
     offers:state.flow?.initialOffers??[],careerOffers:state.offers,
+    r12Narrative:state.flow?.r12Narrative??null,
     press:state.flow?.press??null,upcomingFixture:getUpcomingFixture(state),
     resultSources:state.flow?.resultSources??{},
     pendingEffectTransactions:Object.values(state.flow?.effectTransactions??{})
@@ -563,6 +567,11 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
   draft.gameDate=dateAt(draft.seasonYear,draft.week,draft.calendarPolicy.seasonStartMonth,
     draft.calendarPolicy.seasonStartDay);
   syncPresidentTraitsR12(draft.coach,draft.coach.clubId?clubById(draft,draft.coach.clubId):null,presidentCatalog);
+  const goals=coachFixture?.result?.score;
+  const forGoals=goals?(coachFixture.homeId===playerClub?goals.home:goals.away):null;
+  const againstGoals=goals?(coachFixture.homeId===playerClub?goals.away:goals.home):null;
+  const realResult=forGoals==null?null:forGoals>againstGoals?'victory':forGoals<againstGoals?'defeat':'draw';
+  recordCareerNarrativeR12(draft,{realResult,presidentCatalog});
   // Replace validated state only after all per-club finance and game rules succeed.
   for(const k of Object.keys(state))delete state[k];
   Object.assign(state,draft);
