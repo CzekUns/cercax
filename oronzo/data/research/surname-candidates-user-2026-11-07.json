@@ -1,0 +1,2237 @@
+{
+  "schemaVersion": 1,
+  "batchId": "user-surname-candidates-2026-11-07",
+  "kind": "unverified_surname_candidates",
+  "submittedCount": 314,
+  "notes": [
+    "Trascrizione dei cognomi e delle regioni indicate dall'utente nella chat ORONZO del 7 novembre 2026.",
+    "Nessuna fonte pubblica, anno, licenza o statistica di diffusione è stata fornita; concentrazioni >50% o >80-90%, rarità e origine storica NON sono verificate.",
+    "Questa raccolta non è surnames.json e NON entra nel conteggio dei 500 cognomi validati M1 prima del controllo di provenienza/licenza, normalizzazione, deduplicazione e approvazione.",
+    "Gli ID proposal: sono identificatori provvisori del lotto e NON sono surnameId canonici definitivi; mantenere tutte le grafie originali e controllare varianti ortografiche prima della promozione.",
+    "Regioni italiane senza proposte in questo lotto: Valle d'Aosta, Umbria, Basilicata."
+  ],
+  "perRegionCount": {
+    "Piemonte": 20,
+    "Liguria": 20,
+    "Lombardia": 20,
+    "Veneto": 20,
+    "Trentino-Alto Adige": 9,
+    "Friuli-Venezia Giulia": 20,
+    "Emilia-Romagna": 13,
+    "Toscana": 20,
+    "Marche": 20,
+    "Lazio": 17,
+    "Abruzzo": 20,
+    "Molise": 20,
+    "Campania": 20,
+    "Puglia": 15,
+    "Calabria": 20,
+    "Sicilia": 20,
+    "Sardegna": 20
+  },
+  "regionsNotRepresented": [
+    "Valle d'Aosta",
+    "Umbria",
+    "Basilicata"
+  ],
+  "candidates": [
+    {
+      "candidateId": "proposal:fissore",
+      "surname": "Fissore",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:demichelis",
+      "surname": "Demichelis",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:dalmasso",
+      "surname": "Dalmasso",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:giraudo",
+      "surname": "Giraudo",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:dutto",
+      "surname": "Dutto",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cena",
+      "surname": "Cena",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:costamagna",
+      "surname": "Costamagna",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:barale",
+      "surname": "Barale",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:panero",
+      "surname": "Panero",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:fenoglio",
+      "surname": "Fenoglio",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:olivero",
+      "surname": "Olivero",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cravero",
+      "surname": "Cravero",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tomatis",
+      "surname": "Tomatis",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mondino",
+      "surname": "Mondino",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:piovano",
+      "surname": "Piovano",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:barbero",
+      "surname": "Barbero",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:audisio",
+      "surname": "Audisio",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:giachino",
+      "surname": "Giachino",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:borio",
+      "surname": "Borio",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:racca",
+      "surname": "Racca",
+      "proposedRegion": "Piemonte",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bacigalupo",
+      "surname": "Bacigalupo",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:dellepiane",
+      "surname": "Dellepiane",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pittaluga",
+      "surname": "Pittaluga",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:sciaccaluga",
+      "surname": "Sciaccaluga",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:traverso",
+      "surname": "Traverso",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:risso",
+      "surname": "Risso",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:calcagno",
+      "surname": "Calcagno",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:caviglia",
+      "surname": "Caviglia",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ferrando",
+      "surname": "Ferrando",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:oliveri",
+      "surname": "Oliveri",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ottonello",
+      "surname": "Ottonello",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:canepa",
+      "surname": "Cànepa",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:barberis",
+      "surname": "Barberis",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:boero",
+      "surname": "Boero",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:vassallo",
+      "surname": "Vassallo",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:patrone",
+      "surname": "Patrone",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:potesta",
+      "surname": "Potestà",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pedemonte",
+      "surname": "Pedemonte",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:parodi",
+      "surname": "Parodi",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bruzzone",
+      "surname": "Bruzzone",
+      "proposedRegion": "Liguria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cazzaniga",
+      "surname": "Cazzaniga",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mandelli",
+      "surname": "Mandelli",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tagliabue",
+      "surname": "Tagliabue",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:fumagalli",
+      "surname": "Fumagalli",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ghezzi",
+      "surname": "Ghezzi",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:locatelli",
+      "surname": "Locatelli",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cattaneo",
+      "surname": "Cattaneo",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:giudici",
+      "surname": "Giudici",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:clerici",
+      "surname": "Clerici",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:baroni",
+      "surname": "Baroni",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:rota",
+      "surname": "Rota",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bresciani",
+      "surname": "Bresciani",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mantovani",
+      "surname": "Mantovani",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bergamaschi",
+      "surname": "Bergamaschi",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cremonesi",
+      "surname": "Cremonesi",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:negri",
+      "surname": "Negri",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:beretta",
+      "surname": "Beretta",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:colombo",
+      "surname": "Colombo",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:milani",
+      "surname": "Milani",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:lombardi",
+      "surname": "Lombardi",
+      "proposedRegion": "Lombardia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:schiavon",
+      "surname": "Schiavon",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bordignon",
+      "surname": "Bordignon",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:zanchetta",
+      "surname": "Zanchetta",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:boscolo",
+      "surname": "Boscolo",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:masiero",
+      "surname": "Masiero",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:zago",
+      "surname": "Zago",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:dal-farra",
+      "surname": "Dal Farra",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:dal-zotto",
+      "surname": "Dal Zotto",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:volpato",
+      "surname": "Volpato",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:simionato",
+      "surname": "Simionato",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:marcato",
+      "surname": "Marcato",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:rampazzo",
+      "surname": "Rampazzo",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:favaretto",
+      "surname": "Favaretto",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:zanca",
+      "surname": "Zanca",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:zambon",
+      "surname": "Zambon",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:zanatta",
+      "surname": "Zanatta",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:lorenzon",
+      "surname": "Lorenzon",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:berton",
+      "surname": "Berton",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:frigo",
+      "surname": "Frigo",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:vianello",
+      "surname": "Vianello",
+      "proposedRegion": "Veneto",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mair",
+      "surname": "Mair",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pichler",
+      "surname": "Pichler",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:gasser",
+      "surname": "Gasser",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:moser",
+      "surname": "Moser",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:merz",
+      "surname": "Merz",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:piffer",
+      "surname": "Piffer",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cosser",
+      "surname": "Cosser",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:trentini",
+      "surname": "Trentini",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tomasi",
+      "surname": "Tomasi",
+      "proposedRegion": "Trentino-Alto Adige",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:santarossa",
+      "surname": "Santarossa",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mattiussi",
+      "surname": "Mattiussi",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cargnelutti",
+      "surname": "Cargnelutti",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tolosino",
+      "surname": "Tolosino",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:moras",
+      "surname": "Moras",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:copetti",
+      "surname": "Copetti",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ermacora",
+      "surname": "Ermacora",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tomat",
+      "surname": "Tomat",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cantarutti",
+      "surname": "Cantarutti",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:petris",
+      "surname": "Petris",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:turchet",
+      "surname": "Turchet",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:del-ben",
+      "surname": "Del Ben",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:londero",
+      "surname": "Londero",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:dri",
+      "surname": "Dri",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:feruglio",
+      "surname": "Feruglio",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:vascotto",
+      "surname": "Vascotto",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:carghelutti",
+      "surname": "Carghelutti",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:calligaris",
+      "surname": "Calligaris",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:degano",
+      "surname": "Degano",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:del-fabbro",
+      "surname": "Del Fabbro",
+      "proposedRegion": "Friuli-Venezia Giulia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tagliaferri",
+      "surname": "Tagliaferri",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:paraboschi",
+      "surname": "Paraboschi",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pelagatti",
+      "surname": "Pelagatti",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:codeluppi",
+      "surname": "Codeluppi",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ligabue",
+      "surname": "Ligabue",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tagliavini",
+      "surname": "Tagliavini",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pellacani",
+      "surname": "Pellacani",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mazzavillani",
+      "surname": "Mazzavillani",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:maccaferri",
+      "surname": "Maccaferri",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ferramosca",
+      "surname": "Ferramosca",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tettamanzi",
+      "surname": "Tettamanzi",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mazzagrillo",
+      "surname": "Mazzagrillo",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bellagamba",
+      "surname": "Bellagamba",
+      "proposedRegion": "Emilia-Romagna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:lucchesi",
+      "surname": "Lucchesi",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:manetti",
+      "surname": "Manetti",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pratesi",
+      "surname": "Pratesi",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bindi",
+      "surname": "Bindi",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:melani",
+      "surname": "Melani",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:niccolai",
+      "surname": "Niccolai",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:brogi",
+      "surname": "Brogi",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pardini",
+      "surname": "Pardini",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:nocentini",
+      "surname": "Nocentini",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bacci",
+      "surname": "Bacci",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:biagi",
+      "surname": "Biagi",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:biagini",
+      "surname": "Biagini",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:casini",
+      "surname": "Casini",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cecchi",
+      "surname": "Cecchi",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cioni",
+      "surname": "Cioni",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:dini",
+      "surname": "Dini",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:gori",
+      "surname": "Gori",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:innocenti",
+      "surname": "Innocenti",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pacini",
+      "surname": "Pacini",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:aguglione",
+      "surname": "Aguglione",
+      "proposedRegion": "Toscana",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:capriotti",
+      "surname": "Capriotti",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bartolucci",
+      "surname": "Bartolucci",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:sabbatini",
+      "surname": "Sabbatini",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:traini",
+      "surname": "Traini",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cingolani",
+      "surname": "Cingolani",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:principi",
+      "surname": "Principi",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:monachesi",
+      "surname": "Monachesi",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:sartini",
+      "surname": "Sartini",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:piccioni",
+      "surname": "Piccioni",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mancinelli",
+      "surname": "Mancinelli",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:grilli",
+      "surname": "Grilli",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:spadoni",
+      "surname": "Spadoni",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ciotti",
+      "surname": "Ciotti",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:gentili",
+      "surname": "Gentili",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:burattini",
+      "surname": "Burattini",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:gobbi",
+      "surname": "Gobbi",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:santarelli",
+      "surname": "Santarelli",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:paolinelli",
+      "surname": "Paolinelli",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:belardinetti",
+      "surname": "Belardinetti",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ceccarelli",
+      "surname": "Ceccarelli",
+      "proposedRegion": "Marche",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:felici",
+      "surname": "Felici",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bonanni",
+      "surname": "Bonanni",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:fabrizi",
+      "surname": "Fabrizi",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:proietti",
+      "surname": "Proietti",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:quattrociocchi",
+      "surname": "Quattrociocchi",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:calicchia",
+      "surname": "Calicchia",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:paniccia",
+      "surname": "Paniccia",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:scaccia",
+      "surname": "Scaccia",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bracaglia",
+      "surname": "Bracaglia",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:chiappini",
+      "surname": "Chiappini",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:campagiorni",
+      "surname": "Campagiorni",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:fusacchia",
+      "surname": "Fusacchia",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ciancarelli",
+      "surname": "Ciancarelli",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mostarda",
+      "surname": "Mostarda",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:burla",
+      "surname": "Burla",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pallucca",
+      "surname": "Pallucca",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mangiapelo",
+      "surname": "Mangiapelo",
+      "proposedRegion": "Lazio",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:amario",
+      "surname": "Amario",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:intino",
+      "surname": "Intino",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:prinzio",
+      "surname": "Prinzio",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:muzio",
+      "surname": "Muzio",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:addario",
+      "surname": "Addario",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:credico",
+      "surname": "Credico",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ascenzo",
+      "surname": "Ascenzo",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:girolamo",
+      "surname": "Girolamo",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:berardino",
+      "surname": "Berardino",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:giacinto",
+      "surname": "Giacinto",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:annunzio",
+      "surname": "Annunzio",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bonaventura",
+      "surname": "Bonaventura",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-dominicis",
+      "surname": "De Dominicis",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-amicis",
+      "surname": "De Amicis",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-berardinis",
+      "surname": "De Berardinis",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-leonardis",
+      "surname": "De Leonardis",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-benedictis",
+      "surname": "De Benedictis",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-vincentiis",
+      "surname": "De Vincentiis",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-iuliis",
+      "surname": "De Iuliis",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-felicibus",
+      "surname": "De Felicibus",
+      "proposedRegion": "Abruzzo",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mignogna",
+      "surname": "Mignogna",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:trivisonno",
+      "surname": "Trivisonno",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:panichella",
+      "surname": "Panichella",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:manocchio",
+      "surname": "Manocchio",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:di-pilla",
+      "surname": "Di Pilla",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:colavita",
+      "surname": "Colavita",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:d-uva",
+      "surname": "D'Uva",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:marinelli",
+      "surname": "Marinelli",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:perrella",
+      "surname": "Perrella",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mastrangelo",
+      "surname": "Mastrangelo",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:fanelli",
+      "surname": "Fanelli",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:giancola",
+      "surname": "Giancola",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:antenucci",
+      "surname": "Antenucci",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:niro",
+      "surname": "Niro",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:occhionero",
+      "surname": "Occhionero",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:tartaglia",
+      "surname": "Tartaglia",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:palladino",
+      "surname": "Palladino",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:d-aversa",
+      "surname": "D'Aversa",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:venditti",
+      "surname": "Venditti",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:vasile",
+      "surname": "Vasile",
+      "proposedRegion": "Molise",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:scognamiglio",
+      "surname": "Scognamiglio",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:gargiulo",
+      "surname": "Gargiulo",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:capasso",
+      "surname": "Capasso",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:varriale",
+      "surname": "Varriale",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:caruso",
+      "surname": "Caruso",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:luongo",
+      "surname": "Luongo",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:riccio",
+      "surname": "Riccio",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:fusco",
+      "surname": "Fusco",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:barbato",
+      "surname": "Barbato",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:capuozzo",
+      "surname": "Capuozzo",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pinto",
+      "surname": "Pinto",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:musella",
+      "surname": "Musella",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cozzolino",
+      "surname": "Cozzolino",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:apicella",
+      "surname": "Apicella",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:caiazzo",
+      "surname": "Caiazzo",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:annunziata",
+      "surname": "Annunziata",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:picariello",
+      "surname": "Picariello",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:varricchio",
+      "surname": "Varricchio",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:formisano",
+      "surname": "Formisano",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:capuano",
+      "surname": "Capuano",
+      "proposedRegion": "Campania",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:lippolis",
+      "surname": "Lippolis",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ingrosso",
+      "surname": "Ingrosso",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:carrozzo",
+      "surname": "Carrozzo",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:quarta",
+      "surname": "Quarta",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:semerano",
+      "surname": "Semerano",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:saponaro",
+      "surname": "Saponaro",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:rollo",
+      "surname": "Rollo",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:di-bari",
+      "surname": "Di Bari",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:carrieri",
+      "surname": "Carrieri",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:guadalupi",
+      "surname": "Guadalupi",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:lorusso",
+      "surname": "Lorusso",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:calo",
+      "surname": "Calò",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:calogiuri",
+      "surname": "Calogiuri",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:calimero",
+      "surname": "Calimero",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:castrignano",
+      "surname": "Castrignanò",
+      "proposedRegion": "Puglia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:filice",
+      "surname": "Filice",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:de-rose",
+      "surname": "De Rose",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:chiappetta",
+      "surname": "Chiappetta",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:sposato",
+      "surname": "Sposato",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:spadafora",
+      "surname": "Spadafora",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:talarico",
+      "surname": "Talarico",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:fazari",
+      "surname": "Fazari",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mammoliti",
+      "surname": "Mammoliti",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:furfaro",
+      "surname": "Furfaro",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cannata",
+      "surname": "Cannatà",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:carere",
+      "surname": "Carere",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mafrica",
+      "surname": "Mafrica",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:macri",
+      "surname": "Macrì",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:lagana",
+      "surname": "Laganà",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:arcuri",
+      "surname": "Arcuri",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:surace",
+      "surname": "Surace",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:calabro",
+      "surname": "Calabrò",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:sgro",
+      "surname": "Sgrò",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pratico",
+      "surname": "Praticò",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:nistico",
+      "surname": "Nisticò",
+      "proposedRegion": "Calabria",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:torrisi",
+      "surname": "Torrisi",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pulvirenti",
+      "surname": "Pulvirenti",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:rapisarda",
+      "surname": "Rapisarda",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:giuffrida",
+      "surname": "Giuffrida",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:finocchiaro",
+      "surname": "Finocchiaro",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:balistreri",
+      "surname": "Balistreri",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cannizzaro",
+      "surname": "Cannizzaro",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:cammareri",
+      "surname": "Cammareri",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:scuderi",
+      "surname": "Scuderi",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:impellizzeri",
+      "surname": "Impellizzeri",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:occhipinti",
+      "surname": "Occhipinti",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:quattrocchi",
+      "surname": "Quattrocchi",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:pappalardo",
+      "surname": "Pappalardo",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:d-ignoto",
+      "surname": "D'Ignoto",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:d-ignoti",
+      "surname": "D'Ignoti",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:incognito",
+      "surname": "Incognito",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:legista",
+      "surname": "Legista",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:mezzasalma",
+      "surname": "Mezzasalma",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:spataro",
+      "surname": "Spataro",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:vaccaro",
+      "surname": "Vaccaro",
+      "proposedRegion": "Sicilia",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:arippa",
+      "surname": "Arippa",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:garippa",
+      "surname": "Garippa",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:garribba",
+      "surname": "Garribba",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bacchiddu",
+      "surname": "Bacchiddu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bachiddu",
+      "surname": "Bachiddu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:badalamenti",
+      "surname": "Badalamenti",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:baggedda",
+      "surname": "Baggedda",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bagella",
+      "surname": "Bagella",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:baledda",
+      "surname": "Baledda",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:ballisai",
+      "surname": "Ballisai",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:balloco",
+      "surname": "Balloco",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:barracu",
+      "surname": "Barracu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:barranua",
+      "surname": "Barranua",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:barranu",
+      "surname": "Barranu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:basciu",
+      "surname": "Basciu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bassu",
+      "surname": "Bassu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:batzella",
+      "surname": "Batzella",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:becciu",
+      "surname": "Becciu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bellisai",
+      "surname": "Bellisai",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    },
+    {
+      "candidateId": "proposal:bistrussu",
+      "surname": "Bistrussu",
+      "proposedRegion": "Sardegna",
+      "distributionStatus": "unverified",
+      "sourceStatus": "user_supplied_no_public_citation"
+    }
+  ]
+}

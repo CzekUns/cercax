@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "rp92-comuni-2026",
+      "name": "RP92/comuni-italiani — dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/valle-d-aosta.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "Anno puntuale di riferimento della popolazione non esposto nei record; 2026 indica il dataset pubblicato, non il censimento. Non usare per simulare il 1979."
+    },
+    {
+      "id": "rp92-molise-2026",
+      "name": "RP92/comuni-italiani — Molise, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/molise.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "Campione di 30 comuni meno popolati nel file regionale Molise; nessun ranking nazionale. Anno puntuale della popolazione non specificato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-abruzzo-2026",
+      "name": "RP92/comuni-italiani — Abruzzo, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/abruzzo.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente dal file regionale; nessun ranking nazionale verificato. Anno demografico puntuale non attestato. Non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-basilicata-2026",
+      "name": "RP92/comuni-italiani — Basilicata, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/basilicata.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente nel file regionale Basilicata, non ranking nazionale; anno puntuale della popolazione non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "bergamo-2021-italiani-cc0",
+      "name": "Comune di Bergamo — Serie storica cognomi più diffusi, anno 2021, residenti cittadinanza Italiani",
+      "url": "https://www.dati.lombardia.it/d/4pqu-7zkd",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenseEvidenceUrl": "https://www.dati.lombardia.it/api/views/4pqu-7zkd.json",
+      "publisher": "Comune di Bergamo",
+      "referenceYear": 2021,
+      "sourceSnapshot": "https://github.com/ozdemirburak/full-name-generator/blob/main/scripts/data/snapshots/it-bergamo-2021-surnames.json",
+      "sourceSnapshotSha256": "ef5aba340714a285d7ef0d6d879bec2313ac03e7f793d9a3482a77efc8c2bda2",
+      "rightsSnapshot": "https://github.com/ozdemirburak/full-name-generator/blob/main/scripts/data/rights/it-bergamo-surnames-license.json",
+      "notes": "500 cognomi con cittadinanza Italiani, selezionati per frequenza locale crescente fra soli record pubblicati (>10); non rappresentano classifica nazionale, rarità nazionale o 1979. Dati aggregati, nessun individuo."
+    },
+    {
+      "id": "rp92-umbria-2026",
+      "name": "RP92/comuni-italiani — Umbria, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/umbria.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni selezionati per popolazione crescente dal file regionale Umbria; nessun ranking nazionale verificato; anno puntuale popolazione non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-marche-2026",
+      "name": "RP92/comuni-italiani — Marche, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/marche.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "Selezione regionale per popolazione crescente nello snapshot; nessun ranking nazionale. Anno demografico puntuale non attestato. Non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-lazio-2026",
+      "name": "RP92/comuni-italiani — Lazio, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/lazio.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni del Lazio per popolazione crescente nello snapshot regionale; non ranking nazionale, anno demografico puntuale non attestato, non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-liguria-2026",
+      "name": "RP92/comuni-italiani — Liguria, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/liguria.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni selezionati per popolazione crescente nello snapshot regionale; nessun ranking nazionale verificato. Anno demografico puntuale non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-piemonte-2026",
+      "name": "RP92/comuni-italiani — Piemonte, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/piemonte.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni del Piemonte per popolazione crescente nello snapshot regionale; nessun ranking nazionale verificato; anno demografico puntuale non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-trentino-2026",
+      "name": "RP92/comuni-italiani — Trentino-Alto Adige/Südtirol, dati derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/trentino-alto-adige.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni ordinati per popolazione crescente nel file regionale, senza ranking nazionale. Anno demografico puntuale non attestato; dati non rappresentativi del 1979."
+    },
+    {
+      "id": "rp92-veneto-2026",
+      "name": "RP92/comuni-italiani — Veneto, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/veneto.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni del Veneto selezionati per popolazione crescente nello snapshot regionale; non ranking nazionale. Anno demografico puntuale non attestato, dati non rappresentativi del 1979."
+    },
+    {
+      "id": "rp92-friuli-2026",
+      "name": "RP92/comuni-italiani — Friuli-Venezia Giulia, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/friuli-venezia-giulia.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni selezionati per popolazione crescente nello snapshot regionale; non ranking nazionale. Anno demografico puntuale non attestato, dati non rappresentativi del 1979."
+    },
+    {
+      "id": "rp92-emilia-romagna-2026",
+      "name": "RP92/comuni-italiani — Emilia-Romagna, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/emilia-romagna.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni selezionati per popolazione crescente nello snapshot regionale; nessun ranking nazionale. Anno demografico puntuale non attestato; non rappresentano il 1979."
+    },
+    {
+      "id": "rp92-toscana-2026",
+      "name": "RP92/comuni-italiani — Toscana, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/toscana.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 piccoli comuni selezionati per popolazione crescente nello snapshot regionale; nessun ranking nazionale verificato. Anno demografico puntuale non attestato; dati non rappresentativi del 1979."
+    },
+    {
+      "id": "rp92-campania-2026",
+      "name": "RP92/comuni-italiani — Campania, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/campania.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente nel file regionale Campania; nessun ranking nazionale verificato. Anno demografico puntuale non attestato; non rappresentano il 1979."
+    },
+    {
+      "id": "rp92-puglia-2026",
+      "name": "RP92/comuni-italiani — Puglia, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/puglia.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente nel file regionale Puglia; nessun ranking nazionale verificato. Anno demografico puntuale non attestato; non rappresentano il 1979."
+    },
+    {
+      "id": "rp92-calabria-2026",
+      "name": "RP92/comuni-italiani — Calabria, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/calabria.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente nel file regionale; nessun ranking nazionale. Anno demografico puntuale non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-sicilia-2026",
+      "name": "RP92/comuni-italiani — Sicilia, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/sicilia.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "25 comuni selezionati per popolazione crescente nel file regionale; non ranking nazionale. Anno demografico puntuale non attestato; non rappresenta il 1979."
+    },
+    {
+      "id": "rp92-sardegna-2026",
+      "name": "RP92/comuni-italiani — Sardegna, dati comunali derivati da ISTAT",
+      "url": "https://github.com/RP92/comuni-italiani/blob/main/data/regioni/sardegna.json",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://github.com/RP92/comuni-italiani/blob/main/LICENSE-DATA",
+      "attribution": "ISTAT; RP92/comuni-italiani",
+      "snapshotYear": 2026,
+      "populationReferenceYear": null,
+      "notes": "Anno puntuale di riferimento popolazione non attestato; 2026 indica snapshot, non anno demografico. Non rappresenta il 1979."
+    }
+  ]
+}
