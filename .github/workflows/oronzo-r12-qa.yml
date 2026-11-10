@@ -1,0 +1,45 @@
+name: ORONZO R12 Real Tests
+on:
+  push:
+    branches:
+      - agent/oronzo-r12-single-completion-20261110
+  pull_request:
+    paths:
+      - 'oronzo/**'
+      - '.github/workflows/oronzo-r12-qa.yml'
+  workflow_dispatch:
+jobs:
+  r12-native-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install real browser
+        run: |
+          npm install --no-save playwright fake-indexeddb
+          npx playwright install --with-deps chromium
+      - name: Native JS syntax check
+        run: |
+          for f in oronzo/systems/attributes/visual-r12.js oronzo/systems/attributes/world-origins-r12.js oronzo/systems/coach-club/president-traits-r12.js oronzo/systems/career/seed-r12.js oronzo/app/flow/controller.js oronzo/app/flow/m1-contract.js oronzo/assets/ui/career-r03.js oronzo/assets/ui/sections-r11/sections.js oronzo/assets/ui/qa/r12-browser.mjs oronzo/app/flow/tests/r12-integration.test.mjs; do node --check "$f"; done
+      - name: Native Node R12 including five real seasons
+        run: node --test oronzo/app/flow/tests/r12-integration.test.mjs
+      - name: Native Node existing R11 regression
+        if: always()
+        run: |
+          node --test oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs oronzo/assets/ui/sections-r11/sections-r11.test.mjs
+      - name: Real Chromium HTTP R12 four landscape viewports
+        if: always()
+        run: |
+          python3 -m http.server 8123 --bind 127.0.0.1 >/tmp/oronzo-r12-http.log 2>&1 &
+          sleep 2
+          node oronzo/assets/ui/qa/r12-browser.mjs
+      - name: Upload screenshots and five-season logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oronzo-r12-evidence
+          path: r12-evidence/
+          if-no-files-found: ignore
