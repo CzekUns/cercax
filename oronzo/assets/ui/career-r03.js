@@ -5,6 +5,11 @@ import {newGame,listInitialOffers,acceptOffer,getStateForUI,answerOpeningPress,
   from '../../app/flow/controller.js';
 import {qaMunicipalityCatalog} from '../../app/flow/tests/qa-geography.mjs';
 import {BUILTIN_SURNAME_CATALOG} from '../../systems/attributes/surnames.js';
+import {newCareerSeedR12} from '../../systems/career/seed-r12.js';
+import {decideCareerNarrativeR12} from '../../content/career-narrative-r12.js';
+import {selectMatchShoutR12} from '../../content/shouts-r12.js';
+import {ensureCareerVisualsR12,appearanceForMatchR12} from '../../systems/attributes/visual-r12.js';
+import {effectiveCoachTraitsR12} from '../../systems/coach-club/president-traits-r12.js';
 import {previewOfferMorale} from '../../systems/coach-club/index.js';
 import {getStandings} from '../../systems/career/career.js';
 import {createMatchView,createEngineViewBridge} from '../../systems/match-view/match-view.js';
@@ -38,7 +43,7 @@ let state=null, press=null, presidents=null, mode='normal', screen='entry', avat
  offerIndex=0, selectedHub='campionato', lineup=new Set(), bench=new Set(), captain=null,
  engine=null,matchInput=null,view=null,bridge=null,paused=true,speed=1,last=0,locking=false,
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
-let errors=[], viewReady=false;
+let errors=[], viewReady=false, SHOUTS=null;
 let trainingPlan='balanced',trainingIntensity=50,trainingRosterOpen=false,supportTab='stadio';
 let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full',matchToolsOpen=false,leagueTab='classifica',presidentTab='ufficio',formationChoice='4-4-2',pressingChoice=50,rosterFilter='ALL',rosterSort='name';
 let integrationBackend=null;
@@ -104,6 +109,8 @@ async function load(){
   if(payload.legacy){message('Salvataggio storico 1985 protetto. Usa il prototipo precedente.');return}
   clearMatch();protectPreviousSave=false;dirtyUnsaved=false;lastSaveError='';
   selectedPlayerId=null;profileSource='rosa';state=payload.state;
+   const visualMigration=ensureCareerVisualsR12(state);
+   if(visualMigration.players||visualMigration.kits)dirtyUnsaved=true;
   mode=state.world?.mode==='qa_fixture'?'qa':'normal';
   avatar=Math.max(0,baseCoaches.findIndex((_,i)=>'ui-r03-'+i===state.coach.avatarId));
   selectLineup();formationChoice=state.coach.tactics?.formation||'4-4-2';pressingChoice=state.coach.tactics?.pressing??50;
@@ -142,11 +149,11 @@ async function importSave(file){
  }catch(e){failure('IMPORTAZIONE RIFIUTATA · '+saveErrorText(e))}
 }
 async function loadCopy(){
- const paths=['../../content/press-opening.json','../../content/press-postmatch.json','../../content/press-media.json','../../content/presidents.json'];
+ const paths=['../../content/press-opening.json','../../content/press-postmatch.json','../../content/press-media.json','../../content/presidents.json','../../content/individual-shouts.json'];
  const all=await Promise.all(paths.map(async p=>{
   const r=await fetch(p);if(!r.ok)throw new Error('COPY04 HTTP '+r.status+': '+p);return r.json();
  }));
- press={opening:all[0],postmatch:all[1],media:all[2]};presidents=all[3];
+ press={opening:all[0],postmatch:all[1],media:all[2]};presidents=all[3];SHOUTS=all[4];
  try{
   const response=await fetch('../../data/world/municipalities-m1.json');
   if(!response.ok)throw new Error('HTTP '+response.status);
@@ -172,7 +179,7 @@ function newCareer(){
  const place=catalog.municipalities.find(x=>x.municipalityId===origin);
  if(!place)return failure('Seleziona un comune di origine valido');
  const originData={municipalityId:place.municipalityId,regionId:place.regionId,macroRegion:place.macroRegion};
- state=newGame({seed:1979,coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{
+ state=newGame({seed:newCareerSeedR12({query:window.location.search}),coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{
   luck:c[1][0],leadership:c[1][1],selfEsteem:c[1][2],patience:c[1][3]
  },origin:originData},municipalityCatalog:catalog,surnameCatalog:BUILTIN_SURNAME_CATALOG});
  offerIndex=0;dirtyUnsaved=true;selectLineup();display('offers');
@@ -208,9 +215,9 @@ function renderAvatar(){
   pane('PROFILO ALLENATORE',profile,'runtime-grow')+'</div>';
 }
 function offerResult(o){try{const club=state.clubs.find(c=>c.id===o.clubId);return previewOfferMorale(state.coach,o,club)}catch{return null}}
-function renderOffers(){const opts=listInitialOffers(state),o=opts[offerIndex]||opts[0];if(!o)return head('NESSUNA OFFERTA');const pr=offerResult(o);return head('MERCATO DELLE PANCHINE','20 OFFERTE REALI DEL CONTROLLER 07')+`<div class="runtime-split">${pane('LE PROPOSTE',`<div class="runtime-list runtime-scroll runtime-grow">${opts.map((x,i)=>`<button class="runtime-offer" data-action="offer" data-value="${i}" aria-selected="${offerIndex===i}"><span><b>${i+1}. ${esc(x.clubName)}</b><small>${esc(x.divisionId)}</small></span><b>${esc(offerResult(x)?.finalMoraleDelta??'—')} ♥</b></button>`).join('')}</div>`,'runtime-grow')}${pane('CONTRATTO',`<div class="runtime-info"><b>${esc(o.clubName)}</b><br>Serie ${esc(o.divisionId)}<br>Compenso settimanale: ${esc(o.coachWageITL.toLocaleString('it-IT'))} ₤ (bilanciamento fittizio)<br>Morale ingaggio: ${esc(pr?.finalMoraleDelta??'non calcolabile')}<br>Scadenza: ${esc(o.contractUntil)}<br>Regione: ${esc(o.regionId||'geografia assente')}</div><p class="runtime-foot">Preview del modulo 09. Nessuna firma se mancano origine/regione attendibili.</p>${h(btn('AVATAR','back-avatar')+btn('ACCETTA OFFERTA','accept','','gold-btn'))}`,'runtime-grow') }</div>`}
+function renderOffers(){const opts=listInitialOffers(state),o=opts[offerIndex]||opts[0];if(!o)return head('NESSUNA OFFERTA');const pr=offerResult(o);return head('MERCATO DELLE PANCHINE','20 OFFERTE · SEED '+state.seed)+`<div class="runtime-split">${pane('LE PROPOSTE',`<div class="runtime-list runtime-scroll runtime-grow">${opts.map((x,i)=>`<button class="runtime-offer" data-action="offer" data-value="${i}" aria-selected="${offerIndex===i}"><span><b>${i+1}. ${esc(x.clubName)}</b><small>${esc(x.divisionId)}</small></span><b>${esc(offerResult(x)?.finalMoraleDelta??'—')} ♥</b></button>`).join('')}</div>`,'runtime-grow')}${pane('CONTRATTO',`<div class="runtime-info"><b>${esc(o.clubName)}</b><br>Serie ${esc(o.divisionId)}<br>Compenso settimanale: ${esc(o.coachWageITL.toLocaleString('it-IT'))} ₤ (bilanciamento fittizio)<br>Morale ingaggio: ${esc(pr?.finalMoraleDelta??'non calcolabile')}<br>Scadenza: ${esc(o.contractUntil)}<br>Regione: ${esc(o.regionId||'geografia assente')}</div><p class="runtime-foot">Preview del modulo 09. Nessuna firma se mancano origine/regione attendibili.</p>${h(btn('AVATAR','back-avatar')+btn('ACCETTA OFFERTA','accept','','gold-btn'))}`,'runtime-grow') }</div>`}
 function president(){const club=state?.clubs.find(c=>c.id===state.coach.clubId);return presidents?.presidents.find(p=>p.id===club?.presidentId)}
-function renderPresident(){const p=president(),idx=presidents.presidents.findIndex(x=>x.id===p?.id),club=getUI()?.club;return head('IL PRESIDENTE TI ASPETTA','PRESENTAZIONE SOCIETÀ · COPY04')+`<div class="runtime-split"><div class="panel runtime-reporter">${portraits('president',Math.max(0,idx)%4)}</div>${pane(p?.name||'Presidente',`<p class="speech">“${esc(p?.lines?.[0]||p?.goal||'—')}”</p><div class="runtime-info">${esc(club?.name||'')}<br>Presidente: ${esc(p?.archetype||'')}<br>Fiducia società: ${esc(state.clubs.find(c=>c.id===club?.id)?.boardTrust??'—')}</div>${h(btn('CONFERENZA STAMPA ▶','press','','gold-btn'))}`,'runtime-grow')}</div>`}
+function renderPresident(){const p=president(),idx=presidents.presidents.findIndex(x=>x.id===p?.id),club=getUI()?.club;const influence=effectiveCoachTraitsR12(state.coach,controlledClub());const traitSummary=['luck','leadership','selfEsteem','patience'].map((key,i)=>['FORTUNA','LEADERSHIP','AUTOSTIMA','PAZIENZA'][i]+': '+influence.base[key]+' '+(influence.modifiers[key]>=0?'+':'')+influence.modifiers[key]+' = '+influence.effective[key]).join(' · ');return head('IL PRESIDENTE TI ASPETTA','PRESENTAZIONE SOCIETÀ · COPY04')+`<div class="runtime-split"><div class="panel runtime-reporter">${portraits('president',Math.max(0,idx)%4)}</div>${pane(p?.name||'Presidente',`<p class="speech">“${esc(p?.lines?.[0]||p?.goal||'—')}”</p><div class="runtime-info">${esc(club?.name||'')}<br>Presidente: ${esc(p?.archetype||'')}<br>Fiducia società: ${esc(state.clubs.find(c=>c.id===club?.id)?.boardTrust??'—')}<br>EFFETTO PRESIDENZIALE: ${esc(traitSummary)}</div>${h(btn('CONFERENZA STAMPA ▶','press','','gold-btn'))}`,'runtime-grow')}</div>`}
 function activeQuestion(){const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const session=state.flow.press[kind];return {kind,session,q:session?.questions.find(x=>!(x.id in session.answers))}}
 function renderPress(){const {session,q,kind}=activeQuestion();if(!session||!q)return head('CONFERENZA COMPLETATA');const idx=session.questions.indexOf(q),i=session.questions.length;return head(kind==='opening'?'CONFERENZA INIZIALE':'CONFERENZA POSTPARTITA',`DOMANDA ${idx+1} / ${i} · COPY04`)+`<div class="runtime-press-wrap"><div class="panel runtime-reporter">${portraits('journalist',idx)}</div><div class="panel runtime-answers"><p class="runtime-foot">${esc(q.journalistName)} · ${esc(q.broadcasterName)}</p><div class="runtime-question">${esc(q.text)}</div>${q.answers.map((a,i)=>btn(`${i+1}. ${a.text||a.label}`,'answer',`${q.id}|${a.id}`)).join('')}<p class="runtime-foot">MORALE MISTER: ${esc(state.coach.morale)}/100 · Gli effetti sono applicati dal modulo 09.</p></div></div>`}
 function kpis(){const p=state?.coach;if(!p)return '';return `<div class="runtime-stats">${[['MORALE',p.morale],['PRESIDENTE',p.relationships.board],['SPOGLIATOIO',p.relationships.squad],['TIFOSI',p.relationships.fans],['STAMPA',p.relationships.media]].map(([k,v])=>`<div>${esc(k)}<strong>${esc(v??'—')}</strong></div>`).join('')}</div>`}
@@ -427,7 +434,12 @@ function prepare(){if(!state)return;const all=getUI().club.players;const chosen=
  });
 }
 function mountMatchView(){if(view){view.destroy();view=null}viewReady=false;const canvas=document.querySelector('#r03-pitch');if(!canvas||!engine)return;const input=matchInput;const firstGK=(club,ids)=>ids.find(id=>club.players.find(p=>p.id===id)?.positions.includes('GK'));
- const ids=[firstGK(input.homeClub,input.homeXI),firstGK(input.awayClub,input.awayXI)];const kit={home:{shirt:'#2759b6',shirtB:'#fff0b0',pattern:'vertical',shorts:'#f2ebca'},away:{shirt:'#be3640',shirtB:'#faefcc',pattern:'solid',shorts:'#f5ede3'},homeKeeper:{shirt:'#edc84b'},awayKeeper:{shirt:'#319367'}};
+ const ids=[firstGK(input.homeClub,input.homeXI),firstGK(input.awayClub,input.awayXI)];
+  const kit={home:{shirt:'#2759b6',shirtB:'#fff0b0',pattern:'vertical',shorts:'#f2ebca'},away:{shirt:'#be3640',shirtB:'#faefcc',pattern:'solid',shorts:'#f5ede3'},homeKeeper:{shirt:'#edc84b'},awayKeeper:{shirt:'#319367'}};
+  // Uniforms follow the club; skin, hair and face are inherited from the player ID.
+  for(const [club,away] of [[input.homeClub,false],[input.awayClub,true]])for(const p of club.players){
+    const visual=appearanceForMatchR12(p,club,{away});if(visual)kit[p.id]=visual;
+  }
  view=createMatchView(canvas,{config:{homeTeamId:input.homeClub.id,awayTeamId:input.awayClub.id,keeperIds:ids,appearances:kit,simSecondsPerRealSecond:6,autoStart:false,onWarning:()=>{}}});bridge=createEngineViewBridge(engine,view,{keeperIds:ids});view.setPaused(paused);view.setCameraMode(cameraMode);bridge.sync();const loading=view;view.ready.then(()=>{if(view===loading&&!view.destroyed){viewReady=true;view.drawAt(performance.now());}}).catch(()=>{});updateMatch();}
 function updateMatch(){if(!engine||screen!=='match')return;const s=engine.snapshot();scoreSnapshot=s;const el=id=>document.querySelector('#'+id);if(el('match-score'))el('match-score').textContent=`${s.score.home} — ${s.score.away}`;if(el('match-time')){const m=Math.floor(s.t/60),sec=Math.floor(s.t%60);el('match-time').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')};if(el('match-pos'))el('match-pos').textContent=Math.round(s.stats.home.possession)+'%';if(el('match-shots'))el('match-shots').textContent=`${s.stats.home.shots}–${s.stats.away.shots}`;}
 function step(seconds){if(!engine||screen!=='match')return;tickMatch(engine,seconds,{speed});const d=bridge.sync(performance.now());for(const e of d.events){if(['goal','fulltime','halftime','shot','save'].includes(e.type))lastEvent=`${Math.floor(e.t/60)}′ · ${e.type.toUpperCase()} · ${e.playerId||''}`;}const feed=document.querySelector('#match-news');if(feed)feed.textContent=lastEvent||'Rendering 05 · dati del motore 06';updateMatch();if(engine.isFinished())finishMatch()}
@@ -445,17 +457,17 @@ function changeMatchCamera(next){
   message(next==='broadcast'?'TELECAMERA TV ATTIVA':'CAMPO COMPLETO ATTIVO');
  }catch(e){failure('Cambio camera non riuscito: '+e.message)}
 }
-function submitMatchCommand(type,payload={}){
+function submitMatchCommand(type,payload={},utteranceText=null){
  if(!engine||screen!=='match')return failure('La partita non è in esecuzione');
  const outcome=commandM1Match(state,engine,{
   requestId:nextActionId('match-command'),type,...payload
  });
  if(!outcome.accepted)return failure('ORDINE RIFIUTATO · '+outcome.reason);
  const current=engine.snapshot(),news=outcome.events?.at(-1);
- lastEvent='ORDINE ESEGUITO · '+type+' · '+(news?.type||'engine06');
+ lastEvent=utteranceText?'MISTER: «'+utteranceText+'»':'ORDINE ESEGUITO · '+type+' · '+(news?.type||'engine06');
  bridge?.sync(performance.now());
  render();updateMatch();
- message('Engine06 conferma: '+type+' · '+(outcome.engineResult?.effects?.remaining??''));
+ message(utteranceText?'Engine06: «'+utteranceText+'»':'Engine06 conferma: '+type+' · '+(outcome.engineResult?.effects?.remaining??''));
  return true;
 }
 function advance(){if(!state)return;const week=state.absoluteWeek;
@@ -514,12 +526,17 @@ async function applyManagementAction(action,value){
 async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career','export-save'].includes(action))return failure('GAME_OVER');
  switch(action){case 'reset-career':restartAfterGameOver();break;case 'home':if(state&&screen!=='entry'&&screen!=='match'&&activeStage()==='hub'){display('hub')}else display('entry');break;
  case 'start':display('avatar');break;case 'avatar':avatar=Number(value);render();break;case 'back-avatar':display('avatar');break;case 'begin':newCareer();break;
- case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press}),()=>{selectLineup();display('president');persistAction('Contratto di ingaggio salvato')});break;}
+ case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press,presidents}),()=>{selectLineup();display('president');persistAction('Contratto di ingaggio salvato')});break;}
  case 'press':display('press');break;case 'answer':{const [q,a]=value.split('|');const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const result=kind==='opening'?answerOpeningPress(state,q,a,{press}):answerPostMatchPress(state,q,a,{press});api(result,()=>{display(activeStage()==='hub'?'hub':activeStage()==='postmatch_ready'?'post':'press');persistAction('Risposta stampa salvata')});break;}
  case 'hub':if(!state)return display('entry');if(activeStage()==='hub')display('hub');else if(activeStage()==='postmatch_ready')display('post');else failure('Completa il passaggio corrente');break;
  case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;trainingRosterOpen=false;if(value==='tifoseria')supportTab='stadio';if(value==='campionato')leagueTab='classifica';if(value==='presidente')presidentTab='ufficio';display('hub-section');break;
  case 'training-roster':trainingRosterOpen=!trainingRosterOpen;display('hub-section');break;
  case 'support-tab':if(!['stadio','tifosi','giornali'].includes(value))return failure('Scheda tifoseria non disponibile');supportTab=value;render();break;
+ case 'narrative-choice':{
+  const [issueId,optionId]=value.split('|');
+  const result=decideCareerNarrativeR12(state,issueId,optionId);
+  api(result,()=>{render();persistAction('Decisione sulla stampa provinciale registrata')});break;
+ }
  case 'league-tab':if(!['classifica','calendario','prossima'].includes(value))return failure('Vista campionato sconosciuta');leagueTab=value;render();break;
  case 'pres-tab':if(!['ufficio','mercato'].includes(value))return failure('Vista presidente sconosciuta');presidentTab=value;render();break;
  case 'ticket-change':case 'board-request':case 'board-decide':
@@ -549,8 +566,15 @@ async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.
  }
  case 'match-substitute':submitMatchCommand('substitution',{
   payload:{outId:readValue('r11-sub-out'),inId:readValue('r11-sub-in')}});break;
- case 'match-shout':submitMatchCommand('individualShout',{
-  targetPlayerId:readValue('r11-shout-player'),tone:readValue('r11-shout-tone')});break;
+ case 'match-shout':{
+  const targetPlayerId=readValue('r11-shout-player'),tone=readValue('r11-shout-tone');
+  const player=controlledClub()?.players?.find(p=>p.id===targetPlayerId);
+  const copy=selectMatchShoutR12(SHOUTS,{seed:state.seed,absoluteWeek:state.absoluteWeek,
+    playerId:targetPlayerId,tone,minute:(engine?.snapshot()?.t??0)/60,
+    fatigue:player?.status?.fatigue??0,events:engine?.getEventsSince(0)??[],ordinal:actionSerial});
+  submitMatchCommand('individualShout',{targetPlayerId,tone,utteranceId:copy?.id},copy?.text);
+  break;
+ }
  case 'pause':paused=!paused;view?.setPaused(paused);renderMatchControls();last=performance.now();break;
  case 'speed':speed=speed===8?1:speed*2;view?.setSpeed(speed);renderMatchControls();break;
  case 'camera-full':changeMatchCamera('full');break;
@@ -559,7 +583,7 @@ async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.
  case 'save':await save();break;case 'load':await load();break;case 'export-save':exportSave();break;
  case 'import-save':root.querySelector('#r11-save-import')?.click();break;
  case 'rollover':api(rolloverSeason(state),()=>{selectLineup();display('hub');persistAction('Nuova stagione salvata')});break;
- case 'vacancy':api(takeCareerOffer(state,value),()=>{selectLineup();display('hub');persistAction('Nuovo ingaggio salvato')});break;
+ case 'vacancy':api(takeCareerOffer(state,value,{presidents}),()=>{selectLineup();display('hub');persistAction('Nuovo ingaggio salvato')});break;
  default:failure('Azione non gestita: '+action);
  }}
 function renderMatchControls(){if(screen!=='match')return;
