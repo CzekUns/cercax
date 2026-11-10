@@ -81,8 +81,14 @@ test('R12-B legacy: missing cosmetics migrate deterministically, existing ones n
  assert.deepEqual(createClubKitsR12('club',1979),createClubKitsR12('club',1979));
 });
 test('R12-C/F: regional shout affinity operates with generated PlayerV2, same region > same macro > other',()=>{
- const s=newGame({seed:12345,avatar:qaAvatar,municipalityCatalog:nationalTownCatalog,
+ const home=nationalTownCatalog.municipalities[0];
+ assert.ok(home?.municipalityId&&home?.regionId&&home?.macroRegion,'reviewed home locality is required');
+ const nationalCoach={...qaAvatar,origin:{municipalityId:home.municipalityId,regionId:home.regionId,macroRegion:home.macroRegion}};
+ const s=newGame({seed:12345,avatar:nationalCoach,municipalityCatalog:nationalTownCatalog,
   leagueSizes:leagues,surnameCatalog:BUILTIN_SURNAME_CATALOG}),all=s.clubs.flatMap(c=>c.players);
+ assert.equal(s.coach.origin.municipalityId,home.municipalityId);
+ assert.equal(s.coach.origin.regionId,home.regionId);
+ assert.equal(s.coach.origin.macroRegion,home.macroRegion);
  const a=all.find(p=>p.origin.regione==='Campania')||all[0];
  const player={regionId:a.origin.regione.toLowerCase(),macroRegion:a.origin.macroregione==='Nord'?'north':a.origin.macroregione==='Centro'?'centre':'south'};
  const same=regionalAffinity(player,a.origin);
