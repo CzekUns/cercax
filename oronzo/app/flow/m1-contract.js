@@ -1,4 +1,5 @@
 /** Agent07 M1 persistence and command boundary. Pure orchestration; no engine/08/09 formulas. */
+import {effectiveCoachTraitsR12} from '../../systems/coach-club/president-traits-r12.js';
 export const M1_CONTRACT_VERSION = 1;
 export const TRAINING_PLANS_M1 = Object.freeze(['technical','athletic','tactical','balanced','rest']);
 const FOCUS = Object.freeze({technical:'technique',athletic:'fitness',tactical:'tactics',balanced:'teamwork',rest:'recovery'});
@@ -95,7 +96,7 @@ export function settleM1Training(state,{applyTrainingWeek}={}) {
   if (!club) throw new Error('TRAINING_CLUB_MISSING');
   const output=applyTrainingWeek(club.players,selection.plan,{seed:state.seed+'|'+club.id,
     week:state.absoluteWeek,intensity:selection.intensity,
-    coachQuality:state.coach?.traits?.leadership??50});
+    coachQuality:effectiveCoachTraitsR12(state.coach,club).effective.leadership});
   if (!Array.isArray(output?.players) || output.players.length!==club.players.length ||
       output.players.some((p,i)=>p.id!==club.players[i].id ||
         p.contract?.weeklyWage!==club.players[i].contract?.weeklyWage))
@@ -137,7 +138,7 @@ export function issueM1Command(state,engine,{requestId,type,payload={},tone,targ
     if (!player)return {accepted:false,reason:'unknown_player'};
     command={type:'shout',teamId,payload:{targetPlayerId,tone:normalized,
       coachOrigin:state.coach.origin??null,
-      coachTraits:{leadership:state.coach.traits?.leadership??50},
+      coachTraits:{leadership:effectiveCoachTraitsR12(state.coach,club).effective.leadership},
       ...(player.origin?{playerOrigin:player.origin}:{}),
       utteranceId:requestId}};
   } else if (type==='teamShout') {
