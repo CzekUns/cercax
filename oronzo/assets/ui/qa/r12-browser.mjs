@@ -14,8 +14,9 @@ async function scenario(w,h,seed){
  const res=await page.goto(url,{waitUntil:'networkidle',timeout:60000});
  const check=(condition,label)=>{results.push({viewport:w+'x'+h,seed,label,pass:!!condition});if(!condition)throw Error(label+' @ '+w+'x'+h+' seed '+seed);};
  check(res?.status()===200,'HTTP 200');
- await page.waitForFunction(()=>window.OronzoR03?.getStage&&document.querySelector('#qa-mode'));
+ await page.waitForFunction(()=>window.OronzoR03?.getStage);
  await page.locator('[data-action="start"]').first().click();
+ await page.locator('#qa-mode').waitFor();
  await page.locator('#qa-mode').check();
  await page.locator('[data-action="begin"]').first().click();
  await page.waitForFunction(()=>window.OronzoR03?.getScreen()==='offers');
