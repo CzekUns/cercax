@@ -15,6 +15,11 @@ import { createClub, createCoach, prepareMatchday, conveneBoard,
 import { createMatch } from '../../systems/match-engine/match-engine.js';
 import { createPressConference, answerPressConference } from '../../content/press-kit.js';
 import { generatePlayer as generateAttributesPlayer } from '../../systems/attributes/generator.js';
+import {derivePlayerOriginsFromWorldR12} from '../../systems/attributes/world-origins-r12.js';
+import {ensureCareerVisualsR12} from '../../systems/attributes/visual-r12.js';
+import {syncPresidentTraitsR12,effectiveCoachTraitsR12} from '../../systems/coach-club/president-traits-r12.js';
+import {recordCareerNarrativeR12,decideCareerNarrativeR12} from '../../content/career-narrative-r12.js';
+export {decideCareerNarrativeR12};
 import { normalizePlayer as normalizeAttributesPlayer } from '../../systems/attributes/player-model.js';
 import { applyTrainingWeek, applyMatchLoad, advanceSeason } from '../../systems/attributes/training.js';
 import { chooseTrainingPlan,settleHomeAttendance,persistShout } from '../../systems/coach-club/index.js';
@@ -125,9 +130,24 @@ function recordEffect(state,eventId,kind,semanticEffects,additional={}) {
       kind==='press' ? applyPressEffect : null;
     if(typeof applier!=='function')throw new Error('AGENT09_MORALE_UNAVAILABLE');
     const club=state.coach.clubId?clubById(state,state.coach.clubId):null;
+    const influence=effectiveCoachTraitsR12(state.coach,club);
+    const usesInfluence=kind==='press'&&!!influence.presidentId;
+    const coachForEffect=clone(state.coach),effectsFor09=clone(semanticEffects);
+    if(usesInfluence){
+      coachForEffect.traits=influence.effective;
+      // Self-esteem affects how the mister internalizes praise/criticism.
+      // Synthetic +/-1 bound, one adjustment per unique conference transaction.
+      const raw=effectsFor09.coachMorale??0,mod=influence.modifiers.selfEsteem??0;
+      if(raw!==0&&Math.abs(mod)>=3){
+        const adjusted=Math.max(-3,Math.min(3,raw+(mod>0?1:-1)));
+        effectsFor09.coachMorale=adjusted;
+      }
+      stored.presidentTraitAdjustment={base:influence.base,effective:influence.effective,
+        semanticMoraleBefore:raw,semanticMoraleAfter:effectsFor09.coachMorale??raw};
+    }
     const result=applier({
-      eventId,kind,semanticEffects:clone(semanticEffects),offer:additional.offer??null,
-      coach:clone(state.coach),club:club?clone(club):null,date:state.gameDate
+      eventId,kind,semanticEffects:effectsFor09,offer:additional.offer??null,
+      coach:coachForEffect,club:club?clone(club):null,date:state.gameDate
     });
     const applied=Boolean(result?.accepted===true && result.coach);
     const replay=Boolean(result?.accepted===false &&
@@ -136,6 +156,7 @@ function recordEffect(state,eventId,kind,semanticEffects,additional={}) {
     if(!applied && !replay)
       throw new Error('AGENT09_MORALE_NOT_APPLIED: '+String(result?.reason??'invalid_result'));
     state.coach=clone(result.coach);
+    if(usesInfluence)state.coach.traits=clone(influence.base); // No permanent modifier drift.
     if(result.club) {
       const index=state.clubs.findIndex(c=>c.id===result.club.id);
       if(index<0)throw new Error('AGENT09_UNKNOWN_CLUB');
@@ -237,9 +258,12 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
   const venue=initializeCareerVenues(state);
   if(!venue.accepted)throw Error('STADIUM_SETUP_FAILED: '+venue.reason);
   if(surnameCatalog) {
-    const result=enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins});
+    const origins=playerOrigins.length?playerOrigins:derivePlayerOriginsFromWorldR12(state.world);
+    const result=enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins:origins});
     if(!result.accepted)throw new Error('M1_SURNAMES_UNAVAILABLE: '+result.reason);
+    state.world.playerOriginPolicy=origins.length?'fictional_birthplace_from_reviewed_modern_geography':'unknown';
   }
+  ensureCareerVisualsR12(state); // All new players have a persistent appearance and kit.
   return state;
 }
 
@@ -287,7 +311,7 @@ export function commandM1Match(state,engine,request) {
 }
 
 export function listInitialOffers(state) { return offersView(state); }
-export function acceptOffer(state,offerId,{press}={}) {
+export function acceptOffer(state,offerId,{press,presidents}={}) {
   ensureLive(state);
   const found=state.flow.initialOffers.find(o=>o.id===offerId);
   if(!found)return {accepted:false,reason:'unknown_offer'};
@@ -308,6 +332,8 @@ export function acceptOffer(state,offerId,{press}={}) {
   if(!accepted.accepted)return accepted;
   const eventId='offer-morale:'+offerId;
   const effect=recordEffect(draft,eventId,'initial_offer',{preview},{offer:found});
+  if(presidents)syncPresidentTraitsR12(draft.coach,clubById(draft,accepted.clubId),presidents);
+  recordCareerNarrativeR12(draft,{context:'appointment',presidentCatalog:presidents});
   startPress(draft,'opening',press,offerId);
   commitDraft(state,draft);
   return {...accepted,effectStatus:effect.status,previewMorale:preview};
@@ -349,12 +375,13 @@ export function getStateForUI(state) {
     version:state.flow?.version??null,stage:state.flow?.stage??'legacy_career',
     gameDate:state.gameDate??null,seasonYear:state.seasonYear,seasonWeek:state.week,
     coachWeekStatus:getCoachWeekStatus(state),
-    absoluteWeek:state.absoluteWeek,coach:state.coach,
+    absoluteWeek:state.absoluteWeek,coach:{...state.coach,presidentTraits:effectiveCoachTraitsR12(state.coach,club)},
     club:club?{id:club.id,name:club.name,divisionId:club.divisionId,
       presidentId:club.presidentId,world:getClubGeography(state,club.id),
       players:club.players.map(p=>({playerId:p.id,name:p.name,positions:p.positions,
         visual:p.visual??null}))}:null,
     offers:state.flow?.initialOffers??[],careerOffers:state.offers,
+    r12Narrative:state.flow?.r12Narrative??null,
     press:state.flow?.press??null,pressArchive:state.flow?.pressArchive??[],
     upcomingFixture:getUpcomingFixture(state),
     resultSources:state.flow?.resultSources??{},
@@ -391,7 +418,8 @@ export function prepareMatch(state,{xi,bench,captainId}={}) {
   const ownerXI=xi??lineUp(club).xi;
   const ownerBench=bench??lineUp(club).bench;
   const ownerCaptain=captainId??ownerXI.find(id=>!club.players.find(p=>p.id===id).positions.includes('GK'));
-  const formation=prepareMatchday(club,state.coach,{
+  const coachForMatch={...state.coach,traits:effectiveCoachTraitsR12(state.coach,club).effective};
+  const formation=prepareMatchday(club,coachForMatch,{
     xi:ownerXI,bench:ownerBench,captainId:ownerCaptain
   });
   if(!formation.accepted)return formation;
@@ -563,6 +591,12 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
     draft.coach.clubId?'hub':'unemployed';
   draft.gameDate=dateAt(draft.seasonYear,draft.week,draft.calendarPolicy.seasonStartMonth,
     draft.calendarPolicy.seasonStartDay);
+  syncPresidentTraitsR12(draft.coach,draft.coach.clubId?clubById(draft,draft.coach.clubId):null,presidentCatalog);
+  const goals=coachFixture?.result?.score;
+  const forGoals=goals?(coachFixture.homeId===playerClub?goals.home:goals.away):null;
+  const againstGoals=goals?(coachFixture.homeId===playerClub?goals.away:goals.home):null;
+  const realResult=forGoals==null?null:forGoals>againstGoals?'victory':forGoals<againstGoals?'defeat':'draw';
+  recordCareerNarrativeR12(draft,{realResult,presidentCatalog});
   // Replace validated state only after all per-club finance and game rules succeed.
   for(const k of Object.keys(state))delete state[k];
   Object.assign(state,draft);
@@ -583,13 +617,15 @@ export function rolloverSeason(state) {
   draft.gameDate=dateAt(draft.seasonYear,1,draft.calendarPolicy.seasonStartMonth,
     draft.calendarPolicy.seasonStartDay);
   draft.flow.stage=draft.coach.clubId?'hub':'unemployed';
+  if(!draft.coach.clubId)syncPresidentTraitsR12(draft.coach,null,null);
   commitDraft(state,draft);
   return {accepted:true,seasonYear:state.seasonYear,gameDate:state.gameDate};
 }
-export function takeCareerOffer(state,offerId) {
+export function takeCareerOffer(state,offerId,{presidents}={}) {
   ensureLive(state);
   if(state.flow.stage!=='unemployed')return {accepted:false,reason:'coach_not_unemployed'};
   applyJobOffer(state,offerId);
+  if(presidents)syncPresidentTraitsR12(state.coach,clubById(state,state.coach.clubId),presidents);
   state.flow.stage='hub';
   return {accepted:true,clubId:state.coach.clubId};
 }
