@@ -16,6 +16,7 @@ const presidents=json('../../../content/presidents.json');
 const press={opening:json('../../../content/press-opening.json'),
  postmatch:json('../../../content/press-postmatch.json'),media:json('../../../content/press-media.json')};
 const town=qaMunicipalityCatalog();
+const nationalTownCatalog=json('../../../data/world/municipalities-m1.json');
 const leagues={PROM:4,INTER:4,C2:4,C1:4,B:4,A:4};
 function newWorld(seed,standard=false){
  return newGame({seed,avatar:qaAvatar,municipalityCatalog:town,
@@ -53,12 +54,12 @@ test('R12-B/C: >100 new players have sourced fictional origins, stable faces and
  assert.equal(s.world.playerOriginPolicy,'fictional_birthplace_from_reviewed_modern_geography');
  const kits=s.clubs.slice(0,5).map(c=>JSON.stringify(c.visualKits.home));
  assert.equal(new Set(kits).size,5);
- const before=serialize(s),old=s.clubs[0].players[0],face=JSON.stringify(old.visual);
+ const before=serialize(s),old=s.clubs[0].players.find(p=>!p.positions.includes('GK')),face=JSON.stringify(old.visual);
  const other=s.clubs[1];const uniformBefore=appearanceForMatchR12(old,s.clubs[0]);
- s.clubs[0].players.shift();other.players.push({...old,teamId:other.id});
+ s.clubs[0].players=s.clubs[0].players.filter(p=>p.id!==old.id);other.players.push({...old,teamId:other.id});
  const transferred=other.players.at(-1);
  assert.equal(JSON.stringify(transferred.visual),face);
- assert.notEqual(appearanceForMatchR12(transferred,other).shirt,uniformBefore.shirt);
+ assert.equal(appearanceForMatchR12(transferred,other).shirt,other.visualKits.home.shirtA);
  const saved=deserialize(serialize(s));
  assert.deepEqual(saved.clubs[1].players.at(-1).visual,old.visual);
  const migrated=ensureCareerVisualsR12(saved);
@@ -76,7 +77,8 @@ test('R12-B legacy: missing cosmetics migrate deterministically, existing ones n
  assert.deepEqual(createClubKitsR12('club',1979),createClubKitsR12('club',1979));
 });
 test('R12-C/F: regional shout affinity operates with generated PlayerV2, same region > same macro > other',()=>{
- const s=newWorld(12345),all=s.clubs.flatMap(c=>c.players);
+ const s=newGame({seed:12345,avatar:qaAvatar,municipalityCatalog:nationalTownCatalog,
+  leagueSizes:leagues,surnameCatalog:BUILTIN_SURNAME_CATALOG}),all=s.clubs.flatMap(c=>c.players);
  const a=all.find(p=>p.origin.regione==='Campania')||all[0];
  const player={regionId:a.origin.regione.toLowerCase(),macroRegion:a.origin.macroregione==='Nord'?'north':a.origin.macroregione==='Centro'?'centre':'south'};
  const same=regionalAffinity(player,a.origin);
