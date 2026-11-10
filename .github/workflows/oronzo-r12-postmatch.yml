@@ -23,3 +23,11 @@ jobs:
         run: |
           node --test oronzo/content/tests/r12-postmatch.test.mjs
           node --test oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs
+      - name: Install Chromium for HTTP UI gate
+        run: |
+          npm install --no-save playwright fake-indexeddb
+          npx playwright install --with-deps chromium
+      - name: Browser postmatch persistence at four landscape viewports
+        run: |
+          python3 -m http.server 8123 --bind 127.0.0.1 >/tmp/oronzo-r12-http.log 2>&1 &
+          node oronzo/content/tests/r12-postmatch-browser.mjs
