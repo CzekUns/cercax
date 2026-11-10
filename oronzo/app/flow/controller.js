@@ -15,6 +15,8 @@ import { createClub, createCoach, prepareMatchday, conveneBoard,
 import { createMatch } from '../../systems/match-engine/match-engine.js';
 import { createPressConference, answerPressConference } from '../../content/press-kit.js';
 import { generatePlayer as generateAttributesPlayer } from '../../systems/attributes/generator.js';
+import {derivePlayerOriginsFromWorldR12} from '../../systems/attributes/world-origins-r12.js';
+import {ensureCareerVisualsR12} from '../../systems/attributes/visual-r12.js';
 import { normalizePlayer as normalizeAttributesPlayer } from '../../systems/attributes/player-model.js';
 import { applyTrainingWeek, applyMatchLoad, advanceSeason } from '../../systems/attributes/training.js';
 import { chooseTrainingPlan,settleHomeAttendance,persistShout } from '../../systems/coach-club/index.js';
@@ -237,9 +239,12 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
   const venue=initializeCareerVenues(state);
   if(!venue.accepted)throw Error('STADIUM_SETUP_FAILED: '+venue.reason);
   if(surnameCatalog) {
-    const result=enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins});
+    const origins=playerOrigins.length?playerOrigins:derivePlayerOriginsFromWorldR12(state.world);
+    const result=enableM1SourcedPlayers(state,{surnameCatalog,playerOrigins:origins});
     if(!result.accepted)throw new Error('M1_SURNAMES_UNAVAILABLE: '+result.reason);
+    state.world.playerOriginPolicy=origins.length?'fictional_birthplace_from_reviewed_modern_geography':'unknown';
   }
+  ensureCareerVisualsR12(state); // All new players have a persistent appearance and kit.
   return state;
 }
 
