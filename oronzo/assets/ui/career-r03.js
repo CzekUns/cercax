@@ -576,5 +576,12 @@ root.addEventListener('change',e=>{if(e.target.id==='r11-save-import'){importSav
  if(e.target.id==='r11-pre-formation'){formationChoice=e.target.value;render();return}
  if(e.target.id==='r11-pre-pressing'){pressingChoice=Number(e.target.value);render();return}if(!e.target.matches('[data-player]'))return;const id=e.target.dataset.player;if(e.target.checked)lineup.add(id);else lineup.delete(id);const club=getUI()?.club;const eligible=club?.players||[];bench=new Set(eligible.filter(p=>!lineup.has(p.playerId)).slice(0,5).map(p=>p.playerId));if(!lineup.has(captain))captain=[...lineup].find(x=>!club.players.find(p=>p.playerId===x)?.positions.includes('GK'))||null;render();});
 function loop(now){if(view&&viewReady&&screen==='match'){try{view.drawAt(now)}catch(e){viewReady=false;failure('Errore renderer: '+e.message)}}const dt=Math.max(0,Math.min(.20,(now-last)/1000));last=now;if(engine&&screen==='match'&&!paused){try{step(dt)}catch(e){paused=true;view?.setPaused(true);failure(e.message)}}requestAnimationFrame(loop)}
+// Warn only when progress exists in memory but has not been persisted.
+// Never attempt an asynchronous save during unload: browsers may terminate it.
+window.addEventListener('beforeunload', event => {
+ if (!dirtyUnsaved) return;
+ event.preventDefault();
+ event.returnValue = '';
+});
 window.OronzoR03=Object.freeze({getState:()=>state,hasUnsavedProgress:()=>dirtyUnsaved,getSaveError:()=>lastSaveError,getScreen:()=>screen,getSnapshot:()=>scoreSnapshot,completeQaMatch:()=>guard(fulltimeQA),getErrors:()=>errors.slice(),getMode:()=>mode, isViewReady:()=>viewReady, getStage:activeStage});
 render();loadCopy().catch(e=>{failure(e.message);errors.push(e.message)});last=performance.now();requestAnimationFrame(loop);
