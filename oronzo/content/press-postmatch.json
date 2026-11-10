@@ -1431,6 +1431,546 @@
           }
         }
       ]
+    },
+    {
+      "id": "q_r12_provincia_01",
+      "phase": "postmatch",
+      "topic": "tribuna",
+      "text": "Dopo il successo, il custode dello stadio ha chiesto di non rovinare la rete nuova. Che gli risponde?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Gli paghiamo il filo",
+          "text": "Se la rompiamo ancora vuol dire che abbiamo tirato bene.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Prima il campo",
+          "text": "I risultati contano, ma lo stadio va rispettato.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Ci penso lunedì",
+          "text": "Con il custode parlerò quando avrà finito di contare i palloni.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": -1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_02",
+      "phase": "postmatch",
+      "topic": "presidente",
+      "text": "Il presidente vuole una fotografia con la coppa del torneo che ancora non avete vinto. Gliela concede?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Solo a fine stagione",
+          "text": "Le fotografie si fanno quando c'è qualcosa da mostrare.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": -2
+          }
+        },
+        {
+          "id": "b",
+          "label": "Con la coppa vuota",
+          "text": "Se vuole può portare una cornice. La coppa aspetta.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Parliamo di calcio",
+          "text": "Il presidente è contento, noi abbiamo ancora partite da giocare.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_03",
+      "phase": "postmatch",
+      "topic": "spogliatoio",
+      "text": "La squadra ha festeggiato con una tromba trovata nel magazzino. È una nuova tradizione?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Solo dopo le vittorie",
+          "text": "Se continueremo a suonarla, vorrà dire che va tutto bene.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Meglio gli allenamenti",
+          "text": "La tromba non sa difendere sui calci piazzati.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "La custodisce il capitano",
+          "text": "Gli ho detto che risponde lui anche delle note stonate.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_04",
+      "phase": "postmatch",
+      "topic": "tattica",
+      "text": "Il tabellone è rimasto in parità e un tifoso ha chiesto di aggiungere un terzo tempo. Cosa manca?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Un ultimo passaggio",
+          "text": "Abbiamo avuto idee, ma non sempre la precisione.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Più coraggio",
+          "text": "Quando la gara è bloccata bisogna rischiare qualcosa.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Un po' di calma",
+          "text": "La fretta ha fatto più danni degli avversari.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_05",
+      "phase": "postmatch",
+      "topic": "presidente",
+      "text": "Il presidente definisce questo pareggio «una vittoria senza il premio». Condivide?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "No, vale un punto",
+          "text": "La classifica non si compila con le battute.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Capisco il senso",
+          "text": "Abbiamo reagito bene, ma dobbiamo segnare.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Chiedetelo al ragioniere",
+          "text": "Per i premi partita parla la società.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": -1,
+            "mediaReputation": 0,
+            "presidentTrust": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_06",
+      "phase": "postmatch",
+      "topic": "tifosi",
+      "text": "La radio locale ha ricevuto tre telefonate per discutere lo zero a zero. Una era del guardalinee. Commenta?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Niente arbitri",
+          "text": "Le decisioni di campo restano sul campo.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Parliamo delle occasioni",
+          "text": "Preferisco discutere di ciò che potevamo fare noi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "La radio avrà ascolti",
+          "text": "Almeno qualcuno si è divertito più di noi.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_07",
+      "phase": "postmatch",
+      "topic": "spogliatoio",
+      "text": "Dopo la sconfitta nessuno ha acceso la luce nello spogliatoio. Era una protesta?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Era saltato il fusibile",
+          "text": "Non trasformiamo un guasto in una questione di morale.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Ci siamo parlati lo stesso",
+          "text": "Al buio si ascolta meglio, ma domani voglio la luce.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "c",
+          "label": "Non cerco scuse",
+          "text": "La partita l'abbiamo persa in campo.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_08",
+      "phase": "postmatch",
+      "topic": "presidente",
+      "text": "Il presidente ha chiesto di conservare i biglietti invenduti per la prossima gara. È preoccupato?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Lo capisco",
+          "text": "Quando perdiamo dobbiamo riconquistare la tribuna.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "b",
+          "label": "La squadra reagirà",
+          "text": "Un risultato non decide il futuro del club.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Conti a lui",
+          "text": "Il botteghino è affare della società, la squadra è mia.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 0,
+            "presidentTrust": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_09",
+      "phase": "postmatch",
+      "topic": "tifosi",
+      "text": "Un tifoso ha appeso un cartello con scritto «Si accettano occasioni da gol». Che risposta dà?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Ne creeremo di più",
+          "text": "La critica è meritata e ci lavoreremo.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 2,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Lo porti in allenamento",
+          "text": "Può vedere quanto costa costruirne una.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": -1,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        },
+        {
+          "id": "c",
+          "label": "È una battuta riuscita",
+          "text": "Vorrei poter rispondere con un gol domenica.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 1,
+            "mediaReputation": 1,
+            "presidentTrust": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_10",
+      "phase": "postmatch",
+      "topic": "mercato",
+      "text": "Dopo la vittoria il presidente ha detto che adesso la squadra costa di più. Cambia qualcosa?",
+      "when": {
+        "result": "win"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Nessun prezzo ai ragazzi",
+          "text": "Il loro valore si vede dal lavoro, non da una domenica.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "b",
+          "label": "Servono rinforzi",
+          "text": "Una vittoria non cancella le lacune della rosa.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Parliamone in ufficio",
+          "text": "Non tratto i contratti davanti ai microfoni.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 0,
+            "mediaReputation": -1,
+            "presidentTrust": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_11",
+      "phase": "postmatch",
+      "topic": "allenamento",
+      "text": "Un giornale ha definito il pareggio «un allenamento con il pubblico». È ingeneroso?",
+      "when": {
+        "result": "draw"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Abbiamo corso davvero",
+          "text": "L'intensità non è mancata, la conclusione sì.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "Accetto la critica",
+          "text": "Dovevamo fare qualcosa in più per vincere.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Non era un allenamento",
+          "text": "Gli avversari hanno reso ogni pallone difficile.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 0,
+            "mediaReputation": 1,
+            "presidentTrust": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "q_r12_provincia_12",
+      "phase": "postmatch",
+      "topic": "tattica",
+      "text": "Il cronista sostiene che la lavagna tattica sia rimasta più ordinata della difesa. È così?",
+      "when": {
+        "result": "loss"
+      },
+      "weight": 5,
+      "answers": [
+        {
+          "id": "a",
+          "label": "Correggerò gli errori",
+          "text": "Ci sono distanze che dobbiamo sistemare subito.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 0
+          }
+        },
+        {
+          "id": "b",
+          "label": "La lavagna non gioca",
+          "text": "I giocatori hanno bisogno di indicazioni chiare, non di colpe.",
+          "effects": {
+            "coachMorale": 1,
+            "supportersTrust": 2,
+            "mediaReputation": 1,
+            "presidentTrust": -1
+          }
+        },
+        {
+          "id": "c",
+          "label": "Mi assumo la responsabilità",
+          "text": "Il piano di gara era mio, lo rivedremo.",
+          "effects": {
+            "coachMorale": 0,
+            "supportersTrust": 1,
+            "mediaReputation": 2,
+            "presidentTrust": 1
+          }
+        }
+      ]
     }
   ]
 }
