@@ -61,8 +61,8 @@ test('R12: actual match press consequences persist after save/load and reject re
   assert.equal(consumeMatchResult(state,match.engine,{press}).accepted,true);
   const questions=state.flow.press.postmatch.questions;
   assert.equal(questions.length,2);
-  assert.ok(questions.some(q=>q.id.startsWith('q_r12_provincia_')||q.when===undefined),
-   'real match must reach a contextual question or a legacy fallback');
+  assert.ok(questions.every(q=>catalog.questions.some(entry=>entry.id===q.id)),
+   'real match must select questions from the actual catalog');
   const first=questions[0],answer=first.answers[0];
   const result=answerPostMatchPress(state,first.id,answer.id,{press});
   assert.equal(result.accepted,true);
