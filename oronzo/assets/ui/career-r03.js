@@ -5,6 +5,8 @@ import {newGame,listInitialOffers,acceptOffer,getStateForUI,answerOpeningPress,
   from '../../app/flow/controller.js';
 import {qaMunicipalityCatalog} from '../../app/flow/tests/qa-geography.mjs';
 import {BUILTIN_SURNAME_CATALOG} from '../../systems/attributes/surnames.js';
+import {newCareerSeedR12} from '../../systems/career/seed-r12.js';
+import {ensureCareerVisualsR12,appearanceForMatchR12} from '../../systems/attributes/visual-r12.js';
 import {previewOfferMorale} from '../../systems/coach-club/index.js';
 import {getStandings} from '../../systems/career/career.js';
 import {createMatchView,createEngineViewBridge} from '../../systems/match-view/match-view.js';
@@ -104,6 +106,8 @@ async function load(){
   if(payload.legacy){message('Salvataggio storico 1985 protetto. Usa il prototipo precedente.');return}
   clearMatch();protectPreviousSave=false;dirtyUnsaved=false;lastSaveError='';
   selectedPlayerId=null;profileSource='rosa';state=payload.state;
+   const visualMigration=ensureCareerVisualsR12(state);
+   if(visualMigration.players||visualMigration.kits)dirtyUnsaved=true;
   mode=state.world?.mode==='qa_fixture'?'qa':'normal';
   avatar=Math.max(0,baseCoaches.findIndex((_,i)=>'ui-r03-'+i===state.coach.avatarId));
   selectLineup();formationChoice=state.coach.tactics?.formation||'4-4-2';pressingChoice=state.coach.tactics?.pressing??50;
@@ -172,7 +176,7 @@ function newCareer(){
  const place=catalog.municipalities.find(x=>x.municipalityId===origin);
  if(!place)return failure('Seleziona un comune di origine valido');
  const originData={municipalityId:place.municipalityId,regionId:place.regionId,macroRegion:place.macroRegion};
- state=newGame({seed:1979,coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{
+ state=newGame({seed:newCareerSeedR12({query:window.location.search}),coachName:c[0],avatar:{id:'ui-r03-'+avatar,traits:{
   luck:c[1][0],leadership:c[1][1],selfEsteem:c[1][2],patience:c[1][3]
  },origin:originData},municipalityCatalog:catalog,surnameCatalog:BUILTIN_SURNAME_CATALOG});
  offerIndex=0;dirtyUnsaved=true;selectLineup();display('offers');
@@ -208,7 +212,7 @@ function renderAvatar(){
   pane('PROFILO ALLENATORE',profile,'runtime-grow')+'</div>';
 }
 function offerResult(o){try{const club=state.clubs.find(c=>c.id===o.clubId);return previewOfferMorale(state.coach,o,club)}catch{return null}}
-function renderOffers(){const opts=listInitialOffers(state),o=opts[offerIndex]||opts[0];if(!o)return head('NESSUNA OFFERTA');const pr=offerResult(o);return head('MERCATO DELLE PANCHINE','20 OFFERTE REALI DEL CONTROLLER 07')+`<div class="runtime-split">${pane('LE PROPOSTE',`<div class="runtime-list runtime-scroll runtime-grow">${opts.map((x,i)=>`<button class="runtime-offer" data-action="offer" data-value="${i}" aria-selected="${offerIndex===i}"><span><b>${i+1}. ${esc(x.clubName)}</b><small>${esc(x.divisionId)}</small></span><b>${esc(offerResult(x)?.finalMoraleDelta??'—')} ♥</b></button>`).join('')}</div>`,'runtime-grow')}${pane('CONTRATTO',`<div class="runtime-info"><b>${esc(o.clubName)}</b><br>Serie ${esc(o.divisionId)}<br>Compenso settimanale: ${esc(o.coachWageITL.toLocaleString('it-IT'))} ₤ (bilanciamento fittizio)<br>Morale ingaggio: ${esc(pr?.finalMoraleDelta??'non calcolabile')}<br>Scadenza: ${esc(o.contractUntil)}<br>Regione: ${esc(o.regionId||'geografia assente')}</div><p class="runtime-foot">Preview del modulo 09. Nessuna firma se mancano origine/regione attendibili.</p>${h(btn('AVATAR','back-avatar')+btn('ACCETTA OFFERTA','accept','','gold-btn'))}`,'runtime-grow') }</div>`}
+function renderOffers(){const opts=listInitialOffers(state),o=opts[offerIndex]||opts[0];if(!o)return head('NESSUNA OFFERTA');const pr=offerResult(o);return head('MERCATO DELLE PANCHINE','20 OFFERTE · SEED '+state.seed)+`<div class="runtime-split">${pane('LE PROPOSTE',`<div class="runtime-list runtime-scroll runtime-grow">${opts.map((x,i)=>`<button class="runtime-offer" data-action="offer" data-value="${i}" aria-selected="${offerIndex===i}"><span><b>${i+1}. ${esc(x.clubName)}</b><small>${esc(x.divisionId)}</small></span><b>${esc(offerResult(x)?.finalMoraleDelta??'—')} ♥</b></button>`).join('')}</div>`,'runtime-grow')}${pane('CONTRATTO',`<div class="runtime-info"><b>${esc(o.clubName)}</b><br>Serie ${esc(o.divisionId)}<br>Compenso settimanale: ${esc(o.coachWageITL.toLocaleString('it-IT'))} ₤ (bilanciamento fittizio)<br>Morale ingaggio: ${esc(pr?.finalMoraleDelta??'non calcolabile')}<br>Scadenza: ${esc(o.contractUntil)}<br>Regione: ${esc(o.regionId||'geografia assente')}</div><p class="runtime-foot">Preview del modulo 09. Nessuna firma se mancano origine/regione attendibili.</p>${h(btn('AVATAR','back-avatar')+btn('ACCETTA OFFERTA','accept','','gold-btn'))}`,'runtime-grow') }</div>`}
 function president(){const club=state?.clubs.find(c=>c.id===state.coach.clubId);return presidents?.presidents.find(p=>p.id===club?.presidentId)}
 function renderPresident(){const p=president(),idx=presidents.presidents.findIndex(x=>x.id===p?.id),club=getUI()?.club;return head('IL PRESIDENTE TI ASPETTA','PRESENTAZIONE SOCIETÀ · COPY04')+`<div class="runtime-split"><div class="panel runtime-reporter">${portraits('president',Math.max(0,idx)%4)}</div>${pane(p?.name||'Presidente',`<p class="speech">“${esc(p?.lines?.[0]||p?.goal||'—')}”</p><div class="runtime-info">${esc(club?.name||'')}<br>Presidente: ${esc(p?.archetype||'')}<br>Fiducia società: ${esc(state.clubs.find(c=>c.id===club?.id)?.boardTrust??'—')}</div>${h(btn('CONFERENZA STAMPA ▶','press','','gold-btn'))}`,'runtime-grow')}</div>`}
 function activeQuestion(){const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const session=state.flow.press[kind];return {kind,session,q:session?.questions.find(x=>!(x.id in session.answers))}}
@@ -427,7 +431,12 @@ function prepare(){if(!state)return;const all=getUI().club.players;const chosen=
  });
 }
 function mountMatchView(){if(view){view.destroy();view=null}viewReady=false;const canvas=document.querySelector('#r03-pitch');if(!canvas||!engine)return;const input=matchInput;const firstGK=(club,ids)=>ids.find(id=>club.players.find(p=>p.id===id)?.positions.includes('GK'));
- const ids=[firstGK(input.homeClub,input.homeXI),firstGK(input.awayClub,input.awayXI)];const kit={home:{shirt:'#2759b6',shirtB:'#fff0b0',pattern:'vertical',shorts:'#f2ebca'},away:{shirt:'#be3640',shirtB:'#faefcc',pattern:'solid',shorts:'#f5ede3'},homeKeeper:{shirt:'#edc84b'},awayKeeper:{shirt:'#319367'}};
+ const ids=[firstGK(input.homeClub,input.homeXI),firstGK(input.awayClub,input.awayXI)];
+  const kit={home:{shirt:'#2759b6',shirtB:'#fff0b0',pattern:'vertical',shorts:'#f2ebca'},away:{shirt:'#be3640',shirtB:'#faefcc',pattern:'solid',shorts:'#f5ede3'},homeKeeper:{shirt:'#edc84b'},awayKeeper:{shirt:'#319367'}};
+  // Uniforms follow the club; skin, hair and face are inherited from the player ID.
+  for(const [club,away] of [[input.homeClub,false],[input.awayClub,true]])for(const p of club.players){
+    const visual=appearanceForMatchR12(p,club,{away});if(visual)kit[p.id]=visual;
+  }
  view=createMatchView(canvas,{config:{homeTeamId:input.homeClub.id,awayTeamId:input.awayClub.id,keeperIds:ids,appearances:kit,simSecondsPerRealSecond:6,autoStart:false,onWarning:()=>{}}});bridge=createEngineViewBridge(engine,view,{keeperIds:ids});view.setPaused(paused);view.setCameraMode(cameraMode);bridge.sync();const loading=view;view.ready.then(()=>{if(view===loading&&!view.destroyed){viewReady=true;view.drawAt(performance.now());}}).catch(()=>{});updateMatch();}
 function updateMatch(){if(!engine||screen!=='match')return;const s=engine.snapshot();scoreSnapshot=s;const el=id=>document.querySelector('#'+id);if(el('match-score'))el('match-score').textContent=`${s.score.home} — ${s.score.away}`;if(el('match-time')){const m=Math.floor(s.t/60),sec=Math.floor(s.t%60);el('match-time').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')};if(el('match-pos'))el('match-pos').textContent=Math.round(s.stats.home.possession)+'%';if(el('match-shots'))el('match-shots').textContent=`${s.stats.home.shots}–${s.stats.away.shots}`;}
 function step(seconds){if(!engine||screen!=='match')return;tickMatch(engine,seconds,{speed});const d=bridge.sync(performance.now());for(const e of d.events){if(['goal','fulltime','halftime','shot','save'].includes(e.type))lastEvent=`${Math.floor(e.t/60)}′ · ${e.type.toUpperCase()} · ${e.playerId||''}`;}const feed=document.querySelector('#match-news');if(feed)feed.textContent=lastEvent||'Rendering 05 · dati del motore 06';updateMatch();if(engine.isFinished())finishMatch()}
