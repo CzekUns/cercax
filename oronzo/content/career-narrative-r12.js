@@ -33,6 +33,18 @@ const templates={
  routine:[
   ['La tribuna pesa le parole','Il campionato prosegue. Il magazziniere ha numerato le borse, tranne la propria.'],
   ['Il paese aspetta domenica','Nell’ufficio stampa si discute del prossimo avversario. Al bar si discute del parcheggio.']],
+ winning_run:[
+  ['Il paese prenota già il balcone del municipio','Tre vittorie consecutive hanno convinto la radio a trasmettere persino gli allenamenti. Il custode chiede gli straordinari.'],
+  ['La macchina dei festeggiamenti si inceppa','La squadra continua a vincere. Il presidente vuole scegliere personalmente il colore dei coriandoli.']],
+ losing_run:[
+  ['La lavagna delle colpe è piena','Tre sconfitte di fila e il consiglio comunale discute se spostare la panchina di due metri.'],
+  ['Radio Tribuna cerca una spiegazione','La serie negativa continua. In diretta hanno intervistato anche il pallone, senza ottenere risposte.']],
+ unbeaten_run:[
+  ['L’imbattibilità mette tutti d’accordo, quasi','Il presidente parla di record. Il magazziniere ricorda che mancano ancora molte domeniche.'],
+  ['Il paese conta le partite senza perdere','L’edicola ha esaurito le matite: tutti aggiornano la striscia positiva.']],
+ season_finale:[
+  ['Ultime giornate, conti aperti','La classifica si stringe. Il presidente ha chiesto tre volte se esistano punti a rate.'],
+  ['Il calendario finisce, le discussioni no','Le ultime domeniche fanno rumore. La radio locale prepara un dibattito di sette ore.']],
  unemployment:[
   ['Panchina vuota, agenda piena','Il mister studia gli annunci. La radio provinciale ha già previsto tre candidature immaginarie.']
  ]
@@ -59,6 +71,18 @@ const choices={
  routine:[
   {id:'school',label:'Dedica la settimana ai giovani',effects:{morale:1}},
   {id:'club',label:'Incontra i dirigenti',effects:{boardTrust:1}}],
+ winning_run:[
+  {id:'protect',label:'Proteggi il gruppo dagli entusiasmi',effects:{boardTrust:1,morale:1}},
+  {id:'celebrate',label:'Concedi un giorno di festa',effects:{morale:2,boardTrust:-1}}],
+ losing_run:[
+  {id:'support',label:'Difendi pubblicamente i calciatori',effects:{morale:2,boardTrust:-2}},
+  {id:'discipline',label:'Annuncia allenamenti più severi',effects:{boardTrust:2,morale:-2}}],
+ unbeaten_run:[
+  {id:'humble',label:'Ricorda che ogni gara riparte da zero',effects:{boardTrust:2}},
+  {id:'ambitious',label:'Dichiara che la squadra può osare',effects:{morale:2,boardTrust:-1}}],
+ season_finale:[
+  {id:'focus',label:'Concentra il gruppo sulle ultime gare',effects:{morale:1,boardTrust:1}},
+  {id:'promise',label:'Prometti un finale memorabile',effects:{morale:2,boardTrust:-2}}],
  unemployment:[]
 };
 function note(state){
@@ -74,6 +98,11 @@ export function recordCareerNarrativeR12(state,{context='routine',realResult=nul
  if(category==='routine'){
   if((club.finance?.cash??club.budget)<20000)category='debt';
   else if(club.boardTrust<=30)category='pressure';
+  else if((club.board?.lossStreak??0)>=3)category='losing_run';
+  else if((club.board?.winStreak??0)>=3)category='winning_run';
+  else if((club.board?.results??[]).length>=5 &&
+    (club.board?.results??[]).slice(-5).every(x=>x.result!=='loss'))category='unbeaten_run';
+  else if(state.week>=34)category='season_finale';
   else if(['victory','draw','defeat'].includes(realResult))category=realResult;
  }
  const key=state.seed+'|'+abs+'|'+(club?.id??'free')+'|'+category;
