@@ -153,8 +153,12 @@ export function renderSupportersPanel({ui,club,tab='stadio',canEditTicket=false}
     '<p class="r11-hint">Nessun evento specifico tifoseria registrato. I rapporti mostrati provengono dallo stato salvato.</p>')+
    '</div></div>';
  }else{
+  // Prior-week conferences belong to the saved archive, never generated copy.
   const sessions=Object.entries(ui?.press||{}).filter(([,s])=>s?.questions);
-  const entries=sessions.flatMap(([phase,s])=>(s.questions||[]).filter(q=>Object.hasOwn(s.answers||{},q.id)).map(q=>{
+  const archived=(Array.isArray(ui?.pressArchive)?ui.pressArchive:[])
+    .filter(entry=>entry?.session?.questions&&entry?.fixtureId)
+    .map(entry=>['postmatch · '+entry.seasonYear+'/'+entry.absoluteWeek,entry.session]);
+  const entries=[...sessions,...archived].flatMap(([phase,s])=>(s.questions||[]).filter(q=>Object.hasOwn(s.answers||{},q.id)).map(q=>{
    const id=s.answers[q.id],a=(q.answers||[]).find(x=>x.id===id);
    return '<div class="r11-press-item"><b>'+E(q.broadcasterName||q.journalistName||phase)+'</b><span>'+E(q.text)+'</span>'+
     '<small>Risposta registrata: '+E(a?.text||a?.label||id)+'</small></div>';
