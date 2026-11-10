@@ -249,7 +249,7 @@ export function newGame({seed=1979,avatar,municipalityCatalog=null,coachName='Il
     description:'Configured gameplay date, not a verified 1979 fixture date'};
   state.rngState={version:1,mode:'seed_derived_per_event',seed,cursor:0};
   state.flow={version:FLOW_VERSION,stage:'offers',initialOffers:[],acceptedOfferId:null,
-    acceptedOffer:null,press:{opening:null,postmatch:null},
+    acceptedOffer:null,press:{opening:null,postmatch:null},pressArchive:[],
     finalMatch:null,pendingMatch:null,resultSources:{},
     effectTransactions:{},history:[],effectsMode,
     pressDependency:effectsMode==='isolated_test'?'isolated_test_only':'agent09_integrated'};
@@ -382,7 +382,8 @@ export function getStateForUI(state) {
         visual:p.visual??null}))}:null,
     offers:state.flow?.initialOffers??[],careerOffers:state.offers,
     r12Narrative:state.flow?.r12Narrative??null,
-    press:state.flow?.press??null,upcomingFixture:getUpcomingFixture(state),
+    press:state.flow?.press??null,pressArchive:state.flow?.pressArchive??[],
+    upcomingFixture:getUpcomingFixture(state),
     resultSources:state.flow?.resultSources??{},
     pendingEffectTransactions:Object.values(state.flow?.effectTransactions??{})
       .filter(e=>e.status!=='applied'),
@@ -572,6 +573,19 @@ export function advanceMatchday(state,{presidentCatalog,simulateFixture=simulate
   draft.flow.history.push({seasonYear:period.seasonYear,week:period.week,
     absoluteWeek:period.absoluteWeek,fixtureCount:fixtures.length,
     playedFixtureId:coachFixture?.id??null,weekType});
+  // Keep only authentic, completed conferences in the persistent newspaper archive.
+  // Older saves without this field are compatible, and retries never duplicate fixtures.
+  const postmatchSession=draft.flow.press?.postmatch;
+  const archiveFixtureId=draft.flow.finalMatch?.fixtureId;
+  if(coachFixture && archiveFixtureId===coachFixture.id && postmatchSession?.completed){
+    if(!Array.isArray(draft.flow.pressArchive))draft.flow.pressArchive=[];
+    if(!draft.flow.pressArchive.some(entry=>entry.fixtureId===archiveFixtureId)){
+      draft.flow.pressArchive.push({fixtureId:archiveFixtureId,
+        absoluteWeek:period.absoluteWeek,seasonYear:period.seasonYear,
+        clubId:playerClub,result:draft.flow.finalMatch.result,
+        session:clone(postmatchSession)});
+    }
+  }
   draft.flow.pendingMatch=null;draft.flow.finalMatch=null;draft.flow.press.postmatch=null;
   draft.flow.stage=draft.phase==='seasonComplete'?'season_complete':
     draft.coach.clubId?'hub':'unemployed';

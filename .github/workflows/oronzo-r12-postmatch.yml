@@ -1,0 +1,88 @@
+name: ORONZO R12 Postmatch integration
+on:
+  pull_request:
+    paths:
+      - 'oronzo/**'
+      - '.github/workflows/oronzo-r12-postmatch.yml'
+  push:
+    branches:
+      - automation/oronzo-r12-press-context-20261110-1731
+      - main
+  workflow_dispatch:
+jobs:
+  press:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native JS syntax
+        run: |
+          node --check oronzo/content/press-kit.js
+          node --check oronzo/content/tests/r12-postmatch.test.mjs
+          node --check oronzo/content/tests/r12-postmatch-browser.mjs
+          node --check oronzo/content/tests/r12-combined-outcomes-browser.mjs
+          node --check oronzo/assets/ui/career-r03.js
+      - name: Native postmatch, R11 and M1 regressions
+        run: |
+          node --test oronzo/content/tests/r12-postmatch.test.mjs
+          node --test oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs
+      - name: Combined R12 five seasons and UI sections (when #70 is in checkout)
+        run: |
+          if test -f oronzo/app/flow/tests/r12-integration.test.mjs; then
+            echo 'COMBINED_R12_NODE_GATE'
+            node --test oronzo/app/flow/tests/r12-integration.test.mjs
+            node --test oronzo/assets/ui/sections-r11/sections-r11.test.mjs
+          else
+            echo 'ISOLATED_72_ONLY: R12 #70 is not in this checkout'
+          fi
+      - name: Install Chromium for HTTP UI gate
+        if: always()
+        run: |
+          npm install --no-save playwright fake-indexeddb
+          npx playwright install --with-deps chromium
+      - name: Browser postmatch persistence at four landscape viewports
+        if: always()
+        run: |
+          python3 -m http.server 8123 --bind 127.0.0.1 >/tmp/oronzo-r12-http.log 2>&1 &
+          sleep 2
+          node oronzo/content/tests/r12-postmatch-browser.mjs
+      - name: Combined R12 UI and all three match outcomes in four viewports
+        if: always()
+        run: |
+          if test -f oronzo/assets/ui/qa/r12-browser.mjs; then
+            echo 'COMBINED_R12_CHROMIUM_GATE'
+            node oronzo/assets/ui/qa/r12-browser.mjs
+            node oronzo/content/tests/r12-combined-outcomes-browser.mjs
+          else
+            echo 'ISOLATED_72_ONLY: R12 #70 UI is not in this checkout'
+          fi
+  pages-smoke:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: press
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Verify GitHub Pages publishes BOTH merged R12 and postmatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin=https://czekuns.github.io/cercax/oronzo
+          for attempt in $(seq 1 36); do
+            if curl --max-time 15 -fsSL "$origin/assets/ui/career-r03.html?rev=${GITHUB_SHA}" -o /tmp/oronzo-live.html \
+                && curl --max-time 15 -fsSL "$origin/assets/ui/career-r03.js?rev=${GITHUB_SHA}" -o /tmp/oronzo-live.js \
+                && curl --max-time 15 -fsSL "$origin/content/press-postmatch.json?rev=${GITHUB_SHA}" -o /tmp/oronzo-press.json \
+                && grep -q 'career-r03.js' /tmp/oronzo-live.html \
+                && grep -q 'newCareerSeedR12' /tmp/oronzo-live.js \
+                && grep -q 'saveRevision' /tmp/oronzo-live.js \
+                && node -e "const q=require('/tmp/oronzo-press.json').questions; if(q.filter(x=>x.id.startsWith('q_r12_provincia_')).length!==12) process.exit(2)"; then
+              echo "PAGES_R12_PUBLIC_SUCCESS main=${GITHUB_SHA} attempt=$attempt"
+              exit 0
+            fi
+            echo "Pages not yet serving combined R12 (attempt $attempt)"
+            sleep 10
+          done
+          echo 'PAGES_R12_PUBLIC_FAILED' >&2
+          exit 1
