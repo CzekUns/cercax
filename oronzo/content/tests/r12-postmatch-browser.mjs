@@ -39,7 +39,8 @@ try {
   await page.reload({waitUntil:'networkidle'});
   await page.locator('[data-action="load"]').click();
   await page.waitForFunction(()=>window.OronzoR03.getState()!=null);
-  check(await page.evaluate(()=>JSON.stringify(window.OronzoR03.getState().coach.relationships))===saved,'press effects persist');
+  const loaded=await page.evaluate(()=>JSON.stringify(window.OronzoR03.getState().coach.relationships));
+  check(loaded===saved,'press effects persist; before='+saved+' after='+loaded);
   check(errors.length===0,'browser errors '+errors.join('; '));
   await context.close();
  }
