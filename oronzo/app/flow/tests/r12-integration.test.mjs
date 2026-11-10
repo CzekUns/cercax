@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
+import {readFileSync,mkdirSync,writeFileSync,existsSync} from 'node:fs';
 import {newGame,listInitialOffers,acceptOffer,answerOpeningPress,answerPostMatchPress,
  prepareMatch,tickMatch,consumeMatchResult,advanceMatchday,rolloverSeason,
  getCoachWeekStatus,takeCareerOffer} from '../controller.js';
@@ -10,9 +10,13 @@ import {serialize,deserialize} from '../../../systems/career/save.js';
 import {createPlayerVisualR12,createClubKitsR12,ensureCareerVisualsR12,appearanceForMatchR12} from '../../../systems/attributes/visual-r12.js';
 import {newCareerSeedR12} from '../../../systems/career/seed-r12.js';
 import {syncPresidentTraitsR12,effectiveCoachTraitsR12} from '../../../systems/coach-club/president-traits-r12.js';
-import {regionalAffinity} from '../../../systems/match-engine/orders.js';
+import {regionalAffinity,calculateIndividualShout,individualPerformanceFactor} from '../../../systems/match-engine/orders.js';
+import {selectMatchShoutR12} from '../../../content/shouts-r12.js';
+import {recordCareerNarrativeR12,decideCareerNarrativeR12} from '../../../content/career-narrative-r12.js';
+import {sceneForEvent} from '../../../systems/match-view/match-view.js';
 const json=x=>JSON.parse(readFileSync(new URL(x,import.meta.url),'utf8'));
 const presidents=json('../../../content/presidents.json');
+const shoutCatalog=json('../../../content/individual-shouts.json');
 const press={opening:json('../../../content/press-opening.json'),
  postmatch:json('../../../content/press-postmatch.json'),media:json('../../../content/press-media.json')};
 const town=qaMunicipalityCatalog();
@@ -107,6 +111,55 @@ test('R12-D: president buffs are persisted, replace not stack, and disappear whe
  assert.deepEqual(s.coach.traits,base);
  syncPresidentTraitsR12(s.coach,null,null);
  assert.deepEqual(effectiveCoachTraitsR12(s.coach,null).effective,base);
+});
+test('R12-E: persisted provincial broadcast from genuine club plus one real choice and no double effects',()=>{
+ const s=newWorld(78891);hireAndPress(s);
+ const entries=s.flow.r12Narrative.issues;
+ assert.equal(entries.length,1);
+ const episode=entries[0],club=s.clubs.find(c=>c.id===s.coach.clubId),before=club.boardTrust;
+ assert.equal(episode.category,'appointment');
+ assert.ok(episode.channel&&episode.reporter&&episode.body);
+ const out=decideCareerNarrativeR12(s,episode.id,episode.options[0].id);
+ assert.equal(out.accepted,true,out.reason);
+ assert.equal(s.clubs.find(c=>c.id===club.id).boardTrust,before+2);
+ const snapshot=serialize(s);
+ assert.equal(decideCareerNarrativeR12(s,episode.id,episode.options[0].id).accepted,false);
+ assert.equal(serialize(s),snapshot);
+ assert.deepEqual(deserialize(snapshot).flow.r12Narrative.issues[0].selected,episode.selected);
+ assert.equal(recordCareerNarrativeR12(s,{context:'appointment',presidentCatalog:presidents}),null);
+});
+test('R12-F/M: real Engine06 regional proximity affects 150-second player output with fixed RNG',()=>{
+ const s=newWorld(24680),p=s.clubs.flatMap(c=>c.players)[0];
+ const same=p.origin,macro=p.origin.macroregione;
+ const sameOther={regione:macro==='Nord'?'Piemonte':macro==='Centro'?'Toscana':'Campania',macroregione:macro};
+ if(sameOther.regione===same.regione)sameOther.regione=macro==='Nord'?'Liguria':macro==='Centro'?'Umbria':'Calabria';
+ const foreign={regione:macro==='Sud'?'Piemonte':'Campania',macroregione:macro==='Sud'?'Nord':'Sud'};
+ const payload=origin=>({tone:'encourage',coachOrigin:origin,coachTraits:{leadership:75},playerOrigin:p.origin,playerTrust:75});
+ const rng={next:()=>.5};
+ const a=calculateIndividualShout(p,payload(same),rng,100);
+ const b=calculateIndividualShout(p,payload(sameOther),rng,100);
+ const c=calculateIndividualShout(p,payload(foreign),rng,100);
+ assert.ok(a.modifier>b.modifier&&b.modifier>c.modifier,JSON.stringify({a,b,c}));
+ assert.equal(a.affinity,'region');assert.equal(b.affinity,'macro');assert.equal(c.affinity,'other');
+ assert.ok(individualPerformanceFactor({personalShout:a},120)>1);
+ assert.equal(individualPerformanceFactor({personalShout:a},251),1);
+ const one=selectMatchShoutR12(shoutCatalog,{seed:1979,absoluteWeek:3,playerId:p.id,tone:'harsh',minute:80});
+ assert.ok(one?.id&&one?.text&&one.language==='it-IT');
+ assert.deepEqual(one,selectMatchShoutR12(shoutCatalog,{seed:1979,absoluteWeek:3,playerId:p.id,tone:'harsh',minute:80}));
+ assert.equal(shoutCatalog.regionalVariants.length,0,'no falsely verified dialect lines');
+});
+test('R12-G: all five original cutscene strips/masks can be loaded from traced PR12 assets',()=>{
+ const manifest=json('../../../assets/cutscenes/manifest.json');
+ for(const kind of ['goal','save','yellow','red','injury']){
+  const scene=manifest.scenes[kind];assert.ok(scene);
+  for(const name of [scene.sprite,scene.materialsMask,scene.shadesMask,scene.background])
+   assert.equal(existsSync(new URL('../../../assets/cutscenes/'+name,import.meta.url)),true,name);
+ }
+ assert.equal(sceneForEvent({type:'goal'}),'goal');
+ assert.equal(sceneForEvent({type:'save'}),'save');
+ assert.equal(sceneForEvent({type:'card',detail:{color:'red'}}),'red');
+ assert.equal(sceneForEvent({type:'card',detail:{color:'yellow'}}),'yellow');
+ assert.equal(sceneForEvent({type:'injury'}),'injury');
 });
 function playWeek(s){
  const status=getCoachWeekStatus(s),abs=s.absoluteWeek;
