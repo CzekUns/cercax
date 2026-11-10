@@ -22,12 +22,13 @@ jobs:
         run: |
           node --check oronzo/content/press-kit.js
           node --check oronzo/content/tests/r12-postmatch.test.mjs
+          node --check oronzo/content/tests/r12-provincial-arcs.test.mjs
           node --check oronzo/content/tests/r12-postmatch-browser.mjs
           node --check oronzo/content/tests/r12-combined-outcomes-browser.mjs
           node --check oronzo/assets/ui/career-r03.js
       - name: Native postmatch, R11 and M1 regressions
         run: |
-          node --test oronzo/content/tests/r12-postmatch.test.mjs
+          node --test oronzo/content/tests/r12-postmatch.test.mjs oronzo/content/tests/r12-provincial-arcs.test.mjs
           node --test oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs
       - name: Combined R12 five seasons and UI sections (when #70 is in checkout)
         run: |
