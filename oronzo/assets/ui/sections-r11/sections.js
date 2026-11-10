@@ -41,7 +41,7 @@ const group=(title,object)=>{
 const knownOrigin=p=>{
  const o=p?.origin;
  if(!o||typeof o!=='object')return null;
- return [o.municipalityName,o.regionId,o.macroRegion].filter(Boolean).join(' · ')||null;
+ return [o.comune??o.municipalityName,o.regione??o.regionId,o.macroregione??o.macroRegion].filter(Boolean).join(' · ')||null;
 };
 const clubPlayerReport=(reports,id)=>reports.filter(x=>x?.report?.playerId===id);
 export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
@@ -58,7 +58,8 @@ export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
  '</div><div class="r11-player-ident"><strong>'+E(p.name)+'</strong><span>'+
  E(p.positions?.join(' / ')||'Ruolo non registrato')+' · '+(number(p.age)?E(p.age)+' anni':'Età sconosciuta')+'</span>'+
  '<div class="r11-chips">'+availability+badge(p.foot==='L'?'PIEDE SX':p.foot==='R'?'PIEDE DX':p.foot==='B'?'AMBIDESTRO':'PIEDE N/D')+'</div>'+
- '<small>ORIGINE: '+E(knownOrigin(p)||'non registrata')+'</small><small>PERSONALITÀ: '+E(p.personality||'non registrata')+'</small></div></div>';
+ '<small>ORIGINE NARRATIVA: '+E(knownOrigin(p)||'non registrata')+'</small><small>PERSONALITÀ: '+E(p.personality||'non registrata')+'</small>'+
+  (appearance?'<small>TAGLIO: '+E(p.visual?.hairStyleId||'—')+' · BARBA: '+E(p.visual?.facialHairStyleId||'—')+' · VISO: '+E(p.visual?.faceVariantId??'—')+'</small>':'')+'</div></div>';
  const contract='<div class="r11-metrics">'+
  metric('Contratto fino al',c.until??c.contractUntil??'non registrato')+
  metric('Ingaggio settimanale',number(c.weeklyWage)?fmt(c.weeklyWage)+' ₤':'non registrato')+
