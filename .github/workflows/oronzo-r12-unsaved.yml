@@ -1,0 +1,27 @@
+name: ORONZO R12 unsaved-progress integration
+on:
+  push:
+    branches: [automation/oronzo-r12-unsaved-exit-20261110]
+  pull_request:
+    paths: ['oronzo/**', '.github/workflows/oronzo-r12-unsaved.yml']
+  workflow_dispatch:
+jobs:
+  unsaved-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright fake-indexeddb
+      - run: npx playwright install --with-deps chromium
+      - name: Parse runtime and execute native regression
+        run: |
+          node --check oronzo/assets/ui/career-r03.js
+          node --test oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs oronzo/assets/ui/sections-r11/sections-r11.test.mjs
+      - name: Browser HTTP 4 landscape viewports and persistence
+        run: |
+          python3 -m http.server 8123 --bind 127.0.0.1 >/tmp/oronzo-http.log 2>&1 &
+          sleep 2
+          node oronzo/assets/ui/qa/r12-unsaved-browser.mjs
