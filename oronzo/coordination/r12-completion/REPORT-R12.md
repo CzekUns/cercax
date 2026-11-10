@@ -47,3 +47,11 @@ Workflow: `.github/workflows/oronzo-r12-qa.yml`; source code and logs reproducib
 
 ## Final independent audit needed
 Agente 00 must independently check PR #70's latest exact HEAD (re-query it), all written files and original PNG assets, run Node native and Chromium HTTP on the merged-in-memory R11 main + PR70 (NOT merge PR70), verify game complete and dismissals, economic idempotence and provenance. Mark each module PASS / NEEDS CHANGES / NON CERTIFICATO. Require art gate Agent02 separately. Agent 10-bis coordinates, user alone approves any merge.
+
+
+## Verifica esecutiva R12-BIS — 10 novembre 2026, PR #70
+- **Correzione reale A:** la fixture nazionale di `r12-integration.test.mjs` ora seleziona il comune natale del mister direttamente da `municipalities-m1.json`, controllandone ID, regione e macroregione. La validazione in `controller.newGame` resta obbligatoria; la vecchia fixture QA fittizia `000001` non viene spacciata per comune del catalogo nazionale.
+- **Correzione reale B:** `sections-r11/sections.js` conserva il renderer delle notizie R12 e delle sole risposte realmente registrate, ma ripristina il testo regressivo `Nessuna conferenza registrata.` per l'archivio vuoto.
+- **Evidenza CI dell'HEAD funzionale `be3b29bb8546bdae7554ac8f7f31835dfad6a4e4`:** GitHub Actions run [42903632012](https://github.com/CzekUns/cercax/actions/runs/42903632012), stato **SUCCESS**. `node --check` PASS; suite R12 **9/9 PASS** con cinque stagioni complete; regressione R11/contratti/sezioni **33/33 PASS**; Chromium HTTP reale **52/52 PASS**, quattro viewport 640×360 / 800×360 / 844×390 / 960×400; 0 errori rilevati. Immagini e log negli artifact di workflow.
+- **Stato:** codice #70 verificato sul ramo PR. La compatibilità con PR #72 e il deployment pubblico richiedono gate successivi prima del rilascio. Playtest su Android fisico e rifiniture artistiche delle cutscene non certificati. PR #12 resta separata.
+- Questa appendice aggiorna il REPORT senza rivendicare un merge; le prove riferite alla commit funzionale precedente restano esatte e tracciabili.
