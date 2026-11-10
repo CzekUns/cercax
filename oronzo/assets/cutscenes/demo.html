@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c1530"><title>ORONZO / Scene evento</title>
+<style>
+:root{--navy:#0c1530;--panel:#263e7b;--bezel:#e0e5e6;--gold:#f6d46c;--text:#eee9d7;--cyan:#91c7d5}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 45% 0%,#263c68,var(--navy) 70%);color:var(--text);min-height:100vh}
+main{max-width:1100px;margin:auto;padding:clamp(8px,3vw,26px)}header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-bottom:4px double var(--bezel);margin-bottom:14px}h1{font-weight:1000;letter-spacing:3px;font-size:clamp(24px,4vw,39px);margin:8px 0;color:var(--gold);text-shadow:3px 3px #182851}header small{color:var(--cyan);font-weight:bold;text-transform:uppercase}
+.board{border:4px solid #c9d6e2;box-shadow:inset 2px 2px #fff,0 5px 0 #070d25;background:#091a20;padding:6px}
+canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;image-rendering:pixelated;background:#163b3d}
+.status{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#12264e;padding:8px 12px;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.panel{background:#172b5c;border:3px ridge #a1b8df;padding:12px}.panel h2{font-size:15px;margin:0 0 10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+label{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px;margin:6px 0}select,input,button{accent-color:#e9c363}select,button{background:#e5e7de;color:#11203d;border:2px outset #c5cfdb;padding:8px 10px;font-weight:800;max-width:100%;min-height:38px}select{width:60%}button:active{border-style:inset}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--gold)}.actions{display:flex;gap:6px;flex-wrap:wrap}input[type=color]{width:53px;height:32px;background:transparent;border:0;padding:0}input[type=range]{width:65%}.colors{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}p.note{line-height:1.5;font-size:13px;color:#d5dcf1}.note code{color:#f6d46c}footer{font-size:12px;color:#b0c2e1;text-align:center;padding:14px}
+@media (max-width:600px){.controls{grid-template-columns:1fr}.board{padding:2px}.panel{padding:8px}}
+</style></head>
+<body><main><header><h1>ORONZO</h1><small>Cutscene Lab · 1985 / 1995 · Agent 2</small></header>
+<div class="board"><canvas id="view" width="320" height="180" aria-label="Animazione pixel art evento calcistico"></canvas><div class="status"><span id="status">Caricamento…</span><span id="frame">Frame 1/6 · 320×180</span></div></div>
+<div class="controls"><section class="panel"><h2>Azioni in partita</h2><label>Evento <select id="event"><option value="goal">Gol ed esultanza</option><option value="save">Tuffo / parata</option><option value="yellow">Ammonizione</option><option value="red">Espulsione</option><option value="injury">Infortunio</option></select></label><div class="actions"><button id="play">▶ Riproduci</button><button id="pause">■ Ferma</button><button id="step">↦ Frame</button></div><label>Velocità <input id="speed" type="range" min="0.5" max="2" value="1" step="0.25"><output id="speedValue">1×</output></label><label>Ripeti nella demo <input id="loop" type="checkbox" checked></label></section>
+<section class="panel"><h2>Palette live</h2><div class="colors"><label>Pelle <input type="color" id="skin" value="#eeb881"></label><label>Capelli <input type="color" id="hair" value="#50352e"></label><label>Maglia A <input type="color" id="shirt" value="#3769cb"></label><label>Maglia B <input type="color" id="shirtB" value="#f6f7f0"></label><label>Pantaloncini <input type="color" id="shorts" value="#e4e8e3"></label><label>Calzettoni <input type="color" id="socks" value="#3260c9"></label></div><label>Fantasia <select id="pattern"><option value="solid">Tinta unita</option><option value="vertical">Righe verticali</option><option value="horizontal">Righe orizzontali</option><option value="halves">Metà / metà</option></select></label><button id="reset">Ripristina colori</button></section></div>
+<p class="note">Pixel art originale, cinque eventi e sei keyframe per evento. Gli sfondi sono file indipendenti: la demo compone tribuna + personaggi ricolorati a runtime leggendo <code>_materials.png</code> e <code>_shades.png</code>. Per visualizzarla dalla cartella, usare HTTP o GitHub Pages (non <code>file://</code>).</p><footer>ORONZO · Retro football cutscene engine · 16:9 landscape</footer></main>
+<script type="module">
+import { OronzoCutscenePlayer } from './cutscene-player.js';
+const $=id=>document.getElementById(id), view=$('view');
+const player=new OronzoCutscenePlayer(view,{onComplete:()=>{$('status').textContent='Conclusa · ritorno alla partita';}});
+const colorIds=['skin','hair','shirt','shirtB','shorts','socks'];
+let loaded=false;
+function appearance(){return Object.fromEntries(colorIds.map(id=>[id,$(id).value]));}
+async function start(){
+ if(!loaded)return;
+ const e=$('event').value;
+ $('status').textContent='▶ '+$('event').selectedOptions[0].text;
+ try {await player.play(e,{appearance:appearance(),pattern:$('pattern').value,loop:$('loop').checked,speed:Number($('speed').value)})}
+ catch(err){$('status').textContent=err.message;console.error(err)}
+}
+async function refresh(){if(!loaded)return;player.setAppearance(appearance(),$('pattern').value);await start();}
+$('event').addEventListener('change',start);$('play').addEventListener('click',start);
+$('pause').addEventListener('click',()=>{player.stop(false);$('status').textContent='Fermo al frame '+(player.frame+1)});
+$('step').addEventListener('click',async()=>{await player.prepare($('event').value);player.stop(false);player.renderFrame((player.frame+1)%6);$('status').textContent='Keyframe manuale';});
+$('speed').addEventListener('input',()=>{$('speedValue').textContent=$('speed').value+'×';});
+$('speed').addEventListener('change',start);$('loop').addEventListener('change',start);
+$('pattern').addEventListener('change',refresh);
+colorIds.forEach(id=>$(id).addEventListener('input',refresh));
+$('reset').addEventListener('click',()=>{const defaults={skin:'#eeb881',hair:'#50352e',shirt:'#3769cb',shirtB:'#f6f7f0',shorts:'#e4e8e3',socks:'#3260c9'};colorIds.forEach(id=>$(id).value=defaults[id]);$('pattern').value='solid';refresh();});
+setInterval(()=>{if(loaded)$('frame').textContent=`Frame ${player.frame+1}/6 · 320×180`;},120);
+player.init().then(()=>{loaded=true;start()}).catch(e=>{$('status').textContent=e.message;console.error(e)});
+</script></body></html>
