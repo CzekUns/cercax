@@ -132,10 +132,21 @@ function recordEffect(state,eventId,kind,semanticEffects,additional={}) {
     const club=state.coach.clubId?clubById(state,state.coach.clubId):null;
     const influence=effectiveCoachTraitsR12(state.coach,club);
     const usesInfluence=kind==='press'&&!!influence.presidentId;
-    const coachForEffect=clone(state.coach);
-    if(usesInfluence)coachForEffect.traits=influence.effective;
+    const coachForEffect=clone(state.coach),effectsFor09=clone(semanticEffects);
+    if(usesInfluence){
+      coachForEffect.traits=influence.effective;
+      // Self-esteem affects how the mister internalizes praise/criticism.
+      // Synthetic +/-1 bound, one adjustment per unique conference transaction.
+      const raw=effectsFor09.coachMorale??0,mod=influence.modifiers.selfEsteem??0;
+      if(raw!==0&&Math.abs(mod)>=3){
+        const adjusted=Math.max(-3,Math.min(3,raw+(mod>0?1:-1)));
+        effectsFor09.coachMorale=adjusted;
+      }
+      stored.presidentTraitAdjustment={base:influence.base,effective:influence.effective,
+        semanticMoraleBefore:raw,semanticMoraleAfter:effectsFor09.coachMorale??raw};
+    }
     const result=applier({
-      eventId,kind,semanticEffects:clone(semanticEffects),offer:additional.offer??null,
+      eventId,kind,semanticEffects:effectsFor09,offer:additional.offer??null,
       coach:coachForEffect,club:club?clone(club):null,date:state.gameDate
     });
     const applied=Boolean(result?.accepted===true && result.coach);
