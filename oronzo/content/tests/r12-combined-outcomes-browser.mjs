@@ -84,8 +84,16 @@ try {
     check(after.relations===before.relations,'reload retains relationships');
     check(after.answers===before.answers,'reload retains answers');
     check(after.transactions===before.transactions,'reload retains transactions');
-    await page.locator('[data-action="next"]').click();
+    await page.locator('[data-action="advance"]').click();
     await page.waitForFunction(()=>window.OronzoR03.getScreen()==='hub');
+    await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress(),{timeout:20000});
+    const journal=await page.evaluate(()=>{
+     const s=window.OronzoR03.getState();
+     return {archive:s.flow.pressArchive,fixtureId:s.flow.history.at(-1)?.playedFixtureId};
+    });
+    check(journal.archive.some(entry=>entry.fixtureId===journal.fixtureId&&
+     entry.session?.completed&&Object.keys(entry.session.answers||{}).length===2),
+     'conference missing from durable archive after week advancement');
     await page.locator('[data-action="section"][data-value="tifoseria"]').click();
     await page.locator('[data-action="support-tab"][data-value="giornali"]').click();
     const news=await page.locator('.r11-news-view').textContent();
