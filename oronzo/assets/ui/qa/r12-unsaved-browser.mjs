@@ -27,6 +27,12 @@ try{
   await page.waitForFunction(()=>window.OronzoR03?.getScreen()==='president');
   await page.waitForFunction(()=>!window.OronzoR03?.hasUnsavedProgress(),{timeout:15000});
   check(await page.evaluate(()=>!window.OronzoR03.hasUnsavedProgress()),'offer persisted');
+  await page.locator('[data-action="press"]').click();
+  for(let i=0;i<6 && await page.evaluate(()=>window.OronzoR03.getScreen())!=='hub';i++){
+   await page.locator('[data-action="answer"]').first().click();
+  }
+  await page.waitForFunction(()=>window.OronzoR03?.getScreen()==='hub');
+  await page.waitForFunction(()=>!window.OronzoR03?.hasUnsavedProgress());
   // A real imported save is deliberately dirty until explicitly confirmed.
   const downloadPromise=page.waitForEvent('download');
   await page.locator('[data-action="export-save"]').first().click();
