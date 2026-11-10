@@ -40,7 +40,7 @@ let state=null, press=null, presidents=null, mode='normal', screen='entry', avat
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
 let errors=[], viewReady=false;
 let trainingPlan='balanced',trainingIntensity=50,trainingRosterOpen=false,supportTab='stadio';
-let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full',matchToolsOpen=false,leagueTab='classifica',presidentTab='ufficio',formationChoice='4-4-2',pressingChoice=50,rosterFilter='ALL',rosterSort='name';
+let dirtyUnsaved=false,lastSaveError='',saveRevision=0,actionSerial=0,cameraMode='full',matchToolsOpen=false,leagueTab='classifica',presidentTab='ufficio',formationChoice='4-4-2',pressingChoice=50,rosterFilter='ALL',rosterSort='name';
 let integrationBackend=null;
 const backendPromise=import('../../app/flow/management-r11.js')
  .then(m=>{integrationBackend=m; if(state&&screen!=='match')render();return m;})
@@ -75,24 +75,34 @@ async function save({silent=false}={}){
   }
   protectPreviousSave=false;
  }
+ const snapshotState=state, snapshotRevision=saveRevision;
  const snapshot=JSON.parse(JSON.stringify(state));
  try {
   const durable=await durablePromise;
   const result=durable?await durable.save(snapshot):saveGame(snapshot,localStorage);
-  lastSaveError='';dirtyUnsaved=false;restoreMode();
-  if(!silent)message('Carriera verificata e salvata · '+result.sequence);
+  // An earlier queued IndexedDB write must never mark a newer, unsaved answer as durable.
+  if(state===snapshotState&&saveRevision===snapshotRevision){
+   lastSaveError='';dirtyUnsaved=false;restoreMode();
+  }
+  if(!silent)message(dirtyUnsaved?'Salvataggio precedente verificato · modifiche successive ancora in corso':'Carriera verificata e salvata · '+result.sequence);
   return true;
  }catch(e){
-  lastSaveError=saveErrorText(e);dirtyUnsaved=true;restoreMode();
-  failure('NON PERSISTITO · '+lastSaveError+' · usa ESPORTA SALVATAGGIO');
+  // Ignore stale write completion as a UI status update; newer saves own the dirty flag.
+  if(state===snapshotState&&saveRevision===snapshotRevision){
+   lastSaveError=saveErrorText(e);dirtyUnsaved=true;restoreMode();
+   failure('NON PERSISTITO · '+lastSaveError+' · usa ESPORTA SALVATAGGIO');
+  }
   errors.push('SAVE_FAILED: '+String(e));
   return false;
  }
 }
 function persistAction(success){
+ ++saveRevision;
  dirtyUnsaved=true;restoreMode();
  return save({silent:true}).then(ok=>{
-  message(ok?success:'NON PERSISTITO · '+lastSaveError+' · progressi solo in memoria');
+  // Older completions may arrive while a newer snapshot is still in the save queue.
+  if(!dirtyUnsaved)message(success);
+  else if(!ok&&lastSaveError)message('NON PERSISTITO · '+lastSaveError+' · progressi solo in memoria');
   return ok;
  });
 }
@@ -583,5 +593,5 @@ window.addEventListener('beforeunload', event => {
  event.preventDefault();
  event.returnValue = '';
 });
-window.OronzoR03=Object.freeze({getState:()=>state,hasUnsavedProgress:()=>dirtyUnsaved,getSaveError:()=>lastSaveError,getScreen:()=>screen,getSnapshot:()=>scoreSnapshot,completeQaMatch:()=>guard(fulltimeQA),getErrors:()=>errors.slice(),getMode:()=>mode, isViewReady:()=>viewReady, getStage:activeStage});
+window.OronzoR03=Object.freeze({getState:()=>state,hasUnsavedProgress:()=>dirtyUnsaved,getSaveError:()=>lastSaveError,getSaveRevision:()=>saveRevision,getScreen:()=>screen,getSnapshot:()=>scoreSnapshot,completeQaMatch:()=>guard(fulltimeQA),getErrors:()=>errors.slice(),getMode:()=>mode, isViewReady:()=>viewReady, getStage:activeStage});
 render();loadCopy().catch(e=>{failure(e.message);errors.push(e.message)});last=performance.now();requestAnimationFrame(loop);
