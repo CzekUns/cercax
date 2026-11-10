@@ -1,0 +1,25 @@
+name: ORONZO R12 Postmatch integration
+on:
+  pull_request:
+    paths:
+      - 'oronzo/content/**'
+      - '.github/workflows/oronzo-r12-postmatch.yml'
+  push:
+    branches:
+      - automation/oronzo-r12-press-context-20261110-1731
+  workflow_dispatch:
+jobs:
+  press:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native JS syntax
+        run: node --check oronzo/content/press-kit.js && node --check oronzo/content/tests/r12-postmatch.test.mjs
+      - name: Native press selection and existing regressions
+        run: |
+          node --test oronzo/content/tests/r12-postmatch.test.mjs
+          node --test oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs
