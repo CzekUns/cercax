@@ -173,7 +173,7 @@ export function renderSupportersPanel({ui,club,tab='stadio',canEditTicket=false}
    '<div class="r11-column-scroll"><div class="r11-metrics">'+metric('Rapporto stampa',ui?.coach?.relationships?.media)+'</div>'+
    (narrative?'<div class="r11-news-entries">'+narrative+'</div>':'')+
    (entries.length?'<div class="r11-news-entries">'+entries.slice(-6).reverse().join('')+'</div>':
-    (narrative?'':'<p class="r11-hint">Nessuna conferenza o notizia registrata.</p>'))+'</div></div>';
+    (narrative?'':'<p class="r11-hint">Nessuna conferenza registrata. Nessuna notizia registrata.</p>'))+'</div></div>';
  }
  return '<div class="r11-support-page"><section class="panel r11-support-panel"><div class="panel-title">TIFOSERIA · ARCHIVIO SOCIETÀ</div>'+
  toolbar+inside+'<div class="r11-bottom">'+B('UFFICIO','hub')+B('SALVA','save')+'</div></section></div>';
