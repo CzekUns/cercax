@@ -32,6 +32,9 @@ try {
   check(JSON.stringify(before)!==JSON.stringify(after),'answer changes relationships');
   await page.locator('[data-action="answer"]').first().click();
   await page.waitForFunction(()=>window.OronzoR03.getScreen()==='post');
+  // PersistAction saves asynchronously; a page reload before IndexedDB settles races the write.
+  await page.waitForFunction(()=>!window.OronzoR03.hasUnsavedProgress(),{timeout:15000});
+  check(!await page.evaluate(()=>window.OronzoR03.getSaveError()),'no save error');
   const saved=await page.evaluate(()=>JSON.stringify(window.OronzoR03.getState().coach.relationships));
   await page.reload({waitUntil:'networkidle'});
   await page.locator('[data-action="load"]').click();
