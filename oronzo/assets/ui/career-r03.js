@@ -523,7 +523,7 @@ async function applyManagementAction(action,value){
 async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.morale===0)&&!['load','home','reset-career','export-save'].includes(action))return failure('GAME_OVER');
  switch(action){case 'reset-career':restartAfterGameOver();break;case 'home':if(state&&screen!=='entry'&&screen!=='match'&&activeStage()==='hub'){display('hub')}else display('entry');break;
  case 'start':display('avatar');break;case 'avatar':avatar=Number(value);render();break;case 'back-avatar':display('avatar');break;case 'begin':newCareer();break;
- case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press}),()=>{selectLineup();display('president');persistAction('Contratto di ingaggio salvato')});break;}
+ case 'offer':offerIndex=Number(value);render();break;case 'accept':{const offer=listInitialOffers(state)[offerIndex];api(acceptOffer(state,offer.id,{press,presidents}),()=>{selectLineup();display('president');persistAction('Contratto di ingaggio salvato')});break;}
  case 'press':display('press');break;case 'answer':{const [q,a]=value.split('|');const kind=activeStage()==='postmatch_press'?'postmatch':'opening';const result=kind==='opening'?answerOpeningPress(state,q,a,{press}):answerPostMatchPress(state,q,a,{press});api(result,()=>{display(activeStage()==='hub'?'hub':activeStage()==='postmatch_ready'?'post':'press');persistAction('Risposta stampa salvata')});break;}
  case 'hub':if(!state)return display('entry');if(activeStage()==='hub')display('hub');else if(activeStage()==='postmatch_ready')display('post');else failure('Completa il passaggio corrente');break;
  case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;trainingRosterOpen=false;if(value==='tifoseria')supportTab='stadio';if(value==='campionato')leagueTab='classifica';if(value==='presidente')presidentTab='ufficio';display('hub-section');break;
@@ -568,7 +568,7 @@ async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.
  case 'save':await save();break;case 'load':await load();break;case 'export-save':exportSave();break;
  case 'import-save':root.querySelector('#r11-save-import')?.click();break;
  case 'rollover':api(rolloverSeason(state),()=>{selectLineup();display('hub');persistAction('Nuova stagione salvata')});break;
- case 'vacancy':api(takeCareerOffer(state,value),()=>{selectLineup();display('hub');persistAction('Nuovo ingaggio salvato')});break;
+ case 'vacancy':api(takeCareerOffer(state,value,{presidents}),()=>{selectLineup();display('hub');persistAction('Nuovo ingaggio salvato')});break;
  default:failure('Azione non gestita: '+action);
  }}
 function renderMatchControls(){if(screen!=='match')return;
