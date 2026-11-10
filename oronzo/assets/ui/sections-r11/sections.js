@@ -41,7 +41,7 @@ const group=(title,object)=>{
 const knownOrigin=p=>{
  const o=p?.origin;
  if(!o||typeof o!=='object')return null;
- return [o.municipalityName,o.regionId,o.macroRegion].filter(Boolean).join(' · ')||null;
+ return [o.comune??o.municipalityName,o.regione??o.regionId,o.macroregione??o.macroRegion].filter(Boolean).join(' · ')||null;
 };
 const clubPlayerReport=(reports,id)=>reports.filter(x=>x?.report?.playerId===id);
 export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
@@ -58,7 +58,8 @@ export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
  '</div><div class="r11-player-ident"><strong>'+E(p.name)+'</strong><span>'+
  E(p.positions?.join(' / ')||'Ruolo non registrato')+' · '+(number(p.age)?E(p.age)+' anni':'Età sconosciuta')+'</span>'+
  '<div class="r11-chips">'+availability+badge(p.foot==='L'?'PIEDE SX':p.foot==='R'?'PIEDE DX':p.foot==='B'?'AMBIDESTRO':'PIEDE N/D')+'</div>'+
- '<small>ORIGINE: '+E(knownOrigin(p)||'non registrata')+'</small><small>PERSONALITÀ: '+E(p.personality||'non registrata')+'</small></div></div>';
+ '<small>ORIGINE NARRATIVA: '+E(knownOrigin(p)||'non registrata')+'</small><small>PERSONALITÀ: '+E(p.personality||'non registrata')+'</small>'+
+  (appearance?'<small>TAGLIO: '+E(p.visual?.hairStyleId||'—')+' · BARBA: '+E(p.visual?.facialHairStyleId||'—')+' · VISO: '+E(p.visual?.faceVariantId??'—')+'</small>':'')+'</div></div>';
  const contract='<div class="r11-metrics">'+
  metric('Contratto fino al',c.until??c.contractUntil??'non registrato')+
  metric('Ingaggio settimanale',number(c.weeklyWage)?fmt(c.weeklyWage)+' ₤':'non registrato')+
@@ -163,10 +164,20 @@ export function renderSupportersPanel({ui,club,tab='stadio',canEditTicket=false}
    return '<div class="r11-press-item"><b>'+E(q.broadcasterName||q.journalistName||phase)+'</b><span>'+E(q.text)+'</span>'+
     '<small>Risposta registrata: '+E(a?.text||a?.label||id)+'</small></div>';
   }));
+  const narrative=(ui?.r12Narrative?.issues||[]).slice(-6).reverse().map(issue=>{
+   const active=issue.clubId===club?.id&&issue.absoluteWeek===ui.absoluteWeek&&ui.stage==='hub'&&!issue.selected;
+   return '<article class="r11-press-item" data-r12-issue="'+E(issue.id)+'"><b>'+E(issue.channel)+' · '+E(issue.reporter)+'</b>'+
+    '<strong>'+E(issue.title)+'</strong><span>'+E(issue.body)+'</span>'+
+    '<small>SETTIMANA '+E(issue.absoluteWeek)+' · STORIA ORIGINALE DI FINZIONE</small>'+
+    (issue.selected?'<small>Decisione: '+E(issue.selected.label)+'</small>':
+    active?'<div class="runtime-controls">'+(issue.options||[]).map(x=>B(x.label,'narrative-choice',issue.id+'|'+x.id)).join('')+'</div>':'')+
+    '</article>';
+  }).join('');
   inside='<div class="r11-news-view"><div class="r11-newspaper" aria-hidden="true"><b>LA GAZZETTA</b><span>RITAGLI D’ARCHIVIO</span></div>'+
    '<div class="r11-column-scroll"><div class="r11-metrics">'+metric('Rapporto stampa',ui?.coach?.relationships?.media)+'</div>'+
+   (narrative?'<div class="r11-news-entries">'+narrative+'</div>':'')+
    (entries.length?'<div class="r11-news-entries">'+entries.slice(-6).reverse().join('')+'</div>':
-    '<p class="r11-hint">Nessuna conferenza registrata. Non sono state generate notizie artificiali.</p>')+'</div></div>';
+    (narrative?'':'<p class="r11-hint">Nessuna conferenza registrata. Nessuna notizia registrata.</p>'))+'</div></div>';
  }
  return '<div class="r11-support-page"><section class="panel r11-support-panel"><div class="panel-title">TIFOSERIA · ARCHIVIO SOCIETÀ</div>'+
  toolbar+inside+'<div class="r11-bottom">'+B('UFFICIO','hub')+B('SALVA','save')+'</div></section></div>';
@@ -244,7 +255,9 @@ export async function mountPlayerIllustration(root,item){
  await adapter.playersReady;
  if(!target.isConnected)return false;
  const kit={skin,hair,shirt:home.shirtA??home.shirt,shirtB:home.shirtB??home.shirtA??home.shirt,
-  shorts:home.shorts,socks:home.socks,trim:home.trim,pattern:home.shirtPatternId??home.pattern};
+  shorts:home.shorts,socks:home.socks,trim:home.trim,pattern:home.shirtPatternId??home.pattern,
+   facialHairColor:hairs[a.facialHairColorId]||hair,hairStyleId:a.hairStyleId,
+   facialHairStyleId:a.facialHairStyleId,faceVariantId:a.faceVariantId};
  const ctx=target.getContext('2d');
  if(!ctx)return false;
  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,112,112);ctx.save();
