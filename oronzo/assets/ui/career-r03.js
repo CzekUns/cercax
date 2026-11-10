@@ -6,6 +6,7 @@ import {newGame,listInitialOffers,acceptOffer,getStateForUI,answerOpeningPress,
 import {qaMunicipalityCatalog} from '../../app/flow/tests/qa-geography.mjs';
 import {BUILTIN_SURNAME_CATALOG} from '../../systems/attributes/surnames.js';
 import {newCareerSeedR12} from '../../systems/career/seed-r12.js';
+import {decideCareerNarrativeR12} from '../../content/career-narrative-r12.js';
 import {ensureCareerVisualsR12,appearanceForMatchR12} from '../../systems/attributes/visual-r12.js';
 import {effectiveCoachTraitsR12} from '../../systems/coach-club/president-traits-r12.js';
 import {previewOfferMorale} from '../../systems/coach-club/index.js';
@@ -530,6 +531,11 @@ async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.
  case 'section':if(!hubMenu.some(([key])=>key===value))return failure('Sezione non disponibile');selectedHub=value;selectedPlayerId=null;trainingRosterOpen=false;if(value==='tifoseria')supportTab='stadio';if(value==='campionato')leagueTab='classifica';if(value==='presidente')presidentTab='ufficio';display('hub-section');break;
  case 'training-roster':trainingRosterOpen=!trainingRosterOpen;display('hub-section');break;
  case 'support-tab':if(!['stadio','tifosi','giornali'].includes(value))return failure('Scheda tifoseria non disponibile');supportTab=value;render();break;
+ case 'narrative-choice':{
+  const [issueId,optionId]=value.split('|');
+  const result=decideCareerNarrativeR12(state,issueId,optionId);
+  api(result,()=>{render();persistAction('Decisione sulla stampa provinciale registrata')});break;
+ }
  case 'league-tab':if(!['classifica','calendario','prossima'].includes(value))return failure('Vista campionato sconosciuta');leagueTab=value;render();break;
  case 'pres-tab':if(!['ufficio','mercato'].includes(value))return failure('Vista presidente sconosciuta');presidentTab=value;render();break;
  case 'ticket-change':case 'board-request':case 'board-decide':
