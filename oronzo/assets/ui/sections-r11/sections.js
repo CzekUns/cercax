@@ -251,7 +251,9 @@ export async function mountPlayerIllustration(root,item){
  await adapter.playersReady;
  if(!target.isConnected)return false;
  const kit={skin,hair,shirt:home.shirtA??home.shirt,shirtB:home.shirtB??home.shirtA??home.shirt,
-  shorts:home.shorts,socks:home.socks,trim:home.trim,pattern:home.shirtPatternId??home.pattern};
+  shorts:home.shorts,socks:home.socks,trim:home.trim,pattern:home.shirtPatternId??home.pattern,
+   facialHairColor:hairs[a.facialHairColorId]||hair,hairStyleId:a.hairStyleId,
+   facialHairStyleId:a.facialHairStyleId,faceVariantId:a.faceVariantId};
  const ctx=target.getContext('2d');
  if(!ctx)return false;
  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,112,112);ctx.save();
