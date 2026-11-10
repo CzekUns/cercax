@@ -1,5 +1,6 @@
 /** ORONZO — sprite/cutscene bridges, no dependency on colleagues' implementation details. */
 import {DIRECTIONS,clamp} from './interpolation.js';
+import {drawPlayerFaceDetailsR12} from './player-details-r12.js';
 const PLAYER_BASE=new URL('../../assets/players/',import.meta.url);
 const SCENE_BASE=new URL('../../assets/cutscenes/',import.meta.url);
 const MATERIALS=['skin','hair','shirt','shorts','socks','boots','outline','gloves','shadow'];
@@ -110,6 +111,7 @@ export function createAssetAdapter({assetLoader={},playerBaseUrl=PLAYER_BASE,cut
     const kit=resolvePlayerAppearance({appearance,team,isKeeper});
     const atlas=getPalette(act,kit)||atlases.get(act);
     ctx.drawImage(atlas,cell.x,cell.y,cell.w,cell.h,Math.round(x-(cell.pivotX??16)),Math.round(y-(cell.pivotY??29)),cell.w,cell.h);
+    drawPlayerFaceDetailsR12(ctx,{x,y,direction,appearance:kit});
     return true;
   }
   function drawBall(ctx,x,y,height=0) {
