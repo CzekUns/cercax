@@ -7,6 +7,7 @@ import {qaMunicipalityCatalog} from '../../app/flow/tests/qa-geography.mjs';
 import {BUILTIN_SURNAME_CATALOG} from '../../systems/attributes/surnames.js';
 import {newCareerSeedR12} from '../../systems/career/seed-r12.js';
 import {decideCareerNarrativeR12} from '../../content/career-narrative-r12.js';
+import {selectMatchShoutR12} from '../../content/shouts-r12.js';
 import {ensureCareerVisualsR12,appearanceForMatchR12} from '../../systems/attributes/visual-r12.js';
 import {effectiveCoachTraitsR12} from '../../systems/coach-club/president-traits-r12.js';
 import {previewOfferMorale} from '../../systems/coach-club/index.js';
@@ -42,7 +43,7 @@ let state=null, press=null, presidents=null, mode='normal', screen='entry', avat
  offerIndex=0, selectedHub='campionato', lineup=new Set(), bench=new Set(), captain=null,
  engine=null,matchInput=null,view=null,bridge=null,paused=true,speed=1,last=0,locking=false,
  lastEvent='',scoreSnapshot=null, showToastTimer=null, selectedPlayerId=null, profileSource='rosa', protectPreviousSave=false;
-let errors=[], viewReady=false;
+let errors=[], viewReady=false, SHOUTS=null;
 let trainingPlan='balanced',trainingIntensity=50,trainingRosterOpen=false,supportTab='stadio';
 let dirtyUnsaved=false,lastSaveError='',actionSerial=0,cameraMode='full',matchToolsOpen=false,leagueTab='classifica',presidentTab='ufficio',formationChoice='4-4-2',pressingChoice=50,rosterFilter='ALL',rosterSort='name';
 let integrationBackend=null;
@@ -148,11 +149,11 @@ async function importSave(file){
  }catch(e){failure('IMPORTAZIONE RIFIUTATA · '+saveErrorText(e))}
 }
 async function loadCopy(){
- const paths=['../../content/press-opening.json','../../content/press-postmatch.json','../../content/press-media.json','../../content/presidents.json'];
+ const paths=['../../content/press-opening.json','../../content/press-postmatch.json','../../content/press-media.json','../../content/presidents.json','../../content/individual-shouts.json'];
  const all=await Promise.all(paths.map(async p=>{
   const r=await fetch(p);if(!r.ok)throw new Error('COPY04 HTTP '+r.status+': '+p);return r.json();
  }));
- press={opening:all[0],postmatch:all[1],media:all[2]};presidents=all[3];
+ press={opening:all[0],postmatch:all[1],media:all[2]};presidents=all[3];SHOUTS=all[4];
  try{
   const response=await fetch('../../data/world/municipalities-m1.json');
   if(!response.ok)throw new Error('HTTP '+response.status);
@@ -456,17 +457,17 @@ function changeMatchCamera(next){
   message(next==='broadcast'?'TELECAMERA TV ATTIVA':'CAMPO COMPLETO ATTIVO');
  }catch(e){failure('Cambio camera non riuscito: '+e.message)}
 }
-function submitMatchCommand(type,payload={}){
+function submitMatchCommand(type,payload={},utteranceText=null){
  if(!engine||screen!=='match')return failure('La partita non è in esecuzione');
  const outcome=commandM1Match(state,engine,{
   requestId:nextActionId('match-command'),type,...payload
  });
  if(!outcome.accepted)return failure('ORDINE RIFIUTATO · '+outcome.reason);
  const current=engine.snapshot(),news=outcome.events?.at(-1);
- lastEvent='ORDINE ESEGUITO · '+type+' · '+(news?.type||'engine06');
+ lastEvent=utteranceText?'MISTER: «'+utteranceText+'»':'ORDINE ESEGUITO · '+type+' · '+(news?.type||'engine06');
  bridge?.sync(performance.now());
  render();updateMatch();
- message('Engine06 conferma: '+type+' · '+(outcome.engineResult?.effects?.remaining??''));
+ message(utteranceText?'Engine06: «'+utteranceText+'»':'Engine06 conferma: '+type+' · '+(outcome.engineResult?.effects?.remaining??''));
  return true;
 }
 function advance(){if(!state)return;const week=state.absoluteWeek;
@@ -565,8 +566,15 @@ async function interact(action,value){if((state?.coach?.gameOver||state?.coach?.
  }
  case 'match-substitute':submitMatchCommand('substitution',{
   payload:{outId:readValue('r11-sub-out'),inId:readValue('r11-sub-in')}});break;
- case 'match-shout':submitMatchCommand('individualShout',{
-  targetPlayerId:readValue('r11-shout-player'),tone:readValue('r11-shout-tone')});break;
+ case 'match-shout':{
+  const targetPlayerId=readValue('r11-shout-player'),tone=readValue('r11-shout-tone');
+  const player=controlledClub()?.players?.find(p=>p.id===targetPlayerId);
+  const copy=selectMatchShoutR12(SHOUTS,{seed:state.seed,absoluteWeek:state.absoluteWeek,
+    playerId:targetPlayerId,tone,minute:(engine?.snapshot()?.t??0)/60,
+    fatigue:player?.status?.fatigue??0,events:engine?.getEventsSince(0)??[],ordinal:actionSerial});
+  submitMatchCommand('individualShout',{targetPlayerId,tone,utteranceId:copy?.id},copy?.text);
+  break;
+ }
  case 'pause':paused=!paused;view?.setPaused(paused);renderMatchControls();last=performance.now();break;
  case 'speed':speed=speed===8?1:speed*2;view?.setSpeed(speed);renderMatchControls();break;
  case 'camera-full':changeMatchCamera('full');break;
