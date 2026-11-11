@@ -5,7 +5,7 @@ import {recordCareerNarrativeR12,decideCareerNarrativeR12} from '../career-narra
 function makeState({week=8,winStreak=0,lossStreak=0,results=[],cash=100000,boardTrust=70}={}){
  return {seed:1979,absoluteWeek:week,week,seasonYear:1979,
   coach:{clubId:'c1'},flow:{stage:'hub'},
-  clubs:[{id:'c1',presidentId:'p1',budget:cash,finance:{cash},
+  clubs:[{id:'c1',presidentId:'p1',budget:cash,finance:{cash,settledWeeks:[],transactions:[]},
    boardTrust,board:{winStreak,lossStreak,results}}]};
 }
 for(const [name,settings,category] of [
