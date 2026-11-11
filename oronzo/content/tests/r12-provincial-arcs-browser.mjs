@@ -21,6 +21,8 @@ try {
    const state=window.OronzoR03.getState();
    const club=state.clubs.find(c=>c.id===state.coach.clubId);
    club.boardTrust=70;club.finance.cash=100000;club.board.winStreak=3;
+   // Isolate the current-week story from the already recorded appointment editorial.
+   state.flow.r12Narrative.issues=[];
    const {recordCareerNarrativeR12}=await import('/oronzo/content/career-narrative-r12.js');
    const issue=recordCareerNarrativeR12(state);
    return {id:issue.id,category:issue.category,trust:club.boardTrust};
