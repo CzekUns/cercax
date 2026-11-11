@@ -42,6 +42,15 @@ const templates={
  unbeaten_run:[
   ['L’imbattibilità mette tutti d’accordo, quasi','Il presidente parla di record. Il magazziniere ricorda che mancano ancora molte domeniche.'],
   ['Il paese conta le partite senza perdere','L’edicola ha esaurito le matite: tutti aggiornano la striscia positiva.']],
+ draw_run:[
+  ['Tre pareggi e una calcolatrice rotta','La radio locale ha provato a sommare i punti: il presidente pretende di arrotondarli per eccesso.'],
+  ['Il paese colleziona segni X','In edicola si vendono solo matite. Il custode ha chiesto se almeno la porta possa restare aperta.']],
+ recovery:[
+  ['La rimonta delle facce lunghe','Dopo due sconfitte la vittoria ha sorpreso perfino chi preparava già il comunicato di crisi.'],
+  ['La panchina ritrova il sorriso','La radio aveva prenotato un dibattito sulle dimissioni. Ora lo dedica al nuovo centravanti.']],
+ first_win:[
+  ['Prima vittoria, prima ricevuta','Il presidente offre una cena alla squadra. Il ragioniere domanda se è compresa nel contratto.'],
+  ['Il primo successo fa rumore','La campana del paese suona per la vittoria. Il custode sostiene di aver segnato anche lui.']],
  season_finale:[
   ['Ultime giornate, conti aperti','La classifica si stringe. Il presidente ha chiesto tre volte se esistano punti a rate.'],
   ['Il calendario finisce, le discussioni no','Le ultime domeniche fanno rumore. La radio locale prepara un dibattito di sette ore.']],
@@ -80,6 +89,15 @@ const choices={
  unbeaten_run:[
   {id:'humble',label:'Ricorda che ogni gara riparte da zero',effects:{boardTrust:2}},
   {id:'ambitious',label:'Dichiara che la squadra può osare',effects:{morale:2,boardTrust:-1}}],
+ draw_run:[
+  {id:'attack',label:'Prometti più coraggio davanti alla porta',effects:{morale:2,boardTrust:-1}},
+  {id:'balance',label:'Difendi la solidità del gruppo',effects:{boardTrust:2}}],
+ recovery:[
+  {id:'credit',label:'Ringrazia i giocatori per la reazione',effects:{morale:2,boardTrust:1}},
+  {id:'caution',label:'Ricorda che il lavoro è appena iniziato',effects:{boardTrust:2}}],
+ first_win:[
+  {id:'share',label:'Dedica la vittoria ai tifosi',effects:{morale:2,boardTrust:1}},
+  {id:'focus',label:'Chiedi concentrazione per la prossima gara',effects:{boardTrust:2}}],
  season_finale:[
   {id:'focus',label:'Concentra il gruppo sulle ultime gare',effects:{morale:1,boardTrust:1}},
   {id:'promise',label:'Prometti un finale memorabile',effects:{morale:2,boardTrust:-2}}],
@@ -103,6 +121,13 @@ export function recordCareerNarrativeR12(state,{context='routine',realResult=nul
   else if((club.board?.results??[]).length>=5 &&
     (club.board?.results??[]).slice(-5).every(x=>['win','draw'].includes(x?.result)))category='unbeaten_run';
   else if(state.week>=34)category='season_finale';
+  else {
+   const recent=(club.board?.results??[]).map(x=>x?.result);
+   if(recent.length>=3 && recent.slice(-3).every(x=>x==='draw'))category='draw_run';
+   else if(realResult==='victory' && recent.length>=3 &&
+     recent.at(-1)==='win' && recent.slice(-3,-1).every(x=>x==='loss'))category='recovery';
+   else if(realResult==='victory' && recent.length===1 && recent[0]==='win')category='first_win';
+  }
   else if(['victory','draw','defeat'].includes(realResult))category=realResult;
  }
  const key=state.seed+'|'+abs+'|'+(club?.id??'free')+'|'+category;
