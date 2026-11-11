@@ -15,9 +15,9 @@ export function drawPortrait(canvas,appearance={},kit={}){
  c.clearRect(0,0,112,112);c.save();c.scale(2,2);
  const skin=SKIN[index(appearance.skinToneId,SKIN.length)];
  const hair=HAIR[index(appearance.hairColorId,HAIR.length)];
- const face=index(appearance.faceVariantId,4);
- const cut=index(appearance.hairStyleId,5);
- const beard=index(appearance.facialHairStyleId,5);
+ const face=index(appearance.faceVariantId,8);
+ const cut=index(appearance.hairStyleId,8);
+ const beard=index(appearance.facialHairStyleId,8);
  const eyes=index(appearance.eyeVariantId??appearance.faceVariantId,4);
  const nose=index(appearance.noseVariantId??appearance.faceVariantId,4);
  const brow=index(appearance.browVariantId??appearance.hairStyleId,4);
@@ -38,7 +38,7 @@ export function drawPortrait(canvas,appearance={},kit={}){
  else if(/checker|quadri/i.test(pattern)){for(let y=47;y<56;y+=4)for(let x=17;x<39;x+=8)rect(c,x+((y-47)%8?4:0),y,4,4,second);}
  rect(c,23,44,10,5,shade(skin,-15));rect(c,24,43,8,4,skin);
  // Ears, jaw and cheek shape.
- const width=[22,24,20,24][face],left=28-width/2;
+ const width=[22,24,20,24,21,25,23,19][face],left=28-width/2;
  rect(c,left-3,23,3,10,ink);rect(c,left+width,23,3,10,ink);
  rect(c,left-2,24,3,8,shade(skin,-25));rect(c,left+width-1,24,3,8,shade(skin,-25));
  rect(c,left-1,13,width+2,29,ink);
@@ -55,6 +55,10 @@ export function drawPortrait(canvas,appearance={},kit={}){
  if(face===1){rect(c,left-1,24,2,11,skin);rect(c,left+width-1,24,2,11,skin);}
  if(face===2){rect(c,left+3,40,width-6,2,ink);rect(c,left+4,40,width-8,2,shade(skin,-12));}
  if(face===3){rect(c,left-2,26,3,7,skin);rect(c,left+width-1,26,3,7,skin);}
+ if(face===4){rect(c,left+2,36,width-4,3,shade(skin,-16));rect(c,left+6,39,width-12,3,shade(skin,-23));}
+ if(face===5){rect(c,left-1,30,3,8,skin);rect(c,left+width-2,30,3,8,skin);rect(c,left+5,39,width-10,2,shade(skin,-28));}
+ if(face===6){rect(c,left+1,17,3,6,shade(skin,-16));rect(c,left+width-4,17,3,6,shade(skin,-16));rect(c,left+3,38,width-6,3,shade(skin,-27));}
+ if(face===7){rect(c,left+4,39,width-8,3,shade(skin,-28));rect(c,left+6,41,width-12,2,ink);}
  // Independent pixel layers for eyebrows, eyes and nose; all derive from persisted DNA.
  const eyeY=eyes===1?28:27;
  const eyeWidth=eyes===2?4:3;
@@ -73,21 +77,26 @@ export function drawPortrait(canvas,appearance={},kit={}){
  rect(c,26+(nose===1?1:0),34,nose===2?5:4,2,shade(skin,-34));
  rect(c,24,37,8,1,shade(skin,-44));
  // Hair silhouettes, including receding hairline and bald variants.
- if(cut!==4){
+ if(cut!==4&&cut!==7){
   rect(c,left-1,11,width+2,7,ink);rect(c,left,12,width,6,hair);
   rect(c,left-1,17,4,8,hair);rect(c,left+width-3,17,4,8,hair);
   if(cut===0){rect(c,left+2,10,width-4,4,hair);rect(c,left+6,9,width-12,3,shade(hair,24));}
   if(cut===1){for(let x=left+1;x<left+width;x+=5)rect(c,x,8+(x%3),4,6,hair);}
   if(cut===2){rect(c,left+3,12,5,8,skin);rect(c,left+width-8,12,5,8,skin);}
   if(cut===3){rect(c,left-2,15,5,14,hair);rect(c,left+width-3,15,5,14,hair);rect(c,left+5,9,width-10,5,hair);}
+  if(cut===5){rect(c,left-2,10,width+4,5,ink);rect(c,left,8,width,6,hair);rect(c,left+3,6,width-6,4,hair);rect(c,left+6,5,width-12,3,shade(hair,25));}
+  if(cut===6){rect(c,left,12,width,4,skin);rect(c,left+7,9,width-14,6,hair);rect(c,left-1,18,3,10,hair);rect(c,left+width-2,18,3,10,hair);}
   // Layered hair highlights follow the same persisted hair shade and cut.
   if(cut!==2){rect(c,left+4,12,Math.max(4,width-12),2,shade(hair,27));}
   if(cut===3){rect(c,left-1,21,2,5,shade(hair,17));rect(c,left+width-1,21,2,5,shade(hair,17));}
  }else{rect(c,left+2,13,width-4,2,shade(skin,15));}
  // Moustache, goatee, stubble or full beard.
- if(beard===1||beard===3||beard===4){rect(c,23,35,5,2,hair);rect(c,29,35,5,2,hair);}
- if(beard===2||beard===3){rect(c,25,39,6,4,hair);}
+ if(beard===1||beard===3||beard===4||beard===5||beard===7){rect(c,23,35,5,2,hair);rect(c,29,35,5,2,hair);}
+ if(beard===2||beard===3||beard===6){rect(c,25,39,6,4,hair);}
  if(beard===4){rect(c,left,35,4,6,hair);rect(c,left+width-4,35,4,6,hair);rect(c,left+4,40,width-8,3,hair);}
+ if(beard===5){rect(c,left+1,32,2,8,shade(hair,35));rect(c,left+width-3,32,2,8,shade(hair,35));}
+ if(beard===6){rect(c,left+5,39,width-10,3,shade(hair,20));rect(c,left+8,41,width-16,2,hair);}
+ if(beard===7){rect(c,left+2,34,3,7,hair);rect(c,left+width-5,34,3,7,hair);rect(c,left+4,40,width-8,3,hair);rect(c,left+8,42,width-16,2,shade(hair,15));}
  // Collar and shoulder stitching.
  rect(c,21,45,5,3,second);rect(c,30,45,5,3,second);
  rect(c,11,48,8,1,shade(shirt,32));rect(c,37,48,8,1,shade(shirt,32));
@@ -99,4 +108,4 @@ export function drawPortrait(canvas,appearance={},kit={}){
  rect(c,23,46,3,2,shade(second,-20));rect(c,30,46,3,2,shade(second,-20));
  c.restore();return true;
 }
-export const portraitVariantCount=4*5*5*8*8;
+export const portraitVariantCount=8*8*8*8*8;
