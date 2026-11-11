@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {recordCareerNarrativeR12} from '../career-narrative-r12.js';
+import {recordCareerNarrativeR12,decideCareerNarrativeR12} from '../career-narrative-r12.js';
 
 function makeState({week=8,winStreak=0,lossStreak=0,results=[],cash=100000,boardTrust=70}={}){
  return {seed:1979,absoluteWeek:week,week,seasonYear:1979,
@@ -33,4 +33,26 @@ test('financial and board emergencies take priority over streaks',()=>{
 });
 test('no fictional streak when fewer than three results',()=>{
  assert.equal(recordCareerNarrativeR12(makeState({winStreak:2})).category,'routine');
+});
+
+test('missing or invalid outcomes cannot create a five-match unbeaten run',()=>{
+ const results=[{result:'win'},{result:'draw'},{result:'win'},{result:'draw'},{}];
+ assert.notEqual(recordCareerNarrativeR12(makeState({results})).category,'unbeaten_run');
+});
+test('choice changes actual Coach09 state, survives reload and cannot be applied twice',()=>{
+ const state=makeState({winStreak:3});
+ state.coach.morale=50;
+ state.clubs[0].players=[{id:'player-1',mental:{morale:50}}];
+ state.clubs[0].board={...state.clubs[0].board,eventsUsed:{},notices:[],promises:[],lastMatchIds:[],weeksUnderPressure:0};
+ const item=recordCareerNarrativeR12(state);
+ const initial=state.clubs[0].boardTrust;
+ const out=decideCareerNarrativeR12(state,item.id,'protect');
+ assert.equal(out.accepted,true,JSON.stringify(out));
+ assert.equal(state.clubs[0].boardTrust,initial+1);
+ assert.equal(state.clubs[0].players[0].mental.morale,51);
+ const restored=JSON.parse(JSON.stringify(state));
+ assert.equal(restored.flow.r12Narrative.issues[0].selected.id,'protect');
+ assert.equal(decideCareerNarrativeR12(restored,item.id,'protect').accepted,false);
+ assert.equal(restored.clubs[0].boardTrust,initial+1);
+ assert.equal(restored.clubs[0].players[0].mental.morale,51);
 });
