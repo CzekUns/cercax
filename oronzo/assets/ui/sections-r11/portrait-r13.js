@@ -43,6 +43,14 @@ export function drawPortrait(canvas,appearance={},kit={}){
  rect(c,left-2,24,3,8,shade(skin,-25));rect(c,left+width-1,24,3,8,shade(skin,-25));
  rect(c,left-1,13,width+2,29,ink);
  rect(c,left,14,width,24,skin);
+ // Three-tone facial volume: asymmetric stadium lighting, temples and cheekbones.
+ rect(c,left,15,3,21,shade(skin,-20));
+ rect(c,left+width-3,16,3,20,shade(skin,-35));
+ rect(c,left+3,17,width-8,3,shade(skin,13));
+ rect(c,left+2,31,4,5,shade(skin,-10));
+ rect(c,left+width-6,31,4,5,shade(skin,-22));
+ rect(c,left+5,34,4,2,shade(skin,8));
+ rect(c,left+width-9,34,4,2,shade(skin,4));
  rect(c,left+2,37,width-4,4,shade(skin,-18));
  if(face===1){rect(c,left-1,24,2,11,skin);rect(c,left+width-1,24,2,11,skin);}
  if(face===2){rect(c,left+3,40,width-6,2,ink);rect(c,left+4,40,width-8,2,shade(skin,-12));}
@@ -57,6 +65,10 @@ export function drawPortrait(canvas,appearance={},kit={}){
  rect(c,left+width-8,eyeY,eyeWidth,eyes===3?2:3,'#f5e6c9');
  rect(c,left+6,eyeY,1,eyes===3?2:3,ink);
  rect(c,left+width-7,eyeY,1,eyes===3?2:3,ink);
+ // Iris catchlights and lower eyelids remain legible at native portrait scale.
+ if(eyes!==3){rect(c,left+6,eyeY,1,1,'#5a8a94');rect(c,left+width-7,eyeY,1,1,'#5a8a94');}
+ rect(c,left+4,eyeY+4,5,1,shade(skin,-15));
+ rect(c,left+width-9,eyeY+4,5,1,shade(skin,-15));
  rect(c,27+(nose===1?1:0),29,nose===2?3:2,nose===3?4:6,shade(skin,-26));
  rect(c,26+(nose===1?1:0),34,nose===2?5:4,2,shade(skin,-34));
  rect(c,24,37,8,1,shade(skin,-44));
@@ -68,6 +80,9 @@ export function drawPortrait(canvas,appearance={},kit={}){
   if(cut===1){for(let x=left+1;x<left+width;x+=5)rect(c,x,8+(x%3),4,6,hair);}
   if(cut===2){rect(c,left+3,12,5,8,skin);rect(c,left+width-8,12,5,8,skin);}
   if(cut===3){rect(c,left-2,15,5,14,hair);rect(c,left+width-3,15,5,14,hair);rect(c,left+5,9,width-10,5,hair);}
+  // Layered hair highlights follow the same persisted hair shade and cut.
+  if(cut!==2){rect(c,left+4,12,Math.max(4,width-12),2,shade(hair,27));}
+  if(cut===3){rect(c,left-1,21,2,5,shade(hair,17));rect(c,left+width-1,21,2,5,shade(hair,17));}
  }else{rect(c,left+2,13,width-4,2,shade(skin,15));}
  // Moustache, goatee, stubble or full beard.
  if(beard===1||beard===3||beard===4){rect(c,23,35,5,2,hair);rect(c,29,35,5,2,hair);}
@@ -76,6 +91,12 @@ export function drawPortrait(canvas,appearance={},kit={}){
  // Collar and shoulder stitching.
  rect(c,21,45,5,3,second);rect(c,30,45,5,3,second);
  rect(c,11,48,8,1,shade(shirt,32));rect(c,37,48,8,1,shade(shirt,32));
+ // Fabric folds, chest crest and collar depth distinguish a bust from a scaled match sprite.
+ rect(c,15,52,2,4,shade(shirt,-35));
+ rect(c,39,52,2,4,shade(shirt,-35));
+ rect(c,27,47,2,4,shade(shirt,-40));
+ rect(c,33,49,4,4,ink);rect(c,34,49,2,3,second);
+ rect(c,23,46,3,2,shade(second,-20));rect(c,30,46,3,2,shade(second,-20));
  c.restore();return true;
 }
 export const portraitVariantCount=4*5*5*8*8;
