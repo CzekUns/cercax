@@ -24,6 +24,7 @@ jobs:
           node --check oronzo/content/press-kit.js
           node --check oronzo/content/tests/r12-postmatch.test.mjs
           node --check oronzo/content/tests/r12-provincial-arcs.test.mjs
+          node --check oronzo/content/tests/r12-provincial-arcs-browser.mjs
           node --check oronzo/content/tests/r12-postmatch-browser.mjs
           node --check oronzo/content/tests/r12-combined-outcomes-browser.mjs
           node --check oronzo/assets/ui/career-r03.js
@@ -51,6 +52,7 @@ jobs:
           python3 -m http.server 8123 --bind 127.0.0.1 >/tmp/oronzo-r12-http.log 2>&1 &
           sleep 2
           node oronzo/content/tests/r12-postmatch-browser.mjs
+          node oronzo/content/tests/r12-provincial-arcs-browser.mjs
       - name: Combined R12 UI and all three match outcomes in four viewports
         if: always()
         run: |
