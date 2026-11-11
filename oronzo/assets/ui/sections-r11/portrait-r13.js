@@ -89,7 +89,7 @@ export function drawPortrait(canvas,appearance={},kit={}){
   // Layered hair highlights follow the same persisted hair shade and cut.
   if(cut!==2){rect(c,left+4,12,Math.max(4,width-12),2,shade(hair,27));}
   if(cut===3){rect(c,left-1,21,2,5,shade(hair,17));rect(c,left+width-1,21,2,5,shade(hair,17));}
- }else{rect(c,left+2,13,width-4,2,shade(skin,15));}
+ }else{rect(c,left+2,13,width-4,2,shade(skin,15));if(cut===7){rect(c,left,14,3,7,shade(hair,10));rect(c,left+width-3,14,3,7,shade(hair,10));rect(c,left+4,11,width-8,2,shade(skin,-10));}}
  // Moustache, goatee, stubble or full beard.
  if(beard===1||beard===3||beard===4||beard===5||beard===7){rect(c,23,35,5,2,hair);rect(c,29,35,5,2,hair);}
  if(beard===2||beard===3||beard===6){rect(c,25,39,6,4,hair);}
