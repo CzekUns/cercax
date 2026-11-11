@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - automation/oronzo-r12-press-context-20261110-1731
+      - automation/oronzo-r12-provincial-arcs-20261111-0027
       - main
   workflow_dispatch:
 jobs:
