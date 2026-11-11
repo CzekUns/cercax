@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - automation/oronzo-r12-press-context-20261110-1731
+      - automation/oronzo-r12-provincial-arcs-20261111-0027
       - main
   workflow_dispatch:
 jobs:
@@ -22,12 +23,14 @@ jobs:
         run: |
           node --check oronzo/content/press-kit.js
           node --check oronzo/content/tests/r12-postmatch.test.mjs
+          node --check oronzo/content/tests/r12-provincial-arcs.test.mjs
+          node --check oronzo/content/tests/r12-provincial-arcs-browser.mjs
           node --check oronzo/content/tests/r12-postmatch-browser.mjs
           node --check oronzo/content/tests/r12-combined-outcomes-browser.mjs
           node --check oronzo/assets/ui/career-r03.js
       - name: Native postmatch, R11 and M1 regressions
         run: |
-          node --test oronzo/content/tests/r12-postmatch.test.mjs
+          node --test oronzo/content/tests/r12-postmatch.test.mjs oronzo/content/tests/r12-provincial-arcs.test.mjs
           node --test oronzo/app/flow/tests/r11-integration.test.mjs oronzo/app/flow/tests/m1-contract.test.mjs
       - name: Combined R12 five seasons and UI sections (when #70 is in checkout)
         run: |
@@ -49,6 +52,7 @@ jobs:
           python3 -m http.server 8123 --bind 127.0.0.1 >/tmp/oronzo-r12-http.log 2>&1 &
           sleep 2
           node oronzo/content/tests/r12-postmatch-browser.mjs
+          node oronzo/content/tests/r12-provincial-arcs-browser.mjs
       - name: Combined R12 UI and all three match outcomes in four viewports
         if: always()
         run: |
@@ -65,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Verify GitHub Pages publishes BOTH merged R12 and postmatch
+      - name: Verify GitHub Pages publishes merged narrative and postmatch
         shell: bash
         run: |
           set -euo pipefail
@@ -75,13 +79,14 @@ jobs:
                 && curl --max-time 15 -fsSL "$origin/assets/ui/career-r03.js?rev=${GITHUB_SHA}" -o /tmp/oronzo-live.js \
                 && curl --max-time 15 -fsSL "$origin/content/press-postmatch.json?rev=${GITHUB_SHA}" -o /tmp/oronzo-press.json \
                 && grep -q 'career-r03.js' /tmp/oronzo-live.html \
-                && grep -q 'newCareerSeedR12' /tmp/oronzo-live.js \
-                && grep -q 'saveRevision' /tmp/oronzo-live.js \
+                && curl --max-time 15 -fsSL "$origin/content/career-narrative-r12.js?rev=${GITHUB_SHA}" -o /tmp/oronzo-narrative.js \
+                && grep -q 'winning_run' /tmp/oronzo-narrative.js \
+                && grep -q 'losing_run' /tmp/oronzo-narrative.js \
                 && node -e "const q=require('/tmp/oronzo-press.json').questions; if(q.filter(x=>x.id.startsWith('q_r12_provincia_')).length!==12) process.exit(2)"; then
               echo "PAGES_R12_PUBLIC_SUCCESS main=${GITHUB_SHA} attempt=$attempt"
               exit 0
             fi
-            echo "Pages not yet serving combined R12 (attempt $attempt)"
+            echo "Pages not yet serving narrative R12 (attempt $attempt)"
             sleep 10
           done
           echo 'PAGES_R12_PUBLIC_FAILED' >&2
