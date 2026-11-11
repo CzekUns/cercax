@@ -127,8 +127,8 @@ export function recordCareerNarrativeR12(state,{context='routine',realResult=nul
    else if(realResult==='victory' && recent.length>=3 &&
      recent.at(-1)==='win' && recent.slice(-3,-1).every(x=>x==='loss'))category='recovery';
    else if(realResult==='victory' && recent.length===1 && recent[0]==='win')category='first_win';
+   else if(['victory','draw','defeat'].includes(realResult))category=realResult;
   }
-  else if(['victory','draw','defeat'].includes(realResult))category=realResult;
  }
  const key=state.seed+'|'+abs+'|'+(club?.id??'free')+'|'+category;
  const idx=hash(key)%templates[category].length;
