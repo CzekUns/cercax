@@ -18,6 +18,9 @@ export function drawPortrait(canvas,appearance={},kit={}){
  const face=index(appearance.faceVariantId,4);
  const cut=index(appearance.hairStyleId,5);
  const beard=index(appearance.facialHairStyleId,5);
+ const eyes=index(appearance.eyeVariantId??appearance.faceVariantId,4);
+ const nose=index(appearance.noseVariantId??appearance.faceVariantId,4);
+ const brow=index(appearance.browVariantId??appearance.hairStyleId,4);
  const shirt=shirtColor(kit.shirtA||kit.shirt);
  const second=shirtColor(kit.shirtB||kit.trim||shirt);
  // Studio backdrop with stepped retro floodlights and a lower-third gradient.
@@ -31,6 +34,8 @@ export function drawPortrait(canvas,appearance={},kit={}){
  if(/vertical|stripe|righe/i.test(pattern)){for(let x=20;x<=36;x+=8)rect(c,x,47,3,9,second);}
  else if(/horizontal|fasce/i.test(pattern))rect(c,13,50,30,3,second);
  else if(/half|metà/i.test(pattern))rect(c,28,47,11,9,second);
+ else if(/diagonal|banda/i.test(pattern)){for(let y=47;y<56;y++)rect(c,18+(y-47),y,5,1,second);}
+ else if(/checker|quadri/i.test(pattern)){for(let y=47;y<56;y+=4)for(let x=17;x<39;x+=8)rect(c,x+((y-47)%8?4:0),y,4,4,second);}
  rect(c,23,44,10,5,shade(skin,-15));rect(c,24,43,8,4,skin);
  // Ears, jaw and cheek shape.
  const width=[22,24,20,24][face],left=28-width/2;
@@ -42,11 +47,18 @@ export function drawPortrait(canvas,appearance={},kit={}){
  if(face===1){rect(c,left-1,24,2,11,skin);rect(c,left+width-1,24,2,11,skin);}
  if(face===2){rect(c,left+3,40,width-6,2,ink);rect(c,left+4,40,width-8,2,shade(skin,-12));}
  if(face===3){rect(c,left-2,26,3,7,skin);rect(c,left+width-1,26,3,7,skin);}
- // Nose, brows, eye highlights, shadows.
- rect(c,left+4,24,5,2,hair);rect(c,left+width-9,24,5,2,hair);
- rect(c,left+5,27,3,3,'#f5e6c9');rect(c,left+width-8,27,3,3,'#f5e6c9');
- rect(c,left+6,27,1,3,ink);rect(c,left+width-7,27,1,3,ink);
- rect(c,27,28,2,6,shade(skin,-26));rect(c,27,34,4,2,shade(skin,-34));
+ // Independent pixel layers for eyebrows, eyes and nose; all derive from persisted DNA.
+ const eyeY=eyes===1?28:27;
+ const eyeWidth=eyes===2?4:3;
+ const browY=brow===1?22:24;
+ rect(c,left+4,browY,5,brow===2?1:2,shade(hair,brow===3?24:0));
+ rect(c,left+width-9,browY+(brow===3?1:0),5,brow===2?1:2,shade(hair,brow===3?24:0));
+ rect(c,left+5,eyeY,eyeWidth,eyes===3?2:3,'#f5e6c9');
+ rect(c,left+width-8,eyeY,eyeWidth,eyes===3?2:3,'#f5e6c9');
+ rect(c,left+6,eyeY,1,eyes===3?2:3,ink);
+ rect(c,left+width-7,eyeY,1,eyes===3?2:3,ink);
+ rect(c,27+(nose===1?1:0),29,nose===2?3:2,nose===3?4:6,shade(skin,-26));
+ rect(c,26+(nose===1?1:0),34,nose===2?5:4,2,shade(skin,-34));
  rect(c,24,37,8,1,shade(skin,-44));
  // Hair silhouettes, including receding hairline and bald variants.
  if(cut!==4){
