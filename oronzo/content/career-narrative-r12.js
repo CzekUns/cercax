@@ -96,12 +96,12 @@ export function recordCareerNarrativeR12(state,{context='routine',realResult=nul
  if(ledger.issues.some(x=>x.absoluteWeek===abs&&x.clubId===(club?.id??null)))return null;
  let category=context==='appointment'?'appointment':!club?'unemployment':'routine';
  if(category==='routine'){
-  if((club.finance?.cash??club.budget)<20000)category='debt';
+  if(Number.isFinite(club.finance?.cash??club.budget) && (club.finance?.cash??club.budget)<20000)category='debt';
   else if(club.boardTrust<=30)category='pressure';
   else if((club.board?.lossStreak??0)>=3)category='losing_run';
   else if((club.board?.winStreak??0)>=3)category='winning_run';
   else if((club.board?.results??[]).length>=5 &&
-    (club.board?.results??[]).slice(-5).every(x=>x.result!=='loss'))category='unbeaten_run';
+    (club.board?.results??[]).slice(-5).every(x=>['win','draw'].includes(x?.result)))category='unbeaten_run';
   else if(state.week>=34)category='season_finale';
   else if(['victory','draw','defeat'].includes(realResult))category=realResult;
  }
