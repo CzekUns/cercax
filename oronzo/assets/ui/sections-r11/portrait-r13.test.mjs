@@ -49,3 +49,19 @@ test('R13 distinct diagonal and checker club kit patterns',()=>{
  assert.notDeepEqual(a.pixels,b.pixels);
  assert.deepEqual(a.pixels.filter(x=>x[1]<43),b.pixels.filter(x=>x[1]<43));
 });
+
+test('R13 extended face, haircut and facial-hair silhouettes are visually distinct and stable',()=>{
+ const kit={shirtA:'#153e84',shirtB:'#f2dca4',shirtPatternId:'checker'};
+ const base={skinToneId:2,hairColorId:3,faceVariantId:0,hairStyleId:0,facialHairStyleId:0};
+ for(const [field,count] of [['faceVariantId',8],['hairStyleId',8],['facialHairStyleId',8]]){
+  const signatures=new Set();
+  for(let i=0;i<count;i++){
+   const a=mock(),b=mock(),dna={...base,[field]:i};
+   assert.equal(drawPortrait(a.canvas,dna,kit),true);
+   assert.equal(drawPortrait(b.canvas,dna,kit),true);
+   assert.deepEqual(a.pixels,b.pixels);
+   signatures.add(JSON.stringify(a.pixels));
+  }
+  assert.equal(signatures.size,count,field+' must have eight distinct pixel silhouettes');
+ }
+});
