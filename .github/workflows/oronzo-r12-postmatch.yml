@@ -25,6 +25,7 @@ jobs:
           node --check oronzo/content/tests/r12-postmatch.test.mjs
           node --check oronzo/content/tests/r12-provincial-arcs.test.mjs
           node --check oronzo/content/tests/r12-provincial-arcs-browser.mjs
+          node --check oronzo/content/tests/r12-provincial-recovery-browser.mjs
           node --check oronzo/content/tests/r12-postmatch-browser.mjs
           node --check oronzo/content/tests/r12-combined-outcomes-browser.mjs
           node --check oronzo/assets/ui/career-r03.js
@@ -53,6 +54,7 @@ jobs:
           sleep 2
           node oronzo/content/tests/r12-postmatch-browser.mjs
           node oronzo/content/tests/r12-provincial-arcs-browser.mjs
+          node oronzo/content/tests/r12-provincial-recovery-browser.mjs
       - name: Combined R12 UI and all three match outcomes in four viewports
         if: always()
         run: |
