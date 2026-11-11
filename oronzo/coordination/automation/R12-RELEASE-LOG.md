@@ -11,3 +11,8 @@
 - Ultimo commit prima del registro `2a60f2de70eb89855903305273e621e0de00d0a1`.
 - Precedente HEAD `2463ef77747c02bf087bf79e5856f512e3a31c61`: tre workflow SUCCESS (42938787842, 42938787876, 42938787657). Nuovo gate browser: CI non ancora certificata.
 - Main NO; Pages NO. Non mergiare senza SUCCESS sul nuovo HEAD e controllo browser specifico.
+
+## 2026-11-11 · R12-BIS release gate
+- PR #73 HEAD `a2e2fe347635f98e5320cf8cf225f7dba223f826`: workflow 42945940244, 42945940254, 42945940259 SUCCESS; Chromium provincial narrative executed in Postmatch workflow (four viewports).
+- Fixed Pages smoke to verify provincial narrative independently of unmerged concurrent PR #70; commit `0940807ad9cbe438c40a7b60f77059b5929b4936`.
+- New HEAD CI pending; merge NO, Pages NO until verified. Scope restricted to oronzo/** and dedicated workflow.
