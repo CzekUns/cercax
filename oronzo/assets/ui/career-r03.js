@@ -111,6 +111,15 @@ function persistAction(success){
   return ok;
  });
 }
+// The same routing contract applies to durable loads and user-imported JSON.
+// An import must never strand a valid season-complete or unemployed career at entry.
+function screenForCareerStage(){
+ if(state?.coach?.gameOver||state?.coach?.morale===0)return 'gameover';
+ const stage=activeStage();
+ return stage==='offers'?'offers':stage==='opening_press'?'president':
+  stage==='postmatch_press'?'press':stage==='postmatch_ready'?'post':
+  stage==='season_complete'?'season':stage==='unemployed'?'unemployed':'hub';
+}
 async function load(){
  try{
   const durable=await durablePromise;
@@ -125,11 +134,7 @@ async function load(){
   avatar=Math.max(0,baseCoaches.findIndex((_,i)=>'ui-r03-'+i===state.coach.avatarId));
   selectLineup();formationChoice=state.coach.tactics?.formation||'4-4-2';pressingChoice=state.coach.tactics?.pressing??50;
   const selection=getUI()?.m1?.training?.selected;trainingPlan=selection?.plan||'balanced';trainingIntensity=selection?.intensity??50;
-  const stage=activeStage();
-  display(stage==='offers'?'offers':stage==='opening_press'?'president':
-   stage==='postmatch_press'?'press':stage==='postmatch_ready'?'post':
-   stage==='pre_match'?'hub':stage==='season_complete'?'season':
-   stage==='unemployed'?'unemployed':'hub');
+  display(screenForCareerStage());
   message('Carriera caricata · '+state.gameDate+
    (payload.recovered?' · copia di recupero':'')+
    (payload.provider?' · '+payload.provider:''));
@@ -153,8 +158,16 @@ async function importSave(file){
  try{
   const candidate=importGame(await file.text());
   if(!window.confirm('Caricare questo file come carriera in memoria? Il salvataggio precedente non sarà cancellato.'))return;
-  clearMatch();state=candidate;protectPreviousSave=true;dirtyUnsaved=true;
-  selectLineup();display(activeStage()==='hub'?'hub':'entry');
+  clearMatch();state=candidate;protectPreviousSave=true;dirtyUnsaved=true;lastSaveError='';
+  selectedPlayerId=null;profileSource='rosa';
+  ensureCareerVisualsR12(state);
+  mode=state.world?.mode==='qa_fixture'?'qa':'normal';
+  avatar=Math.max(0,baseCoaches.findIndex((_,i)=>'ui-r03-'+i===state.coach.avatarId));
+  selectLineup();formationChoice=state.coach.tactics?.formation||'4-4-2';
+  pressingChoice=state.coach.tactics?.pressing??50;
+  const selection=getUI()?.m1?.training?.selected;
+  trainingPlan=selection?.plan||'balanced';trainingIntensity=selection?.intensity??50;
+  display(screenForCareerStage());
   message('Importazione verificata · IN MEMORIA. Premi SALVA per confermare sovrascrittura.');
  }catch(e){failure('IMPORTAZIONE RIFIUTATA · '+saveErrorText(e))}
 }
@@ -409,8 +422,8 @@ function renderMatch(){
  )+'</section></div>';
 }
 function renderPost(){const fm=state.flow.finalMatch;return head('FISCHIO FINALE · RISULTATO UFFICIALE','MATCH ENGINE 06')+`<div class="runtime-split">${pane('RISULTATO VERIFICATO',`<div class="runtime-score"><b>${fm.score.home} — ${fm.score.away}</b></div><div class="runtime-info">Esito del mister: ${esc(fm.result)}<br>Eventi motore: ${esc(fm.eventCount)}<br>Fonte: ${esc(state.flow.resultSources[fm.fixtureId])}</div>`,'runtime-grow')}${pane('CHIUSURA GIORNATA',`<p class="runtime-info">Due risposte stampa completate. L’Agente 09 aggiornerà il bilancio e il rapporto col presidente; il controller avanzerà il campionato una sola volta.</p>${h(btn('AVANZA GIORNATA ▶','advance','','gold-btn'))}`,'runtime-grow')}</div>`}
-function renderSeason(){return head('STAGIONE TERMINATA')+pane('PROSSIMO ANNO',`<p class="runtime-info">Ultima giornata conclusa. I risultati precedenti restano nella carriera.</p>${h(btn('INIZIA NUOVA STAGIONE','rollover','','gold-btn'))}`,'runtime-grow')}
-function renderUnemployed(){return head('SENZA PANCHINA',state.gameDate)+pane('NUOVE OCCASIONI',`<p class="runtime-info">Il presidente ha deciso. Le vacanze contrattuali restano del sistema 07.</p><div class="runtime-scroll runtime-grow">${(getUI().careerOffers||[]).map(x=>btn(x.clubName||x.clubId,'vacancy',x.id)).join('')}</div>${h(btn('AVANZA SETTIMANA','advance','','gold-btn'))}`,'runtime-grow')}
+function renderSeason(){return head('STAGIONE TERMINATA')+pane('PROSSIMO ANNO',`<p class="runtime-info">Ultima giornata conclusa. I risultati precedenti restano nella carriera.</p>${h(btn('INIZIA NUOVA STAGIONE','rollover','','gold-btn')+btn('SALVA IMPORTAZIONE','save'))}`,'runtime-grow')}
+function renderUnemployed(){return head('SENZA PANCHINA',state.gameDate)+pane('NUOVE OCCASIONI',`<p class="runtime-info">Il presidente ha deciso. Le vacanze contrattuali restano del sistema 07.</p><div class="runtime-scroll runtime-grow">${(getUI().careerOffers||[]).map(x=>btn(x.clubName||x.clubId,'vacancy',x.id)).join('')}</div>${h(btn('AVANZA SETTIMANA','advance','','gold-btn')+btn('SALVA IMPORTAZIONE','save'))}`,'runtime-grow')}
 function renderGameover(){return head('GAME OVER · MORALE ESAURITO')+pane('CARRIERA CONCLUSA',`<div class="runtime-info">Morale del mister: 0. Il controller 07/09 ha chiuso questa carriera. Puoi crearne una nuova senza eliminare i salvataggi precedenti, oppure caricare una carriera valida.</div>${h(btn('NUOVA CARRIERA','reset-career','','gold-btn')+btn('CARICA SALVATAGGIO','load'))}`,'runtime-grow')}
 function render(){
  restoreMode();
