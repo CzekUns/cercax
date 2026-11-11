@@ -30,3 +30,22 @@ test('R13 portrait: transfer changes shirt, preserves face geometry and skin',()
  assert.deepEqual(a.pixels.filter(x=>x[1]<43),b.pixels.filter(x=>x[1]<43));
 });
 test('R13 portrait: missing canvas is a safe no-op',()=>assert.equal(drawPortrait(null),false));
+
+test('R13 independent eyes, nose and brow DNA modifies portrait without changing saved identity',()=>{
+ const base={skinToneId:2,hairColorId:3,faceVariantId:1,hairStyleId:0,facialHairStyleId:2};
+ const first=mock(),changed=mock(),repeat=mock();
+ drawPortrait(first.canvas,base,{shirtA:'#2255aa'});
+ const detail={...base,eyeVariantId:3,noseVariantId:2,browVariantId:1};
+ drawPortrait(changed.canvas,detail,{shirtA:'#2255aa'});
+ drawPortrait(repeat.canvas,detail,{shirtA:'#2255aa'});
+ assert.notDeepEqual(first.pixels,changed.pixels);
+ assert.deepEqual(changed.pixels,repeat.pixels);
+});
+test('R13 distinct diagonal and checker club kit patterns',()=>{
+ const appearance={skinToneId:1,hairColorId:2,faceVariantId:1,hairStyleId:3,facialHairStyleId:1};
+ const a=mock(),b=mock();
+ drawPortrait(a.canvas,appearance,{shirtA:'#2255aa',shirtB:'#ffffff',shirtPatternId:'diagonal'});
+ drawPortrait(b.canvas,appearance,{shirtA:'#2255aa',shirtB:'#ffffff',shirtPatternId:'checker'});
+ assert.notDeepEqual(a.pixels,b.pixels);
+ assert.deepEqual(a.pixels.filter(x=>x[1]<43),b.pixels.filter(x=>x[1]<43));
+});
