@@ -7,6 +7,8 @@ Priorità assoluta alla grafica R13, sezione per sezione. Risultato di qualità 
 ## Corsie e sequenza
 1. **R13-A · Figurine raster:** PR #77 è su main. PR #79 è l'unico intervento aperto di rifinitura anatomica/artistica per barba, mento, spalle, maglie e varietà dei volti. Owner esclusivo della PR #79: R13-TER. Gate: confronto visivo con lo screenshot di Ennio Robetti + test veri della scheda, salvataggio, divise; nessun merge automatico di lavoro altrui.
 2. **R13-B1 · Asset sprite partita:** owner esclusivo AUTOMATION-R13 in una **nuova directory isolata** `oronzo/assets/players/r13-match/`; produrre PNG/WebP realmente illustrati (non forme Canvas/SVG), modularità e varianti di posa/kit. Non toccare gli asset/renderer della PR #79; riprendere sempre stesso task/PR dalle esecuzioni precedenti. La consegna asset può procedere in parallelo alla sola revisione di #79 perché i file non si sovrappongono.
+**Lock esplicito:** lo scope storico dell'Agente 01 sui giocatori non autorizza modifiche concorrenti a `r13-match/**` finché quel task è assegnato all'automazione; il coordinatore deve trasferire formalmente l'owner per cambiarlo.
+
 3. **R13-B2 · Wiring sprite nel match:** owner AGENT-05 soltanto dopo B1 e compatibilità grafica con A. Riutilizzo DNA PlayerV2, 22 giocatori/portieri, kit, test HTTP in-game; eventuale intervento in `career-r03.js` richiede delega esplicita del 07-bis.
 4. **R13-C · Campo:** owner AGENT-05, successivo a B2. Dimensioni, proiezione, area di rigore, porte/rete, texture erba, scala calciatori e minimappa, senza alterare il motore.
 5. **R13-D · Camera FULL e TV zoom:** owner AGENT-05 dopo C. Seguimento pallone, limiti, zoom e visibilità, stessa partita/match engine, 1× circa 15 minuti reali.
