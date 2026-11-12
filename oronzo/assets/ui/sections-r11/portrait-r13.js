@@ -3,6 +3,12 @@ const SKIN=['#E6B485','#BD8058','#F0C998','#98633F','#D59A70','#B87451','#A87552
 const HAIR=['#292022','#6D422B','#2C252C','#9C6737','#49271D','#C49259','#201D20','#594131'];
 const ink='#20202c';
 const index=(v,n)=>Number.isInteger(Number(v))?Math.abs(Number(v))%n:0;
+// Canonical PlayerV2 stores named haircut/beard IDs. Numeric-only indexing
+// collapsed all named styles to zero, making distinct saved players identical.
+const HAIR_STYLES=['crop','buzz','receding','long','bald','wavy','curly','side-part'];
+const FACIAL_STYLES=['shaved','moustache','goatee','stubble','full-beard'];
+const styleIndex=(v,n,names)=>{if(typeof v==='string'&&!/^\\d+$/.test(v)){const k=names.indexOf(v.toLowerCase());if(k>=0)return k%n;}return index(v,n);};
+const paletteColor=(value,palette,id)=>/^#[0-9a-f]{6}$/i.test(value||'')?value:palette[index(id,palette.length)];
 const rect=(c,x,y,w,h,col)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
 const shade=(hex,delta)=>{const n=parseInt(String(hex).replace('#',''),16);if(!Number.isFinite(n))return '#555555';return '#'+[16,8,0].map(k=>Math.max(0,Math.min(255,((n>>k)&255)+delta)).toString(16).padStart(2,'0')).join('');};
 const shirtColor=v=>/^#[0-9a-f]{6}$/i.test(v||'')?v:'#315b9c';
@@ -13,11 +19,11 @@ export function drawPortrait(canvas,appearance={},kit={}){
  const c=canvas?.getContext?.('2d');if(!c)return false;
  canvas.width=112;canvas.height=112;c.imageSmoothingEnabled=false;
  c.clearRect(0,0,112,112);c.save();c.scale(2,2);
- const skin=SKIN[index(appearance.skinToneId,SKIN.length)];
- const hair=HAIR[index(appearance.hairColorId,HAIR.length)];
+ const skin=paletteColor(appearance.skin,SKIN,appearance.skinToneId);
+ const hair=paletteColor(appearance.hair,HAIR,appearance.hairColorId);
  const face=index(appearance.faceVariantId,8);
- const cut=index(appearance.hairStyleId,8);
- const beard=index(appearance.facialHairStyleId,8);
+ const cut=styleIndex(appearance.hairStyleId,8,HAIR_STYLES);
+ const beard=styleIndex(appearance.facialHairStyleId,8,FACIAL_STYLES);
  const eyes=index(appearance.eyeVariantId??appearance.faceVariantId,4);
  const nose=index(appearance.noseVariantId??appearance.faceVariantId,4);
  const brow=index(appearance.browVariantId??appearance.hairStyleId,4);
