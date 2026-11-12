@@ -21,3 +21,9 @@
 - Gap H / persistenza: import JSON riprende offers, conferenza, postpartita, stagione conclusa, disoccupazione e hub con routing condiviso col caricamento durevole; migrazione visuali e parametri tattici riallineati; SALVA accessibile in stagione/disoccupazione.
 - Commit codice `5f6b637`, test Chromium `c4f64b4`, CI `660a78c`; browser HTTP 4 viewport aggiunto al workflow.
 - Node/Chromium: CI ultimo HEAD non ancora disponibile al controllo. Merge NO; Pages NO; non dichiarare rilascio prima dei gate verdi.
+
+## 2026-11-11 · PR #75 — nuove decisioni narrative provinciali
+- Gap E: tre episodi giocabili (tre pareggi, prima vittoria, riscatto dopo due sconfitte), due scelte ciascuno con effetti Coach09 e ledger esistente; nessun nuovo effetto economico.
+- Codice e test Node/Chromium HTTP 4 viewport su branch automation/oronzo-r12-provincial-recovery-20261111-1332.
+- CI: avviata, risultati da certificare sul nuovo HEAD. Merge NO; Pages NO.
+- Residui: attendere gate CI, correggere eventuali errori e verificare pubblicazione pubblica prima di chiamare il rilascio giocabile.
