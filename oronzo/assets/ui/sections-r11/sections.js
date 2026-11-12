@@ -2,7 +2,7 @@
  * All mutations are delegated to career-r03.js -> controller07.
  * Data rendered here is always from the persisted career state.
  */
-import {createAssetAdapter} from '../../../systems/match-view/asset-adapter.js';
+import {drawPortrait} from './portrait-r13.js';
 
 export const TRAINING_PLANS_R11=Object.freeze([
   ['technical','TECNICA','Controllo, passaggi e tiro'],
@@ -53,7 +53,7 @@ export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
  const appearance=item.appearanceStatus==='ready'&&item.appearance&&item.visualKits?.home&&
   paletteIndex(item.appearance.skinToneId,skins)&&paletteIndex(item.appearance.hairColorId,hairs);
  const card='<div class="r11-player-hero"><div class="r11-player-picture">'+
- (appearance?'<canvas id="r11-player-art" width="112" height="112" aria-label="Sprite autentico del calciatore" role="img"></canvas>':
+ (appearance?'<canvas id="r11-player-art" width="128" height="160" aria-label="Ritratto pixel art del calciatore" role="img"></canvas>':
  '<div class="r11-no-portrait" role="note"><span>▦</span>IDENTITÀ VISIVA<br>NON ASSOCIATA</div>')+
  '</div><div class="r11-player-ident"><strong>'+E(p.name)+'</strong><span>'+
  E(p.positions?.join(' / ')||'Ruolo non registrato')+' · '+(number(p.age)?E(p.age)+' anni':'Età sconosciuta')+'</span>'+
@@ -74,7 +74,7 @@ export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
  return '<div class="r11-player-page">'+
  '<section class="panel r11-player-identity"><div class="panel-title">CARTELLINO · '+E(clubName)+'</div>'+
  '<div class="r11-column-scroll">'+card+status+contract+footer+
- '<p class="r11-hint">'+(appearance?'Sprite 01 renderizzato dai dati visivi persistenti; dettagli di barba e taglio non codificati dall’atlante base.':
+ '<p class="r11-hint">'+(appearance?'Figurina raster illustrata: DNA persistente e divisa della squadra corrente.':
  'Il salvataggio non contiene un visual + kit canonico: nessun ritratto inventato.')+'</p></div>'+
  '<div class="r11-bottom">'+B(active?'TORNA ALL’ALLENAMENTO':'TORNA ALLA ROSA',active?'back-training':'back-rosa')+
  B(active?'VEDI ROSA':'VEDI ALLENAMENTO',active?'back-rosa':'back-training')+'</div></section>'+
@@ -235,34 +235,19 @@ export function agendaSummary(ui){
  if(s?.kind==='season_complete')return 'STAGIONE COMPLETATA';
  return t.canSelect?'ALLENAMENTO DA PIANIFICARE':'CONSULTA LA TUA AGENDA';
 }
-let adapter=null;
 const skins=['#E6B485','#BD8058','#F0C998','#98633F','#D59A70','#B87451','#A87552','#E2AF7A'];
 const hairs=['#292022','#6D422B','#2C252C','#9C6737','#49271D','#C49259','#201D20','#594131'];
 function paletteIndex(id,list){
  const n=typeof id==='number'?id:Number(id);
  return Number.isInteger(n)&&n>=0&&n<list.length?list[n]:null;
 }
-/** A player image is drawn only if both persistent visual and club kit identify it.
- * Original indexed PNG/mask from Agent01 are recolored with the same material bridge as match-view.
+/** R13: the portrait reads the same saved appearance as match sprites.
+ * No random generation on render; transfer changes only the current club kit.
  */
 export async function mountPlayerIllustration(root,item){
  const target=root?.querySelector('#r11-player-art');
  if(!target||item?.appearanceStatus!=='ready')return false;
- const a=item.appearance,skin=paletteIndex(a.skinToneId,skins),hair=paletteIndex(a.hairColorId,hairs);
- const home=item.visualKits?.home;
- if(!skin||!hair||!home)return false;
- if(!adapter)adapter=createAssetAdapter();
- await adapter.playersReady;
- if(!target.isConnected)return false;
- const kit={skin,hair,shirt:home.shirtA??home.shirt,shirtB:home.shirtB??home.shirtA??home.shirt,
-  shorts:home.shorts,socks:home.socks,trim:home.trim,pattern:home.shirtPatternId??home.pattern,
-   facialHairColor:hairs[a.facialHairColorId]||hair,hairStyleId:a.hairStyleId,
-   facialHairStyleId:a.facialHairStyleId,faceVariantId:a.faceVariantId};
- const ctx=target.getContext('2d');
- if(!ctx)return false;
- ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,112,112);ctx.save();
- ctx.scale(3,3);
- const drawn=adapter.drawPlayer(ctx,{x:19,y:34,appearance:kit,team:'home',isKeeper:a.role==='GK'});
- ctx.restore();
- return drawn;
+ const a=item.appearance;
+ if(!paletteIndex(a.skinToneId,skins)||!paletteIndex(a.hairColorId,hairs)||!item.visualKits?.home)return false;
+ return drawPortrait(target,a,item.visualKits.home);
 }
