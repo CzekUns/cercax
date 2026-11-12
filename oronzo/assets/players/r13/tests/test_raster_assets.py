@@ -18,7 +18,7 @@ for name,n in [('faces',8),('hair',12),('facial-hair',8),('torsos',6)]:
         raw=path.read_bytes()
         image=Image.open(path).convert('RGBA')
         assert image.size==(128,160), path
-        assert image.getchannel('A').getextrema()==(0,255), path
+        assert image.getchannel('A').getextrema()[0]==0 and image.getchannel('A').getextrema()[1]>=120, path  # supports semi-opaque illustrated whiskers
         # Git-blob hash validates the exact PNG bytes checked out from this repository:
         # it is tied to the actual PNG bytes committed in THIS repo, not prior ZIP prototypes.
         blob_sha=hashlib.sha1(f'blob {len(raw)}'.encode()+bytes([0])+raw).hexdigest()
