@@ -1,84 +1,99 @@
-# ORONZO — Audit R01 del nucleo partita
+# ORONZO — Agente00 · audit indipendente anticipato R11
 
-**Verdetto: needs changes.** I tre moduli possono scambiarsi rose e snapshot di base. Prima dell'innesto servono correzioni mirate alle convenzioni visive, al passaggio degli eventi e al consumo degli attributi. Nessun P0 emerso nel perimetro testato.
+Mandato: audit **intermedio** del codice pubblicato, nessuna certificazione finale U1–U9, nessun merge e nessuna modifica al codice produttivo. Gli esiti valgono soltanto per gli SHA fissati:
 
-| PR | HEAD verificato | Esito per l'integrazione |
-|---|---|---|
-| [#18](https://github.com/CzekUns/cercax/pull/18) | `71fa0aeac7dd694a8cae4962e35205a86c1579c0` | needs changes |
-| [#15](https://github.com/CzekUns/cercax/pull/15) | `5558c89f5104b40e49f74158b868e53966612dee` | needs changes |
-| [#16](https://github.com/CzekUns/cercax/pull/16) | `9105014b569e3290ba86590f597c2202dbca846e` | ready for orchestrator QA come produttore PlayerV1 e consumatore degli eventi supportati |
+| PR | Commit congelato | Ruolo |
+| --- | --- | --- |
+| #63 | `8fd4df94cc477d909f165cffecaeeb07f8871f81` | UI |
+| #66 | `575f8c56cf477833e0b8dbfced407a83e2265f2f` | Backend |
+| #67 | `b2209762cd600425b9311a610bb8c8f946ace9e4` | Checkout combinato, draft, NON MERGIARE |
 
-Gli HEAD coincidono con REQUEST. Tutte e tre le PR risultavano aperte e senza merge. I REPORT degli agenti ai rispettivi HEAD hanno restituito 404. Riferimenti usati: codice, test, NEXT e note d'integrazione.
+Main del mandato: `62c2e24b50c2189e952b628f1f0dbf1f38770e86`; REQUEST acquisito da main all'avvio (`d3c60651ffa96057fcb50a5bcf15f91bc347e450`). Checkout Git separato in detached HEAD su #67. Confronti indipendenti: nessuna differenza dei file `oronzo/assets/ui/**` fra #63 congelata e #67; nessuna differenza dei file `oronzo/app/flow/**` fra #66 e #67. Le PR separate non sono singolarmente la combinazione completa. Il nuovo HEAD #63 osservato all'avvio, `788025b79a0ef3d0935182c1fb9528dc73196f80`, differisce dal congelato soltanto nel REPORT dell'autore: non viene comunque certificato da questo audit.
 
-## Cinque problemi P1
+## Matrice funzionale — combinazione congelata, non main pubblico
 
-1. **Orientamento degli sprite — verificato, Agenti 5 e 6.** Il motore emette `facing=1/-1` come segno orizzontale. La vista interpreta entrambi come radianti: al calcio d'inizio seed 42 la casa risulta SE e l'ospite NE invece di E e W. Concordare una convenzione non ambigua. Preferibile emettere direzioni cardinali o vettori, mantenendo a riposo l'ultima direzione o il lato d'attacco. Testare fermi e corse nelle otto direzioni. [Motore](https://github.com/CzekUns/cercax/blob/71fa0aeac7dd694a8cae4962e35205a86c1579c0/oronzo/systems/match-engine/movement.js#L23-L30) · [Vista](https://github.com/CzekUns/cercax/blob/5558c89f5104b40e49f74158b868e53966612dee/oronzo/systems/match-view/interpolation.js#L11-L20)
-2. **Interpolazione attraverso il campo alla ripresa — verificato, Agente 5.** Fra t=2699 e t=2700, con `halftime` e `kickoff`, la vista campiona il portiere di casa a x=0,048 mentre il nuovo snapshot lo colloca a x=0,945. La stessa logica interpola la palla. Azzerare il blend per il nuovo snapshot su un `kickoff` inedito o cambio di tempo, conservando pausa e velocità. Testare anche la ripresa dopo gol. [Emissione](https://github.com/CzekUns/cercax/blob/71fa0aeac7dd694a8cae4962e35205a86c1579c0/oronzo/systems/match-engine/match-engine.js#L103-L116) · [Blend](https://github.com/CzekUns/cercax/blob/5558c89f5104b40e49f74158b868e53966612dee/oronzo/systems/match-view/interpolation.js#L57-L91)
-3. **Decisioni, forma e salute non incidono come valori graduati — verificato, Agente 6 con Agente 8.** `technical.decisions` viene prodotto da #16, mentre il passaggio legge `mental.decisions` e cade sul default 50. `fitness` è ignorato e `health` serve solo a escludere chi ha 0. Variando per tutta la casa `decisions/fitness` da 0 a 100 e `health` da 1 a 100, seed 42, snapshot finale ed eventi sono identici. Leggere `technical.decisions` e concordare modificatori di forma/salute. Se si inietta `effectiveAbility`, sostituire i modificatori equivalenti per evitare il doppio conteggio, mantenendo l'RNG del motore. [Passaggio](https://github.com/CzekUns/cercax/blob/71fa0aeac7dd694a8cae4962e35205a86c1579c0/oronzo/systems/match-engine/actions.js#L98-L103) · [Preparazione](https://github.com/CzekUns/cercax/blob/71fa0aeac7dd694a8cae4962e35205a86c1579c0/oronzo/systems/match-engine/match-engine.js#L23-L32) · [PlayerV1](https://github.com/CzekUns/cercax/blob/9105014b569e3290ba86590f597c2202dbca846e/oronzo/systems/attributes/player-model.js#L3-L8)
-4. **Cambio accettato, evento perso dal feed a snapshot — verificato, Agente 6 e runner d'integrazione.** `command(substitution)` seguito da `advanceRealSeconds(1/60)` aggiorna l'XI, ma lo snapshot d'avanzamento non contiene il cambio, presente nel log persistente. Anche gli ID portiere configurati nella vista restano quelli iniziali finché il runner non chiama `setKeepers`. Usare `getEventsSince(lastId)` come feed autorevole del runner, processare una volta ogni ID prima di disegnare e aggiornare i portieri sul cambio. [Reset eventi](https://github.com/CzekUns/cercax/blob/71fa0aeac7dd694a8cae4962e35205a86c1579c0/oronzo/systems/match-engine/match-engine.js#L94-L102) · [Cambio](https://github.com/CzekUns/cercax/blob/71fa0aeac7dd694a8cae4962e35205a86c1579c0/oronzo/systems/match-engine/commands.js#L46-L61) · [Vista](https://github.com/CzekUns/cercax/blob/5558c89f5104b40e49f74158b868e53966612dee/oronzo/systems/match-view/match-view.js#L139-L153)
-5. **Assist assenti dal feed per lo storico — verificato, Agente 6 con Agente 8.** Nel match di prova l'unico gol accredita il marcatore, ma il payload ha solo `from/xg/score`. Il produttore non emette `assist` né `goal.detail.assistId`, gli unici due ingressi riconosciuti da #16. Gli assist non sono quindi misurabili con il feed corrente. Se inclusi nello storico, tracciare nel motore l'ultimo passaggio utile della stessa azione e pubblicare `goal.detail.assistId` opzionale. Testare anche gol senza assist e interruzione del possesso. [Evento gol](https://github.com/CzekUns/cercax/blob/71fa0aeac7dd694a8cae4962e35205a86c1579c0/oronzo/systems/match-engine/actions.js#L225-L233) · [Storico](https://github.com/CzekUns/cercax/blob/9105014b569e3290ba86590f597c2202dbca846e/oronzo/systems/attributes/career-stats.js#L18-L37)
+**Esito intermedio: porzioni certificate PASS PARZIALE; tre problemi UI NEEDS CHANGES. Nessuna approvazione di merge.** I singoli bug non annullano le prove positive sulle altre funzioni.
 
-## Matrice delle interfacce
+| Funzione | API presente | Adapter | UI raggiungibile | Test indipendente | Verdetto |
+| --- | --- | --- | --- | --- | --- |
+| U1 · Allenamento,5 piani,RECUPERO73 e avvisi save | 07/08/09 | Sì | Sì |10 casi Node +8 percorsi browser;73 persistito su slider/pulsanti; errore quota dichiarato | **PASS PARZIALE** |
+| U2a · IndexedDB A/B,checksum,recovery,migrazione,export | Sì | Sì | Sì | Due snapshot autentici5.561.117/8.759.578 caratteri; quota localStorage osservata; IDB nativo,reload,corruzione e failure; download JSON | **PASS PARZIALE** |
+| U2b · Import di uno stato valido a fine stagione | Sì | Sì | Ingresso sì; ripresa no | Importato il vero save1979 completo: stato season_complete ma vista entry e nessun SALVA/rollover | **NEEDS CHANGES** |
+| U3 · Stadio,prezzo,affluenza,cassa | Sì | Sì | Sì | Cambio prezzo e fixture casalinga veri; ledger/cassa corretti; storico non legge revenue | **NEEDS CHANGES** per storico; transazione **PASS PARZIALE** |
+| U4a · Presidente,richieste,mandato e acquisto | Sì | Sì | Sì | Decisioni reali e acquisto completato dalla UI; Node verifica due rose,costi e replay | **PASS PARZIALE** |
+| U4b · Cessioni dalla UI | Sì | Sì | Sì | Backend compra/cede atomicamente nei test Node; selezione acquirente UI A-02→A-01 dopo invio | **NEEDS CHANGES** |
+| U5 · Fiducia persistente da ordine individuale | Sì | Sì | Sì | Evento Engine06→09 applicato una volta; trust+1 e invariato dopo reload; nessun doppio effetto temporaneo | **PASS PARZIALE** |
+| U6 ·600 cognomi nella nuova carriera e rosa | Sì | Sì | Sì | Tutti i player hanno surnameId/sourceId; dataset600; rosa,scheda e reload; percorso normale500 comuni distinto da QA | **PASS PARZIALE** |
+| U7 · FULL/TV,tattiche,pressing,cambi,ordini | Sì | Sì | Sì | Snapshot invariato dallo switch; modulo3-5-2/pressing67; sostituzione reale; cambio GK incoerente rifiutato;22 giocatori/11PNG atlas e maschere caricati | **PASS PARZIALE** |
+| U8 · Rosa,filtri,lavagna,campionato e calendario | Sì | Sì | Sì | GK e fitness; modulo4-3-3 reale prima del kickoff; calendario/next; ≥44px e scroll; due stagioni standard anche attraverso la UI | **PASS PARZIALE** nel perimetro provato |
+| U8-extra · Identità fisica/ritratto individuale generato per ogni calciatore | Record opzionali | Fallback pronto | Scheda raggiungibile | I nuovi player provati non hanno visual+kit canonici; nessun portrait inventato | **NON INTEGRATO** come identità visiva completa di tutte le nuove rose |
+| U9 · Tifosi,giornali,agenda e gestione settimana | Sì | Sì | Sì |5 risposte opening in archivio; rapporti salvati; match_pending non saltato;16 bye da agenda; report allenamento dopo advance e reload | **PASS PARZIALE** nel perimetro provato |
 
-| Origine → destinazione | Compatibilità | Intervento |
-|---|---|---|
-| #16 `generateSquad` → #18 `createMatch` | OK per schema base, XI e panchina. INCOMPATIBILE per gli attributi del punto 3 | Agenti 6/8: passare PlayerV1 in `ClubV1.players` e ID negli XI/panchine, correggere letture e modificatori |
-| #18 `snapshot/step/advanceRealSeconds` → #15 `render` | OK per coordinate, ID, tempo simulato e forma dello snapshot. INCOMPATIBILE per orientamento, riprese e cambi con il solo feed a tick | Agenti 5/6 e runner: punti 1, 2, 4. Allineare anche la scala di `energy` prima di usarla in UI: motore 0–100, vista la limita a 0–1 |
-| #18 log eventi → #16 `recordMatch` | OK per il gol del marcatore riprodotto. INCOMPATIBILE per assist | Agenti 6/8: punto 5. Il chiamante fornisce `minutes` e `started` |
-| #18 → #15 su dispositivo con asset reali | NON VERIFICATO | QA visuale fuori perimetro. La prova qui usa il percorso logico d'interpolazione |
+L'avanzamento completo di due stagioni **interamente tramite UI con reload dopo ogni settimana** ha una prova browser distinta, riportata sotto con il suo esito effettivo; non viene dedotto dal solo test Node o dalla CI dell'autore.
 
-## Test e riproduzione
+## Problemi riprodotti sul congelato
 
-Node 24.22.1, sorgenti dai tre HEAD in una directory temporanea con struttura comune. Da `oronzo/systems`, `node --test */tests/* match-view/*.test.mjs`: **39 passati, 0 falliti**. `node match-engine/cli-demo.mjs 10`: completato. La prova incrociata con rose di #16, motore #18 e interpolatore #15 accetta 22 giocatori, riproduce i difetti sopra, conclude 0–1 a t=5400, conferma un gol da evento, parità del log con batching diverso e rapporto del clock 60× a 1×, 2×, 4× e 8× con pausa. Nessuna verifica visuale su smartphone.
+### R11-PIN-01 · P2 · storico incassi stadio legge un campo inesistente
 
-<details>
-<summary>Script di riproduzione da oronzo/systems (smoke.mjs)</summary>
+`oronzo/assets/ui/sections-r11/sections.js:144–145`. Prezzo impostato a1500 dalla UI, partita Engine06 casalinga `1979:PROM:1:5`, successivo advance: ledger autentico `{attendance:709,revenue:1063500,priceITL:1500}` e cassa incrementata correttamente. La vista mostra **«Presenze709 · Incasso non registrato»** perché legge `revenueITL`, mentre il contratto09 e le nuove registrazioni usano `revenue`. Riproduzione su viewport e safe-area della matrice browser, screenshot `*-stadium-after-match.png` e ledger in `browser-matrix.json`.
 
-```js
-import assert from 'node:assert/strict';
-import {generateSquad} from './attributes/generator.js';
-import {createCareerRecord,recordMatch} from './attributes/career-stats.js';
-import {createMatch} from './match-engine/match-engine.js';
-import {makeFixture} from './match-engine/fixtures.js';
-import {SnapshotInterpolator,resolveFacing} from './match-view/interpolation.js';
-const input=makeFixture(42);
-for(const side of ['home','away']){
- const club=input[side+'Club']; club.players=generateSquad({seed:42,teamId:club.id});
- input[side+'XI']=club.players.slice(0,11).map(p=>p.id);
- input[side+'Bench']=club.players.slice(11).map(p=>p.id);
-}
-const m=createMatch(input), v=new SnapshotInterpolator();
-const opening=m.snapshot();v.push(opening,0);
-assert.equal(v.sample(0).players.length,22);
-for(const p of [opening.players[0],opening.players[11]]) console.log('facing',p.facing,resolveFacing(p.facing),'energy',p.energy);
-const outId=input.homeXI[0],inId=input.homeBench[0];
-const accepted=m.command({type:'substitution',teamId:input.homeClub.id,payload:{outId,inId}});
-assert(accepted.accepted);
-const lost=m.advanceRealSeconds(1/60);
-assert(!lost.events.some(e=>e.type==='substitution'));
-assert(m.getEventsSince().some(e=>e.type==='substitution'));
-assert(lost.players.some(p=>p.id===inId));assert(!lost.players.some(p=>p.id===outId));
-console.log('substitution: lineup updated, tick event lost, cursor recovered');
-const prev=m.step(2698);const next=m.step(1);v.push(prev,0);v.push(next,16);
-assert(next.events.some(e=>e.type==='kickoff'));
-const sample=v.sample(16);
-assert.notEqual(sample.players[0].x,next.players[0].x);
-console.log('halftime keeper x sampled/engine',sample.players[0].x,next.players[0].x);
-const end=m.step(2700);const events=m.getEventsSince();
-assert.equal(end.t,5400);assert.equal(events.filter(e=>e.type==='goal').length,end.score.home+end.score.away);
-const goal=events.find(e=>e.type==='goal'); assert(goal); assert.equal(goal.detail.assistId,undefined);
-const stats=recordMatch(createCareerRecord(goal.playerId),{playerId:goal.playerId,id:'42',seasonId:'1985-86',minutes:90,started:true,events});
-console.log('end',end.score,'scorer goals',stats.delta.goals,'goal detail keys',Object.keys(goal.detail));
-const run=(n)=>{const data=structuredClone(input);for(const p of data.homeClub.players){p.technical.decisions=n;p.status.fitness=n;p.status.health=n===0?1:n;}const game=createMatch(data);return game.step(5400);};
-assert.deepEqual(run(0),run(100));console.log('decisions/fitness 0 vs 100, health 1 vs 100: same final snapshot and tick events');
-const replay=createMatch(input);replay.command({type:'substitution',teamId:input.homeClub.id,payload:{outId,inId}});replay.step(5400);
-assert.deepEqual(replay.getEventsSince(),events);console.log('determinism: same seed and commands, different dt batches, same event log');
-for(const speed of [1,2,4,8]){const g=createMatch(input);g.setSpeed(speed);assert.equal(g.advanceRealSeconds(1).t,60*speed);g.setPaused(true);assert.equal(g.advanceRealSeconds(1).t,60*speed);}
+Owner07B: normalizzare il campo del presentatore al ledger autentico, conservando eventuale compatibilità esplicita con vecchi salvataggi; non cambiare gli importi già contabilizzati. Retest UI→fixture casalinga→incasso visualizzato→reload→retry senza secondo accredito. Il backend stadio ora è collegato; il precedente blocco adapter non descrive più questa combinazione. I parametri restano sintetici di gameplay, etichettati come tali, senza valore storico.
+
+### R11-PIN-02 · P2 · la cessione perde l'acquirente scelto
+
+`oronzo/assets/ui/sections-r11/management-ui.js:39–54`; `career-r03.js:494–504`. Nel percorso **normale**, catalogo500 comuni, selezionata società acquirente `A-02`, prezzo1000 e giocatore della rosa; METTI IN VENDITA registra la pratica, poi renderizza il form con `A-01`. Il valore scelto non è persistito/ripristinato. La finalizzazione legge nuovamente il selettore corrente, pertanto può utilizzare il compratore di default anziché quello scelto inizialmente. **Verificato** il reset A-02→A-01; **inferito dal codice** il rischio sulla finalizzazione di quella specifica proposta, che non è stata completata dall'auditor. Separatamente, il trasferimento atomico di cessione API e un acquisto intero dalla UI sono stati eseguiti con successo.
+
+Owner07B: conservare i termini della pratica per requestId e renderizzarli coerentemente fino alla decisione; non affidare la finalizzazione a valori di un form ricreato coi default. Retest cambiando acquirente e prezzo, passando per VALUTA/rerender/reload, quindi controllando club di destinazione e contabilità finale. `storage-management.json.saleBuyer`, screenshot `sale-buyer-reset.png`.
+
+### R11-PIN-03 · P2 · import valido di fine stagione lascia il giocatore senza comandi
+
+`oronzo/assets/ui/career-r03.js:134–141`. Importato dalla UI il vero `standard-one-season.json` generato dal test Engine06: checksum valido,1979,settimana39,stage `season_complete`. Dopo conferma, la carriera è in memoria ma `importSave()` instrada qualsiasi stato diverso da hub a entry. La UI propone «Premi SALVA», ma conta **zero** pulsanti SALVA e **zero** INIZIA NUOVA STAGIONE. Il salvataggio precedente resta preservato: non è una perdita della copia persistente, è una ripresa inutilizzabile del file importato.
+
+Owner07B: condividere il routing per stage già usato da load, mostrando la destinazione e la conferma di salvataggio anche per opening/postmatch/fine stagione; mantenere la protezione del save precedente. Retest import/export nelle fasi supportate, rifiuto checksum errato e annullamento dialogo. `storage-management.json.importSeason`, screenshot `import-season-stranded.png`.
+
+## Node eseguito indipendentemente
+
+Cinque `node --check` su `career-r03.js`, `sections-r11/sections.js`, `controller.js`, `durable-save.js`, `management-r11.js`: PASS.
+
+```sh
+node --test oronzo/assets/ui/sections-r11/sections-r11.test.mjs \
+  oronzo/assets/ui/qa/ui12-landing-nav.test.cjs \
+  oronzo/app/flow/tests/r11-integration.test.mjs \
+  oronzo/app/flow/tests/m1-contract.test.mjs \
+  oronzo/app/flow/tests/m1-live.test.mjs \
+  oronzo/systems/coach-club/management-r10.test.js
 ```
-</details>
 
-## Priorità per l'orchestratore
+**63 PASS,0 FAIL,1 SKIP**,64 test, circa59,5s. Lo skip riguarda soltanto la prova opzionale con `fake-indexeddb` non installato: non spacciato per prova di quota browser. Le prove IndexedDB native del presente audit sono distinte. Incluse due stagioni standard vere con104 club,60 partite Engine06 e16 bye, checksum/reload,15 incassi casalinghi per anno, trasferimenti da due rose e contratti, presidente, finestra/mandato, fiducia post-shout.
 
-1. Assegnare agli agenti 5/6 una convenzione per `facing` e una prova di ripresa senza blend tra i lati.
-2. Far concordare agli agenti 6/8 le letture degli attributi e il payload assist.
-3. Collegare il runner al cursore eventi e rieseguire lo smoke test con sostituzione del portiere.
+Regressioni legacy eseguite anche con `node --test --test-reporter=spec oronzo/systems/career/tests/r04-save.test.mjs oronzo/systems/coach-club/period-r04.test.js`: **13/13 PASS**. Comprendono envelope V1/V2 firmati, ambiguità rifiutata senza sovrascrittura e periodi1985/1986. Non sono una nuova certificazione generale R10: servono a verificare la retrocompatibilità richiesta dal nuovo save.
+
+Harness ulteriore scritto dall'auditor, `independent-node.mjs`: **10/10** casi (5 programmi × intensità0/100), selezione immutabile durante la settimana, nessun effetto anticipato, gara Engine06 e conferenze, confronto degli effetti e incidenti con output08 autentico, checksum/load, payroll una volta e retry stale senza mutazioni. Mondo ridotto a4 squadre/divisione soltanto in questi dieci test; non utilizzato per dichiarare le stagioni standard. Ulteriori guard wrong-club e seller inesistente senza side effect: PASS. Verifica indipendente del risultato standard:76 righe storia e76 chiavi payroll uniche per tutti i104 club,30 gare+8 bye per stagione e30 receipt casalinghe distinte (`standard-two-season-summary.json`).
+
+## Prove browser, limiti e consegna
+
+Chromium Headless Shell151.0.7922.34 via server HTTP dal checkout autentico; nessun HTML fixture e nessun route.fulfill. Viewport640×360,800×360,844×390,960×400, touch, insets zero o left24/right12/bottom16 tramite CDP. La modalità TEST del gioco è usata per il pulsante pubblico di conclusione rapida della gara con Engine06: non sostituisce il motore né inventa risultati; il catalogo geografico sintetico è visibilmente dichiarato. Il percorso normale con i500 comuni è distinto nelle prove specifiche.
+
+**Matrice browser:8 percorsi completati,432 check,1556 misure di controlli.** Solo gli8 check sullo stesso difetto di storico incassi falliscono: nessun'altra violazione geometrica misurata, nessun pageerror o errore runtime. È provata la visibilità≥44px dei controlli usati; le liste scrollabili vengono portate in vista, senza pretendere che tutte le righe siano visibili insieme. File `browser-matrix.json`, screenshot delle sezioni per ciascuna configurazione.
+
+**Storage/management browser separato:** percorso normale reale, mandato5000 approvato, acquisto reale completato con una sola presenza del player nell'intero mondo; export JSON scaricato dalla UI; errore quota iniettato sul provider produce NON PERSISTITO e retry riuscito; la quota localStorage è inoltre incontrata realmente con i due blob grandi. Entrambi gli slot IndexedDB sono verificati e caricabili, corruzione della copia attiva recupera1979, scrittura negata conserva quella copia, nuova scrittura e reload UI caricano1980/fine stagione. Migrazione R03: provider localstorage_legacy→indexeddb con tutti i byte dei vecchi slot intatti. Import corrotto rifiutato mantenendo lo stato corrente. È distinta la failure injection dalla quota native effettivamente osservata. `storage-management.json` e relativi screenshot.
+
+**Prova lunga browser: PASS.** Due stagioni standard1979 e1980 percorse interamente tramite i pulsanti pubblici del gioco a844×390,touch,safe-area.60 gare Engine06,16 bye,76 programmi RECUPERO73 applicati,76 liquidazioni settimanali per tutti i club e76 ricaricamenti, con confronto SHA-256 del contenuto integrale prima/dopo reload e confronto dei riepiloghi di stato. Dopo ogni bye, nessuna nuova gara Engine06 o conferenza del mister; ledger allenamenti senza duplicati.15 incassi casalinghi alla fine del1979 e30 cumulati alla fine del1980. Entrambi i rollover effettuati dalla UI e ricaricati, fino al1981. `two-season-browser.json`, log e screenshot dei16 bye/fine stagione. Uno dei primi tentativi dell'harness è stato interrotto dall'ambiente; l'esito qui riportato deriva dalla successiva esecuzione completa, non da quella interrotta.
+
+La verifica lunga chiude il precedente blocco di persistenza della settimana31 **sulla combinazione fissata**. Non estende questo risultato al main pubblico, al telefono fisico o ad altri commit. Restano i tre NEEDS CHANGES riprodotti e la mancata integrazione delle identità visive complete. La cessione completa dalla UI non è attestata: la prova si è fermata al reset dell’acquirente; la transazione API è invece provata. Non estendere i PASS ai flussi non completati.
+
+La pipeline dell'autore Actions42711637028 risulta success su #67; artifact13715589317 identificato/recuperato. I suoi64/74 PASS non vengono contati come prove indipendenti. Il REPORT dell'autore nel congelato è più vecchio del codice: il perimetro di questo audit deriva da diff e runtime, non dalla descrizione storica.
+
+Android fisico e deploy GitHub Pages non attestati. Non è stata attesa una gara per15 minuti di orologio a1×: le conclusioni rapide usano il comando QA dell'Engine06 reale. Foto/ritratto canonico non attribuito ai giocatori privi di `visual`+kit: il fallback dichiarato è verificato, non costituisce integrazione di un ritratto individuale. La grafica CSS dello stadio non è certificata come nuovo asset PNG rifinito.
+
+La successiva consegna finale07B richiede solo delta-review dagli SHA fissati, correzioni dei bug riprodotti e completamento dei percorsi esplicitamente NON_CERTIFICATO/NON_INTEGRATO. Non si richiede di fermare o riscrivere il lavoro in corso. Nessun file tecnico, NEXT, branch produttivo o asset è stato modificato.
+
+## Indicazioni al10-bis
+
+1. Conservare i PASS PARZIALI già documentati; nella consegna finale07B correggere i tre punti mirati di UI (incassi,acquirente cessione,routing import), senza riaprire i moduli05/06/08/09 già funzionanti.
+2. Richiedere la successiva delta-review degli eventuali nuovi commit e dei soli retest collegati. #63 successiva osservata `788025b…`: diff solo REPORT, codice congelato invariato; #66/#67 ancora sugli SHA fissati al ricontrollo. Qualsiasi commit ulteriore resta fuori da questi esiti.
+3. Nessun merge automatico e nessun merge della draft#67. Il successivo playtest Android fisico resta distinto dalla presente emulazione; il presente rapporto è intermedio, non la chiusura finale R11.
+
+## Archivio delle prove
+
+[ORONZO-R11-audit-heads-congelati.zip](https://chatgpt.com/library?file_id=libfile_1b40505da3e881918ae9e9feb83a6b65&account_id=personal) — screenshot,log,harness indipendenti,stati autentici e hash Git degli input.
