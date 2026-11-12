@@ -1,0 +1,582 @@
+{
+  "schema": "oronzo-r13b-illustrated-raster-v1",
+  "canvas": [
+    128,
+    160
+  ],
+  "description": "Original image-generated pixel illustration parts; split, hand-aligned with stable anchors and transparent alpha. No vector or geometric face rendering.",
+  "groups": {
+    "faces": [
+      {
+        "id": 0,
+        "file": "faces/00.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          36,
+          26,
+          57,
+          76
+        ],
+        "sha256": "dae83ab33ff936470a6523bb3d390a7991e99df1c32111e5d0c4dee1474c52e8",
+        "mask": "masks/faces-00.png"
+      },
+      {
+        "id": 1,
+        "file": "faces/01.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          34,
+          26,
+          60,
+          76
+        ],
+        "sha256": "252d992f13c872cb28f4fac95e2aeae9ea185bc8182213f50b9f2f8f4d03f1f9",
+        "mask": "masks/faces-01.png"
+      },
+      {
+        "id": 2,
+        "file": "faces/02.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          34,
+          26,
+          59,
+          75
+        ],
+        "sha256": "6744fabb00f6cf4ee2df72e4a7756d717f00915f4625df1a27475f286c45a926",
+        "mask": "masks/faces-02.png"
+      },
+      {
+        "id": 3,
+        "file": "faces/03.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          34,
+          26,
+          59,
+          76
+        ],
+        "sha256": "3097ee183514086e54b9e08a179adcdb2a867a168050aed289a2d31fc28a65c5",
+        "mask": "masks/faces-03.png"
+      },
+      {
+        "id": 4,
+        "file": "faces/04.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          34,
+          26,
+          59,
+          75
+        ],
+        "sha256": "49d098f31cdfb67ecc45faf94bea2e1fc95084ae620ed45a6e1b1e2872d899a7",
+        "mask": "masks/faces-04.png"
+      },
+      {
+        "id": 5,
+        "file": "faces/05.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          34,
+          26,
+          60,
+          75
+        ],
+        "sha256": "0412dfed95c77f1bbe774b85abc913d7fe305eb10baf34044661aab762d06c44",
+        "mask": "masks/faces-05.png"
+      },
+      {
+        "id": 6,
+        "file": "faces/06.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          36,
+          26,
+          56,
+          75
+        ],
+        "sha256": "a782066f6c8869a138b837cc2c7520a5c71dd2501fdd486e06c2d771840f16a5",
+        "mask": "masks/faces-06.png"
+      },
+      {
+        "id": 7,
+        "file": "faces/07.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          26,
+          62,
+          75
+        ],
+        "sha256": "9a348ccc379da8c4f4c820fdffc23068a78afb964b436033802fecf74ba18e75",
+        "mask": "masks/faces-07.png"
+      }
+    ],
+    "hair": [
+      {
+        "id": 0,
+        "file": "hair/00.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          17,
+          62,
+          43
+        ],
+        "sha256": "d66ec74f9b998336d5cfb5ff95eee04f48476238e192fc307d09d90f6718356d",
+        "mask": "masks/hair-00.png"
+      },
+      {
+        "id": 1,
+        "file": "hair/01.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          17,
+          62,
+          42
+        ],
+        "sha256": "bac8f1f54a92d2b66b4697e086f6942621475ebba7cddb7b1f1d57d86c6f8715",
+        "mask": "masks/hair-01.png"
+      },
+      {
+        "id": 2,
+        "file": "hair/02.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          17,
+          62,
+          40
+        ],
+        "sha256": "3fef8af282d379f09df90b0d2dc9d03e512398a413778b0c9736e1a919a8a0ec",
+        "mask": "masks/hair-02.png"
+      },
+      {
+        "id": 3,
+        "file": "hair/03.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          30,
+          17,
+          69,
+          40
+        ],
+        "sha256": "1e37f08e21eac5aca0600fc63406b846da8d171e3e98c98e390bd1dda2e22a32",
+        "mask": "masks/hair-03.png"
+      },
+      {
+        "id": 4,
+        "file": "hair/04.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          30,
+          17,
+          69,
+          45
+        ],
+        "sha256": "088fd8305f4fcf2568f4e2525e959db5f72f34b3a902cacfe66b64f353407940",
+        "mask": "masks/hair-04.png"
+      },
+      {
+        "id": 5,
+        "file": "hair/05.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          30,
+          17,
+          69,
+          40
+        ],
+        "sha256": "35e647e2d6cc350639354dc446e79b0b6844d52a38d332c8ab5032e2492b561e",
+        "mask": "masks/hair-05.png"
+      },
+      {
+        "id": 6,
+        "file": "hair/06.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          31,
+          18,
+          66,
+          49
+        ],
+        "sha256": "176453ab6fbfde8e17e3c831e2a85e23c04ca26e1ab9c93f0d8ee5604ea0ad09",
+        "mask": "masks/hair-06.png"
+      },
+      {
+        "id": 7,
+        "file": "hair/07.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          30,
+          18,
+          67,
+          49
+        ],
+        "sha256": "7c81eddfc2945ed63d8f57b41910c2ce3c01c178b45fc0aeac1e8a2320b7b5b8",
+        "mask": "masks/hair-07.png"
+      },
+      {
+        "id": 8,
+        "file": "hair/08.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          18,
+          62,
+          42
+        ],
+        "sha256": "b8e130aa0e58710d9e24a9093dbafd4b317878129a23f41c0828a912a3b68aa0",
+        "mask": "masks/hair-08.png"
+      },
+      {
+        "id": 9,
+        "file": "hair/09.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          18,
+          62,
+          34
+        ],
+        "sha256": "b6d9f1ae78d05425a647bc0242340b75575043b34bbe35f89932727424a58da8",
+        "mask": "masks/hair-09.png"
+      },
+      {
+        "id": 10,
+        "file": "hair/10.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          18,
+          62,
+          42
+        ],
+        "sha256": "32ab149bb79b15ec12d21b23435f113a8f470f5112a472d51943dadd87271bd9",
+        "mask": "masks/hair-10.png"
+      },
+      {
+        "id": 11,
+        "file": "hair/11.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          33,
+          18,
+          62,
+          39
+        ],
+        "sha256": "18d301c0969e4c9a35674bff218e86a2752c66dae00b8d6e32651cddb36001ce",
+        "mask": "masks/hair-11.png"
+      }
+    ],
+    "facial-hair": [
+      {
+        "id": 0,
+        "file": "facial-hair/00.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          48,
+          78,
+          33,
+          10
+        ],
+        "sha256": "13c229fb3e46742377f12b9dd629b0fb120a2576f2c1dacb28d81a7ba38b2bcb",
+        "mask": "masks/facial_hair-00.png"
+      },
+      {
+        "id": 1,
+        "file": "facial-hair/01.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          48,
+          78,
+          33,
+          14
+        ],
+        "sha256": "51fca329b255ee6766a33dad98ac097906dc9db55c1f3d28a236129f957abfaf",
+        "mask": "masks/facial_hair-01.png"
+      },
+      {
+        "id": 2,
+        "file": "facial-hair/02.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          48,
+          78,
+          32,
+          24
+        ],
+        "sha256": "37a4f55f8a3103b366f67b087dc0e303bc6b311ffba59c1ccb135b7e9e2eb93e",
+        "mask": "masks/facial_hair-02.png"
+      },
+      {
+        "id": 3,
+        "file": "facial-hair/03.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          58,
+          78,
+          13,
+          24
+        ],
+        "sha256": "312ab4acf348e7a0ebc0811fa54082f8db5e13ef904dd497fb99b7f35d27007b",
+        "mask": "masks/facial_hair-03.png"
+      },
+      {
+        "id": 4,
+        "file": "facial-hair/04.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          43,
+          76,
+          42,
+          24
+        ],
+        "sha256": "d40cefba148d3095b748339161796b417a5b51ff9ddd2ac96ef5dc123e481cab",
+        "mask": "masks/facial_hair-04.png"
+      },
+      {
+        "id": 5,
+        "file": "facial-hair/05.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          43,
+          76,
+          42,
+          22
+        ],
+        "sha256": "a5fd97f636ae02e7863df1f3ac585b589fa9a4b7ba947b5c75efda9342bcb34e",
+        "mask": "masks/facial_hair-05.png"
+      },
+      {
+        "id": 6,
+        "file": "facial-hair/06.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          43,
+          76,
+          42,
+          23
+        ],
+        "sha256": "7c1b1dde40985434d6081f13f4f0c3bee718b10db56681162534ca60d3388793",
+        "mask": "masks/facial_hair-06.png"
+      },
+      {
+        "id": 7,
+        "file": "facial-hair/07.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          0,
+          0,
+          128,
+          160
+        ],
+        "sha256": "a0508a95d9837ea8e9e2383ec44cb4fb42ab31f36001031dd000ab1ac7d0a373",
+        "mask": "masks/facial_hair-07.png"
+      }
+    ],
+    "torsos": [
+      {
+        "id": 0,
+        "file": "torsos/00.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          22,
+          94,
+          84,
+          57
+        ],
+        "sha256": "925d20c0422f6cd6a473accb443271b6bd025bf042ae18d3280748b89712117c",
+        "mask": "masks/torsos-00.png"
+      },
+      {
+        "id": 1,
+        "file": "torsos/01.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          22,
+          94,
+          84,
+          57
+        ],
+        "sha256": "598f68d0cae28f4782aa0878dea60f25a9f6ff028e3e3574f5c64b7d587c38ce",
+        "mask": "masks/torsos-01.png"
+      },
+      {
+        "id": 2,
+        "file": "torsos/02.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          22,
+          94,
+          84,
+          57
+        ],
+        "sha256": "e81da0382013cd22551e144172748cb5c3734e00813ea9e04b9acf592585e682",
+        "mask": "masks/torsos-02.png"
+      },
+      {
+        "id": 3,
+        "file": "torsos/03.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          22,
+          94,
+          84,
+          60
+        ],
+        "sha256": "f7c8d1154d3f32b5eb21c482e1ddf861424522c2114f933001f6910e2b052ff5",
+        "mask": "masks/torsos-03.png"
+      },
+      {
+        "id": 4,
+        "file": "torsos/04.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          22,
+          94,
+          84,
+          60
+        ],
+        "sha256": "7e64679ed3622983f95940ed4e5945514e847ee77cb594350b40b3eba83c7ac6",
+        "mask": "masks/torsos-04.png"
+      },
+      {
+        "id": 5,
+        "file": "torsos/05.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          22,
+          94,
+          84,
+          60
+        ],
+        "sha256": "a575e3e0e33adc9b4d245bf1e9a86ea0584136b980eeee3856e2ff287baeef59",
+        "mask": "masks/torsos-05.png"
+      }
+    ]
+  },
+  "anchors": {
+    "face": {
+      "centerX": 64,
+      "top": 26
+    },
+    "hair": {
+      "centerX": 64,
+      "top": 14
+    },
+    "facial-hair": {
+      "centerX": 64,
+      "top": 73
+    },
+    "torso": {
+      "centerX": 64,
+      "top": 95
+    }
+  },
+  "source_attribution": "Original R13-BIS image generated for project; extracted PNG layers.",
+  "releaseState": "DRAFT_REQUIRES_ART_REVIEW_AND_REAL_GAME_QA"
+}
