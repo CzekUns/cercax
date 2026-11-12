@@ -14,8 +14,8 @@
 #oronzo-r03 .r11-bottom .ui-btn{flex:1;min-width:0;min-height:44px;max-height:44px;padding:4px;font-size:9px;white-space:normal}
 #oronzo-r03 .r11-hint{margin:3px 0;font-size:9px;line-height:1.33;color:#c5d7f5}
 #oronzo-r03 .r11-player-hero{display:flex;align-items:center;gap:8px;padding:4px;background:#0b2259;border:2px ridge #7b95c1}
-#oronzo-r03 .r11-player-picture{width:94px;height:100px;flex:0 0 94px;display:flex;justify-content:center;align-items:center;background:linear-gradient(#2b5291,#102a60 60%,#152c24 61%,#143a31);border:2px solid #ffe07e;overflow:hidden}
-#oronzo-r03 #r11-player-art{width:90px;height:90px;image-rendering:pixelated}
+#oronzo-r03 .r11-player-picture{width:94px;height:116px;flex:0 0 94px;display:flex;justify-content:center;align-items:center;background:linear-gradient(#2b5291,#102a60 60%,#152c24 61%,#143a31);border:2px solid #ffe07e;overflow:hidden}
+#oronzo-r03 #r11-player-art{width:90px;height:112px;object-fit:contain;image-rendering:pixelated}
 #oronzo-r03 .r11-no-portrait{font:bold 8px/1.5 Verdana,sans-serif;text-align:center;color:#e6d39b}
 #oronzo-r03 .r11-no-portrait span{display:block;font-size:24px;color:#bcb5a1}
 #oronzo-r03 .r11-player-ident{display:flex;flex-direction:column;gap:4px;min-width:0;overflow-wrap:anywhere}
@@ -91,8 +91,8 @@
 #oronzo-r03 .r11-desk-brief{font:bold 9px Verdana,sans-serif;color:#ffe492;background:#0b2057;border:1px solid #6d80a4;min-height:25px;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px}
 @media(max-height:375px){
  #oronzo-r03 .r11-player-hero{gap:4px}
- #oronzo-r03 .r11-player-picture{height:80px;flex-basis:72px;width:72px}
- #oronzo-r03 #r11-player-art{width:70px;height:70px}
+ #oronzo-r03 .r11-player-picture{height:90px;flex-basis:72px;width:72px}
+ #oronzo-r03 #r11-player-art{width:70px;height:87px}
  #oronzo-r03 .r11-player-ident>strong{font-size:12px}
  #oronzo-r03 .r11-original-art{height:62px}
  #oronzo-r03 .r11-training-report{font-size:8px}

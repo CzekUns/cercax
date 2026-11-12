@@ -53,7 +53,7 @@ export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
  const appearance=item.appearanceStatus==='ready'&&item.appearance&&item.visualKits?.home&&
   paletteIndex(item.appearance.skinToneId,skins)&&paletteIndex(item.appearance.hairColorId,hairs);
  const card='<div class="r11-player-hero"><div class="r11-player-picture">'+
- (appearance?'<canvas id="r11-player-art" width="112" height="112" aria-label="Ritratto pixel art del calciatore" role="img"></canvas>':
+ (appearance?'<canvas id="r11-player-art" width="128" height="160" aria-label="Ritratto pixel art del calciatore" role="img"></canvas>':
  '<div class="r11-no-portrait" role="note"><span>▦</span>IDENTITÀ VISIVA<br>NON ASSOCIATA</div>')+
  '</div><div class="r11-player-ident"><strong>'+E(p.name)+'</strong><span>'+
  E(p.positions?.join(' / ')||'Ruolo non registrato')+' · '+(number(p.age)?E(p.age)+' anni':'Età sconosciuta')+'</span>'+
@@ -74,7 +74,7 @@ export function renderPlayerCard({item,clubName,source='rosa',reports=[]}){
  return '<div class="r11-player-page">'+
  '<section class="panel r11-player-identity"><div class="panel-title">CARTELLINO · '+E(clubName)+'</div>'+
  '<div class="r11-column-scroll">'+card+status+contract+footer+
- '<p class="r11-hint">'+(appearance?'Figurina pixel art originale: volto e capelli dal DNA persistente, divisa della squadra corrente.':
+ '<p class="r11-hint">'+(appearance?'Figurina raster illustrata: DNA persistente e divisa della squadra corrente.':
  'Il salvataggio non contiene un visual + kit canonico: nessun ritratto inventato.')+'</p></div>'+
  '<div class="r11-bottom">'+B(active?'TORNA ALL’ALLENAMENTO':'TORNA ALLA ROSA',active?'back-training':'back-rosa')+
  B(active?'VEDI ROSA':'VEDI ALLENAMENTO',active?'back-rosa':'back-training')+'</div></section>'+

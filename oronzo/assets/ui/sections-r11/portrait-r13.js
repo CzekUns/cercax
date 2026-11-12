@@ -1,117 +1,95 @@
-/** R13 original pixel portrait renderer. Appearance is read-only and seeded by saved visual IDs. */
+/** ORONZO R13-BIS: illustrated raster player portrait, read-only R12 DNA.
+ * Each layer is an original separately stored PNG with alpha and material mask.
+ * Canvas exclusively composites and palette-remaps pixels from image assets.
+ */
+export const PORTRAIT_WIDTH=128;
+export const PORTRAIT_HEIGHT=160;
 const SKIN=['#E6B485','#BD8058','#F0C998','#98633F','#D59A70','#B87451','#A87552','#E2AF7A'];
 const HAIR=['#292022','#6D422B','#2C252C','#9C6737','#49271D','#C49259','#201D20','#594131'];
-const ink='#20202c';
-const index=(v,n)=>Number.isInteger(Number(v))?Math.abs(Number(v))%n:0;
-// Canonical PlayerV2 stores named haircut/beard IDs. Numeric-only indexing
-// collapsed all named styles to zero, making distinct saved players identical.
-const HAIR_STYLES=['crop','buzz','receding','long','bald','wavy','curly','side-part'];
+const HAIR_STYLES=['crop','side-part','wavy','curly','receding','buzz','long','bald'];
 const FACIAL_STYLES=['shaved','moustache','goatee','stubble','full-beard'];
-const styleIndex=(v,n,names)=>{if(typeof v==='string'&&!/^\\d+$/.test(v)){const k=names.indexOf(v.toLowerCase());if(k>=0)return k%n;}return index(v,n);};
-const paletteColor=(value,palette,id)=>/^#[0-9a-f]{6}$/i.test(value||'')?value:palette[index(id,palette.length)];
-const rect=(c,x,y,w,h,col)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
-const shade=(hex,delta)=>{const n=parseInt(String(hex).replace('#',''),16);if(!Number.isFinite(n))return '#555555';return '#'+[16,8,0].map(k=>Math.max(0,Math.min(255,((n>>k)&255)+delta)).toString(16).padStart(2,'0')).join('');};
-const shirtColor=v=>/^#[0-9a-f]{6}$/i.test(v||'')?v:'#315b9c';
-/** Draw 56x56 native pixels, scaled exactly 2x to a 112x112 portrait.
- * 4 face shapes x 4 hair shapes x 4 facial hair styles; no external assets or mutable RNG.
- */
-export function drawPortrait(canvas,appearance={},kit={}){
- const c=canvas?.getContext?.('2d');if(!c)return false;
- canvas.width=112;canvas.height=112;c.imageSmoothingEnabled=false;
- c.clearRect(0,0,112,112);c.save();c.scale(2,2);
- const skin=paletteColor(appearance.skin,SKIN,appearance.skinToneId);
- const hair=paletteColor(appearance.hair,HAIR,appearance.hairColorId);
- const face=index(appearance.faceVariantId,8);
- const cut=styleIndex(appearance.hairStyleId,8,HAIR_STYLES);
- const beard=styleIndex(appearance.facialHairStyleId,8,FACIAL_STYLES);
- const eyes=index(appearance.eyeVariantId??appearance.faceVariantId,4);
- const nose=index(appearance.noseVariantId??appearance.faceVariantId,4);
- const brow=index(appearance.browVariantId??appearance.hairStyleId,4);
- const shirt=shirtColor(kit.shirtA||kit.shirt);
- const second=shirtColor(kit.shirtB||kit.trim||shirt);
- // Studio backdrop with stepped retro floodlights and a lower-third gradient.
- rect(c,0,0,56,56,'#122b50');rect(c,2,2,52,52,'#27496c');
- for(let i=0;i<8;i++){rect(c,3+i*7,5,3,2,'#3b6081');rect(c,0,42+i*2,56,1,i%2?'#244b60':'#315b6c');}
- // Torso and shirt: the club palette may change on transfer; the face does not.
- rect(c,8,45,40,11,ink);rect(c,10,43,36,13,shirt);
- rect(c,5,49,10,7,shirt);rect(c,41,49,10,7,shirt);
- rect(c,13,45,4,11,shade(shirt,-25));rect(c,39,45,4,11,shade(shirt,-25));
- const pattern=String(kit.shirtPatternId||kit.pattern||'');
- if(/vertical|stripe|righe/i.test(pattern)){for(let x=20;x<=36;x+=8)rect(c,x,47,3,9,second);}
- else if(/horizontal|fasce/i.test(pattern))rect(c,13,50,30,3,second);
- else if(/half|metà/i.test(pattern))rect(c,28,47,11,9,second);
- else if(/diagonal|banda/i.test(pattern)){for(let y=47;y<56;y++)rect(c,18+(y-47),y,5,1,second);}
- else if(/checker|quadri/i.test(pattern)){for(let y=47;y<56;y+=4)for(let x=17;x<39;x+=8)rect(c,x+((y-47)%8?4:0),y,4,4,second);}
- rect(c,23,44,10,5,shade(skin,-15));rect(c,24,43,8,4,skin);
- // Ears, jaw and cheek shape.
- const width=[22,24,20,24,21,25,23,19][face],left=28-width/2;
- rect(c,left-3,23,3,10,ink);rect(c,left+width,23,3,10,ink);
- rect(c,left-2,24,3,8,shade(skin,-25));rect(c,left+width-1,24,3,8,shade(skin,-25));
- rect(c,left-1,13,width+2,29,ink);
- rect(c,left,14,width,24,skin);
- // Three-tone facial volume: asymmetric stadium lighting, temples and cheekbones.
- rect(c,left,15,3,21,shade(skin,-20));
- rect(c,left+width-3,16,3,20,shade(skin,-35));
- rect(c,left+3,17,width-8,3,shade(skin,13));
- rect(c,left+2,31,4,5,shade(skin,-10));
- rect(c,left+width-6,31,4,5,shade(skin,-22));
- rect(c,left+5,34,4,2,shade(skin,8));
- rect(c,left+width-9,34,4,2,shade(skin,4));
- rect(c,left+2,37,width-4,4,shade(skin,-18));
- if(face===1){rect(c,left-1,24,2,11,skin);rect(c,left+width-1,24,2,11,skin);}
- if(face===2){rect(c,left+3,40,width-6,2,ink);rect(c,left+4,40,width-8,2,shade(skin,-12));}
- if(face===3){rect(c,left-2,26,3,7,skin);rect(c,left+width-1,26,3,7,skin);}
- if(face===4){rect(c,left+2,36,width-4,3,shade(skin,-16));rect(c,left+6,39,width-12,3,shade(skin,-23));}
- if(face===5){rect(c,left-1,30,3,8,skin);rect(c,left+width-2,30,3,8,skin);rect(c,left+5,39,width-10,2,shade(skin,-28));}
- if(face===6){rect(c,left+1,17,3,6,shade(skin,-16));rect(c,left+width-4,17,3,6,shade(skin,-16));rect(c,left+3,38,width-6,3,shade(skin,-27));}
- if(face===7){rect(c,left+4,39,width-8,3,shade(skin,-28));rect(c,left+6,41,width-12,2,ink);}
- // Independent pixel layers for eyebrows, eyes and nose; all derive from persisted DNA.
- const eyeY=eyes===1?28:27;
- const eyeWidth=eyes===2?4:3;
- const browY=brow===1?22:24;
- rect(c,left+4,browY,5,brow===2?1:2,shade(hair,brow===3?24:0));
- rect(c,left+width-9,browY+(brow===3?1:0),5,brow===2?1:2,shade(hair,brow===3?24:0));
- rect(c,left+5,eyeY,eyeWidth,eyes===3?2:3,'#f5e6c9');
- rect(c,left+width-8,eyeY,eyeWidth,eyes===3?2:3,'#f5e6c9');
- rect(c,left+6,eyeY,1,eyes===3?2:3,ink);
- rect(c,left+width-7,eyeY,1,eyes===3?2:3,ink);
- // Iris catchlights and lower eyelids remain legible at native portrait scale.
- if(eyes!==3){rect(c,left+6,eyeY,1,1,'#5a8a94');rect(c,left+width-7,eyeY,1,1,'#5a8a94');}
- rect(c,left+4,eyeY+4,5,1,shade(skin,-15));
- rect(c,left+width-9,eyeY+4,5,1,shade(skin,-15));
- rect(c,27+(nose===1?1:0),29,nose===2?3:2,nose===3?4:6,shade(skin,-26));
- rect(c,26+(nose===1?1:0),34,nose===2?5:4,2,shade(skin,-34));
- rect(c,24,37,8,1,shade(skin,-44));
- // Hair silhouettes, including receding hairline and bald variants.
- if(cut!==4&&cut!==7){
-  rect(c,left-1,11,width+2,7,ink);rect(c,left,12,width,6,hair);
-  rect(c,left-1,17,4,8,hair);rect(c,left+width-3,17,4,8,hair);
-  if(cut===0){rect(c,left+2,10,width-4,4,hair);rect(c,left+6,9,width-12,3,shade(hair,24));}
-  if(cut===1){for(let x=left+1;x<left+width;x+=5)rect(c,x,8+(x%3),4,6,hair);}
-  if(cut===2){rect(c,left+3,12,5,8,skin);rect(c,left+width-8,12,5,8,skin);}
-  if(cut===3){rect(c,left-2,15,5,14,hair);rect(c,left+width-3,15,5,14,hair);rect(c,left+5,9,width-10,5,hair);}
-  if(cut===5){rect(c,left-2,10,width+4,5,ink);rect(c,left,8,width,6,hair);rect(c,left+3,6,width-6,4,hair);rect(c,left+6,5,width-12,3,shade(hair,25));}
-  if(cut===6){rect(c,left,12,width,4,skin);rect(c,left+7,9,width-14,6,hair);rect(c,left-1,18,3,10,hair);rect(c,left+width-2,18,3,10,hair);}
-  // Layered hair highlights follow the same persisted hair shade and cut.
-  if(cut!==2){rect(c,left+4,12,Math.max(4,width-12),2,shade(hair,27));}
-  if(cut===3){rect(c,left-1,21,2,5,shade(hair,17));rect(c,left+width-1,21,2,5,shade(hair,17));}
- }else{rect(c,left+2,13,width-4,2,shade(skin,15));if(cut===7){rect(c,left,14,3,7,shade(hair,10));rect(c,left+width-3,14,3,7,shade(hair,10));rect(c,left+4,11,width-8,2,shade(skin,-10));}}
- // Moustache, goatee, stubble or full beard.
- if(beard===1||beard===3||beard===4||beard===5||beard===7){rect(c,23,35,5,2,hair);rect(c,29,35,5,2,hair);}
- if(beard===2||beard===3||beard===6){rect(c,25,39,6,4,hair);}
- if(beard===4){rect(c,left,35,4,6,hair);rect(c,left+width-4,35,4,6,hair);rect(c,left+4,40,width-8,3,hair);}
- if(beard===5){rect(c,left+1,32,2,8,shade(hair,35));rect(c,left+width-3,32,2,8,shade(hair,35));}
- if(beard===6){rect(c,left+5,39,width-10,3,shade(hair,20));rect(c,left+8,41,width-16,2,hair);}
- if(beard===7){rect(c,left+2,34,3,7,hair);rect(c,left+width-5,34,3,7,hair);rect(c,left+4,40,width-8,3,hair);rect(c,left+8,42,width-16,2,shade(hair,15));}
- // Collar and shoulder stitching.
- rect(c,21,45,5,3,second);rect(c,30,45,5,3,second);
- rect(c,11,48,8,1,shade(shirt,32));rect(c,37,48,8,1,shade(shirt,32));
- // Fabric folds, chest crest and collar depth distinguish a bust from a scaled match sprite.
- rect(c,15,52,2,4,shade(shirt,-35));
- rect(c,39,52,2,4,shade(shirt,-35));
- rect(c,27,47,2,4,shade(shirt,-40));
- rect(c,33,49,4,4,ink);rect(c,34,49,2,3,second);
- rect(c,23,46,3,2,shade(second,-20));rect(c,30,46,3,2,shade(second,-20));
- c.restore();return true;
+const hairMap=[0,1,4,3,7,8,5,-1]; // Canonical PlayerV2 names -> illustrated hair PNG slots
+const beardMap=[-1,0,3,4,6]; // -1: clean-shaven (no overlay)
+const cache=new Map();
+const root=new URL('../../players/r13/',import.meta.url);
+function idx(value,n){const v=Number(value);return Number.isInteger(v)?((v%n)+n)%n:0;}
+function style(value,n,names,map){if(typeof value==='string'&&!/^\d+$/.test(value)){
+  const pos=names.indexOf(value.toLowerCase());if(pos>=0)return map[pos];
+}return idx(value,n);}
+function hex(color,fallback){return /^#[0-9a-f]{6}$/i.test(String(color||''))?String(color):fallback;}
+export const portraitVariantCount=8*12*9*8*8;
+export function portraitParts(appearance={},kit={}){
+ const hair=style(appearance.hairStyleId,12,HAIR_STYLES,hairMap);
+ const facial=style(appearance.facialHairStyleId,8,FACIAL_STYLES,beardMap);
+ const face=idx(appearance.faceVariantId,8);
+ const torso=idx(appearance.torsoVariantId??appearance.faceVariantId,6);
+ const pattern=String(kit.shirtPatternId||kit.pattern||'solid').toLowerCase();
+ const canonicalPattern=/vertical|righe|stripes/.test(pattern)?'vertical':/horizontal|fasce/.test(pattern)?'horizontal':/halves|half|metà/.test(pattern)?'halves':'solid';
+ return {face,hair,facial,torso,pattern:canonicalPattern,
+  skin:hex(appearance.skin,SKIN[idx(appearance.skinToneId,8)]),
+  hairColor:hex(appearance.hair,HAIR[idx(appearance.hairColorId,8)]),
+  facialColor:hex(appearance.facialHairColor,HAIR[idx(appearance.facialHairColorId??appearance.hairColorId,8)]),
+  shirtA:hex(kit.shirtA||kit.shirt,'#315b9c'),shirtB:hex(kit.shirtB||kit.trim||kit.shirtA,'#f1e5d2')};
 }
-export const portraitVariantCount=8*8*8*8*8;
+function loadImage(path){
+ if(cache.has(path))return cache.get(path);
+ const promise=new Promise((resolve,reject)=>{
+  if(typeof Image==='undefined'){reject(new Error('R13_IMAGE_API_UNAVAILABLE'));return;}
+  const image=new Image();image.decoding='async';image.crossOrigin='anonymous';
+  image.onload=()=>image.naturalWidth===PORTRAIT_WIDTH&&image.naturalHeight===PORTRAIT_HEIGHT?resolve(image):reject(new Error('R13_ASSET_DIMENSIONS:'+path));
+  image.onerror=()=>reject(new Error('R13_ASSET_NOT_FOUND:'+path));
+  image.src=new URL(path,root).href;
+ });
+ cache.set(path,promise);return promise;
+}
+const filename=(group,n)=>group+'/'+String(n).padStart(2,'0')+'.png';
+const maskname=(group,n)=>'masks/'+group.replaceAll('-','_')+'-'+String(n).padStart(2,'0')+'.png';
+const kitMask=(n,pattern)=>'kits/'+String(n).padStart(2,'0')+'-'+pattern+'.png';
+function canvas2d(){const c=document.createElement('canvas');c.width=PORTRAIT_WIDTH;c.height=PORTRAIT_HEIGHT;return c;}
+function imagePixels(image){const c=canvas2d(),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return ctx.getImageData(0,0,c.width,c.height);}
+function toRGB(str){return [1,3,5].map(i=>parseInt(str.slice(i,i+2),16));}
+/** Palette remapping retains original shaded illustrated pixels and alpha. */
+function remap(image,materialMask,color,material='hair',secondMask=null,secondColor=null){
+ const original=imagePixels(image),alpha=imagePixels(materialMask),next=original.data,mask=alpha.data;
+ const second=secondMask?imagePixels(secondMask).data:null;
+ const toneA=toRGB(color),toneB=toRGB(secondColor||color);
+ for(let i=0;i<next.length;i+=4){
+  if(next[i+3]===0||mask[i+3]<128)continue;
+  const source=[next[i],next[i+1],next[i+2]],tone=second&&second[i+3]>127?toneB:toneA;
+  const lum=(source[0]+source[1]+source[2])/3;
+  const light=Math.max(-0.75,Math.min(1.15,(lum-118)/95));
+  for(let k=0;k<3;k++){
+   let v=Math.max(0,Math.min(255,tone[k]+light*76));
+   if(material==='skin')v=v*.86+source[k]*.14;
+   next[i+k]=Math.round(v);
+  }
+ }
+ const c=canvas2d();c.getContext('2d').putImageData(original,0,0);return c;
+}
+/** Render from real PNGs; never creates character geometry with drawing primitives.
+ * Returns Promise<boolean>. A stale in-flight load never overwrites a newer player.
+ */
+export async function drawPortrait(canvas,appearance={},kit={}){
+ const ctx=canvas?.getContext?.('2d');if(!ctx||typeof document==='undefined')return false;
+ const token=Symbol('portrait');canvas.__r13Token=token;
+ const p=portraitParts(appearance,kit);
+ const requests=[
+  [filename('torsos',p.torso),maskname('torsos',p.torso),kitMask(p.torso,p.pattern)],
+  [filename('faces',p.face),maskname('faces',p.face)],
+  p.hair<0?null:[filename('hair',p.hair),maskname('hair',p.hair)],
+  p.facial<0?null:[filename('facial-hair',p.facial),maskname('facial-hair',p.facial)]];
+ try{
+  const layers=await Promise.all(requests.map(paths=>paths?Promise.all(paths.map(loadImage)):null));
+  if(canvas.__r13Token!==token)return false;
+  canvas.width=PORTRAIT_WIDTH;canvas.height=PORTRAIT_HEIGHT;
+  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,PORTRAIT_WIDTH,PORTRAIT_HEIGHT);
+  // drawImage only: the illustrated source layers own every contour and facial feature.
+  const [shirt,skin,hair,facial]=[
+   remap(...layers[0].slice(0,2),p.shirtA,'kit',layers[0][2],p.shirtB),
+   remap(...layers[1],p.skin,'skin'),
+   layers[2]&&remap(...layers[2],p.hairColor),
+   layers[3]&&remap(...layers[3],p.facialColor)];
+  for(const layer of [shirt,skin,hair,facial])if(layer)ctx.drawImage(layer,0,0);
+  canvas.dataset.r13Raster='loaded';return true;
+ }catch(error){canvas.dataset.r13Raster='failed';console.warn('ORONZO_R13_RASTER_ERROR',error);return false;}
+}
