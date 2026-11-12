@@ -19,6 +19,7 @@ _Adattamento del modello multi-agente persistente deliberato il 12/11/2026. Ques
 ## Ownership attuale e conflitti da evitare
 - **R13-TER (#79):** esclusiva sui PNG ritratti, maschere, `portrait-r13.js`; la PR ha già test Chromium, ma il gate artistico è in revisione.
 - **AUTOMATION-R13:** incarico esclusivo `R13-MATCH-ATLAS` sotto `oronzo/assets/players/r13-match/**`; non modificare `oronzo/assets/players/r13/**`, `portrait-r13.js`, `sections.js`, `career-r03.js` senza nuovo incarico.
+- **AGENT-01 storico:** pur avendo nel vecchio `registry.json` uno scope ampio `oronzo/assets/players/`, **non è assegnato** al nuovo sottoinsieme `r13-match/**` mentre la corsia AUTONOMATION-R13 è attiva. Serve nuova decisione 10-bis per modificare quella directory.
 - **AGENT-05:** renderer campo/camera soltanto dopo le dipendenze.
 - PR #75 e altre idee narrative sono in pausa.
 
