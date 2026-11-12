@@ -1,61 +1,37 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "scope": "scheduled-automations-only",
   "observedDate": "2026-11-12",
   "snapshotNotLive": true,
-  "main": {
-    "sha": "c78ec6fbb9ac34f98c4e3bf1e139f8d26683e9bb",
-    "description": "PR #78 merge: testo pulsanti non selezionabile",
-    "pages": {
-      "status": "SUCCESS",
-      "sha": "c78ec6fbb9ac34f98c4e3bf1e139f8d26683e9bb"
-    }
+  "baseMainAtCreation": "abadad27bf50127faee79f38740a6be4eacc339e",
+  "automation": {
+    "id": "Automation_1e2c92e86b2c819197c770d2b0ea61ec",
+    "title": "ORONZO · Sprite partita R13 · incarico persistente",
+    "enabled": true,
+    "activeTask": "R13-MATCH-ATLAS",
+    "taskState": "READY",
+    "proposedBranch": "automation/oronzo-r13-match-atlas",
+    "currentPR": null,
+    "progressWorklog": "oronzo/coordination/worklogs/R13-MATCH-ATLAS.md",
+    "next": "Riprendere task assegnato dal branch e worklog, non scegliere altro lavoro"
   },
-  "ownership": {
-    "R13-TER": {
-      "task": "R13-PORTRAIT-FIX",
-      "status": "WAIT_REVIEW",
+  "informationalExternalContext": [
+    {
       "pr": 79,
-      "head": "1aba5eea4bdfb287f00f5f1b07ab87cb0a44c3b1",
-      "evidence": "PR #79 reports 36/36 Chromium HTTP checks; artistic approval remains pending"
+      "kind": "manual-agent-work",
+      "note": "R13-TER ritratti modulari; avoid touching its active files; this automation state does not manage the manual agent"
     },
-    "AUTOMATION-R13": {
-      "task": "R13-MATCH-ATLAS",
-      "status": "READY",
-      "pr": null,
-      "branch": "automation/oronzo-r13-match-atlas",
-      "nextRecord": "oronzo/coordination/worklogs/R13-MATCH-ATLAS.md"
+    {
+      "pr": 78,
+      "kind": "integrated-change",
+      "note": "Non-selectable button labels already merged"
     },
-    "AGENT-05": {
-      "task": null,
-      "status": "BLOCKED",
-      "nextEligible": "R13-MATCH-WIRING after R13 portrait+atlas accepted"
-    },
-    "ORCHESTRATOR-10B": {
-      "task": "gates/ownership",
-      "status": "WORKING"
+    {
+      "pr": 80,
+      "kind": "coordination-history",
+      "note": "Initial persistent schema, now narrowed to automations"
     }
-  },
-  "frozen": [
-    "R12-PROVINCIAL-75"
   ],
-  "lastKnownReview": {
-    "pr": 79,
-    "state": "OPEN_DRAFT",
-    "merge": false,
-    "visualApproval": false,
-    "run": "https://github.com/CzekUns/cercax/actions/runs/43241233286"
-  },
-  "lastKnownRelease": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html?v=c78ec6f",
-  "nextCoordinatorDecision": "Review PR #79 visually; hold merge pending art approval. Prevent overwriting its portrait files; let hourly automation build only isolated match atlas.",
-  "concurrency": "STATE.json is only a coordinator snapshot; ongoing truth is GitHub HEAD + issue/PR comments + owner worklog on its branch.",
-  "statusProtocol": [
-    "READY",
-    "WORKING",
-    "WAIT_REVIEW",
-    "FIX_REQUESTED",
-    "BLOCKED",
-    "PARKED",
-    "MERGED",
-    "DEPLOYED"
-  ]
+  "lastKnownGameUrl": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html",
+  "instruction": "GitHub live PR/HEAD/actions always overrides this cached snapshot. Manual agents do not report to or follow this JSON."
 }

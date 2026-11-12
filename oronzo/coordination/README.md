@@ -1,7 +1,6 @@
 # ORONZO · CENTRO DI COORDINAMENTO DEGLI AGENTI
 
-> **Nuovo centro operativo R13 — 12 novembre 2026:** per task attivi, owner esclusivi e ripresa tra chat/automazioni leggere **[ROADMAP.md](ROADMAP.md) · [TASKS.json](TASKS.json) · [STATE.json](STATE.json) · [HANDOFF.md](HANDOFF.md) · [QA.md](QA.md)**, poi la PR/branch dell'owner e il suo [worklog](worklogs/). Questo strato **integra**, senza sostituire, `registry.json`, il protocollo esistente e i file agenti. I documenti storici R11 non rappresentano uno stato live. Le istruzioni nuove esplicite del proprietario prevalgono; nessun autore deve modificare due scope concorrenti.
-
+> **Instradamento AUTOMAZIONI (12 novembre 2026):** [ROADMAP.md](ROADMAP.md), [TASKS.json](TASKS.json), [STATE.json](STATE.json), [HANDOFF.md](HANDOFF.md), [QA.md](QA.md) e [worklogs](worklogs/) regolano **soltanto i worker programmati**. Non attribuiscono incarichi né restrizioni agli agenti manuali; essi seguono `registry.json`, il proprio `RUN/NEXT` e `PROTOCOL.md` come prima. Il worker consulta le PR manuali solo per evitare conflitti ai file.
 
 **Questa cartella su `main` è la fonte di verità per lo stato dei lavori e i prossimi incarichi.**
 L'orchestratore supervisiona, prova e integra le PR, aggiorna `NEXT.md`; ciascun agente esegue soltanto il proprio ambito e pubblica `REPORT.md` con prove e limiti.
