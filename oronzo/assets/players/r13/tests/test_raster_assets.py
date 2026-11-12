@@ -6,8 +6,8 @@ root=Path(__file__).resolve().parents[1]
 manifest=json.loads((root/'manifest.json').read_text())
 assert manifest['canvas']==[128,160]
 assert manifest['schema'].startswith('oronzo-r13ter')
-assert manifest['assetRegistration']['faces']['07']['dx']==-10
-assert manifest['assetRegistration']['hair']['09']['dx']==-7
+assert manifest['assetRegistration']['faces']['07']['dx']==(0 if manifest.get('artRevision')=='r13ter-retouch-applied-v1' else -10)
+assert manifest['assetRegistration']['hair']['09']['dx']==(0 if manifest.get('artRevision')=='r13ter-retouch-applied-v1' else -7)
 
 for name,n in [('faces',8),('hair',12),('facial-hair',8),('torsos',6)]:
     entries=manifest['groups'][name]
