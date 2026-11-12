@@ -1,0 +1,18 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ORONZO R13-BIS — Galleria raster</title><style>
+*{box-sizing:border-box}body{font-family:Verdana,sans-serif;margin:0;background:#102446;color:#f4e7c8}header{padding:10px 16px;background:#253e65;border-bottom:3px solid #d7b964}h1{font-size:18px;margin:0}small{font-size:11px}#players{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:10px}.card{background:#e8e5dc;color:#22334a;border:2px solid #ad935d;border-radius:4px;min-width:0;text-align:center}.card canvas{height:133px;max-width:100%;image-rendering:pixelated}.card h3{font-size:10px;margin:1px 0 4px}.switches{display:flex;gap:8px;padding:8px}.switches canvas{height:130px;image-rendering:pixelated}.transfer{background:#dde6ee;color:#162d4b;padding:6px;text-align:center}.status{padding:4px 12px;font-size:11px;color:#f0c671}@media(max-height:370px){header{padding:4px 10px}h1{font-size:14px}#players{gap:3px;padding:4px}.card canvas{height:115px}.switches{display:none}}
+</style></head><body><header><h1>ORONZO 1979 · 20 RITRATTI DA ASSET PNG INDIPENDENTI</h1><small>Campione grafico di sviluppo · ancora soggetto a revisione artistica</small></header><div id="players"></div><div class="status" id="result">Caricamento dei livelli PNG…</div><div class="switches" id="transfers"></div><script type="module">
+import {drawPortrait} from '../../ui/sections-r11/portrait-r13.js';
+const target=document.querySelector('#players');const sets=['#315b9c','#a33a38','#1c704b','#ebc53c','#44318c','#25262c','#b17846','#a64d29'];
+const faces=[0,1,2,3,4,5,6,7];const hairs=['crop','side-part','wavy','curly','receding','buzz','long','bald'];const beards=['shaved','moustache','goatee','stubble','full-beard'];
+let results=[];for(let i=0;i<20;i++){
+ const node=document.createElement('div');node.className='card';node.innerHTML='<canvas width="128" height="160" aria-label="Ritratto '+(i+1)+'"></canvas><h3>CALCIATORE '+String(i+1).padStart(2,'0')+'</h3>';target.append(node);
+ const dna={faceVariantId:faces[i%8],skinToneId:(i*5)%8,hairColorId:(i*3)%8,hairStyleId:hairs[(i*7+3)%8],facialHairStyleId:beards[(i*3+1)%5]};
+ const kit={shirtA:sets[i%8],shirtB:sets[(i+3)%8],shirtPatternId:['vertical','solid','halves','horizontal'][i%4]};
+ results.push(drawPortrait(node.querySelector('canvas'),dna,kit));
+}
+for(let k=0;k<3;k++){
+ const node=document.createElement('div');node.className='transfer';node.innerHTML='<canvas width="128" height="160"></canvas><div>CLUB '+(k+1)+'</div>';document.querySelector('#transfers').append(node);
+ results.push(drawPortrait(node.querySelector('canvas'),{faceVariantId:3,skinToneId:2,hairColorId:2,hairStyleId:'curly',facialHairStyleId:'moustache'}, {shirtA:['#a33a38','#315b9c','#1c704b'][k],shirtB:'#e8e6df',shirtPatternId:['solid','vertical','halves'][k]}));
+}
+const checks=await Promise.all(results);document.querySelector('#result').textContent='Asset PNG caricati: '+checks.filter(Boolean).length+'/23';window.R13_DEMO_READY=checks.every(Boolean);
+</script></body></html>
