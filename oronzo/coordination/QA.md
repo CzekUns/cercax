@@ -1,26 +1,26 @@
-# ORONZO · Gate di qualità, merge e pubblicazione
-_Applicare insieme a PROTOCOL.md. Il task non è finito con il solo commit._
+# ORONZO · Gate delle AUTOMAZIONI ricorrenti
 
-## Stati verificabili
-- `READY`: task assegnato e scope libero.
-- `WORKING`: codice/asset in sviluppo, PR e worklog riutilizzabili.
-- `WAIT_REVIEW`: consegna completa per la tranche, prove raccolte; revisione artistica/tecnica pendente.
-- `FIX_REQUESTED`: c'è un errore o limite che richiede correzione nella PR corrente.
-- `BLOCKED`: dipendenza reale, responsabilità specificata.
-- `PARKED`: sospeso per volontà del proprietario, non avviare.
-- `MERGED`: commit verificato su main; non implica deployed.
-- `DEPLOYED`: GitHub Pages SUCCESS per lo SHA di main e link verificabile.
-Se serve, il report può segnalare separatamente PASS/NEEDS CHANGES/NON CERTIFICATO.
+> **Solo per le consegne dei worker automatici.** Le chat manuali continuano a seguire il proprio protocollo e le istruzioni specifiche; non sono obbligate a usare `TASKS.json` o a far approvare i loro incarichi da questo registro.
 
-## Gate per ogni PR
-1. **Ownership:** un solo task, scope non sovrapposto, branch/HEAD aggiornato.
-2. **Consegna:** codice e asset reali; niente placeholder spacciati per finiti. Manifest, trasparenza/maschere e licenze per PNG/WebP; ricolorazione e DNA persistente.
-3. **Test tecnici:** Node e regressioni pertinenti, salvo motivazione precisa; se cambi GUI, Chromium HTTP vero a **640×360, 800×360, 844×390, 960×400**. Salvare screenshot e log. Niente PASS dichiarato senza evidenza.
-4. **Test funzionali:** per figurine usare almeno 20 combinazioni, 8 volti, barbe/capelli, kit chiari/scuri e transfer; in-game scheda, cambio calciatore e save/reload. Per match, 22 sprite, portieri, due kit, azioni e passaggio FULL/TV; niente regressioni di comandi, risultato, clock.
-5. **Art review:** sulla grafica critica, confronto prima/dopo e verifica del proprietario se ha segnalato difetti. Un workflow verde **non** approva automaticamente occhi/barba/collo/spalle.
-6. **Merge:** controllare HEAD, test e diff, evitare force-push. Merge da coordinatore o solo owner-automation con autorizzazione pregressa per **sua** PR completamente verificata; nessuna integrazione automatica della #79 di altra chat.
-7. **Release:** verificare `main`, Pages build/deploy `SUCCESS`, link `https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html?v=<SHA>`; annotare eventuale differenza tra Pages CI e test diretto sul sito.
-8. **Handoff:** aggiornare worklog del proprio branch, PR, artefatti e stato; dopo merge aggiornare `STATE.json` su main tramite orchestratore.
+## Stati automatici
+- `READY`: task orario assegnato ma non ancora avviato.
+- `WORKING`: tranche in corso sullo stesso branch/PR con checkpoint nel worklog.
+- `WAIT_REVIEW`: pronta da verificare; non scegliere un'altra funzione.
+- `FIX_REQUESTED`: correggere la PR esistente e ripetere i test.
+- `BLOCKED`: dipendenza o errore tecnico riproducibile; non simulare progressi.
+- `PARKED`: task sospeso, non riavviarlo.
+- `MERGED`: HEAD integrato su `main`, verifica il deployment.
+- `DEPLOYED`: Pages SUCCESS per il commit distribuito; link giocabile con cache busting.
 
-## Regola anti-rituale
-Non si aggiungono test e report solo per riempire un'esecuzione: prima produrre miglioramenti coerenti. Se l'ambiente non permette di disegnare o pubblicare PNG autentici, dichiarare il blocco invece di sostituirli con SVG/fillRect. Chiudere una run senza progressi è un esito esplicitamente insufficiente.
+## Gate per il worker ORONZO R13
+1. Verificare task, branch, PR e worklog precedenti prima di modificare codice.
+2. Asset originali **raster illustrati** con veri file PNG/WebP trasparenti; non primitive SVG/Canvas mascherate da raster.
+3. Manifest, palette, alpha, pivots, frame, più kit/portiere; test del set completo e tavola visiva di esempio.
+4. Se viene modificato il runtime o una schermata, Node e Chromium HTTP nelle viewport 640×360, 800×360, 844×390, 960×400, salvataggio/caricamento e asset load. La prova demo isolata va distinta da quella nella carriera reale.
+5. Non toccare la PR manuale #79 o i suoi asset concorrenti; se i file richiesti sono contesi, segnala la dipendenza invece di dettare nuovi incarichi al suo autore.
+6. Merge: solo della PR **propria dell'automazione** e soltanto nei limiti dell'autorizzazione vigente e con gate verdi. Mai merge automatico di PR di agenti manuali.
+7. Rilascio: GitHub Pages `SUCCESS` sull'esatto `main` verificato. Non confondere PR aperta e gioco pubblico.
+8. Fine run: worklog sul branch con ultimo ID fatto e primo rimasto, HEAD, test, screenshot e prossimo passaggio.
+
+## Regola di qualità
+Ogni run deve continuare il **medesimo** incarico senza creare nuovi microtask. Se il runtime non permette di produrre asset veri o di interagire con GitHub, dichiarare il blocco e conservare il checkpoint, senza costruire report fittizi.
