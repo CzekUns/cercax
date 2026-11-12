@@ -66,7 +66,13 @@ try{
   if(width===844){
    const before=await page.evaluate(()=>window.OronzoR03.getState().clubs
     .flatMap(c=>c.players).filter(p=>p.visual).map(p=>[p.id,p.visual]).slice(0,5));
-   await page.locator('[data-action="save"]').first().click();
+   const saveDispatched=await page.evaluate(()=>{
+    // The obsolete bottom nav is intentionally hidden in the latest UI.
+    // Invoke the real delegated save action without pretending this is a visible-button QA.
+    const button=document.querySelector('[data-action="save"]');
+    button?.click();return Boolean(button);
+   });
+   check(saveDispatched,'real app save handler invoked',size);
    await page.reload({waitUntil:'networkidle'});
    await page.locator('[data-action="load"]').first().click();
    await page.waitForFunction(()=>window.OronzoR03?.getState()?.clubs?.length>0);
