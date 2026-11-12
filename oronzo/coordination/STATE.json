@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "observedDate": "2026-11-12",
+  "snapshotNotLive": true,
+  "main": {
+    "sha": "c78ec6fbb9ac34f98c4e3bf1e139f8d26683e9bb",
+    "description": "PR #78 merge: testo pulsanti non selezionabile",
+    "pages": {
+      "status": "SUCCESS",
+      "sha": "c78ec6fbb9ac34f98c4e3bf1e139f8d26683e9bb"
+    }
+  },
+  "ownership": {
+    "R13-TER": {
+      "task": "R13-PORTRAIT-FIX",
+      "status": "WAIT_REVIEW",
+      "pr": 79,
+      "head": "1aba5eea4bdfb287f00f5f1b07ab87cb0a44c3b1",
+      "evidence": "PR #79 reports 36/36 Chromium HTTP checks; artistic approval remains pending"
+    },
+    "AUTOMATION-R13": {
+      "task": "R13-MATCH-ATLAS",
+      "status": "READY",
+      "pr": null,
+      "branch": "automation/oronzo-r13-match-atlas",
+      "nextRecord": "oronzo/coordination/worklogs/R13-MATCH-ATLAS.md"
+    },
+    "AGENT-05": {
+      "task": null,
+      "status": "BLOCKED",
+      "nextEligible": "R13-MATCH-WIRING after R13 portrait+atlas accepted"
+    },
+    "ORCHESTRATOR-10B": {
+      "task": "gates/ownership",
+      "status": "WORKING"
+    }
+  },
+  "frozen": [
+    "R12-PROVINCIAL-75"
+  ],
+  "lastKnownReview": {
+    "pr": 79,
+    "state": "OPEN_DRAFT",
+    "merge": false,
+    "visualApproval": false,
+    "run": "https://github.com/CzekUns/cercax/actions/runs/43241233286"
+  },
+  "lastKnownRelease": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html?v=c78ec6f",
+  "nextCoordinatorDecision": "Review PR #79 visually; hold merge pending art approval. Prevent overwriting its portrait files; let hourly automation build only isolated match atlas.",
+  "concurrency": "STATE.json is only a coordinator snapshot; ongoing truth is GitHub HEAD + issue/PR comments + owner worklog on its branch.",
+  "statusProtocol": [
+    "READY",
+    "WORKING",
+    "WAIT_REVIEW",
+    "FIX_REQUESTED",
+    "BLOCKED",
+    "PARKED",
+    "MERGED",
+    "DEPLOYED"
+  ]
+}
