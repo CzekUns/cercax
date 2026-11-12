@@ -49,16 +49,18 @@ function canvas2d(){const c=document.createElement('canvas');c.width=PORTRAIT_WI
 function imagePixels(image){const c=canvas2d(),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return ctx.getImageData(0,0,c.width,c.height);}
 function toRGB(str){return [1,3,5].map(i=>parseInt(str.slice(i,i+2),16));}
 /** Palette remapping retains original shaded illustrated pixels and alpha. */
-function remap(image,materialMask,color,material='hair',secondMask=null,secondColor=null,neckColor=null){
+function remap(image,materialMask,color,material='hair',secondMask=null,secondColor=null,neckColor=null,neckMask=null){
  const original=imagePixels(image),next=original.data,mask=imagePixels(materialMask).data;
  const second=secondMask?imagePixels(secondMask).data:null;
+ const neckPixels=neckMask?imagePixels(neckMask).data:null;
  const toneA=toRGB(color),toneB=toRGB(secondColor||color),toneSkin=toRGB(neckColor||color);
  for(let i=0;i<next.length;i+=4){
   if(next[i+3]===0)continue;
   const px=(i/4)%PORTRAIT_WIDTH,py=Math.floor(i/4/PORTRAIT_WIDTH);
   // Distinguish painted, exposed neck from kit fibers; source pixels remain illustrated PNGs.
-  const neck=material==='kit'&&py>=94&&py<=113&&Math.abs(px-64)<=15&&
+  const skinLike=py>=94&&py<=113&&Math.abs(px-64)<=15&&
     next[i]>next[i+1]*1.12&&next[i+1]>next[i+2]*.96&&next[i]>95;
+  const neck=material==='kit'&&(neckPixels?neckPixels[i+3]>127:skinLike);
   if(!neck&&mask[i+3]<128)continue;
   const source=[next[i],next[i+1],next[i+2]],tone=neck?toneSkin:
     second&&second[i+3]>127?toneB:toneA;
@@ -97,7 +99,7 @@ export async function drawPortrait(canvas,appearance={},kit={}){
  const token=Symbol('portrait');canvas.__r13Token=token;
  const p=portraitParts(appearance,kit);
  const requests=[
-  [filename('torsos',p.torso),maskname('torsos',p.torso),kitMask(p.torso,p.pattern)],
+  [filename('torsos',p.torso),maskname('torsos',p.torso),kitMask(p.torso,p.pattern),maskname('neck',p.torso)],
   [filename('faces',p.face),maskname('faces',p.face)],
   p.hair<0?null:[filename('hair',p.hair),maskname('hair',p.hair)],
   p.facial<0?null:[filename('facial-hair',p.facial),maskname('facial-hair',p.facial)]];
@@ -108,16 +110,15 @@ export async function drawPortrait(canvas,appearance={},kit={}){
   ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,PORTRAIT_WIDTH,PORTRAIT_HEIGHT);
   // drawImage only: the illustrated source layers own every contour and facial feature.
   const [shirt,skin,hair,facial]=[
-   remap(layers[0][0],layers[0][1],p.shirtA,'kit',layers[0][2],p.shirtB,p.skin),
+   remap(layers[0][0],layers[0][1],p.shirtA,'kit',layers[0][2],p.shirtB,p.skin,layers[0][3]),
    remap(...layers[1],p.skin,'skin'),
    layers[2]&&remap(...layers[2],p.hairColor),
    layers[3]&&remap(layers[3][0],layers[3][0],p.facialColor)];
-  // Existing 3/4-view face no. 7 is registered 10 pixels to the right;
-  // haircut 09 comes from an asymmetric off-centre crop. Correct per-asset, not per player.
-  const faceShift=p.face===7?-10:0;
+  // R13-TER: face 07 and haircut 09 have been re-registered in their PNG assets.
+  const faceShift=0; // R13-TER source PNG is registered at x64
   const correctedFace=shiftRaster(skin,faceShift);
   const correctedFaceSilhouette=shiftRaster(layers[1][0],faceShift);
-  const correctedHair=hair&&p.hair===9?shiftRaster(hair,-7):hair;
+  const correctedHair=hair; // Source haircut 09 retouched at asset level
   const fittedBeard=facial?fitFacialHair(facial,correctedFaceSilhouette):null;
   for(const layer of [shirt,correctedFace,correctedHair,fittedBeard])if(layer)ctx.drawImage(layer,0,0);
   canvas.dataset.r13Raster='loaded';return true;
