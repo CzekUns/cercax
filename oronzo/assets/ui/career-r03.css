@@ -201,3 +201,12 @@
  #oronzo-r03 .runtime-entry-actions .ui-btn{min-height:62px}
  #oronzo-r03[data-screen="hub"] .runtime-hub-home .menu-cards{gap:4px}
 }
+
+/* R13 mobile: prevent long-press text selection on interactive controls only.
+   Keep informational text, input and textarea contents selectable. */
+#oronzo-r03 :is(button,[role="button"],.ui-btn),
+#oronzo-r03 :is(button,[role="button"],.ui-btn) *{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
