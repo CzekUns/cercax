@@ -111,7 +111,7 @@ export async function drawPortrait(canvas,appearance={},kit={}){
    remap(layers[0][0],layers[0][1],p.shirtA,'kit',layers[0][2],p.shirtB,p.skin),
    remap(...layers[1],p.skin,'skin'),
    layers[2]&&remap(...layers[2],p.hairColor),
-   layers[3]&&remap(...layers[3],p.facialColor)];
+   layers[3]&&remap(layers[3][0],layers[3][0],p.facialColor)];
   // Existing 3/4-view face no. 7 is registered 10 pixels to the right;
   // haircut 09 comes from an asymmetric off-centre crop. Correct per-asset, not per player.
   const faceShift=p.face===7?-10:0;
