@@ -65,3 +65,21 @@ test('R13 extended face, haircut and facial-hair silhouettes are visually distin
   assert.equal(signatures.size,count,field+' must have eight distinct pixel silhouettes');
  }
 });
+
+test('R13 canonical named PlayerV2 haircut and beard IDs remain distinct',()=>{
+ const base={skin:'#c38a60',hair:'#42291c',skinToneId:1,hairColorId:2,faceVariantId:2};
+ const kit={shirtA:'#2255aa'};
+ const signatures=new Set();
+ for(const hairStyleId of ['crop','buzz','receding','long','bald','wavy','curly','side-part']){
+  const a=mock(),b=mock();
+  drawPortrait(a.canvas,{...base,hairStyleId,facialHairStyleId:'shaved'},kit);
+  drawPortrait(b.canvas,{...base,hairStyleId,facialHairStyleId:'shaved'},kit);
+  assert.deepEqual(a.pixels,b.pixels);
+  signatures.add(JSON.stringify(a.pixels));
+ }
+ assert.equal(signatures.size,8);
+ const shaved=mock(),bearded=mock();
+ drawPortrait(shaved.canvas,{...base,hairStyleId:'crop',facialHairStyleId:'shaved'},kit);
+ drawPortrait(bearded.canvas,{...base,hairStyleId:'crop',facialHairStyleId:'full-beard'},kit);
+ assert.notDeepEqual(shaved.pixels,bearded.pixels);
+});
