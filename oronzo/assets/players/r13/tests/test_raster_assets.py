@@ -19,9 +19,9 @@ for name,n in [('faces',8),('hair',12),('facial-hair',8),('torsos',6)]:
         image=Image.open(path).convert('RGBA')
         assert image.size==(128,160), path
         assert image.getchannel('A').getextrema()==(0,255), path
-        # Git-blob hash is insensitive to on-disk repackaging of previous source artworks:
+        # Git-blob hash validates the exact PNG bytes checked out from this repository:
         # it is tied to the actual PNG bytes committed in THIS repo, not prior ZIP prototypes.
-        blob_sha=hashlib.sha1(f'blob {len(raw)}\\0'.encode()+raw).hexdigest()
+        blob_sha=hashlib.sha1(f'blob {len(raw)}'.encode()+bytes([0])+raw).hexdigest()
         assert blob_sha==item['gitBlobSha1'], path
         assert Image.open(root/item['mask']).size==(128,160), item['mask']
         assert image.getbbox() is not None
