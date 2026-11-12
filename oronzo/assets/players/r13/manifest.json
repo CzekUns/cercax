@@ -728,7 +728,7 @@
     }
   },
   "source_attribution": "Original R13-BIS image generated for project; extracted PNG layers.",
-  "releaseState": "R13TER_QA_PENDING",
+  "releaseState": "R13TER_REAL_HTTP_PASS_VISUAL_REVIEW_PENDING",
   "assetRegistration": {
     "faces": {
       "07": {
