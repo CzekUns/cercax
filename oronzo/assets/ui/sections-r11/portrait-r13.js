@@ -1,4 +1,4 @@
-/** ORONZO R13-BIS: illustrated raster player portrait, read-only R12 DNA.
+/** ORONZO R13-TER: illustrated raster player portrait, read-only R12 DNA.
  * Each layer is an original separately stored PNG with alpha and material mask.
  * Canvas exclusively composites and palette-remaps pixels from image assets.
  */
@@ -40,7 +40,7 @@ function loadImage(path){
   image.onerror=()=>reject(new Error('R13_ASSET_NOT_FOUND:'+path));
   image.src=new URL(path,root).href;
  });
- cache.set(path,promise);return promise;
+ cache.set(path,promise);promise.catch(()=>{if(cache.get(path)===promise)cache.delete(path);});return promise;
 }
 const filename=(group,n)=>group+'/'+String(n).padStart(2,'0')+'.png';
 const maskname=(group,n)=>'masks/'+group.replaceAll('-','_')+'-'+String(n).padStart(2,'0')+'.png';
@@ -49,22 +49,45 @@ function canvas2d(){const c=document.createElement('canvas');c.width=PORTRAIT_WI
 function imagePixels(image){const c=canvas2d(),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);return ctx.getImageData(0,0,c.width,c.height);}
 function toRGB(str){return [1,3,5].map(i=>parseInt(str.slice(i,i+2),16));}
 /** Palette remapping retains original shaded illustrated pixels and alpha. */
-function remap(image,materialMask,color,material='hair',secondMask=null,secondColor=null){
- const original=imagePixels(image),alpha=imagePixels(materialMask),next=original.data,mask=alpha.data;
+function remap(image,materialMask,color,material='hair',secondMask=null,secondColor=null,neckColor=null){
+ const original=imagePixels(image),next=original.data,mask=imagePixels(materialMask).data;
  const second=secondMask?imagePixels(secondMask).data:null;
- const toneA=toRGB(color),toneB=toRGB(secondColor||color);
+ const toneA=toRGB(color),toneB=toRGB(secondColor||color),toneSkin=toRGB(neckColor||color);
  for(let i=0;i<next.length;i+=4){
-  if(next[i+3]===0||mask[i+3]<128)continue;
-  const source=[next[i],next[i+1],next[i+2]],tone=second&&second[i+3]>127?toneB:toneA;
+  if(next[i+3]===0)continue;
+  const px=(i/4)%PORTRAIT_WIDTH,py=Math.floor(i/4/PORTRAIT_WIDTH);
+  // Distinguish painted, exposed neck from kit fibers; source pixels remain illustrated PNGs.
+  const neck=material==='kit'&&py>=94&&py<=113&&Math.abs(px-64)<=15&&
+    next[i]>next[i+1]*1.12&&next[i+1]>next[i+2]*.96&&next[i]>95;
+  if(!neck&&mask[i+3]<128)continue;
+  const source=[next[i],next[i+1],next[i+2]],tone=neck?toneSkin:
+    second&&second[i+3]>127?toneB:toneA;
   const lum=(source[0]+source[1]+source[2])/3;
   const light=Math.max(-0.75,Math.min(1.15,(lum-118)/95));
   for(let k=0;k<3;k++){
    let v=Math.max(0,Math.min(255,tone[k]+light*76));
-   if(material==='skin')v=v*.86+source[k]*.14;
+   if(material==='skin'||neck)v=v*.86+source[k]*.14;
    next[i+k]=Math.round(v);
   }
  }
  const c=canvas2d();c.getContext('2d').putImageData(original,0,0);return c;
+}
+/** Move an already painted raster, never synthesize facial features. */
+function shiftRaster(img,dx){if(!dx)return img;const c=canvas2d();c.getContext('2d').drawImage(img,dx,0);return c;}
+/** Fit facial-hair alpha to the anatomical silhouette from the selected, saved face PNG. */
+function fitFacialHair(painted,faceImage){
+ const beard=imagePixels(painted),face=imagePixels(faceImage),out=beard.data,faceData=face.data;
+ for(let y=0;y<PORTRAIT_HEIGHT;y++)for(let x=0;x<PORTRAIT_WIDTH;x++){
+  const i=(y*PORTRAIT_WIDTH+x)*4;
+  if(!out[i+3])continue;
+  let faceAlpha=faceData[i+3];
+  for(const dx of [-1,1]){
+   const nx=x+dx;
+   if(nx>=0&&nx<PORTRAIT_WIDTH)faceAlpha=Math.max(faceAlpha,faceData[(y*PORTRAIT_WIDTH+nx)*4+3]);
+  }
+  out[i+3]=Math.min(out[i+3],faceAlpha);
+ }
+ const c=canvas2d();c.getContext('2d').putImageData(beard,0,0);return c;
 }
 /** Render from real PNGs; never creates character geometry with drawing primitives.
  * Returns Promise<boolean>. A stale in-flight load never overwrites a newer player.
@@ -85,11 +108,18 @@ export async function drawPortrait(canvas,appearance={},kit={}){
   ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,PORTRAIT_WIDTH,PORTRAIT_HEIGHT);
   // drawImage only: the illustrated source layers own every contour and facial feature.
   const [shirt,skin,hair,facial]=[
-   remap(...layers[0].slice(0,2),p.shirtA,'kit',layers[0][2],p.shirtB),
+   remap(layers[0][0],layers[0][1],p.shirtA,'kit',layers[0][2],p.shirtB,p.skin),
    remap(...layers[1],p.skin,'skin'),
    layers[2]&&remap(...layers[2],p.hairColor),
    layers[3]&&remap(...layers[3],p.facialColor)];
-  for(const layer of [shirt,skin,hair,facial])if(layer)ctx.drawImage(layer,0,0);
+  // Existing 3/4-view face no. 7 is registered 10 pixels to the right;
+  // haircut 09 comes from an asymmetric off-centre crop. Correct per-asset, not per player.
+  const faceShift=p.face===7?-10:0;
+  const correctedFace=shiftRaster(skin,faceShift);
+  const correctedFaceSilhouette=shiftRaster(layers[1][0],faceShift);
+  const correctedHair=hair&&p.hair===9?shiftRaster(hair,-7):hair;
+  const fittedBeard=facial?fitFacialHair(facial,correctedFaceSilhouette):null;
+  for(const layer of [shirt,correctedFace,correctedHair,fittedBeard])if(layer)ctx.drawImage(layer,0,0);
   canvas.dataset.r13Raster='loaded';return true;
- }catch(error){canvas.dataset.r13Raster='failed';console.warn('ORONZO_R13_RASTER_ERROR',error);return false;}
+ }catch(error){if(canvas.__r13Token!==token)return false;canvas.dataset.r13Raster='failed';console.warn('ORONZO_R13_RASTER_ERROR',error);return false;}
 }
