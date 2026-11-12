@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "lastCoordinatorUpdate": "2026-11-12",
+  "sourceOfTruth": "oronzo/coordination/GAME-VISION-v02.md",
+  "governance": "oronzo/coordination/10b-orchestrator/IDENTITY.md",
+  "workflow": "oronzo/coordination/HANDOFF.md",
+  "policy": {
+    "maxActiveTaskPerOwner": 1,
+    "activeStates": [
+      "READY",
+      "WORKING",
+      "WAIT_REVIEW",
+      "FIX_REQUESTED"
+    ],
+    "noOverlappingWriteScopes": true,
+    "tasksEditedBy": "ORONZO-AGENT-10B / authorized coordinator",
+    "workersWrite": "worklogs/<task-id>.md on their own branch; never STATE.json or TASKS.json",
+    "resumeSameBranchAndPR": true,
+    "merge": "coordinator after verified QA and owner approval; existing narrow auto-merge delegation applies only to automation's own fully tested PR",
+    "playwrightIsNotPhysicalAndroid": true
+  },
+  "tasks": [
+    {
+      "id": "R13-PORTRAIT-FIX",
+      "title": "R13-TER: raccordo barba/baffi, collo, spalle, maglie e varietà volti",
+      "owner": "R13-TER",
+      "status": "WAIT_REVIEW",
+      "priority": 1,
+      "pr": 79,
+      "branch": "agent/oronzo-r13ter-art-fix-20261112",
+      "headAtSnapshot": "1aba5eea4bdfb287f00f5f1b07ab87cb0a44c3b1",
+      "fileClaims": [
+        "oronzo/assets/players/r13/**",
+        "oronzo/assets/ui/sections-r11/portrait-r13.js",
+        "oronzo/assets/ui/sections-r11/portrait-r13ter.test.mjs",
+        "oronzo/assets/ui/qa/r13ter-browser.mjs"
+      ],
+      "dependencies": [],
+      "acceptance": [
+        "Barba e baffi anatomicamente centrati sugli 8 volti",
+        "Collo, busto, spalle e maglie privi di frastagliature; palette e maschere corrette",
+        "Tavole comparative e prova visiva approvata dal proprietario",
+        "Node/Python e Chromium HTTP scheda reale, save/reload e cambio maglia, 4 viewport PASS"
+      ],
+      "nextAction": "Valutazione artistica delle tavole e screenshot della PR #79; se necessario correzioni sullo stesso branch, senza dupliche"
+    },
+    {
+      "id": "R13-MATCH-ATLAS",
+      "title": "Asset raster originali modulari dei 22 calciatori in partita",
+      "owner": "AUTOMATION-R13",
+      "status": "READY",
+      "priority": 2,
+      "pr": null,
+      "branch": "automation/oronzo-r13-match-atlas",
+      "fileClaims": [
+        "oronzo/assets/players/r13-match/**",
+        "oronzo/coordination/worklogs/R13-MATCH-ATLAS.md"
+      ],
+      "readOnlyDependencies": [
+        "oronzo/systems/attributes/visual-r12.js",
+        "oronzo/assets/players/r13/manifest.json"
+      ],
+      "dependencies": [],
+      "acceptance": [
+        "PNG/WebP originali, layer trasparenti e palette col DNA PlayerV2: più corpi, pelle/capelli, divise e portiere",
+        "Pose/direzioni almeno idle, corsa e calcio/intervento, con atlante e manifest/frame pivots",
+        "Tavola grafica comparativa con 22 giocatori e 2 kit, asset integrity e rendering browser documentati",
+        "Unica PR persistente con commit, test e handoff riprendibile"
+      ],
+      "nextAction": "Iniziare asset R13-B in percorso isolato; prima esecuzione crea atlante coerente e worklog, poi riprende esattamente da ultimo asset verificato"
+    },
+    {
+      "id": "R13-MATCH-WIRING",
+      "title": "Collegamento asset R13 al renderer match FULL/TV",
+      "owner": "AGENT-05",
+      "status": "BLOCKED",
+      "priority": 3,
+      "pr": null,
+      "branch": null,
+      "fileClaims": [
+        "oronzo/systems/match-view/**"
+      ],
+      "dependencies": [
+        "R13-PORTRAIT-FIX",
+        "R13-MATCH-ATLAS"
+      ],
+      "acceptance": [
+        "22 giocatori in partita con kit e identità coerenti, portieri e animazioni in 4 viewport",
+        "FPS e comandi invariati, save/reload e match completo senza errori"
+      ],
+      "nextAction": "Attivare soltanto dopo asset approvati e assegnazione esplicita dell'orchestratore; cambio UI career solo con 07-bis"
+    },
+    {
+      "id": "R13-PITCH",
+      "title": "Geometria/prospettiva e arte del campo da calcio",
+      "owner": "AGENT-05",
+      "status": "BLOCKED",
+      "priority": 4,
+      "pr": null,
+      "branch": null,
+      "fileClaims": [
+        "oronzo/systems/match-view/**",
+        "oronzo/assets/players/r13-pitch/**"
+      ],
+      "dependencies": [
+        "R13-MATCH-WIRING"
+      ],
+      "acceptance": [
+        "Campo geometricamente coerente con la simulazione",
+        "Porte, rete, area, texture e scala proporzionate, minappa verificata",
+        "Screenshot FULL e TV 4 viewport PASS"
+      ],
+      "nextAction": "Avviare al completamento di R13-MATCH-WIRING"
+    },
+    {
+      "id": "R13-CAMERA",
+      "title": "Zoom TV e seguimento palla con vista FULL conservata",
+      "owner": "AGENT-05",
+      "status": "BLOCKED",
+      "priority": 5,
+      "pr": null,
+      "branch": null,
+      "fileClaims": [
+        "oronzo/systems/match-view/**"
+      ],
+      "dependencies": [
+        "R13-PITCH"
+      ],
+      "acceptance": [
+        "Zoom TV/palla leggibili senza clipping su area e fondo campo",
+        "Stesso risultato e tempo gara delle viste FULL e TV",
+        "Comandi Android landscape, Chromium 4 viewport e regression PASS"
+      ],
+      "nextAction": "Avviare solo dopo campo validato"
+    },
+    {
+      "id": "R12-PROVINCIAL-75",
+      "title": "PR #75 eventi narrativi — congelata durante R13",
+      "owner": "AUTOMATION-R13",
+      "status": "PARKED",
+      "priority": 90,
+      "pr": 75,
+      "branch": "automation/oronzo-r12-provincial-recovery-20261111-1332",
+      "fileClaims": [
+        "oronzo/content/career-narrative-r12.js"
+      ],
+      "dependencies": [],
+      "acceptance": [
+        "Non riprendere prima della chiusura di R13 o nuovo mandato del proprietario"
+      ],
+      "nextAction": "Nessuna azione ora"
+    },
+    {
+      "id": "UI-NOSELECT-78",
+      "title": "Testo pulsanti non selezionabile",
+      "owner": "UI-SCREEN-FIX",
+      "status": "DEPLOYED",
+      "priority": 99,
+      "pr": 78,
+      "branch": null,
+      "mergedSha": "c78ec6fbb9ac34f98c4e3bf1e139f8d26683e9bb",
+      "fileClaims": [],
+      "dependencies": [],
+      "acceptance": [
+        "CSS user-select none su controlli e figli",
+        "Contenuti e input selezionabili",
+        "Node/browser CI e Pages success"
+      ],
+      "nextAction": "Completato; non riaprire"
+    }
+  ]
+}
