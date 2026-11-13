@@ -115,3 +115,13 @@
 - Generata una tavola di contatto **dai veri 12 PNG locali** con Pillow: `/mnt/data/r13-match-run-right-contact-QA.png` (1200×760, 398388 byte). Questo è un file QA locale, non un asset approvato né pubblicato nella PR. La nuova illustrazione sperimentale presenta ancora aloni e non ha layer anatomici indipendenti; non promuovere i frame.
 - Test: lettura ZIP/Pillow, decodifica 12 PNG e produzione tavola PASS; DNS GitHub dal container FAIL; upload binari GitHub NON ESEGUITO; Node/Chromium NON ESEGUITI; QA artistica FAIL/UNREVIEWED. Nuovi PNG GitHub 0, frame approvati 0.
 - Primo originale mancante: `run-right-00.png`; primo frame artistico da ricostruire: `run-right-04.png`. Prossimo: ottenere byte degli originali o realizzare un nuovo frame illustrato pulito e layer autonomi, quindi caricarli con SHA verificato. PR #82 resta Draft; MAIN NO; PAGES NO.
+
+
+## 2026-11-13 20:31 Europe/Rome · PRIMO PNG DI CORSA VERSIONATO
+
+- TASKS.json su main: WORKING, owner AUTOMATION-R13. HEAD prima dell'upload `39a1cd131cafa98b80c614f6df118685c49da34d`; PR #82 Draft, #79 intoccata.
+- Archivio originale `r13-match-run11-local.zip` ASSENTE. Disponibile solo `r13-match-new-running-12-drafts.zip` con ritagli della tavola sperimentale: **non sono originali run11**.
+- Trasferimento binario riuscito tramite Base64 effettivo e `create_blob`: `_drafts/run-right/run-right-00-preview-DRAFT.png`, **32×42 RGBA, 1855 byte**, derivato con ridimensionamento da `run-right-00.png` sperimentale (296×385). NON è il frame originale né la versione a risoluzione piena; non usarlo nel renderer.
+- Git blob SHA locale = SHA restituito GitHub: `0da1c1f317dba183532258867a64803062589118` (PASS). `create_tree` base sul commit HEAD, `create_commit` e `update_ref` expected_sha senza force: PASS. Commit asset `7b5f0983172621540d065733f38ba55ad40e6dc7`.
+- QA Pillow PNG RGBA PASS; estetica FAIL/UNREVIEWED (aloni rossi e risoluzione ridotta), modularità FAIL, Node/Chromium NON ESEGUITI. Sprite approvati 0. **PNG raster corsa pubblicati in PR: 1 preview draft**, originali run11 pubblicati 0.
+- Prossimo: trasferire `run-right-00.png` sperimentale FULL-RES senza ricompressione o recuperare `run11` autentico; poi 01..11, manifest e QA, e ricostruzione artistica `run-right-04`. PR Draft, MAIN NO, PAGES NO.
