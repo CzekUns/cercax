@@ -135,3 +135,12 @@
 - QA: Pillow decodifica PNG RGBA PASS, SHA blob PASS; estetica FAIL/UNREVIEWED (aloni nella sorgente), modularità FAIL, Node/Chromium NON eseguiti. Totale PNG di corsa versionati: 2 preview DRAFT (00, 01); originali run11: 0; frame approvati: 0.
 - Ultimo ID pubblicato: `run-right-01-preview-DRAFT.png`. Prossimo ID: `run-right-02.png` sperimentale da conservare idealmente a risoluzione piena; priorità artistica `run-right-04.png` da ricostruire manualmente e poi modularizzare. Nessun merge; MAIN NO, PAGES NO.
 - HEAD dopo commit asset `ee04432e71a8403f2a3e2298e31638b286ac9539`; il commit di questo worklog segue. Verificare sempre HEAD live alla prossima esecuzione.
+
+
+## 2026-11-13 22:22 Europe/Rome · Terzo PNG di corsa persistente
+
+- TASKS.json su main conferma R13-MATCH-ATLAS WORKING / AUTOMATION-R13; PR #82 ancora Draft. HEAD iniziale `2f1d2e1d59d7f2af386f9b8d87d90e8d3657a125`.
+- Archivio run11 originale assente fisicamente. Recuperato il bundle locale sperimentale `r13-match-new-running-12-drafts.zip`. Dal suo `run-right-02.png` (296×385 RGBA) derivata preview 32×42 PNG RGBA di 1923 byte; è un **ritaglio sperimentale ridimensionato, non originale, non full-res e non asset approvato**.
+- Nuovo file GitHub `oronzo/assets/players/r13-match/_drafts/run-right/run-right-02-preview-DRAFT.png`; SHA1 Git blob locale e GitHub `12fd8a128cf5a04256c4bf54af5642ed7e751190` PASS. `create_blob(base64)`, `create_tree`, `create_commit`, `update_ref(expected_sha, force=false)` PASS. Commit asset `2665f0f1c67e7350bdd4675a7f5c17bd12271b7c`.
+- Test Pillow PNG RGBA PASS; QA artistica FAIL/UNREVIEWED, layer indipendenti assenti; Node/Chromium NON eseguiti. 3 preview corsa versionate, 0 frame originali run11, 0 approvati. MAIN NO, PAGES NO, PR Draft.
+- Ultimo ID persistito: `run-right-02-preview-DRAFT.png`. Prossimo: **pubblicare frame full-res sperimentali senza ridimensionamento** (prima `run-right-00.png`), poi 03..11; ricostruire artisticamente `run-right-04.png` e modularizzare. Evitare ulteriori preview ridotte se possibile. HEAD dopo commit asset `2665f0f1c67e7350bdd4675a7f5c17bd12271b7c`; il commit del worklog segue.
