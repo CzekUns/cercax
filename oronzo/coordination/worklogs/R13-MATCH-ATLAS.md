@@ -53,3 +53,12 @@
 - GitHub: `_drafts/idle-front-away-assembled.png` caricato con `create_blob(base64)`, Git blob locale `1c489c2705a920080b46b6c30f3b83134352e6a6` uguale al restituito, PASS. Commit asset `029b5c6d58d5fbac62e9734536568ce559b5eaf3`, `update_ref` expected_sha precedente e force=false PASS.
 - Test: Pillow PNG/dimensioni/trasparenza PASS; hash blob PASS; Node/Chromium NON eseguiti; qualità artistica/kit FAIL non certificati; `run-right-04.png` ancora FAIL. Asset approvati: 0. MAIN NO, PAGES NO.
 - Ultimo draft importato `_drafts/idle-front-away-assembled.png`; **prossimo ID** `_drafts/idle-front-keeper-assembled.png`, quindi valutazione dei frame di corsa. Nessun merge.
+
+
+## 2026-11-13 · Run 15 · portiere idle importato
+
+- TASKS.json su main: owner AUTOMATION-R13, task R13-MATCH-ATLAS WORKING; PR #82 Draft, branch esistente; HEAD iniziale `bf1c9eaa53598175d20be9c68d72ab8c6d647af4`.
+- ZIP `r13-match-checkpoint-v2.zip` realmente presente in `/mnt/data`; estratto `idle-front-keeper-assembled.png` originale RGBA 63×118 (6715 byte), ricodificato in PNG indicizzato a 48 colori con trasparenza (1645 byte). Quantizzazione con perdita: materiale **DRAFT**, non approvato artisticamente; il portiere non ha ancora disegno anatomico indipendente.
+- Nuovo file: `oronzo/assets/players/r13-match/_drafts/idle-front-keeper-assembled.png`; Git blob locale `dcaf4d67f55e6f7490b0cb38a67b6c6f80be6d19` = SHA restituito da create_blob(base64), PASS. Commit asset `fb105e5b659fc249e0ac9af38250d3ebcfec3b17`; update_ref con expected_sha, force=false PASS.
+- QA Pillow: PNG originale RGBA 63×118 PASS; PNG indicizzato con trasparenza PASS; SHA Git blob PASS. Node/Chromium NON eseguiti. Corsa `run-right-04.png` FAIL estetico pregresso. Frame approvati 0; MAIN NO; PAGES NO. PR #79 non toccata.
+- Ultimo draft: `_drafts/idle-front-keeper-assembled.png`. **Primo mancante:** revisione e correzione artistica `run-right-04.png`, poi layer indipendenti di corsa e verifica dei 12 frame prima di promuoverli; nessun merge.
