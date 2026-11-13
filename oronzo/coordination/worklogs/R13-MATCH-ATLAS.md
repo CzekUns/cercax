@@ -81,3 +81,12 @@
 - **Nuovo problema misurato:** tutti i 12 frame hanno pixel non trasparenti fino all'ultima riga `y=159`; possibile taglio al bordo inferiore, da verificare artisticamente. Area alpha non nulla: `00=5411,01=5888,02=6323,03=6962,04=7871,05=6684,06=6845,07=7886,08=6097,09=4729,10=4333,11=3730` pixel. La variazione marcata indica che il ciclo necessita verifica di continuità, non dimostra da sola un errore.
 - Gate: hash/manifest/dimensioni **PASS 12/12**; qualità artistica `run-right-04` **FAIL** pregresso; pivot sul terreno **NON CERTIFICATO**; anatomia modulare **FAIL**; Node/Chromium **NON ESEGUITI**. Sprite definitivi **0**. Ultimo draft importato `idle-front-keeper-assembled.png`; prossimo `run-right-04` da ridisegnare con layer originali, poi continuità e margine inferiore di `00..11`.
 - PR #82 rimane Draft, nessun merge; MAIN **NO**, PAGES **NO**. Nessun file degli agenti manuali modificato.
+
+
+## 2026-11-13 · Run successiva · recupero originale, upload non concluso
+
+- Riletti live main (GAME-VISION, ROADMAP, TASKS, STATE, HANDOFF, QA), branch e commenti PR #82. Task WORKING, PR Draft; HEAD precedente osservato 06bba7d84f1e0b3afc0214a6bf8ebf1e91693ae6.
+- Archivio **fisicamente presente**: /mnt/data/r13-match-run11-local.zip (366K); contiene 12 PNG originali run-right-00..11, manifest JSON e tavola di contatto. Git locale: DNS github.com non risolto. I PNG non sono stati caricati in questa run: i byte locali non sono direttamente accessibili al connettore GitHub e non si dichiara un trasferimento senza create_blob/SHA verificati. Nessuna trasformazione lossy degli originali.
+- Primo file da importare: _drafts/run-right/run-right-00.png, poi 01..11, manifest e contact sheet; **indice persistente primo mancante 00**. Conservare tutti come FAIL/UNREVIEWED; 04 FAIL artistico; margine inferiore y=159 in tutti i frame. Non promuovere a atlas.
+- Test nuovi: presenza ZIP e elenco 14 membri PASS; Git locale DNS FAIL; upload GitHub PNG NON ESEGUITO; Node/Chromium NON ESEGUITI. Nuovi sprite approvati 0, nuovi PNG pubblicati 0. MAIN NO, PAGES NO. PR #79 non modificata.
+- Blocco puntuale: passaggio dei byte binari dal filesystem di questa esecuzione al parametro base64 del connettore GitHub. Non ripetere solo analisi hash: eseguire create_blob sui PNG originali nella prossima run con un ambiente che esponga i byte al connettore.
