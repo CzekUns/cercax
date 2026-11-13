@@ -107,3 +107,11 @@
 - QA locale: 12 PNG decodificabili, RGBA con alpha presente; ricostruzione artistica, aloni rossi, continuità, pivot, margine inferiore e integrazione motore **FAIL/UNREVIEWED**. Node/Chromium NON eseguiti. PNG pubblicati GitHub in questa run: **0**; asset approvati: **0**.
 - Blocco trasferimento: nessun accesso DNS GitHub dal container e nessun ponte diretto per passare byte dei file locali al connettore GitHub; **non dichiarare upload**. I nuovi PNG locali restano scaricabili nella conversazione ma non sono checkpoint persistente GitHub.
 - PROSSIMO: importare gli **originali** `run-right-00..11` da archivio autentico se riaccessibile; altrimenti correggere manualmente `run-right-04` e creare layer raster illustrati indipendenti, quindi caricare con SHA verificati. Non mergiare #82. MAIN NO, PAGES NO.
+
+## 2026-11-13 18:31 Europe/Rome · QA visiva su materiale locale (nessuna promozione)
+
+- Riletti su main GAME-VISION-v02, ROADMAP, TASKS, STATE, HANDOFF e QA; WORKING R13-MATCH-ATLAS confermato. Riletti worklog, README diagnostico e commenti PR #82; PR manuale #79 fuori scope.
+- File fisicamente disponibili: `/mnt/data/r13-match-new-running-12-drafts.zip` (12 PNG + manifest; derivati dalla tavola nuova sperimentale) e `/mnt/data/r13-match-run-right-new-artwork-DRAFT.png`. **Non disponibili** i tre archivi autentici precedenti, in particolare `r13-match-run11-local.zip`; non confondere i draft con gli originali.
+- Generata una tavola di contatto **dai veri 12 PNG locali** con Pillow: `/mnt/data/r13-match-run-right-contact-QA.png` (1200×760, 398388 byte). Questo è un file QA locale, non un asset approvato né pubblicato nella PR. La nuova illustrazione sperimentale presenta ancora aloni e non ha layer anatomici indipendenti; non promuovere i frame.
+- Test: lettura ZIP/Pillow, decodifica 12 PNG e produzione tavola PASS; DNS GitHub dal container FAIL; upload binari GitHub NON ESEGUITO; Node/Chromium NON ESEGUITI; QA artistica FAIL/UNREVIEWED. Nuovi PNG GitHub 0, frame approvati 0.
+- Primo originale mancante: `run-right-00.png`; primo frame artistico da ricostruire: `run-right-04.png`. Prossimo: ottenere byte degli originali o realizzare un nuovo frame illustrato pulito e layer autonomi, quindi caricarli con SHA verificato. PR #82 resta Draft; MAIN NO; PAGES NO.
