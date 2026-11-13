@@ -6,7 +6,7 @@
 **R13-MATCH-ATLAS — creazione progressiva di veri sprite raster modulari per la partita.**
 
 - Worker: `AUTOMATION-R13` (automazione oraria già esistente).
-- Branch di lavoro persistente previsto: `automation/oronzo-r13-match-atlas`.
+- Branch persistente attivo: `automation/oronzo-r13-match-atlas`.
 - Directory di produzione attuale: `oronzo/assets/players/r13-match/**`.
 - Progressi per ogni esecuzione: `oronzo/coordination/worklogs/R13-MATCH-ATLAS.md` **sullo stesso branch**.
 - Task, proprietà e criteri di chiusura: `TASKS.json`; snapshot del worker: `STATE.json`.
@@ -19,7 +19,7 @@
 4. **Solo dopo la chiusura verificata** un coordinatore o una nuova istruzione del proprietario assegna all'automazione un'altra fase (eventuale integrazione degli sprite, campo, camera) in un perimetro disponibile. Non si prenotano automaticamente le attività degli agenti manuali.
 
 ## Rapporti con gli agenti manuali
-Le PR e i file di agenti manuali sono **riferimenti esterni da non sovrascrivere**. Esempio: PR #79 R13-TER modifica ritratti, maschere e `portrait-r13.js`; l'automazione deve evitarne i file ma **non governa né blocca quella chat**. Un agente manuale può lavorare secondo il proprio mandato; in caso di conflitto reale il worker sospende la modifica ai file contesi e segnala il problema.
+Le PR e i file di agenti manuali sono **riferimenti esterni da non sovrascrivere**. Esempio: la PR manuale #79 R13-TER è stata integrata su `main` come test sperimentale delle figurine; l'automazione può leggerne palette e DNA ma **non governa quella chat né ne modifica i file**. Un agente manuale può lavorare secondo il proprio mandato; in caso di conflitto reale il worker sospende la modifica ai file contesi e segnala il problema.
 
 ## Risultato verificabile
 Un task automatico può essere dichiarato completato soltanto con asset/codice reali, HEAD, test, immagini di prova, PR e stato preciso di merge/Pages. Le esecuzioni che non producono miglioramenti devono dichiararlo, non sostituirli con una nuova roadmap.

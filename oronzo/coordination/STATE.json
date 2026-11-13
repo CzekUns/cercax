@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "scope": "scheduled-automations-only",
-  "observedDate": "2026-11-12",
+  "observedDate": "2026-11-13",
   "snapshotNotLive": true,
   "baseMainAtCreation": "abadad27bf50127faee79f38740a6be4eacc339e",
   "automation": {
@@ -9,17 +9,19 @@
     "title": "ORONZO · Sprite partita R13 · incarico persistente",
     "enabled": true,
     "activeTask": "R13-MATCH-ATLAS",
-    "taskState": "READY",
+    "taskState": "WORKING",
     "proposedBranch": "automation/oronzo-r13-match-atlas",
-    "currentPR": null,
+    "currentPR": 82,
     "progressWorklog": "oronzo/coordination/worklogs/R13-MATCH-ATLAS.md",
-    "next": "Riprendere task assegnato dal branch e worklog, non scegliere altro lavoro"
+    "next": "Riprendere PR #82 e worklog dal branch; completare frame illustrati e test, non promuovere maschere draft né aprire nuova PR.",
+    "currentPRHead": "7e0d9ab41edbf561a48626e75227f5d75268f64b",
+    "publishedDraftMasks": 3
   },
   "informationalExternalContext": [
     {
       "pr": 79,
-      "kind": "manual-agent-work",
-      "note": "R13-TER ritratti modulari; avoid touching its active files; this automation state does not manage the manual agent"
+      "kind": "manual-agent-work-merged",
+      "note": "PR #79 R13-TER MERGED sul main a47b9d42 il 13 novembre 2026: ritratti/maschere implementate ma revisioni estetiche ancora possibili. I manuali non sono coordinati da questo file."
     },
     {
       "pr": 78,
@@ -33,5 +35,12 @@
     }
   ],
   "lastKnownGameUrl": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html",
-  "instruction": "GitHub live PR/HEAD/actions always overrides this cached snapshot. Manual agents do not report to or follow this JSON."
+  "instruction": "GitHub live PR/HEAD/actions always overrides this cached snapshot. Manual agents do not report to or follow this JSON.",
+  "currentMainAtSnapshot": "a47b9d42c702f192024e05b6611bbf6afa6317e7",
+  "lastKnownGameRelease": {
+    "sha": "a47b9d42c702f192024e05b6611bbf6afa6317e7",
+    "status": "PAGES_SUCCESS",
+    "url": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html?v=a47b9d42",
+    "visualReview": "R13-TER rilascio sperimentale; ancora casi di barba disomogenea e visi simili"
+  }
 }
