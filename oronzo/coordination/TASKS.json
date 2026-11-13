@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "scope": "scheduled-automations-only",
-  "lastCoordinatorUpdate": "2026-11-12",
+  "lastCoordinatorUpdate": "2026-11-13",
   "authority": "owner's explicit instructions and latest GitHub state",
   "appliesTo": "recurring ORONZO automations; manual-agent assignments are NOT managed here",
   "manualAgentsRemainGovernedBy": [
@@ -18,7 +18,8 @@
     "updateCentralStateBy": "coordinator on material transition; worker uses its own branch/PR while active",
     "avoidConcurrentManualAgentFiles": "check GitHub PR and changed files; no imposed restrictions or ownership transfers on manual agents",
     "merge": "only automation-owned PR when user authorization applies and all relevant gates pass; never auto-merge manual PRs",
-    "noFictitiousTests": true
+    "noFictitiousTests": true,
+    "lastIntegration": "PR #79 (manuale) integrata su main in versione sperimentale; nessuna nuova assegnazione a manuali."
   },
   "tasks": [
     {
@@ -26,9 +27,9 @@
       "title": "Asset originali PNG/WebP modulari per gli sprite della partita",
       "automationId": "Automation_1e2c92e86b2c819197c770d2b0ea61ec",
       "owner": "AUTOMATION-R13",
-      "status": "READY",
+      "status": "WORKING",
       "priority": 1,
-      "pr": null,
+      "pr": 82,
       "branch": "automation/oronzo-r13-match-atlas",
       "writePaths": [
         "oronzo/assets/players/r13-match/**",
@@ -47,7 +48,7 @@
         "Tavola di almeno 22 giocatori e test asset/browser documentati",
         "Unica PR/worklog riprendibile, HEAD e risultati verificabili"
       ],
-      "nextCheckpoint": "Verificare se il branch/PR esiste già; continuare dal primo asset/frame non completato secondo worklog su quel branch"
+      "nextCheckpoint": "PR #82 (Draft), HEAD osservato 7e0d9ab41edbf561a48626e75227f5d75268f64b: tre maschere idle-front in _drafts/ con SHA verificati. Importare frame idle illustrati autentici, correggere corsa; test grafici e Chromium ancora non eseguiti per lo sprite. Ripartire dal worklog su branch; non mergiare solo le maschere."
     },
     {
       "id": "R12-PROVINCIAL-75",
