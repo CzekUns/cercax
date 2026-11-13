@@ -36,7 +36,12 @@ try{
    }
    page.once('dialog',d=>d.accept());
    await page.locator('#r11-save-import').setInputFiles({name:'career.json',mimeType:'application/json',buffer:Buffer.from(saves[stage])});
-   await page.waitForFunction(expected=>window.OronzoR03.getScreen()===expected,expected);
+   // A hub->hub import leaves the same screen visible while File.text() and confirm
+   // are still pending. Wait for the imported stage AND dirty flag, not just the screen.
+   await page.waitForFunction(({stage,expected})=>
+    window.OronzoR03.getScreen()===expected &&
+    window.OronzoR03.getState()?.flow?.stage===stage &&
+    window.OronzoR03.hasUnsavedProgress(),{stage,expected});
    check(await page.evaluate(()=>window.OronzoR03.hasUnsavedProgress()),stage+' import must remain unsaved');
    if(stage==='season_complete'||stage==='unemployed')
     check(await page.locator('[data-action="save"]').count()>0,stage+' has save action');
