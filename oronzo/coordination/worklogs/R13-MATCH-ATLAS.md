@@ -125,3 +125,13 @@
 - Git blob SHA locale = SHA restituito GitHub: `0da1c1f317dba183532258867a64803062589118` (PASS). `create_tree` base sul commit HEAD, `create_commit` e `update_ref` expected_sha senza force: PASS. Commit asset `7b5f0983172621540d065733f38ba55ad40e6dc7`.
 - QA Pillow PNG RGBA PASS; estetica FAIL/UNREVIEWED (aloni rossi e risoluzione ridotta), modularità FAIL, Node/Chromium NON ESEGUITI. Sprite approvati 0. **PNG raster corsa pubblicati in PR: 1 preview draft**, originali run11 pubblicati 0.
 - Prossimo: trasferire `run-right-00.png` sperimentale FULL-RES senza ricompressione o recuperare `run11` autentico; poi 01..11, manifest e QA, e ricostruzione artistica `run-right-04`. PR Draft, MAIN NO, PAGES NO.
+
+
+## 2026-11-13 21:28 Europe/Rome · Persistenza secondo frame sperimentale
+
+- Verificato live PR #82 Draft, branch HEAD iniziale `e62d6dc0dae525d29ff139d215311dc0c59f5a81`; task R13-MATCH-ATLAS WORKING su main. Nessun intervento sulla PR #79 o sui file dei manuali.
+- Archivio originale `r13-match-run11-local.zip` assente da /mnt/data. Disponibile `r13-match-new-running-12-drafts.zip` con 12 ritagli sperimentali (NON originali run11). Da questo bundle `run-right-01.png` 295×385 RGBA è stato ridimensionato a una nuova preview 48×63 RGBA, 4091 byte, senza quantizzazione palette; è una derivazione sperimentale, NON il full-res e NON un frame approvato.
+- File versionato: `oronzo/assets/players/r13-match/_drafts/run-right/run-right-01-preview-DRAFT.png`; Git blob SHA1 locale/GitHub `673078a2c3d5a5ee3cef3d131cb9dafcead0e251` PASS; commit asset `ee04432e71a8403f2a3e2298e31638b286ac9539` con update_ref expected_sha, force=false PASS.
+- QA: Pillow decodifica PNG RGBA PASS, SHA blob PASS; estetica FAIL/UNREVIEWED (aloni nella sorgente), modularità FAIL, Node/Chromium NON eseguiti. Totale PNG di corsa versionati: 2 preview DRAFT (00, 01); originali run11: 0; frame approvati: 0.
+- Ultimo ID pubblicato: `run-right-01-preview-DRAFT.png`. Prossimo ID: `run-right-02.png` sperimentale da conservare idealmente a risoluzione piena; priorità artistica `run-right-04.png` da ricostruire manualmente e poi modularizzare. Nessun merge; MAIN NO, PAGES NO.
+- HEAD dopo commit asset `ee04432e71a8403f2a3e2298e31638b286ac9539`; il commit di questo worklog segue. Verificare sempre HEAD live alla prossima esecuzione.
