@@ -62,3 +62,13 @@
 - Nuovo file: `oronzo/assets/players/r13-match/_drafts/idle-front-keeper-assembled.png`; Git blob locale `dcaf4d67f55e6f7490b0cb38a67b6c6f80be6d19` = SHA restituito da create_blob(base64), PASS. Commit asset `fb105e5b659fc249e0ac9af38250d3ebcfec3b17`; update_ref con expected_sha, force=false PASS.
 - QA Pillow: PNG originale RGBA 63×118 PASS; PNG indicizzato con trasparenza PASS; SHA Git blob PASS. Node/Chromium NON eseguiti. Corsa `run-right-04.png` FAIL estetico pregresso. Frame approvati 0; MAIN NO; PAGES NO. PR #79 non toccata.
 - Ultimo draft: `_drafts/idle-front-keeper-assembled.png`. **Primo mancante:** revisione e correzione artistica `run-right-04.png`, poi layer indipendenti di corsa e verifica dei 12 frame prima di promuoverli; nessun merge.
+
+
+## 2026-11-13 · Run 16 · audit reale dei 12 frame corsa (nessuna promozione)
+
+- HEAD iniziale verificato dalla PR #82: `e45a38e0fc3f78faaf6ed76c65c8e4abb610471e` (Draft). Task R13-MATCH-ATLAS WORKING su main, scope invariato. PR manuale #79 non modificata.
+- Archivio **fisicamente disponibile** in questa esecuzione: `/mnt/data/r13-match-run11-local.zip`, 14 membri (12 PNG corsa, manifest e tavola contatto). Gli ZIP idle e checkpoint-v2 **non erano presenti** in /mnt/data, quindi non sono stati dichiarati recuperati.
+- Verifica con Pillow e OpenCV su tutti i 12 PNG: 12/12 decodificabili, RGBA 112×160, pixel alpha=0 presenti. Identificativi verificati `run-right-00` … `run-right-11`. Pixel rosso/giallo molto saturi sospetti per frame, con soglie HSV indicative (non prova definitiva di difetto): `00:389, 01:530, 02:641, 03:725, 04:1303, 05:1086, 06:971, 07:1157, 08:543, 09:325, 10:326, 11:220`. `run-right-04.png` resta FAIL artistico per vistosi artefatti esterni alla sagoma, confermati da apertura immagine.
+- Tentata rimozione sperimentale dei pixel saturi su `run-right-04` con Pillow/OpenCV; il risultato **non supera la revisione visiva**, quindi nessuna immagine corretta è stata promossa o caricata. Nessun asset definitivo aggiunto. Il semplice filtro cromatico non è sufficiente a ricostruire la sagoma e i layer animabili.
+- QA: PNG decodifica/dimensioni/alpha **PASS 12/12**; qualità artistica **FAIL**, modularità corsa **FAIL**; Node/Chromium **NON eseguiti**. Nuovi PNG GitHub: **0**. MAIN NO, PAGES NO, PR #82 ancora Draft.
+- Ultimo draft già importato: `_drafts/idle-front-keeper-assembled.png`. Primo frame ancora da correggere: `run-right-04.png` (rimuovere artefatti con ricostruzione illustrata e layer reali); poi verificare e correggere l'intero ciclo `run-right-00..11` prima di qualsiasi promozione.
