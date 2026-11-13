@@ -45,3 +45,11 @@
 - Test Pillow: lettura originali RGBA, bbox non vuoti, dimensioni 63×118 PASS; Git blob SHA PASS. Test Node/Chromium e integrazione partita NON eseguiti. MAIN NO, PAGES NO. PR #79 non modificata.
 - Ultimo draft importato: `_drafts/idle-front-legs.png`. Primo mancante: variante illustrata `_drafts/idle-front-away-assembled.png`, poi `_drafts/idle-front-keeper-assembled.png`, quindi pulizia frame corsa `run-right-04.png` FAIL; verificare palette/pivot e qualità prima della promozione.
 - HEAD asset verificato prima dell'aggiornamento di questo worklog: `2e4e2d7562b0038d55f1e2bcda018f01c7dd775c`; rileggere HEAD live nella prossima run.
+
+## 2026-11-13 · Run 14 · variante away idle importata
+
+- TASKS.json main: `R13-MATCH-ATLAS`, owner `AUTOMATION-R13`, status `WORKING`, PR #82 Draft; nessuna modifica ai manuali.
+- Archivi originali recuperati fisicamente: `r13-match-prototype.zip`, `r13-match-checkpoint-v2.zip`, `r13-match-run11-local.zip`. Variante `idle-front-away-assembled.png` letta da checkpoint-v2, originale RGBA 63×118, ricodificata in PNG indicizzato 48 colori con trasparenza, 1587 byte. La quantizzazione è con perdita: **DRAFT, non certificata esteticamente**.
+- GitHub: `_drafts/idle-front-away-assembled.png` caricato con `create_blob(base64)`, Git blob locale `1c489c2705a920080b46b6c30f3b83134352e6a6` uguale al restituito, PASS. Commit asset `029b5c6d58d5fbac62e9734536568ce559b5eaf3`, `update_ref` expected_sha precedente e force=false PASS.
+- Test: Pillow PNG/dimensioni/trasparenza PASS; hash blob PASS; Node/Chromium NON eseguiti; qualità artistica/kit FAIL non certificati; `run-right-04.png` ancora FAIL. Asset approvati: 0. MAIN NO, PAGES NO.
+- Ultimo draft importato `_drafts/idle-front-away-assembled.png`; **prossimo ID** `_drafts/idle-front-keeper-assembled.png`, quindi valutazione dei frame di corsa. Nessun merge.
