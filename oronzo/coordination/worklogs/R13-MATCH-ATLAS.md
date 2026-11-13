@@ -144,3 +144,12 @@
 - Nuovo file GitHub `oronzo/assets/players/r13-match/_drafts/run-right/run-right-02-preview-DRAFT.png`; SHA1 Git blob locale e GitHub `12fd8a128cf5a04256c4bf54af5642ed7e751190` PASS. `create_blob(base64)`, `create_tree`, `create_commit`, `update_ref(expected_sha, force=false)` PASS. Commit asset `2665f0f1c67e7350bdd4675a7f5c17bd12271b7c`.
 - Test Pillow PNG RGBA PASS; QA artistica FAIL/UNREVIEWED, layer indipendenti assenti; Node/Chromium NON eseguiti. 3 preview corsa versionate, 0 frame originali run11, 0 approvati. MAIN NO, PAGES NO, PR Draft.
 - Ultimo ID persistito: `run-right-02-preview-DRAFT.png`. Prossimo: **pubblicare frame full-res sperimentali senza ridimensionamento** (prima `run-right-00.png`), poi 03..11; ricostruire artisticamente `run-right-04.png` e modularizzare. Evitare ulteriori preview ridotte se possibile. HEAD dopo commit asset `2665f0f1c67e7350bdd4675a7f5c17bd12271b7c`; il commit del worklog segue.
+
+
+## 2026-11-13 23:23 Europe/Rome · Quarta preview corsa persistente
+
+- Verificati main TASKS.json (WORKING, AUTOMATION-R13), ROADMAP, STATE, HANDOFF, QA, GAME-VISION; PR #82 Draft, HEAD iniziale `7f1eedfcd9751d554fe6948c335542a591c3c17b`.
+- `/mnt/data/r13-match-run11-local.zip` assente. Presente ZIP sperimentale con 12 PNG di ritagli, NON originali run11. Dal `run-right-03.png` sperimentale 296×385 è stata ricavata una preview PNG RGBA 32×42, 2402 byte. Non è full-res e non è artwork approvato; nessun filtro HSV o quantizzazione palette.
+- Pubblicato `oronzo/assets/players/r13-match/_drafts/run-right/run-right-03-preview-DRAFT.png`; SHA Git blob locale = GitHub `e9b39f5d62f85b7e1975a5a40eef4a8cc8d29e4b` PASS. Commit asset `9cc6325d271a1971533d0bf774fd95cd72c45c91`, update_ref expected_sha senza force PASS.
+- Test PNG/Pillow PASS; qualità artistica FAIL/UNREVIEWED, layer assenti, Node/Chromium NON ESEGUITI. Quattro preview DRAFT su GitHub (00–03), zero originali run11, zero frame approvati. MAIN NO, PAGES NO.
+- PROSSIMO: interrompere la sequenza di preview ridotte; importare almeno un PNG full-res sperimentale senza modifiche se il limite payload lo consente; correggere `run-right-04.png` con artwork illustrato e layer reali. Non effettuare merge.
