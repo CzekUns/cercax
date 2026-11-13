@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORONZO 1979 · R13-TER tavole di controllo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#102746;color:#f5ecd7;font:12px Verdana,Arial,sans-serif}
+header{background:#07182e;padding:12px 18px;border-bottom:3px solid #d5b15a}h1{margin:0;color:#f4d583;font-size:20px}
+section{margin:12px;padding:10px;border:1px solid #6483a0;background:#1a3a5e}
+h2{font-size:15px;color:#f6d57b;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:8px}
+.card{background:#ebe4d5;color:#13253f;text-align:center;border:2px solid #cca955;padding:4px}
+.card canvas{display:block;margin:auto;background:#98b6c6;width:112px;height:140px;image-rendering:pixelated}
+.card b{font-size:10px}
+small{color:#c2d2e3}#status{color:#b6e6bc}
+</style>
+<header><h1>ORONZO 1979 · R13-TER</h1><small>Gallerie di verifica su immagini raster modulari autentiche. Fixture anonime, nessun salvataggio utente.</small><p id="status">Caricamento PNG…</p></header>
+<main id="root"></main>
+<script type="module">
+import {drawPortrait} from '../../ui/sections-r11/portrait-r13.js';
+const root=document.querySelector('#root'), tasks=[];
+const base={skinToneId:2,hairColorId:4,faceVariantId:2,hairStyleId:'curly',facialHairStyleId:'moustache'};
+const kits=[
+ {shirtA:'#315b9c',shirtB:'#e9dfc9',shirtPatternId:'solid'},
+ {shirtA:'#152235',shirtB:'#edeae7',shirtPatternId:'vertical'},
+ {shirtA:'#af2935',shirtB:'#183863',shirtPatternId:'vertical'},
+ {shirtA:'#27734f',shirtB:'#f4e8c7',shirtPatternId:'horizontal'},
+ {shirtA:'#f2efe3',shirtB:'#a32d35',shirtPatternId:'halves'},
+ {shirtA:'#e5c63a',shirtB:'#2c4e91',shirtPatternId:'halves'}
+];
+function group(title,variants){
+ const section=document.createElement('section');section.innerHTML='<h2>'+title+'</h2><div class="grid"></div>';root.append(section);
+ for(const [name,appearance,kit] of variants){
+  const card=document.createElement('div');card.className='card';
+  const canvas=document.createElement('canvas');canvas.width=128;canvas.height=160;
+  const caption=document.createElement('b');caption.textContent=name;
+  card.append(canvas,caption);section.querySelector('.grid').append(card);
+  tasks.push(drawPortrait(canvas,appearance,kit));
+ }
+}
+group('Tavola A · Volti (stessi capelli e kit)',Array.from({length:8},(_,i)=>['Viso '+i,{...base,faceVariantId:i,hairStyleId:'bald',facialHairStyleId:'shaved'},kits[0]]));
+group('Tavola B · Baffi e barbe',Array.from({length:8},(_,i)=>['Barba '+i,{...base,facialHairStyleId:i},kits[0]]));
+group('Tavola C · Acconciature',Array.from({length:12},(_,i)=>['Capelli '+i,{...base,hairStyleId:i,facialHairStyleId:'shaved'},kits[0]]));
+group('Tavola D · Maglie, identità invariata',kits.map((kit,i)=>['Kit '+i,base,kit]));
+group('Tavola E · 20 identità',Array.from({length:20},(_,i)=>['Calciatore '+i,{...base,skinToneId:i%8,hairColorId:(i*3)%8,faceVariantId:i%8,hairStyleId:i%12,facialHairStyleId:(i*7)%8},kits[i%6]]));
+window.__r13terQA=Promise.all(tasks).then(out=>{
+ const failed=out.filter(x=>!x).length;
+ document.querySelector('#status').textContent=(out.length-failed)+'/'+out.length+' composizioni PNG caricate; fallimenti '+failed;
+ return {total:out.length,ok:out.length-failed,failed};
+});
+</script></html>

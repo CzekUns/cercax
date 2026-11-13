@@ -1,0 +1,63 @@
+name: ORONZO R13-TER raster portrait integration
+on:
+  pull_request:
+    paths:
+      - 'oronzo/**'
+      - '.github/workflows/oronzo-r13ter-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  raster-portrait-http:
+    if: github.head_ref == 'agent/oronzo-r13ter-art-fix-20261112' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply retouched raster art to the PR working tree
+        run: |
+          python -m pip install pillow numpy
+          python oronzo/assets/players/r13/tools/r13ter_fix.py
+      - name: Python raster integrity and exact committed Git hashes
+        run: |
+          python -m pip install pillow
+          python oronzo/assets/players/r13/tests/test_raster_assets.py
+      - name: Native portrait regressions and R12 identities
+        run: |
+          node --check oronzo/assets/ui/sections-r11/portrait-r13.js
+          node --check oronzo/assets/ui/qa/r13ter-browser.mjs
+          node --test oronzo/assets/ui/sections-r11/portrait-r13.test.mjs oronzo/assets/ui/sections-r11/portrait-r13ter.test.mjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save playwright fake-indexeddb
+          npx playwright install --with-deps chromium
+      - name: Real game HTTP in four landscape viewports
+        run: |
+          python -m http.server 8123 --bind 127.0.0.1 >/tmp/oronzo-r13ter-http.log 2>&1 &
+          sleep 2
+          node oronzo/assets/ui/qa/r13ter-browser.mjs
+      - name: Push verified raster PNGs to the same PR branch (non-force)
+        if: github.event_name == 'pull_request' && github.head_ref == 'agent/oronzo-r13ter-art-fix-20261112'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add oronzo/assets/players/r13/faces oronzo/assets/players/r13/hair oronzo/assets/players/r13/facial-hair oronzo/assets/players/r13/torsos oronzo/assets/players/r13/masks oronzo/assets/players/r13/manifest.json
+          if git diff --cached --quiet; then echo 'R13TER_RASTER_ALREADY_COMMITTED'; exit 0; fi
+          git commit -m 'R13-TER: paint-corrected faces, hair, beards, shirts and material masks'
+          git push origin HEAD:${{ github.head_ref }}
+      - name: Publish screenshot and QA evidence as CI artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oronzo-r13ter-evidence
+          path: r13ter-evidence/
+          if-no-files-found: ignore

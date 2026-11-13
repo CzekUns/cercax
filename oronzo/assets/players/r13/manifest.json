@@ -1,10 +1,10 @@
 {
-  "schema": "oronzo-r13b-illustrated-raster-v1",
+  "schema": "oronzo-r13ter-articulated-raster-v2",
   "canvas": [
     128,
     160
   ],
-  "description": "Original image-generated pixel illustration parts; split, hand-aligned with stable anchors and transparent alpha. No vector or geometric face rendering.",
+  "description": "Original separately painted PNG layers with per-face facial landmarks, asset registration and git-blob SHA1 integrity. R13-TER currently under art review.",
   "groups": {
     "faces": [
       {
@@ -15,13 +15,31 @@
           160
         ],
         "rect": [
-          36,
+          37,
           26,
-          57,
+          55,
           76
         ],
-        "sha256": "dae83ab33ff936470a6523bb3d390a7991e99df1c32111e5d0c4dee1474c52e8",
-        "mask": "masks/faces-00.png"
+        "mask": "masks/faces-00.png",
+        "gitBlobSha1": "249f487bb146b6f75900085c2cc2aa94f2fc66a5",
+        "anatomy": {
+          "mouthCenter": [
+            64,
+            79
+          ],
+          "chinCenter": [
+            64,
+            99
+          ],
+          "hairlineCenter": [
+            64,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
       },
       {
         "id": 1,
@@ -31,13 +49,31 @@
           160
         ],
         "rect": [
-          34,
+          32,
           26,
-          60,
+          64,
           76
         ],
-        "sha256": "252d992f13c872cb28f4fac95e2aeae9ea185bc8182213f50b9f2f8f4d03f1f9",
-        "mask": "masks/faces-01.png"
+        "mask": "masks/faces-01.png",
+        "gitBlobSha1": "640b5a9ed65d468720442a3c0b634a8b2fe9d031",
+        "anatomy": {
+          "mouthCenter": [
+            65,
+            79
+          ],
+          "chinCenter": [
+            65,
+            99
+          ],
+          "hairlineCenter": [
+            65,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
       },
       {
         "id": 2,
@@ -47,13 +83,31 @@
           160
         ],
         "rect": [
-          34,
+          33,
           26,
-          59,
+          61,
           75
         ],
-        "sha256": "6744fabb00f6cf4ee2df72e4a7756d717f00915f4625df1a27475f286c45a926",
-        "mask": "masks/faces-02.png"
+        "mask": "masks/faces-02.png",
+        "gitBlobSha1": "777dfb0a86210ba12c5ab7de57839018491d35f5",
+        "anatomy": {
+          "mouthCenter": [
+            62,
+            79
+          ],
+          "chinCenter": [
+            62,
+            99
+          ],
+          "hairlineCenter": [
+            62,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
       },
       {
         "id": 3,
@@ -63,13 +117,31 @@
           160
         ],
         "rect": [
-          34,
+          36,
           26,
-          59,
+          55,
           76
         ],
-        "sha256": "3097ee183514086e54b9e08a179adcdb2a867a168050aed289a2d31fc28a65c5",
-        "mask": "masks/faces-03.png"
+        "mask": "masks/faces-03.png",
+        "gitBlobSha1": "9068f7384c25a545d89ce2973058a03e3fe35349",
+        "anatomy": {
+          "mouthCenter": [
+            64,
+            79
+          ],
+          "chinCenter": [
+            64,
+            99
+          ],
+          "hairlineCenter": [
+            64,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
       },
       {
         "id": 4,
@@ -79,13 +151,31 @@
           160
         ],
         "rect": [
-          34,
+          33,
           26,
-          59,
+          61,
           75
         ],
-        "sha256": "49d098f31cdfb67ecc45faf94bea2e1fc95084ae620ed45a6e1b1e2872d899a7",
-        "mask": "masks/faces-04.png"
+        "mask": "masks/faces-04.png",
+        "gitBlobSha1": "74cfee577707add97e22ac306c4b5696042fe77a",
+        "anatomy": {
+          "mouthCenter": [
+            63,
+            79
+          ],
+          "chinCenter": [
+            63,
+            99
+          ],
+          "hairlineCenter": [
+            63,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
       },
       {
         "id": 5,
@@ -95,33 +185,35 @@
           160
         ],
         "rect": [
-          34,
+          35,
           26,
-          60,
+          58,
           75
         ],
-        "sha256": "0412dfed95c77f1bbe774b85abc913d7fe305eb10baf34044661aab762d06c44",
-        "mask": "masks/faces-05.png"
+        "mask": "masks/faces-05.png",
+        "gitBlobSha1": "efbb4f42f9b3cf45f1a6dcd93c62afddda81b157",
+        "anatomy": {
+          "mouthCenter": [
+            63,
+            79
+          ],
+          "chinCenter": [
+            63,
+            99
+          ],
+          "hairlineCenter": [
+            63,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
       },
       {
         "id": 6,
         "file": "faces/06.png",
-        "size": [
-          128,
-          160
-        ],
-        "rect": [
-          36,
-          26,
-          56,
-          75
-        ],
-        "sha256": "a782066f6c8869a138b837cc2c7520a5c71dd2501fdd486e06c2d771840f16a5",
-        "mask": "masks/faces-06.png"
-      },
-      {
-        "id": 7,
-        "file": "faces/07.png",
         "size": [
           128,
           160
@@ -132,8 +224,60 @@
           62,
           75
         ],
-        "sha256": "9a348ccc379da8c4f4c820fdffc23068a78afb964b436033802fecf74ba18e75",
-        "mask": "masks/faces-07.png"
+        "mask": "masks/faces-06.png",
+        "gitBlobSha1": "60c9c2c4043f4313c98195267a9919b7e48d4930",
+        "anatomy": {
+          "mouthCenter": [
+            66,
+            79
+          ],
+          "chinCenter": [
+            66,
+            99
+          ],
+          "hairlineCenter": [
+            66,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
+      },
+      {
+        "id": 7,
+        "file": "faces/07.png",
+        "size": [
+          128,
+          160
+        ],
+        "rect": [
+          26,
+          26,
+          59,
+          75
+        ],
+        "mask": "masks/faces-07.png",
+        "gitBlobSha1": "e808acda0560a01996539b252c3d9519b504d15c",
+        "anatomy": {
+          "mouthCenter": [
+            64,
+            79
+          ],
+          "chinCenter": [
+            64,
+            99
+          ],
+          "hairlineCenter": [
+            64,
+            34
+          ],
+          "neckCenter": [
+            64,
+            101
+          ]
+        }
       }
     ],
     "hair": [
@@ -150,8 +294,8 @@
           62,
           43
         ],
-        "sha256": "d66ec74f9b998336d5cfb5ff95eee04f48476238e192fc307d09d90f6718356d",
-        "mask": "masks/hair-00.png"
+        "mask": "masks/hair-00.png",
+        "gitBlobSha1": "206cb18d5a11285ff097d79d244b9f0c8738ddf2"
       },
       {
         "id": 1,
@@ -166,8 +310,8 @@
           62,
           42
         ],
-        "sha256": "bac8f1f54a92d2b66b4697e086f6942621475ebba7cddb7b1f1d57d86c6f8715",
-        "mask": "masks/hair-01.png"
+        "mask": "masks/hair-01.png",
+        "gitBlobSha1": "be0193777e97704464e7388d61999f28983e67e3"
       },
       {
         "id": 2,
@@ -182,8 +326,8 @@
           62,
           40
         ],
-        "sha256": "3fef8af282d379f09df90b0d2dc9d03e512398a413778b0c9736e1a919a8a0ec",
-        "mask": "masks/hair-02.png"
+        "mask": "masks/hair-02.png",
+        "gitBlobSha1": "552f62a365d9203cb537e71862b14df451ae1567"
       },
       {
         "id": 3,
@@ -198,8 +342,8 @@
           69,
           40
         ],
-        "sha256": "1e37f08e21eac5aca0600fc63406b846da8d171e3e98c98e390bd1dda2e22a32",
-        "mask": "masks/hair-03.png"
+        "mask": "masks/hair-03.png",
+        "gitBlobSha1": "cfd0abfc1ba5d0c192981517f0a255dd4c1d8537"
       },
       {
         "id": 4,
@@ -214,8 +358,8 @@
           69,
           45
         ],
-        "sha256": "088fd8305f4fcf2568f4e2525e959db5f72f34b3a902cacfe66b64f353407940",
-        "mask": "masks/hair-04.png"
+        "mask": "masks/hair-04.png",
+        "gitBlobSha1": "db5382f1ad2202738442513c05f196a512dad8a1"
       },
       {
         "id": 5,
@@ -230,8 +374,8 @@
           69,
           40
         ],
-        "sha256": "35e647e2d6cc350639354dc446e79b0b6844d52a38d332c8ab5032e2492b561e",
-        "mask": "masks/hair-05.png"
+        "mask": "masks/hair-05.png",
+        "gitBlobSha1": "c51d0c2d8e0ed5c64163417b63fd834df18c1f95"
       },
       {
         "id": 6,
@@ -246,8 +390,8 @@
           66,
           49
         ],
-        "sha256": "176453ab6fbfde8e17e3c831e2a85e23c04ca26e1ab9c93f0d8ee5604ea0ad09",
-        "mask": "masks/hair-06.png"
+        "mask": "masks/hair-06.png",
+        "gitBlobSha1": "d1626fc53dcebf3f260bc60a1ff8359c0599703a"
       },
       {
         "id": 7,
@@ -262,8 +406,8 @@
           67,
           49
         ],
-        "sha256": "7c81eddfc2945ed63d8f57b41910c2ce3c01c178b45fc0aeac1e8a2320b7b5b8",
-        "mask": "masks/hair-07.png"
+        "mask": "masks/hair-07.png",
+        "gitBlobSha1": "f86b699809f308282fa393d2ff32487b0132ae94"
       },
       {
         "id": 8,
@@ -278,8 +422,8 @@
           62,
           42
         ],
-        "sha256": "b8e130aa0e58710d9e24a9093dbafd4b317878129a23f41c0828a912a3b68aa0",
-        "mask": "masks/hair-08.png"
+        "mask": "masks/hair-08.png",
+        "gitBlobSha1": "268275afb4c3417985298b8f5d2686a908953900"
       },
       {
         "id": 9,
@@ -289,13 +433,13 @@
           160
         ],
         "rect": [
-          33,
+          26,
           18,
           62,
           34
         ],
-        "sha256": "b6d9f1ae78d05425a647bc0242340b75575043b34bbe35f89932727424a58da8",
-        "mask": "masks/hair-09.png"
+        "mask": "masks/hair-09.png",
+        "gitBlobSha1": "c6fb324ec5f153d83224db4783c4bf1c3cdc8654"
       },
       {
         "id": 10,
@@ -310,8 +454,8 @@
           62,
           42
         ],
-        "sha256": "32ab149bb79b15ec12d21b23435f113a8f470f5112a472d51943dadd87271bd9",
-        "mask": "masks/hair-10.png"
+        "mask": "masks/hair-10.png",
+        "gitBlobSha1": "983c781d5dd2216ad330554b0ae9d086489bb194"
       },
       {
         "id": 11,
@@ -326,8 +470,8 @@
           62,
           39
         ],
-        "sha256": "18d301c0969e4c9a35674bff218e86a2752c66dae00b8d6e32651cddb36001ce",
-        "mask": "masks/hair-11.png"
+        "mask": "masks/hair-11.png",
+        "gitBlobSha1": "bb0952e93665d158b56aedb7df0973035e932a20"
       }
     ],
     "facial-hair": [
@@ -344,8 +488,8 @@
           33,
           10
         ],
-        "sha256": "13c229fb3e46742377f12b9dd629b0fb120a2576f2c1dacb28d81a7ba38b2bcb",
-        "mask": "masks/facial_hair-00.png"
+        "mask": "masks/facial_hair-00.png",
+        "gitBlobSha1": "fb260d7caa8c91939670d1c04db3c9135744efb8"
       },
       {
         "id": 1,
@@ -360,8 +504,8 @@
           33,
           14
         ],
-        "sha256": "51fca329b255ee6766a33dad98ac097906dc9db55c1f3d28a236129f957abfaf",
-        "mask": "masks/facial_hair-01.png"
+        "mask": "masks/facial_hair-01.png",
+        "gitBlobSha1": "cdd8ad7b54e9e8ee0d1e2ab89f120f785895670c"
       },
       {
         "id": 2,
@@ -376,8 +520,8 @@
           32,
           24
         ],
-        "sha256": "37a4f55f8a3103b366f67b087dc0e303bc6b311ffba59c1ccb135b7e9e2eb93e",
-        "mask": "masks/facial_hair-02.png"
+        "mask": "masks/facial_hair-02.png",
+        "gitBlobSha1": "da18d7c1b413c44e983c1e1e7228da3115f2ae60"
       },
       {
         "id": 3,
@@ -392,8 +536,8 @@
           13,
           24
         ],
-        "sha256": "312ab4acf348e7a0ebc0811fa54082f8db5e13ef904dd497fb99b7f35d27007b",
-        "mask": "masks/facial_hair-03.png"
+        "mask": "masks/facial_hair-03.png",
+        "gitBlobSha1": "5c13589b1a34edafe4b9ff8e25cd413402c6f306"
       },
       {
         "id": 4,
@@ -408,8 +552,8 @@
           42,
           24
         ],
-        "sha256": "d40cefba148d3095b748339161796b417a5b51ff9ddd2ac96ef5dc123e481cab",
-        "mask": "masks/facial_hair-04.png"
+        "mask": "masks/facial_hair-04.png",
+        "gitBlobSha1": "88e5721a1f501ca0ecff5791f8d46cab19019243"
       },
       {
         "id": 5,
@@ -424,8 +568,8 @@
           42,
           22
         ],
-        "sha256": "a5fd97f636ae02e7863df1f3ac585b589fa9a4b7ba947b5c75efda9342bcb34e",
-        "mask": "masks/facial_hair-05.png"
+        "mask": "masks/facial_hair-05.png",
+        "gitBlobSha1": "dd88b8895c0af82f5cfacd9a78230b0f2e3a7a51"
       },
       {
         "id": 6,
@@ -440,8 +584,8 @@
           42,
           23
         ],
-        "sha256": "7c1b1dde40985434d6081f13f4f0c3bee718b10db56681162534ca60d3388793",
-        "mask": "masks/facial_hair-06.png"
+        "mask": "masks/facial_hair-06.png",
+        "gitBlobSha1": "98464b300e39ae84b5227811837291d2ce353cba"
       },
       {
         "id": 7,
@@ -451,13 +595,13 @@
           160
         ],
         "rect": [
-          0,
-          0,
-          128,
-          160
+          43,
+          73,
+          42,
+          25
         ],
-        "sha256": "a0508a95d9837ea8e9e2383ec44cb4fb42ab31f36001031dd000ab1ac7d0a373",
-        "mask": "masks/facial_hair-07.png"
+        "mask": "masks/facial_hair-07.png",
+        "gitBlobSha1": "20b29c6393c6f32c1c87b2842c24188e0cd3301d"
       }
     ],
     "torsos": [
@@ -474,8 +618,9 @@
           84,
           57
         ],
-        "sha256": "925d20c0422f6cd6a473accb443271b6bd025bf042ae18d3280748b89712117c",
-        "mask": "masks/torsos-00.png"
+        "mask": "masks/torsos-00.png",
+        "gitBlobSha1": "2f6fcfbdc966062cd8903c2c7377dab253ff28c7",
+        "neckMask": "masks/neck-00.png"
       },
       {
         "id": 1,
@@ -490,8 +635,9 @@
           84,
           57
         ],
-        "sha256": "598f68d0cae28f4782aa0878dea60f25a9f6ff028e3e3574f5c64b7d587c38ce",
-        "mask": "masks/torsos-01.png"
+        "mask": "masks/torsos-01.png",
+        "gitBlobSha1": "2f481a549d54532f41db4ee387201a8cc0f6f2bb",
+        "neckMask": "masks/neck-01.png"
       },
       {
         "id": 2,
@@ -506,8 +652,9 @@
           84,
           57
         ],
-        "sha256": "e81da0382013cd22551e144172748cb5c3734e00813ea9e04b9acf592585e682",
-        "mask": "masks/torsos-02.png"
+        "mask": "masks/torsos-02.png",
+        "gitBlobSha1": "0287265cae1d4e642a685c8bf4d7b1ed96b9ebb5",
+        "neckMask": "masks/neck-02.png"
       },
       {
         "id": 3,
@@ -522,8 +669,9 @@
           84,
           60
         ],
-        "sha256": "f7c8d1154d3f32b5eb21c482e1ddf861424522c2114f933001f6910e2b052ff5",
-        "mask": "masks/torsos-03.png"
+        "mask": "masks/torsos-03.png",
+        "gitBlobSha1": "ffeee50ebe711e039ac63ca98b45e6960912e286",
+        "neckMask": "masks/neck-03.png"
       },
       {
         "id": 4,
@@ -538,8 +686,9 @@
           84,
           60
         ],
-        "sha256": "7e64679ed3622983f95940ed4e5945514e847ee77cb594350b40b3eba83c7ac6",
-        "mask": "masks/torsos-04.png"
+        "mask": "masks/torsos-04.png",
+        "gitBlobSha1": "909ba815aa92be763ac90b696a5540772e9444f8",
+        "neckMask": "masks/neck-04.png"
       },
       {
         "id": 5,
@@ -554,8 +703,9 @@
           84,
           60
         ],
-        "sha256": "a575e3e0e33adc9b4d245bf1e9a86ea0584136b980eeee3856e2ff287baeef59",
-        "mask": "masks/torsos-05.png"
+        "mask": "masks/torsos-05.png",
+        "gitBlobSha1": "dd4c6e351cab19d7cbe4ad538327a2f32794f428",
+        "neckMask": "masks/neck-05.png"
       }
     ]
   },
@@ -578,5 +728,23 @@
     }
   },
   "source_attribution": "Original R13-BIS image generated for project; extracted PNG layers.",
-  "releaseState": "DRAFT_REQUIRES_ART_REVIEW_AND_REAL_GAME_QA"
+  "releaseState": "R13TER_REAL_HTTP_PASS_VISUAL_REVIEW_PENDING",
+  "assetRegistration": {
+    "faces": {
+      "07": {
+        "dx": 0,
+        "reason": "Already recentered in PNG"
+      }
+    },
+    "hair": {
+      "09": {
+        "dx": 0,
+        "reason": "Already recentered in PNG"
+      }
+    },
+    "facialHair": {
+      "fitting": "clip to selected face PNG alpha plus 1px"
+    }
+  },
+  "artRevision": "r13ter-retouch-applied-v1"
 }
