@@ -19,3 +19,12 @@
 4. Aggiornare questo checkpoint con **ID esatti dei frame verificati, primo frame da fare e prove visive**, in una sola PR persistente. Non passare al campo o alla telecamera.
 
 **Distinzione manuali:** la PR grafica manuale #79 rimane fuori scope; non toccare i suoi file e non governarla con TASKS.json.
+
+## 2026-11-13 · Run 11 · recupero binari reali
+
+- Archivi **fisicamente recuperati** e ispezionati in questa run: `r13-match-prototype.zip` (5 membri), `r13-match-checkpoint-v2.zip` (12 membri), `r13-match-run11-local.zip` (14 membri). L'archivio idle contiene PNG 63×118 e maschere L; quello corsa contiene 12 PNG RGBA 112×160. Non equiparare i prototipi a sprite definitivi.
+- **3 file PNG autentici importati in GitHub**, tutti sotto `oronzo/assets/players/r13-match/_drafts/`: `idle-front-torso-kit-mask.png` (208 byte, blob `68786dbd629d68a7d98ccc958bb1970d26cb8876`), `idle-front-legs-kit-mask.png` (161 byte, `43eed74d45f06277e5df413be2dfbaf6846ba966`), `idle-front-head-kit-mask.png` (104 byte, `10ab15127d252805cdf6d9c90e2dd8f63a139753`). Confronto SHA Git locale/connector: **PASS 3/3**. PNG reali preesistenti, non generati da primitive in questa run.
+- Nuovo commit `53c6495069a1109d7ad6250e3021bb3618392537` sul branch persistente; PR draft **#82**, non mergiata. Nessun file degli agenti manuali modificato.
+- QA: decodifica Pillow e dimensioni maschere **PASS**; maschere non certificate per la ricolorazione finale. Il contatto idle mostra tre varianti cromatiche ma il portiere non ha disegno autonomo. Corsa `run-right-04.png` già segnalata **FAIL** per artefatti. Node/Chromium **non eseguiti**; MAIN **NO**; PAGES **NO**.
+- Ultimo elemento realmente trasferito: `_drafts/idle-front-head-kit-mask.png`. Ultimo frame artistico approvato: **nessuno**. Prossimo ID: `_drafts/idle-front-home-assembled.png` con bytes veri e hash; successivamente layer illustrati testa/busto/gambe, poi valutazione artistica della corsa senza promuovere frame difettosi.
+- HEAD del commit di questa run: `53c6495069a1109d7ad6250e3021bb3618392537`. Se altre run intervengono, rileggere l'HEAD live prima di ulteriori scritture.
