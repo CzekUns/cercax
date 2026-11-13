@@ -28,3 +28,11 @@
 - QA: decodifica Pillow e dimensioni maschere **PASS**; maschere non certificate per la ricolorazione finale. Il contatto idle mostra tre varianti cromatiche ma il portiere non ha disegno autonomo. Corsa `run-right-04.png` già segnalata **FAIL** per artefatti. Node/Chromium **non eseguiti**; MAIN **NO**; PAGES **NO**.
 - Ultimo elemento realmente trasferito: `_drafts/idle-front-head-kit-mask.png`. Ultimo frame artistico approvato: **nessuno**. Prossimo ID: `_drafts/idle-front-home-assembled.png` con bytes veri e hash; successivamente layer illustrati testa/busto/gambe, poi valutazione artistica della corsa senza promuovere frame difettosi.
 - HEAD del commit di questa run: `53c6495069a1109d7ad6250e3021bb3618392537`. Se altre run intervengono, rileggere l'HEAD live prima di ulteriori scritture.
+
+## 2026-11-13 · Run 12 · primo PNG illustrato trasferito
+
+- Checkpoint di partenza live: `7e0d9ab41edbf561a48626e75227f5d75268f64b`; task `WORKING` da `TASKS.json` su main, PR #82 Draft.
+- Recuperati fisicamente in /mnt/data i tre ZIP precedenti; verificata con Pillow la composizione `idle-front-home-assembled.png` 63×118 RGBA. Ispezione visiva locale effettuata. Convertita a PNG indicizzato ottimizzato (48 colori, alpha) da 1.678 byte per il trasferimento; resta **DRAFT**, non asset approvato, e la perdita cromatica richiede review.
+- Nuovo file GitHub: `oronzo/assets/players/r13-match/_drafts/idle-front-home-assembled.png`; Git blob SHA locale `795355ca096f3321e151fb3b019a36dbbad4b401` = SHA restituito da `create_blob(base64)`: **PASS**. Commit asset `a80c966c3dbf523929521afc8b2bea3f6e9d2ab4` pubblicato con update_ref expected_sha e force=false: **PASS**.
+- Frame illustrati approvati: **0**. Ultimo draft importato: `idle-front-home-assembled.png`. Prossimo ID: `_drafts/idle-front-head.png`, poi `idle-front-torso.png`, `idle-front-legs.png`; ispezione estetica prima di promuovere; `run-right-04.png` resta FAIL per artefatti.
+- QA: Pillow PNG/dimensioni/alpha PASS locale, SHA blob PASS; Node/Chromium **NON eseguiti**; kit e portiere non certificati. MAIN NO, PAGES NO. Nessuna modifica ai file della PR manuale #79. PR #82 resta Draft.
