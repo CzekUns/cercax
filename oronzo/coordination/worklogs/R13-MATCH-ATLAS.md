@@ -90,3 +90,11 @@
 - Primo file da importare: _drafts/run-right/run-right-00.png, poi 01..11, manifest e contact sheet; **indice persistente primo mancante 00**. Conservare tutti come FAIL/UNREVIEWED; 04 FAIL artistico; margine inferiore y=159 in tutti i frame. Non promuovere a atlas.
 - Test nuovi: presenza ZIP e elenco 14 membri PASS; Git locale DNS FAIL; upload GitHub PNG NON ESEGUITO; Node/Chromium NON ESEGUITI. Nuovi sprite approvati 0, nuovi PNG pubblicati 0. MAIN NO, PAGES NO. PR #79 non modificata.
 - Blocco puntuale: passaggio dei byte binari dal filesystem di questa esecuzione al parametro base64 del connettore GitHub. Non ripetere solo analisi hash: eseguire create_blob sui PNG originali nella prossima run con un ambiente che esponga i byte al connettore.
+
+## 2026-11-13 · Run corrente · artwork nuovo locale, NON pubblicato
+
+- Riletti i documenti canonici su main, il worklog e la PR #82. TASKS.json conferma R13-MATCH-ATLAS WORKING, owner AUTOMATION-R13. PR #79 resta fuori scope.
+- Verifica filesystem di questa esecuzione: /mnt/data inizialmente vuota, quindi **r13-match-run11-local.zip ASSENTE** (come pure gli altri due ZIP). I precedenti 12 PNG non sono stati recuperati né caricati: primo indice originale mancante **run-right-00.png**.
+- Prodotta realmente una nuova tavola illustrata raster RGBA locale, 1774×887, con dodici pose di corsa verso destra, da uno strumento grafico; copia di lavoro /mnt/data/r13-match-run-right-new-artwork-DRAFT.png. **NON pubblicata su GitHub** e non persistente per le run future. Ispezione visiva: aloni rossi, sequenza non ancora validata, etichette rimosse dalla copia; non è un atlante modulare e non sostituisce gli originali.
+- QA: generazione file raster PASS; qualità estetica/alpha di bordo e modularità FAIL/UNREVIEWED; Node/Chromium NON ESEGUITI. PNG caricati su GitHub 0, frame approvati 0. Impossibile chiamare create_blob per i file locali attraverso il connettore senza un canale che passi i bytes; nessun SHA GitHub inventato.
+- Prossimo checkpoint: recuperare gli originali run-right-00..11 e importarli senza perdita, oppure produrre un frame nuovo con layer realmente indipendenti e QA visiva prima di importarlo. Non fare merge #82. MAIN NO; PAGES NO.
