@@ -153,3 +153,13 @@
 - Pubblicato `oronzo/assets/players/r13-match/_drafts/run-right/run-right-03-preview-DRAFT.png`; SHA Git blob locale = GitHub `e9b39f5d62f85b7e1975a5a40eef4a8cc8d29e4b` PASS. Commit asset `9cc6325d271a1971533d0bf774fd95cd72c45c91`, update_ref expected_sha senza force PASS.
 - Test PNG/Pillow PASS; qualità artistica FAIL/UNREVIEWED, layer assenti, Node/Chromium NON ESEGUITI. Quattro preview DRAFT su GitHub (00–03), zero originali run11, zero frame approvati. MAIN NO, PAGES NO.
 - PROSSIMO: interrompere la sequenza di preview ridotte; importare almeno un PNG full-res sperimentale senza modifiche se il limite payload lo consente; correggere `run-right-04.png` con artwork illustrato e layer reali. Non effettuare merge.
+
+
+## 2026-11-14 00:27 Europe/Rome · Verifica sorgente 04 e blocco trasferimento full-res
+
+- Letti LIVE main (GAME-VISION, ROADMAP, TASKS, STATE, HANDOFF, QA), PR #82 e worklog sul branch. TASK R13-MATCH-ATLAS WORKING, owner AUTOMATION-R13. Nessun intervento sui manuali.
+- Archivio originale `r13-match-run11-local.zip` non montato; disponibile `/mnt/data/r13-match-new-running-12-drafts.zip`, contenente 12 ritagli sperimentali NON originali run11.
+- Ispezionato visivamente `run-right-04.png` sperimentale 295×385: aloni rossi visibili lungo testa, braccia e busto; arte FAIL. Estratta localmente una maschera silhouette diagnostica lossless 295×385 (`run-right-04-silhouette-mask-DRAFT.png`, 5900 byte, Git blob locale `1ea3f94f864b75762d15669833d981910db81d93`). NON pubblicata né promossa: non è uno sprite illustrato.
+- Blocco tecnico concreto: il connettore GitHub può ricevere una stringa Base64, ma non accede direttamente al filesystem del container. Il PNG full-res sperimentale 04 è 107632 byte (Base64 ~143512 caratteri); non esiste un passaggio binario diretto container→connector e copiare il payload tramite risposta modello supera il budget pratico della run. Non ridimensionare ancora i frame per aggirarlo. Nessun nuovo PNG GitHub in questa esecuzione.
+- QA: ispezione visiva FAIL artistico; Pillow/ZIP sorgente accessibili; Node/Chromium non eseguiti; sprite approvati 0. Prossimo: trasferimento full-res non alterato con percorso che condivida effettivamente i byte tra strumenti, quindi ricostruzione illustrata 04 e layer; non creare ulteriori preview 32×42.
+- PR #82 DRAFT, MAIN NO, PAGES NO. Nessun merge.
