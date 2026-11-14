@@ -21,13 +21,13 @@
     "frame": "run-right-05",
     "parts": [
       {
-        "part": "head",
-        "file": "run-right-05-head-layer-DRAFT.png",
+        "part": "legs",
+        "file": "run-right-05-legs-layer-DRAFT.png",
         "status": "FAIL_UNREVIEWED"
       },
       {
-        "part": "jersey",
-        "file": "run-right-05-jersey-layer-DRAFT.png",
+        "part": "boots",
+        "file": "run-right-05-boots-layer-DRAFT.png",
         "status": "FAIL_UNREVIEWED"
       },
       {
@@ -36,18 +36,28 @@
         "status": "FAIL_UNREVIEWED"
       },
       {
-        "part": "legs",
-        "file": "run-right-05-legs-layer-DRAFT.png",
+        "part": "jersey",
+        "file": "run-right-05-jersey-layer-DRAFT.png",
+        "status": "FAIL_UNREVIEWED"
+      },
+      {
+        "part": "arms",
+        "file": "run-right-05-arms-layer-DRAFT.png",
+        "status": "FAIL_UNREVIEWED"
+      },
+      {
+        "part": "head",
+        "file": "run-right-05-head-layer-DRAFT.png",
         "status": "FAIL_UNREVIEWED"
       }
     ]
   },
   "blocking": [
-    "arms layer missing",
-    "recomposition not tested",
+    "recomposition requires visual QA",
     "pivots not validated",
     "animation continuity not tested",
     "no approved game atlas"
   ],
-  "rendererEnabled": false
+  "rendererEnabled": false,
+  "qaPreview": "pose-05-layer-review.html"
 }
