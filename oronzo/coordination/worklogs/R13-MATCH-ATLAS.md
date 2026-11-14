@@ -248,3 +248,10 @@
 - Git blob SHA1 calcolato dai byte `467ca327f58f6f9d8a27025256e91b68078f340c`, `create_blob(base64)` uguale, `fetch_file` su branch uguale: **PASS**. Tree `fe805b6328ca54503c5b71ed2a2e1e3284908af0`, commit asset `69977cb967db2e2c7e4b6d96166b21792d113590`; update_ref expected_sha PASS.
 - QA PNG Pillow/alpha PASS; verifica remota SHA PASS. Ricomposizione, pivots, continuità e resa artistica NON certificati; Node/Chromium NON eseguiti. Frame approvati **0**. MAIN NO; PAGES NO. PR Draft, nessun merge.
 - **Ultimo file:** `run-right-05-boots-layer-DRAFT.png`. **Primo passo mancante:** ricomporre e confrontare tutti i layer posa 05 su canvas comune, rifinire manualmente bordi e pivots, pubblicare prova grafica; non promuovere la posa finché non supera QA.
+
+
+## 2026-11-14 · Nuova posa illustrata 06 persistente
+- Asset pubblicato: `oronzo/assets/players/r13-match/_drafts/run-right-06-illustrated-DRAFT.png` (56×68, PNG RGBA, 3743 byte). Fonte: nuova illustrazione locale `/mnt/data/retro_soccer_player_sprinting.png`, ritagliata sul bbox alpha e ridimensionata; **non** originale ZIP/run11 e **non** frame approvato. Nessun filtro HSV o quantizzazione palette.
+- Blob SHA calcolato sui byte e restituito dal connettore GitHub identico: `7279a2c054869a45afac019a2764604acbef6c9d` (PASS). Commit asset `49c6a9a0d29f68ef29302f033cca5eb846499731`; update_ref expected parent `c842d3872e21c0d89f40a9dd25772afef5744a65` PASS.
+- QA: PNG RGBA/alpha e lettura Pillow PASS; continuità animazione, raccordi layer, pivots, Node/Chromium NON ESEGUITI. Qualità artistica DRAFT/UNREVIEWED, frame approvati 0. Nessuna modifica ritratti/PR manuali. MAIN NO, PAGES NO.
+- Prossimo: ricomposizione e revisione anatomica dei layer della posa 05, con preview versionata; poi allineamento delle pose 04–06 e pivots.
