@@ -239,3 +239,12 @@
 - SHA1 Git blob locale `cb43f5dfa80e36e97ca2fe7a357f7349efa5f0b6` identico a `create_blob(base64)`: PASS. Tree `01793fd846009ef11eb070ec602a3855068b522b`; commit asset `a17a5fe82dd34c8242dd448720b227e34ac79b13`; update_ref con expected_sha e force=false PASS.
 - QA Pillow RGBA/alpha PASS; SHA blob PASS; ricomposizione/continuità/pivots/kit artistici FAIL o non certificati. Node/Chromium NON eseguiti. Frame approvati 0; MAIN NO, PAGES NO; nessun merge e nessuna modifica ai manuali.
 - Ultimo layer pubblicato `run-right-05-arms-layer-DRAFT.png`. **Prossimo**: riallineare e ricomporre head/jersey/shorts/legs/arms 05 sullo stesso canvas, correggere i bordi in pixel art e produrre test grafico persistente; quindi pivot/manifest e verifica Chromium prima di promuovere.
+
+
+## 2026-11-14 10:30 CET · Layer scarpini posa 05 (DRAFT/FAIL)
+
+- Task LIVE: `AUTOMATION-R13 / R13-MATCH-ATLAS` WORKING su `main`; PR #82, branch unico `automation/oronzo-r13-match-atlas`. HEAD prima `598d62ca027386102dab7c90ac25ec91989044c8`.
+- **Nuovo PNG pubblicato**: `oronzo/assets/players/r13-match/_drafts/run-right/run-right-05-boots-layer-DRAFT.png`, RGBA 40×44, 535 byte, alpha bbox `(2,23,30,40)`; derivato dall'artwork locale `retro_soccer_player_sprinting.png`, maschera spaziale degli scarpini, ricampionamento LANCZOS. NON è un originale run11, NON è layer artisticamente rifinito. Stato **DRAFT/FAIL**: maschera da correggere, raccordo con calzettoni non verificato.
+- Git blob SHA1 calcolato dai byte `467ca327f58f6f9d8a27025256e91b68078f340c`, `create_blob(base64)` uguale, `fetch_file` su branch uguale: **PASS**. Tree `fe805b6328ca54503c5b71ed2a2e1e3284908af0`, commit asset `69977cb967db2e2c7e4b6d96166b21792d113590`; update_ref expected_sha PASS.
+- QA PNG Pillow/alpha PASS; verifica remota SHA PASS. Ricomposizione, pivots, continuità e resa artistica NON certificati; Node/Chromium NON eseguiti. Frame approvati **0**. MAIN NO; PAGES NO. PR Draft, nessun merge.
+- **Ultimo file:** `run-right-05-boots-layer-DRAFT.png`. **Primo passo mancante:** ricomporre e confrontare tutti i layer posa 05 su canvas comune, rifinire manualmente bordi e pivots, pubblicare prova grafica; non promuovere la posa finché non supera QA.
