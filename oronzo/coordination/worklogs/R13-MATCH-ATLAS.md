@@ -205,3 +205,11 @@
 - SHA Git blob locale/GitHub `5fc2a759870352587cf0f167358b8affc11e11fa` PASS; commit asset `7df903e71573bfd7158f5fa9d6c9680ca28d12dc`, update_ref expected_sha senza force PASS.
 - Test: PNG Pillow RGBA PASS; blob GitHub PASS; continuità, pivots, ricomposizione con maglia e pantaloncini NON certificati; Node/Chromium NON eseguiti; frame approvati 0. MAIN NO, PAGES NO.
 - Prossimo: verificare la ricomposizione 05 sul medesimo canvas, correggere maschere anatomiche con riferimento all'illustrazione e completare arti; poi QA visiva 04/05 e ciclo corsa. Nessun merge, nessuna modifica alle figurine manuali.
+
+
+## 2026-11-14 06:29 CET · Layer inferiore posa 05 pubblicato
+
+- Verificati live `main` SHA `4b3752b7d638badd66d000f4ebc6269c70e8503d`, TASKS.json `R13-MATCH-ATLAS` WORKING, PR #82 Draft, HEAD iniziale `aac6c3af50f3cdaed1ef7380d0a4180be071601a`. Nessun file manuale modificato.
+- Da artwork locale illustrato `retro_soccer_player_sprinting.png` è stata estratta con maschera spaziale una componente **inferiore gambe/scarpini**; nuovo PNG RGBA 40×44 senza quantizzazione di palette: `_drafts/run-right/run-right-05-legs-layer-DRAFT.png` (1160 byte). SHA Git blob locale `27de47389adf92b9f2a0b4edcd57a5b69749b9a5` = GitHub create_blob(base64): PASS.
+- **DRAFT/FAIL artistico:** taglio approssimativo e anatomia incompleta, necessita raccordo con shorts, braccia mancanti, layer non validati in composizione; non inserire nel renderer. Non è originale run11.
+- Test Pillow RGBA/alpha PASS, Git blob PASS. Node/Chromium non eseguiti; 0 frame approvati; MAIN NO, PAGES NO. Prossimo: correggere il layer gambe su canvas comune e realizzare braccia; validare ricomposizione e pivots prima di approvare.
