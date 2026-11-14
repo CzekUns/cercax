@@ -313,3 +313,12 @@
 - Nuovo file reale `_drafts/run-right-07-48px-source-DRAFT.png`, 48×44 RGBA, 2708 byte, derivato dalla stessa illustrazione originale già usata per il draft 07; resize LANCZOS senza quantizzazione palette né filtri HSV. **Non è una nuova posa né un frame run11**; mantiene più dettagli del precedente 32×32. Git blob locale SHA1 `127a07364d0d4966554b6531b845bdb775b27dee` = GitHub create_blob PASS. Commit asset `10253274aa82cb249f17b7d01c67d98a95eca5e9`, update_ref expected SHA PASS.
 - Pillow RGBA/decodifica PASS locale; asset art DRAFT/UNREVIEWED. Pivots, anatomia, continuità, Node/Chromium NON eseguiti. Frame approvati 0. MAIN NO, PAGES NO.
 - Prossimo: recuperare e comporre i sei layer della posa 05 in un PNG completo verificabile, correggere raccordi; non ripetere derivazioni dalla stessa immagine come se fossero frame animati.
+
+
+## 2026-11-14 · Run corrente · nuovo frame illustrato 08 persistente
+
+- PR #82 Draft, HEAD iniziale `f3c8b66b7dd9601e9f794451e71c13f8cf37af41` verificato live; task R13-MATCH-ATLAS WORKING confermato su main.
+- Nuovo PNG `oronzo/assets/players/r13-match/_drafts/run-right/run-right-08-illustrated-DRAFT.png`: 36×40 RGBA, 1445 byte, derivato dall'illustrazione raster locale `retro_pixel_soccer_sprinter.png` (ridimensionamento nearest-neighbor, senza quantizzazione di palette). **Non** originale ZIP run11, **non** posa autonoma garantita; DRAFT/UNREVIEWED.
+- SHA Git blob calcolato localmente `08ddd54cb7643e33cb06b2b779f7ebddec22e7ce` = create_blob = fetch_file GitHub: PASS. Commit asset `08c48b6551c994d4d685b691d70c10465618cd7d`; update_ref expected_sha PASS.
+- QA: PNG decodificato con Pillow, RGBA PASS; integrità GitHub PASS. Controllo artistico, pivot, kit, Node/Chromium e integrazione 11v11 NON eseguiti. Frame approvati **0**. MAIN NO, PAGES NO.
+- Prossimo: composito integrale posa 05 da sei layer esistenti, correggere anatomia e pivot; pubblicare PNG e verifica visiva. PR #79 e file manuali intatti.
