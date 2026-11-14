@@ -196,3 +196,12 @@
 - Pubblicato `_drafts/run-right/run-right-05-shorts-layer-DRAFT.png`: PNG RGBA 40×44, 525 byte, SHA Git blob `2df60807e0e1725a845838cb781e4a6eec2cde0c`. Derivato da mascheratura spaziale di artwork illustrato locale della posa 05; NON dall'archivio run11. Maschera approssimativa e contenuto ridotto: FAIL/UNREVIEWED, NON usare nel renderer. Conservato senza quantizzazione di palette.
 - Verifica Pillow decode e alpha PASS; confronto SHA blob locale/GitHub PASS. Ricomposizione con layer maglia NON certificata; anatomia e pivots FAIL/UNREVIEWED. Node/Chromium NON eseguiti; 0 frame approvati. MAIN NO, PAGES NO.
 - Prossimo: correggere il layer pantaloncini con contorno preciso, verificare l'allineamento sullo stesso canvas del frame 05 pubblicato, separare arti e creare manifest; poi QA artistica comparativa 04/05. Non modificare file delle figurine #79; non mergiare #82.
+
+
+## 2026-11-14 05:30 CET · Layer testa posa 05 (DRAFT)
+
+- Ripreso task `R13-MATCH-ATLAS` WORKING, PR #82 Draft, branch unico; HEAD iniziale `615f9b183a19132ab2615c7924b4903dc41b6469`.
+- Pubblicato `oronzo/assets/players/r13-match/_drafts/run-right/run-right-05-head-layer-DRAFT.png` (40×44 RGBA, 2338 byte), ricavato dall'artwork raster illustrato locale `retro_soccer_player_sprinting.png` con maschera spaziale provvisoria della testa. Non è originale run11 e non è un layer anatomico approvato; ridimensionamento LANCZOS e margini da rifinire: **FAIL/UNREVIEWED**.
+- SHA Git blob locale/GitHub `5fc2a759870352587cf0f167358b8affc11e11fa` PASS; commit asset `7df903e71573bfd7158f5fa9d6c9680ca28d12dc`, update_ref expected_sha senza force PASS.
+- Test: PNG Pillow RGBA PASS; blob GitHub PASS; continuità, pivots, ricomposizione con maglia e pantaloncini NON certificati; Node/Chromium NON eseguiti; frame approvati 0. MAIN NO, PAGES NO.
+- Prossimo: verificare la ricomposizione 05 sul medesimo canvas, correggere maschere anatomiche con riferimento all'illustrazione e completare arti; poi QA visiva 04/05 e ciclo corsa. Nessun merge, nessuna modifica alle figurine manuali.
