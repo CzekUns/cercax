@@ -2,7 +2,15 @@
 
 > **Ambito esclusivo: automazioni programmate.** Questa roadmap instrada soltanto i worker ricorrenti. **Non assegna incarichi né modifica la tabella degli agenti manuali** (01–12, 07-bis, R13-TER o orchestratore 10-bis). Per le chat avviate dal proprietario continuano a valere i loro prompt, `registry.json`, `PROTOCOL.md` e i rispettivi `NEXT.md`.
 
-## Obiettivo attuale dell'automazione ORONZO
+## Decisione di coordinamento del 14 novembre 2026 — AUTOMAZIONE SOSPESA
+
+**La grafica R13 non viene più prodotta automaticamente ogni ora.** L'automazione `AUTOMATION-R13` è stata disabilitata; task `R13-MATCH-ATLAS` nello stato `PARKED`, PR #82 **Draft conservata**, branch e worklog intatti. **Zero frame approvati**. Questa decisione non rende l'opera completata.
+
+Il proprietario ha scelto **chat esecutive manuali per il lavoro artistico complesso**, con più interventi nella stessa chat e GitHub come checkpoint. Gli ingressi facoltativi sono [#85 — pixel spuri/maglie e compositing dei ritratti](https://github.com/CzekUns/cercax/issues/85) e, successivamente, [#86 — recupero sprite dalla PR #82](https://github.com/CzekUns/cercax/issues/86). Gli agenti manuali rimangono indipendenti da questo router.
+
+**Nessuna ripresa oraria, auto-merge o nuova assegnazione automatica** senza nuovo mandato del proprietario. La sezione successiva descrive il vecchio flusso storico, al momento NON operativo.
+
+## Obiettivo storico dell'automazione ORONZO (attualmente PARKED)
 **R13-MATCH-ATLAS — creazione progressiva di veri sprite raster modulari per la partita.**
 
 - Worker: `AUTOMATION-R13` (automazione oraria già esistente).
