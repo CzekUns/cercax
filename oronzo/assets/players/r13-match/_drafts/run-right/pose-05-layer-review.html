@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="it"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORONZO R13 · Pose 05 · Layer QA DRAFT</title>
+<style>body{background:#17202b;color:#f0f3f5;font:16px system-ui;margin:24px}canvas{background:repeating-conic-gradient(#cbd0d5 0% 25%,#f4f4f4 0% 50%) 50%/24px 24px;image-rendering:pixelated;width:240px;height:264px;max-width:90vw}section{display:flex;flex-wrap:wrap;gap:30px}label{display:block;margin:7px 0}small{color:#f8c77a}</style>
+<h1>Pose 05 — QA layer compositing</h1><small>DRAFT / FAIL: no approved game sprite. Independent source is not recovered run11 artwork.</small>
+<section><div><h2>Reference raster</h2><canvas id="reference" width="40" height="44"></canvas></div><div><h2>Layer composite</h2><canvas id="composite" width="40" height="44"></canvas><div id="controls"></div></div></section>
+<p id="status">Loading assets…</p>
+<script>
+const parts=['legs','boots','shorts','jersey','arms','head'];
+const filenames=Object.fromEntries(parts.map(p=>[p,'run-right-05-'+p+'-layer-DRAFT.png']));
+const images={};const selected=new Set(parts);
+const ref=document.querySelector('#reference').getContext('2d');
+const out=document.querySelector('#composite').getContext('2d');
+const status=document.querySelector('#status');
+const controls=document.querySelector('#controls');
+function render(){out.clearRect(0,0,40,44);for(const p of parts){if(selected.has(p)&&images[p])out.drawImage(images[p],0,0,40,44)}}
+function load(name,filename){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{images[name]=img;resolve(img)};img.onerror=()=>reject(new Error('Unable to load '+filename));img.src=filename})}
+for(const p of parts){const label=document.createElement('label');const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=true;checkbox.addEventListener('change',()=>{checkbox.checked?selected.add(p):selected.delete(p);render()});label.append(checkbox,document.createTextNode(' '+p));controls.append(label)}
+Promise.all([load('source','run-right-05-illustrated-DRAFT.png'),...parts.map(p=>load(p,filenames[p]))]).then(()=>{ref.drawImage(images.source,0,0,40,44);render();status.textContent='All 7 PNG files loaded. Compare edges, anatomical joins and layer ordering; pivots not certified.'}).catch(e=>{status.textContent='FAIL: '+e.message;status.style.color='#ff8c8c'});
+</script></html>
