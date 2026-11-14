@@ -255,3 +255,11 @@
 - Blob SHA calcolato sui byte e restituito dal connettore GitHub identico: `7279a2c054869a45afac019a2764604acbef6c9d` (PASS). Commit asset `49c6a9a0d29f68ef29302f033cca5eb846499731`; update_ref expected parent `c842d3872e21c0d89f40a9dd25772afef5744a65` PASS.
 - QA: PNG RGBA/alpha e lettura Pillow PASS; continuità animazione, raccordi layer, pivots, Node/Chromium NON ESEGUITI. Qualità artistica DRAFT/UNREVIEWED, frame approvati 0. Nessuna modifica ritratti/PR manuali. MAIN NO, PAGES NO.
 - Prossimo: ricomposizione e revisione anatomica dei layer della posa 05, con preview versionata; poi allineamento delle pose 04–06 e pivots.
+
+
+## 2026-11-14 12:27 CET · Prima direzione sinistra illustrata persistente (DRAFT)
+- Task live main: AUTOMATION-R13 / R13-MATCH-ATLAS WORKING. Branch PR #82 unico, parent `b99d04b235b996707518a60dd8c1b5453fa05247`.
+- PNG realmente versionato: `oronzo/assets/players/r13-match/_drafts/run-left-06-illustrated-DRAFT.png` (44×48 RGBA, 2603 byte). Ottenuto per specchiatura orizzontale dell'artwork illustrato locale `retro_soccer_player_sprinting.png`, crop su bbox alpha e riduzione LANCZOS; nuova direzione sinistra, NON originale run11 e NON nuova posa indipendente. Nessuna quantizzazione HSV/palette.
+- SHA Git blob dai byte `7d4e4706960b64835d3bc4a0022501860aa85027` = GitHub create_blob(base64) = fetch_file(branch): PASS. Tree `13c01b44aaf4e534231d791881dab657f67934bb`, commit asset `36f74546c55278dfd311619aaed9af59c66a6328`, update_ref expected_sha PASS.
+- QA: Pillow PNG RGBA/alpha PASS; integrità blob GitHub PASS. Controllo estetico, ciclo, raccordi, pivot, Node/Chromium NON ESEGUITI. Asset DRAFT/UNREVIEWED, frame approvati zero. MAIN NO, PAGES NO, PR #82 Draft e nessun merge.
+- Prossimo: ricomporre e correggere i layer posa 05 su canvas unico e pubblicare preview persistente; quindi pivots/manifest e QA Chromium. Non modificare PR #79 o agenti manuali.
