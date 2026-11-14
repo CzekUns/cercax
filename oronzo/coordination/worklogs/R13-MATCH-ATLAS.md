@@ -298,3 +298,11 @@
 - **Nuovi PNG su GitHub: 0; frame approvati: 0.** Non è stato eseguito lo script sui sei file: nel container `/mnt/data` è vuoto e GitHub/raw/API non raggiungibili dal container per errore DNS. Il connettore GitHub recupera i byte Base64 ma non li materializza automaticamente nel container. Nessun falso PASS o merge.
 - Test: GitHub file Python persistente PASS; Python/Pillow esecuzione compositore NON eseguita; Chromium e QA visiva NON eseguiti; integrità del composito precedente non certificata.
 - **Prossimo**: trasferire realmente tutti e sei i PNG nel runtime oppure usare un runner che li possieda, eseguire `compose-pose-05.py`, produrre Base64 effettivo del PNG, `create_blob` / tree / commit / ref con expected SHA e confrontare SHA locale/remoto; quindi controllo visivo. MAIN NO, PAGES NO, PR Draft.
+
+
+## 2026-11-14 17:29 CET · Nuovo frame illustrato 07 pubblicato (DRAFT)
+- Task LIVE main: AUTOMATION-R13 / R13-MATCH-ATLAS WORKING; PR #82 Draft. Branch iniziale `489dce49ff050cd7b3e95ea954ea15e27b062daa`.
+- Nuovo PNG effettivamente pubblicato: `oronzo/assets/players/r13-match/_drafts/run-right-07-new-illustration-DRAFT.png`, RGBA 32×32, 1854 byte. Artwork illustrato generato in questa esecuzione, ridotto con LANCZOS e soglia alpha, non originale run11, non frame derivato dalla sequenza di 12. Non eseguita quantizzazione HSV. È un singolo sprite illustrato non modulare, da usare solo come reference DRAFT.
+- SHA Git blob locale dai byte `7cac5f44e33fbe76695b7f3f91c66863557fda62` = create_blob(base64) = fetch_file(branch): PASS. Tree `26b1e84cb7cfbcaff4b19bc4b4092d4ea0b21b91`; commit asset `b352155beb25e26794cd331a6194c1be98afff50`; update_ref expected SHA PASS.
+- Test Pillow RGBA e integrità GitHub PASS. Anatomia/continuità/pivots/kit e Node/Chromium NON certificati. Frame approvati 0; MAIN NO, PAGES NO. Nessuna modifica ai manuali.
+- Prossimo: materializzare i sei layer della posa 05 o far eseguire il compositore in un runner con accesso ai byte, pubblicare `run-right-05-full-composite-DRAFT.png` e verificarlo integralmente; successivamente correzione raccordi e pivots. Non promuovere il frame 07 prima del controllo artistico.
