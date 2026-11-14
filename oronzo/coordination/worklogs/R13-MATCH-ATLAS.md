@@ -163,3 +163,11 @@
 - Blocco tecnico concreto: il connettore GitHub può ricevere una stringa Base64, ma non accede direttamente al filesystem del container. Il PNG full-res sperimentale 04 è 107632 byte (Base64 ~143512 caratteri); non esiste un passaggio binario diretto container→connector e copiare il payload tramite risposta modello supera il budget pratico della run. Non ridimensionare ancora i frame per aggirarlo. Nessun nuovo PNG GitHub in questa esecuzione.
 - QA: ispezione visiva FAIL artistico; Pillow/ZIP sorgente accessibili; Node/Chromium non eseguiti; sprite approvati 0. Prossimo: trasferimento full-res non alterato con percorso che condivida effettivamente i byte tra strumenti, quindi ricostruzione illustrata 04 e layer; non creare ulteriori preview 32×42.
 - PR #82 DRAFT, MAIN NO, PAGES NO. Nessun merge.
+
+
+## 2026-11-14 01:27 CET · Nuova illustrazione raster 04 pubblicata
+
+- Creato con generazione grafica un **nuovo** calciatore pixel-art in corsa verso destra, maglia blu/rossa, pantaloncini bianchi, su alpha. Non è il frame originale run11 né una correzione automatica HSV; è un nuovo disegno statico derivato da illustrazione generata. Ridimensionamento per scala sprite 56×51 con Pillow LANCZOS, PNG RGBA 3387 byte. La riduzione è parte del nuovo draft, non altera gli archivi sperimentali preesistenti.
+- Pubblicato `_drafts/run-right/run-right-04-illustrated-DRAFT.png`; SHA Git blob calcolato dai byte locali `d19d711831eae4be6767ce8d10542e236d83b6ba` identico a SHA GitHub create_blob(base64): PASS. Commit asset `ee65281bdce955e596165fb006fab13e67089a75`, update_ref expected_sha `305c649df8726d3f514536fcda8d1e1a864202d0` senza force PASS.
+- Materiale **DRAFT/UNREVIEWED**: posa singola senza layer separati, direzione unica, qualità visiva da verificare su scala di gioco; nessuna promozione ad atlas. Il precedente frame sperimentale 04 con artefatti rossi rimane intatto. PNG originali run11 assenti dal filesystem; bundle sperimentale presente.
+- QA: Pillow PNG RGBA e Git blob SHA PASS; ciclo 12 frame, pivots, kit, renderer e Node/Chromium NON ESEGUITI. Sprite approvati 0; MAIN NO; PAGES NO. Prossimo: sviluppare layer illustrati e un secondo frame compatibile, QA visiva e integrazione nel renderer solo dopo approvazione. PR #82 sempre Draft, PR #79 non toccata.
