@@ -322,3 +322,9 @@
 - SHA Git blob calcolato localmente `08ddd54cb7643e33cb06b2b779f7ebddec22e7ce` = create_blob = fetch_file GitHub: PASS. Commit asset `08c48b6551c994d4d685b691d70c10465618cd7d`; update_ref expected_sha PASS.
 - QA: PNG decodificato con Pillow, RGBA PASS; integrità GitHub PASS. Controllo artistico, pivot, kit, Node/Chromium e integrazione 11v11 NON eseguiti. Frame approvati **0**. MAIN NO, PAGES NO.
 - Prossimo: composito integrale posa 05 da sei layer esistenti, correggere anatomia e pivot; pubblicare PNG e verifica visiva. PR #79 e file manuali intatti.
+
+## 2026-11-14 · Run 20:31 · nuova posa illustrata 09
+- Asset effettivamente generato da nuova illustrazione raster (non ZIP run11, non originale storico): `oronzo/assets/players/r13-match/_drafts/run-right/run-right-09-new-illustration-DRAFT.png`.
+- PNG RGBA 52×58, 2763 byte; Git blob locale e remoto `79d01df97c4e82256224f25a6c766805059aad1e` (PASS). Nuova posa distinta dalla 08; riduzione LANCZOS senza quantizzazione della palette, trasparenza presente. Stato DRAFT/UNREVIEWED, non animazione approvata.
+- Test: Pillow PNG/RGBA PASS, create_blob Base64 PASS, confronto SHA PASS. Pivots, kit alternativi, Chromium e prova nella partita NON eseguiti. Frame approvati 0.
+- Prossimo: completare `run-right-05-full-composite-DRAFT.png` da sei layer versionati e validare i raccordi, poi uniformare scala e pivot 05–09. PR #82 resta Draft; MAIN NO; PAGES NO.
