@@ -263,3 +263,13 @@
 - SHA Git blob dai byte `7d4e4706960b64835d3bc4a0022501860aa85027` = GitHub create_blob(base64) = fetch_file(branch): PASS. Tree `13c01b44aaf4e534231d791881dab657f67934bb`, commit asset `36f74546c55278dfd311619aaed9af59c66a6328`, update_ref expected_sha PASS.
 - QA: Pillow PNG RGBA/alpha PASS; integrità blob GitHub PASS. Controllo estetico, ciclo, raccordi, pivot, Node/Chromium NON ESEGUITI. Asset DRAFT/UNREVIEWED, frame approvati zero. MAIN NO, PAGES NO, PR #82 Draft e nessun merge.
 - Prossimo: ricomporre e correggere i layer posa 05 su canvas unico e pubblicare preview persistente; quindi pivots/manifest e QA Chromium. Non modificare PR #79 o agenti manuali.
+
+
+## 2026-11-14 · Browser compositing QA pose 05 (non certificato)
+
+- Task R13-MATCH-ATLAS WORKING su main; PR #82 Draft, branch unico; HEAD iniziale live `1f3be894919122b155775a1149d8304422fcd7a9`.
+- Pubblicato **codice funzionale di composizione raster**, `oronzo/assets/players/r13-match/_drafts/run-right/pose-05-layer-review.html`: carica i 6 PNG già versionati (legs, boots, shorts, jersey, arms, head), li compone sul canvas 40×44, permette attivazione/disattivazione di ciascun livello e confronta la posa illustrata di riferimento. Non genera figure con primitive Canvas: usa esclusivamente PNG illustrati esistenti. **Non è un nuovo PNG**.
+- Aggiornato `_drafts/run-right/draft-atlas-index.json` includendo tutti e sei i layer e il percorso della preview; `rendererEnabled:false`, approvati 0.
+- Verifica live GitHub: 7 PNG richiesti, HTML e JSON presenti e riletti con SHA; file references **PASS 9/9**. Browser/Chromium, allineamento anatomico, pivots e confronto visivo **NON eseguiti**, qualità ancora FAIL/UNREVIEWED. Nessun asset promosso.
+- Blocco del PNG nuovo in questa run: gli ZIP storici e i byte degli artwork non sono montati in `/mnt/data`; il container non raggiunge `raw.githubusercontent.com` (errore DNS/proxy). Il connettore GitHub può leggere gli asset già versionati ma non può trasferire automaticamente i byte nel runtime Python. Non si è inventato un nuovo PNG o eseguita quantizzazione.
+- Ultimo frame completo approvato: **nessuno**. Ultimo frame draft già esistente: `run-left-06-illustrated-DRAFT.png`. Prossimo: usare la preview versionata per verificare realmente in Chromium la ricomposizione 05, correggere maschere, poi produrre e pubblicare un PNG composito realmente verificato, con pivots; in alternativa recuperare ZIP run11 autentico. MAIN NO; PAGES NO; nessun merge.
