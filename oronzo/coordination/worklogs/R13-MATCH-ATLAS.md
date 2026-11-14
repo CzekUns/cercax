@@ -213,3 +213,11 @@
 - Da artwork locale illustrato `retro_soccer_player_sprinting.png` è stata estratta con maschera spaziale una componente **inferiore gambe/scarpini**; nuovo PNG RGBA 40×44 senza quantizzazione di palette: `_drafts/run-right/run-right-05-legs-layer-DRAFT.png` (1160 byte). SHA Git blob locale `27de47389adf92b9f2a0b4edcd57a5b69749b9a5` = GitHub create_blob(base64): PASS.
 - **DRAFT/FAIL artistico:** taglio approssimativo e anatomia incompleta, necessita raccordo con shorts, braccia mancanti, layer non validati in composizione; non inserire nel renderer. Non è originale run11.
 - Test Pillow RGBA/alpha PASS, Git blob PASS. Node/Chromium non eseguiti; 0 frame approvati; MAIN NO, PAGES NO. Prossimo: correggere il layer gambe su canvas comune e realizzare braccia; validare ricomposizione e pivots prima di approvare.
+
+## 2026-11-14 · Run 11 · indice draft persistente
+
+- Live PR #82 HEAD iniziale `73efdd5c210d527f9219f8da1019c41668c26375`; TASKS.json main conferma `R13-MATCH-ATLAS` WORKING e scope automazioni soltanto.
+- Nuovo file versionato: `_drafts/run-right/draft-atlas-index.json` (schema 1), inventario operativo dei frame illustrati 04–05 e dei layer head/jersey/shorts/legs della posa 05. Tutti esplicitamente DRAFT/FAIL; `rendererEnabled=false`, pivot null e frame approvati zero. Commit `667404edfa92ef8c08cb0df1f0919fe7363c7d59`.
+- File sorgente locale accessibile: `/mnt/data/retro_pixel_soccer_player_sprinting.png` (illustrazione raster); prodotto localmente `/mnt/data/r13-source04-review.png` (64×58, 3887 byte, Git blob locale `3c0cf9389768e7a895cf6a5dc07b696f6260175f`) ma **NON pubblicato**: la stringa Base64 è stata generata, ma non è stata passata a `create_blob` in questa run. Non conteggiare come asset persistente. Non dichiarare completato il ponte binario.
+- Test: file indice GitHub commit PASS; PNG Pillow locale PASS; trasferimento binario PNG NON eseguito; test Node/Chromium NON eseguiti; QA artistica FAIL/UNREVIEWED. MAIN NO, PAGES NO, PR Draft.
+- Prossimo: inviare i byte Base64 effettivi del PNG draft con `create_blob`, poi create_tree/create_commit/update_ref e verifica remota; ricomporre braccia e pivots della posa 05. Evitare ulteriori report senza asset.
