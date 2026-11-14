@@ -221,3 +221,12 @@
 - File sorgente locale accessibile: `/mnt/data/retro_pixel_soccer_player_sprinting.png` (illustrazione raster); prodotto localmente `/mnt/data/r13-source04-review.png` (64×58, 3887 byte, Git blob locale `3c0cf9389768e7a895cf6a5dc07b696f6260175f`) ma **NON pubblicato**: la stringa Base64 è stata generata, ma non è stata passata a `create_blob` in questa run. Non conteggiare come asset persistente. Non dichiarare completato il ponte binario.
 - Test: file indice GitHub commit PASS; PNG Pillow locale PASS; trasferimento binario PNG NON eseguito; test Node/Chromium NON eseguiti; QA artistica FAIL/UNREVIEWED. MAIN NO, PAGES NO, PR Draft.
 - Prossimo: inviare i byte Base64 effettivi del PNG draft con `create_blob`, poi create_tree/create_commit/update_ref e verifica remota; ricomporre braccia e pivots della posa 05. Evitare ulteriori report senza asset.
+
+
+## 2026-11-14 08:24 CET · Recupero pubblicazione PNG sorgente 04
+
+- Task R13-MATCH-ATLAS WORKING verificato su main; branch unico PR #82, HEAD di partenza `8b013673bf1fbe1a71e69544f74cade66aa61414`. Nessun file manuale modificato.
+- **PNG realmente pubblicato:** `_drafts/run-right/run-right-04-source-review-DRAFT.png`, 64×58 RGBA, 3887 byte. Derivato dall'illustrazione raster locale `retro_pixel_soccer_player_sprinting.png` con ridimensionamento LANCZOS; **non** è originale run11, né un frame full-res, né un frame approvato. Nessuna quantizzazione della palette o filtro HSV.
+- Base64 effettivo passato a `create_blob(encoding=base64)`; SHA1 Git blob locale `3c0cf9389768e7a895cf6a5dc07b696f6260175f` = SHA restituito da GitHub e confermato da `fetch_file(ref=branch)`: **PASS**. Tree `817a4e1f8a4b0ff35afea2ac69d54c8b09ac0a6f`; commit `eec5c5543868581b2a7ca34563a8b9d7b50bfc7f`; `update_ref(expected_sha, force=false)` PASS.
+- QA: Pillow PNG RGBA locale PASS; integrità GitHub PASS. Qualità artistica **DRAFT/UNREVIEWED**; modularità e ciclo FAIL/incompleti. Node/Chromium NON eseguiti. Frame approvati 0. MAIN NO, PAGES NO, PR #82 Draft.
+- Ultimo asset pubblicato `run-right-04-source-review-DRAFT.png`; prossimo: completare e correggere braccia della posa 05, ricomporre tutti i layer con pivots su canvas comune e verificare animazione. Non mergiare.
