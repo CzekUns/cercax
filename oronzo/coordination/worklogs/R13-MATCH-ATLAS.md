@@ -306,3 +306,10 @@
 - SHA Git blob locale dai byte `7cac5f44e33fbe76695b7f3f91c66863557fda62` = create_blob(base64) = fetch_file(branch): PASS. Tree `26b1e84cb7cfbcaff4b19bc4b4092d4ea0b21b91`; commit asset `b352155beb25e26794cd331a6194c1be98afff50`; update_ref expected SHA PASS.
 - Test Pillow RGBA e integrità GitHub PASS. Anatomia/continuità/pivots/kit e Node/Chromium NON certificati. Frame approvati 0; MAIN NO, PAGES NO. Nessuna modifica ai manuali.
 - Prossimo: materializzare i sei layer della posa 05 o far eseguire il compositore in un runner con accesso ai byte, pubblicare `run-right-05-full-composite-DRAFT.png` e verificarlo integralmente; successivamente correzione raccordi e pivots. Non promuovere il frame 07 prima del controllo artistico.
+
+
+## 2026-11-14 18:28 CET · Fonte illustrata 48px persistente
+- Task su main: `R13-MATCH-ATLAS` WORKING, PR #82 Draft; HEAD iniziale `1611247c3583aa2d4da09e6a57586e85bc79ae93`.
+- Nuovo file reale `_drafts/run-right-07-48px-source-DRAFT.png`, 48×44 RGBA, 2708 byte, derivato dalla stessa illustrazione originale già usata per il draft 07; resize LANCZOS senza quantizzazione palette né filtri HSV. **Non è una nuova posa né un frame run11**; mantiene più dettagli del precedente 32×32. Git blob locale SHA1 `127a07364d0d4966554b6531b845bdb775b27dee` = GitHub create_blob PASS. Commit asset `10253274aa82cb249f17b7d01c67d98a95eca5e9`, update_ref expected SHA PASS.
+- Pillow RGBA/decodifica PASS locale; asset art DRAFT/UNREVIEWED. Pivots, anatomia, continuità, Node/Chromium NON eseguiti. Frame approvati 0. MAIN NO, PAGES NO.
+- Prossimo: recuperare e comporre i sei layer della posa 05 in un PNG completo verificabile, correggere raccordi; non ripetere derivazioni dalla stessa immagine come se fossero frame animati.
