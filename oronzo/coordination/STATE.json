@@ -1,21 +1,27 @@
 {
   "schemaVersion": 2,
   "scope": "scheduled-automations-only",
-  "observedDate": "2026-11-13",
+  "observedDate": "2026-11-14",
   "snapshotNotLive": true,
   "baseMainAtCreation": "abadad27bf50127faee79f38740a6be4eacc339e",
   "automation": {
     "id": "Automation_1e2c92e86b2c819197c770d2b0ea61ec",
     "title": "ORONZO · Sprite partita R13 · incarico persistente",
-    "enabled": true,
+    "enabled": false,
     "activeTask": "R13-MATCH-ATLAS",
-    "taskState": "WORKING",
+    "taskState": "PARKED",
     "proposedBranch": "automation/oronzo-r13-match-atlas",
     "currentPR": 82,
     "progressWorklog": "oronzo/coordination/worklogs/R13-MATCH-ATLAS.md",
-    "next": "Riprendere PR #82 e worklog dal branch; completare frame illustrati e test, non promuovere maschere draft né aprire nuova PR.",
-    "currentPRHead": "7e0d9ab41edbf561a48626e75227f5d75268f64b",
-    "publishedDraftMasks": 3
+    "next": "Paused per owner decision; no autonomous next assignment. Preserve #82 Draft and transfer context to manual handoff #86 after portrait defect cleanup #85.",
+    "currentPRHead": "e53df029f947132cfa443816996f3b3415ee28fa",
+    "publishedDraftMasks": 3,
+    "frameApprovedCount": 0,
+    "manualHandoff": {
+      "portraitCleanupIssue": 85,
+      "matchAtlasIssue": 86,
+      "notes": "issues are entrypoints, not assignments; manually started chats act independently of this automation registry"
+    }
   },
   "informationalExternalContext": [
     {
@@ -36,11 +42,11 @@
   ],
   "lastKnownGameUrl": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html",
   "instruction": "GitHub live PR/HEAD/actions always overrides this cached snapshot. Manual agents do not report to or follow this JSON.",
-  "currentMainAtSnapshot": "a47b9d42c702f192024e05b6611bbf6afa6317e7",
+  "currentMainAtSnapshot": "4b3752b7d638badd66d000f4ebc6269c70e8503d",
   "lastKnownGameRelease": {
-    "sha": "a47b9d42c702f192024e05b6611bbf6afa6317e7",
+    "sha": "4b3752b7d638badd66d000f4ebc6269c70e8503d",
     "status": "PAGES_SUCCESS",
-    "url": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html?v=a47b9d42",
-    "visualReview": "R13-TER rilascio sperimentale; ancora casi di barba disomogenea e visi simili"
+    "url": "https://czekuns.github.io/cercax/oronzo/assets/ui/career-r03.html?v=4b3752b7",
+    "visualReview": "portrait defects reported after PR #79: stray pixels, frayed kit/neck, beard offsets, compositing; issue #85"
   }
 }

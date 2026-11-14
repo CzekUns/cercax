@@ -2,7 +2,9 @@
 
 > Questo protocollo regola i **worker orari e altre automazioni**. Non è un nuovo protocollo per agenti avviati manualmente in chat. I loro `RUN.md`, `NEXT.md`, PR e competenze rimangono quelli esistenti; nessun task manuale va inserito o governato qui.
 
-## All'inizio di ogni esecuzione automatica
+> **Aggiornamento operativo 14/11/2026:** automazione `AUTOMATION-R13` disabilitata e task `R13-MATCH-ATLAS` **PARKED**. Non eseguire autonomamente le istruzioni di seguito finché il proprietario non riattiva e assegna un lavoro. Conservare PR #82/branch/worklog. Le issue manuali #85 e #86 non sono governate da questo protocollo e NON avviano chat in automatico.
+
+## All'inizio di ogni esecuzione automatica (solo quando riattivata)
 1. Leggere su ultimo `main`: `oronzo/coordination/{ROADMAP.md,TASKS.json,STATE.json,HANDOFF.md,QA.md}` e `GAME-VISION-v02.md`. Non assumere aggiornato lo snapshot; confrontare con GitHub in tempo reale.
 2. Selezionare **solo il task attivo con il proprio identificatore di automazione**, al momento `AUTOMATION-R13` → `R13-MATCH-ATLAS`. Se lo stato non consente lavoro, registrarne la causa, senza inventare un task.
 3. Aprire lo **stesso branch/PR della run precedente**, non iniziarne altri. Leggere il worklog del task dal branch; in mancanza cercarlo su `main` come scheletro iniziale.
