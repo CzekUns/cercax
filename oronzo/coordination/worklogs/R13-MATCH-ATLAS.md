@@ -328,3 +328,8 @@
 - PNG RGBA 52×58, 2763 byte; Git blob locale e remoto `79d01df97c4e82256224f25a6c766805059aad1e` (PASS). Nuova posa distinta dalla 08; riduzione LANCZOS senza quantizzazione della palette, trasparenza presente. Stato DRAFT/UNREVIEWED, non animazione approvata.
 - Test: Pillow PNG/RGBA PASS, create_blob Base64 PASS, confronto SHA PASS. Pivots, kit alternativi, Chromium e prova nella partita NON eseguiti. Frame approvati 0.
 - Prossimo: completare `run-right-05-full-composite-DRAFT.png` da sei layer versionati e validare i raccordi, poi uniformare scala e pivot 05–09. PR #82 resta Draft; MAIN NO; PAGES NO.
+
+
+## 2026-11-14 21:30 CET · layer testa posa 09 versionato (DRAFT)
+- Dal raster illustrato locale `retro_pixel_soccer_player_sprinting.png` già usato per il frame 09 è stato isolato un layer testa 17×17 RGBA con alpha, senza HSV/quantizzazione. File `_drafts/run-right/run-right-09-head-crop-DRAFT.png`, 864 byte, Git blob locale `9e1268bc6d4e39d08803224437336172e45949fa` = create_blob remoto PASS. È un **ritaglio sperimentale** con bounding box sorgente (24,1)-(41,18) nella preview 52×48; non è originale run11 né frame autonomo. L'ancoraggio nella preview è (24,1), da rivalidare sullo sprite 52×58.
+- QA locale Pillow RGBA e alpha PASS; verifica contenuto remoto, pivots, animazione, kit, Chromium NON eseguiti. Frame approvati 0. Prossimo: produrre il PNG completo della posa 05 dai sei layer e verificarne la qualità; successivamente definire layers/anchor della posa 09. MAIN NO; PAGES NO; PR #82 Draft.
