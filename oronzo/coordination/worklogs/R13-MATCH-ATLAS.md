@@ -179,3 +179,12 @@
 - Nuova illustrazione raster di posa di corsa con ginocchio avanzato, maglia blu/rossa e pantaloncini chiari. Pubblicazione prevista: `_drafts/run-right/run-right-05-illustrated-DRAFT.png`, PNG RGBA 40×44, 2846 byte, SHA Git blob locale/GitHub `428d7b98e0b2ac98f9e835ad6906b85df463ddfe` PASS. Deriva da una nuova illustrazione generata, NON dall'originale run11 e NON dal ciclo sperimentale.
 - Il file è DRAFT/UNREVIEWED: posa non ancora registrata come frame approvato, nessun layer anatomico, nessuna garanzia di continuità temporale o di compatibilità col renderer. Frame approvati: 0. Test Pillow PNG RGBA e confronto SHA PASS; Node/Chromium NON ESEGUITI.
 - Prossimo: costruire layer reali e manifest/pivots verificati per 04/05, confrontare proporzioni e allineamento, sviluppare altri frame coerenti e portiere. Originale run11 assente; MAIN NO, PAGES NO, PR Draft, nessun merge.
+
+
+## 2026-11-14 03:28 CET · Layer maglia 05 persistente
+
+- TASKS.json live: R13-MATCH-ATLAS WORKING, owner AUTOMATION-R13. PR #82 Draft; HEAD iniziale `c17d1fdc53b26632cd43547ea25a4dd665ac9500`.
+- Nuovo PNG illustrato derivato dalla sorgente grafica della posa 05: `_drafts/run-right/run-right-05-jersey-layer-DRAFT.png`, **24×31 RGBA, 1777 byte**. Separazione preliminare della zona maglia tramite maschera spaziale e cromatica, non artwork anatomico definitivo. La maschera è incompleta e può contenere parti di pelle: **FAIL/UNREVIEWED**, non usare nel gioco.
+- Git blob SHA1 locale/GitHub `edfceb21fd275e9812ef93cbc9cb95d14697b406` PASS; commit asset `dcffd3bb831f027efdc8bb0ff3d2436d5b6a645b`, update_ref expected_sha senza force PASS.
+- Test Python/Pillow PNG RGBA PASS; verifica blob PASS; controllo visivo e ricomposizione layer FAIL/non certificati; Node/Chromium NON eseguiti. Frame artistici approvati 0, nessun merge, MAIN NO, PAGES NO.
+- Prossimo: rifinire a mano il bordo del layer maglia 05, separare shorts/arti su canvas identico, pivots e manifest, confronto grafico 04/05; non promuovere l'attuale layer. Originale run11 ancora assente. Non modificare PR manuali.
