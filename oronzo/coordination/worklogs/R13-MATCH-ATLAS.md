@@ -171,3 +171,11 @@
 - Pubblicato `_drafts/run-right/run-right-04-illustrated-DRAFT.png`; SHA Git blob calcolato dai byte locali `d19d711831eae4be6767ce8d10542e236d83b6ba` identico a SHA GitHub create_blob(base64): PASS. Commit asset `ee65281bdce955e596165fb006fab13e67089a75`, update_ref expected_sha `305c649df8726d3f514536fcda8d1e1a864202d0` senza force PASS.
 - Materiale **DRAFT/UNREVIEWED**: posa singola senza layer separati, direzione unica, qualità visiva da verificare su scala di gioco; nessuna promozione ad atlas. Il precedente frame sperimentale 04 con artefatti rossi rimane intatto. PNG originali run11 assenti dal filesystem; bundle sperimentale presente.
 - QA: Pillow PNG RGBA e Git blob SHA PASS; ciclo 12 frame, pivots, kit, renderer e Node/Chromium NON ESEGUITI. Sprite approvati 0; MAIN NO; PAGES NO. Prossimo: sviluppare layer illustrati e un secondo frame compatibile, QA visiva e integrazione nel renderer solo dopo approvazione. PR #82 sempre Draft, PR #79 non toccata.
+
+
+## 2026-11-14 02:30 CET · Nuovo frame illustrato 05 persistente
+
+- Task WORKING AUTOMATION-R13 verificato su main; proseguita la PR Draft #82 sul medesimo branch. Ultimo HEAD letto dalla run precedente: 47e115640edc80e3f113e21771618fd07ecebf96 (update con lease richiesto).
+- Nuova illustrazione raster di posa di corsa con ginocchio avanzato, maglia blu/rossa e pantaloncini chiari. Pubblicazione prevista: `_drafts/run-right/run-right-05-illustrated-DRAFT.png`, PNG RGBA 40×44, 2846 byte, SHA Git blob locale/GitHub `428d7b98e0b2ac98f9e835ad6906b85df463ddfe` PASS. Deriva da una nuova illustrazione generata, NON dall'originale run11 e NON dal ciclo sperimentale.
+- Il file è DRAFT/UNREVIEWED: posa non ancora registrata come frame approvato, nessun layer anatomico, nessuna garanzia di continuità temporale o di compatibilità col renderer. Frame approvati: 0. Test Pillow PNG RGBA e confronto SHA PASS; Node/Chromium NON ESEGUITI.
+- Prossimo: costruire layer reali e manifest/pivots verificati per 04/05, confrontare proporzioni e allineamento, sviluppare altri frame coerenti e portiere. Originale run11 assente; MAIN NO, PAGES NO, PR Draft, nessun merge.
