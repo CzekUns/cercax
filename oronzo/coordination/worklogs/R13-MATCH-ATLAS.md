@@ -230,3 +230,12 @@
 - Base64 effettivo passato a `create_blob(encoding=base64)`; SHA1 Git blob locale `3c0cf9389768e7a895cf6a5dc07b696f6260175f` = SHA restituito da GitHub e confermato da `fetch_file(ref=branch)`: **PASS**. Tree `817a4e1f8a4b0ff35afea2ac69d54c8b09ac0a6f`; commit `eec5c5543868581b2a7ca34563a8b9d7b50bfc7f`; `update_ref(expected_sha, force=false)` PASS.
 - QA: Pillow PNG RGBA locale PASS; integrità GitHub PASS. Qualità artistica **DRAFT/UNREVIEWED**; modularità e ciclo FAIL/incompleti. Node/Chromium NON eseguiti. Frame approvati 0. MAIN NO, PAGES NO, PR #82 Draft.
 - Ultimo asset pubblicato `run-right-04-source-review-DRAFT.png`; prossimo: completare e correggere braccia della posa 05, ricomporre tutti i layer con pivots su canvas comune e verificare animazione. Non mergiare.
+
+
+## 2026-11-14 09:29 CET · Braccia posa 05 pubblicate (DRAFT/FAIL)
+
+- TASKS.json live: AUTOMATION-R13 / R13-MATCH-ATLAS WORKING; PR #82 Draft; HEAD iniziale `0fbecb83fc036fbb2ebed1a03d2cff2c60232d9d`.
+- **PNG persistente** `_drafts/run-right/run-right-05-arms-layer-DRAFT.png`: 40×44 RGBA, 791 byte, bbox alpha (7,6,34,22). Sorgente reale `/mnt/data/retro_soccer_player_sprinting.png` (1189×1323 RGBA), maschere spaziali dei due arti superiori su pixel illustrati, poi ridimensionamento LANCZOS. Non è originale run11, non è anatomia manualmente rifinita. **DRAFT/FAIL**: contorni approssimativi e possibili sovrapposizioni con maglia, nessuna ricomposizione certificata.
+- SHA1 Git blob locale `cb43f5dfa80e36e97ca2fe7a357f7349efa5f0b6` identico a `create_blob(base64)`: PASS. Tree `01793fd846009ef11eb070ec602a3855068b522b`; commit asset `a17a5fe82dd34c8242dd448720b227e34ac79b13`; update_ref con expected_sha e force=false PASS.
+- QA Pillow RGBA/alpha PASS; SHA blob PASS; ricomposizione/continuità/pivots/kit artistici FAIL o non certificati. Node/Chromium NON eseguiti. Frame approvati 0; MAIN NO, PAGES NO; nessun merge e nessuna modifica ai manuali.
+- Ultimo layer pubblicato `run-right-05-arms-layer-DRAFT.png`. **Prossimo**: riallineare e ricomporre head/jersey/shorts/legs/arms 05 sullo stesso canvas, correggere i bordi in pixel art e produrre test grafico persistente; quindi pivot/manifest e verifica Chromium prima di promuovere.
