@@ -188,3 +188,11 @@
 - Git blob SHA1 locale/GitHub `edfceb21fd275e9812ef93cbc9cb95d14697b406` PASS; commit asset `dcffd3bb831f027efdc8bb0ff3d2436d5b6a645b`, update_ref expected_sha senza force PASS.
 - Test Python/Pillow PNG RGBA PASS; verifica blob PASS; controllo visivo e ricomposizione layer FAIL/non certificati; Node/Chromium NON eseguiti. Frame artistici approvati 0, nessun merge, MAIN NO, PAGES NO.
 - Prossimo: rifinire a mano il bordo del layer maglia 05, separare shorts/arti su canvas identico, pivots e manifest, confronto grafico 04/05; non promuovere l'attuale layer. Originale run11 ancora assente. Non modificare PR manuali.
+
+
+## 2026-11-14 04:27 CET · Layer pantaloncini posa 05 (draft)
+
+- HEAD iniziale `aedaaa07b23867f45ef08e0368f7a6c5d2e21858`, PR #82 Draft; incarico AUTOMATION-R13 / R13-MATCH-ATLAS WORKING.
+- Pubblicato `_drafts/run-right/run-right-05-shorts-layer-DRAFT.png`: PNG RGBA 40×44, 525 byte, SHA Git blob `2df60807e0e1725a845838cb781e4a6eec2cde0c`. Derivato da mascheratura spaziale di artwork illustrato locale della posa 05; NON dall'archivio run11. Maschera approssimativa e contenuto ridotto: FAIL/UNREVIEWED, NON usare nel renderer. Conservato senza quantizzazione di palette.
+- Verifica Pillow decode e alpha PASS; confronto SHA blob locale/GitHub PASS. Ricomposizione con layer maglia NON certificata; anatomia e pivots FAIL/UNREVIEWED. Node/Chromium NON eseguiti; 0 frame approvati. MAIN NO, PAGES NO.
+- Prossimo: correggere il layer pantaloncini con contorno preciso, verificare l'allineamento sullo stesso canvas del frame 05 pubblicato, separare arti e creare manifest; poi QA artistica comparativa 04/05. Non modificare file delle figurine #79; non mergiare #82.
