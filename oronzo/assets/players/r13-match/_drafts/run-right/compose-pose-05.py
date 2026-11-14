@@ -28,7 +28,7 @@ def main():
             result.alpha_composite(source)
     result.save(OUTPUT, format="PNG", optimize=False)
     data = OUTPUT.read_bytes()
-    gitsha = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\\0" + data).hexdigest()
+    gitsha = hashlib.sha1(b"blob " + str(len(data)).encode() + bytes([0]) + data).hexdigest()
     with Image.open(io.BytesIO(data)) as check:
         check.verify()
     print(f"{OUTPUT.name}: {len(data)} bytes, Git blob SHA {gitsha}, RGBA {SIZE}, DRAFT/FAIL")
