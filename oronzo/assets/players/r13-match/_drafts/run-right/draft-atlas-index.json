@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "status": "DRAFT_UNREVIEWED",
+  "source": "GitHub PR #82 existing raster drafts",
+  "approvedFrames": 0,
+  "frames": [
+    {
+      "id": "run-right-04",
+      "file": "run-right-04-illustrated-DRAFT.png",
+      "status": "UNREVIEWED",
+      "pivot": null
+    },
+    {
+      "id": "run-right-05",
+      "file": "run-right-05-illustrated-DRAFT.png",
+      "status": "UNREVIEWED",
+      "pivot": null
+    }
+  ],
+  "layers": {
+    "frame": "run-right-05",
+    "parts": [
+      {
+        "part": "head",
+        "file": "run-right-05-head-layer-DRAFT.png",
+        "status": "FAIL_UNREVIEWED"
+      },
+      {
+        "part": "jersey",
+        "file": "run-right-05-jersey-layer-DRAFT.png",
+        "status": "FAIL_UNREVIEWED"
+      },
+      {
+        "part": "shorts",
+        "file": "run-right-05-shorts-layer-DRAFT.png",
+        "status": "FAIL_UNREVIEWED"
+      },
+      {
+        "part": "legs",
+        "file": "run-right-05-legs-layer-DRAFT.png",
+        "status": "FAIL_UNREVIEWED"
+      }
+    ]
+  },
+  "blocking": [
+    "arms layer missing",
+    "recomposition not tested",
+    "pivots not validated",
+    "animation continuity not tested",
+    "no approved game atlas"
+  ],
+  "rendererEnabled": false
+}
